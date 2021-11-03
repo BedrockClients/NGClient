@@ -1,0 +1,34 @@
+#pragma once
+#include "../../../Utils/Target.h"
+#include "../ModuleManager.h"
+#include "Module.h"
+
+class Killaura : public IModule {
+private:
+	int delay = 0;
+	int Odelay = 0;
+	bool autoweapon = false;
+	void findWeapon();
+	bool silent = false;
+
+public:
+	bool rotations = true;
+	bool isMulti = true;
+	bool isMobAura = false;
+	bool hurttime = true;
+	float range = 6;
+	bool targetListA = false;
+	bool sexy = true;
+	vec2_t joe;
+
+	Killaura();
+	~Killaura();
+
+	// Inherited via IModule
+	virtual const char* getModuleName() override;
+	virtual void onTick(C_GameMode* gm) override;
+	virtual void onLevelRender() override;
+	virtual void onEnable() override;
+	virtual void onSendPacket(C_Packet* packet) override;
+	virtual void onPostRender(C_MinecraftUIRenderContext* ctx) override;
+};
