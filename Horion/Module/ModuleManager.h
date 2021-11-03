@@ -127,6 +127,7 @@
 #include "Modules/TestModule.h"
 #include "Modules/PacketLogger.h"
 #include "Modules/AutoClick.h"
+#include "Modules/LongJump.h"
 
 #ifdef _DEBUG
 #endif
