@@ -415,6 +415,18 @@ void DrawUtils::drawEntityBox(C_Entity* ent, float lineWidth) {
 	drawBox(render.lower, render.upper, lineWidth, true);
 }
 
+void DrawUtils::drawBetterESP(C_Entity* ent, float lineWidth) {
+	vec3_t* start = ent->getPosOld();
+	vec3_t* end = ent->getPos();
+
+	vec3_t lerped = start->lerp(end, lerpT);
+
+	AABB render(lerped, ent->width, ent->height, end->y - ent->aabb.lower.y);
+	render.upper.y += 0.1f;
+
+	drawBox(render.lower, render.upper, lineWidth);
+}
+
 void DrawUtils::draw2D(C_Entity* ent, float lineWidth) {
 	vec3_t base = vec3_t(ent->eyePos0.x, ent->eyePos0.y + 0.15f, ent->eyePos0.z);
 	float ofs = (g_Data.getLocalPlayer()->yaw + 90.f) * (PI / 180);
@@ -449,6 +461,31 @@ void DrawUtils::draw2D(C_Entity* ent, float lineWidth) {
 		drawLine(corners2d[0], corners2d[2], lineWidth);
 		drawLine(corners2d[3], corners2d[1], lineWidth);
 		drawLine(corners2d[3], corners2d[2], lineWidth);*/
+	}
+}
+
+void DrawUtils::drawZephyr(C_Entity* ent, float lineWidth) {
+	vec3_t base = vec3_t(ent->eyePos0.x, ent->eyePos0.y + 0.15f, ent->eyePos0.z);
+	float ofs = (g_Data.getLocalPlayer()->yaw + 90.f) * (PI / 180);
+
+	vec3_t corners[4];
+	vec2_t corners2d[4];
+
+	corners[0] = vec3_t(base.x - ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, base.z - ent->width / 1.5f * cos(ofs));
+	corners[1] = vec3_t(base.x + ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, base.z + ent->width / 1.5f * cos(ofs));
+	corners[2] = vec3_t(base.x - ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, base.z - ent->width / 1.5f * cos(ofs));
+	corners[3] = vec3_t(base.x + ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, base.z + ent->width / 1.5f * cos(ofs));
+
+	if (refdef->OWorldToScreen(origin, corners[0], corners2d[0], fov, screenSize) &&
+		refdef->OWorldToScreen(origin, corners[1], corners2d[1], fov, screenSize) &&
+		refdef->OWorldToScreen(origin, corners[2], corners2d[2], fov, screenSize) &&
+		refdef->OWorldToScreen(origin, corners[3], corners2d[3], fov, screenSize)) {
+		float length = (corners2d[1].x - corners2d[0].x) / 4.f;
+
+		drawLine(corners2d[0], corners2d[1], lineWidth);
+		drawLine(corners2d[0], corners2d[2], lineWidth);
+		drawLine(corners2d[3], corners2d[1], lineWidth);
+		drawLine(corners2d[3], corners2d[2], lineWidth);
 	}
 }
 
