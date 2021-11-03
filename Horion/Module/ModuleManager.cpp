@@ -103,6 +103,7 @@ void ModuleManager::initModules() {
 		//NEW
 		this->moduleList.push_back(std::shared_ptr<IModule>(new ChestStealer()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new AutoClick()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new SnowballAimbot()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new BoatSpeed()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AntiAnvil()));
