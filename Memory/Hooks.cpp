@@ -70,6 +70,8 @@ void Hooks::Init() {
 				g_Hooks.JumpPowerHook = std::make_unique<FuncHook>(localPlayerVtable[348], Hooks::JumpPower);
 
 				g_Hooks.Mob__isImmobileHook = std::make_unique<FuncHook>(localPlayerVtable[91], Hooks::Mob__isImmobile);
+
+				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[73], Hooks::testy);
 			}
 		}
 
@@ -1945,6 +1947,14 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 		return false;
 
 	return func(ent);
+}
+
+bool Hooks::testy(C_Entity* ent) {
+	static auto oFunc = g_Hooks.testyHook->GetFastcall<float, C_Entity*>();
+	static auto test = moduleMgr->getModule<TestModule>();
+	if (test->isEnabled() && ent == g_Data.getLocalPlayer())
+		return false;
+	oFunc(ent);
 }
 
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {

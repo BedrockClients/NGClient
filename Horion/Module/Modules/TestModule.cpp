@@ -80,31 +80,33 @@ void TestModule::onEnable() {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		vec3_ti block = g_Data.getClientInstance()->getPointerStruct()->block;
 		if (block == vec3_ti(0, 0, 0)) return;
-		vec3_t pos = block.toFloatVector();
-		pos.x += 0.5f;
-		pos.z += 0.5f;
+		vec3_t pos = block.toVec3t();
 		pos.y += 1.5f;
 
-		vec3_ti tpPos = pos;
-		player->startSleepInBed(tpPos);
-		freecam->setEnabled(true);
-		player->stopSleepInBed(false, false);
-		freecam->setEnabled(false);
-		freecam->setEnabled(true);
-		freecam->setEnabled(false);
+		vec3_t tpPos = pos;
+
+		player->vehicleLanded(tpPos, tpPos);
+		//tpPos.y += (player->getPos()->y - player->getAABB()->lower.y) + 1;  // eye height + 1
+		//player->startSleepInBed(tpPos) /* ? 0 : 100;*/;
+		//freecam->setEnabled(true);
+		//player->stopSleepInBed(false, false) /* ? 0 : 100;*/;
+		//freecam->setEnabled(false);
+		//freecam->setEnabled(true);
+		//freecam->setEnabled(false);
+		//setEnabled(false);
 	}
 }
 
 void TestModule::onTick(C_GameMode* gm) {
 	if (g_Data.isInGame()) {
-		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		tagtr.clear();
-		g_Data.forEachEntity(findjeoe);
+		vec3_ti block = g_Data.getClientInstance()->getPointerStruct()->block;
+		if (block == vec3_ti(0, 0, 0)) return;
+		vec3_t pos = block.toVec3t();
+		pos.y += 1.5f;
 
-		if (!tagtr.empty()) {
-			/* vec3_ti pos = */ g_Data.getClientInstance()->fovX = 200.f;
-			//player->startSleepInBed(pos);
-		}
+		vec3_t tpPos = pos;
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
+		player->doFireHurt(1);
 	}
 }
 
