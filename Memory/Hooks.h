@@ -131,6 +131,7 @@ private:
 	static __int64 Cube__compile(__int64 a1, __int64 a2);
 	static void LocalPlayer__updateFromCamera(__int64 a1, C_Camera* a2);
 	static bool Mob__isImmobile(C_Entity*);
+	static bool testy(C_Entity*);
 	static void InventoryTransactionManager__addAction(C_InventoryTransactionManager*, C_InventoryAction&);
 	static void LevelRendererPlayer__renderNameTags(__int64 a1, __int64 a2, TextHolder* name, __int64 a4);
 
@@ -185,6 +186,7 @@ private:
 	std::unique_ptr<FuncHook> cube__compileHook;
 	std::unique_ptr<FuncHook> LocalPlayer__updateFromCameraHook;
 	std::unique_ptr<FuncHook> Mob__isImmobileHook;
+	std::unique_ptr<FuncHook> testyHook;
 	std::unique_ptr<FuncHook> InventoryTransactionManager__addActionHook;
 	std::unique_ptr<FuncHook> LevelRendererPlayer__renderNameTagsHook;
 };

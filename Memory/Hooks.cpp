@@ -70,6 +70,8 @@ void Hooks::Init() {
 				g_Hooks.JumpPowerHook = std::make_unique<FuncHook>(localPlayerVtable[348], Hooks::JumpPower);
 
 				g_Hooks.Mob__isImmobileHook = std::make_unique<FuncHook>(localPlayerVtable[91], Hooks::Mob__isImmobile);
+
+				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[73], Hooks::testy);
 			}
 		}
 
@@ -266,13 +268,6 @@ void Hooks::Enable() {
 	MH_EnableHook(MH_ALL_HOOKS);
 }
 
-
-
-
-
-
-
-
 void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 	static auto oTick = g_Hooks.Player_tickWorldHook->GetFastcall<void*, C_Player*, __int64>();
 	auto o = oTick(_this, unk);
@@ -358,19 +353,15 @@ void Hooks::Actor_breathe(C_Entity* ent) {
 
 __int64 Hooks::UIScene_setupAndRender(C_UIScene* uiscene, __int64 screencontext) {
 	static auto oSetup = g_Hooks.UIScene_setupAndRenderHook->GetFastcall<__int64, C_UIScene*, __int64>();
-
-	g_Hooks.shouldRender = uiscene->isPlayScreen();
+	g_Hooks.shouldRender = false;
 
 	return oSetup(uiscene, screencontext);
 }
 
 __int64 Hooks::UIScene_render(C_UIScene* uiscene, __int64 screencontext) {
 	static auto oRender = g_Hooks.UIScene_renderHook->GetFastcall<__int64, C_UIScene*, __int64>();
-	static auto hudmoduleMod = moduleMgr->getModule<HudModule>();
 
-	g_Hooks.shouldRender = uiscene->isPlayScreen();
-
-	bool alwaysRender = moduleMgr->isInitialized() && moduleMgr->getModule<HudModule>()->alwaysShow;
+	g_Hooks.shouldRender = false;
 
 	TextHolder alloc{};
 	uiscene->getScreenName(&alloc);
@@ -379,10 +370,8 @@ __int64 Hooks::UIScene_render(C_UIScene* uiscene, __int64 screencontext) {
 		strcpy_s(g_Hooks.currentScreenName, alloc.getText());
 	}
 
-	if (hudmoduleMod->alwaysShow) g_Hooks.shouldRender = true;
-
 	if (!g_Hooks.shouldRender) {
-		g_Hooks.shouldRender = alwaysRender || (strcmp(alloc.getText(), "start_screen") == 0 || (alloc.getTextLength() >= 11 && strncmp(alloc.getText(), "play_screen", 11)) == 0);
+		g_Hooks.shouldRender = (strcmp(alloc.getText(), "start_screen") == 0 || strcmp(alloc.getText(), "hud_screen") == 0);
 	}
 	alloc.alignedTextLength = 0;
 
@@ -1945,6 +1934,14 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 		return false;
 
 	return func(ent);
+}
+
+bool Hooks::testy(C_Entity* ent) {
+	static auto oFunc = g_Hooks.testyHook->GetFastcall<float, C_Entity*>();
+	static auto test = moduleMgr->getModule<TestModule>();
+	if (test->isEnabled() && ent == g_Data.getLocalPlayer())
+		return false;
+	oFunc(ent);
 }
 
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {
