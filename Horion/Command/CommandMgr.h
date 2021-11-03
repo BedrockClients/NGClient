@@ -35,12 +35,11 @@
 #include "Commands/GMCommand.h"
 #include "Commands/WaypointCommand.h"
 #include "Commands/GodmodeCommand.h"
-
+#include "Commands/TestCommand.h"
 #include "Commands/ScriptCommand.h"
 #include "Commands/PathCommand.h"
 
 #ifdef _DEBUG
-#include "Commands/TestCommand.h"
 #endif
 
 #include <algorithm>
