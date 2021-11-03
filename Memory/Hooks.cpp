@@ -268,13 +268,6 @@ void Hooks::Enable() {
 	MH_EnableHook(MH_ALL_HOOKS);
 }
 
-
-
-
-
-
-
-
 void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 	static auto oTick = g_Hooks.Player_tickWorldHook->GetFastcall<void*, C_Player*, __int64>();
 	auto o = oTick(_this, unk);
@@ -360,19 +353,15 @@ void Hooks::Actor_breathe(C_Entity* ent) {
 
 __int64 Hooks::UIScene_setupAndRender(C_UIScene* uiscene, __int64 screencontext) {
 	static auto oSetup = g_Hooks.UIScene_setupAndRenderHook->GetFastcall<__int64, C_UIScene*, __int64>();
-
-	g_Hooks.shouldRender = uiscene->isPlayScreen();
+	g_Hooks.shouldRender = false;
 
 	return oSetup(uiscene, screencontext);
 }
 
 __int64 Hooks::UIScene_render(C_UIScene* uiscene, __int64 screencontext) {
 	static auto oRender = g_Hooks.UIScene_renderHook->GetFastcall<__int64, C_UIScene*, __int64>();
-	static auto hudmoduleMod = moduleMgr->getModule<HudModule>();
 
-	g_Hooks.shouldRender = uiscene->isPlayScreen();
-
-	bool alwaysRender = moduleMgr->isInitialized() && moduleMgr->getModule<HudModule>()->alwaysShow;
+	g_Hooks.shouldRender = false;
 
 	TextHolder alloc{};
 	uiscene->getScreenName(&alloc);
@@ -381,10 +370,8 @@ __int64 Hooks::UIScene_render(C_UIScene* uiscene, __int64 screencontext) {
 		strcpy_s(g_Hooks.currentScreenName, alloc.getText());
 	}
 
-	if (hudmoduleMod->alwaysShow) g_Hooks.shouldRender = true;
-
 	if (!g_Hooks.shouldRender) {
-		g_Hooks.shouldRender = alwaysRender || (strcmp(alloc.getText(), "start_screen") == 0 || (alloc.getTextLength() >= 11 && strncmp(alloc.getText(), "play_screen", 11)) == 0);
+		g_Hooks.shouldRender = (strcmp(alloc.getText(), "start_screen") == 0 || strcmp(alloc.getText(), "hud_screen") == 0);
 	}
 	alloc.alignedTextLength = 0;
 
