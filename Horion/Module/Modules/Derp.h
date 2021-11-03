@@ -5,6 +5,7 @@ private:
 	int counter = 0;
 	bool epicStroke = false;
 	bool packetMode = false;
+	bool hive = false;
 
 public:
 	Derp();
@@ -13,4 +14,5 @@ public:
 	// Inherited via IModule
 	virtual void onTick(C_GameMode* gm) override;
 	virtual const char* getModuleName() override;
+	virtual void onSendPacket(C_Packet* packet) override;
 };
