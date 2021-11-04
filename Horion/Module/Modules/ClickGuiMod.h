@@ -9,7 +9,8 @@ public:
 
 	bool showTooltips = true;
 	bool RGB = false;
-	int font = 9;
+	bool surge = false;
+	int font = 10;
 	float opacity = 0.05f;
 
 	// Inherited via IModule

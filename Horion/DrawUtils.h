@@ -9,6 +9,7 @@
 #include "../Utils/Utils.h"
 
 enum class Fonts { DEFAULT,
+				   RANDOM,
 				   UNICOD,
 				   SMOOTH,
 				   RUNE };

@@ -3,10 +3,11 @@
 #include "../../Menu/ClickGui.h"
 
 ClickGuiMod::ClickGuiMod() : IModule(VK_TAB, Category::GUI, "The clickgui") {
-	//registerIntSetting("Font", &this->font, this->font, 0, 9);
-	registerBoolSetting("Show Tooltips", &this->showTooltips, this->showTooltips);
-	registerBoolSetting("RGB", &this->RGB, this->RGB);
-	registerFloatSetting("Opacity", &this->opacity, this->opacity, 0.f, 1.f);
+	//registerIntSetting("Font", &font, font, 1, 10);
+	registerBoolSetting("Show Tooltips", &showTooltips, showTooltips);
+	registerBoolSetting("RGB", &RGB, RGB);
+	registerBoolSetting("Surge", &surge, surge);
+	registerFloatSetting("Opacity", &opacity, opacity, 0.f, 1.f);
 }
 
 ClickGuiMod::~ClickGuiMod() {

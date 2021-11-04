@@ -68,90 +68,178 @@ void TabGui::renderLevel() {
 	// First loop: Get the maximum text length
 	float maxLength = 0.f;
 	int labelListLength = 0;
-	for (auto it = labelList.begin(); it != labelList.end(); ++it) {
-		labelListLength++;
-		std::string label = it->text;
-		maxLength = fmax(maxLength, DrawUtils::getTextWidth(&label, textSize));
-	}
-
-	if (selected[renderedLevel].selectedItemId < 0)
-		selected[renderedLevel].selectedItemId += labelListLength;
-	if (selected[renderedLevel].selectedItemId >= labelListLength)
-		selected[renderedLevel].selectedItemId -= labelListLength;
-
-	selected[renderedLevel].interp();  // Converge to selected item
-	if (renderedLevel < level)
-		selected[renderedLevel].rollbackVal = 1;  // Speed up animation when we are in the next menu already
-
-	// Second loop: Render everything
-	int i = 0;
-	float selectedYOffset = yOffset;
-	float startYOffset = yOffset;
-	for (auto it = labelList.begin(); it != labelList.end(); ++it, i++) {
-		auto label = *it;
-		vec4_t rectPos = vec4_t(
-			xOffset - 0.5f,  // Off screen / Left border not visible
-			yOffset,
-			xOffset + maxLength + 4.5f,
-			yOffset + textHeight);
-
-		MC_Color color = MC_Color(200, 200, 200);
-
-		if (selected[renderedLevel].selectedItemId == i && level >= renderedLevel) {  // We are selected
-			if (renderedLevel == level) {                                             // Are we actually in the menu we are drawing right now?
-				// We are selected in the current menu
-				DrawUtils::fillRectangle(rectPos, MC_Color(13, 29, 48), 1.f);
-				static bool lastVal = toggleCurrentSelection;
-
-				if (toggleCurrentSelection) {
-					if (label.mod->isFlashMode()) {
-						label.mod->setEnabled(true);
-					} else {
-						toggleCurrentSelection = false;
-						label.mod->toggle();
-					}
-				} else if (toggleCurrentSelection != lastVal && label.mod->isFlashMode())
-					label.mod->setEnabled(false);
-				lastVal = toggleCurrentSelection;
-			} else {  // selected, but not what the user is interacting with
-				DrawUtils::fillRectangle(rectPos, MC_Color(13, 29, 48), 1.f);
-			}
-			//selectedYOffset = yOffset;
-		} else {  // We are not selected
-			DrawUtils::fillRectangle(rectPos, MC_Color(13, 29, 48), 1.f);
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	if (Surge->surge) {
+		for (auto it = labelList.begin(); it != labelList.end(); ++it) {
+			labelListLength++;
+			std::string label = it->text;
+			maxLength = fmax(maxLength, DrawUtils::getTextWidth(&label, textSize));
 		}
 
-		std::string tempLabel(label.text);
-		DrawUtils::drawText(vec2_t(xOffset + 1.5f, yOffset + 0.5f), &tempLabel, label.enabled ? MC_Color() : color, textSize);
+		if (selected[renderedLevel].selectedItemId < 0)
+			selected[renderedLevel].selectedItemId += labelListLength;
+		if (selected[renderedLevel].selectedItemId >= labelListLength)
+			selected[renderedLevel].selectedItemId -= labelListLength;
 
-		yOffset += textHeight;
+		selected[renderedLevel].interp();  // Converge to selected item
+		if (renderedLevel < level)
+			selected[renderedLevel].rollbackVal = 1;  // Speed up animation when we are in the next menu already
+
+		// Second loop: Render everything
+		int i = 0;
+		float selectedYOffset = yOffset;
+		float startYOffset = yOffset;
+		for (auto it = labelList.begin(); it != labelList.end(); ++it, i++) {
+			auto label = *it;
+			vec4_t rectPos = vec4_t(
+				xOffset - 0.5f,  // Off screen / Left border not visible
+				yOffset,
+				xOffset + maxLength + 4.5f,
+				yOffset + textHeight);
+
+			MC_Color color = MC_Color(128, 0, 128);
+
+			if (selected[renderedLevel].selectedItemId == i && level >= renderedLevel) {  // We are selected
+				if (renderedLevel == level) {                                             // Are we actually in the menu we are drawing right now?
+					// We are selected in the current menu
+					DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 1.f);
+					static bool lastVal = toggleCurrentSelection;
+
+					if (toggleCurrentSelection) {
+						if (label.mod->isFlashMode()) {
+							label.mod->setEnabled(true);
+						} else {
+							toggleCurrentSelection = false;
+							label.mod->toggle();
+						}
+					} else if (toggleCurrentSelection != lastVal && label.mod->isFlashMode())
+						label.mod->setEnabled(false);
+					lastVal = toggleCurrentSelection;
+				} else {  // selected, but not what the user is interacting with
+					DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 1.f);
+				}
+				//selectedYOffset = yOffset;
+			} else {  // We are not selected
+				DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 1.f);
+			}
+
+			std::string tempLabel(label.text);
+			DrawUtils::drawText(vec2_t(xOffset + 1.5f, yOffset + 0.5f), &tempLabel, label.enabled ? MC_Color(238, 130, 238) : color, textSize);
+
+			yOffset += textHeight;
+		}
+
+		// Draw selected item
+		{
+			selectedYOffset = startYOffset + textHeight * selected[renderedLevel].currentSelectedItemInterpol;
+			vec4_t selectedPos = vec4_t(
+				xOffset - 0.5f,  // Off screen / Left border not visible
+				selectedYOffset,
+				xOffset + maxLength + 4.5f,
+				selectedYOffset + textHeight);
+
+			float diff = selectedPos.z - selectedPos.x;
+			selectedPos.z = selectedPos.x + diff * selected[renderedLevel].rollbackVal;
+
+			if (renderedLevel > level) {
+				selected[renderedLevel].rollback();
+			} else
+				selected[renderedLevel].rollin();
+			DrawUtils::fillRectangle(selectedPos, MC_Color(238, 130, 238), alphaVal);
+		}
+
+		// Cleanup
+		DrawUtils::flush();
+		labelList.clear();
+		xOffset += maxLength + 4.5f;
+		yOffset = selectedYOffset;
+		renderedLevel++;
+	} else {
+		for (auto it = labelList.begin(); it != labelList.end(); ++it) {
+			labelListLength++;
+			std::string label = it->text;
+			maxLength = fmax(maxLength, DrawUtils::getTextWidth(&label, textSize));
+		}
+
+		if (selected[renderedLevel].selectedItemId < 0)
+			selected[renderedLevel].selectedItemId += labelListLength;
+		if (selected[renderedLevel].selectedItemId >= labelListLength)
+			selected[renderedLevel].selectedItemId -= labelListLength;
+
+		selected[renderedLevel].interp();  // Converge to selected item
+		if (renderedLevel < level)
+			selected[renderedLevel].rollbackVal = 1;  // Speed up animation when we are in the next menu already
+
+		// Second loop: Render everything
+		int i = 0;
+		float selectedYOffset = yOffset;
+		float startYOffset = yOffset;
+		for (auto it = labelList.begin(); it != labelList.end(); ++it, i++) {
+			auto label = *it;
+			vec4_t rectPos = vec4_t(
+				xOffset - 0.5f,  // Off screen / Left border not visible
+				yOffset,
+				xOffset + maxLength + 4.5f,
+				yOffset + textHeight);
+
+			MC_Color color = MC_Color(200, 200, 200);
+
+			if (selected[renderedLevel].selectedItemId == i && level >= renderedLevel) {  // We are selected
+				if (renderedLevel == level) {                                             // Are we actually in the menu we are drawing right now?
+					// We are selected in the current menu
+					DrawUtils::fillRectangle(rectPos, MC_Color(13, 29, 48), 1.f);
+					static bool lastVal = toggleCurrentSelection;
+
+					if (toggleCurrentSelection) {
+						if (label.mod->isFlashMode()) {
+							label.mod->setEnabled(true);
+						} else {
+							toggleCurrentSelection = false;
+							label.mod->toggle();
+						}
+					} else if (toggleCurrentSelection != lastVal && label.mod->isFlashMode())
+						label.mod->setEnabled(false);
+					lastVal = toggleCurrentSelection;
+				} else {  // selected, but not what the user is interacting with
+					DrawUtils::fillRectangle(rectPos, MC_Color(13, 29, 48), 1.f);
+				}
+				//selectedYOffset = yOffset;
+			} else {  // We are not selected
+				DrawUtils::fillRectangle(rectPos, MC_Color(13, 29, 48), 1.f);
+			}
+
+			std::string tempLabel(label.text);
+			DrawUtils::drawText(vec2_t(xOffset + 1.5f, yOffset + 0.5f), &tempLabel, label.enabled ? MC_Color() : color, textSize);
+
+			yOffset += textHeight;
+		}
+
+		// Draw selected item
+		{
+			selectedYOffset = startYOffset + textHeight * selected[renderedLevel].currentSelectedItemInterpol;
+			vec4_t selectedPos = vec4_t(
+				xOffset - 0.5f,  // Off screen / Left border not visible
+				selectedYOffset,
+				xOffset + maxLength + 4.5f,
+				selectedYOffset + textHeight);
+
+			float diff = selectedPos.z - selectedPos.x;
+			selectedPos.z = selectedPos.x + diff * selected[renderedLevel].rollbackVal;
+
+			if (renderedLevel > level) {
+				selected[renderedLevel].rollback();
+			} else
+				selected[renderedLevel].rollin();
+			DrawUtils::fillRectangle(selectedPos, MC_Color(28, 107, 201), alphaVal);
+		}
+
+		// Cleanup
+		DrawUtils::flush();
+		labelList.clear();
+		xOffset += maxLength + 0.0f;
+		yOffset = selectedYOffset;
+		renderedLevel++;
 	}
-
-	// Draw selected item
-	{
-		selectedYOffset = startYOffset + textHeight * selected[renderedLevel].currentSelectedItemInterpol;
-		vec4_t selectedPos = vec4_t(
-			xOffset - 0.5f,  // Off screen / Left border not visible
-			selectedYOffset,
-			xOffset + maxLength + 4.5f,
-			selectedYOffset + textHeight);
-
-		float diff = selectedPos.z - selectedPos.x;
-		selectedPos.z = selectedPos.x + diff * selected[renderedLevel].rollbackVal;
-
-		if (renderedLevel > level) {
-			selected[renderedLevel].rollback();
-		} else
-			selected[renderedLevel].rollin();
-		DrawUtils::fillRectangle(selectedPos, MC_Color(28, 107, 201), alphaVal);
-	}
-
-	// Cleanup
-	DrawUtils::flush();
-	labelList.clear();
-	xOffset += maxLength + 0.0f;
-	yOffset = selectedYOffset;
-	renderedLevel++;
 }
 
 void TabGui::render() {

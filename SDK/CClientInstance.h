@@ -164,8 +164,12 @@ public:
 		return fontRepository->fontList->fontEntries[7].font;
 	};
 
+	C_Font* getTheRandomFontPlease() {
+		return fontRepository->fontList->fontEntries[4].font;
+	};
+
 	C_Font* getOldFont() {
-		return fontRepository1->fontList->fontEntries[7].font;
+		return fontRepository->fontList->fontEntries[7].font;
 	};
 
 	C_Font* getTheBetterFontYes() {
