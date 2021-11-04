@@ -772,48 +772,90 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 	b++;
 	currColor[3] = rcolors2[3];
 	Utils::ColorConvertRGBtoHSV(rcolors2[0], rcolors2[1], rcolors2[2], currColor[0], currColor[1], currColor[2]);
-	currColor[0] += 10.f / a * c;
+	currColor[0] += 5.f / a * c;
 	Utils::ColorConvertHSVtoRGB(currColor[0], currColor[0], currColor[1], currColor[0], currColor[0], currColor[1]);
 
 	static auto tracerMod = moduleMgr->getModule<Tracer>();
 	vec2_t target;
 	refdef->OWorldToScreen(origin, ent, target, fov, screenSize);
 	//vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
-	if (target != vec2_t(0, 0)) {
-		//DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
-		//DrawUtils::drawLine(mid, target, 0.2f);
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	if (Surge->surge) {
+		if (target != vec2_t(0, 0)) {
+			//DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
+			//DrawUtils::drawLine(mid, target, 0.2f);
 
-		if (tracerMod->type.selected == 1) {
-			vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
-			if (target != vec2_t(0, 0)) {
-				if (tracerMod->RGB) {
-					DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
-				} else {
-					DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+			if (tracerMod->type.selected == 1) {
+				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
+				if (target != vec2_t(0, 0)) {
+					if (tracerMod->RGB) {
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
+					} else {
+						DrawUtils::setColor(((float)0 / (float)255), ((float)0 / (float)255), ((float)255 / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+					}
+					DrawUtils::drawLine(mid, target, 0.2f);
 				}
-				DrawUtils::drawLine(mid, target, 0.2f);
+			}
+			if (tracerMod->type.selected == 2) {
+				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
+				if (target != vec2_t(0, 0)) {
+					if (tracerMod->RGB) {
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
+					} else {
+						DrawUtils::setColor(((float)0 / (float)255), ((float)0 / (float)255), ((float)255 / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+					}
+					DrawUtils::drawLine(mid, target, 0.2f);
+				}
+			}
+			if (tracerMod->type.selected == !1) {
+				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
+				if (target != vec2_t(0, 0)) {
+					if (tracerMod->RGB) {
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
+					} else {
+						DrawUtils::setColor(((float)0 / (float)255), ((float)0 / (float)255), ((float)255 / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+					}
+					DrawUtils::drawLine(mid, target, 0.2f);
+				}
 			}
 		}
-		if (tracerMod->type.selected == 2) {
-			vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
-			if (target != vec2_t(0, 0)) {
-				if (tracerMod->RGB) {
-					DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
-				} else {
-					DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+	} else {
+		if (target != vec2_t(0, 0)) {
+			//DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
+			//DrawUtils::drawLine(mid, target, 0.2f);
+
+			if (tracerMod->type.selected == 1) {
+				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
+				if (target != vec2_t(0, 0)) {
+					if (tracerMod->RGB) {
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
+					} else {
+						DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+					}
+					DrawUtils::drawLine(mid, target, 0.2f);
 				}
-				DrawUtils::drawLine(mid, target, 0.2f);
 			}
-		}
-		if (tracerMod->type.selected == !1) {
-			vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
-			if (target != vec2_t(0, 0)) {
-				if (tracerMod->RGB) {
-					DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
-				} else {
-					DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+			if (tracerMod->type.selected == 2) {
+				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
+				if (target != vec2_t(0, 0)) {
+					if (tracerMod->RGB) {
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
+					} else {
+						DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+					}
+					DrawUtils::drawLine(mid, target, 0.2f);
 				}
-				DrawUtils::drawLine(mid, target, 0.2f);
+			}
+			if (tracerMod->type.selected == !1) {
+				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
+				if (target != vec2_t(0, 0)) {
+					if (tracerMod->RGB) {
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
+					} else {
+						DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
+					}
+					DrawUtils::drawLine(mid, target, 0.2f);
+				}
 			}
 		}
 	}

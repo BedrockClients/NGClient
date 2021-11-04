@@ -86,7 +86,8 @@ void Tracer::onPreRender(C_MinecraftUIRenderContext* ctx) {
 			if (Target::isValidTarget(ent) && ent != g_Data.getLocalPlayer())
 				DrawUtils::drawTracer(*ent->getPos(), ent->damageTime);
 		});
-
-	for (auto iter = bufferedChestList.begin(); iter != bufferedChestList.end(); ++iter) 
+	if (chest) {
+		for (auto iter = bufferedChestList.begin(); iter != bufferedChestList.end(); ++iter)
 			DrawUtils::drawTracer(iter->get()->centerPoint());
+	}
 }

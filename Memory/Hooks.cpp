@@ -447,7 +447,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			wasConnectedBefore = true;
 	}
 
-	if (GameData::shouldHide() || !g_Hooks.shouldRender || !moduleMgr->isInitialized())
+	if (GameData::shouldHide() || !moduleMgr->isInitialized())
 		return oText(a1, renderCtx);
 
 	static auto hudModule = moduleMgr->getModule<HudModule>();
@@ -468,7 +468,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	bool shouldPostRender = true;
 	bool shouldRenderArrayList = true;
-	bool shouldRenderTabGui = true;
+	bool shouldRenderTabGui = false;
 	bool shouldRenderWatermark = true;
 
 	static float rcolors[4];          // Rainbow color array RGBA
@@ -639,34 +639,80 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				mousePos.mul(windowSize);
 
 				// Draw NG logo
-				if (shouldRenderWatermark) {
-					constexpr float nameTextSize = 1.0f;
-					constexpr float versionTextSize = 0.10f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 1;
-					constexpr float margin = 5;
+				static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+				if (Surge->surge) {
+					// Draw Horion logo
+					static auto hudModule = moduleMgr->getModule<HudModule>();
+					if (shouldRenderWatermark) {
+						constexpr float nameTextSize = 1.49f;
+						constexpr float versionTextSize = 0.6f;
+						static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+						constexpr float borderPadding = 1;
+						constexpr float margin = 5;
 
-					static std::string name = "NG";
+						static std::string name = "Surge Client|NG";
 #ifdef _DEBUG
-					static std::string version = "Public";
+						static std::string version = "";
 #elif defined _BETA
-					static std::string version = "Public";
+						static std::string version = "";
 #else
-					static std::string version = "Public";
+						static std::string version = "";
 #endif
 
-					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
-					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					vec4_t rect = vec4_t(
-						windowSize.x - margin - fullTextLength - borderPadding * 2,
-						windowSize.y - margin - textHeight,
-						windowSize.x - margin + borderPadding,
-						windowSize.y - margin);
+						float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+						float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+						vec4_t rect = vec4_t(
+							windowSize.x - margin - fullTextLength - borderPadding * 2,
+							windowSize.y - margin - textHeight,
+							windowSize.x - margin + borderPadding,
+							windowSize.y - margin);
+						static auto rgbborderhud = moduleMgr->getModule<HudModule>();
+							DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
+						DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
+						static auto rgbTexthud = moduleMgr->getModule<HudModule>();
+						if (rgbTexthud->rgb) {
+							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(currColor), 1.5f, nameTextSize);
+						} else {
+							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), 1.5f, nameTextSize);
+						}
+						DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(0, 0, 0), versionTextSize);
+					}
+				} else {
+					if (shouldRenderWatermark) {
+						constexpr float nameTextSize = 1.0f;
+						constexpr float versionTextSize = 0.10f;
+						static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+						constexpr float borderPadding = 1;
+						constexpr float margin = 5;
 
-					DrawUtils::drawRectangle(rect, MC_Color(rcolors), 1.f, 2.f);
-					DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
-					DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(rcolors), nameTextSize);
-					DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(rcolors), versionTextSize);
+						static std::string name = "NG";
+#ifdef _DEBUG
+						static std::string version = "Public";
+#elif defined _BETA
+						static std::string version = "Public";
+#else
+						static std::string version = "Public";
+#endif
+
+						float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+						float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+						vec4_t rect = vec4_t(
+							windowSize.x - margin - fullTextLength - borderPadding * 2,
+							windowSize.y - margin - textHeight,
+							windowSize.x - margin + borderPadding,
+							windowSize.y - margin);
+						static auto rgbTexthud = moduleMgr->getModule<HudModule>();
+						if (rgbTexthud->rgb) {
+							DrawUtils::drawRectangle(rect, MC_Color(rcolors), 1.f, 2.f);
+							DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
+							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(rcolors), nameTextSize);
+						} else {
+							DrawUtils::drawRectangle(rect, MC_Color(184, 0, 255), 1.f, 2.f);
+							DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
+							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(184,0,255), nameTextSize);
+						}
+						//DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(rcolors), versionTextSize);
+					}
 				}
 
 				// Draw ArrayList
@@ -843,10 +889,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					  
 						static auto rgbmod = moduleMgr->getModule<GUI>();
 						if (rgbmod->rgb) {
-							DrawUtils::fillRectangle(underline, MC_Color(currColor), 1.f);
-							DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);
-						} else {
-
 							static auto box = moduleMgr->getModule<GUI>();
 							if (box->box) {
 								DrawUtils::fillRectangle(overline, MC_Color(currColor), 1.f);
@@ -859,14 +901,35 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 							static auto barmod = moduleMgr->getModule<GUI>();
 							if (barmod->bar) {
-								DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);					
+								DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);
+							}
+						} else {
+							static auto box = moduleMgr->getModule<GUI>();
+							if (box->box) {
+								DrawUtils::fillRectangle(overline, MC_Color(184, 0, 255), 1.f);
+							}
+
+							static auto underbarmod = moduleMgr->getModule<GUI>();
+							if (underbarmod->underbar) {
+								DrawUtils::fillRectangle(underline, MC_Color(184, 0, 255), 1.f);
+							}
+
+							static auto barmod = moduleMgr->getModule<GUI>();
+							if (barmod->bar) {
+								DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);					
 							}
 						}
 
 						static auto icemod = moduleMgr->getModule<GUI>();
 						if (icemod->ice) {
-							DrawUtils::fillRectangle(topIce, MC_Color(currColor), 1.f);
-							DrawUtils::fillRectangle(rightRect, MC_Color(currColor), 1.f);
+							static auto rgbmod = moduleMgr->getModule<GUI>();
+							if (rgbmod->rgb) {
+								DrawUtils::fillRectangle(topIce, MC_Color(currColor), 1.f);
+								DrawUtils::fillRectangle(rightRect, MC_Color(currColor), 1.f);
+							} else {
+								DrawUtils::fillRectangle(topIce, MC_Color(240, 240, 230), 1.f);
+								DrawUtils::fillRectangle(rightRect, MC_Color(184, 0, 255), 1.f);
+							}
 						}
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && hudModule->clickToggle) {
 							vec4_t selectedRect = rectPos;
@@ -880,10 +943,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								DrawUtils::fillRectangle(selectedRect, MC_Color(0.8f, 0.8f, 0.8f, 0.8f), 0.3f);
 						}
 						static auto rgbText = moduleMgr->getModule<GUI>();
-						if (rgbText->rgbtext) {
+						if (rgbText->rgb) {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 						} else {
-							DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
+							DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
 						}
 						static auto Bottomyes = moduleMgr->getModule<GUI>();
 						if (Bottomyes->bottom) {
