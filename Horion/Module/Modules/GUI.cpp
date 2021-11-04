@@ -7,9 +7,9 @@ float GUI::bcolor{0.f};
 GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
 
 	//registerBoolSetting("Box", &box, box);
-	registerBoolSetting("Surge colors", &different, different);
+	registerBoolSetting("Better RGB Colors", &different, different);
 	registerBoolSetting("Side Bar", &bar, bar);
-	registerBoolSetting("RGB Borders", &rgb, rgb);
+	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("under Bar", &underbar, underbar);
 	registerBoolSetting("Icey", &ice, ice);
 	registerBoolSetting("Bottom Right", &bottom, bottom);

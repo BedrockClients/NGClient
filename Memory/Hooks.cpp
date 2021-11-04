@@ -707,9 +707,15 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
 							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(rcolors), nameTextSize);
 						} else {
-							DrawUtils::drawRectangle(rect, MC_Color(184, 0, 255), 1.f, 2.f);
-							DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
-							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(184,0,255), nameTextSize);
+							if (Surge->surge) {
+								DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f, 2.f);
+								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
+								DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), nameTextSize);
+							} else {
+								DrawUtils::drawRectangle(rect, MC_Color(184, 0, 255), 1.f, 2.f);
+								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
+								DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 246, 255), nameTextSize);
+							}
 						}
 						//DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(rcolors), versionTextSize);
 					}
@@ -906,17 +912,26 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						} else {
 							static auto box = moduleMgr->getModule<GUI>();
 							if (box->box) {
+								if (Surge->surge)
 								DrawUtils::fillRectangle(overline, MC_Color(184, 0, 255), 1.f);
+								else
+								DrawUtils::fillRectangle(overline, MC_Color(0, 0, 0), 1.f);
 							}
 
 							static auto underbarmod = moduleMgr->getModule<GUI>();
 							if (underbarmod->underbar) {
+								if (Surge->surge)
+								DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
+								else
 								DrawUtils::fillRectangle(underline, MC_Color(184, 0, 255), 1.f);
 							}
 
 							static auto barmod = moduleMgr->getModule<GUI>();
 							if (barmod->bar) {
-								DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);					
+								if (Surge->surge)
+								DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
+								else
+								DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);	
 							}
 						}
 
@@ -946,7 +961,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						if (rgbText->rgb) {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 						} else {
-							DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
+							if (Surge->surge)
+							DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
+							else
+							DrawUtils::drawText(textPos, &textStr, MC_Color(0, 246, 255), textSize);
 						}
 						static auto Bottomyes = moduleMgr->getModule<GUI>();
 						if (Bottomyes->bottom) {

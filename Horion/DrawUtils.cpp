@@ -539,6 +539,7 @@ void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float
 }
 
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	std::string keyString = Utils::getKeybindName(key);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (key == *input->spaceBarKey) {
@@ -553,6 +554,9 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 			rectPos.y + 7.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
 		fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), 0.20f);
+		if (Surge->surge)
+		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
+		else
 		drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
 	} else {
 		vec4_t rectPos(
@@ -565,11 +569,15 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 			rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
 		fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), 0.20f);
+		if (Surge->surge)
+		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
+		else
 		drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
 	}
 }
 
 void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	std::string keyString;
 	keyString = "LMB";
 	vec4_t rectPos(
@@ -581,10 +589,14 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 	vec2_t textPos(
 		(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 		rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
+	if (Surge->surge)
+	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
+	else
 	drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
 }
 
 void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	std::string keyString;
 	keyString = "RMB";
 	vec4_t rectPos(
@@ -596,6 +608,9 @@ void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 	vec2_t textPos(
 		(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 		rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
+	if(Surge->surge)
+	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
+	else
 	drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
 }
 
