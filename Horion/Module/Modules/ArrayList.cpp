@@ -8,7 +8,7 @@ float ArrayList::bcolor{0.f};
 
 ArrayList::ArrayList() : IModule(0, Category::GUI, "ArrayList") {
 	this->registerBoolSetting("Icy Arraylist", &this->ice, this->ice);
-	this->registerBoolSetting("RGB Borders", &this->rgb, this->rgb);
+	this->registerBoolSetting("RGB", &this->rgb, this->rgb);
 	//this->registerBoolSetting("RGB text", &this->rgbtext, this->rgbtext);
 	this->registerBoolSetting("Surge Client Colors", &this->different, this->different);
 	this->registerBoolSetting("Side Bar", &this->bar, this->bar);

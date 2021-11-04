@@ -8,12 +8,12 @@ float HudModule::bcolor{0.f};
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	//registerBoolSetting("Side Bar", &bar, bar);
-	//registerBoolSetting("RGB Borders", &rgb, rgb);
+	registerBoolSetting("RGB", &rgb, rgb);
 	//registerBoolSetting("under Bar", &underbar, underbar);
 	//registerBoolSetting("Bottom Right", &bottom, bottom);
 	registerBoolSetting("MSG", &Msg, Msg);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
-	//registerBoolSetting("Watermark", &watermark, watermark);
+	registerBoolSetting("Watermark", &watermark, watermark);
 	registerBoolSetting("Coordinates", &coordinates, coordinates);
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
 	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);
@@ -21,7 +21,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Show FPS", &fps, fps);
 	registerBoolSetting("Show CPS", &cps, cps);
 	registerBoolSetting("Always show", &alwaysShow, alwaysShow);
-	//registerFloatSetting("ArrayList Opacity", &opacity, opacity, 0.0f, 1.f);
+	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
 	//registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
 	//registerFloatSetting("Blue", &gcolor, gcolor, 0.f, 1.f);
@@ -60,7 +60,10 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.00f);
+			if (rgb)
 			DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
+			else
+				DrawUtils::drawText(textPos, &fpsText, MC_Color(184,0,255), scale);
 			startY += f;
 		}
 	}
@@ -70,7 +73,10 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.0f);
-			DrawUtils::drawText(textPos, &cpsText, MC_Color(rcolors), scale);
+			if (rgb)
+				DrawUtils::drawText(textPos, &cpsText, MC_Color(rcolors), scale);
+			else
+				DrawUtils::drawText(textPos, &cpsText, MC_Color(184, 0, 255), scale);
 
 			startY += f;
 		}
@@ -80,7 +86,10 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			std::string fpsText = "NG Client on Top!";
 			vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
 			vec2_t textPos = vec2_t(rectPos.y + 250.5f, rectPos.x + 4.f);
+			if (rgb)
 			DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
+			else
+				DrawUtils::drawText(textPos, &fpsText, MC_Color(184,0,255), scale);
 			if (rcolors[3] < 1) {
 				rcolors[0] = 0.2f;
 				rcolors[1] = 0.2f;
@@ -99,11 +108,19 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.0f);
-			DrawUtils::drawText(textPos, &coordsX, MC_Color(rcolors), scale);
-			textPos.y += f;
-			DrawUtils::drawText(textPos, &coordsY, MC_Color(rcolors), scale);
-			textPos.y += f;
-			DrawUtils::drawText(textPos, &coordsZ, MC_Color(rcolors), scale);
+			if (rgb) {
+				DrawUtils::drawText(textPos, &coordsX, MC_Color(rcolors), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsY, MC_Color(rcolors), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsZ, MC_Color(rcolors), scale);
+			} else {
+				DrawUtils::drawText(textPos, &coordsX, MC_Color(184,0,255), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsY, MC_Color(184, 0, 255), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsZ, MC_Color(184, 0, 255), scale);
+			}
 		}
 	}
 	{	// ArmorHUD
