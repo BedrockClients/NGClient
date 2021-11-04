@@ -541,19 +541,6 @@ void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 	std::string keyString = Utils::getKeybindName(key);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
-	if (key == *input->forwardKey) {
-		vec4_t rectPos(
-			pos.x,
-			pos.y,
-			pos.x + 20.f,
-			pos.y + 20.f);
-		vec2_t textPos(
-			(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 0.20f) + 0.2f,
-			rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
-
-		fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(0, 0, 0) : MC_Color(0, 0, 0), 0.20f);
-		drawText(textPos, &keyString, MC_Color(0, 246, 255), 0.20f, 0.20f);
-	}
 	if (key == *input->spaceBarKey) {
 		if (key == *input->spaceBarKey) keyString = "-";
 		vec4_t rectPos(
