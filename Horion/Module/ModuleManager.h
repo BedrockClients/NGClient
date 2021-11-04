@@ -124,11 +124,11 @@
 #include "Modules/EntitySpeed.h"
 #include "Modules/Trail.h"
 #include "Modules/FightBot.h"
-#include "Modules/TestModule.h"
-#include "Modules/PacketLogger.h"
 #include "Modules/AutoClick.h"
 
 #ifdef _DEBUG
+#include "Modules/PacketLogger.h"
+#include "Modules/TestModule.h"
 #endif
 
 

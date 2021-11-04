@@ -70,8 +70,9 @@ void Hooks::Init() {
 				g_Hooks.JumpPowerHook = std::make_unique<FuncHook>(localPlayerVtable[348], Hooks::JumpPower);
 
 				g_Hooks.Mob__isImmobileHook = std::make_unique<FuncHook>(localPlayerVtable[91], Hooks::Mob__isImmobile);
-
+				#ifdef _DEBUG
 				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[73], Hooks::testy);
+				#endif
 			}
 		}
 
@@ -1181,7 +1182,9 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	static auto oFunc = g_Hooks.Actor_rotationHook->GetFastcall<void, C_Entity*, vec2_t&>();
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
 	static auto freelookMod = moduleMgr->getModule<Freelook>();
+#ifdef _DEBUG
 	static auto test = moduleMgr->getModule<TestModule>();
+#endif
 	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->sexy) {
 		sexyAngle = {killauraMod->joe.x, killauraMod->joe.y};
 	}
@@ -1935,7 +1938,7 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 
 	return func(ent);
 }
-
+#ifdef _DEBUG
 bool Hooks::testy(C_Entity* ent) {
 	static auto oFunc = g_Hooks.testyHook->GetFastcall<float, C_Entity*>();
 	static auto test = moduleMgr->getModule<TestModule>();
@@ -1943,6 +1946,7 @@ bool Hooks::testy(C_Entity* ent) {
 		return false;
 	oFunc(ent);
 }
+#endif
 
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {
 	auto func = g_Hooks.InventoryTransactionManager__addActionHook->GetFastcall<void, C_InventoryTransactionManager*, C_InventoryAction&>();
