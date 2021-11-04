@@ -5,6 +5,8 @@
 
 class Killaura : public IModule {
 private:
+	bool info = false;
+	bool targethud = false;
 	int delay = 0;
 	int Odelay = 0;
 	bool autoweapon = false;

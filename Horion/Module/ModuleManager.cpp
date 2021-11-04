@@ -43,7 +43,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Nuker()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoPacket()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new Speed()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Speed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Fucker()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
@@ -77,9 +77,9 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Spammer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new selectionHighlight()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiBot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner())); //doesn't work but chest stealer will ask it if the current stack is worth stealing 
+		moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Derp()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new Crasher()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Crasher()));
 		moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Timer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NightMode()));
@@ -95,12 +95,11 @@ void ModuleManager::initModules() {
 		//moduleList.push_back(std::shared_ptr<IModule>(new	NoPaintingCrash()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Waypoints()));
 		moduleList.push_back(std::shared_ptr<IModule>(new TimeChanger()));
-		moduleList.push_back(std::shared_ptr<IModule>(new	Spider()));
-		moduleList.push_back(std::shared_ptr<IModule>(new	Compass()));
-		moduleList.push_back(std::shared_ptr<IModule>(new	Radar()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Spider()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Compass()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Radar()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ViewModel()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
-		//NEW
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestStealer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoClick()));
@@ -130,9 +129,9 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new MinevilleFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new targetHUD()));
-		moduleList.push_back(std::shared_ptr<IModule>(new EntitySpider()));
-		moduleList.push_back(std::shared_ptr<IModule>(new EntityJesus()));
-		moduleList.push_back(std::shared_ptr<IModule>(new EntitySpeed()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new EntitySpider()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new EntityJesus()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new EntitySpeed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Trail()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FightBot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new LongJump()));
