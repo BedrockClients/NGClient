@@ -2,7 +2,6 @@
 
 Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
 	registerBoolSetting("Info", &info, info);
-	registerBoolSetting("TargetHud", &targethud, targethud);
 	registerBoolSetting("MultiAura", &isMulti, isMulti);
 	registerBoolSetting("MultiAura", &isMulti, isMulti);
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
