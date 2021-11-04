@@ -221,6 +221,7 @@
     <ClCompile Include="Horion\Command\Commands\GodmodeCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\GMCommand.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoClick.cpp" />
+    <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -481,6 +482,7 @@
     <ClInclude Include="Horion\Command\Commands\GodmodeCommand.h" />
     <ClInclude Include="Horion\Command\Commands\GMCommand.h" />
     <ClInclude Include="Horion\Module\Modules\AutoClick.h" />
+    <ClInclude Include="Horion\Module\Modules\LongJump.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

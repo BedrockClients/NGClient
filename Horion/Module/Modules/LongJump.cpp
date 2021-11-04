@@ -3,8 +3,8 @@
 #include "../../Module/ModuleManager.h"
 
 LongJump::LongJump() : IModule(0, Category::MOVEMENT, "Jump, but Long") {
-	registerBoolSetting("Slow", &this->slow, this->slow);
-	registerBoolSetting("Hit", &this->hit, this->hit);
+	registerBoolSetting("Slow", &slow, slow);
+	registerBoolSetting("Hit", &hit, hit);
 	registerFloatSetting("Height", &height, height, 0.2f, 5.f);
 	registerFloatSetting("Speed", &speed, speed, 0.3f, 5.f);
 }

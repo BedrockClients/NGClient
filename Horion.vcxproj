@@ -311,6 +311,7 @@
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
+    <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
     <ClCompile Include="Horion\Module\Modules\MineplexFly.cpp" />
@@ -533,6 +534,7 @@
     <ClInclude Include="Horion\Module\Modules\GUI.h" />
     <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
+    <ClInclude Include="Horion\Module\Modules\LongJump.h" />
     <ClInclude Include="Horion\Module\Modules\MegaDupe.h" />
     <ClInclude Include="Horion\Module\Modules\Mineplex.h" />
     <ClInclude Include="Horion\Module\Modules\MineplexFly.h" />
