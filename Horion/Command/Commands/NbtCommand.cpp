@@ -1,8 +1,7 @@
 #include "NbtCommand.h"
-
-#include "../../../SDK/Tag.h"
-#include "../../../Utils/Logger.h"
 #include "../../../Utils/Utils.h"
+#include "../../../Utils/Logger.h"
+#include "../../../SDK/Tag.h"
 
 NbtCommand::NbtCommand() : IMCCommand("nbt", "read and write NBT tags to/from your clipboard (You have to point at an entity/block entity)", "<read/write>") {
 	registerAlias("nbtraw");
@@ -14,7 +13,7 @@ NbtCommand::~NbtCommand() {
 bool NbtCommand::execute(std::vector<std::string>* args) {
 	assertTrue(args->size() > 1);
 	bool isRaw = args->at(0) == "nbtraw";
-	if (isRaw) {
+	if(isRaw){
 		assertTrue(args->at(1) == "write");
 		assertTrue(args->size() > 2);
 	}
@@ -60,7 +59,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		clientMessageF(builtStr.c_str());
 	} else if ((args->at(1) == "write" || args->at(1) == "load") && item) {
 		std::string tag;
-		if (isRaw) {
+		if(isRaw){
 			std::ostringstream os;
 			for (int i = 2; i < args->size(); i++) {
 				if (i > 2)
@@ -69,7 +68,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 			}
 
 			tag = os.str();
-		} else {
+		}else{
 			tag = Utils::getClipboardText();
 		}
 
@@ -82,8 +81,10 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 			if (args->at(1) == "write")
 				item->setUserData(std::move(Mojangson::parseTag(tag)));
 			else if (args->at(1) == "load") {
-				item->fromTag(*Mojangson::parseTag(tag));
+				std::unique_ptr<Tag> result = std::move(Mojangson::parseTag(tag));
+				item->fromTag(*result.get());
 				item->count = 64;
+				memset(&result, 0, sizeof(std::unique_ptr<Tag>));
 			}
 		} else {
 			clientMessageF("%sInvalid NBT tag!", RED);
@@ -91,8 +92,11 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		}
 
 		{
-			manager->addInventoryAction(C_InventoryAction(0, item, nullptr, 507, 99999));
-			manager->addInventoryAction(C_InventoryAction(supplies->selectedHotbarSlot, nullptr, item));
+			ItemDescriptor desc((*item->item)->itemId, *(short*)(&item->count - 2));
+			C_InventoryAction first(0, &desc, nullptr, item, nullptr, item->count, 507, 99999);
+			C_InventoryAction second(supplies->selectedHotbarSlot, nullptr, &desc, nullptr, item, item->count);
+			manager->addInventoryAction(first);
+			manager->addInventoryAction(second);
 		}
 
 		clientMessageF("%s%s", GREEN, "Successfully loaded mojangson !");
@@ -114,7 +118,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 	return true;
 }
 const char* NbtCommand::getUsage(const char* alias) {
-	if (strcmp(alias, "nbtraw") == 0) {
+	if(strcmp(alias, "nbtraw") == 0){
 		return "write <nbt>";
 	}
 
