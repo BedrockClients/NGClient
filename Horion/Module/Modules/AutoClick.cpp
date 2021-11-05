@@ -16,7 +16,7 @@ const char* AutoClick::getModuleName() {
 }
 
 void AutoClick::onTick(C_GameMode* gm) {
-	if ((GameData::isLeftClickDown() || !hold) && GameData::canUseMoveKeys()) {
+	if ((GameData::isLeftClickDown() || !hold)) {
 		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 		PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
 		Odelay++;
