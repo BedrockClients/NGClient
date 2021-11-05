@@ -73,7 +73,6 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		}
 
 		{
-			manager->addInventoryAction(C_InventoryAction(supplies->selectedHotbarSlot, item, nullptr));
 			manager->addInventoryAction(C_InventoryAction(0, nullptr, item, 507, 99999));
 		}
 
@@ -94,10 +93,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 
 		{
 			ItemDescriptor desc((*item->item)->itemId, *(short*)(&item->count - 2));
-			C_InventoryAction first(0, &desc, nullptr, item, nullptr, item->count, 507, 99999);
-			C_InventoryAction second(supplies->selectedHotbarSlot, nullptr, &desc, nullptr, item, item->count);
-			manager->addInventoryAction(first);
-			manager->addInventoryAction(second);
+			g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, &desc, nullptr, item, nullptr, 1, 507, 99999));
 		}
 
 		clientMessageF("%s%s", GREEN, "Successfully loaded mojangson !");
