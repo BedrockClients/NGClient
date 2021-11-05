@@ -1,5 +1,6 @@
 #include "PlayerTeleportCommand.h"
 #include "../../../Utils/Utils.h"
+#include "../../Module/ModuleManager.h"
 
 PlayerTeleportCommand::PlayerTeleportCommand() : IMCCommand("playertp", "Teleports to players coordinates", "<NameOfThePlayer>") {
 }
@@ -36,12 +37,18 @@ bool PlayerTeleportCommand::execute(std::vector<std::string>* args) {
 		playerName = currentEntity->getNameTag()->getText();
 		gotEntity = true;
 	});
-
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	if (!gotEntity) {
-		clientMessageF("[%sNG%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, nameOfPlayer.c_str());
+		if (Surge->surge)
+		clientMessageF("[%sSurge%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, nameOfPlayer.c_str());
+		else
+			clientMessageF("[%sNG%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, nameOfPlayer.c_str());
 		return true;
 	}
 	g_Data.getLocalPlayer()->setPos(pos);
-	clientMessageF("[%sNG%s] %sTeleported to %s", GOLD, WHITE, LIGHT_PURPLE, playerName.c_str());
+	if (Surge->surge)
+	clientMessageF("[%sSurge%s] %sTeleported to %s", GOLD, WHITE, BLUE, playerName.c_str());
+	else
+		clientMessageF("[%sNG%s] %sTeleported to %s", GOLD, WHITE, LIGHT_PURPLE, playerName.c_str());
 	return true;
 }

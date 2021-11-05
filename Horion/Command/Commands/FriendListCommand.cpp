@@ -1,4 +1,5 @@
 #include "FriendListCommand.h"
+#include "../../Module/ModuleManager.h"
 
 FriendListCommand::FriendListCommand() : IMCCommand("friend", "Add/Remove friendly players", "<add/remove>") {
 	registerAlias("friendlist");
@@ -8,6 +9,7 @@ FriendListCommand::~FriendListCommand() {
 }
 
 bool FriendListCommand::execute(std::vector<std::string>* args) {
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	assertTrue(args->size() >= 3);
 	std::string subcommand = args->at(1);
 	std::transform(subcommand.begin(), subcommand.end(), subcommand.begin(), ::tolower);
@@ -43,19 +45,31 @@ bool FriendListCommand::execute(std::vector<std::string>* args) {
 		break;
 	}
 	if (playerName.size() <= 1) {
+		if (Surge->surge)
+		clientMessageF("[%sSurge%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, searchedName.c_str());
+		else
 		clientMessageF("[%sNG%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, searchedName.c_str());
 		return true;
 	}
 	if (subcommand == "add") {
 		FriendList::addPlayerToList(playerName);
+		if (Surge->surge)
+		clientMessageF("[%sSurge%s] %s%s is now your friend!", GOLD, WHITE, BLUE, playerName.c_str());
+		else
 		clientMessageF("[%sNG%s] %s%s is now your friend!", GOLD, WHITE, LIGHT_PURPLE, playerName.c_str());
 		return true;
 
 	} else if (subcommand == "remove") {
 		if (FriendList::removePlayer(searchedName)) {
+			if (Surge->surge)
+			clientMessageF("[%sSurge%s] %s%s has been removed from your friendlist!", GOLD, WHITE, BLUE, searchedName.c_str());
+			else
 			clientMessageF("[%sNG%s] %s%s has been removed from your friendlist!", GOLD, WHITE, LIGHT_PURPLE, searchedName.c_str());
 			return true;
 		} else {
+			if (Surge->surge)
+			clientMessageF("[%sSurge%s] %s%s was not in your friendlist!", GOLD, WHITE, BLUE, searchedName.c_str());
+			else
 			clientMessageF("[%sNG%s] %s%s was not in your friendlist!", GOLD, WHITE, LIGHT_PURPLE, searchedName.c_str());
 			return true;
 		}

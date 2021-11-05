@@ -13,6 +13,7 @@ CBEPCommand::~CBEPCommand() {
 }
 
 bool CBEPCommand::execute(std::vector<std::string>* args) {
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	C_ItemStack* yot = new C_ItemStack(***ItemRegistry::lookUpByName(std::make_unique<uintptr_t>().get(), std::make_unique<uintptr_t>().get(), TextHolder("shulker_box")), 1, 0);
 	int slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getFirstEmptySlot();
 	std::transform(args->at(1).begin(), args->at(1).end(), args->at(1).begin(), ::tolower);
@@ -24,6 +25,9 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		item->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, item, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(item);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
 		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
@@ -33,7 +37,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	//gamemodes
@@ -42,7 +49,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	if (args->at(1) == "gms") {
@@ -50,7 +60,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	if (args->at(1) == "gma") {
@@ -58,7 +71,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	//kick
@@ -67,7 +83,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	//kill
@@ -76,7 +95,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	//tp
@@ -85,7 +107,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	//day
@@ -94,7 +119,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	//night
@@ -103,7 +131,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	//write
@@ -113,7 +144,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	if (args->at(1) == "admin") {
@@ -123,7 +157,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		item->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, item, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(item);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	if (args->at(1) == "nuke") {
@@ -131,7 +168,10 @@ bool CBEPCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your CBEP!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is your CBEP!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
 	//save

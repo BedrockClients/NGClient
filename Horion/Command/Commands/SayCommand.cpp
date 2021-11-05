@@ -1,4 +1,5 @@
 #include "SayCommand.h"
+#include "../../Module/ModuleManager.h"
 
 SayCommand::SayCommand() : IMCCommand("say", "Sends a chat message", "<message>") {
 }
@@ -45,7 +46,10 @@ bool SayCommand::execute(std::vector<std::string>* args) {
 	textPacket.sourceName.setText(g_Data.getLocalPlayer()->getNameTag()->getText());
 	textPacket.xboxUserId = std::to_string(g_Data.getLocalPlayer()->getUserId());
 	g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
-
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	if (Surge->surge)
 	clientMessageF("[%sNG%s] %sSent Message", GOLD, WHITE, LIGHT_PURPLE);
+	else
+		clientMessageF("[%sSurge%s] %sSent Message", GOLD, WHITE, BLUE);
 	return true;
 }

@@ -100,6 +100,17 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		}
 
 		clientMessageF("%s%s", GREEN, "Successfully loaded mojangson !");
+		//dupe item
+		C_InventoryAction* firstAction = nullptr;
+		auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
+		if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == nullptr))  // Item in hand?
+			return false;
+		auto transactionMan = g_Data.getLocalPlayer()->getTransactionManager();
+		int count = item->count;
+		bool isGive = true;
+		firstAction = new C_InventoryAction(0, item, nullptr, 507, 99999);
+		transactionMan->addInventoryAction(*firstAction);
+		inv->addItemToFirstEmptySlot(item);
 	} else {
 		clientMessageF("%s%s", RED, "Couldn't execute command correctly");
 	}

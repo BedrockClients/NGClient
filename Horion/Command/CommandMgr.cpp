@@ -94,7 +94,10 @@ void CommandMgr::execute(char* message) {
 				}
 			}
 		}
-
+		static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+		if (Surge->surge)
+		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sSurge%s] %sCommand '%s' could not be found!", BLUE, WHITE, BLUE, cmd.c_str());
+		else 
 		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sNG%s] %sCommand '%s' could not be found!", LIGHT_PURPLE, WHITE, RED, cmd.c_str());
 	}
 }
