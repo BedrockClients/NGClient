@@ -17,7 +17,6 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		assertTrue(args->at(1) == "write");
 		assertTrue(args->size() > 2);
 	}
-
 	PointingStruct* pointingStruct = g_Data.getClientInstance()->getPointerStruct();
 	C_BlockActor* blockActor = g_Data.getLocalPlayer()->region->getBlockEntity(pointingStruct->block);
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
@@ -52,7 +51,6 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 				return true;
 			}
 		}
-
 		auto builtStr = build.str();
 		Utils::setClipboardText(builtStr);
 		clientMessageF("%s%s", GREEN, "CompoundTag copied:");
@@ -66,15 +64,10 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 					os << " ";
 				os << args->at(i);
 			}
-
 			tag = os.str();
-		}else{
+		}else
 			tag = Utils::getClipboardText();
-		}
-
-		{
 			manager->addInventoryAction(C_InventoryAction(0, nullptr, item, 507, 99999));
-		}
 
 		if (tag.size() > 1 && tag.front() == MojangsonToken::COMPOUND_START.getSymbol() && tag.back() == MojangsonToken::COMPOUND_END.getSymbol()) {
 			if (args->at(1) == "write")
@@ -90,11 +83,8 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 			clientMessageF("%sInvalid NBT tag!", RED);
 			return true;
 		}
-
-		{
 			ItemDescriptor desc((*item->item)->itemId, *(short*)(&item->count - 2));
 			g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, &desc, nullptr, item, nullptr, 1, 507, 99999));
-		}
 
 		clientMessageF("%s%s", GREEN, "Successfully loaded mojangson !");
 		//dupe item
