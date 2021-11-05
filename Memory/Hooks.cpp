@@ -424,8 +424,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			float elapsedFlot = (float)elapsed.QuadPart / frequency.QuadPart;
 			if (elapsedFlot > 1.5f && !hasSentWarning) {
 				hasSentWarning = true;
-			    auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "If you require any help with this client, please refer to the 22 HUB.");
-				box->closeTimer = 10;
+			    auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
+				box->closeTimer = 7;
 				vec2_t windowSize = dat->windowSize;
 
 				DrawUtils::fillRectangle(vec4_t(0, 0, windowSize.x, windowSize.y), MC_Color(0.2f, 0.2f, 0.2f), 0.8f);
@@ -488,17 +488,26 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		// Main Menu
 		std::string screenName(g_Hooks.currentScreenName);
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
-			/*// Draw BIG epic horion watermark
-			{
-				std::string text = "NG Client";
-				vec2_t textPos = vec2_t(wid.x / 2.f - DrawUtils::getTextWidth(&text, 8.f) / 2.f, wid.y / 15.5f);
-				vec4_t rectPos = vec4_t(textPos.x - 55.f, textPos.y - 15.f, textPos.x + DrawUtils::getTextWidth(&text, 8.f) + 55.f, textPos.y + 75.f);
-				DrawUtils::fillRectangle(rectPos, MC_Color(Background::rFloat, Background::gFloat, Background::bFloat), 1);
-				DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0, 1), 1.0f);
-				DrawUtils::drawRectangle(rectPos, rcolors, 1.f, 2.f);
-				DrawUtils::drawText(textPos, &text, MC_Color(rcolors), 8.f, 8.f);
-			}*/
-
+			// Draw BIG epic Surge watermark
+			static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+			if (Surge->surge) {
+				std::string text = "Surge  Client";
+				vec2_t textPos = vec2_t(wid.x / 1.38f - DrawUtils::getTextWidth(&text, 7.f) / 1.f, wid.y / -30.f);
+				vec4_t rectPos = vec4_t(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
+				static auto rgbborderhud = moduleMgr->getModule<HudModule>();
+				if (rgbborderhud->rgb) {
+					DrawUtils::fillRectangle(rectPos, MC_Color(currColor), 0.f);
+				} else {
+					DrawUtils::fillRectangle(rectPos, MC_Color(255, 255, 255), 0.f);
+				}
+				//DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 0.f);
+				static auto rgbHud = moduleMgr->getModule<HudModule>();
+				if (rgbHud->rgb) {
+					DrawUtils::drawText(textPos, &text, MC_Color(currColor), 8.f);
+				} else {
+					DrawUtils::drawText(textPos, &text, MC_Color(0, 0, 255), 8.f);
+				}
+			}
 			// Draw Custom Geo Button
 			if (g_Data.allowWIPFeatures() && g_Data.isInjectorConnectionActive()) {
 				if (HImGui.Button("Load Script Folder", vec2_t(wid.x * (0.765f - 0.5f), wid.y * 0.92f), true)) {

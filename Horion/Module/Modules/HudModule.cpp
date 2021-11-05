@@ -92,22 +92,42 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	}
 	{  // Hello thing
 		if (!(g_Data.getLocalPlayer() == nullptr || !this->Msg || !GameData::canUseMoveKeys())) {
-			std::string fpsText = "NG Client on Top!";
-			vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
-			vec2_t textPos = vec2_t(rectPos.y + 250.5f, rectPos.x + 4.f);
-			if (rgb) {
-				DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
+			if (Surge->surge) {
+				std::string fpsText = "sup bitch";
+				vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
+				vec2_t textPos = vec2_t(rectPos.y + 250.5f, rectPos.x + 4.f);
+				if (rgb) {
+					DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
+				} else {
+					if (Surge->surge)
+						DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
+					else
+						DrawUtils::drawText(textPos, &fpsText, MC_Color(184, 0, 255), scale);
+				}
+				if (rcolors[3] < 1) {
+					rcolors[0] = 0.2f;
+					rcolors[1] = 0.2f;
+					rcolors[2] = 1.f;
+					rcolors[3] = 1;
+				}
 			} else {
-				if (Surge->surge)
-					DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
-				else
-				DrawUtils::drawText(textPos, &fpsText, MC_Color(184, 0, 255), scale);
-			}
-			if (rcolors[3] < 1) {
-				rcolors[0] = 0.2f;
-				rcolors[1] = 0.2f;
-				rcolors[2] = 1.f;
-				rcolors[3] = 1;
+				std::string fpsText = "NG Client on Top!";
+				vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
+				vec2_t textPos = vec2_t(rectPos.y + 250.5f, rectPos.x + 4.f);
+				if (rgb) {
+					DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
+				} else {
+					if (Surge->surge)
+						DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
+					else
+						DrawUtils::drawText(textPos, &fpsText, MC_Color(184, 0, 255), scale);
+				}
+				if (rcolors[3] < 1) {
+					rcolors[0] = 0.2f;
+					rcolors[1] = 0.2f;
+					rcolors[2] = 1.f;
+					rcolors[3] = 1;
+				}
 			}
 		}
 	}
