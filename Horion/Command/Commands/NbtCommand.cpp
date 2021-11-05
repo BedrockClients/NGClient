@@ -79,7 +79,8 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 
 		if (tag.size() > 1 && tag.front() == MojangsonToken::COMPOUND_START.getSymbol() && tag.back() == MojangsonToken::COMPOUND_END.getSymbol()) {
 			if (args->at(1) == "write")
-				item->setUserData(std::move(Mojangson::parseTag(tag)));
+				clientMessageF("%sPlease Use .kit write, or .cbep write until fixed!", RED);
+				//item->setUserData(std::move(Mojangson::parseTag(tag)));
 			else if (args->at(1) == "load") {
 				std::unique_ptr<Tag> result = std::move(Mojangson::parseTag(tag));
 				item->fromTag(*result.get());
