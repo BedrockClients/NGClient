@@ -394,6 +394,7 @@ void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageD
 }
 
 void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, bool useUnicodeFont) {
+	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	vec2_t textPos;
 	vec4_t rectPos;
 	std::string text = ent->getNameTag()->getText();
@@ -412,8 +413,13 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 		vec4_t subRectPos = rectPos;
 		subRectPos.y = subRectPos.w - 1.f * textSize;
 		fillRectangle(rectPos, MC_Color(0, 0, 0), 0.6f);
-		fillRectangle(subRectPos, MC_Color(0, 246, 255), 0.9f);
-		drawText(textPos, &text, MC_Color(0, 246, 255), textSize);
+		if (Surge->surge) {
+			fillRectangle(subRectPos, MC_Color(0, 0, 255), 0.9f);
+			drawText(textPos, &text, MC_Color(0, 0, 255), textSize);
+		} else {
+			fillRectangle(subRectPos, MC_Color(0, 246, 255), 0.9f);
+			drawText(textPos, &text, MC_Color(0, 246, 255), textSize);
+		}
 
 		static auto nameTagsMod = moduleMgr->getModule<NameTags>();
 

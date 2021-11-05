@@ -47,7 +47,7 @@ void C_ItemStack::fromTag(const Tag &tag) {
 }
 void C_ItemStack::save(CompoundTag **tag) {
 	using ItemStackBase__saveF = void(__fastcall *)(C_ItemStack *, CompoundTag **);
-	ItemStackBase__saveF save = reinterpret_cast<ItemStackBase__saveF>(FindSignature("48 89 5C 24 ?? 55 56 57 41 56 41 57 48 8D 6C 24 C9 48 81 EC ?? ?? ?? ?? 48 8B FA 48 8B F1 48 89 55 0F 45 33 ?? 44 89 7D 97 33 C0"));
+	ItemStackBase__saveF save = reinterpret_cast<ItemStackBase__saveF>(FindSignature("48 89 5C 24 ?? 55 56 57 41 56 41 57 48 8D 6C 24 C9 48 81 EC ?? ?? ?? ?? 48 8B FA 48 8B F1 48 89 55 0F 45 33 ?? 44 89 7D"));
 	return save(this, tag);
 }
 void C_ItemStack::setUserData(std::unique_ptr<Tag> tag) {
