@@ -13,12 +13,12 @@ const char* AutoTotem::getModuleName() {
 void AutoTotem::onLevelRender() {
 	if (g_Data.getClientInstance()->isInGame()) {
 		C_InventoryTransactionManager* manager = g_Data.getLocalPlayer()->getTransactionManager();
+		C_ItemStack* totem = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(0);
 		C_InventoryAction* firstAction = nullptr;
 		ItemDescriptor* desc = nullptr;
 		C_ItemStack* yot = nullptr;
 		int itemId = 0;
 		if (g_Data.getLocalPlayer()->getEquippedTotem()->item == NULL) {
-			C_ItemStack* totem = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(0);
 			if (totem->item != NULL && (*totem->item)->itemId == 449) {
 				C_InventoryAction first(0, totem, nullptr);
 				C_InventoryAction second(37, nullptr, totem);
@@ -49,12 +49,12 @@ void AutoTotem::onLevelRender() {
 void AutoTotem::onTick(C_GameMode* gm) {
 	if (g_Data.getClientInstance()->isInGame()) {
 		C_InventoryTransactionManager* manager = g_Data.getLocalPlayer()->getTransactionManager();
+		C_ItemStack* totem = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(0);
 		C_InventoryAction* firstAction = nullptr;
 		ItemDescriptor* desc = nullptr;
 		C_ItemStack* yot = nullptr;
 		int itemId = 0;
 		if (g_Data.getLocalPlayer()->getEquippedTotem()->item == NULL) {
-			C_ItemStack* totem = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(0);
 			if (totem->item != NULL && (*totem->item)->itemId == 449) {
 				C_InventoryAction first(0, totem, nullptr);
 				C_InventoryAction second(37, nullptr, totem);
