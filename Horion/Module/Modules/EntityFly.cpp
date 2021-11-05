@@ -1,7 +1,8 @@
+#include "../ModuleManager.h"
 #include "EntityFly.h"
 
-EntityFly::EntityFly() : IModule(0x0, Category::ENTITY, "Fly with certain entites") {
-	registerFloatSetting("speed", &this->speed, this->speed, 0.5f, 5.f);
+EntityFly::EntityFly() : IModule(0, Category::ENTITY, "Fly, for entitys (Use arrow Keys for Virtical Movement!)") {
+	registerFloatSetting("Fly Speed", &speed, speed, 1.f, 10.f);
 }
 
 EntityFly::~EntityFly() {
@@ -13,49 +14,37 @@ const char* EntityFly::getModuleName() {
 
 static std::vector<C_Entity*> targetList;
 
-void findEntity06(C_Entity* currentEntity, bool isRegularEntity) {
+void findBooat(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == nullptr)
 		return;
 
-	if (currentEntity->getEntityTypeId() != 23 && currentEntity->getEntityTypeId() != 24 && currentEntity->getEntityTypeId() != 25 && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 333)
-		return;
-	//horse = 23
-	//donkey = 24
-	//mule = 25
-	//skeleton horse = 26
-	//Boat = 333
+	//if (currentEntity == g_Data.getLocalPlayer())
+		//return;
 
-	int range = 4;
-	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
+	//if (currentEntity->getEntityTypeId() != 90 && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 23 && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 27 && currentEntity->getEntityTypeId() != 25 && currentEntity->getEntityTypeId() != 24 && currentEntity->getEntityTypeId() != 29 && currentEntity->getEntityTypeId() != 84)
+		//return;
 
-	if (dist < range) {
+	float boatdistance = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
+
+	if (boatdistance < 3) {
 		targetList.push_back(currentEntity);
 	}
 }
 
 void EntityFly::onTick(C_GameMode* gm) {
-	auto player = g_Data.getLocalPlayer();
-	if (player == nullptr) return;
-
 	targetList.clear();
-	g_Data.forEachEntity(findEntity06);
+	g_Data.forEachEntity(findBooat);
 
 	if (!targetList.empty()) {
-		float yaw = gm->player->yaw;
-		C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
+		float boatdistance = (*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 
-		//Vertical
-		glideModEffective = glideMod;
-		if (GameData::isKeyDown(VK_SPACE))
-			glideModEffective += speed;
-		if (GameData::isKeyDown(VK_CONTROL))
-			glideModEffective -= speed;
-
-		targetList[0]->velocity.y = glideModEffective;
-
-		//Horizontal
-		bool keyPressed = false;
-		if (GameData::canUseMoveKeys()) {
+		if (boatdistance < 3) {
+			gm->player->onGround;
+			float yaw = gm->player->yaw;
+			C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
+			bool keyPressed = false;
+			//if (GameData::canUseMoveKeys()) {
+			//killaura code
 			if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->backKey))
 				return;
 			else if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->rightKey) && !GameData::isKeyDown(*input->leftKey)) {
@@ -86,13 +75,25 @@ void EntityFly::onTick(C_GameMode* gm) {
 			float calcPitch = (gm->player->pitch) * -(PI / 180);
 			vec3_t moveVec;
 			moveVec.x = cos(calcYaw) * speed;
-			moveVec.y = glideModEffective;
+			moveVec.y = targetList[0]->velocity.y = 0;
 			moveVec.z = sin(calcYaw) * speed;
 			if (keyPressed) {
 				targetList[0]->lerpMotion(moveVec);
-				//targetList[0]->velocity = moveVec; //does the same thing but may be a bool in the future
 				keyPressed = false;
+			} else {
+				targetList[0]->velocity.x = 0;
+				targetList[0]->velocity.z = 0;
 			}
+			//up and down
+			if (g_Data.canUseMoveKeys() && !targetList.empty()) {
+				if (GameData::isKeyDown(VK_DOWN)) {
+					targetList[0]->velocity.y -= speed;
+				}
+				if (GameData::isKeyDown(VK_UP)) {
+					targetList[0]->velocity.y += speed;
+				}
+			}
+			//}
 		}
 	}
 }

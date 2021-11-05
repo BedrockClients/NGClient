@@ -79,9 +79,9 @@ void ConfigManager::loadConfig(std::string name, bool create) {
 		if (g_Data.getLocalPlayer() != nullptr) {
 			static bool helpedUser = false;
 			if (Surge->surge)
-			g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sSuccessfully %s config %s%s%s!", GOLD, WHITE, LIGHT_PURPLE, !configExists ? "created" : "loaded", GRAY, name.c_str(), LIGHT_PURPLE);
+				g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sSuccessfully %s config %s%s%s!", GOLD, WHITE, BLUE, !configExists ? "created" : "loaded", GRAY, name.c_str(), BLUE);
 			else
-			g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sSuccessfully %s config %s%s%s!", GOLD, WHITE, BLUE, !configExists ? "created" : "loaded", GRAY, name.c_str(), BLUE);
+				g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sSuccessfully %s config %s%s%s!", GOLD, WHITE, LIGHT_PURPLE, !configExists ? "created" : "loaded", GRAY, name.c_str(), LIGHT_PURPLE);
 			if (!helpedUser && name != "NG Client") {
 				helpedUser = true;
 				if (Surge->surge)
