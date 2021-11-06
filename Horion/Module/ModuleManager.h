@@ -22,6 +22,7 @@
 #include "Modules/Bhop.h"
 #include "Modules/Blink.h"
 #include "Modules/BowAimbot.h"
+#include "Modules/AntilagBack.h"
 #include "Modules/AntiVoid.h"
 #include "Modules/selectionHighlight.h"
 #include "Modules/ChestESP.h"

@@ -288,6 +288,7 @@
     <ClCompile Include="Horion\Module\Modules\AntiBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiImmobile.cpp" />
     <ClCompile Include="Horion\Module\Modules\Antikb.cpp" />
+    <ClCompile Include="Horion\Module\Modules\AntiLagBack.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\ArmourHud.cpp" />
     <ClCompile Include="Horion\Module\Modules\ArrayList.cpp" />
@@ -511,6 +512,7 @@
     <ClInclude Include="Horion\Module\Modules\AntiBot.h" />
     <ClInclude Include="Horion\Module\Modules\AntiImmobile.h" />
     <ClInclude Include="Horion\Module\Modules\Antikb.h" />
+    <ClInclude Include="Horion\Module\Modules\AntiLagBack.h" />
     <ClInclude Include="Horion\Module\Modules\AntiVoid.h" />
     <ClInclude Include="Horion\Module\Modules\ArmourHud.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />

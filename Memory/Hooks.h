@@ -81,6 +81,7 @@ public:
 	static void Enable();
 
 private:
+	static void setPos(C_Entity* ent, vec3_t& poo);
 	static void Actor_rotation(C_Entity* _this, vec2_t& sexyAngle);
 	static void Actor_breathe(C_Entity* _this);
 	static void* Player_tickWorld(C_Player* _this, __int64);
@@ -136,6 +137,7 @@ private:
 	static void LevelRendererPlayer__renderNameTags(__int64 a1, __int64 a2, TextHolder* name, __int64 a4);
 
 	std::unique_ptr<FuncHook> Actor_rotationHook;
+	std::unique_ptr<FuncHook> setPosHook;
 	std::unique_ptr<FuncHook> Actor_breatheHook;
 	std::unique_ptr<FuncHook> Player_tickWorldHook;
 	std::unique_ptr<FuncHook> ClientInstanceScreenModel_sendChatMessageHook;

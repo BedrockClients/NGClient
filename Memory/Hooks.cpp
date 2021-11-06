@@ -69,6 +69,8 @@ void Hooks::Init() {
 
 				g_Hooks.JumpPowerHook = std::make_unique<FuncHook>(localPlayerVtable[348], Hooks::JumpPower);
 
+				g_Hooks.setPosHook = std::make_unique<FuncHook>(localPlayerVtable[19], Hooks::setPos);
+
 				g_Hooks.Mob__isImmobileHook = std::make_unique<FuncHook>(localPlayerVtable[91], Hooks::Mob__isImmobile);
 				#ifdef _DEBUG
 				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[73], Hooks::testy);
@@ -1985,6 +1987,14 @@ __int64 Hooks::GameMode_attack(C_GameMode* _this, C_Entity* ent) {
 	auto func = g_Hooks.GameMode_attackHook->GetFastcall<__int64, C_GameMode*, C_Entity*>();
 	moduleMgr->onAttack(ent);
 	return func(_this, ent);
+}
+
+void Hooks::setPos(C_Entity* ent, vec3_t& poo) {
+	auto func = g_Hooks.setPosHook->GetFastcall<void, C_Entity*, vec3_t&>();
+	static auto lag = moduleMgr->getModule<AntiLagBack>();
+	if (lag->isEnabled() && ent == g_Data.getLocalPlayer())  // Cancel setPos
+		return;
+	func(ent, poo);
 }
 
 void Hooks::LocalPlayer__updateFromCamera(__int64 a1, C_Camera* camera) {
