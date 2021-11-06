@@ -4,11 +4,13 @@
 
 class AntiVoid : public IModule {
 private:
-	int distance = 5;
-	vec3_t savepos;
+	vec3_t orgipos;
 
 public:
+	bool jump = false;
+	int distance = 5;
 	C_MoveInputHandler* inputHandler = nullptr;
+	SettingEnum mode;
 	AntiVoid();
 	~AntiVoid();
 
