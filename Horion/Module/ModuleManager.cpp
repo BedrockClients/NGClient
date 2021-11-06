@@ -31,7 +31,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new AirJump()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Step()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Glide()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new AntiLagBack()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AntiLagBack()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EditionFaker()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Phase()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Freecam()));
