@@ -1,7 +1,7 @@
 #include "BoatSpeed.h"
 
 BoatSpeed::BoatSpeed() : IModule(0, Category::ENTITY, "Increases your speed within boats") {
-	this->registerFloatSetting("Speed", &this->speed, this->speed, 1.f, 5.f);
+	registerFloatSetting("Speed", &speed, speed, 1.f, 5.f);
 }
 
 BoatSpeed::~BoatSpeed() {
@@ -17,7 +17,7 @@ void findEntity03(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == nullptr)
 		return;
 
-	if (currentEntity->getEntityTypeId() != 90)  //if something isnt a boat then it doesnt prok
+	if (currentEntity->getEntityTypeId() != 375)
 		return;
 
 	int range = 3;
