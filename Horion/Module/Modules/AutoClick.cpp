@@ -45,7 +45,7 @@ void AutoClick::onTick(C_GameMode* gm) {
 	}
 
 	if (rightclick) {
-		if ((GameData::isRightClickDown() || !hold) && GameData::canUseMoveKeys()) {
+		if ((GameData::isRightClickDown() || !hold) && g_Data.isInGame()) {
 			PointingStruct* pstruct = g_Data.getClientInstance()->getPointerStruct();
 			Odelay++;
 			if (Odelay >= delay) {

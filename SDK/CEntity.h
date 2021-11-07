@@ -112,7 +112,7 @@ public:
 	float yawUnused1;                 //0x0750
 	float yawUnused2;                 //0x0754
 	int32_t damageTime;               //0x0758
-	int32_t damageAnimationDuration;  //0x075C
+	int32_t damageAnimationDuration;  //0x075C //Could be usefull for slowing hit animation like java clients, or making the red damage when you get hit last longer.
 private:
 	char pad_0760[136];  //0x0760
 public:
@@ -162,7 +162,7 @@ virtual __int64 getLastHurtByMob(void);                                         
 	virtual void destructor();                                                                                                                                                                                                    // 14
 	virtual __int64 reset(void);                                                                                                                                                                                                  // 15
 	virtual __int64 getOnDeathExperience(void);                                                                                                                                                                                   // 16
-	virtual __int64 getOwnerEntityType(void);                                                                                                                                                                                     // 17
+	virtual __int64 getOwnerEntityType(void); //possibly entity owner checker. Like java clients to see the owners of animals/pets.                                                                                                                                                                                    // 17
 	virtual __int64 remove(void);                                                                                                                                                                                                 // 18
 	virtual __int64 setPos(vec3_t const &);                                                                                                                                                                                         // 19
 	virtual __int64 isRuntimePredictedMovementEnabled(void);                                                                                                                                                                      // 20
@@ -171,7 +171,7 @@ virtual __int64 getLastHurtByMob(void);                                         
 	virtual vec3_t* getPosOld(void);                                                                                                                                                                                              // 23
 	virtual vec3_t* getPosExtrapolated(float);                                                                                                                                                                                    // 24
 	virtual vec3_t* getAttachPos(struct ActorLocation, float);                                                                                                                                                                           // 25
-	virtual vec3_t* getFiringPos(void);                                                                                                                                                                                           // 26
+	virtual vec3_t* getFiringPos(void);    //possibly where the fire shows on screen when u are on fire.                                                                                                                                                                                       // 26
 	virtual __int64 setRot(vec2_t const &);                                                                                                                                                                                         // 27
 	virtual __int64 move(vec3_t const &);                                                                                                                                                                                           // 28
 	virtual __int64 move(__int64 IActorMovementProxy, vec3_t const &);                                                                                                                                                                    // 29
@@ -182,7 +182,7 @@ virtual __int64 getLastHurtByMob(void);                                         
 	virtual __int64 getYawSpeedInDegreesPerSecond(void);                                                                                                                                                                          // 34
 	virtual __int64 getInterpolatedWalkAnimSpeed(float);                                                                                                                                                                          // 35
 	virtual __int64 getInterpolatedRidingOffset(float);                                                                                                                                                                           // 36
-	virtual __int64 checkBlockCollisions(AABB const &, __int64);                                                                                           // 37
+	virtual __int64 checkBlockCollisions(AABB const &, __int64);    //Could be used for an insanly easy spider.                                                                                       // 37
 	virtual __int64 updateEntityInside(AABB const &);                                                                                                                                                                             // 38
 	virtual __int64 updateEntityInside(void);                                                                                                                                                                                     // 39
 	virtual __int64 isFireImmune(void);                                                                                                                                                                                           // 40
