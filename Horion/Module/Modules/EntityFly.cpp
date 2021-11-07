@@ -21,9 +21,12 @@ void findBooat(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == g_Data.getLocalPlayer())
 		return;
 
-	if (currentEntity->getEntityTypeId() != 2118423 /* && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 23 && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 27 && currentEntity->getEntityTypeId() != 25 && currentEntity->getEntityTypeId() != 24 && currentEntity->getEntityTypeId() != 29 && currentEntity->getEntityTypeId() != 84*/)
+	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424 && currentEntity->getEntityTypeId() != 2186010 && currentEntity->getEntityTypeId() != 27 && currentEntity->getEntityTypeId() != 25 && currentEntity->getEntityTypeId() != 24 && currentEntity->getEntityTypeId() != 29 && currentEntity->getEntityTypeId() != 84)
 		return;
-
+	//2118423 is horse
+	//2118425 is mule
+	//2118424 is donkey
+	//2186010 is skeleton horse
 	float boatdistance = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 
 	if (boatdistance < 3) {
@@ -85,10 +88,10 @@ void EntityFly::onTick(C_GameMode* gm) {
 			}
 			//up and down
 			if (g_Data.canUseMoveKeys() && !targetList.empty()) {
-				if (GameData::isKeyDown(VK_LCONTROL)) {
+				if (GameData::isKeyDown(VK_DOWN)) {
 					targetList[0]->velocity.y -= speed;
 				}
-				if (GameData::isKeyDown(VK_SPACE)) {
+				if (GameData::isKeyDown(VK_UP)) {
 					targetList[0]->velocity.y += speed;
 				}
 			}
