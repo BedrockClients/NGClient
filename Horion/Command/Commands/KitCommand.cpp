@@ -115,6 +115,21 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
+	//test
+	if (args->at(1) == "test") {
+		std::string tag = "";
+		std::string tag1 = "";
+		std::string tag2 = "";
+		std::string tag3 = "";
+		yot->fromTag(*Mojangson::parseTag(tag + tag1 + tag2 + tag3));
+		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
+		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
+		if (Surge->surge)
+			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
+		else
+			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
+		return true;
+	}
 	//write
 	if (args->at(1) == "write") {
 		std::string tab = Utils::getClipboardText();
