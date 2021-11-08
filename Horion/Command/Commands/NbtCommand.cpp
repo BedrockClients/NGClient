@@ -2,6 +2,7 @@
 #include "../../../Utils/Utils.h"
 #include "../../../Utils/Logger.h"
 #include "../../../SDK/Tag.h"
+#include "../../Module/ModuleManager.h"
 
 NbtCommand::NbtCommand() : IMCCommand("nbt", "read and write NBT tags to/from your clipboard (You have to point at an entity/block entity)", "<read/write/load>") {
 	registerAlias("nbtraw");
@@ -17,6 +18,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		assertTrue(args->at(1) == "write");
 		assertTrue(args->size() > 2);
 	}
+	static auto Packetz = moduleMgr->getModule<NoPacket>();
 	PointingStruct* pointingStruct = g_Data.getClientInstance()->getPointerStruct();
 	C_BlockActor* blockActor = g_Data.getLocalPlayer()->region->getBlockEntity(pointingStruct->block);
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
@@ -56,6 +58,9 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		clientMessageF("%s%s", GREEN, "CompoundTag copied:");
 		clientMessageF(builtStr.c_str());
 	} else if ((args->at(1) == "write" || args->at(1) == "load") && item) {
+		if (!Packetz->isEnabled()) {
+			Packetz->setEnabled(true);
+		}
 		std::string tag;
 		if(isRaw){
 			std::ostringstream os;
@@ -87,6 +92,10 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 			g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, &desc, nullptr, item, nullptr, 1, 507, 99999));
 
 		clientMessageF("%s%s", GREEN, "Successfully loaded mojangson !");
+
+			if (Packetz->isEnabled()) {
+				Packetz->setEnabled(false);
+			}
 		//dupe item
 		C_InventoryAction* firstAction = nullptr;
 		auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
