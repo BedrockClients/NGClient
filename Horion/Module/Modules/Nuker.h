@@ -4,7 +4,7 @@
 class Nuker : public IModule {
 private:
 	int delay = 0;
-	int nukerRadius = 4;
+	int nukerRadius = 50;
 	bool veinMiner = false;
 	bool autodestroy = true;
 

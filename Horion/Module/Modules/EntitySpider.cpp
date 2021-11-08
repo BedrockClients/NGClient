@@ -16,8 +16,12 @@ void findNutz(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == nullptr)
 		return;
 
-	if (currentEntity->getEntityTypeId() != 90 && currentEntity->getEntityTypeId() != 23 && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 27 && currentEntity->getEntityTypeId() != 25 && currentEntity->getEntityTypeId() != 24 && currentEntity->getEntityTypeId() != 29 && currentEntity->getEntityTypeId() != 84)
+	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424 && currentEntity->getEntityTypeId() != 2186010)
 		return;
+	//2118423 is horse
+	//2118425 is mule
+	//2118424 is donkey
+	//2186010 is skeleton horse
 
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 

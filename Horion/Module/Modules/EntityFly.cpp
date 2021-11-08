@@ -18,12 +18,15 @@ void findBooat(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == nullptr)
 		return;
 
-	//if (currentEntity == g_Data.getLocalPlayer())
-		//return;
+	if (currentEntity == g_Data.getLocalPlayer())
+		return;
 
-	//if (currentEntity->getEntityTypeId() != 90 && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 23 && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 27 && currentEntity->getEntityTypeId() != 25 && currentEntity->getEntityTypeId() != 24 && currentEntity->getEntityTypeId() != 29 && currentEntity->getEntityTypeId() != 84)
-		//return;
-
+	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424 && currentEntity->getEntityTypeId() != 2186010)
+		return;
+	//2118423 is horse
+	//2118425 is mule
+	//2118424 is donkey
+	//2186010 is skeleton horse
 	float boatdistance = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 
 	if (boatdistance < 3) {
@@ -43,8 +46,7 @@ void EntityFly::onTick(C_GameMode* gm) {
 			float yaw = gm->player->yaw;
 			C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 			bool keyPressed = false;
-			//if (GameData::canUseMoveKeys()) {
-			//killaura code
+			if (GameData::canUseMoveKeys()) {
 			if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->backKey))
 				return;
 			else if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->rightKey) && !GameData::isKeyDown(*input->leftKey)) {
@@ -93,7 +95,7 @@ void EntityFly::onTick(C_GameMode* gm) {
 					targetList[0]->velocity.y += speed;
 				}
 			}
-			//}
+			}
 		}
 	}
 }

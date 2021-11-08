@@ -6,7 +6,6 @@
 class Killaura : public IModule {
 private:
 	bool info = false;
-	bool targethud = false;
 	int delay = 0;
 	int Odelay = 0;
 	bool autoweapon = false;
@@ -21,6 +20,7 @@ public:
 	float range = 6;
 	bool targetListA = false;
 	bool sexy = true;
+	bool outline = true;
 	vec2_t joe;
 
 	Killaura();
@@ -32,5 +32,6 @@ public:
 	virtual void onLevelRender() override;
 	virtual void onEnable() override;
 	virtual void onSendPacket(C_Packet* packet) override;
+	virtual void onPreRender(C_MinecraftUIRenderContext* renderCtx) override;
 	virtual void onPostRender(C_MinecraftUIRenderContext* ctx) override;
 };

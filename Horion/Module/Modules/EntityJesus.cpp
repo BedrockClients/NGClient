@@ -21,12 +21,12 @@ void EntityJesusID(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == nullptr)
 		return;
 
-	if (currentEntity->getEntityTypeId() != 23 && currentEntity->getEntityTypeId() != 24 && currentEntity->getEntityTypeId() != 25 && currentEntity->getEntityTypeId() != 26 && currentEntity->getEntityTypeId() != 333)
+	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424 && currentEntity->getEntityTypeId() != 2186010)
 		return;
-	//horse = 23
-	//donkey = 24
-	//mule = 25
-	//skeleton horse = 26
+	//2118423 is horse
+	//2118425 is mule
+	//2118424 is donkey
+	//2186010 is skeleton horse
 	//Boat = 333
 
 	int range = 4;
