@@ -16,7 +16,7 @@ void listEnts() {
 	PointingStruct* pointingStruct = g_Data.getClientInstance()->getPointerStruct();
 	auto entity = pointingStruct->getEntity();
 	if (entity != nullptr) {
-		int id = entity->getEntityTypeId();
+		auto id = entity->getUniqueId();
 		char* name = entity->getNameTag()->getText();
 		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("---------------");
 		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("Entity Name: %s", name);
