@@ -1,11 +1,11 @@
 #include "Killaura.h"
 
 Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
-	registerBoolSetting("Info", &info, info);
-	registerBoolSetting("MultiAura", &isMulti, isMulti);
-	registerBoolSetting("MobAura", &isMobAura, isMobAura);
 	registerFloatSetting("range", &range, range, 2.f, 20.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);
+	registerBoolSetting("MultiAura", &isMulti, isMulti);
+	registerBoolSetting("Info", &info, info);
+	registerBoolSetting("MobAura", &isMobAura, isMobAura);
 	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
 	registerBoolSetting("Rotations", &rotations, rotations);
@@ -20,9 +20,6 @@ const char* Killaura::getModuleName() {
 	return ("Killaura");
 }
 
-static float rcolors[4];
-std::vector<vec3_ti> lastPoss;
-
 struct CompareTargetEnArray {
 	bool operator()(C_Entity* lhs, C_Entity* rhs) {
 		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
@@ -31,6 +28,8 @@ struct CompareTargetEnArray {
 };
 
 static std::vector<C_Entity*> targetList;
+float rcolorrs[4];
+float Outline = 0;
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
@@ -98,11 +97,10 @@ void Killaura::onTick(C_GameMode* gm) {
 	if (g_Data.isInGame()) {
 		targetList.clear();
 		g_Data.forEachEntity(findEntity);
-
+		if (autoweapon) findWeapon();
 		if (!targetList.empty()) {
 			Odelay++;
-			if (!targetList.empty() && Odelay >= delay) {
-				if (autoweapon) findWeapon();
+			if (Odelay >= delay) {
 				if (isMulti) {
 					for (auto& i : targetList) {
 						if (!(i->damageTime > 1 && hurttime)) {
@@ -116,128 +114,141 @@ void Killaura::onTick(C_GameMode* gm) {
 						g_Data.getCGameMode()->attack(targetList[0]);
 					}
 				}
-				if (rotations) {
-					vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-					auto player = g_Data.getLocalPlayer();
-					player->lookAt(player, angle.x, angle.y);
-				}
 				Odelay = 0;
 			}
-		}
-	}
-}
-void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
-	for (auto pos : lastPoss) {
-		DrawUtils::drawBox(pos.toFloatVector(), pos.add(1, 1, 1).toFloatVector(), 1, false);
-	}
-	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-
-	if (localPlayer != nullptr && GameData::canUseMoveKeys()) {
-		// Rainbow colors
-		{
-			if (rcolors[3] < 1) {
-				rcolors[0] = 0.2f;
-				rcolors[1] = 0.2f;
-				rcolors[2] = 1.f;
-				rcolors[3] = 1;
+			if (rotations) {
+				auto player = g_Data.getLocalPlayer();
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
+				player->bodyYaw = angle.y;
 			}
-
-			Utils::ApplyRainbow(rcolors, 0.0015f);
 		}
 	}
 }
-float Outline = 0;
+
 void Killaura::onLevelRender() {
-	if (outline) {
-		Outline++;
-		if (outline) {
-			DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);
-		} else
-			DrawUtils::setColor(1.f, 1.f, 1.f, 1);
-		g_Data.forEachEntity([&](C_Entity* ent, bool valid) {
-			static auto noFriendsModule = moduleMgr->getModule<NoFriends>();
-			if (!noFriendsModule->isEnabled() && !FriendList::findPlayer(ent->getNameTag()->getText())) {
-				if (ent != g_Data.getLocalPlayer() && Target::isValidTarget(ent)) {
-					vec3_t Lines[36];
-					for (int i = 0; i < 36; i++) {
-						Lines[i] = {sinf((i * 9) / (120 / PI)), 0.f, cosf((i * 9) / (120 / PI))};
+	targetListA = targetList.empty();
+	if (g_Data.isInGame()) {
+		targetList.clear();
+		g_Data.forEachEntity(findEntity);
+
+		if (!targetList.empty()) {
+			if (sexy) {
+				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
+				auto player = g_Data.getLocalPlayer();
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
+				player->bodyYaw = angle.x;
+				player->bodyYaw = angle.y;
+			}
+			int prevSlot;
+			if (autoweapon) {
+				auto supplies = g_Data.getLocalPlayer()->getSupplies();
+				prevSlot = supplies->selectedHotbarSlot;
+				auto FinishSelect = true;
+				auto inv = supplies->inventory;
+				for (int n = 0; n < 9; n++) {
+					C_ItemStack* stack = inv->getItemStack(n);
+					if (stack->item != nullptr) {
+						if (stack->getItem()->isWeapon()) {
+							if (prevSlot != n)
+								supplies->selectedHotbarSlot = n;
+							return;
+						}
 					}
-					std::vector<vec3_t> posList;
-					vec3_t pos = ent->getPosOld()->lerp(ent->getPos(), DrawUtils::getLerpTime());
-					pos.y -= 1.62f;
-					pos.y += sin((Outline / 60) * PI) + 1;
-					for (auto& Booty : Lines) {
-						vec3_t curPos(pos.x, pos.y, pos.z);
-						posList.push_back(curPos.add(Booty));
-					}
-					DrawUtils::drawLinestrip3d(posList);
 				}
 			}
-		});
-
-		targetListA = targetList.empty();
-		if (g_Data.isInGame()) {
+		}
+		auto esp = moduleMgr->getModule<ESP>();
+		if (outline) {
+			Outline++;
+			if (esp->doRainbow) {
+				DrawUtils::setColor(rcolorrs[0], rcolorrs[1], rcolorrs[2], 1);
+			} else
+				DrawUtils::setColor(1.f, 1.f, 1.f, 1);
 			targetList.clear();
 			g_Data.forEachEntity(findEntity);
 
 			if (!targetList.empty()) {
-				if (sexy) {
-					joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-					auto player = g_Data.getLocalPlayer();
-					vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-					player->yawUnused2 = angle.x;
-					player->yawUnused2 = angle.y;
-					player->bodyYaw = angle.x;
-					player->bodyYaw = angle.y;
-				}
-				if (rotations) {
-					auto player = g_Data.getLocalPlayer();
-					vec3_t origin = g_Data.getLocalPlayer()->eyePos0;  // TODO: sort list
-					C_Entity* entity = targetList[0];
-					vec3_t pos = entity->aabb.centerPoint();
-					pos = pos.sub(origin);
-					float yaw = (atan2f(pos.z, pos.x) * DEG_RAD) - 90;
-					float len = pos.magnitudexz();
-					constexpr float g = 0.002f;  // nukkit = 0.012, some servers need different values
-					float tmp = 1 - g * (g * (len * len) + 2 * pos.y);
-					float pitch = DEG_RAD * -atanf((1 - sqrtf(tmp)) / (g * len));
-					vec2_t angle;
-					angle = vec2_t(pitch, yaw);
-					auto movePacket = g_Data.getLocalPlayer();
-					player->bodyYaw = angle.y;
-					player->yaw = angle.y;
-					player->viewAngles = angle;
-					movePacket->yawUnused1 = angle.y;
-				}
-				int prevSlot;
-				if (autoweapon) {
-					auto supplies = g_Data.getLocalPlayer()->getSupplies();
-					prevSlot = supplies->selectedHotbarSlot;
-					auto FinishSelect = true;
-					auto inv = supplies->inventory;
-					for (int n = 0; n < 9; n++) {
-						C_ItemStack* stack = inv->getItemStack(n);
-						if (stack->item != nullptr) {
-							if (stack->getItem()->isWeapon()) {
-								if (prevSlot != n)
-									supplies->selectedHotbarSlot = n;
-								return;
-							}
+				static auto noFriendsModule = moduleMgr->getModule<NoFriends>();
+				if (!noFriendsModule->isEnabled() && !FriendList::findPlayer(targetList[0]->getNameTag()->getText())) {
+					if (targetList[0] != g_Data.getLocalPlayer() && Target::isValidTarget(targetList[0])) {
+						vec3_t Lines[36];
+						for (int i = 0; i < 36; i++) {
+							Lines[i] = {sinf((i * 9) / (120 / PI)), 0.f, cosf((i * 9) / (120 / PI))};
 						}
+						std::vector<vec3_t> posList;
+						vec3_t pos = targetList[0]->getPosOld()->lerp(targetList[0]->getPos(), DrawUtils::getLerpTime());
+						pos.y -= 1.62f;
+						pos.y += sin((Outline / 60) * PI) + 1;
+						for (auto& Booty : Lines) {
+							vec3_t curPos(pos.x, pos.y, pos.z);
+							posList.push_back(curPos.add(Booty));
+						}
+						DrawUtils::drawLinestrip3d(posList);
 					}
-					return;
 				}
 			}
 		}
-		if (!g_Data.isInGame())
-			setEnabled(false);
 	}
+	if (!g_Data.isInGame())
+		setEnabled(false);
 }
 
 void Killaura::onEnable() {
 	if (g_Data.isInGame()) {
 		if (g_Data.getLocalPlayer() == nullptr)
 			setEnabled(false);
+	}
+}
+void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
+
+}
+
+void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
+	static auto Info = moduleMgr->getModule<Killaura>();
+
+	static auto Killauramod = moduleMgr->getModule<Killaura>();
+	if (!targetList.empty() && g_Data.isInGame() && Info->info){
+				vec4_t tempPos = vec4_t(120.f, 5.f, 90.f, 40.f);  //temp pos for the text pos, so we can create a pos that doesn't have player names overlapping from the box to the screen
+				vec2_t textPos = vec2_t(tempPos.y, tempPos.x);    //text pos
+				static float rcolors2[4];                         // Rainbow color array RGBA
+				static float disabledRcolors2[4];                 // Rainbow Colors, but for disabled modules
+				static float currColor[4];                        // ArrayList colors
+
+				// Rainbow color updates
+					Utils::ApplyRainbow(rcolors2, 0.001f);  // Increase Hue of rainbow color array
+					disabledRcolors2[0] = std::min(1.f, rcolors2[0] * 0.4f + 0.2f);
+					disabledRcolors2[1] = std::min(1.f, rcolors2[1] * 0.4f + 0.2f);
+					disabledRcolors2[2] = std::min(1.f, rcolors2[2] * 0.4f + 0.2f);
+					disabledRcolors2[3] = 1;
+				currColor[3] = rcolors2[3];
+				Utils::ColorConvertRGBtoHSV(rcolors2[0], rcolors2[1], rcolors2[2], currColor[0], currColor[2], currColor[2]);
+				Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
+				std::string name = targetList[0]->getNameTag()->getText();
+				std::string distance = "Distance: " + std::to_string((*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
+				std::string X = "X: " + std::to_string((targetList[0]->getPos()->x));
+				std::string Y = "Y: " + std::to_string((targetList[0]->getPos()->y));
+				std::string Z = "Z: " + std::to_string((targetList[0]->getPos()->z));
+				std::string DmgTime = "DmgTime: " + std::to_string((targetList[0]->damageTime));
+				std::string OnGround = "OnGround: " + std::to_string((targetList[0]->onGround));
+				std::string height = "height: " + std::to_string((targetList[0]->height));
+				std::string entityid = "EntityID: " + std::to_string((targetList[0]->getEntityTypeId()));
+				DrawUtils::drawText(textPos, &name, currColor, 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &distance, currColor, 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &X, currColor, 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &Y, currColor, 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &Z, currColor, 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &DmgTime, currColor, 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &OnGround, currColor, 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &height, currColor, 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &entityid, currColor, 1.f);
 	}
 }
 
@@ -268,95 +279,6 @@ void Killaura::onSendPacket(C_Packet* packet) {
 				authPacket->pitch = angle.x;
 				authPacket->yaw = angle.x;
 				authPacket->yaw = angle.y;
-			}
-		}
-	}
-}
-
-void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
-	static auto Info = moduleMgr->getModule<Killaura>();
-
-	static auto Killauramod = moduleMgr->getModule<Killaura>();
-	if (!targetList.empty() && g_Data.isInGame()) {
-		vec4_t tempPos = vec4_t(/*y*/ 170.f, /*z*/ 325.f, /*?*/ 90.f, /*?*/ 40.f);  // text temp pos for the text pos, so we can create a pos that doesn't have player names overlapping from the box to the screen
-		vec2_t textPos = vec2_t(tempPos.y, tempPos.x);                              //text pos
-		static float rcolors2[4];                                                   // Rainbow color array RGBA
-		static float disabledRcolors2[4];                                           // Rainbow Colors, but for disabled modules
-		static float currColor[4];                                                  // ArrayList colors
-
-		// Rainbow color updates
-		{
-			Utils::ApplyRainbow(rcolors2, 0.001f);  // Increase Hue of rainbow color array
-			disabledRcolors2[0] = std::min(1.f, rcolors2[0] * 0.4f + 0.2f);
-			disabledRcolors2[1] = std::min(1.f, rcolors2[1] * 0.4f + 0.2f);
-			disabledRcolors2[2] = std::min(1.f, rcolors2[2] * 0.4f + 0.2f);
-			disabledRcolors2[3] = 1;
-		}
-		currColor[3] = rcolors2[3];
-		Utils::ColorConvertRGBtoHSV(rcolors2[0], rcolors2[1], rcolors2[2], currColor[0], currColor[2], currColor[2]);
-		Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
-		std::string name = targetList[0]->getNameTag()->getText();
-		std::string distance = "Distance: " + std::to_string((*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-		std::string X = "X: " + std::to_string((targetList[0]->getPos()->x));
-		std::string Y = "Y: " + std::to_string((targetList[0]->getPos()->y));
-		std::string Z = "Z: " + std::to_string((targetList[0]->getPos()->z));
-
-		DrawUtils::drawText(textPos, &name, currColor, 1.f);
-		textPos.y += 10.f;
-		DrawUtils::drawText(textPos, &distance, currColor, 1.f);
-		textPos.y += 10.f;
-		DrawUtils::drawText(textPos, &X, currColor, 1.f);
-		textPos.y += 10.f;
-		DrawUtils::drawText(textPos, &Y, currColor, 1.f);
-		textPos.y += 10.f;
-		DrawUtils::drawText(textPos, &Z, currColor, 1.f);
-
-		if (Info->info) {
-			static auto Killauramod = moduleMgr->getModule<Killaura>();
-			if (!targetList.empty() && g_Data.isInGame()) {
-				vec4_t tempPos = vec4_t(120.f, 5.f, 90.f, 40.f);           //temp pos for the text pos, so we can create a pos that doesn't have player names overlapping from the box to the screen
-				vec2_t textPos = vec2_t(tempPos.y, tempPos.x);             //text pos
-				static float rcolors2[4];                                  // Rainbow color array RGBA
-				static float disabledRcolors2[4];                          // Rainbow Colors, but for disabled modules
-				static float currColor[4];                                 // ArrayList colors
-
-				// Rainbow color updates
-				{
-					Utils::ApplyRainbow(rcolors2, 0.001f);  // Increase Hue of rainbow color array
-					disabledRcolors2[0] = std::min(1.f, rcolors2[0] * 0.4f + 0.2f);
-					disabledRcolors2[1] = std::min(1.f, rcolors2[1] * 0.4f + 0.2f);
-					disabledRcolors2[2] = std::min(1.f, rcolors2[2] * 0.4f + 0.2f);
-					disabledRcolors2[3] = 1;
-				}
-				currColor[3] = rcolors2[3];
-				Utils::ColorConvertRGBtoHSV(rcolors2[0], rcolors2[1], rcolors2[2], currColor[0], currColor[2], currColor[2]);
-				Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
-				std::string name = targetList[0]->getNameTag()->getText();
-				std::string distance = "Distance: " + std::to_string((*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-				std::string X = "X: " + std::to_string((targetList[0]->getPos()->x));
-				std::string Y = "Y: " + std::to_string((targetList[0]->getPos()->y));
-				std::string Z = "Z: " + std::to_string((targetList[0]->getPos()->z));
-				std::string DmgTime = "DmgTime: " + std::to_string((targetList[0]->damageTime));
-				std::string OnGround = "OnGround: " + std::to_string((targetList[0]->onGround));
-				std::string height = "height: " + std::to_string((targetList[0]->height));
-				std::string entityid = "EntityID: " + std::to_string((targetList[0]->getEntityTypeId()));
-				DrawUtils::drawText(textPos, &name, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &distance, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &X, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &Y, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &Z, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &DmgTime, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &OnGround, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &height, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &entityid, currColor, 1.f);
 			}
 		}
 	}

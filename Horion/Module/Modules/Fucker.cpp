@@ -1,20 +1,23 @@
 #include "Fucker.h"
 
-Fucker::Fucker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys beds around you") {
-	registerIntSetting("Range", &this->range, this->range, 1, 10);
-	registerBoolSetting("Beds", &this->beds, this->beds);
-	registerBoolSetting("Eggs", &this->eggs, this->eggs);
-	registerBoolSetting("Cakes", &this->cakes, this->cakes);
-	registerBoolSetting("Treasures", &this->treasures, this->treasures);
-	registerBoolSetting("Chests", &this->chests, this->chests);
-	registerBoolSetting("Barrels", &this->barrels, this->barrels);
+Fucker::Fucker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific things around you") {
+	registerBoolSetting("Bypass", &bypass, bypass);
+	registerIntSetting("Range", &range, range, 1, 10);
+	registerBoolSetting("Beds", &beds, beds);
+	registerBoolSetting("Eggs", &eggs, eggs);
+	registerBoolSetting("Cakes", &cakes, cakes);
+	registerBoolSetting("Treasures", &treasures, treasures);
+	registerBoolSetting("Chests", &chests, chests);
+	registerBoolSetting("Redstone", &redstone, redstone);
+	registerBoolSetting("Diamonds", &diamond, diamond);
+	registerBoolSetting("Emeralds", &emerald, emerald);
 }
 
 Fucker::~Fucker() {
 }
 
 const char* Fucker::getModuleName() {
-	return ("Fucker");
+	return ("Breaker");
 }
 
 void Fucker::onTick(C_GameMode* gm) {
@@ -24,27 +27,41 @@ void Fucker::onTick(C_GameMode* gm) {
 			for (int y = (int)pos->y - range; y < pos->y + range; y++) {
 				vec3_ti blockPos = vec3_ti(x, y, z);
 				bool destroy = false;
-				auto id = gm->player->region->getBlock(blockPos)->toLegacy()->blockId;
+				bool eat = false;
+				int id = gm->player->region->getBlock(blockPos)->toLegacy()->blockId;
 
-				if (id == 26 && this->beds) destroy = true;      // Beds
-				if (id == 122 && this->eggs) destroy = true;     // Dragon Eggs
-				if (id == 92 && this->cakes) destroy = true;     // Cakes
-				if (id == 54 && this->chests) destroy = true;    // Chests
-				if (id == 458 && this->barrels) destroy = true;  // Barrels
-
+				if (id == 26 && beds) destroy = true;    // Beds
+				if (id == 122 && eggs) destroy = true;   // Dragon Eggs
+				if (id == 92 && cakes) eat = true;       // Cakes
+				if (id == 54 && chests) destroy = true;  // Chests
+				if (id == 73 && redstone) destroy = true;
+				if (id == 74 && redstone) destroy = true;  // Redstone
+				if (id == 56 && diamond) destroy = true;   // Diamond
+				if (id == 129 && emerald) destroy = true;  // Emerald
 				if (destroy) {
-					gm->destroyBlock(&blockPos, 0);
+					if (!bypass)
+						gm->destroyBlock(&blockPos, 0);
+					else {
+						bool isDestroyed = false;
+						gm->startDestroyBlock(blockPos, 1, isDestroyed);
+						gm->destroyBlock(&blockPos, 1);
+					}
+				}
+				if (eat) {
+					gm->buildBlock(&blockPos, 0);
 					g_Data.getLocalPlayer()->swingArm();
 					return;
 				}
 			}
 		}
 	}
+}
 
-	if (this->treasures) {
+void Fucker::onLevelRender() {
+	if (treasures) {
 		g_Data.forEachEntity([](C_Entity* ent, bool b) {
 			std::string name = ent->getNameTag()->getText();
-			int id = (int)ent->getEntityTypeId();
+			int id = ent->getEntityTypeId();
 			if (name.find("Treasure") != std::string::npos && g_Data.getLocalPlayer()->getPos()->dist(*ent->getPos()) <= 5) {
 				g_Data.getCGameMode()->attack(ent);
 				g_Data.getLocalPlayer()->swingArm();
