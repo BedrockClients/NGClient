@@ -95,7 +95,6 @@ void Killaura::findWeapon() {
 void Killaura::onTick(C_GameMode* gm) {
 	targetListA = targetList.empty();
 	if (g_Data.isInGame()) {
-		targetList.clear();
 		g_Data.forEachEntity(findEntity);
 		if (autoweapon) findWeapon();
 		if (!targetList.empty()) {
@@ -194,12 +193,16 @@ void Killaura::onLevelRender() {
 }
 
 void Killaura::onEnable() {
+	targetList.clear();
 	if (g_Data.isInGame()) {
 		if (g_Data.getLocalPlayer() == nullptr)
 			setEnabled(false);
 	}
 }
-void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
+void Killaura::onDisable() {
+	targetList.clear();
+}
+	void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 }
 

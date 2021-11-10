@@ -1,7 +1,7 @@
 #include "Fucker.h"
 
 Fucker::Fucker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific things around you") {
-	registerBoolSetting("Bypass", &bypass, bypass);
+	registerBoolSetting("Hive Bypass", &bypass, bypass);
 	registerIntSetting("Range", &range, range, 1, 10);
 	registerBoolSetting("Beds", &beds, beds);
 	registerBoolSetting("Eggs", &eggs, eggs);
@@ -43,8 +43,9 @@ void Fucker::onTick(C_GameMode* gm) {
 						gm->destroyBlock(&blockPos, 0);
 					else {
 						bool isDestroyed = false;
-						gm->startDestroyBlock(blockPos, 1, isDestroyed);
-						gm->destroyBlock(&blockPos, 1);
+						gm->startDestroyBlock(blockPos, 0, isDestroyed);
+						gm->destroyBlock(&blockPos, 0);
+						gm->stopDestroyBlock(blockPos);
 					}
 				}
 				if (eat) {
