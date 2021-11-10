@@ -23,7 +23,6 @@ void AutoClick::onTick(C_GameMode* gm) {
 
 		if (Odelay >= delay) {
 			auto selectedItem = localPlayer->getSelectedItem();
-			auto clickgu = moduleMgr->getModule<ClickGuiMod>();
 			if (weapons && selectedItem->getAttackingDamageWithEnchants() < 1)
 				return;
 			if (!rightclick) {
