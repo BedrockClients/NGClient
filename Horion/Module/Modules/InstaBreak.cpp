@@ -11,7 +11,7 @@ const char* InstaBreak::getModuleName() {
 	return ("InstaBreak");
 }
 void InstaBreak::onTick(C_GameMode* gm) {
-	if (GameData::isLeftClickDown() && bypass) {
+	if (GameData::isLeftClickDown() && bypass && g_Data.isInGame()) {
 		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 		PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
 		bool isDestroyed = false;
