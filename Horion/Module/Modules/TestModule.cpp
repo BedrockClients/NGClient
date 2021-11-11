@@ -82,7 +82,9 @@ void TestModule::onEnable() {
 	//if (!tagtr.empty()) {
 		if (g_Data.isInGame()) {
 			C_LocalPlayer* player = g_Data.getLocalPlayer();
-			player->openSign(vec3_ti(-2, 63, -2));
+			vec3_ti block = g_Data.getClientInstance()->getPointerStruct()->block;
+			//player->openSign(vec3_ti(-2, 63, -2));
+			player->openSign(block);
 			//g_Data.getClientInstance()->releaseMouse();
 	//	}
 	}
