@@ -699,6 +699,7 @@
     <ClInclude Include="SDK\CRakNetInstance.h" />
     <ClInclude Include="SDK\CUIScene.h" />
     <ClInclude Include="SDK\MatrixStack.h" />
+    <ClInclude Include="SDK\CMobEffect.h" />
     <ClInclude Include="SDK\MojangsonToken.h" />
     <ClInclude Include="SDK\Tag.h" />
     <ClInclude Include="SDK\Tessellator.h" />

@@ -21,6 +21,7 @@
 #include "../../path/JoePathFinder.h"
 #include "../../path/goals/JoeGoal.h"
 #include "../../path/goals/JoeGoalXZ.h"
+#include "../../../SDK/CMobEffect.h"
 
 using json = nlohmann::json;
 
@@ -75,14 +76,22 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 }
 
 void TestModule::onEnable() {
-	if (g_Data.isInGame()) {
-		C_LocalPlayer* player = g_Data.getLocalPlayer();
+	//tagtr.clear();
+	//g_Data.forEachEntity(findjeoe);
+
+	//if (!tagtr.empty()) {
+		if (g_Data.isInGame()) {
+			C_LocalPlayer* player = g_Data.getLocalPlayer();
+			player->openSign(vec3_ti(-2, 63, -2));
+			//g_Data.getClientInstance()->releaseMouse();
+	//	}
 	}
 }
 
 void TestModule::onTick(C_GameMode* gm) {
 	if (g_Data.isInGame()) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
+		//player->openPortfolio();
 	}
 }
 

@@ -485,6 +485,7 @@
     <ClInclude Include="Horion\Module\Modules\AutoClick.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
     <ClInclude Include="Horion\Module\Modules\AntiLagBack.h" />
+    <ClInclude Include="SDK\CMobEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
