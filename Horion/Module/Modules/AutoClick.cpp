@@ -25,22 +25,23 @@ void AutoClick::onTick(C_GameMode* gm) {
 			auto selectedItem = localPlayer->getSelectedItem();
 			if (weapons && selectedItem->getAttackingDamageWithEnchants() < 1)
 				return;
-
-			g_Data.leftclickCount++;
-
-			//if (!moduleMgr->getModule<NoSwing>()->isEnabled())
-			localPlayer->swingArm();
-
-			if (pointing->hasEntity())
-				gm->attack(pointing->getEntity());
-			else if (breakBlocks) {
-				bool isDestroyed = false;
-				gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
-				gm->stopDestroyBlock(pointing->block);
-				if (isDestroyed && localPlayer->region->getBlock(pointing->block)->blockLegacy->blockId != 0)
-					gm->destroyBlock(&pointing->block, 0);
+			if (!rightclick) {
+				if (pointing->hasEntity()) {
+					g_Data.leftclickCount++;
+					localPlayer->swingArm();
+					gm->attack(pointing->getEntity());
+				} else if (breakBlocks) {
+					bool isDestroyed = false;
+					localPlayer->swingArm();
+					g_Data.leftclickCount++;
+					gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
+					if (isDestroyed && localPlayer->region->getBlock(pointing->block)->blockLegacy->blockId != 0)
+					gm->destroyBlock(&pointing->block, pointing->blockSide);
+					if (isDestroyed) 
+						gm->stopDestroyBlock(pointing->block);
+				}
+				Odelay = 0;
 			}
-			Odelay = 0;
 		}
 	}
 
@@ -50,6 +51,10 @@ void AutoClick::onTick(C_GameMode* gm) {
 			Odelay++;
 			if (Odelay >= delay) {
 				g_Data.rightclickCount++;
+				C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
+				localPlayer->swingArm();
+				gm->startBuildBlock(vec3_ti(pstruct->block), pstruct->blockSide);
+				gm->stopBuildBlock();
 				gm->buildBlock(new vec3_ti(pstruct->block), pstruct->blockSide);
 				Odelay = 0;
 			}

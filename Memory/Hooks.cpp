@@ -1282,7 +1282,7 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 		sexyAngle = {botMod->bot.x, botMod->bot.y};
 	}
 	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->sexy) {
-		sexyAngle = {killauraMod->joe.x, killauraMod->joe.y};
+		sexyAngle = {killauraMod->joe};
 	}
 	if (freelookMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
 		sexyAngle = {freelookMod->deez.x, freelookMod->deez.y};
@@ -1423,7 +1423,7 @@ void Hooks::GameMode_startDestroyBlock(C_GameMode* _this, vec3_ti* a2, uint8_t f
 		}
 		return;
 	}
-	if (instaBreakModule->isEnabled()) {
+	if (instaBreakModule->isEnabled() && !instaBreakModule->bypass) {
 		_this->destroyBlock(a2, face);
 		return;
 	}

@@ -1,16 +1,19 @@
 #pragma once
-#include "Module.h"
 #include "../ModuleManager.h"
+#include "Module.h"
 
 class Fucker : public IModule {
 private:
 	int range = 5;
-	bool beds = true;
-	bool eggs = true;
-	bool cakes = true;
-	bool treasures = true;
-	bool chests = false;
-	bool barrels = false;
+	bool beds = false;
+	bool eggs = false;
+	bool cakes = false;
+	bool treasures = false;
+	bool chests = true;
+	bool redstone = false;
+	bool diamond = false;
+	bool emerald = false;
+	bool bypass = false;
 
 public:
 	Fucker();
@@ -19,4 +22,5 @@ public:
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
 	virtual void onTick(C_GameMode* gm) override;
+	virtual void onLevelRender() override;
 };

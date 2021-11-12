@@ -31,6 +31,7 @@ public:
 	virtual void onTick(C_GameMode* gm) override;
 	virtual void onLevelRender() override;
 	virtual void onEnable() override;
+	virtual void onDisable() override;
 	virtual void onSendPacket(C_Packet* packet) override;
 	virtual void onPreRender(C_MinecraftUIRenderContext* renderCtx) override;
 	virtual void onPostRender(C_MinecraftUIRenderContext* ctx) override;

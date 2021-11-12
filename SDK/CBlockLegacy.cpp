@@ -14,9 +14,9 @@ C_BlockActor* C_BlockSource::getBlockEntity(const vec3_ti& block) {
 	return getBlockEntity(this, block);
 }
 C_Block* C_BlockSource::getLiquidBlock(const vec3_ti& block) {
-	using getLiquidBlock_t = C_Block*(__fastcall*)(C_BlockSource*, const vec3_ti&);
-	static getLiquidBlock_t getLiquidBlock = Utils::FuncFromSigOffset<getLiquidBlock_t>(FindSignature("E8 ? ? ? ? 48 8B C8 48 8B 47 ?"), 1);
-	return getLiquidBlock(this, block);
+	using getLiquidBlock_t = C_Block*(__fastcall*)(C_BlockSource*, const vec3_ti&);//E8 41 7D 6A 01 48 8B C8 48 8B 46 10
+	static getLiquidBlock_t getLiquidBlock = Utils::FuncFromSigOffset<getLiquidBlock_t>(FindSignature("E8 41 7D 6A ? ? ? ? ? ? ? ?"), 1);
+	return getLiquidBlock(this, block);//E8 41 7D 6A ?? ?? ?? ?? ?? ?? ?? ??
 }
 bool C_BlockLegacy::getCollisionShape(AABB* collShapeOut, C_Block* block, C_BlockSource* blockSource, const vec3_ti* pos, C_Entity* actor) {
 	return Utils::CallVFunc<5, bool, AABB*, C_Block*, C_BlockSource*, const vec3_ti*, C_Entity*>(this, collShapeOut, block, blockSource, pos, 0);

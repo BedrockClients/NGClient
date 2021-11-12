@@ -23,8 +23,10 @@ void HiveNuker::onTick(C_GameMode* gm) {
 				if (gm->player->region->getBlock(blockPos)->toLegacy()->blockId) destroy = true;
 
 				if (destroy) {
+					bool isDestroyed = false;
+					gm->startDestroyBlock(blockPos, 0, isDestroyed);
 					gm->destroyBlock(&blockPos, 0);
-					//if (!moduleMgr->getModule<NoSwing>()->isEnabled())
+					gm->stopDestroyBlock(blockPos);
 					g_Data.getLocalPlayer()->swingArm();
 					return;
 				}
