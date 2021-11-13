@@ -410,7 +410,7 @@ bool ScriptManager::importScriptFolder(std::string path) {
 			if (err != 0)
 				continue;
 			std::wstring fileName = std::wstring(fname) + ext;
-			if (fileName == L"start.js") {
+			if (fileName == L"run.js") {
 				// check if script with that name is active already
 				for (auto it = this->scriptInstances.begin(); it != this->scriptInstances.end(); it++) {
 					auto startScriptPath = (*it)->getStartScriptPath();
