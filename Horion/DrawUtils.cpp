@@ -695,7 +695,7 @@ void DrawUtils::fillRectangle(vec4_t pos, const MC_Color col, float alpha) {
 }
 void DrawUtils::DrawOutline(vec2_t position, vec2_t size, MC_Color colour, float width) {
 	if (renderCtx == nullptr) return;
-	renderCtx->drawRect(vec4_t(position.x, position.x + size.x, position.y, position.y + size.y), MC_Color(0, 0, 0), colour.a, (int)width);
+	renderCtx->drawRect(vec4_t(position.x, position.x + size.x, position.y, position.y + size.y), MC_Color(colour), colour.a, (int)width);
 };
 void DrawUtils::tess__begin(Tessellator* tess, int vertexFormat, int numVerticesReserved) {
 	__int64 tesselator = reinterpret_cast<__int64>(tess);
