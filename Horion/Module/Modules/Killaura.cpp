@@ -17,7 +17,14 @@ Killaura::~Killaura() {
 }
 
 const char* Killaura::getModuleName() {
-	return ("Killaura");
+	if (rotations) {
+		return "Killaura [Rotations]";
+	} else if(sexy) {
+		return "Killaura [Sexy]";
+	} else if(silent) {
+		return "Killaura [Silent]";
+	}else
+	return "Killaura";
 }
 
 struct CompareTargetEnArray {
