@@ -177,7 +177,7 @@ float DrawUtils::getTextWidth(std::string* textStr, float textSize, Fonts font) 
 
 	C_Font* fontPtr = getFont(font);
 
-	float ret = renderCtx->getLineLength(fontPtr, &text, textSize, false);
+	float ret = renderCtx->getLineLength(fontPtr, &text, textSize);
 
 	return ret;
 }
@@ -693,6 +693,10 @@ void DrawUtils::fillRectangle(vec4_t pos, const MC_Color col, float alpha) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
 }
+void DrawUtils::DrawOutline(vec2_t position, vec2_t size, MC_Color colour, float width) {
+	if (renderCtx == nullptr) return;
+	renderCtx->drawRect(vec4_t(position.x, position.x + size.x, position.y, position.y + size.y), MC_Color(0, 0, 0), colour.a, (int)width);
+};
 void DrawUtils::tess__begin(Tessellator* tess, int vertexFormat, int numVerticesReserved) {
 	__int64 tesselator = reinterpret_cast<__int64>(tess);
 

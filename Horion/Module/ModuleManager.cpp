@@ -98,7 +98,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new TimeChanger()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Spider()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Compass()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Radar()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new Radar()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ViewModel()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestStealer()));

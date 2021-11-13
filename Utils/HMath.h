@@ -21,7 +21,7 @@ struct vec2_t {
 	};
 	vec2_t() { x = y = 0; }
 	vec2_t(float a, float b) : x(a), y(b) {}
-	vec2_t(int a, int b) : x((float)a), y((float)b) {}
+	//vec2_t(int a, int b) : x((float)a), y((float)b) {}
 	vec2_t &operator=(const vec2_t &copy) {
 		x = copy.x;
 		y = copy.y;

@@ -13,6 +13,9 @@
 Hooks g_Hooks;
 bool isTicked = false;
 bool overrideStyledReturn = false;
+bool justEnabled = true;
+bool isOpen = true;
+int enabledTicks = 0;
 TextHolder styledReturnText;
 //#define TEST_DEBUG
 
@@ -426,19 +429,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			float elapsedFlot = (float)elapsed.QuadPart / frequency.QuadPart;
 			if (elapsedFlot > 1.5f && !hasSentWarning) {
 				hasSentWarning = true;
-			    auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
-				box->closeTimer = 7;
+			    //auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
+				//box->closeTimer = 0;
 				vec2_t windowSize = dat->windowSize;
-
-				DrawUtils::fillRectangle(vec4_t(0, 0, windowSize.x, windowSize.y), MC_Color(0.2f, 0.2f, 0.2f), 0.8f);
-
-				std::string text = "Download the new injector at http://horionbeta.club/";
-				if (!wasConnectedBefore)
-					DrawUtils::drawText(vec2_t(windowSize.x / 2 - DrawUtils::getTextWidth(&text, 1.5f) / 2, windowSize.y * 0.4f), &text, MC_Color(), 1.5f);
-				text = "Remember to keep the injector open while playing";
-				DrawUtils::drawText(vec2_t(windowSize.x / 2 - DrawUtils::getTextWidth(&text, wasConnectedBefore ? 1.5f : 0.7f) / 2, windowSize.y * (wasConnectedBefore ? 0.5f : 0.7f)), &text, MC_Color(), wasConnectedBefore ? 1.5f : 0.7f);
-				text = "Uninject by holding down CTRL + L";
-				DrawUtils::drawText(vec2_t(windowSize.x / 2 - DrawUtils::getTextWidth(&text, 0.7f) / 2, windowSize.y * 0.8f), &text, MC_Color(), 0.7f);
 
 				DrawUtils::flush();
 			}
@@ -447,6 +440,25 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				return retval;
 		} else
 			wasConnectedBefore = true;
+	}
+	//Simple Inject Notification
+
+	if (justEnabled) {
+		enabledTicks++;
+		if (enabledTicks > 1 && enabledTicks < 1000) {  //around 3s //checking if bigger then 1 to make sure no rando crashes appear :P
+			std::string text = "Thanks For Choosing The NG Client! We Are 22!";
+			auto catText = TextHolder("Thanks For Choosing The NG Client! We Are 22!");
+			std::string tempStr("Movement");
+			vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+			float len = DrawUtils::getTextWidth(&tempStr, 1.f) + 7.f;
+			vec4_t rectPos = vec4_t(0.5f, 6 * 10.f * 1 + 30.f * 1.f, len, 6 * 10.f * 1 + 100.f * 1.f);
+			vec4_t rectPoos = vec4_t(windowSize.x, 6 * 11.f * 1 + 6.f * 1.5f, len, 6 * 10.f * 1 + 15.f * 1.f);
+			DrawUtils::drawText(vec2_t(rectPos.y + 147.f, rectPos.x + 4.f), &text, MC_Color(154, 0, 200), enabledTicks/500);
+			DrawUtils::DrawOutline(vec2_t(284 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 3), vec2_t(enabledTicks / 5.5, enabledTicks / 83), MC_Color(0, 0, 0), 1.0);
+		} else if (enabledTicks > 1000) {  //this is so the text dissapears btw, same goes for enabledTicks and justEnabled ;/
+			justEnabled = false;
+			enabledTicks = 0;
+		}
 	}
 
 	if (GameData::shouldHide() || !moduleMgr->isInitialized())

@@ -35,7 +35,7 @@ private:
 	virtual void unk5();
 
 public:
-	virtual float getLineLength(TextHolder* str, float textSize, bool unknown);
+	virtual float getLineLength(TextHolder* str, float textSize);//bool unknown
 	virtual float getLineHeight();
 };
 
@@ -53,7 +53,7 @@ private:
 public:
 	C_TexturePtr* getTexture(C_TexturePtr* ptr, C_FilePath& path);
 	virtual ~C_MinecraftUIRenderContext();
-	virtual float getLineLength(C_Font* font, TextHolder* str, float textSize, bool unknown);
+	virtual float getLineLength(C_Font* font, TextHolder* str, float textSize);//bool unknown
 	virtual float getTextAlpha();
 	virtual void setTextAlpha(float alpha);
 	virtual __int64 drawDebugText(const float* pos, TextHolder* text, float* color, float alpha, unsigned int textAlignment, const float* textMeasureData, const void* caretMeasureData);
@@ -65,6 +65,7 @@ public:
 	virtual __int64 beginSharedMeshBatchNOTIMPLEMENTED();
 	virtual __int64 endSharedMeshBatchNOTIMPLEMENTED();
 	virtual void drawRectangle(const float* pos, const float* color, float alpha, int lineWidth);  // line width is guessed
+	virtual auto drawRect(vec4_t position, MC_Color& colour, float alpha, int lineWidth) -> void{};
 	virtual void fillRectangle(const float* pos, const float* color, float alpha);
 	// There are a few more functions but didnt bother
 };
