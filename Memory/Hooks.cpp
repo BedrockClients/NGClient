@@ -523,7 +523,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				}
 			}
 			// Draw Custom Geo Button
-			if (g_Data.allowWIPFeatures() && g_Data.isInjectorConnectionActive()) {
+			//if (g_Data.allowWIPFeatures() && g_Data.isInjectorConnectionActive()) {
 				if (HImGui.Button("Load Script Folder", vec2_t(wid.x * (0.765f - 0.5f), wid.y * 0.92f), true)) {
 					HorionDataPacket packet;
 					packet.cmd = CMD_FOLDERCHOOSER;
@@ -633,7 +633,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 					g_Data.sendPacketToInjector(packet);
 				}
-			}
+			//}
 		} else {
 			//shouldRenderTabGui = hudModule->tabgui && hudModule->isEnabled();
 			shouldRenderArrayList = hudModule->arraylist && hudModule->isEnabled();
