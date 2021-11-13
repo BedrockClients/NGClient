@@ -4,6 +4,7 @@ class Glide : public IModule {
 private:
 	float glideMod = -0.01f;
 	float glideModEffective = 0;
+	bool fart = false;
 
 public:
 	Glide();
