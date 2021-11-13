@@ -453,7 +453,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPoos = vec4_t(windowSize.x, 6 * 11.f * 1 + 6.f * 1.5f, 13.f, 6 * 10.f * 1 + 15.f * 1.f);
 			DrawUtils::drawText(vec2_t(rectPos.y + 147.f, rectPos.x + 4.f), &text, MC_Color(154, 0, 200), enabledTicks/500);
 			DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
-			DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 4.3), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
+			DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 4.2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
 			DrawUtils::DrawOutline(vec2_t(284 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 3), vec2_t(enabledTicks / 5.5, enabledTicks / 83), MC_Color(0, 0, 0), 1.0);
 		} else if (enabledTicks > 1000) {  //this is so the text dissapears btw
 			justEnabled = false;
