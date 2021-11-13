@@ -535,7 +535,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					packet.params[0] = g_Data.addInjectorResponseCallback([](std::shared_ptr<HorionDataPacket> pk) {
 						if (pk->params[0] != 1) {  // Dialog Canceled, reset geo
 							auto box = g_Data.addInfoBox("Scripting", "Invalid Folder");
-							box->closeTimer = 1;
+							box->closeTimer = 8;
 							return;
 						}
 
@@ -551,7 +551,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 									box->fadeTarget = 0;
 								else {
 									box->message = "Script import error, \ncheck the console";
-									box->closeTimer = 2;
+									box->closeTimer = 8;
 								}
 							});
 							gamer.detach();
