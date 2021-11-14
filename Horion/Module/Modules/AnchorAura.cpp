@@ -13,7 +13,7 @@ AnchorAura::AnchorAura() : IModule(VK_NUMPAD0, Category::COMBAT, "Absolutly dest
 	registerBoolSetting("Suicide", &dump, dump);
 	registerBoolSetting("Enhance place", &pEnhanced, pEnhanced);
 	registerBoolSetting("preview", &Preview, Preview);
-	delay = 0;
+delay = 0;
 }
 AnchorAura::~AnchorAura() {
 }
