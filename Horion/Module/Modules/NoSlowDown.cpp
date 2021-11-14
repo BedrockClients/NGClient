@@ -42,6 +42,7 @@ void NoSlowDown::onEnable() {
 		__debugbreak();
 #endif
 	} else {
+		//noping the individual bytes
 		opcode1[0] = 0x90;
 		opcode1[1] = 0x90;
 		opcode1[2] = 0x90;

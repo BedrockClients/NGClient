@@ -1,4 +1,5 @@
 #include "Derp.h"
+#include "../ModuleManager.h"
 
 Derp::Derp() : IModule(0, Category::PLAYER, "lol you stupid") {
 	registerBoolSetting("ihaveastroke", &epicStroke, epicStroke);
@@ -10,7 +11,17 @@ Derp::~Derp() {
 }
 
 const char* Derp::getModuleName() {
-	return "Derp";
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (hive) {
+			return "Derp [Hive]";
+		} else if (epicStroke) {
+			return "Derp [Stroke]";
+		} else if (packetMode) {
+			return "Derp [Packet]";
+		}
+	} else
+		return "Derp";
 }
 
 void Derp::onTick(C_GameMode* gm) {

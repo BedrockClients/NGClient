@@ -16,7 +16,17 @@ CrystalAura::CrystalAura() : IModule(VK_NUMPAD0, Category::COMBAT, "Destroys nea
 CrystalAura::~CrystalAura() {
 }
 const char* CrystalAura::getModuleName() {
-	return ("CrystalAura");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (autoplace || AutoSelect || pEnhanced) {
+			return "CrystalAura [Auto]";
+		} else if (Give) {
+			return "CrystalAura [Give]";
+		} else if (Preview) {
+			return "CrystalAura [Preview]";
+		}
+	} else
+		return "CrystalAura";
 }
 
 static std::vector<C_Entity*> targetList;

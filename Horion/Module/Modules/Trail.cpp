@@ -1,5 +1,6 @@
 #include "../../DrawUtils.h"
 #include "Trail.h"
+#include "../ModuleManager.h"
 
 Trail::Trail() : IModule(0x0, Category::GUI, "Leaves a trail behind you") {
 	registerBoolSetting("Rainbow", &Rainbow, Rainbow);
@@ -13,7 +14,13 @@ Trail::~Trail() {
 static float rcolors[4];
 
 const char* Trail::getModuleName() {
-	return ("Trail");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (Rainbow) 
+			return "Trail [RGB]";
+		
+	} else
+		return "Trail";
 }
 
 void Trail::onTick(C_GameMode* gm) {

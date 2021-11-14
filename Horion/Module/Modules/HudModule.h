@@ -14,6 +14,7 @@ public:
 	bool ice = false;
 	bool rgb = false;
 	bool bottom = false;
+	bool bools = false;
 	bool rgbtext = true;
 	bool tabgui = false;
 	bool arraylist = true;

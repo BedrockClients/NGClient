@@ -1,4 +1,5 @@
 #include "Mineplex.h"
+#include "../ModuleManager.h"
 
 Mineplex::Mineplex() : IModule(0x0, Category::SERVER, "Bypass moevment hacks for Mineplex") {
 	this->registerBoolSetting("DelayMode", &this->delayMode, this->delayMode);
@@ -9,7 +10,13 @@ Mineplex::~Mineplex() {
 }
 
 const char* Mineplex::getModuleName() {
-	return ("MineplexBypass");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (delayMode) {
+			return "MineplexBypass [Delay]";
+		}
+	} else
+		return "MineplexBypass";
 }
 
 void Mineplex::onTick(C_GameMode* gm) {

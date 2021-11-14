@@ -1,4 +1,5 @@
 #include "Nuker.h"
+#include "../ModuleManager.h"
 
 Nuker::Nuker() : IModule(VK_NUMPAD5, Category::WORLD, "Break multiple blocks at once") {
 	this->registerIntSetting("radius", &this->nukerRadius, this->nukerRadius, 1, 50);
@@ -10,7 +11,15 @@ Nuker::~Nuker() {
 }
 
 const char* Nuker::getModuleName() {
-	return ("Nuker");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (autodestroy) {
+			return "Nuker [Auto]";
+		} else if (veinMiner) {
+			return "Nuker [Veins]";
+		}
+	} else
+		return "Nuker";
 }
 
 void Nuker::onTick(C_GameMode* gm) {

@@ -12,7 +12,15 @@ AntiVoid::~AntiVoid() {
 }
 
 const char* AntiVoid::getModuleName() {
-	return ("AntiVoid");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (mode.selected == 0) {
+			return "AntiVoid [Teleport]";
+		} else if (mode.selected == 1) {
+			return "Antivoid [Bounce]";
+		}
+	} else
+		return "Antivoid";
 }
 
 void AntiVoid::onTick(C_GameMode* gm) {

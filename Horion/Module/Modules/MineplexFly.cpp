@@ -1,4 +1,5 @@
 #include "MineplexFly.h"
+#include "../ModuleManager.h"
 
 MineplexFly::MineplexFly() : IModule('R', Category::SERVER, "Flight bypass for Mineplex") {
 	registerFloatSetting("speed", &this->speedMod, 1, 0.3f, 2.5f);
@@ -32,7 +33,15 @@ void MineplexFly::onEnable() {
 }
 
 const char* MineplexFly::getModuleName() {
-	return ("MineplexFly");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (up) {
+			return "MineplexFly [Up+]";
+		} else if (isBypass) {
+			return "MineplexFly [Up]";
+		}
+	} else
+		return "MineplexFly";
 }
 
 void MineplexFly::onTick(C_GameMode* gm) {

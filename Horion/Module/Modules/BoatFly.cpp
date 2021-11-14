@@ -3,14 +3,20 @@
 #include "../ModuleManager.h"
 
 BoatFly::BoatFly() : IModule(0, Category::ENTITY, "Fly, for boats (Use arrow Keys for Virtical Movement!)") {
-	this->registerFloatSetting("Fly Speed", &this->boatflyspeed, this->boatflyspeed, 1.f, 10.f);
+	registerFloatSetting("Speed", &this->boatflyspeed, this->boatflyspeed, 1.f, 10.f);
 }
 
 BoatFly::~BoatFly() {
 }
 
 const char* BoatFly::getModuleName() {
-	return ("BoatFly");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		static char modName[30];  // This is kinda ghetto rn, there should be a better way to make this...
+		sprintf_s(modName, 30, "BoatFly [Speed: %.2f]", boatflyspeed);
+		return modName;
+	} else
+		return ("BoatFly");
 }
 
 static std::vector<C_Entity*> targetList;

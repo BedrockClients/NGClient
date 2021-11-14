@@ -9,7 +9,7 @@ const char* Speed::getModuleName() {
 }
 void Speed::onTick(C_GameMode* gm) {
 	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-
+	// intop THIS IS HOW U GET THE ACTUAL SPEED NUMBER!!!
 	float* speedAdr = reinterpret_cast<float*>(g_Data.getLocalPlayer()->getSpeed() + 0x84);
 	*speedAdr = speed;
 }

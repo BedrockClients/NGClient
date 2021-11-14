@@ -1,4 +1,5 @@
 #include "Zoom.h"
+#include "../ModuleManager.h"
 
 Zoom::Zoom() : IModule('C', Category::VISUAL, "Zoom in or out!") {
 	registerFloatSetting("Strength", &this->strength, this->strength, -100.f, 100.f);
@@ -13,7 +14,12 @@ bool Zoom::isFlashMode() {
 }
 
 const char* Zoom::getModuleName() {
-	return ("Zoom");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (smooth) 
+			return "Zoom [Smooth]";
+	} else
+		return "Zoom";
 }
 
 void Zoom::onEnable() {

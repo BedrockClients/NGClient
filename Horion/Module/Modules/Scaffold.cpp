@@ -1,6 +1,7 @@
 #include "Scaffold.h"
 
 #include "../../../Utils/Logger.h"
+#include "../ModuleManager.h"
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
 	registerBoolSetting("Spoof", &this->spoof, this->spoof);
@@ -15,7 +16,20 @@ Scaffold::~Scaffold() {
 }
 
 const char* Scaffold::getModuleName() {
-	return "Scaffold";
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (airplace) {
+			return "Scaffold [Air]";
+		} else if (spoof) {
+			return "Scaffold [Spoof]";
+		} else if (predict) {
+			return "Scaffold [Predict]";
+		} else if (staircaseMode)
+			return "Scaffold [Stairs]";
+		else if (autoselect)
+			return "Scaffold [AutoSelect]";
+	} else
+		return "Scaffold";
 }
 
 bool Scaffold::tryScaffold(vec3_t blockBelow) {

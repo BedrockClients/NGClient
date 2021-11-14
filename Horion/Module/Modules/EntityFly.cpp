@@ -9,7 +9,13 @@ EntityFly::~EntityFly() {
 }
 
 const char* EntityFly::getModuleName() {
-	return ("EntityFly");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		static char modName[30];  // This is kinda ghetto rn, there should be a better way to make this...
+		sprintf_s(modName, 30, "EntityFly [Speed: %.2f]", speed);
+		return modName;
+	} else
+		return ("EntityFly");
 }
 
 static std::vector<C_Entity*> targetList;

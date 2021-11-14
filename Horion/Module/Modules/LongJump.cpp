@@ -10,7 +10,15 @@ LongJump::LongJump() : IModule(0, Category::MOVEMENT, "Jump, but Long") {
 }
 
 const char* LongJump::getModuleName() {
-	return "LongJump";
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (slow) {
+			return "LongJump [Slow]";
+		} else if (hit) {
+			return "LongJump [Hit]";
+		}
+	} else
+		return "LongJump";
 }
 
 void LongJump::onEnable() {

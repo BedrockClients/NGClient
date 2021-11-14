@@ -16,7 +16,19 @@ Aimbot::~Aimbot() {
 }
 
 const char* Aimbot::getModuleName() {
-	return ("Aimbot");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (click) {
+			return "Aimbot [Click]";
+		} else if (sword) {
+			return "Aimbot [Weapon]";
+		} else if (vertical) {
+			return "Aimbot [Vertical]";
+		} else if (lock) {
+			return "Aimbot [Lock]";
+		}
+	} else
+		return "Aimbot";
 }
 
 struct CompareTargetEnArray {

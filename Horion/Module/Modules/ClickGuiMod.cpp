@@ -14,7 +14,17 @@ ClickGuiMod::~ClickGuiMod() {
 }
 
 const char* ClickGuiMod::getModuleName() {
-	return ("ClickGui");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (surge) {
+			return "ClickGui [Surge]";
+		} else if (RGB) {
+			return "ClickGui [RGB]";
+		} else if (showTooltips) {
+			return "ClickGui [Tooltips]";
+		}
+	} else
+		return "ClickGui";
 }
 
 void ClickGuiMod::onEnable() {

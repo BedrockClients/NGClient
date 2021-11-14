@@ -7,7 +7,7 @@ Totem::~Totem() {
 }
 
 const char* Totem::getModuleName() {
-	return ("Totem");
+	return ("AutoTotem");
 }
 
 void Totem::onTick(C_GameMode* gm) {

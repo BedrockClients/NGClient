@@ -11,7 +11,13 @@ ChestStealer::~ChestStealer() {
 }
 
 const char* ChestStealer::getModuleName() {
-	return ("ChestStealer");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (enhanced) {
+			return "ChestStealer [Enhanced]";
+		}
+	} else
+		return "ChestStealer";
 }
 
 void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {

@@ -1,4 +1,5 @@
 #include "ViewModel.h"
+#include "../ModuleManager.h"
 
 
 ViewModel::ViewModel() : IModule(0, Category::VISUAL, "Custom item view model") {
@@ -19,7 +20,17 @@ ViewModel::~ViewModel() {
 }
 
 const char* ViewModel::getModuleName() {
-	return "ViewModel";
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (doTranslate || doScale) {
+			return "Animations [Scale+Trans]";
+		} else if (doTranslate) {
+			return "Animations [Translate]";
+		} else if (doScale) {
+			return "Animations [Scale]";
+		}
+	} else
+		return "Animations";
 }
 
 void ViewModel::onTick(C_GameMode* gm) {

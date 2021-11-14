@@ -9,11 +9,6 @@ NGFly::~NGFly() {
 }
 
 const char* NGFly::getModuleName() {
-	if (isEnabled()) {
-		static char modName[30];  //Hello world! Goodbye im commiting suiicide.
-		sprintf_s(modName, 30, "NetherGamesFly");
-		return modName;
-	} else
 		return ("NetherGamesFly");
 }
 

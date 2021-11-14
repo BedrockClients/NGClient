@@ -1,6 +1,6 @@
 #include "Disabler.h"
 
-Disabler::Disabler() : IModule('0', Category::SERVER, "Disabler Helped By Packet") {
+Disabler::Disabler() : IModule('0', Category::SERVER, "Disabler Helped By Packet Origionaly") {
 	registerBoolSetting("Hive", &this->hive, this->hive);
 	registerBoolSetting("Elytra Fly", &this->elytra, this->elytra);
 	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f, 10.f);

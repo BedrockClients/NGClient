@@ -15,14 +15,17 @@ Bhop::~Bhop() {
 }
 
 const char* Bhop::getModuleName() {
-	if (timer) {
-		return "Bhop [Timer]";
-	} else if (LowHop) {
-		return "Bhop [Low]";
-	} else if (hive) {
-		return "Bhop [Hive]";
-	} else if (bhopspeed) {
-		return "Bhop [Speed]";
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (timer) {
+			return "Bhop [Timer]";
+		} else if (LowHop) {
+			return "Bhop [Low]";
+		} else if (hive) {
+			return "Bhop [Hive]";
+		} else if (bhopspeed) {
+			return "Bhop [Speed]";
+		}
 	} else
 		return "Bhop";
 }

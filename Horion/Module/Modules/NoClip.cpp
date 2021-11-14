@@ -1,4 +1,5 @@
 #include "NoClip.h"
+#include "../ModuleManager.h"
 
 NoClip::NoClip() : IModule(0x0, Category::MOVEMENT, "NoClip through walls on all axis") {
 	registerFloatSetting("Horizontal Speed", &this->speed, this->speed, 0.1f, 1.f);
@@ -10,7 +11,13 @@ NoClip::~NoClip() {
 }
 
 const char* NoClip::getModuleName() {
-	return ("NoClip");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (NoPacket) {
+			return "NoClip [Save]";
+		}
+	} else
+		return "NoClip";
 }
 
 void NoClip::onTick(C_GameMode* gm) {

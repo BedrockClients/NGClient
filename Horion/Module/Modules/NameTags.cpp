@@ -13,7 +13,15 @@ NameTags::~NameTags() {
 }
 
 const char* NameTags::getModuleName() {
-	return ("NameTags");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (underline) {
+			return "NameTags [Line]";
+		} else if (displayArmor) {
+			return "NameTags [Armor]";
+		}
+	} else
+		return "NameTags";
 }
 
 void drawNameTags(C_Entity* ent, bool) {

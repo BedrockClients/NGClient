@@ -17,13 +17,16 @@ Killaura::~Killaura() {
 }
 
 const char* Killaura::getModuleName() {
-	if (rotations) {
-		return "Killaura [Rotations]";
-	} else if(sexy) {
-		return "Killaura [Sexy]";
-	} else if(silent) {
-		return "Killaura [Silent]";
-	}else
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (rotations) {
+			return "Killaura [Rotations]";
+		} else if (sexy) {
+			return "Killaura [Sexy]";
+		} else if (silent) {
+			return "Killaura [Silent]";
+		}
+	} else
 	return "Killaura";
 }
 

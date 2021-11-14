@@ -28,12 +28,17 @@ Tracer::~Tracer() {
 static float rcolors[4];
 
 const char* Tracer::getModuleName() {
-	return "Tracer";
-
-	/*float customColors[4];
-	float customRF;
-	float customGF;
-	float customBF;*/
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (chest) {
+			return "Tracers [Chest]";
+		} else if (isMob) {
+			return "Tracers [Mob]";
+		} else if (RGB) {
+			return "Tracers [RGB]";
+		}
+	} else
+		return "Tracers";
 }
 
 void doRenderStuff3(C_Entity* ent, bool isRegularEntitie) {

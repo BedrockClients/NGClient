@@ -2,6 +2,7 @@
 
 #include "../../../Utils/Target.h"
 #include "../../DrawUtils.h"
+#include "../ModuleManager.h"
 
 std::vector<C_Entity*> targetList;
 
@@ -22,7 +23,17 @@ struct CompareTargetEnArray {
 };
 
 const char* BowAimbot::getModuleName() {
-	return ("BowAimbot");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (silent) {
+			return "BowAimbot [Silent]";
+		} else if (predict) {
+			return "Killaura [Predict]";
+		} else if (visualize) {
+			return "Killaura [Visualize]";
+		}
+	} else
+		return "Killaura";
 }
 
 void findTargets(C_Entity* currentEntity, bool isRegularEntitie) {

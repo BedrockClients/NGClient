@@ -1,4 +1,5 @@
 #include "Glide.h"
+#include "../ModuleManager.h"
 
 Glide::Glide() : IModule(0, Category::FLYS, "Float down") {
 	this->registerFloatSetting("value", &this->glideMod, this->glideMod, -2, 1);
@@ -9,11 +10,8 @@ Glide::~Glide() {
 }
 
 const char* Glide::getModuleName() {
-	if (isEnabled() && fart) {
-		static char modName[30];  // This is kinda ghetto rn, there should be a better way to make this...
-		sprintf_s(modName, 30, "Glide Test", fart);
-		return modName;
-	} else if (isEnabled()) {
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
 		static char modName[30];  // This is kinda ghetto rn, there should be a better way to make this...
 		sprintf_s(modName, 30, "Glide [%.2f]", glideModEffective);
 		return modName;

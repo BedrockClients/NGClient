@@ -12,7 +12,19 @@ AutoClick::~AutoClick() {
 }
 
 const char* AutoClick::getModuleName() {
-	return ("AutoClick");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (breakBlocks) {
+			return "AutoClick [Break]";
+		} else if (rightclick) {
+			return "AutoClick [Attack]";
+		} else if (weapons) {
+			return "AutoClick [Weapons]";
+		} else if (hold) {
+			return "AutoClick [Hold]";
+		}
+	} else
+		return "AutoClick";
 }
 
 void AutoClick::onTick(C_GameMode* gm) {

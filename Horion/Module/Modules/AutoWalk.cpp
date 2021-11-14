@@ -1,4 +1,5 @@
 #include "AutoWalk.h"
+#include "../ModuleManager.h"
 
 AutoWalk::AutoWalk() : IModule(0, Category::MOVEMENT, "Automatically walk for you") {
 	this->registerBoolSetting("Sprint", &this->sprint, this->sprint);
@@ -8,7 +9,17 @@ AutoWalk::AutoWalk() : IModule(0, Category::MOVEMENT, "Automatically walk for yo
 AutoWalk::~AutoWalk() {}
 
 const char* AutoWalk::getModuleName() {
-	return ("AutoWalk");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (sprint && jump) {
+			return "AutoClick [Both]";
+		} else if (jump) {
+			return "AutoClick [Jump]";
+		} else if (sprint) {
+			return "AutoClick [Sprint]";
+		}
+	} else
+		return "AutoClick";
 }
 
 void AutoWalk::onTick(C_GameMode* gm) {

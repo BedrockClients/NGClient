@@ -1,4 +1,5 @@
 #include "MinevilleFly.h"
+#include "../ModuleManager.h"
 
 MinevilleFly::MinevilleFly() : IModule(0, Category::SERVER, "MinevilleFly") {
 	this->glideMod = 0.00f;
@@ -9,9 +10,10 @@ MinevilleFly::~MinevilleFly() {
 }
 
 const char* MinevilleFly::getModuleName() {
-	if (isEnabled()) {
-		static char modName[30];  //Hello world! Goodbye im aing suiissciide.
-		sprintf_s(modName, 30, "MinevilleFly");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		static char modName[30];  // This is kinda ghetto rn, there should be a better way to make this...
+		sprintf_s(modName, 30, "MinevilleFly [Speed: %.2f]", speed);
 		return modName;
 	} else
 		return ("MinevilleFly");

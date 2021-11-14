@@ -1,4 +1,5 @@
 #include "AutoSprint.h"
+#include "../ModuleManager.h"
 
 AutoSprint::AutoSprint() : IModule(0, Category::MOVEMENT, "Automatically sprint without holding the key") {
 	registerBoolSetting("all directions", &this->alldirections, this->alldirections);
@@ -8,7 +9,13 @@ AutoSprint::~AutoSprint() {
 }
 
 const char* AutoSprint::getModuleName() {
-	return ("AutoSprint");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (alldirections) {
+			return "AutoSprint [All]";
+		}
+	} else
+		return "AutoSprint";
 }
 
 void AutoSprint::onTick(C_GameMode* gm) {

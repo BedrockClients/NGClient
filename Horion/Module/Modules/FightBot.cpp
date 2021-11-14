@@ -14,7 +14,17 @@ FightBot::~FightBot() {
 }
 
 const char* FightBot::getModuleName() {
-	return ("FightBot");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (rotations) {
+			return "FightBot [Rotations]";
+		} else if (sexy) {
+			return "FightBot [Sexy]";
+		} else if (silent) {
+			return "FightBot [Silent]";
+		}
+	} else
+		return "FightBot";
 }
 
 static std::vector<C_Entity*> targetList;

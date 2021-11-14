@@ -15,6 +15,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Watermark", &watermark, watermark);
 	registerBoolSetting("Coordinates", &coordinates, coordinates);
+	registerBoolSetting("Bools", &bools, bools);
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
 	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);
 	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);
@@ -34,7 +35,13 @@ HudModule::~HudModule() {
 static float rcolors[4];
 
 const char* HudModule::getModuleName() {
-	return ("HUD");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (rgb || Msg || clickToggle || watermark || coordinates || keybinds || keystrokes || displayArmor || fps || cps || alwaysShow) {
+			return "HUD [Customised]";
+		}
+	} else
+		return "HUD";
 }
 void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	static auto Surge = moduleMgr->getModule<ClickGuiMod>();

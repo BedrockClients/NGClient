@@ -1,4 +1,5 @@
 #include "Teleport.h"
+#include "../ModuleManager.h"
 
 Teleport::Teleport() : IModule(0, Category::PLAYER, "Click a block to teleport to it") {
 	registerBoolSetting("Only Hand", &this->onlyHand, this->onlyHand);
@@ -9,7 +10,12 @@ Teleport::~Teleport() {
 }
 
 const char* Teleport::getModuleName() {
-	return "Teleport";
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (onlyHand) 
+			return "Teleport [Hand]";
+	} else
+		return "Teleport";
 }
 
 void Teleport::onTick(C_GameMode* gm) {

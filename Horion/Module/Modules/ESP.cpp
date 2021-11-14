@@ -15,7 +15,21 @@ ESP::~ESP() {
 }
 
 const char* ESP::getModuleName() {
-	return ("ESP");
+	auto HUD = moduleMgr->getModule<HudModule>();
+	if (isEnabled() && HUD->bools) {
+		if (isMobEsp) {
+			return "ESP [Mob]";
+		} else if (circle) {
+			return "ESP [Circle]";
+		} else if (betterESP) {
+			return "ESP [3D]";
+		} else if (iszephyr || is2d) {
+			return "ESP [2D]";
+		} else if (doRainbow) {
+			return "ESP [RGB]";
+		}
+	} else
+		return "ESP";
 }
 
 static float rcolors[4];
