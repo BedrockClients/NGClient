@@ -19,7 +19,7 @@ const char* Trail::getModuleName() {
 		if (Rainbow) 
 			return "Trail [RGB]";
 		else
-			return "trail";
+			return "Trail";
 	} else
 		return "Trail";
 }

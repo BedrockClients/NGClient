@@ -38,8 +38,7 @@ const char* GUI::getModuleName() {
 			return "Arraylist [Icy]";
 		} else if (bottom) {
 			return "Arraylist [Bottom]";
-		} else
-			else return "Arraylist";
+		} else return "Arraylist";
 	} else
 		return "Arraylist";
 }
