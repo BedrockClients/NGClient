@@ -3,6 +3,7 @@
 
 class AirSwim : public IModule {
 public:
+	bool particles = true;
 	AirSwim();
 	~AirSwim();
 

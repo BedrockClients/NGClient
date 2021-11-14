@@ -1,6 +1,7 @@
 #include "AirSwim.h"
 
 AirSwim::AirSwim() : IModule(0, Category::MOVEMENT, "Swim even though your in air") {
+	registerBoolSetting("Particles", &particles, particles);
 }
 
 AirSwim::~AirSwim() {
@@ -11,21 +12,25 @@ const char* AirSwim::getModuleName() {
 }
 
 void AirSwim::onEnable() {
-	if (g_Data.getLocalPlayer() == nullptr)
+	auto player = g_Data.getLocalPlayer();
+	if (player == nullptr)
 		return;
-	g_Data.getLocalPlayer()->didEnterWaterBool = true;
-	g_Data.getLocalPlayer()->startSwimming();
+	player->didEnterWaterBool = true;
+	player->startSwimming();
 }
 
 void AirSwim::onTick(C_GameMode* gm) {
-	g_Data.getLocalPlayer()->didEnterWaterBool = true;
-	g_Data.getLocalPlayer()->doWaterSplashEffect();
-	g_Data.getLocalPlayer()->startSwimming();
+	auto player = g_Data.getLocalPlayer();
+	player->didEnterWaterBool = true;
+	if (particles)
+		player->doWaterSplashEffect();
+	player->startSwimming();
 }
 
 void AirSwim::onDisable() {
-	if (g_Data.getLocalPlayer() == nullptr)
+	auto player = g_Data.getLocalPlayer();
+	if (player == nullptr)
 		return;
-	g_Data.getLocalPlayer()->didEnterWaterBool = false;
-	g_Data.getLocalPlayer()->stopSwimming();
+	player->didEnterWaterBool = false;
+	player->stopSwimming();
 }
