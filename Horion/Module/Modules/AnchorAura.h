@@ -4,7 +4,7 @@
 #include "Module.h"
 
 class AnchorAura : public IModule {
-private:
+public:
 	int prevSlot;
 	int delay = 0;
 	int give = 0;
@@ -19,8 +19,10 @@ private:
 	bool FinishSelect = false;
 	C_PlayerInventoryProxy* supplies = nullptr;
 	C_Inventory* inv = nullptr;
+	int cRange = 10;
+	int pRange = 5;
+	int range = 10;
 
-public:
 	AnchorAura();
 	~AnchorAura();
 
@@ -30,11 +32,6 @@ public:
 	virtual void onPreRender(C_MinecraftUIRenderContext* renderCtx) override;
 	virtual void onEnable() override;
 	virtual void onDisable() override;
-
-	int cRange = 10;
-	int pRange = 5;
-	int range = 10;
-
 	void CPlace(C_GameMode* gm, vec3_t* pos);
 	void DestroyC(C_Entity* ent, int range);
 };

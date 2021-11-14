@@ -3,16 +3,16 @@
 #include "../../../SDK/Tag.h"
 
 AnchorAura::AnchorAura() : IModule(VK_NUMPAD0, Category::COMBAT, "Absolutly destoys kids") {
-	registerIntSetting("Range", &this->range, this->range, 1, 7);
-	registerIntSetting("Anchor range", &this->cRange, this->cRange, 1, 7);
-	registerIntSetting("Place range", &this->eRange, this->eRange, 1, 7);
-	registerIntSetting("Player range", &this->pRange, this->pRange, 1, 7);
-	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
-	registerBoolSetting("Autoplace", &this->autoplace, this->autoplace);
-	registerBoolSetting("Force Anchor", &this->Give, this->Give);
-	registerBoolSetting("Suicide", &this->dump, this->dump);
-	registerBoolSetting("Enhance place", &this->pEnhanced, this->pEnhanced);
-	registerBoolSetting("preview", &this->Preview, this->Preview);
+	registerIntSetting("Range", &range, range, 1, 7);
+	registerIntSetting("Anchor range", &cRange, cRange, 1, 7);
+	registerIntSetting("Place range", &eRange, eRange, 1, 7);
+	registerIntSetting("Player range", &pRange, pRange, 1, 7);
+	registerBoolSetting("Auto select", &AutoSelect, AutoSelect);
+	registerBoolSetting("Autoplace", &autoplace, autoplace);
+	registerBoolSetting("Force Anchor", &Give, Give);
+	registerBoolSetting("Suicide", &dump, dump);
+	registerBoolSetting("Enhance place", &pEnhanced, pEnhanced);
+	registerBoolSetting("preview", &Preview, Preview);
 	delay = 0;
 }
 AnchorAura::~AnchorAura() {
@@ -38,7 +38,7 @@ static std::vector<C_Entity*> targetList;
 
 void AnchorAura::onEnable() {
 	targetList.clear();
-	this->delay = 0;
+	delay = 0;
 }
 
 bool CfindEntityy(C_Entity* curEnt, bool isRegularEntity) {
@@ -141,7 +141,7 @@ void AnchorAura::onLevelRender() {
 	if (shouldChangee) {
 		shouldChangee = false;
 	}
-	this->delay++;
+	delay++;
 	if (supplies == nullptr)
 		supplies = g_Data.getLocalPlayer()->getSupplies();
 	if (inv == nullptr)
@@ -149,7 +149,7 @@ void AnchorAura::onLevelRender() {
 	targetList.clear();
 	g_Data.forEachEntity(CfindEntityy);
 
-	if (this->delay == 1) {
+	if (delay == 1) {
 		if (Give) {
 			C_ItemStack* yot = new C_ItemStack(***ItemRegistry::lookUpByName(std::make_unique<uintptr_t>().get(), std::make_unique<uintptr_t>().get(), TextHolder("respawn_anchor")), 64, 4);
 			g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
@@ -171,7 +171,7 @@ void AnchorAura::onLevelRender() {
 			return;
 		}
 	}
-	if (this->delay == 2) {
+	if (delay == 2) {
 		if (autoplace && g_Data.getLocalPlayer()->getSelectedItemId() == -272) {  //endcrystal
 			if (pEnhanced)
 				for (auto& i : targetList)
@@ -183,7 +183,7 @@ void AnchorAura::onLevelRender() {
 			}
 		}
 	}
-	if (this->delay == 3) {
+	if (delay == 3) {
 		g_Data.forEachEntity([](C_Entity* ent, bool b) {
 			if (ent->getEntityTypeId() != 71)
 				return;
@@ -196,8 +196,8 @@ void AnchorAura::onLevelRender() {
 		});
 		return;
 	}
-	if (this->delay >= 3) {
-		this->delay = 0;
+	if (delay >= 3) {
+		delay = 0;
 		return;
 	}
 }
@@ -221,5 +221,5 @@ void AnchorAura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 }
 
 void AnchorAura::onDisable() {
-	this->delay = 0;
+	delay = 0;
 }

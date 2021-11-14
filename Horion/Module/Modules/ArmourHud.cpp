@@ -3,8 +3,8 @@
 #include "../../DrawUtils.h"
 
 ArmourHud::ArmourHud() : IModule(0x0, Category::VISUAL, "Renders the armour that you are wearing") {
-	registerFloatSetting("armorX", &this->armorX, this->armorX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
-	registerFloatSetting("armorY", &this->armorY, this->armorY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
+	registerFloatSetting("armorX", &armorX, armorX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
+	registerFloatSetting("armorY", &armorY, armorY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
 }
 
 ArmourHud::~ArmourHud() {
