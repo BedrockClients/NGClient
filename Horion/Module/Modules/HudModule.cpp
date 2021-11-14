@@ -39,7 +39,8 @@ const char* HudModule::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (rgb || Msg || clickToggle || watermark || coordinates || keybinds || keystrokes || displayArmor || fps || cps || alwaysShow) {
 			return "HUD [Customised]";
-		}
+		} else
+			return "HUD";
 	} else
 		return "HUD";
 }

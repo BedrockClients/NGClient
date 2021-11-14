@@ -27,7 +27,7 @@ const char* ESP::getModuleName() {
 			return "ESP [2D]";
 		} else if (doRainbow) {
 			return "ESP [RGB]";
-		}
+		} else return "ESP";
 	} else
 		return "ESP";
 }

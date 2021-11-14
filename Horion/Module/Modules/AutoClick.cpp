@@ -22,7 +22,8 @@ const char* AutoClick::getModuleName() {
 			return "AutoClick [Weapons]";
 		} else if (hold) {
 			return "AutoClick [Hold]";
-		}
+		} else
+			return "AutoClick";
 	} else
 		return "AutoClick";
 }

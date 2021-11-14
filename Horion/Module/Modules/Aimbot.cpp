@@ -26,7 +26,8 @@ const char* Aimbot::getModuleName() {
 			return "Aimbot [Vertical]";
 		} else if (lock) {
 			return "Aimbot [Lock]";
-		}
+		} else
+			return "Aimbot";
 	} else
 		return "Aimbot";
 }

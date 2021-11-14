@@ -17,7 +17,8 @@ const char* Nuker::getModuleName() {
 			return "Nuker [Auto]";
 		} else if (veinMiner) {
 			return "Nuker [Veins]";
-		}
+		} else
+			return "Nuker";
 	} else
 		return "Nuker";
 }

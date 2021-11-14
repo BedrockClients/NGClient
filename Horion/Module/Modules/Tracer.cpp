@@ -36,7 +36,8 @@ const char* Tracer::getModuleName() {
 			return "Tracers [Mob]";
 		} else if (RGB) {
 			return "Tracers [RGB]";
-		}
+		} else
+			return "Tracers";
 	} else
 		return "Tracers";
 }

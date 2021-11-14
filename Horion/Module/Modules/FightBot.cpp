@@ -22,7 +22,8 @@ const char* FightBot::getModuleName() {
 			return "FightBot [Sexy]";
 		} else if (silent) {
 			return "FightBot [Silent]";
-		}
+		} else
+			return "FightBot";
 	} else
 		return "FightBot";
 }

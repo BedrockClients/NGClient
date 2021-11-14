@@ -28,7 +28,8 @@ const char* AnchorAura::getModuleName() {
 			return "AnchorAura [Give]";
 		} else if (Preview) {
 			return "AnchorAura [Preview]";
-		}
+		} else
+			return "AnchorAura";
 	} else
 		return "AnchorAura";
 }

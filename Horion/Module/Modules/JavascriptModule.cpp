@@ -1,6 +1,6 @@
 #include "JavascriptModule.h"
 
-JavascriptModule::JavascriptModule() : IModule(0, Category::WORLD, "") {
+JavascriptModule::JavascriptModule() : IModule(0, Category::PLAYER, "") {
 }
 
 JavascriptModule::~JavascriptModule() {

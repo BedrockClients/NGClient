@@ -25,7 +25,8 @@ const char* Bhop::getModuleName() {
 			return "Bhop [Hive]";
 		} else if (bhopspeed) {
 			return "Bhop [Speed]";
-		}
+		} else
+			return "Bhop";
 	} else
 		return "Bhop";
 }

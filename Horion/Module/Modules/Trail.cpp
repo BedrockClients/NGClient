@@ -18,7 +18,8 @@ const char* Trail::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (Rainbow) 
 			return "Trail [RGB]";
-		
+		else
+			return "trail";
 	} else
 		return "Trail";
 }

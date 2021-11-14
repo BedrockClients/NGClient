@@ -24,7 +24,8 @@ const char* CrystalAura::getModuleName() {
 			return "CrystalAura [Give]";
 		} else if (Preview) {
 			return "CrystalAura [Preview]";
-		}
+		} else
+			return "CrystalAura";
 	} else
 		return "CrystalAura";
 }

@@ -45,6 +45,7 @@
 						float teleportX = cos(calcYaw) * cos(calcPitch) * 3.5f;
 						float teleportZ = sin(calcYaw) * cos(calcPitch) * 3.5f;
 						C_MovePlayerPacket teleportPacket;
+						//can be used to target modules for specific servers
 						if (strcmp(g_Data.getRakNetInstance()->serverIp.getText(), "mco.cubecraft.net") == 0) {
 							vec3_t pos = *g_Data.getLocalPlayer()->getPos();
 							C_MovePlayerPacket movePlayerPacket(g_Data.getLocalPlayer(), pos);

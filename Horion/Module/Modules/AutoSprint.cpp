@@ -13,7 +13,8 @@ const char* AutoSprint::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (alldirections) {
 			return "AutoSprint [All]";
-		}
+		} else
+			return "AutoSprint";
 	} else
 		return "AutoSprint";
 }

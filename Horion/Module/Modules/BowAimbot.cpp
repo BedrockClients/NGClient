@@ -28,12 +28,13 @@ const char* BowAimbot::getModuleName() {
 		if (silent) {
 			return "BowAimbot [Silent]";
 		} else if (predict) {
-			return "Killaura [Predict]";
+			return "BowAimbot [Predict]";
 		} else if (visualize) {
-			return "Killaura [Visualize]";
-		}
+			return "BowAimbot [Visualize]";
+		} else
+			return "BowAimbot";
 	} else
-		return "Killaura";
+		return "BowAimbot";
 }
 
 void findTargets(C_Entity* currentEntity, bool isRegularEntitie) {

@@ -18,7 +18,8 @@ const char* AntiVoid::getModuleName() {
 			return "AntiVoid [Teleport]";
 		} else if (mode.selected == 1) {
 			return "Antivoid [Bounce]";
-		}
+		} else
+			return "Antivoid";
 	} else
 		return "Antivoid";
 }

@@ -12,14 +12,15 @@ const char* AutoWalk::getModuleName() {
 	auto HUD = moduleMgr->getModule<HudModule>();
 	if (isEnabled() && HUD->bools) {
 		if (sprint && jump) {
-			return "AutoClick [Both]";
+			return "AutoWalk [Both]";
 		} else if (jump) {
-			return "AutoClick [Jump]";
+			return "AutoWalk [Jump]";
 		} else if (sprint) {
-			return "AutoClick [Sprint]";
-		}
+			return "AutoWalk [Sprint]";
+		} else
+			return "AutoWalk";
 	} else
-		return "AutoClick";
+		return "AutoWalk";
 }
 
 void AutoWalk::onTick(C_GameMode* gm) {

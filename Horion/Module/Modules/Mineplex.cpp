@@ -14,7 +14,8 @@ const char* Mineplex::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (delayMode) {
 			return "MineplexBypass [Delay]";
-		}
+		} else
+			return "MineplexBypass";
 	} else
 		return "MineplexBypass";
 }

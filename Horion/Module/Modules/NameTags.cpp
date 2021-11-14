@@ -19,7 +19,8 @@ const char* NameTags::getModuleName() {
 			return "NameTags [Line]";
 		} else if (displayArmor) {
 			return "NameTags [Armor]";
-		}
+		} else
+			return "NameTags";
 	} else
 		return "NameTags";
 }

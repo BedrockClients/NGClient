@@ -24,7 +24,8 @@ const char* TPAura::getModuleName() {
 			return "TPAura [Mob]";
 		} else if (silent) {
 			return "TPAura [Silent]";
-		}
+		} else
+			return "TPAura";
 	} else
 		return "TPAura";
 }

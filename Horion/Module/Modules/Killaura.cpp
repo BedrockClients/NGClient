@@ -25,7 +25,8 @@ const char* Killaura::getModuleName() {
 			return "Killaura [Sexy]";
 		} else if (silent) {
 			return "Killaura [Silent]";
-		}
+		} else
+			return "Killaura";
 	} else
 	return "Killaura";
 }

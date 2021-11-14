@@ -20,7 +20,8 @@ const char* BlockFly::getModuleName() {
 			return "BlockFly [Damage]";
 		} else if (time) {
 			return "BlockFly [Timer]";
-		}
+		} else
+			return "BlockFly";
 	} else
 		return "BlockFly";
 }

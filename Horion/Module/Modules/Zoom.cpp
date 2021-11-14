@@ -18,6 +18,8 @@ const char* Zoom::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (smooth) 
 			return "Zoom [Smooth]";
+		else
+			return "Zoom";
 	} else
 		return "Zoom";
 }

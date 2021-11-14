@@ -28,6 +28,7 @@ const char* Scaffold::getModuleName() {
 			return "Scaffold [Stairs]";
 		else if (autoselect)
 			return "Scaffold [AutoSelect]";
+		else return "Scaffold";
 	} else
 		return "Scaffold";
 }

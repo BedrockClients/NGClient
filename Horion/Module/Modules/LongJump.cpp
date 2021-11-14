@@ -16,7 +16,8 @@ const char* LongJump::getModuleName() {
 			return "LongJump [Slow]";
 		} else if (hit) {
 			return "LongJump [Hit]";
-		}
+		} else
+			return "LongJump";
 	} else
 		return "LongJump";
 }

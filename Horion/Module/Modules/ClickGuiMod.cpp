@@ -22,7 +22,8 @@ const char* ClickGuiMod::getModuleName() {
 			return "ClickGui [RGB]";
 		} else if (showTooltips) {
 			return "ClickGui [Tooltips]";
-		}
+		} else
+			return "ClickGui";
 	} else
 		return "ClickGui";
 }

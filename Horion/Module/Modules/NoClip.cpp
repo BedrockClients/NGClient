@@ -15,7 +15,8 @@ const char* NoClip::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (NoPacket) {
 			return "NoClip [Save]";
-		}
+		} else
+			return "NoClip";
 	} else
 		return "NoClip";
 }

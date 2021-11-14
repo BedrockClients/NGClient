@@ -39,7 +39,8 @@ const char* MineplexFly::getModuleName() {
 			return "MineplexFly [Up+]";
 		} else if (isBypass) {
 			return "MineplexFly [Up]";
-		}
+		} else
+			return "MineplesFly";
 	} else
 		return "MineplexFly";
 }

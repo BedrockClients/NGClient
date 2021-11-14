@@ -19,7 +19,8 @@ const char* Derp::getModuleName() {
 			return "Derp [Stroke]";
 		} else if (packetMode) {
 			return "Derp [Packet]";
-		}
+		} else
+			return "Derp";
 	} else
 		return "Derp";
 }

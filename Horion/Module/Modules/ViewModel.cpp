@@ -28,7 +28,8 @@ const char* ViewModel::getModuleName() {
 			return "Animations [Translate]";
 		} else if (doScale) {
 			return "Animations [Scale]";
-		}
+		} else
+			return "Animations";
 	} else
 		return "Animations";
 }

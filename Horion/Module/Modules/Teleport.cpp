@@ -14,6 +14,8 @@ const char* Teleport::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (onlyHand) 
 			return "Teleport [Hand]";
+		else
+			return "Teleport";
 	} else
 		return "Teleport";
 }
