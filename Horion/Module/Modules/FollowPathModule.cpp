@@ -9,11 +9,17 @@ const char *FollowPathModule::getModuleName() {
 }
 
 void FollowPathModule::startSearch(vec3_ti startNode, C_BlockSource *region, float searchTimeout, std::function<void(bool, JoePath)> callback) {
-	if (this->pathFinder) {
+	if (
+		
+		
+		pathFinder) {
 		logF("Already searching!");
 		return;
 	}
-	this->pathFinder = std::make_shared<JoePathFinder>(startNode, region, this->goal);
+	
+	
+	
+	pathFinder = std::make_shared<JoePathFinder>(startNode, region, this->goal);
 	this->pathFinder->pathSearchTimeout = searchTimeout;
 	//std::thread([this, callback](){
 	auto ref = this->pathFinder;  // so it won't get deleted when followpathmodule is disabled

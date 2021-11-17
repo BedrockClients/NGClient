@@ -1,9 +1,9 @@
 #include "Fly.h"
 
 Fly::Fly() : IModule(0x0, Category::FLYS, "Become superman  MADE BY BADMAN.") {
-	registerFloatSetting("Horizontal Speed", &this->speed, this->speed, 0.1f, 2.f);
-	registerFloatSetting("Vertical Speed", &this->upanddown, this->upanddown, 0.1f, 2.f);
-	this->registerBoolSetting("Super Speed", &this->superMan, this->superMan);
+	registerFloatSetting("Horizontal Speed", &speed, speed, 0.1f, 2.f);
+	registerFloatSetting("Vertical Speed", &upanddown, upanddown, 0.1f, 2.f);
+	registerBoolSetting("Super Speed", &superMan, superMan);
 }
 
 Fly::~Fly() {

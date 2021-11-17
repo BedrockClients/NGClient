@@ -33,14 +33,21 @@ public:
 	HashedString(const std::string& text) {
 		this->text.setText(text);
 		
-		this->computeHash();
+		
+		
+		
+		computeHash();
 	}
 
 	void computeHash() {
 		hash = 0xCBF29CE484222325i64;
-		if (this->text.getTextLength() <= 0)
+		if (
+			
+			text.getTextLength() <= 0)
 			return;
-		char* textP = this->text.getText();
+		char* textP = 
+			
+			text.getText();
 		auto c = *textP;
 
 		do {

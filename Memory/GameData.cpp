@@ -188,7 +188,12 @@ void GameData::forEachEntity(std::function<void(C_Entity*, bool)> callback) {
 		}
 	}*/
 
-	if (this->localPlayer && this->localPlayer->pointingStruct) {
+	if (
+		
+		
+		localPlayer && 
+		
+		localPlayer->pointingStruct) {
 		for (const auto& ent : g_Hooks.entityList) 
 			callback(ent.ent, false);
 	}

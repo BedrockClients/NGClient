@@ -1,7 +1,11 @@
 #include "CommandMgr.h"
 
 CommandMgr::CommandMgr(GameData* gm) {
-	this->gameData = gm;
+	
+	
+	
+	
+	gameData = gm;
 }
 
 CommandMgr::~CommandMgr() {

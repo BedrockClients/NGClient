@@ -30,11 +30,17 @@ C_ItemStack::C_ItemStack(const C_ItemStack &src) {
 	using ItemStackCopyConstructor_t = void(__fastcall *)(C_ItemStack &, C_ItemStack const &);
 	static ItemStackCopyConstructor_t ItemStackCopyConstructor = reinterpret_cast<ItemStackCopyConstructor_t>(FindSignature("48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 40 4C 8B F2 48 8B F1 48 89 4C 24 ? 33 ED 89 6C 24 20 48 8D"));
 	ItemStackCopyConstructor(*this, src);
-	this->setVtable();
+	
+	
+	
+	
+	setVtable();
 }
 C_ItemStack::C_ItemStack(const Tag &tag) {
 	memset(this, 0x0, sizeof(C_ItemStack));
-	this->setVtable();
+	
+	
+	setVtable();
 	fromTag(tag);
 	/*using ItemStackBase__loadItemF = void(__fastcall*)(C_ItemStack*,Tag const&);
 	static ItemStackBase__loadItemF ItemStackBase__loadItem = reinterpret_cast<ItemStackBase__loadItemF>(FindSignature("48 8B C4 55 57 41 56 48 8D 68 A1 48 81 EC ? ? ? ? 48 C7 45 ? ? ? ? ? 48 89 58 ? 48 89 70 ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 45 ? 48 8B DA 48 8B F9 48 89 4D ? 33 D2 41 B8 ? ? ? ? 48 8D 4D A7 E8 ? ? ? ? 48 8D 05 ? ? ? ?"));

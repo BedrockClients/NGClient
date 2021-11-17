@@ -34,7 +34,10 @@ std::wstring ConfigManager::GetRoamingFolderPath() {
 }
 
 ConfigManager::ConfigManager() {
-	this->roamingFolder = GetRoamingFolderPath();
+	
+	
+	
+	roamingFolder = GetRoamingFolderPath();
 }
 
 ConfigManager::~ConfigManager() {

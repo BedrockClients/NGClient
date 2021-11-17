@@ -15,7 +15,11 @@ void ChestESP::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (!g_Data.isInGame() || !GameData::canUseMoveKeys() || g_Data.getLocalPlayer() == nullptr)
 		return;
 
-	auto ourListLock = std::scoped_lock(this->listLock);
+	auto ourListLock = std::scoped_lock(
+		
+		
+		
+		listLock);
 
 	for (auto iter = bufferedChestList.begin(); iter != bufferedChestList.end(); ++iter) {
 		auto storageID = g_Data.getLocalPlayer()->region->getBlock((*iter)->upper)->blockLegacy->blockId;
@@ -53,7 +57,9 @@ void ChestESP::onTick(C_GameMode* gm) {
 	static auto* tracerMod = moduleMgr->getModule<Tracer>();
 	auto listLock = g_Data.lockChestList();
 	auto* chestList = g_Data.getChestList();
-	auto ourListLock = std::scoped_lock(this->listLock);
+	auto ourListLock = std::scoped_lock(
+		
+		listLock);
 
 	this->bufferedChestList.clear();
 	this->bufferedChestList.insert(this->bufferedChestList.end(), chestList->begin(), chestList->end());

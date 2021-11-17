@@ -126,7 +126,10 @@ public:
 
 	void clearChestList() {
 		std::lock_guard<std::mutex> listGuard(chestListMutex);
-		this->chestList.clear();
+		
+		
+		
+		chestList.clear();
 	}
 	inline std::shared_ptr<InfoBoxData> getFreshInfoBox() {
 		while (!this->infoBoxQueue.empty()) {

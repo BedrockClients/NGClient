@@ -11,7 +11,8 @@ public:
 	template <class T>
 	bool isInstanceOf() {
 		T packet;
-		if (packet.vTable == this->vTable)
+		if (packet.vTable == 
+			vTable)
 			return true;
 		else
 			return false;
@@ -96,7 +97,8 @@ class C_InventoryTransactionPacket : public C_Packet {
 public:
 	C_InventoryTransactionPacket();
 	C_InventoryTransactionPacket(C_ComplexInventoryTransaction* transac) : C_InventoryTransactionPacket() {
-		this->complexTransaction = transac;
+		
+		complexTransaction = transac;
 	}
 
 private:

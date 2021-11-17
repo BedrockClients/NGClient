@@ -286,7 +286,12 @@ public:
 	void setUserData(std::unique_ptr<Tag> tag);
 
 	bool isValid() {
-		return this->item != nullptr && *this->item != nullptr;
+		return 
+			
+			
+			item != nullptr && *
+			
+			item != nullptr;
 	}
 
 	inline C_Item* getItem() {

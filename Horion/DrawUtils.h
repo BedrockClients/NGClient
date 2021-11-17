@@ -31,8 +31,13 @@ struct MC_Color {
 	bool shouldDelete = true;
 
 	MC_Color() {
-		this->r = 1;
-		this->g = 1;
+		
+		
+		
+		r = 1;
+		
+		
+		g = 1;
 		this->b = 1;
 		this->a = 1;
 	};

@@ -1,9 +1,9 @@
 #include "Hitbox.h"
 
 Hitbox::Hitbox() : IModule(0, Category::COMBAT, "Increase an entitys hitbox size") {
-	registerBoolSetting("Mobs", &this->isMobAura, this->isMobAura);
-	registerFloatSetting("Height", &this->height, this->height, 1.8f, 10);
-	registerFloatSetting("Width", &this->width, this->width, 0.6f, 10);
+	registerBoolSetting("Mobs", &isMobAura, isMobAura);
+	registerFloatSetting("Height", &height, height, 1.8f, 10);
+	registerFloatSetting("Width", &width, width, 0.6f, 10);
 }
 
 Hitbox::~Hitbox() {

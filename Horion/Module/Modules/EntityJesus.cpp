@@ -5,7 +5,13 @@
 int EntityJesusChrist = 0;
 
 EntityJesus::EntityJesus() : IModule(0, Category::ENTITY, "Walk over water, like EntityJesus") {
-	//this->registerBoolSetting("Old EntityJesus", &this->walk, this->walk);
+	//
+	
+	
+	registerBoolSetting("Old EntityJesus", &
+		
+		
+		walk, this->walk);
 }
 
 EntityJesus::~EntityJesus() {

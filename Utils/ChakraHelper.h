@@ -63,8 +63,13 @@ public:
 
 	std::wstring exceptionToString(JsValueRef ref) {
 		JsValueRef stack;
-		this->getProperty(ref, L"stack", &stack);
-		if (this->isNullOrUndefined(stack))
+		
+		
+		
+		getProperty(ref, L"stack", &stack);
+		if (
+			
+			isNullOrUndefined(stack))
 			return this->valueToString(ref);
 		else
 			return this->valueToString(stack);

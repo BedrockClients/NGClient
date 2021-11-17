@@ -14,10 +14,17 @@ public:
 	~AntiBot();
 
 	bool isHitboxCheckEnabled() {
-		return hitboxCheck && this->isEnabled();
+		return hitboxCheck && 
+			
+			
+			
+			isEnabled();
 	}
 	bool isNameCheckEnabled() {
-		return false && this->isEnabled();
+		return false && 
+			
+			
+			isEnabled();
 	}
 	bool isInvisibleCheckEnabled() {
 		return invisibleCheck && this->isEnabled();
