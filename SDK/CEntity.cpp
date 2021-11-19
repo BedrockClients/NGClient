@@ -3,10 +3,7 @@
 #include "../Memory/GameData.h"
 #include "../Utils/Utils.h"
 C_InventoryTransactionManager *C_Entity::getTransactionManager() {
-	return &
-		
-		
-		transac;
+	return &this->transac;
 	static unsigned int offset = 0;
 	if (offset == 0) {
 		// EnchantCommand::execute
@@ -37,9 +34,7 @@ void C_LocalPlayer::setGameModeType(int gma) {
 	// Player::setPlayerGameType
 	//using setGameMode = void(__thiscall *)(void *, int);
 	//static setGameMode Game_Mode = reinterpret_cast<setGameMode>(FindSignature("48 8B C4 56 57 41 56 48 81 EC ? ? ? ? 48 C7 44 24 ? ? ? ? ? 48 89 58 ? 48 89 68 ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 84 24 ? ? ? ? 8B EA 48 8B D9 44 8B B1 ? ? ? ? 83 FA ? 75 2D"));
-	
-	
-	setPlayerGameType(gma);
+	this->setPlayerGameType(gma);
 }
 
 bool PointingStruct::hasEntity() {

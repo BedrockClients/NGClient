@@ -3,8 +3,8 @@
 #include "../../Module/ModuleManager.h"
 
 HiveFly::HiveFly() : IModule('Z', Category::SERVER, "Flight bypass for Hive, 0.7 recommended") {
-	registerFloatSetting("speed", &speedMod, 1, 0.3f, 2.5f);
-	registerBoolSetting("V2", &isBypass, isBypass);
+	registerFloatSetting("speed", &this->speedMod, 1, 0.3f, 2.5f);
+	this->registerBoolSetting("V2", &this->isBypass, this->isBypass);
 }
 
 HiveFly::~HiveFly() {

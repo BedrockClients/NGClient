@@ -12,9 +12,7 @@ private:
 public:
 	C_FilePath(std::string filePath) {
 		memset(this, 0, sizeof(C_FilePath));
-		
-		
-		filePath.setText(filePath);
+		this->filePath.setText(filePath);
 	};
 };
 

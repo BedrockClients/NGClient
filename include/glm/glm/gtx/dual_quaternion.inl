@@ -10,19 +10,14 @@ namespace glm
 	template<typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER typename tdualquat<T, Q>::part_type & tdualquat<T, Q>::operator[](typename tdualquat<T, Q>::length_type i)
 	{
-		assert(i >= 0 && i < 
-			
-			length());
+		assert(i >= 0 && i < this->length());
 		return (&real)[i];
 	}
 
 	template<typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER typename tdualquat<T, Q>::part_type const& tdualquat<T, Q>::operator[](typename tdualquat<T, Q>::length_type i) const
 	{
-		assert(i >= 0 && i < 
-			
-			
-			length());
+		assert(i >= 0 && i < this->length());
 		return (&real)[i];
 	}
 
@@ -99,10 +94,7 @@ namespace glm
 		template<typename T, qualifier Q>
 		GLM_FUNC_QUALIFIER tdualquat<T, Q> & tdualquat<T, Q>::operator=(tdualquat<T, Q> const& q)
 		{
-			
-			
-			
-			real = q.real;
+			this->real = q.real;
 			this->dual = q.dual;
 			return *this;
 		}

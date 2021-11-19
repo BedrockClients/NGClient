@@ -3,8 +3,8 @@
 #include "../ModuleManager.h"
 
 ChestStealer::ChestStealer() : IModule(0, Category::PLAYER, "Automatically takes all items out of a chest") {
-	registerIntSetting("Close Delay", &setDelay, setDelay, 0, 20);
-	registerBoolSetting("enhanced", &enhanced, enhanced);
+	registerIntSetting("Close Delay", &this->setDelay, this->setDelay, 0, 20);
+	registerBoolSetting("enhanced", &this->enhanced, this->enhanced);
 }
 
 ChestStealer::~ChestStealer() {
@@ -28,7 +28,7 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 		for (int i = 0; i < 54; i++) {
 			C_ItemStack* stack = c->_getItemStack(TextHolder("container_items"), i);
 			if (stack != nullptr && stack->item != NULL)
-				if (!enhanced || invcleanerMod->stackIsUseful(stack))
+				if (!this->enhanced || invcleanerMod->stackIsUseful(stack))
 					items.push_back(i);
 		}
 		if (!items.empty()) {

@@ -7,9 +7,9 @@
 std::vector<C_Entity*> targetList;
 
 BowAimbot::BowAimbot() : IModule(0, Category::COMBAT, "Aimbot, but for bows") {
-	registerBoolSetting("silent", &silent, silent);
-	registerBoolSetting("predict", &predict, predict);
-	registerBoolSetting("visualize", &visualize, visualize);
+	registerBoolSetting("silent", &this->silent, this->silent);
+	registerBoolSetting("predict", &this->predict, this->predict);
+	registerBoolSetting("visualize", &this->visualize, this->visualize);
 }
 
 BowAimbot::~BowAimbot() {
@@ -83,8 +83,8 @@ void BowAimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		float tmp = 1 - g * (g * (len * len) + 2 * pos.y);
 		float pitch = DEG_RAD * -atanf((1 - sqrtf(tmp)) / (g * len));
 
-		if (silent) {
-			angle = vec2_t(pitch, yaw);
+		if (this->silent) {
+			this->angle = vec2_t(pitch, yaw);
 			C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
 			p.pitch = angle.x;
 			p.yaw = angle.y;
@@ -108,9 +108,9 @@ void BowAimbot::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && silent) {
 		if (!targetList.empty()) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			movePacket->pitch = angle.x;
-			movePacket->headYaw = angle.y;
-			movePacket->yaw = angle.y;
+			movePacket->pitch = this->angle.x;
+			movePacket->headYaw = this->angle.y;
+			movePacket->yaw = this->angle.y;
 		}
 	}
 }

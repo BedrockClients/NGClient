@@ -8,20 +8,11 @@ public:
 	C_InventoryAction() = default;
 	C_InventoryAction(int slot, C_ItemStack* sourceItem, C_ItemStack* targetItem, int sourceType = 0, int type = 0) {
 		memset(this, 0x0, sizeof(C_InventoryAction));
-		
-		
-		
-		
-		slot = slot;
+		this->slot = slot;
 		if (sourceItem != nullptr)
-			
-			
-			sourceItem = *sourceItem;
+			this->sourceItem = *sourceItem;
 		if (targetItem != nullptr)
-			
-			
-			
-			targetItem = *targetItem;
+			this->targetItem = *targetItem;
 		this->sourceType = sourceType;
 		this->type = type;
 	}

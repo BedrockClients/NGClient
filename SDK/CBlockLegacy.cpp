@@ -28,13 +28,8 @@ void C_BlockLegacy::liquidGetFlow(vec3_t* flowOut, C_BlockSource* reg, const vec
 	liquid_getDepth(this, flowOut, reg, pos);
 }
 bool C_BlockLegacy::hasWater(C_BlockSource* reg, const vec3_ti& pos) {
-	if(
-		
-		
-		material->isLiquid){
-		return !
-			
-			material->isSuperHot;
+	if(this->material->isLiquid){
+		return !this->material->isSuperHot;
 	}
 
 	auto liquidBlock = reg->getLiquidBlock(pos)->toLegacy();

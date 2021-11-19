@@ -4,9 +4,7 @@ Blink::Blink() : IModule(0, Category::PLAYER, "Stops you from sending packets an
 }
 
 Blink::~Blink() {
-	
-	
-	getMovePlayerPacketHolder()->clear();
+	this->getMovePlayerPacketHolder()->clear();
 	this->getPlayerAuthInputPacketHolder()->clear();
 }
 

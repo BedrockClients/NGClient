@@ -1,16 +1,16 @@
 #include "CrystalAura.h"
 
 CrystalAura::CrystalAura() : IModule(VK_NUMPAD0, Category::COMBAT, "Destroys nearby Crystals") {
-	registerIntSetting("Range", &range, range, 1, 10);
-	registerIntSetting("Crystal range", &cRange, cRange, 1, 15);
-	registerIntSetting("Place range", &eRange, eRange, 1, 5);
-	registerIntSetting("Player range", &pRange, pRange, 1, 10);
-	registerBoolSetting("Force", &Give, Give);
-	registerBoolSetting("Auto select", &AutoSelect, AutoSelect);
-	registerBoolSetting("Autoplace", &autoplace, autoplace);
-	registerBoolSetting("Enhance place", &pEnhanced, pEnhanced);
-	registerBoolSetting("Enhance destroy", &dEnhanced, dEnhanced);
-	registerBoolSetting("preview", &Preview, Preview);
+	registerIntSetting("Range", &this->range, this->range, 1, 10);
+	registerIntSetting("Crystal range", &this->cRange, this->cRange, 1, 15);
+	registerIntSetting("Place range", &this->eRange, this->eRange, 1, 5);
+	registerIntSetting("Player range", &this->pRange, this->pRange, 1, 10);
+	registerBoolSetting("Force", &this->Give, this->Give);
+	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
+	registerBoolSetting("Autoplace", &this->autoplace, this->autoplace);
+	registerBoolSetting("Enhance place", &this->pEnhanced, this->pEnhanced);
+	registerBoolSetting("Enhance destroy", &this->dEnhanced, this->dEnhanced);
+	registerBoolSetting("preview", &this->Preview, this->Preview);
 	delay = 0;
 }
 CrystalAura::~CrystalAura() {
@@ -34,7 +34,7 @@ static std::vector<C_Entity*> targetList;
 
 void CrystalAura::onEnable() {
 	targetList.clear();
-	delay = 0;
+	this->delay = 0;
 }
 
 bool CfindEntity(C_Entity* curEnt, bool isRegularEntity) {
@@ -129,19 +129,19 @@ void CrystalAura::onTick(C_GameMode* gm) {
 	if (shouldChange) {
 		shouldChange = false;
 	}
-	delay++;
+	this->delay++;
 	if (supplies == nullptr)
 		supplies = g_Data.getLocalPlayer()->getSupplies();
 	if (inv == nullptr)
 		inv = supplies->inventory;
 	targetList.clear();
 	g_Data.forEachEntity(CfindEntity);
-	if (delay == 0) {
+	if (this->delay == 0) {
 		// place block around players?
 		return;
 	}
 
-	if (delay == 1 && AutoSelect) {
+	if (this->delay == 1 && AutoSelect) {
 		prevSlot = supplies->selectedHotbarSlot;
 		FinishSelect = true;
 		for (int n = 0; n < 9; n++) {
@@ -156,7 +156,7 @@ void CrystalAura::onTick(C_GameMode* gm) {
 		}
 		return;
 	}
-	if (delay == 2) {
+	if (this->delay == 2) {
 		if (autoplace && g_Data.getLocalPlayer()->getSelectedItemId() == 629) {  //endcrystal
 			if (pEnhanced)
 				for (auto& i : targetList)
@@ -169,11 +169,11 @@ void CrystalAura::onTick(C_GameMode* gm) {
 		}
 		return;
 	}
-	if (delay == 3 && FinishSelect) {
+	if (this->delay == 3 && FinishSelect) {
 		FinishSelect = false;
 		return;
 	}
-	if (delay == 4) {
+	if (this->delay == 4) {
 		g_Data.forEachEntity([](C_Entity* ent, bool b) {
 			if (ent->getEntityTypeId() != 71)
 				return;
@@ -186,8 +186,8 @@ void CrystalAura::onTick(C_GameMode* gm) {
 		});
 		return;
 	}
-	if (delay >= 5) {
-		delay = 0;
+	if (this->delay >= 5) {
+		this->delay = 0;
 		return;
 	}
 }
@@ -211,5 +211,5 @@ void CrystalAura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 }
 
 void CrystalAura::onDisable() {
-	delay = 0;
+	this->delay = 0;
 }

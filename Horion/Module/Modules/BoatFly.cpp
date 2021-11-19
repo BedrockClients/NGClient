@@ -3,7 +3,7 @@
 #include "../ModuleManager.h"
 
 BoatFly::BoatFly() : IModule(0, Category::ENTITY, "Fly, for boats (Use arrow Keys for Virtical Movement!)") {
-	registerFloatSetting("Speed", &boatflyspeed, boatflyspeed, 1.f, 10.f);
+	registerFloatSetting("Speed", &this->boatflyspeed, this->boatflyspeed, 1.f, 10.f);
 }
 
 BoatFly::~BoatFly() {

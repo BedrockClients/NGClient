@@ -1,18 +1,14 @@
 #include "InsideTP.h"
 
 InsideTP::InsideTP() : IModule(0x0, Category::COMBAT, "TP Into The Closest Entity") {
-	
-	
-	
-	
-	registerBoolSetting("MobAura", &isMobAura, isMobAura);
-	registerBoolSetting("UnlimitedRange", &unlim, unlim);
-	registerBoolSetting("PushMode", &pushm, pushm);
-	registerFloatSetting("range", &range, range, 0.5f, 20.f);
-	registerIntSetting("delay", &delay, delay, 0, 20);
-	registerBoolSetting("hurttime", &hurttime, hurttime);
-	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
-	registerBoolSetting("Silent Rotations", &silent, silent);
+	this->registerBoolSetting("MobAura", &this->isMobAura, this->isMobAura);
+	this->registerBoolSetting("UnlimitedRange", &this->unlim, this->unlim);
+	this->registerBoolSetting("PushMode", &this->pushm, this->pushm);
+	this->registerFloatSetting("range", &this->range, this->range, 0.5f, 20.f);
+	this->registerIntSetting("delay", &this->delay, this->delay, 0, 20);
+	this->registerBoolSetting("hurttime", &this->hurttime, this->hurttime);
+	this->registerBoolSetting("AutoWeapon", &this->autoweapon, this->autoweapon);
+	this->registerBoolSetting("Silent Rotations", &this->silent, this->silent);
 }
 
 InsideTP::~InsideTP() {
@@ -111,7 +107,7 @@ void InsideTP::onTick(C_GameMode* gm) {
 
 void InsideTP::onEnable() {
 	if (g_Data.getLocalPlayer() == nullptr)
-		setEnabled(false);
+		this->setEnabled(false);
 }
 
 void InsideTP::onSendPacket(C_Packet* packet) {

@@ -2,8 +2,8 @@
 #include "../ModuleManager.h"
 
 AutoWalk::AutoWalk() : IModule(0, Category::MOVEMENT, "Automatically walk for you") {
-	registerBoolSetting("Sprint", &sprint, sprint);
-	registerBoolSetting("Jump", &jump, jump);
+	this->registerBoolSetting("Sprint", &this->sprint, this->sprint);
+	this->registerBoolSetting("Jump", &this->jump, this->jump);
 }
 
 AutoWalk::~AutoWalk() {}

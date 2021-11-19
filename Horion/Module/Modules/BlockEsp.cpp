@@ -1,21 +1,21 @@
 #include "BlockEsp.h"
 
 BlockEsp::BlockEsp() : IModule(0x0, Category::VISUAL, "Draws a box around specific blocks") {
-	registerIntSetting("radius", &range, range, 5, 35);
-	registerBoolSetting("Outline shape", &outline, outline);
-	registerFloatSetting("Outline Thickness", &thick, thick, 0.1f, 0.8f);
-	registerBoolSetting("Emerald ore", &emerald, emerald);
-	registerBoolSetting("Diamond ore", &diamond, diamond);
-	registerBoolSetting("All Gold ores", &gold, gold);
-	registerBoolSetting("Redstone ore", &redstone, redstone);
-	registerBoolSetting("Lapis ore", &lapis, lapis);
-	registerBoolSetting("Iron ore", &iron, iron);
-	registerBoolSetting("Coal ore", &coal, coal);
-	registerBoolSetting("Copper ore", &copper, copper);
-	registerBoolSetting("Ancient Debris", &debris, debris);
-	registerBoolSetting("Nether Quartz", &quartz, quartz);
-	registerBoolSetting("Invisible Blocks", &invisBlocks, invisBlocks);
-	registerBoolSetting("Portal Blocks", &portalBlocks, portalBlocks);
+	this->registerIntSetting("radius", &this->range, this->range, 5, 35);
+	registerBoolSetting("Outline shape", &this->outline, this->outline);
+	this->registerFloatSetting("Outline Thickness", &this->thick, this->thick, 0.1f, 0.8f);
+	registerBoolSetting("Emerald ore", &this->emerald, this->emerald);
+	registerBoolSetting("Diamond ore", &this->diamond, this->diamond);
+	registerBoolSetting("All Gold ores", &this->gold, this->gold);
+	registerBoolSetting("Redstone ore", &this->redstone, this->redstone);
+	registerBoolSetting("Lapis ore", &this->lapis, this->lapis);
+	registerBoolSetting("Iron ore", &this->iron, this->iron);
+	registerBoolSetting("Coal ore", &this->coal, this->coal);
+	registerBoolSetting("Copper ore", &this->copper, this->copper);
+	registerBoolSetting("Ancient Debris", &this->debris, this->debris);
+	registerBoolSetting("Nether Quartz", &this->quartz, this->quartz);
+	registerBoolSetting("Invisible Blocks", &this->invisBlocks, this->invisBlocks);
+	registerBoolSetting("Portal Blocks", &this->portalBlocks, this->portalBlocks);
 }
 
 BlockEsp::~BlockEsp() {

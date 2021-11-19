@@ -18,10 +18,7 @@ void C_Inventory::dropAll(int slot) {
 bool C_Inventory::isFull() {
 	int fullslots = 0;
 	for (int i = 0; i < 36; i++) {
-		if (
-			
-			
-			getItemStack(i)->item != nullptr)
+		if (this->getItemStack(i)->item != nullptr)
 			fullslots++;
 	}
 	if (fullslots == 36) return true;

@@ -2,14 +2,10 @@
 #include "../Memory/GameData.h"
 
 void C_GameMode::survivalDestroyBlockHack(vec3_ti const &block, int face, bool &isDestroyedOut, bool isFirst) {
-	auto p = 
-		
-		player;
+	auto p = this->player;
 	p->swing();
 	if (isFirst)
-		
-		
-		startDestroyBlock(block, face, isDestroyedOut);
+		this->startDestroyBlock(block, face, isDestroyedOut);
 	else {
 		*reinterpret_cast<bool *>(reinterpret_cast<__int64>(p) + 0x1c5a) = 1;
 		this->continueDestroyBlock(block, face, isDestroyedOut);

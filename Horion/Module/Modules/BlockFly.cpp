@@ -1,11 +1,11 @@
 #include "BlockFly.h"
 
 BlockFly::BlockFly() : IModule(0, Category::FLYS, "Block Fly") {
-	registerFloatSetting("Speed", &speed, speed, 0.1f, 0.7f);
-	registerIntSetting("Timer Speed", &timer, timer, 20, 200);
-	registerBoolSetting("Timer", &time, time);
-	registerBoolSetting("Damage", &dmg, dmg);
-	registerBoolSetting("Fail Safe", &safe, safe);
+	registerFloatSetting("Speed", &this->speed, this->speed, 0.1f, 0.7f);
+	registerIntSetting("Timer Speed", &this->timer, this->timer, 20, 200);
+	registerBoolSetting("Timer", &this->time, this->time);
+	registerBoolSetting("Damage", &this->dmg, this->dmg);
+	registerBoolSetting("Fail Safe", &this->safe, this->safe);
 }
 
 BlockFly::~BlockFly() {
@@ -27,7 +27,7 @@ const char* BlockFly::getModuleName() {
 }
 
 void BlockFly::onEnable() {
-	if (dmg) {
+	if (this->dmg) {
 		auto player = g_Data.getLocalPlayer();
 		//player->animateHurt();
 	}
@@ -47,20 +47,20 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 	if (!player->onGround) {
 		g_Data.getGuiData()->displayClientMessageF("[%sBlockFly%s] %sU Cant Start In The Air Idiot%s!", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
-		if (safe) {
+		if (this->safe) {
 			player->velocity.y = 0.00f;
 			player->velocity.y = 0.00f;
 			player->velocity.y = 0.00f;
 			auto scaff = moduleMgr->getModule<Scaffold>();
 			scaff->setEnabled(true);
 		}
-		setEnabled(false);
+		this->setEnabled(false);
 		return;
 	}
 	auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
 	//if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == nullptr || !selectedItem->getItem()->isBlock())) {  // Block in hand?
 	//clientMessageF("U Have No Blocks In Ur Inventory :/");
-	//setEnabled(false);
+	//this->setEnabled(false);
 	//}
 	if (pressed) {
 		float calcYaw = (player->yaw + 90) * (PI / 180);
@@ -82,7 +82,7 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 	}
 	if (pressed && counter == 6) {
 		auto blinkMod = moduleMgr->getModule<Scaffold>();
-		if (Fly) {
+		if (this->Fly) {
 			blinkMod->setEnabled(true);
 		}
 	}
@@ -123,7 +123,7 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 		counter++;
 	}
 	if (timer) {
-		*g_Data.getClientInstance()->minecraft->timer = static_cast<float>(timer);
+		*g_Data.getClientInstance()->minecraft->timer = static_cast<float>(this->timer);
 	} else {
 		*g_Data.getClientInstance()->minecraft->timer = 20.f;
 	}
@@ -135,7 +135,7 @@ void BlockFly::onDisable() {
 	auto blinkMod = moduleMgr->getModule<Scaffold>();
 	auto player = g_Data.getLocalPlayer();
 	blinkMod->spoof = true;
-	if (safe) {
+	if (this->safe) {
 		//hi :)
 	} else {
 		if (blinkMod->isEnabled()) {

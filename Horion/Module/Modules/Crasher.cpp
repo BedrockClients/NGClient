@@ -12,16 +12,12 @@ const char* Crasher::getModuleName() {
 
 void Crasher::onEnable() {
 	if (g_Data.getLocalPlayer() == nullptr)
-		
-		
-		
-		setEnabled(false);
+		this->setEnabled(false);
 }
 
 void Crasher::onTick(C_GameMode* gm) {
 	if (g_Data.getLocalPlayer() == nullptr)
-		
-		setEnabled(false);
+		this->setEnabled(false);
 }
 
 void Crasher::onSendPacket(C_Packet* packet) {

@@ -508,11 +508,7 @@ public:
 	C_InventoryTransactionManager *getTransactionManager();
 
 	AABB *getAABB() {
-		return &
-			
-			
-			
-			aabb;
+		return &this->aabb;
 	}
 
 	__int64 *getUniqueId() {
@@ -528,9 +524,7 @@ public:
 	}
 
 	int getTicksUsingItem() {
-		return 
-			
-			ticksUsingItem;
+		return this->ticksUsingItem;
 	}
 
 	bool isSneaking() {

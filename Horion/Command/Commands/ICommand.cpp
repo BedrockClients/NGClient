@@ -4,9 +4,7 @@
 #include <vector>
 
 IMCCommand::IMCCommand(const char* command, const char* description, const char* usage) {
-	
-	
-	_command = command;
+	this->_command = command;
 	this->_description = description;
 	this->_usage = usage;
 	registerAlias(command);

@@ -81,9 +81,7 @@ struct vec2_t {
 	float dot(const vec2_t &o) const { return x * o.x + y * o.y; }
 
 	vec2_t normAngles() {
-		float x = 
-			
-			x;
+		float x = this->x;
 		float y = this->y;
 		while (x > 90.f)
 			x -= 180.0f;

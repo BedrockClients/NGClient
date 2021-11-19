@@ -2,8 +2,8 @@
 #include "../ModuleManager.h"
 
 Glide::Glide() : IModule(0, Category::FLYS, "Float down") {
-	registerFloatSetting("value", &glideMod, glideMod, -2, 1);
-	//registerBoolSetting("Test", &fart, fart);
+	this->registerFloatSetting("value", &this->glideMod, this->glideMod, -2, 1);
+	registerBoolSetting("Test", &fart, fart);
 }
 
 Glide::~Glide() {

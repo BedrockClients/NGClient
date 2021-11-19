@@ -17,11 +17,7 @@ LevelSoundEventPacket::LevelSoundEventPacket() {
 	}
 	memset(this, 0, sizeof(LevelSoundEventPacket));  // Avoid overwriting vtable
 	vTable = LevelSoundEventPacketVtable;
-	
-	
-	
-	
-	entityType.setText("minecraft:player");
+	this->entityType.setText("minecraft:player");
 }
 PlayerAuthInputPacket::PlayerAuthInputPacket() {
 	static uintptr_t** PlayerAuthInputPacketVtable = 0x0;

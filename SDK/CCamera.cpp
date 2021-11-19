@@ -14,14 +14,10 @@ void C_Camera::setOrientation(float pitch, float yaw, float roll) {
 }
 void C_Camera::getPlayerRotation(vec2_t* angOut) {
 	vec3_t angles;
-	
-	
-	getEulerAngles(&angles);
+	this->getEulerAngles(&angles);
 
 	float v4;
-	if ( 
-		
-		facesPlayerFront )
+	if ( this->facesPlayerFront )
 		v4 = -1.0;
 	else
 		v4 = 1.0;
@@ -32,9 +28,7 @@ void C_Camera::getPlayerRotation(vec2_t* angOut) {
 }
 void C_Camera::getForwardVector(vec3_t* forward) {
 	vec3_t eulerAngles;
-	
-	
-	getEulerAngles(&eulerAngles);
+	this->getEulerAngles(&eulerAngles);
 
 	float calcYaw = eulerAngles.y - (90 * (PI / 180));
 	float calcPitch = -eulerAngles.x;
