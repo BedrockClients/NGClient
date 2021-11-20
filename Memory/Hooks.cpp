@@ -1285,6 +1285,7 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	static auto oFunc = g_Hooks.Actor_rotationHook->GetFastcall<void, C_Entity*, vec2_t&>();
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
+	//static auto freelookMod = moduleMgr->getModule<Freelook>(); u do not have permission to use this
 	static auto botMod = moduleMgr->getModule<FightBot>();
 #ifdef _DEBUG
 	static auto test = moduleMgr->getModule<TestModule>();
