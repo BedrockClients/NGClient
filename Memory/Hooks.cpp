@@ -1285,6 +1285,7 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	static auto oFunc = g_Hooks.Actor_rotationHook->GetFastcall<void, C_Entity*, vec2_t&>();
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
+	static auto freelookMod = moduleMgr->getModule<Freelook>();
 	static auto botMod = moduleMgr->getModule<FightBot>();
 #ifdef _DEBUG
 	static auto test = moduleMgr->getModule<TestModule>();
@@ -1294,6 +1295,9 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	}
 	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->sexy) {
 		sexyAngle = {killauraMod->joe};
+	}
+	if (freelookMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
+		sexyAngle = {freelookMod->deez.x, freelookMod->deez.y};
 	}
 	oFunc(_this, sexyAngle);
 }
