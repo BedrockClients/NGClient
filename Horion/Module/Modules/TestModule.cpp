@@ -93,7 +93,7 @@ void TestModule::onEnable() {
 void TestModule::onTick(C_GameMode* gm) {
 	if (g_Data.isInGame()) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		//player->openPortfolio();
+		player->fallDistance = 0.0f;
 	}
 }
 
