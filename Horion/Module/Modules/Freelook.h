@@ -17,6 +17,9 @@ public:
 	~Freelook();
 
 	virtual const char* getModuleName() override;
+	bool isFlashMode() override {
+		return false;
+	}
 	void onTick(C_GameMode* mode) override;
 	void onEnable() override;
 	void onDisable() override;
