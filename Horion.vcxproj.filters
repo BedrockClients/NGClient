@@ -223,6 +223,7 @@
     <ClCompile Include="Horion\Module\Modules\AutoClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiLagBack.cpp" />
+    <ClCompile Include="Horion\Module\Modules\swimspeed.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -486,6 +487,7 @@
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
     <ClInclude Include="Horion\Module\Modules\AntiLagBack.h" />
     <ClInclude Include="SDK\CMobEffect.h" />
+    <ClInclude Include="Horion\Module\Modules\swimspeed.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

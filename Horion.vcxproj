@@ -320,6 +320,7 @@
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoClip.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
+    <ClCompile Include="Horion\Module\Modules\swimspeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\targetHUD.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoSneak.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoSprint.cpp" />
@@ -544,6 +545,7 @@
     <ClInclude Include="Horion\Module\Modules\NGFly.h" />
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
     <ClInclude Include="Horion\Module\Modules\Snowball_Aimbot.h" />
+    <ClInclude Include="Horion\Module\Modules\swimspeed.h" />
     <ClInclude Include="Horion\Module\Modules\targetHUD.h" />
     <ClInclude Include="Horion\Module\Modules\AutoSneak.h" />
     <ClInclude Include="Horion\Module\Modules\AutoSprint.h" />

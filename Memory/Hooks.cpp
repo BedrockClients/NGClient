@@ -1297,7 +1297,7 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 		sexyAngle = {killauraMod->joe};
 	}
 	//if (freelookMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
-	//	sexyAngle = {freelookMod->deez.x, freelookMod->deez.y};
+	//	sexyAngle = {freelookMod->player.x, freelookMod->player.y};
 	//}
 	oFunc(_this, sexyAngle);
 }

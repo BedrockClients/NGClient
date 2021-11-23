@@ -136,6 +136,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Trail()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FightBot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new LongJump()));
+		moduleList.push_back(std::shared_ptr<IModule>(new swim()));
 
 #ifdef _DEBUG
 		moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));
