@@ -11,7 +11,6 @@ const char* Freelook::getModuleName() {
 }
 vec2_t mouseEnd = {0, 0};
 void Freelook::onEnable() {
-<<<<<<< HEAD
 	if (!g_Data.isInGame() || this->resetViewTick > -1) {
 		this->setEnabled(false);
 		return;
@@ -21,22 +20,11 @@ void Freelook::onEnable() {
 	this->resetViewTick = -1;
 	this->initialViewAngles = g_Data.getLocalPlayer()->viewAngles;
 	this->lastCameraAngle = {0, 0};
-=======
-	deez = g_Data.getLocalPlayer()->viewAngles;
-	redirectMouse = true;
->>>>>>> 0fd8dfb30ef726482231e3d850362958ce80085c
 }
-
 void Freelook::onDisable() {
-<<<<<<< HEAD
 	if (g_Data.isInGame() && this->resetViewTick == -1 && this->redirectMouse) {
 		this->resetViewTick = this->isThirdPerson ? 0 : 100;  // give it time
 		if (this->cameraFacesFront) {
-=======
-	if (g_Data.isInGame() && resetViewTick == -1 && redirectMouse) {
-		resetViewTick = isThirdPerson ? 0 : 0;  // give it time
-		if (cameraFacesFront) {
->>>>>>> 0fd8dfb30ef726482231e3d850362958ce80085c
 			lastCameraAngle.y += 180;
 			lastCameraAngle = lastCameraAngle.normAngles();
 			mouseEnd = this->lastCameraAngle;
@@ -48,7 +36,6 @@ void Freelook::onDisable() {
 			mouseEnd.y += 180;
 		}
 	} else if (!g_Data.isInGame()) {
-<<<<<<< HEAD
 		this->resetViewTick = -1;
 		this->redirectMouse = false;
 	}
@@ -79,18 +66,8 @@ void Freelook::onPostRender(C_MinecraftUIRenderContext* mode) {
 		if (this->cameraFacesFront) {
 			this->lastCameraAngle.x *= -1;
 		}
-=======
-		redirectMouse = false;
 	}
 }
-
-void Freelook::onPostRender(C_MinecraftUIRenderContext* mode) {
-	if (resetViewTick > 0) {
-		resetViewTick--;
->>>>>>> 0fd8dfb30ef726482231e3d850362958ce80085c
-	}
-}
-
 void Freelook::onTick(C_GameMode* mode) {
 	if (this->resetViewTick == 0) {
 		this->redirectMouse = false;
@@ -102,10 +79,7 @@ void Freelook::onTick(C_GameMode* mode) {
 
 		l.x *= -1;
 		loc->applyTurnDelta(&l);
-<<<<<<< HEAD
 
 		this->lastCameraAngle = {0, 0};
-=======
->>>>>>> 0fd8dfb30ef726482231e3d850362958ce80085c
 	}
 }
