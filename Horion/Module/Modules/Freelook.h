@@ -6,7 +6,7 @@ private:
 	vec2_t initialViewAngles = {};
 
 public:
-	vec2_t player = {};
+	vec2_t deez = {};
 	int resetViewTick = -1;
 	vec2_t lastCameraAngle = {0, 0};
 	bool redirectMouse = false;
