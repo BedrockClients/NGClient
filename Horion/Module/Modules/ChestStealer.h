@@ -5,6 +5,7 @@ private:
 	int delay = 0;
 	int setDelay = 7;
 	bool enhanced = true;
+	bool dump = false;
 
 public:
 	ChestStealer();
