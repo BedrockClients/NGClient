@@ -48,7 +48,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Fucker()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoTotem()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new AutoTotem()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InfiniteAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ClickGuiMod()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockEsp()));

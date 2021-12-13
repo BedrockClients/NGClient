@@ -22,10 +22,9 @@ void Totem::onTick(C_GameMode* gm) {
 				ItemDescriptor* desc = nullptr;
 				desc = new ItemDescriptor((*totem->item)->itemId, 0);
 				C_InventoryAction first(i, desc, nullptr, totem, nullptr, 1);
-				C_InventoryAction second(37, nullptr, desc, nullptr, totem, 1);
-				g_Data.getLocalPlayer()->setOffhandSlot(totem);
+				C_InventoryAction second(37, nullptr, desc, nullptr, totem, 1, 0x77);
 				manager->addInventoryAction(first);
-				manager->addInventoryAction(second);
+				g_Data.getLocalPlayer()->setOffhandSlot(totem);
 				break;
 			}
 		}

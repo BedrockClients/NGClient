@@ -43,7 +43,7 @@ void Spider::onMove(C_MoveInputHandler* input) {
 			if (x == 0 && z == 0)
 				continue;
 
-			if (moveVec2d.dot(vec2_t(x, z).normalized()) < 0.6f)
+			if (moveVec2d.dot(vec2_t((float)x, (float)z).normalized()) < 0.6f)
 				continue;
 			sideBlocks.push_back(vec3_ti(x, 0, z));
 		}

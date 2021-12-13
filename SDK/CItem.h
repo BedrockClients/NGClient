@@ -65,129 +65,131 @@ private:
 	virtual __int64 initServer(__int64, __int64);                                                // 1
 	virtual __int64 tearDown(void);                                                                               // 2
 public:
-	virtual __int64 getMaxUseDuration(C_ItemStack const *);                                                       // 3
+	virtual __int64 getMaxUseDuration(C_ItemStack const *);                                                      // 3
 	virtual __int64 getMaxUseDuration(C_ItemStack const *) const;                                                         // 4
-	virtual __int64 isMusicDisk(void);                                                                            // 5
-	virtual __int64 executeEvent(C_ItemStack &, const TextHolder*, struct RenderParams &);                               // 6
-	virtual __int64 isComponentBased(void);                                                                       // 7
-	virtual __int64 isArmor(void);                                                                                // 8
-	virtual __int64 isBlockPlanterItem(void);                                                                     // 9
-	virtual __int64 isBucket(void);                                                                               // 10
-	virtual __int64 isCamera(void);                                                                               // 11
-	virtual __int64 isCandle(void);                                                                               // 12
-	virtual __int64 isDamageable(void);                                                                           // 13
-	virtual __int64 isDyeable(void);                                                                              // 14
-	virtual __int64 isDye(void);                                                                                  // 15
+	virtual bool isMusicDisk(void);                                                                               // 5
+	virtual __int64 executeEvent();                           // 6
+	virtual bool isComponentBased(void);                                                                          // 7
+	virtual bool isArmor(void);                                                                                   // 8
+	virtual bool isBlockPlanterItem(void);                                                                        // 9
+	virtual bool isBucket(void);                                                                                  // 10
+	virtual bool isCamera(void);                                                                                  // 11
+	virtual bool isCandle(void);                                                                                  // 12
+	virtual bool isDamageable(void);                                                                              // 13
+	virtual bool isDyeable(void);                                                                                 // 14
+	virtual bool isDye(void);                                                                                     // 15
 	virtual __int64 getItemColor(void);                                                                           // 16
-	virtual __int64 isFertilizer(void);                                                                           // 17
-	virtual __int64 isFood(void);                                                                                 // 18
-	virtual __int64 isThrowable(void);                                                                            // 19
-	virtual __int64 isUseable(void);                                                                              // 20
-	virtual __int64 getCamera(void);                                                                              // 21
-	virtual __int64 getFood(void);                                                                                // 22
-	virtual __int64 getFuel(void);                                                                                // 23
-	virtual __int64 setMaxStackSize(unsigned char);                                                                       // 24
-	virtual __int64 setStackedByData(bool);                                                                       // 25
-	virtual __int64 setMaxDamage(int);                                                                            // 26
-	virtual __int64 setHandEquipped(void);                                                                        // 27
-	virtual __int64 setUseAnimation(int UseAnimation);                                                                // 28
-	virtual __int64 setMaxUseDuration(int);                                                                       // 29
-	virtual __int64 setRequiresWorldBuilder(bool);                                                                // 30
-	virtual __int64 setExplodable(bool);                                                                          // 31
-	virtual __int64 setFireResistant(bool);                                                                       // 32
-	virtual __int64 setIsGlint(bool);                                                                             // 33
-	virtual __int64 setShouldDespawn(bool);                                                                       // 34
-	virtual __int64 getBlockShape(void);                                                                          // 35
-	virtual __int64 canBeDepleted(void);                                                                          // 36
-	virtual __int64 canDestroySpecial(C_Block const &);                                                             // 37
-	virtual __int64 getLevelDataForAuxValue(int);                                                                 // 38
-	virtual __int64 isStackedByData(void);                                                                        // 39
-	virtual __int64 getMaxDamage(void);                                                                           // 40
-	virtual __int64 getAttackDamage(void);                                                                        // 41
-	virtual __int64 isHandEquipped(void);                                                                         // 42
-	virtual __int64 isGlint(C_ItemStack const &);                                                               // 43
-	virtual __int64 isPattern(void);                                                                              // 44
-	virtual __int64 getPatternIndex(void);                                                                        // 45
-	virtual __int64 showsDurabilityInCreative(void);                                                              // 46
-	virtual __int64 isWearableThroughLootTable(CompoundTag const *);                                              // 47
-	virtual __int64 canDestroyInCreative(void);                                                                   // 48
-	virtual __int64 isDestructive(int);                                                                           // 49
-	virtual __int64 isLiquidClipItem(int);                                                                        // 50
-	virtual __int64 shouldInteractionWithBlockBypassLiquid(C_Block const &);                                        // 51
-	virtual __int64 requiresInteract(void);                                                                       // 52
-	virtual __int64 appendFormattedHovertext(C_ItemStack const &, PointingStruct&, TextHolder*, bool);                  // 53
-	virtual __int64 isValidRepairItem(C_ItemStack const &, C_ItemStack const &, __int64 BaseGameVersion);         // 54
-	virtual __int64 getEnchantSlot(void);                                                                         // 55
-	virtual __int64 getEnchantValue(void);                                                                        // 56
-	virtual __int64 getArmorValue(void);                                                                          // 57
-	virtual __int64 isComplex(void);                                                                              // 58
-	virtual __int64 isValidAuxValue(int);                                                                         // 59
-	virtual __int64 getDamageChance(int);                                                                         // 60
-	virtual __int64 getViewDamping(void);                                                                         // 61
-	virtual __int64 uniqueAuxValues(void);                                                                        // 62
-	virtual __int64 isActorPlacerItem(void);                                                                      // 63
-	virtual __int64 isMultiColorTinted(C_ItemStack const &);                                                      // 64
-	virtual __int64 getColor(CompoundTag const *, class ItemDescriptor const &);                                   // 65
-	virtual __int64 hasCustomColor(C_ItemStack const &);                                                          // 66
-	virtual __int64 hasCustomColor(CompoundTag const *);                                                          // 67
-	virtual __int64 clearColor(C_ItemStack &);                                                                    // 68
-	virtual __int64 clearColor(CompoundTag *);                                                                    // 69
-	virtual __int64 setColor(C_ItemStack &, struct MC_Color const &);                                                  // 70
-	virtual __int64 getBaseColor(C_ItemStack const &);                                                            // 71
-	virtual __int64 getSecondaryColor(C_ItemStack const &);                                                     // 72
-	virtual __int64 getActorIdentifier(C_ItemStack const &);                                                      // 73
-	virtual __int64 saveAdditionalData(C_ItemStack const &, CompoundTag &);                                     // 74
-	virtual __int64 readAdditionalData(C_ItemStack &, CompoundTag const &);                                       // 75
-	virtual __int64 buildIdAux(short, CompoundTag const *);                                                       // 76
-	virtual __int64 canUseOnSimTick(void);                                                                        // 77
-	virtual __int64 use(C_ItemStack &, C_Player &);                                                                 // 78
-	virtual __int64 dispense(C_BlockSource &, __int64 Container, int, vec3_t const &, unsigned char);                               // 79
-	virtual __int64 useTimeDepleted(C_ItemStack &, PointingStruct *, C_Player *);                                   // 80
-	virtual __int64 releaseUsing(C_ItemStack &, C_Player *, int);                                                                     // 81
-	virtual __int64 getDestroySpeed(C_ItemStack const &, C_Block const &);                                            // 82
-	virtual __int64 hurtActor(C_ItemStack &, C_Entity &, C_Entity &);                                                               // 83
-	virtual __int64 hitActor(C_ItemStack &, C_Entity &, C_Entity &);                                                // 84
-	virtual __int64 hitBlock(C_ItemStack &, C_Block const &, vec3_ti const &, C_Entity &);                                         // 85
-	virtual __int64 mineBlock(C_ItemStack &, C_Block const &, int, int, int, C_Entity *);                           // 86
-	virtual __int64 mineBlock(C_ItemStack &, C_Block const &, int, int, int, C_Entity *) const;                                           // 87
-	virtual __int64 buildDescriptionName(C_ItemStack const &);                                                    // 88
-	virtual __int64 buildDescriptionId(class ItemDescriptor const &, CompoundTag const *);                                          // 89
-	virtual __int64 buildEffectDescriptionName(C_ItemStack const &);                                              // 90
-	virtual __int64 buildCategoryDescriptionName(void);                                                           // 91
-	virtual __int64 readUserData(C_ItemStack &, __int64, __int64);                            // 92
-	virtual __int64 writeUserData(C_ItemStack const &, __int64);                                            // 93
-	virtual __int64 getMaxStackSize(class ItemDescriptor const *);                            // 94
-	virtual __int64 inventoryTick(C_ItemStack &, PointingStruct &, C_Entity &, int, bool);                        // 95
-	virtual __int64 refreshedInContainer(C_ItemStack const &, PointingStruct &);                                  // 96
-	virtual __int64 getCooldownType(void);                                                                        // 97
-	virtual __int64 getCooldownTime(void);                                                                        // 98
-	virtual __int64 fixupCommon(C_ItemStack &);                                                                   // 99
-	virtual __int64 fixupCommon(C_ItemStack &, PointingStruct &);                                                 // 100
-	virtual __int64 getDamageValue(CompoundTag const *);                                                          // 101
-	virtual __int64 setDamageValue(C_ItemStack &, short);                                                         // 102
-	virtual __int64 getInHandUpdateType(C_Player const &, C_ItemStack const &, C_ItemStack const &, bool, bool);    // 103
-	virtual __int64 getInHandUpdateType(C_Player const &, C_ItemStack const &, C_ItemStack const &, bool, bool) const;  // 104
-	virtual __int64 validFishInteraction(int);                                                                    // 105
-	virtual __int64 isSameItem(C_ItemStack const &, C_ItemStack const &);                                         // 106
-	virtual __int64 initClient(__int64, __int64);                                                // 107
-	virtual __int64 getInteractText(C_Player const &);                                                            // 108
-	virtual __int64 getAnimationFrameFor(C_Entity *, bool, C_ItemStack const *, bool);                                 // 109
-	virtual __int64 isEmissive(int);                                                                              // 110
-	virtual __int64 getLightEmission(int);                                                                        // 111
-	virtual __int64 getIcon(C_ItemStack const &, int, bool);                                                      // 112
-	virtual __int64 getIconYOffset(void);                                                                         // 113
-	virtual __int64 setIcon(const TextHolder*, int);                                                            // 114
-	virtual __int64 setIcon(__int64 const &);                                                      // 115
-	virtual __int64 setIconAtlas(const TextHolder*, int);                                                       // 116
-	virtual __int64 canBeCharged(void);                                                                           // 117
-	virtual __int64 playSoundIncrementally(C_ItemStack const &, C_Entity &);                                      // 118
-	virtual __int64 playSoundIncrementally(C_ItemStack const &, C_Entity &) const;                                      // 119
-	virtual __int64 getFurnaceBurnIntervalMultipler(C_ItemStack const &);                                         // 120
-	virtual __int64 getFurnaceXPmultiplier(C_ItemStack const &);                                                  // 121
-	virtual __int64 getAuxValuesDescription(void);                                                                // 122
-	virtual __int64 _checkUseOnPermissions(C_Entity &, C_ItemStack &, unsigned char const &, vec3_ti const &);   // 123
-	virtual __int64 _calculatePlacePos(C_ItemStack &, C_Entity &, unsigned char &, vec3_ti &);                   // 124
-	virtual __int64 _useOn(C_ItemStack &, C_Entity &, vec3_ti, unsigned char, float, float, float);              // 125
+	virtual bool isFertilizer(void);                                                                              // 17
+	virtual bool isFood(void);                                                                                    // 18
+	virtual bool isThrowable(void);                                                                               // 19
+	virtual bool isUseable(void);                                                                                 // 20
+	virtual __int64 getComponent(TextHolder const &);                                                           // 21
+	virtual __int64 getCamera(void);                                                                              // 22
+	virtual __int64 getFood(void);                                                                                // 23
+	virtual __int64 getFuel(void);                                                                                // 24
+	virtual __int64 setMaxStackSize(unsigned char);                                                                       // 25
+	virtual __int64 setStackedByData(bool);                                                                       // 26
+	virtual __int64 setMaxDamage(int);                                                                            // 27
+	virtual __int64 setHandEquipped(void);                                                                        // 28
+	virtual __int64 setUseAnimation(int);                                                                // 29
+	virtual __int64 setMaxUseDuration(int);                                                                       // 30
+	virtual __int64 setRequiresWorldBuilder(bool);                                                                // 31
+	virtual __int64 setExplodable(bool);                                                                          // 32
+	virtual __int64 setFireResistant(bool);                                                                       // 33
+	virtual __int64 setIsGlint(bool);                                                                             // 34
+	virtual __int64 setShouldDespawn(bool);                                                                       // 35
+	virtual __int64 getBlockShape(void);                                                                          // 36
+	virtual bool canBeDepleted(void);                                                                             // 37
+	virtual bool canDestroySpecial(C_Block const &);                                                                // 38
+	virtual __int64 getLevelDataForAuxValue(int);                                                                 // 39
+	virtual bool isStackedByData(void);                                                                           // 40
+	virtual __int64 getMaxDamage(void);                                                                           // 41
+	virtual __int64 getAttackDamage(void);                                                                        // 42
+	virtual bool isHandEquipped(void);                                                                            // 43
+	virtual bool isGlint(C_ItemStack const &);                                                                    // 44
+	virtual bool isPattern(void);                                                                                 // 45
+	virtual __int64 getPatternIndex(void);                                                                        // 46
+	virtual __int64 showsDurabilityInCreative(void);                                                              // 47
+	virtual bool isWearableThroughLootTable(CompoundTag const *);                                                 // 48
+	virtual bool canDestroyInCreative(void);                                                                      // 49
+	virtual bool isDestructive(int);                                                                              // 50
+	virtual bool isLiquidClipItem(int);                                                                           // 51
+	virtual __int64 shouldInteractionWithBlockBypassLiquid(C_Block const &);                                        // 52
+	virtual __int64 requiresInteract(void);                                                                       // 53
+	virtual __int64 appendFormattedHovertext(C_ItemStack const &, PointingStruct&, std::string &, bool);                // 54
+	virtual bool isValidRepairItem();        // 55
+	virtual __int64 getEnchantSlot(void);                                                                         // 56
+	virtual __int64 getEnchantValue(void);                                                                        // 57
+	virtual __int64 getArmorValue(void);                                                                          // 58
+	virtual bool isComplex(void);                                                                                 // 59
+	virtual bool isValidAuxValue(int);                                                                            // 60
+	virtual __int64 getDamageChance(int);                                                                         // 61
+	virtual __int64 getViewDamping(void);                                                                         // 62
+	virtual __int64 uniqueAuxValues(void);                                                                        // 63
+	virtual bool isActorPlacerItem(void);                                                                         // 64
+	virtual bool isMultiColorTinted(C_ItemStack const &);                                                         // 65
+	virtual __int64 getColor();                                        // 66
+	virtual bool hasCustomColor(C_ItemStack const &);                                                             // 67
+	virtual bool hasCustomColor(CompoundTag const *);                                                             // 68
+	virtual __int64 clearColor(C_ItemStack &);                                                                    // 69
+	virtual __int64 clearColor(CompoundTag *);                                                                    // 70
+	virtual __int64 setColor();                                                  // 71
+	virtual __int64 getBaseColor(C_ItemStack const &);                                                            // 72
+	virtual __int64 getSecondaryColor(C_ItemStack const &);                                                       // 73
+	virtual __int64 getActorIdentifier(C_ItemStack const &);                                                      // 74
+	virtual __int64 saveAdditionalData(C_ItemStack const &, CompoundTag &);                                       // 75
+	virtual __int64 readAdditionalData(C_ItemStack &, CompoundTag const &);                                       // 76
+	virtual __int64 buildIdAux(short, CompoundTag const *);                                                       // 77
+	virtual bool canUseOnSimTick(void);                                                                           // 78
+	virtual __int64 use(C_ItemStack &, C_Player &);                                                                 // 79
+	virtual __int64 dispense(C_BlockSource &, __int64, int, vec3_t const &, unsigned char);                               // 80
+	virtual __int64 useTimeDepleted(C_ItemStack &, PointingStruct *, C_Player *);                                   // 81
+	virtual __int64 releaseUsing(C_ItemStack &, C_Player *, int);                                                 // 82
+	virtual __int64 getDestroySpeed(C_ItemStack const &, C_Block const &);                                          // 83
+	virtual __int64 hurtActor(C_ItemStack &, C_Entity &, C_Entity &);                                             // 84
+	virtual __int64 hitActor(C_ItemStack &, C_Entity &, C_Entity &);                                              // 85
+	virtual __int64 hitBlock(C_ItemStack &, C_Block const &, vec3_ti const &, C_Entity &);                        // 86
+	virtual __int64 mineBlock(C_ItemStack &, C_Block const &, int, int, int, C_Entity *);                         // 87
+	virtual __int64 mineBlock(C_ItemStack &, C_Block const &, int, int, int, C_Entity *) const;                         // 88
+	virtual __int64 buildDescriptionName(C_ItemStack const &);                                                    // 89
+	virtual __int64 buildDescriptionId(class ItemDescriptor const *, CompoundTag const *);                              // 90
+	virtual __int64 buildEffectDescriptionName(C_ItemStack const &);                                              // 91
+	virtual __int64 buildCategoryDescriptionName(void);                                                           // 92
+	virtual __int64 readUserData(C_ItemStack &, __int64, __int64);                                                // 93
+	virtual __int64 writeUserData(C_ItemStack const &, __int64);                                            // 94
+	virtual __int64 getMaxStackSize(class ItemDescriptor const *);                                                      // 95
+	virtual __int64 inventoryTick(C_ItemStack &, PointingStruct &, C_Entity &, int, bool);                        // 96
+	virtual __int64 refreshedInContainer(C_ItemStack const &, PointingStruct &);                                  // 97
+	virtual __int64 getCooldownType(void);                                                                        // 98
+	virtual __int64 getCooldownTime(void);                                                                        // 99
+	virtual __int64 fixupCommon(C_ItemStack &);                                                                   // 100
+	virtual __int64 fixupCommon(C_ItemStack &, PointingStruct &);                                                          // 101
+	virtual __int64 getDamageValue(CompoundTag const *);                                                          // 102
+	virtual __int64 setDamageValue(C_ItemStack &, short);                                                       // 103
+	virtual __int64 getInHandUpdateType(C_Player const &, C_ItemStack const &, C_ItemStack const &, bool, bool);  // 104
+	virtual __int64 getInHandUpdateType(C_Player const &, C_ItemStack const &, C_ItemStack const &, bool, bool, __int64 fakeuseotherone);  // 105
+	virtual __int64 validFishInteraction(int);                                                                    // 106
+	virtual bool isSameItem(C_ItemStack const &, C_ItemStack const &);                                            // 107
+	virtual __int64 initClient();                                                // 108
+	virtual __int64 getInteractText(C_Player const &);                                                            // 109
+	virtual __int64 getAnimationFrameFor(C_Entity *, bool, C_ItemStack const *, bool);                                 // 110
+	virtual bool isEmissive(int);                                                                                 // 111
+	virtual __int64 getLightEmission(int);                                                                        // 112
+	virtual __int64 getIcon(C_ItemStack const &, int, bool);                                                      // 113
+	virtual __int64 getIconYOffset(void);                                                                         // 114
+	virtual __int64 setIcon(const std::string &, int);                                                            // 115
+	virtual __int64 setIcon();                                                      // 116
+	virtual __int64 setIconAtlas(const std::string &, int);                                                       // 117
+	virtual bool canBeCharged(void);                                                                              // 118
+	virtual __int64 playSoundIncrementally(C_ItemStack const &, C_Entity &);                                           // 119
+	virtual __int64 playSoundIncrementally(C_ItemStack const &, C_Entity &) const;                                           // 120
+	virtual __int64 getFurnaceBurnIntervalMultipler(C_ItemStack const &);                                         // 121
+	virtual __int64 getFurnaceXPmultiplier(C_ItemStack const &);                                                  // 122
+	virtual __int64 getAuxValuesDescription(void);                                                                // 123
+	virtual __int64 _checkUseOnPermissions(C_Entity &, C_ItemStack &, unsigned char const &, vec3_ti const &);    // 124
+	virtual __int64 _calculatePlacePos(C_ItemStack &, C_Entity &, unsigned char &, vec3_ti &);                            // 125
+	virtual __int64 _useOn(C_ItemStack &, C_Entity &, vec3_ti, unsigned char, float, float, float);                              // 126
+	virtual __int64 getArmorKnockbackResistance(void);                                                            // 127
 
 
 public:

@@ -13,7 +13,7 @@ C_InventoryTransactionManager *C_Entity::getTransactionManager() {
 	return reinterpret_cast<C_InventoryTransactionManager *>(reinterpret_cast<__int64>(this) + offset);
 }
 C_PlayerInventoryProxy *C_Player::getSupplies() {
-	static unsigned int offset = 0xB90;
+	static unsigned int offset = 0xB88;
 	/*if (offset == 0) {
 		offset = *reinterpret_cast<int *>(FindSignature("48 8B 51 ?? 4C 8B 82 ?? ?? ?? ?? 48 8B B2 ?? ?? ?? ?? 41 80 B8") + 7);  // GameMode::startDestroyBlock -> GameMode::_canDestroy -> getSupplies
 	}*/
@@ -34,7 +34,7 @@ void C_LocalPlayer::setGameModeType(int gma) {
 	// Player::setPlayerGameType
 	//using setGameMode = void(__thiscall *)(void *, int);
 	//static setGameMode Game_Mode = reinterpret_cast<setGameMode>(FindSignature("48 8B C4 56 57 41 56 48 81 EC ? ? ? ? 48 C7 44 24 ? ? ? ? ? 48 89 58 ? 48 89 68 ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 84 24 ? ? ? ? 8B EA 48 8B D9 44 8B B1 ? ? ? ? 83 FA ? 75 2D"));
-	this->setPlayerGameType(gma);
+	this->setC_PlayerGameType(gma);
 }
 
 bool PointingStruct::hasEntity() {

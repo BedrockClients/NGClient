@@ -8,9 +8,9 @@
 
 class Minecraft {
 private:
-	char pad_0x0000[0xD0];  //0x0000
+	char pad_0x0000[0xD8];  //0x0000
 public:
-	float* timer;  //0x00B0
+	float* timer;  //0x00D8
 };
 
 class Tessellator;
@@ -106,7 +106,7 @@ private:
 public:
 
 	vec3_t& getOrigin() {
-		return *(vec3_t*)((char*)this + 0x860);
+		return *(vec3_t*)((char*)this + (0x288 + 0x510));
 	}
 
 	__int64 getLevelRendererPlayer(){
@@ -149,13 +149,15 @@ private:
 public:
 	C_FontRepository* fontRepository1;  //0x0140
 private:
-	char pad_0148[432];  //0x0148
+	char pad_0148[440];  //0x0148
 public:
-	bool canUseKeys;  //0x02F8
+	bool canUseKeys;  //0x0300
 private:
-	char pad_02F9[799];  //0x02F9
+	char pad_0301[799];  //0x0301
 public:
-	class TextHolder xuid;  //0x0618
+	TextHolder xuid;  //0x0620
+	
+
 	
 
 	// 0x2F0
@@ -237,36 +239,36 @@ class C_MoveInputHandler;
 class C_CameraManager;
 
 class C_ClientInstance {
-private:
-	char pad_0008[144];  //0x0008
+	char pad_0008[160];  //0x0008
 public:
-	class MinecraftGame* minecraftGame;  //0x0098
+	class MinecraftGame* minecraftGame;  //0x00A8
 private:
-	class MinecraftGame* N00000A0C;      //0x00A0
-	class MinecraftGame* N00000A0D;      //0x00A8
+	class MinecraftGame* N00000A0C;      //0x00B0
+	class MinecraftGame* N00000A0D;      //0x00B8
 public:
-	class Minecraft* minecraft;          //0x00B0
-	char pad_00B8[8];  //0x00B8
+	class Minecraft* minecraft;          //0x00C0
 public:
-	class LevelRenderer* levelRenderer;  //0x00C0
-private:
 	char pad_00C8[8];  //0x00C8
 public:
-	class C_LoopbackPacketSender* loopbackPacketSender;  //0x00D0
+	class LevelRenderer* levelRenderer;  //0x00D0
 private:
-	char pad_00D8[24];  //0x00D8
+	char pad_00D8[8];  //0x00D8
 public:
-	PtrToGameSettings1* ptr;  //0x00F0
+	class C_LoopbackPacketSender* loopbackPacketSender;  //0x00E0
 private:
-	char pad_00F8[8];  //0x00F8
+	char pad_00E8[24];  //0x00E8
 public:
-	class HitDetectSystem* hitDetectSystem;  //0x0100
+	PtrToGameSettings1* ptr;  //0x0100
 private:
-	char pad_0108[48];  //0x0108
+	char pad_0108[8];  //0x0108
 public:
-	class C_LocalPlayer* localPlayer;  //0x0138
+	class HitDetectSystem* hitDetectSystem;  //0x0110
 private:
-	char pad_0140[920];  //0x0140
+	char pad_0118[48];  //0x0118
+public:
+	class C_LocalPlayer* localPlayer;  //0x0148
+private:
+	char pad_0150[880];  //0x0150
 public:
 	struct {
 		char pad[0x238];
@@ -274,15 +276,20 @@ public:
 			__int64 materialPtr;
 			size_t refCount;
 		} entityLineMaterial;
-	} * itemInHandRenderer;  //0x04D8
+	} * itemInHandRenderer;  //0x04C0
 private:
-	char pad_04E0[400];  //0x04E0
+	char pad_04C8[400];  //0x04C8
 public:
-	float fovX;  //0x0670
+	float fovX;  //0x0658
 private:
-	char pad_0674[16];  //0x0674
+	char pad_065C[16];  //0x065C
 public:
-	float fovY;  //0x0684
+	float fovY;  //0x066C
+private:
+	char pad_0670[440];  //0x0670
+public:
+	
+
 	
 
 	
@@ -842,12 +849,12 @@ public:
 	glmatrixf* getRefDef() {
 		uintptr_t _this = reinterpret_cast<uintptr_t>(this);
 		//logF("refderf %llX", _this + 0x258);
-		return reinterpret_cast<glmatrixf*>(_this + 0x2F0);
+		return reinterpret_cast<glmatrixf*>(_this + 0x2D8);
 	};
 
 	vec2_t* getMousePos() {
 		uintptr_t _this = reinterpret_cast<uintptr_t>(this);
-		return reinterpret_cast<vec2_t*>(_this + 0x458);
+		return reinterpret_cast<vec2_t*>(_this + 0x440);
 	}
 
 	vec2_t getFov() {
