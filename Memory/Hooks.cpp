@@ -357,7 +357,6 @@ void Hooks::Actor_breathe(C_Entity* ent) {
 		if (!found)
 			g_Hooks.entityList.push_back(e);
 	}
-
 	return oFunc(ent);
 }
 
