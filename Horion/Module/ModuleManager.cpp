@@ -33,6 +33,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Glide()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiLagBack()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EditionFaker()));
+		moduleList.push_back(std::shared_ptr<IModule>(new PotionAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Phase()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Freecam()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoSprint()));
@@ -48,7 +49,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Fucker()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new AutoTotem()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoTotem()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InfiniteAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ClickGuiMod()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockEsp()));

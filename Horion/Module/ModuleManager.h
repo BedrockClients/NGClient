@@ -74,6 +74,7 @@
 #include "Modules/TimeChanger.h"
 #include "Modules/Timer.h"
 #include "Modules/Tower.h"
+#include "Modules/PotionAura.h"
 #include "Modules/Tracer.h"
 #include "Modules/TriggerBot.h"
 #include "Modules/Xray.h"

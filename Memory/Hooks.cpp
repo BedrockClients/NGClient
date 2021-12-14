@@ -1289,7 +1289,8 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	static auto oFunc = g_Hooks.Actor_rotationHook->GetFastcall<void, C_Entity*, vec2_t&>();
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
-	//static auto freelookMod = moduleMgr->getModule<Freelook>();
+	static auto potionAuramod = moduleMgr->getModule<PotionAura>();
+	static auto freelookMod = moduleMgr->getModule<Freelook>();
 	static auto botMod = moduleMgr->getModule<FightBot>();
 #ifdef _DEBUG
 	static auto test = moduleMgr->getModule<TestModule>();
@@ -1300,9 +1301,12 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->sexy) {
 		sexyAngle = {killauraMod->joe};
 	}
-	//if (freelookMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
-	//	sexyAngle = {freelookMod->deez.x, freelookMod->deez.y};
-	//}
+	if (potionAuramod->isEnabled() && g_Data.getLocalPlayer() == _this && !potionAuramod->targetListA && potionAuramod->sexy) {
+		sexyAngle = {potionAuramod->joe};
+	}
+	if (freelookMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
+		sexyAngle = {freelookMod->oldPos.x, freelookMod->oldPos.y};
+	}
 	oFunc(_this, sexyAngle);
 }
 
@@ -2020,7 +2024,6 @@ void Hooks::setPos(C_Entity* ent, vec3_t& poo) {
 
 void Hooks::LocalPlayer__updateFromCamera(__int64 a1, C_Camera* camera) {
 	auto func = g_Hooks.LocalPlayer__updateFromCameraHook->GetFastcall<__int64, __int64, C_Camera*>();
-	auto freelookMod = moduleMgr->getModule<Freelook>();
 	auto noHurtcamMod = moduleMgr->getModule<NoHurtcam>();
 
 	if (noHurtcamMod->isEnabled() && g_Data.isInGame() && g_Data.getLocalPlayer()->isAlive()) {
@@ -2033,18 +2036,6 @@ void Hooks::LocalPlayer__updateFromCamera(__int64 a1, C_Camera* camera) {
 		}
 
 		camera->setOrientationDeg(rot.x, rot.y, 0);
-	}
-
-	if (freelookMod->isEnabled() && freelookMod->redirectMouse) {
-		freelookMod->cameraFacesFront = camera->facesPlayerFront;
-		freelookMod->isThirdPerson = camera->renderPlayerModel;
-		if (freelookMod->resetViewTick >= 0) {
-			camera->setOrientationDeg(freelookMod->lastCameraAngle.x, freelookMod->lastCameraAngle.y, 0);
-		} else {
-			camera->getPlayerRotation(&freelookMod->lastCameraAngle);
-		}
-
-		return;
 	}
 
 	func(a1, camera);
