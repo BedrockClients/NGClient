@@ -4,6 +4,7 @@
 class TestModule : public IModule {
 private:
 	int delay = 0;
+	void* targetAddress; //Yes
 
 public:
 	vec3_ti block;

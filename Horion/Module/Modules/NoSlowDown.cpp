@@ -23,10 +23,6 @@ void NoSlowDown::onEnable() {
 
 	DWORD oldProtect = 0;
 	if (!VirtualProtect(opcode, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-#ifdef _DEBUG
-		logF("couldnt unprotect memory send help");
-		__debugbreak();
-#endif
 	} else {
 		opcode[0] = 0x90;
 		opcode[1] = 0x90;
@@ -37,10 +33,6 @@ void NoSlowDown::onEnable() {
 	}
 
 	if (!VirtualProtect(opcode1, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-#ifdef _DEBUG
-		logF("couldnt unprotect memory send help");
-		__debugbreak();
-#endif
 	} else {
 		//noping the individual bytes
 		opcode1[0] = 0x90;
