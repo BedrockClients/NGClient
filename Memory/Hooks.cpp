@@ -77,6 +77,8 @@ void Hooks::Init() {
 				g_Hooks.Actor_breatheHook = std::make_unique<FuncHook>(localPlayerVtable[49], Hooks::Actor_breathe);
 
 				g_Hooks.Mob__isImmobileHook = std::make_unique<FuncHook>(localPlayerVtable[91], Hooks::Mob__isImmobile);
+
+				g_Hooks.Player_tickWorldHook = std::make_unique<FuncHook>(localPlayerVtable[365], Hooks::Player_tickWorld);
 				#ifdef _DEBUG
 				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[73], Hooks::testy);
 				#endif
@@ -118,9 +120,6 @@ void Hooks::Init() {
 
 	// Signatures
 	{
-		void* player_tickworld = reinterpret_cast<void*>(FindSignature("48 89 5C 24 10 48 89 6C 24 18 56 57 41 56 48 83 EC 40 48 8B F9 33 ED 89"));
-		g_Hooks.Player_tickWorldHook = std::make_unique<FuncHook>(player_tickworld, Hooks::Player_tickWorld);
-
 		//void* Actor_breath = reinterpret_cast<void*>(FindSignature("48 89 5C 24 18 56 48 83 EC 50 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 44 24 40 8B 81"));
 		//g_Hooks.Actor_breatheHook = std::make_unique<FuncHook>(Actor_breath, Hooks::Actor_breathe);
 
