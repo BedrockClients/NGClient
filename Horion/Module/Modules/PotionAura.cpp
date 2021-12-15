@@ -96,26 +96,20 @@ void PotionAura::onTick(C_GameMode* gm) {
 				if (isMulti) {
 					for (auto& i : targetLissst) {
 						if (!(i->damageTime > 1 && hurttime)) {
-							//BRUH I CANT GET IT TO THROW THE POTIONSDHGBDHGBDIGHDIGU
-							/* g_Data.rightclickCount++;
-							g_Data.isRightClickDown() == true;
-							PointingStruct* pstruct = g_Data.getClientInstance()->getPointerStruct();
-							gm->startBuildBlock(vec3_ti(pstruct->block), pstruct->blockSide);
-							gm->stopBuildBlock();
-							gm->buildBlock(new vec3_ti(pstruct->block), pstruct->blockSide);
-							*/
+							auto inv = g_Data.getLocalPlayer()->getSupplies()->inventory;
+							C_ItemStack* stack = inv->getItemStack(8);
+							C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+							//g_Data.getLocalPlayer()->useC_Item(*stack, 8, true);
+							//g_Data.getLocalPlayer()->completeUsingC_Item();
 						}
 					}
 				} else {
 					if (!(targetLissst[0]->damageTime > 1 && hurttime)) {
-						//BRUH I CANT GET IT TO THROW THE POTIONSDHGBDHGBDIGHDIGU
-						/* g_Data.rightclickCount++;
-						g_Data.isRightClickDown() == true;
-						PointingStruct* pstruct = g_Data.getClientInstance()->getPointerStruct();
-						gm->startBuildBlock(vec3_ti(pstruct->block), pstruct->blockSide);
-						gm->stopBuildBlock();
-						gm->buildBlock(new vec3_ti(pstruct->block), pstruct->blockSide);
-						*/
+						auto inv = g_Data.getLocalPlayer()->getSupplies()->inventory;
+						C_ItemStack* stack = inv->getItemStack(8);
+						C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+						//g_Data.getLocalPlayer()->useC_Item(*stack, 8, true);
+						//g_Data.getLocalPlayer()->completeUsingC_Item();
 					}
 				}
 				Odelay = 0;
@@ -200,12 +194,6 @@ void PotionAura::onSendPacket(C_Packet* packet) {
 		targetListA = targetLissst.empty();
 		targetLissst.clear();
 		g_Data.forEachEntity(finnddEntity);
-		struct CompareTargetEnArray {
-			bool operator()(C_Entity* lhs, C_Entity* rhs) {
-				C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-				return (*lhs->getPos()).dist(*localPlayer->getPos()) < (*rhs->getPos()).dist(*localPlayer->getPos());
-			}
-		};
 		std::sort(targetLissst.begin(), targetLissst.end(), CompareTargetEnArray());
 		if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
 			if (!targetLissst.empty()) {
