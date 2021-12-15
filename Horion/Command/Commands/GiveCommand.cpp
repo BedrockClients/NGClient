@@ -67,9 +67,6 @@ bool GiveCommand::execute(std::vector<std::string>* args) {
 	firstAction = new C_InventoryAction(0, desc,nullptr,yot, nullptr,count, 507, 99999);
 	secondAction = new C_InventoryAction(slot, nullptr, desc,nullptr, yot,count);
 
-	//firstAction = new C_InventoryAction(0,yot, nullptr, 507, 99999);
-	//secondAction = new C_InventoryAction(slot, nullptr, yot); 
-
 	transactionManager->addInventoryAction(*firstAction);
 	transactionManager->addInventoryAction(*secondAction);
 

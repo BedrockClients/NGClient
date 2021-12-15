@@ -60,7 +60,7 @@ bool EnchantCommand::execute(std::vector<std::string>* args) {
 
 	int enchantId = 0;
 	int enchantLevel = 32767;
-	bool isAuto = true;
+	bool isAuto = false;
 
 	if (args->at(1) != "all") {
 		try {

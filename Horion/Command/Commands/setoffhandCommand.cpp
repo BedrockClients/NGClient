@@ -51,6 +51,8 @@ bool setoffhandCommand::execute(std::vector<std::string>* args) {
 	if (yot != nullptr)
 		yot->count = count;
 
+	int slot = inv->getFirstEmptySlot();
+
 	if (args->size() > 4) {
 		std::string tag = Utils::getClipboardText();
 		if (tag.size() > 1 && tag.front() == MojangsonToken::COMPOUND_START.getSymbol() && tag.back() == MojangsonToken::COMPOUND_END.getSymbol()) {
@@ -65,13 +67,17 @@ bool setoffhandCommand::execute(std::vector<std::string>* args) {
 	C_InventoryAction* secondAction = nullptr;
 
 	firstAction = new C_InventoryAction(0, desc, nullptr, yot, nullptr, count, 507, 99999);
+	secondAction = new C_InventoryAction(slot, nullptr, desc, nullptr, yot, count);
 
 	transactionManager->addInventoryAction(*firstAction);
+	transactionManager->addInventoryAction(*secondAction);
 
 	delete firstAction;
+	delete secondAction;
 	delete desc;
+
 	g_Data.getLocalPlayer()->setOffhandSlot(yot);
 
-	clientMessageF("%sSuccessfully set item to offhand!", GREEN);
+	clientMessageF("%sSuccessfully set offhand item!", GREEN);
 	return true;
 }
