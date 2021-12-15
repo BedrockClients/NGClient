@@ -63,7 +63,6 @@ void Hooks::Init() {
 				/*g_Hooks.Actor_isInWaterHook = std::make_unique<FuncHook>(localPlayerVtable[65], Hooks::Actor_isInWater);
 				
 				g_Hooks.Actor_startSwimmingHook = std::make_unique<FuncHook>(localPlayerVtable[182], Hooks::Actor_startSwimming);
-
 				g_Hooks.Actor_ascendLadderHook = std::make_unique<FuncHook>(localPlayerVtable[333], Hooks::Actor_ascendLadder);*/
 				
 				g_Hooks.Actor_rotationHook = std::make_unique<FuncHook>(localPlayerVtable[27], Hooks::Actor_rotation);
@@ -307,7 +306,6 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 void Hooks::ClientInstanceScreenModel_sendChatMessage(void* _this, TextHolder* text) {
 	static auto oSendMessage = g_Hooks.ClientInstanceScreenModel_sendChatMessageHook->GetFastcall<void, void*, TextHolder*>();
 
-
 	if (text->getTextLength() > 0) {
 		char* message = text->getText();
 
@@ -393,7 +391,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	DrawUtils::setCtx(renderCtx, dat);
 
-
 	//entity list stuff ig
 	{
 		if (!g_Data.getLocalPlayer())
@@ -413,8 +410,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		g_Hooks.entityList = validEntities;
 	}
 
-
-
 	{
 		static bool wasConnectedBefore = false;
 		static LARGE_INTEGER start;
@@ -433,7 +428,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			float elapsedFlot = (float)elapsed.QuadPart / frequency.QuadPart;
 			if (elapsedFlot > 1.5f && !hasSentWarning) {
 				hasSentWarning = true;
-			    //auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
+				//auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
 				//box->closeTimer = 0;
 				vec2_t windowSize = dat->windowSize;
 
@@ -446,39 +441,23 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			wasConnectedBefore = true;
 	}
 	//Simple Inject Notification
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
-	if (Surge->surge && justEnabled) {
-			enabledTicks++;
-			if (enabledTicks > 1 && enabledTicks < 1000) {
-				std::string text = "Thank You For Using Surge Client! Surge On TOP!";
-				auto catText = TextHolder("Thank You For Using Surge Client! Surge On TOP!");
-				vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-				vec4_t rectPos = vec4_t(0.5f, 6 * 10.f * 1 + 30.f * 1.f, 13.f, 6 * 10.f * 1 + 100.f * 1.f);
-				vec4_t rectPoos = vec4_t(windowSize.x, 6 * 11.f * 1 + 6.f * 1.5f, 13.f, 6 * 10.f * 1 + 15.f * 1.f);
-				DrawUtils::drawText(vec2_t(rectPos.y + 147.f, rectPos.x + 4.f), &text, MC_Color(0, 0, 255), enabledTicks / 500);
-				DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(0, 0, 255), 1.0);
-				DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 4.2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(0, 0, 255), 1.0);
-				DrawUtils::DrawOutline(vec2_t(284 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 3), vec2_t(enabledTicks / 5.5, enabledTicks / 83), MC_Color(0, 0, 0), 1.0);
-			} else if (enabledTicks > 1000) {  //this is so the text dissapears btw
-				justEnabled = false;
-				enabledTicks = 0;
-			}
-	} else if (justEnabled) {
-			enabledTicks++;
-			if (enabledTicks > 1 && enabledTicks < 1000) {
-				std::string text = "Thanks For Choosing The NG Client! We Are 22!";
-				auto catText = TextHolder("Thanks For Choosing The NG Client! We Are 22!");
-				vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-				vec4_t rectPos = vec4_t(0.5f, 6 * 10.f * 1 + 30.f * 1.f, 13.f, 6 * 10.f * 1 + 100.f * 1.f);
-				vec4_t rectPoos = vec4_t(windowSize.x, 6 * 11.f * 1 + 6.f * 1.5f, 13.f, 6 * 10.f * 1 + 15.f * 1.f);
-				DrawUtils::drawText(vec2_t(rectPos.y + 147.f, rectPos.x + 4.f), &text, MC_Color(154, 0, 200), enabledTicks / 500);
-				DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
-				DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 4.2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
-				DrawUtils::DrawOutline(vec2_t(284 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 3), vec2_t(enabledTicks / 5.5, enabledTicks / 83), MC_Color(0, 0, 0), 1.0);
-			} else if (enabledTicks > 1000) {  //this is so the text dissapears btw
-				justEnabled = false;
-				enabledTicks = 0;
-			}
+
+	if (justEnabled) {
+		enabledTicks++;
+		if (enabledTicks > 1 && enabledTicks < 1000) {
+			std::string text = "Thanks For Choosing The NG Client! We Are 22!";
+			auto catText = TextHolder("Thanks For Choosing The NG Client! We Are 22!");
+			vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+			vec4_t rectPos = vec4_t(0.5f, 6 * 10.f * 1 + 30.f * 1.f, 13.f, 6 * 10.f * 1 + 100.f * 1.f);
+			vec4_t rectPoos = vec4_t(windowSize.x, 6 * 11.f * 1 + 6.f * 1.5f, 13.f, 6 * 10.f * 1 + 15.f * 1.f);
+			DrawUtils::drawText(vec2_t(rectPos.y + 147.f, rectPos.x + 4.f), &text, MC_Color(154, 0, 200), enabledTicks / 500);
+			DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
+			DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 4.2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
+			DrawUtils::DrawOutline(vec2_t(284 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 3), vec2_t(enabledTicks / 5.5, enabledTicks / 83), MC_Color(0, 0, 0), 1.0);
+		} else if (enabledTicks > 1000) {  //this is so the text dissapears btw
+			justEnabled = false;
+			enabledTicks = 0;
+		}
 	}
 
 	if (GameData::shouldHide() || !moduleMgr->isInitialized())
@@ -710,7 +689,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							windowSize.x - margin + borderPadding,
 							windowSize.y - margin);
 						static auto rgbborderhud = moduleMgr->getModule<HudModule>();
-							DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
+						DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
 						DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 						static auto rgbTexthud = moduleMgr->getModule<HudModule>();
 						if (rgbTexthud->rgb) {
@@ -935,7 +914,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						}
 						//DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), hudModule->arrayListOpacity);  // Background
 						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);
-					  
+
 						static auto rgbmod = moduleMgr->getModule<GUI>();
 						if (rgbmod->rgb) {
 							static auto box = moduleMgr->getModule<GUI>();
@@ -956,25 +935,25 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							static auto box = moduleMgr->getModule<GUI>();
 							if (box->box) {
 								if (Surge->surge)
-								DrawUtils::fillRectangle(overline, MC_Color(184, 0, 255), 1.f);
+									DrawUtils::fillRectangle(overline, MC_Color(184, 0, 255), 1.f);
 								else
-								DrawUtils::fillRectangle(overline, MC_Color(0, 0, 0), 1.f);
+									DrawUtils::fillRectangle(overline, MC_Color(0, 0, 0), 1.f);
 							}
 
 							static auto underbarmod = moduleMgr->getModule<GUI>();
 							if (underbarmod->underbar) {
 								if (Surge->surge)
-								DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
+									DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
 								else
-								DrawUtils::fillRectangle(underline, MC_Color(184, 0, 255), 1.f);
+									DrawUtils::fillRectangle(underline, MC_Color(184, 0, 255), 1.f);
 							}
 
 							static auto barmod = moduleMgr->getModule<GUI>();
 							if (barmod->bar) {
 								if (Surge->surge)
-								DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
+									DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
 								else
-								DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);	
+									DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);
 							}
 						}
 
@@ -1005,9 +984,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 						} else {
 							if (Surge->surge)
-							DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
+								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 							else
-							DrawUtils::drawText(textPos, &textStr, MC_Color(0, 246, 255), textSize);
+								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 246, 255), textSize);
 						}
 						static auto Bottomyes = moduleMgr->getModule<GUI>();
 						if (Bottomyes->bottom) {
@@ -1678,7 +1657,7 @@ void Hooks::Actor_ascendLadder(C_Entity* _this) {
 void Hooks::Actor_swing(C_Entity* _this) {
 	static auto oFunc = g_Hooks.Actor_swingHook->GetFastcall<void, C_Entity*>();
 	static auto noSwingMod = moduleMgr->getModule<NoSwing>();
-	if(!noSwingMod->isEnabled()) return oFunc(_this);
+	if (!noSwingMod->isEnabled()) return oFunc(_this);
 }
 
 void Hooks::Actor_startSwimming(C_Entity* _this) {
@@ -1740,21 +1719,18 @@ __int64 Hooks::ConnectionRequest_create(__int64 _this, __int64 privateKeyManager
 		if (std::get<0>(geoOverride)) {  // Is overriding geometry
 			auto overrideGeo = std::get<1>(geoOverride);
 			newGeometryData = new TextHolder(*overrideGeo.get());
-		} else {  // Default 
+		} else {  // Default
 
-				  /*char* str;  // Obj text
+			/*char* str;  // Obj text
 			{
 				auto hResourceObj = FindResourceA(g_Data.getDllModule(), MAKEINTRESOURCEA(IDR_OBJ), "TEXT");
 				auto hMemoryObj = LoadResource(g_Data.getDllModule(), hResourceObj);
-
 				auto sizeObj = SizeofResource(g_Data.getDllModule(), hResourceObj);
 				auto ptrObj = LockResource(hMemoryObj);
-
 				str = new char[sizeObj + 1];
 				memset(str, 0, sizeObj + 1);
 				memcpy(str, ptrObj, sizeObj);
 			}
-
 			newGeometryData = new TextHolder(SkinUtil::modGeometry(reinterpret_cast<char*>(ptrGeometry), SkinUtil::objToMesh(str)));*/
 		}
 
