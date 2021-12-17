@@ -66,9 +66,6 @@ private:
 			case Category::GUI:
 				categoryName = "Customize";
 				break;
-			case Category::CUSTOM:
-				categoryName = "World";
-				break;
 			case Category::FLYS:
 				categoryName = "Flys";
 				break;

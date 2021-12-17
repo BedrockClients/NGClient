@@ -6,21 +6,17 @@ public:
 	HudModule();
 	~HudModule();
 
-	bool Msg = false;
+	bool Msg = true;
 	bool enabled = true;
 	bool different = false;
-	bool bar = false;
-	bool underbar = false;
-	bool ice = false;
-	bool rgb = false;
-	bool bottom = false;
+	bool rgb = true;
 	bool bools = false;
 	bool rgbtext = true;
 	bool tabgui = false;
 	bool arraylist = true;
 	bool clickToggle = true;
 	bool watermark = false;
-	bool coordinates = false;
+	bool coordinates = true;
 	bool keybinds = true;
 	bool displayArmor = true;
 	bool keystrokes = true;
@@ -28,10 +24,7 @@ public:
 	bool cps = true;
 	bool alwaysShow = false;
 	float opacity = true;
-	static float rcolor;
-	static float bcolor;
-	static float gcolor;
-	float arrayListOpacity = 0.0f;
+	bool bottom = false;
 	float scale = 0.75f;
 
 	// Inherited via IModule

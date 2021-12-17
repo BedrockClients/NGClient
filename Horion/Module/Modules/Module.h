@@ -11,12 +11,11 @@ enum class Category {
 	VISUAL = 1,
 	MOVEMENT = 2,
 	PLAYER = 3,
-	WORLD = 4,
-	GUI = 5,
-	CUSTOM = 6,
-	FLYS = 7,
-	SERVER = 8, 
-	ENTITY = 9
+	SERVER = 4,
+	WORLD = 5,
+	FLYS = 6,
+	GUI = 7,
+	ENTITY = 8
 };
 
 struct EnumEntry {

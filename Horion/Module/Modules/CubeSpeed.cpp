@@ -1,15 +1,15 @@
 #include "CubeSpeed.h"
 
 CubeSpeed::CubeSpeed() : IModule(0x0, Category::SERVER, "Speed bypass for CubeCraft") {
-	registerFloatSetting("speed", &this->speedMod, 1, 0.3f, 2.5f);
-	this->registerBoolSetting("Fly", &this->isBypass, this->isBypass);
+	registerFloatSetting("speed", &speedMod, 1, 0.3f, 2.5f);
+	registerBoolSetting("Fly", &isBypass, isBypass);
 }
 
 CubeSpeed::~CubeSpeed() {
 }
 
 const char* CubeSpeed::getModuleName() {
-	return ("CubeCraftSpeed");
+	return ("CubeSpeed");
 }
 
 void CubeSpeed::onMove(C_MoveInputHandler* input) {

@@ -3,9 +3,9 @@
 #include "../ModuleManager.h"
 
 ChestStealer::ChestStealer() : IModule(0, Category::PLAYER, "Automatically takes or dumps all items out of a chest or into a chest") {
-	registerIntSetting("Close Delay", &this->setDelay, this->setDelay, 0, 20);
-	registerBoolSetting("enhanced", &this->enhanced, this->enhanced);
-	registerBoolSetting("dump", &this->dump, this->dump);
+	registerIntSetting("Close Delay", &setDelay, setDelay, 0, 20);
+	registerBoolSetting("enhanced", &enhanced, enhanced);
+	registerBoolSetting("dump", &dump, dump);
 }
 
 ChestStealer::~ChestStealer() {
@@ -16,6 +16,9 @@ const char* ChestStealer::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (enhanced) {
 			return "ChestStealer [Enhanced]";
+		} 
+		if (dump) {
+			return "ChestStealer [dump]";
 		} else
 			return "ChestStealer";
 	} else
