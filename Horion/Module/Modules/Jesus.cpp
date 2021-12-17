@@ -5,7 +5,7 @@
 int jesusChrist = 0;
 
 Jesus::Jesus() : IModule(0, Category::MOVEMENT, "Walk over water, like Jesus") {
-	this->registerBoolSetting("Old Jesus", &this->walk, this->walk);
+	registerBoolSetting("Old Jesus", &walk, walk);
 }
 
 Jesus::~Jesus() {

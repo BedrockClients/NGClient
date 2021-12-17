@@ -16,12 +16,15 @@ void findNutz(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == nullptr)
 		return;
 
-	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424 && currentEntity->getEntityTypeId() != 2186010)
+	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424)
 		return;
 	//2118423 is horse
 	//2118425 is mule
 	//2118424 is donkey
+
+	//not worcking
 	//2186010 is skeleton horse
+	//Boat = 375
 
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 
