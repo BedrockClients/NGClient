@@ -2,7 +2,7 @@
 #include "Module.h"
 class Scaffold : public IModule {
 private:
-	int slot = false;
+	int slot;
 	bool airplace = false;
 	bool autoselect = true;
 	bool entityscaff = false;

@@ -43,7 +43,7 @@ void Fucker::onTick(C_GameMode* gm) {
 					if (!bypass)
 						gm->destroyBlock(&blockPos, 0);
 					else {
-						bool isDestroyed = true;
+						bool isDestroyed = false;
 						gm->startDestroyBlock(blockPos, gm->player->region->getBlock(blockPos)->data, isDestroyed);
 						gm->destroyBlock(&blockPos, gm->player->region->getBlock(blockPos)->data);
 						gm->stopDestroyBlock(blockPos);
@@ -60,6 +60,7 @@ void Fucker::onTick(C_GameMode* gm) {
 }
 void Fucker::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>() && g_Data.getLocalPlayer() != nullptr && bypass) {
+		static auto instaBreakModule = moduleMgr->getModule<InstaBreak>();
 		if (destroy) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			auto* authPacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
@@ -67,6 +68,8 @@ void Fucker::onSendPacket(C_Packet* packet) {
 			movePacket->pitch = angle.x;
 			movePacket->headYaw = angle.y;
 			movePacket->yaw = angle.y;
+			authPacket->pitch = angle.x;
+			authPacket->yaw = angle.y;
 		}
 	}
 }

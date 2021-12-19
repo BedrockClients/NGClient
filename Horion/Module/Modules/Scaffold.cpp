@@ -84,7 +84,7 @@ bool Scaffold::findBlock() {
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	C_Inventory* inv = supplies->inventory;
 	auto prevSlot = supplies->selectedHotbarSlot;
-	for (int n = 0; n < 9; n++) {
+	for (int n = 0; n < 36; n++) {
 		C_ItemStack* stack = inv->getItemStack(n);
 		if (stack->item != nullptr) {
 			if (stack->getItem()->isBlock()) {
@@ -177,7 +177,6 @@ void Scaffold::onTick(C_GameMode* gm) {
 		}
 	if (this->spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-		C_Inventory* inv = supplies->inventory;
 		supplies->selectedHotbarSlot = slot;
 	}
 }
@@ -198,6 +197,8 @@ void Scaffold::onSendPacket(C_Packet* packet) {
 }
 
 void Scaffold::onEnable() {
+	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+	slot = supplies->selectedHotbarSlot;
 	blockBelowtest.y = g_Data.getLocalPlayer()->eyePos0.y;  // Block below the player
 	blockBelowtest.y -= 2.5f;
 }
