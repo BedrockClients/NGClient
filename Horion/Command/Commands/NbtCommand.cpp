@@ -72,13 +72,12 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 			tag = os.str();
 		}else
 			tag = Utils::getClipboardText();
-			manager->addInventoryAction(C_InventoryAction(0, nullptr, item, 507, 99999));
 
 		if (tag.size() > 1 && tag.front() == MojangsonToken::COMPOUND_START.getSymbol() && tag.back() == MojangsonToken::COMPOUND_END.getSymbol()) {
-			if (args->at(1) == "write")
-				clientMessageF("%sPlease Use .kit write, or .cbep write until fixed!", RED);
-				//item->setUserData(std::move(Mojangson::parseTag(tag)));
-			else if (args->at(1) == "load") {
+				if (args->at(1) == "write") {
+					item->setUserData(std::move(Mojangson::parseTag(tag)));
+					manager->addInventoryAction(C_InventoryAction(0, nullptr, item, 507, 99999));
+				} else if (args->at(1) == "load") {
 				std::unique_ptr<Tag> result = std::move(Mojangson::parseTag(tag));
 				item->fromTag(*result.get());
 				item->count = 64;
@@ -109,6 +108,9 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		inv->addItemToFirstEmptySlot(item);
 	} else {
 		clientMessageF("%s%s", RED, "Couldn't execute command correctly");
+		if (Packetz->isEnabled()) {
+			Packetz->setEnabled(false);
+		}
 	}
 
 	return true;

@@ -30,7 +30,7 @@ void findBoat(C_Entity* currentEntity, bool isRegularEntity) {
 
 	int entityType = (int)currentEntity->getEntityTypeId();
 
-	if (currentEntity->getEntityTypeId() != 375)
+	if (currentEntity->getEntityTypeId() != 90)
 		return;
 
 	float boatdistance = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());

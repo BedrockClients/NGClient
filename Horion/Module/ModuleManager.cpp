@@ -25,6 +25,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Jetpack()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Aimbot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new TriggerBot()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoArmor()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestESP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Velocity()));
 		moduleList.push_back(std::shared_ptr<IModule>(new RainbowSky()));
@@ -40,7 +41,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Tracer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BowAimbot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Scaffold()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new NoFall()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoFall()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Blink()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Nuker()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
@@ -48,8 +49,9 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Speed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Fucker()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoTotem()));
+		moduleList.push_back(std::shared_ptr<IModule>(new SwingAnimations()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InfiniteAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ClickGuiMod()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockEsp()));

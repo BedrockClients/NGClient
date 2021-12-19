@@ -1,15 +1,24 @@
 #pragma once
-
-#include "../../DrawUtils.h"
+#include "../ModuleManager.h"
 #include "Module.h"
 
 class NoFall : public IModule {
+private:
+	bool groundy = false;
+	int counter = 1;
+	bool motion = false;
+	float glideMod = 0.f;
+	float glideModEffective = 0;
+
 public:
+	bool server = false;
+	bool nopackety = false;
+	float range = 3;
 	NoFall();
 	~NoFall();
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
-	virtual void onTick(C_GameMode* gm) override;
-	virtual void onSendPacket(C_Packet* packet) override;
+	void onTick(C_GameMode* gm);
+	void onDisable();
 };

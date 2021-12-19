@@ -25,8 +25,8 @@ void Fucker::onTick(C_GameMode* gm) {
 	for (int x = (int)pos->x - range; x < pos->x + range; x++) {
 		for (int z = (int)pos->z - range; z < pos->z + range; z++) {
 			for (int y = (int)pos->y - range; y < pos->y + range; y++) {
-				vec3_ti blockPos = vec3_ti(x, y, z);
-				bool destroy = false;
+				blockPos = vec3_ti(x, y, z);
+				destroy = false;
 				bool eat = false;
 				int id = gm->player->region->getBlock(blockPos)->toLegacy()->blockId;
 
@@ -34,17 +34,19 @@ void Fucker::onTick(C_GameMode* gm) {
 				if (id == 122 && eggs) destroy = true;   // Dragon Eggs
 				if (id == 92 && cakes) eat = true;       // Cakes
 				if (id == 54 && chests) destroy = true;  // Chests
-				if (id == 73 && redstone) destroy = true;
+				if (id == 73 && redstone) destroy = true; // Lit Redstone
 				if (id == 74 && redstone) destroy = true;  // Redstone
 				if (id == 56 && diamond) destroy = true;   // Diamond
 				if (id == 129 && emerald) destroy = true;  // Emerald
+
 				if (destroy) {
 					if (!bypass)
 						gm->destroyBlock(&blockPos, 0);
 					else {
-						bool isDestroyed = false;
-						gm->startDestroyBlock(blockPos, 0, isDestroyed);
-						gm->destroyBlock(&blockPos, 0);
+						bool isDestroyed = true;
+						gm->startDestroyBlock(blockPos, gm->player->region->getBlock(blockPos)->data, isDestroyed);
+						gm->destroyBlock(&blockPos, gm->player->region->getBlock(blockPos)->data);
+						gm->stopDestroyBlock(blockPos);
 					}
 				}
 				if (eat) {
@@ -53,6 +55,18 @@ void Fucker::onTick(C_GameMode* gm) {
 					return;
 				}
 			}
+		}
+	}
+}
+void Fucker::onSendPacket(C_Packet* packet) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>() && g_Data.getLocalPlayer() != nullptr && bypass) {
+		if (destroy) {
+			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			auto* authPacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(reinterpret_cast<vec3_t&>(blockPos));
+			movePacket->pitch = angle.x;
+			movePacket->headYaw = angle.y;
+			movePacket->yaw = angle.y;
 		}
 	}
 }

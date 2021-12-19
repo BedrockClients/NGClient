@@ -9,7 +9,7 @@ Antikb::~Antikb() {
 }
 
 const char* Antikb::getModuleName() {
-	return ("Anti knockback");
+	return ("AntiKnockback");
 }
 
 void Antikb::onTick(C_GameMode* gm) {

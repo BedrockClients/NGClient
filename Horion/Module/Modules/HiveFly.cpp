@@ -1,86 +1,116 @@
 #include "HiveFly.h"
 
-#include "../../Module/ModuleManager.h"
-
-HiveFly::HiveFly() : IModule('Z', Category::SERVER, "Flight bypass for Hive, 0.7 recommended") {
-	registerFloatSetting("speed", &this->speedMod, 1, 0.3f, 2.5f);
-	this->registerBoolSetting("V2", &this->isBypass, this->isBypass);
+HiveFly::HiveFly() : IModule('0', Category::MOVEMENT, "Turn it on, Throw a pearl, then start flying!!") {
+	registerFloatSetting("Speed", &this->speed, this->speed, 0.01f, 0.50f);
+	registerFloatSetting("Timer", &this->timer, this->timer, 20.f, 100.f);
 }
 
 HiveFly::~HiveFly() {
 }
 
-bool HiveFly::isFlashMode() {
-	return true;
-}
-
-void HiveFly::onDisable() {
-	vec3_t pos = *g_Data.getLocalPlayer()->getPos();
-	g_Data.getLocalPlayer()->setPos((pos, pos, pos));
-	g_Data.getLocalPlayer()->velocity = vec3_t(0, 0, 0);
+const char* HiveFly::getModuleName() {
+	return ("HivePearlFly");
 }
 
 void HiveFly::onEnable() {
-	vec3_t moveVec;
-	float calcYaw = (g_Data.getLocalPlayer()->yaw + 90) * (PI / 180);
-	float calcPitch = (g_Data.getLocalPlayer()->pitch) * -(PI / 180);
-	float teleportX = cos(calcYaw) * cos(calcPitch) * -0.0f;
-	float teleportZ = sin(calcYaw) * cos(calcPitch) * -0.0f;
-	moveVec.y = +0.5;
-	vec3_t pos = *g_Data.getLocalPlayer()->getPos();
-	g_Data.getLocalPlayer()->setPos(vec3_t(pos.x + teleportX, pos.y + 0.5f, pos.z + teleportZ));
-
-	auto StrafeMod = moduleMgr->getModule<Blink>();
-	if (StrafeMod->isEnabled()) {
-		StrafeMod->setEnabled(false);
-	} else {
-	}
-}
-
-const char* HiveFly::getModuleName() {
-	return ("HiveFly");
 }
 
 void HiveFly::onTick(C_GameMode* gm) {
-	float calcYaw = (gm->player->yaw + 90) * (PI / 180);
-	float calcPitch = (gm->player->pitch) * -(PI / 180);
-	float calcYawRev = (gm->player->yaw - 90) * (PI / 180);
+	gm->player->velocity.y = 0.f;
+	if (isEnabled())
+		*g_Data.getClientInstance()->minecraft->timer = timer;
+}
 
-	float teleportX = 0.0f;
-	float teleportZ = 0.0f;
-	float teleportY = 0.45f;
-	C_MovePlayerPacket teleportPacket;
+void HiveFly::onMove(C_MoveInputHandler* input) {
+	auto player = g_Data.getLocalPlayer();
+	if (player == nullptr) return;
 
-	if (!isBypass) {
-		vec3_t moveVec;
-		moveVec.x = cos(calcYaw) * speedMod;
-		moveVec.y = -0.001f * speedMod;
-		moveVec.z = sin(calcYaw) * speedMod;
+	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+	bool pressed = moveVec2d.magnitude() > 0.01f;
 
-		gm->player->lerpMotion(moveVec);
-	} else {
-		delay++;
-		C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
-		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
-		vec3_t moveVec;
-		moveVec.x = cos(calcYaw) * speedMod;
-		moveVec.y = -0.001f * speedMod;
-		moveVec.z = sin(calcYaw) * speedMod;
-
-		gm->player->lerpMotion(moveVec);
-
-		if (delay >= 5) {
-			vec3_t pos = *g_Data.getLocalPlayer()->getPos();
-			teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3_t(pos.x, pos.y - teleportY, pos.z));
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&teleportPacket);
-			//gm->player->onGround = true;
-			vec3_t moveVec;
-			moveVec.x = cos(calcYaw) * speedMod;
-			moveVec.y = 0.001f * speedMod;
-			moveVec.z = sin(calcYaw) * speedMod;
-
-			gm->player->lerpMotion(moveVec);
-			delay = 0;
+	float calcYaw = (player->yaw + 90) * (PI / 180);
+	vec3_t moveVec;
+	float c = cos(calcYaw);
+	float s = sin(calcYaw);
+	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+	moveVec.x = moveVec2d.x * speed;
+	moveVec.y = 0.f;
+	moveVec.z = moveVec2d.y * speed;
+	if (pressed) player->lerpMotion(moveVec);
+	if (!pressed) {
+		player->velocity.x = 0;
+		player->velocity.z = 0;
+	}
+	if (g_Data.canUseMoveKeys()) {
+		if (input->isJumping) {
+			player->velocity.y += speed;
 		}
+		if (input->isSneakDown) {
+			player->velocity.y -= speed;
+		}
+	}
+
+	if (player == nullptr)
+		return;
+
+	std::vector<vec3_ti> sideBlocks;
+	sideBlocks.reserve(8);
+	if (!pressed)
+		return;
+	moveVec2d = moveVec2d.normalized();
+	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+	for (int x = -1; x <= 1; x++) {
+		for (int z = -1; z <= 1; z++) {
+			if (x == 0 && z == 0)
+				continue;
+			if (moveVec2d.dot(vec2_t(x, z).normalized()) < 0.6f)
+				continue;
+			sideBlocks.push_back(vec3_ti(x, 0, z));
+		}
+	}
+	auto pPos = *player->getPos();
+	pPos.y = player->aabb.lower.y;
+	auto pPosI = vec3_ti(pPos.floor());
+	auto isObstructed = [&](int yOff, AABB* obstructingBlock = nullptr, bool ignoreYcoll = false) {
+		for (const auto& current : sideBlocks) {
+			vec3_ti side = pPosI.add(0, yOff, 0).add(current);
+			if (side.y < 0 || side.y >= 256)
+				break;
+			auto block = player->region->getBlock(side);
+			if (block == nullptr || block->blockLegacy == nullptr)
+				continue;
+			C_BlockLegacy* blockLegacy = block->toLegacy();
+			if (blockLegacy == nullptr)
+				continue;
+			AABB collisionVec;
+			if (!blockLegacy->getCollisionShape(&collisionVec, block, player->region, &side, player))
+				continue;
+			bool intersects = ignoreYcoll ? collisionVec.intersectsXZ(player->aabb.expandedXZ(0.1f)) : collisionVec.intersects(player->aabb.expandedXZ(0.1f));
+
+			if (intersects) {
+				if (obstructingBlock != nullptr)
+					*obstructingBlock = collisionVec;
+				return true;
+			}
+		}
+		return false;
+	};
+
+	AABB lowerObsVec, upperObsVec;
+	bool upperObstructed = isObstructed(1, &upperObsVec);
+
+	bool lowerObstructed = isObstructed(0, &lowerObsVec);
+	float targetSpeed = speed;
+	//actually moving code
+	if (upperObstructed || lowerObstructed) {
+		setEnabled(false);
+	}
+}
+
+void HiveFly::onDisable() {
+	if (g_Data.getLocalPlayer() != nullptr) {
+		auto player = g_Data.getLocalPlayer();
+		player->velocity.y = 0.f;
+		*g_Data.getClientInstance()->minecraft->timer = 20.f;
 	}
 }

@@ -15,71 +15,28 @@ const char* NoSlowDown::getModuleName() {
 	return ("NoSlowDown");
 }
 
+static void changeBytes(BYTE* dst, BYTE* src, unsigned int size) {
+	DWORD oldprotect;
+	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+	memcpy(dst, src, size);
+	VirtualProtect(dst, size, oldprotect, &oldprotect);
+}
+
 void NoSlowDown::onEnable() {
-	if (opcode == 0 || opcode1 == 0) {
-		opcode = reinterpret_cast<uint8_t*>(FindSignature("F3 0F 11 46 ? 45 89 ? ? F3 0F 10 46 ?"));
-		opcode1 = reinterpret_cast<uint8_t*>(FindSignature("F3 0F 11 46 ? F3 0F 10 4E ?"));
-	}
+	if (targetAddress == nullptr)
+		targetAddress = (void*)FindSignature("F3 0F 11 46 0C 41 C7");
+	BYTE* patch = (BYTE*)"\x90\x90\x90\x90\x90\x90\x90";
+	changeBytes((BYTE*)((uintptr_t)targetAddress), patch, 5);
 
-	DWORD oldProtect = 0;
-	if (!VirtualProtect(opcode, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-	} else {
-		opcode[0] = 0x90;
-		opcode[1] = 0x90;
-		opcode[2] = 0x90;
-		opcode[3] = 0x90;
-		opcode[4] = 0x90;
-		VirtualProtect(opcode, 5, oldProtect, &oldProtect);
-	}
-
-	if (!VirtualProtect(opcode1, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-	} else {
-		//noping the individual bytes
-		opcode1[0] = 0x90;
-		opcode1[1] = 0x90;
-		opcode1[2] = 0x90;
-		opcode1[3] = 0x90;
-		opcode1[4] = 0x90;
-		VirtualProtect(opcode1, 5, oldProtect, &oldProtect);
-	}
+	if (targetAddress2 == nullptr)
+		targetAddress2 = (void*)FindSignature("F3 0F 11 46 0C F3 0F 10 05");
+	BYTE* patch2 = (BYTE*)"\x90\x90\x90\x90\x90\x90\x90";
+	changeBytes((BYTE*)((uintptr_t)targetAddress2), patch2, 3);
 }
 
 void NoSlowDown::onDisable() {
-	if (opcode == 0 || opcode1 == 0) {
-		opcode = reinterpret_cast<uint8_t*>(FindSignature("F3 0F 11 46 ? 45 89 ? ? F3 0F 10 46 ?"));
-		opcode1 = reinterpret_cast<uint8_t*>(FindSignature("F3 0F 11 46 ? F3 0F 10 4E ?"));
-	}
-
-	DWORD oldProtect = 0;
-	if (!VirtualProtect(opcode, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-#ifdef _DEBUG
-		logF("couldnt unprotect memory send help");
-		__debugbreak();
-#endif
-	} else {
-		opcode[0] = 0xF3;
-		opcode[1] = 0x0F;
-		opcode[2] = 0x11;
-		opcode[3] = 0x46;
-		opcode[4] = 0x0C;
-		//opcode[5] = {0xF3; 0x0F, 0x11, 0x46, 0x0C};
-		VirtualProtect(opcode, 5, oldProtect, &oldProtect);
-	};
-
-	if (!VirtualProtect(opcode1, 5, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-#ifdef _DEBUG
-		logF("couldnt unprotect memory send help");
-		__debugbreak();
-#endif
-	} else {
-		opcode1[0] = 0xF3;
-		opcode1[1] = 0x0F;
-		opcode1[2] = 0x11;
-
-		opcode1[3] = 0x46;
-
-		opcode1[4] = 0x0C;
-		//opcode[5] = {0xF3; 0x0F, 0x11, 0x46, 0x0C};
-		VirtualProtect(opcode1, 5, oldProtect, &oldProtect);
-	};
+	BYTE* patch = (BYTE*)"\xF3\x0F\x11\x46\x0C\x41\xC7";
+	changeBytes((BYTE*)((uintptr_t)targetAddress), patch, 5);
+	BYTE* patch2 = (BYTE*)"\xF3\x0F\x11\x46\x0C\xF3\x0F\x10\x05";
+	changeBytes((BYTE*)((uintptr_t)targetAddress2), patch2, 3);
 }

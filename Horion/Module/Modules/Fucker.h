@@ -14,6 +14,8 @@ private:
 	bool diamond = false;
 	bool emerald = false;
 	bool bypass = false;
+	bool destroy;
+	vec3_ti blockPos;
 
 public:
 	Fucker();
@@ -23,4 +25,5 @@ public:
 	virtual const char* getModuleName() override;
 	virtual void onTick(C_GameMode* gm) override;
 	virtual void onLevelRender() override;
+	virtual void onSendPacket(C_Packet* packet) override;
 };

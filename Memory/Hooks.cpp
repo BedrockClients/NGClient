@@ -1308,10 +1308,28 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	//static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
 	static auto freecamMod = moduleMgr->getModule<Freecam>();
 	static auto blinkMod = moduleMgr->getModule<Blink>();
+	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
+
+	if (nofall->isEnabled() && g_Data.isInGame() && nofall->nopackety && g_Data.getLocalPlayer()->fallDistance > 2.5f && !g_Data.getLocalPlayer()->onGround)
+		return;
+
+	if (nofall->isEnabled() && g_Data.isInGame()) {
+		if (nofall->server) {
+			auto player = g_Data.getLocalPlayer();
+			if (packet->isInstanceOf<C_MovePlayerPacket>()) {
+				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
+				if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 2.f) {
+					ree->onGround = true;
+					//disabler->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*ree));
+					return;  //dont send Off groung packet
+				}
+			}
+		}
+	}
 
 	if (freecamMod->isEnabled() || blinkMod->isEnabled()) {
 		if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>()) {

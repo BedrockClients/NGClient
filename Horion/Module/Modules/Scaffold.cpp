@@ -7,8 +7,9 @@ Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build
 	registerBoolSetting("Spoof", &this->spoof, this->spoof);
 	registerBoolSetting("AirPlace", &this->airplace, this->airplace);
 	registerBoolSetting("Auto Select", &this->autoselect, this->autoselect);
-	registerBoolSetting("Entity Scaffold", &this->entityscaff, this->entityscaff);
 	registerBoolSetting("Predict", &this->predict, this->predict);
+	registerBoolSetting("Rotations", &this->rot, this->rot);
+	registerBoolSetting("Y Lock", &this->yLock, this->yLock);
 	registerBoolSetting("Staircase Mode", &this->staircaseMode, this->staircaseMode);
 }
 
@@ -97,6 +98,14 @@ bool Scaffold::findBlock() {
 }
 
 void Scaffold::onTick(C_GameMode* gm) {
+
+	//float Pitch = (gm->player->pitch) * -(PI / 180); Correct Pitch
+
+	if (rot) {
+		//g_Data.getLocalPlayer()->pitch = 90;
+		//g_Data.getLocalPlayer()->pitch2 = 90;
+	}
+
 	if (g_Data.getLocalPlayer() == nullptr)
 		return;
 	if (!g_Data.canUseMoveKeys())
@@ -140,81 +149,32 @@ void Scaffold::onTick(C_GameMode* gm) {
 				}
 			}
 		}
-	}
-	if (!entityscaff || !staircaseMode) {
-		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
-		blockBelow.y -= g_Data.getLocalPlayer()->height;
-		blockBelow.y -= 0.5f;
-
-		blockBelow.z -= vel.z * 0.4f;
-		if (!tryScaffold(blockBelow)) {
-			blockBelow.x -= vel.x * 0.4f;
-			blockBelow.z += vel.z;
-			blockBelow.x += vel.x;
-			tryScaffold(blockBelow);
-			blockBelow.z -= vel.z * 0.3f;
-			if (predict) {
-				if (!tryScaffold(blockBelow)) {
-					blockBelow.x -= vel.x * 0.2f;
-					blockBelow.z += vel.z;
-					blockBelow.x += vel.x;
-					tryScaffold(blockBelow);
-					blockBelow.z -= vel.z * 0.1f;
-				}
-			}
+	} else {
+		if (yLock) {
+			blockBelowtest2.y = blockBelowtest.y;
+		} else {
+			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
+			blockBelowtest2.y -= 2.5f;
 		}
-	}
-	if (this->entityscaff) {
-		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 1 block below the player
-		blockBelow.y -= g_Data.getLocalPlayer()->height;
-		blockBelow.y -= 1.5f;
 
-		//vec3_t blockBelowBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 2 blocks below the player
-		//blockBelowBelow.y -= g_Data.getLocalPlayer()->height;
-		//blockBelowBelow.y -= 2.0f;
-
-		if (!tryScaffold(blockBelow)) {
-			if (speed > 0.05f) {  // Are we actually walking?
-				blockBelow.z -= vel.z * 0.4f;
-				//blockBelowBelow.z -= vel.z * 0.4f;
-				if (!tryScaffold(blockBelow)) {
-					blockBelow.x -= vel.x * 0.4f;
-					//blockBelowBelow.x -= vel.x * 0.4f;
-					if (!tryScaffold(blockBelow)) {
-						blockBelow.z += vel.z;
-						blockBelow.x += vel.x;
-						//blockBelowBelow.z += vel.z;
-						//blockBelowBelow.x += vel.x;
-						tryScaffold(blockBelow);
-						//tryScaffold(blockBelowBelow);
-					}
-				}
-			}
-		}
-		if (!entityscaff || !staircaseMode) {
-			vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
-			blockBelow.y -= g_Data.getLocalPlayer()->height;
-			blockBelow.y -= 0.5f;
-
-			blockBelow.z -= vel.z * 0.4f;
-			if (!tryScaffold(blockBelow)) {
-				blockBelow.x -= vel.x * 0.4f;
-				blockBelow.z += vel.z;
-				blockBelow.x += vel.x;
-				tryScaffold(blockBelow);
-				blockBelow.z -= vel.z * 0.3f;
+			blockBelowtest2.z -= vel.z * 0.4f;
+		if (!tryScaffold(blockBelowtest2)) {
+				blockBelowtest2.x -= vel.x * 0.4f;
+			blockBelowtest2.z += vel.z;
+				blockBelowtest2.x += vel.x;
+			tryScaffold(blockBelowtest2);
+				blockBelowtest2.z -= vel.z * 0.3f;
 				if (predict) {
-					if (!tryScaffold(blockBelow)) {
-						blockBelow.x -= vel.x * 0.2f;
-						blockBelow.z += vel.z;
-						blockBelow.x += vel.x;
-						tryScaffold(blockBelow);
-						blockBelow.z -= vel.z * 0.1f;
+					if (!tryScaffold(blockBelowtest2)) {
+						blockBelowtest2.x -= vel.x * 0.2f;
+						blockBelowtest2.z += vel.z;
+						blockBelowtest2.x += vel.x;
+						tryScaffold(blockBelowtest2);
+						blockBelowtest2.z -= vel.z * 0.1f;
 					}
 				}
 			}
 		}
-	}
 	if (this->spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;
@@ -222,7 +182,22 @@ void Scaffold::onTick(C_GameMode* gm) {
 	}
 }
 
-void Scaffold::onDisable() {
-	if (g_Data.getLocalPlayer() == nullptr)
-		return;
+void Scaffold::onLevelRender() {
+	if (rot) {
+		g_Data.getLocalPlayer()->pitch = 90;
+		g_Data.getLocalPlayer()->pitch2 = 90;
+	}
+}
+
+void Scaffold::onSendPacket(C_Packet* packet) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>() && g_Data.getLocalPlayer() != nullptr && rot) {
+			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			auto* authPacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
+			movePacket->pitch = 90;
+	}
+}
+
+void Scaffold::onEnable() {
+	blockBelowtest.y = g_Data.getLocalPlayer()->eyePos0.y;  // Block below the player
+	blockBelowtest.y -= 2.5f;
 }

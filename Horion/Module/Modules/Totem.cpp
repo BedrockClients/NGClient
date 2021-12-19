@@ -24,6 +24,8 @@ void Totem::onTick(C_GameMode* gm) {
 				C_InventoryAction first(i, desc, nullptr, totem, nullptr, 1);
 				C_InventoryAction second(37, nullptr, desc, nullptr, totem, 1, 0x77);
 				manager->addInventoryAction(first);
+				manager->addInventoryAction(second);
+				//daddy
 				g_Data.getLocalPlayer()->setOffhandSlot(totem);
 				break;
 			}
