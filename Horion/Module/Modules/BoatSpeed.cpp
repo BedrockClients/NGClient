@@ -17,7 +17,7 @@ void findEntity03(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == nullptr)
 		return;
 
-	if (currentEntity->getEntityTypeId() != 375)
+	if (currentEntity->getEntityTypeId() != 90)
 		return;
 
 	int range = 3;
