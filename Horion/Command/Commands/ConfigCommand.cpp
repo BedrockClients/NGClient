@@ -1,10 +1,10 @@
 #include "ConfigCommand.h"
 
 ConfigCommand::ConfigCommand() : IMCCommand("config", "Load/save configs", "<load/new/save> <name>") {
+	registerAlias("c");
 }
 
 ConfigCommand::~ConfigCommand() {
-	registerAlias("c");
 }
 
 bool ConfigCommand::execute(std::vector<std::string>* args) {
