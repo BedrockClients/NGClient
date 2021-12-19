@@ -1421,6 +1421,7 @@ void Hooks::GameMode_startDestroyBlock(C_GameMode* _this, vec3_ti* a2, uint8_t f
 
 	static auto nukerModule = moduleMgr->getModule<Nuker>();
 	static auto instaBreakModule = moduleMgr->getModule<InstaBreak>();
+	static auto fucker = moduleMgr->getModule<Fucker>();
 
 	if (nukerModule->isEnabled()) {
 		vec3_ti tempPos;
@@ -1454,6 +1455,11 @@ void Hooks::GameMode_startDestroyBlock(C_GameMode* _this, vec3_ti* a2, uint8_t f
 		return;
 	}
 	if (instaBreakModule->isEnabled() && !instaBreakModule->bypass) {
+		_this->destroyBlock(a2, face);
+		return;
+	}
+
+	if (fucker->isEnabled()) {
 		_this->destroyBlock(a2, face);
 		return;
 	}
