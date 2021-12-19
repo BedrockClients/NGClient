@@ -176,9 +176,9 @@ void Scaffold::onTick(C_GameMode* gm) {
 			}
 		if (!tryScaffold(blockBelowtest2)) {
 			if (speed > 0.05f) {
-				blockBelowtest2.z -= vel.z * 0.4f;
+				blockBelowtest2.z -= vel.z * 0.3f;
 				if (!tryScaffold(blockBelowtest2)) {
-					blockBelowtest2.x -= vel.x * 0.4f;
+					blockBelowtest2.x -= vel.x * 0.3f;
 					if (!tryScaffold(blockBelowtest2) && g_Data.getLocalPlayer()->isSprinting()) {
 						blockBelowtest2.z += vel.z;
 						blockBelowtest2.x += vel.x;
