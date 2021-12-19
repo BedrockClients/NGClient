@@ -2,15 +2,8 @@
 #include "../../DrawUtils.h"
 #include "../../Scripting/ScriptManager.h"
 
-float HudModule::rcolor{0.f};
-float HudModule::gcolor{0.f};
-float HudModule::bcolor{0.f};
-
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
-	//registerBoolSetting("Side Bar", &bar, bar);
 	registerBoolSetting("RGB", &rgb, rgb);
-	//registerBoolSetting("under Bar", &underbar, underbar);
-	//registerBoolSetting("Bottom Right", &bottom, bottom);
 	registerBoolSetting("MSG", &Msg, Msg);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Watermark", &watermark, watermark);
@@ -24,9 +17,6 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Always show", &alwaysShow, alwaysShow);
 	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
-	//registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
-	//registerFloatSetting("Blue", &gcolor, gcolor, 0.f, 1.f);
-	//registerFloatSetting("Green", &bcolor, bcolor, 0.f, 1.f);
 }
 
 HudModule::~HudModule() {

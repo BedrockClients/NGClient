@@ -8,7 +8,7 @@ public:
 	bool bar = false;
 	bool underbar = false;
 	bool ice = false;
-	bool rgb = false;
+	bool rgb = true;
 	bool bottom = false;
 	bool rgbtext = true;
 	float opacity = true;

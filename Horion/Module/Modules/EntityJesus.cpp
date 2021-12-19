@@ -5,7 +5,7 @@
 int EntityJesusChrist = 0;
 
 EntityJesus::EntityJesus() : IModule(0, Category::ENTITY, "Walk over water, like EntityJesus") {
-	//this->registerBoolSetting("Old EntityJesus", &this->walk, this->walk);
+	//registerBoolSetting("Old EntityJesus", &walk, walk);
 }
 
 EntityJesus::~EntityJesus() {
@@ -21,13 +21,15 @@ void EntityJesusID(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == nullptr)
 		return;
 
-	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424 && currentEntity->getEntityTypeId() != 2186010)
+	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424)
 		return;
 	//2118423 is horse
 	//2118425 is mule
 	//2118424 is donkey
+
+	//not worcking
 	//2186010 is skeleton horse
-	//Boat = 333
+	//Boat = 375
 
 	int range = 4;
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
