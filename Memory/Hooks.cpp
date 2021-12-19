@@ -1459,11 +1459,6 @@ void Hooks::GameMode_startDestroyBlock(C_GameMode* _this, vec3_ti* a2, uint8_t f
 		return;
 	}
 
-	if (fucker->isEnabled()) {
-		_this->destroyBlock(a2, face);
-		return;
-	}
-
 	oFunc(_this, a2, face, a4, a5);
 }
 
