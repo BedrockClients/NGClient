@@ -2,15 +2,15 @@
 
 #include "../../../Utils/Target.h"
 selectionHighlight::selectionHighlight() : IModule(0x0, Category::VISUAL, "Custom selection box!  MADE BY BADMAN") {
-	registerFloatSetting("Thickness", &this->thickness, this->thickness, 0.f, 1.f);
-	registerFloatSetting("Opacity", &this->opacityVal, this->opacityVal, 0.f, 1.f);
-	registerBoolSetting("Outline", &this->doOutline, this->doOutline);
-	registerBoolSetting("Rainbow", &this->selectRainbow, this->selectRainbow);
-	registerFloatSetting("Red", &this->rSelect, this->rSelect, 0.f, 1.f);
-	registerFloatSetting("Green", &this->gSelect, this->gSelect, 0.f, 1.f);
-	registerFloatSetting("Blue", &this->bSelect, this->bSelect, 0.f, 1.f);
-	//registerBoolSetting("FaceHighlight", &this->faceH, this->faceH);
-	//registerFloatSetting("FaceOpacity", &this->fOpacity, this->fOpacity, 0.f, 1.f);
+	registerFloatSetting("Thickness", &thickness, thickness, 0.f, 1.f);
+	registerFloatSetting("Opacity", &opacityVal, opacityVal, 0.f, 1.f);
+	registerBoolSetting("Outline", &doOutline, doOutline);
+	registerBoolSetting("Rainbow", &selectRainbow, selectRainbow);
+	registerFloatSetting("Red", &rSelect, rSelect, 0.f, 1.f);
+	registerFloatSetting("Green", &gSelect, gSelect, 0.f, 1.f);
+	registerFloatSetting("Blue", &bSelect, bSelect, 0.f, 1.f);
+	//registerBoolSetting("FaceHighlight", &faceH, faceH);
+	//registerFloatSetting("FaceOpacity", &fOpacity, fOpacity, 0.f, 1.f);
 }
 
 selectionHighlight::~selectionHighlight() {

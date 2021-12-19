@@ -1,11 +1,11 @@
 #include "CubeFly.h"
 
 CubeFly::CubeFly() : IModule('N', Category::SERVER, "TestHack") {
-	registerFloatSetting("Speed", &this->speed, this->speed, 0.5f, 3.f);
-	registerFloatSetting("Y-Start", &this->ystart, this->ystart, 0.5f, 2.f);
-	registerFloatSetting("Y-Flying", &this->yflying, this->yflying, 0.5f, 2.f);
-	registerIntSetting("TP-Delay", &this->delaytp, this->delaytp, 1, 10);
-	registerIntSetting("TP-Distance", &this->tpdist, this->tpdist, 1, 10);
+	registerFloatSetting("Speed", &speed, speed, 0.5f, 3.f);
+	registerFloatSetting("Y-Start", &ystart, ystart, 0.5f, 2.f);
+	registerFloatSetting("Y-Flying", &yflying, yflying, 0.5f, 2.f);
+	registerIntSetting("TP-Delay", &delaytp, delaytp, 1, 10);
+	registerIntSetting("TP-Distance", &tpdist, tpdist, 1, 10);
 }
 
 CubeFly::~CubeFly() {

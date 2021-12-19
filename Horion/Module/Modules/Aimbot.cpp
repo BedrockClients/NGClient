@@ -79,7 +79,7 @@ void Aimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			if (click && !g_Data.isLeftClickDown())
 				return;
 
-			if (!this->lock) {
+			if (!lock) {
 				appl.x /= (100.f - verticalspeed);
 				appl.y /= (100.f - horizontalspeed);
 				if (appl.x >= 1 || appl.x <= -1) appl.div(abs(appl.x));

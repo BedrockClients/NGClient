@@ -2,8 +2,8 @@
 #include "../ModuleManager.h"
 
 Teleport::Teleport() : IModule(0, Category::PLAYER, "Click a block to teleport to it") {
-	registerBoolSetting("Only Hand", &this->onlyHand, this->onlyHand);
-	registerBoolSetting("Push", &this->bypass, this->bypass);
+	registerBoolSetting("Only Hand", &onlyHand, onlyHand);
+	registerBoolSetting("Push", &bypass, bypass);
 }
 
 Teleport::~Teleport() {

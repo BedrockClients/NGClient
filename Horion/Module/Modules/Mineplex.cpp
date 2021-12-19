@@ -2,8 +2,8 @@
 #include "../ModuleManager.h"
 
 Mineplex::Mineplex() : IModule(0x0, Category::SERVER, "Bypass moevment hacks for Mineplex") {
-	this->registerBoolSetting("DelayMode", &this->delayMode, this->delayMode);
-	registerIntSetting("DelaySpeed", &this->speedMod, 2, 1, 10);
+	registerBoolSetting("DelayMode", &delayMode, delayMode);
+	registerIntSetting("DelaySpeed", &speedMod, 2, 1, 10);
 }
 
 Mineplex::~Mineplex() {

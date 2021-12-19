@@ -47,7 +47,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		Utils::ApplyRainbow(rcolors, 0.0015f);
 	}
 	vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-	float f = 10.f * this->scale;
+	float f = 10.f * scale;
 	std::string tempStr("Movement");
 	float len = DrawUtils::getTextWidth(&tempStr, scale) + 7.f;
 	float startY = tabgui ? 6 * f : 0.f;
@@ -89,7 +89,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		}
 	}
 	{  // Hello thing
-		if (!(g_Data.getLocalPlayer() == nullptr || !this->Msg || !GameData::canUseMoveKeys())) {
+		if (!(g_Data.getLocalPlayer() == nullptr || !Msg || !GameData::canUseMoveKeys())) {
 			if (Surge->surge) {
 				std::string fpsText = "sup bitch";
 				vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
@@ -164,7 +164,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	}
 	{	// ArmorHUD
 
-		if (!(g_Data.getLocalPlayer() == nullptr || !this->displayArmor || !GameData::canUseMoveKeys())) {
+		if (!(g_Data.getLocalPlayer() == nullptr || !displayArmor || !GameData::canUseMoveKeys())) {
 			static float constexpr scale = 1.f;
 			static float constexpr opacity = 0.25f;
 			static float constexpr spacing = scale + 15.f;

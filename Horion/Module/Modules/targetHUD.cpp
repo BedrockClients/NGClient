@@ -1,8 +1,8 @@
 #include "targetHUD.h"
 
 targetHUD::targetHUD() : IModule('L', Category::GUI, "Attacks entities around you automatically") {
-	registerBoolSetting("targetHUD", &this->targetHUDlist, this->targetHUDlist);
-	registerFloatSetting("targetHUD Opacity", &this->targetHUDopacity, this->targetHUDopacity, 0.0f, 1.f);
+	registerBoolSetting("targetHUD", &targetHUDlist, targetHUDlist);
+	registerFloatSetting("targetHUD Opacity", &targetHUDopacity, targetHUDopacity, 0.0f, 1.f);
 }
 
 targetHUD::~targetHUD() {

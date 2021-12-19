@@ -2,10 +2,10 @@
 #include "../ModuleManager.h"
 
 MineplexFly::MineplexFly() : IModule('R', Category::SERVER, "Flight bypass for Mineplex") {
-	registerFloatSetting("speed", &this->speedMod, 1, 0.3f, 2.5f);
-	registerFloatSetting("Y-Start", &this->yUp, 1, 0.0f, 1.f);
-    registerBoolSetting("Up", &this->isBypass, this->isBypass);
-	registerBoolSetting("Up+", &this->up, this->up);
+	registerFloatSetting("speed", &speedMod, 1, 0.3f, 2.5f);
+	registerFloatSetting("Y-Start", &yUp, 1, 0.0f, 1.f);
+    registerBoolSetting("Up", &isBypass, isBypass);
+	registerBoolSetting("Up+", &up, up);
 }
 
 MineplexFly::~MineplexFly() {

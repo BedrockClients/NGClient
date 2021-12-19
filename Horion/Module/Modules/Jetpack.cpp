@@ -3,8 +3,8 @@
 #include "../../../Utils/Logger.h"
 
 Jetpack::Jetpack() : IModule('F', Category::FLYS, "Fly around like you had a Jetpack!") {
-	registerFloatSetting("speed", &this->speedMod, 1, 0.2f, 15.f);
-	registerBoolSetting("Bypass", &this->isBypass, this->isBypass);
+	registerFloatSetting("speed", &speedMod, 1, 0.2f, 15.f);
+	registerBoolSetting("Bypass", &isBypass, isBypass);
 }
 
 Jetpack::~Jetpack() {

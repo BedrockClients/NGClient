@@ -32,7 +32,7 @@ SettingEnum::SettingEnum(IModule* mod) {
 SettingEnum& SettingEnum::addEntry(EnumEntry entr) {
 	auto etr = EnumEntry(entr);
 	bool SameVal = false;
-	for (auto it = this->Entrys.begin(); it != this->Entrys.end(); it++) {
+	for (auto it = Entrys.begin(); it != Entrys.end(); it++) {
 		SameVal |= it->GetValue() == etr.GetValue();
 	}
 	if (!SameVal) {
@@ -55,12 +55,12 @@ int SettingEnum::GetCount() {
 #pragma endregion
 
 IModule::IModule(int key, Category c, const char* tooltip) {
-	this->keybind = key;
-	this->category = c;
-	this->tooltip = tooltip;
-	this->registerIntSetting(std::string("keybind"), &this->keybind, this->keybind, 0, 0xFF);
-	this->registerBoolSetting(std::string("enabled"), &this->enabled, false);
-	this->ModulePos = vec2_t(0.f, 0.f);
+	keybind = key;
+	category = c;
+	tooltip = tooltip;
+	registerIntSetting(std::string("keybind"), &keybind, keybind, 0, 0xFF);
+	registerBoolSetting(std::string("enabled"), &enabled, false);
+	ModulePos = vec2_t(0.f, 0.f);
 }
 
 void IModule::registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue) {
@@ -168,10 +168,10 @@ void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultV
 }
 
 IModule::~IModule() {
-	for (auto it = this->settings.begin(); it != this->settings.end(); it++) {
+	for (auto it = settings.begin(); it != settings.end(); it++) {
 		delete *it;
 	}
-	this->settings.clear();
+	settings.clear();
 }
 
 const char* IModule::getModuleName() {
@@ -183,11 +183,11 @@ const char* IModule::getRawModuleName() {
 }
 
 int IModule::getKeybind() {
-	return this->keybind;
+	return keybind;
 }
 
 void IModule::setKeybind(int key) {
-	this->keybind = key;
+	keybind = key;
 }
 
 bool IModule::allowAutoStart() {
@@ -223,11 +223,11 @@ void IModule::onSendPacket(C_Packet*) {
 
 void IModule::onLoadConfig(void* confVoid) {
 	json* conf = reinterpret_cast<json*>(confVoid);
-	if (conf->contains(this->getRawModuleName())) {
-		auto obj = conf->at(this->getRawModuleName());
+	if (conf->contains(getRawModuleName())) {
+		auto obj = conf->at(getRawModuleName());
 		if (obj.is_null())
 			return;
-		for (auto it = this->settings.begin(); it != this->settings.end(); ++it) {
+		for (auto it = settings.begin(); it != settings.end(); ++it) {
 			SettingEntry* sett = *it;
 			if (obj.contains(sett->name)) {
 				auto value = obj.at(sett->name);
@@ -257,19 +257,19 @@ void IModule::onLoadConfig(void* confVoid) {
 						try {
 							sett->value->_int = value.get<int>();
 						} catch (const std::exception& e) {
-							logF("Config Load Error(Enum) (%s): %s ", this->getRawModuleName(), e.what());
+							logF("Config Load Error(Enum) (%s): %s ", getRawModuleName(), e.what());
 						}
 						break;
 					}
 					sett->makeSureTheValueIsAGoodBoiAndTheUserHasntScrewedWithIt();
 					continue;
 				} catch (std::exception e) {
-					logF("Config Load Error (%s): %s", this->getRawModuleName(), e.what());
+					logF("Config Load Error (%s): %s", getRawModuleName(), e.what());
 				}
 			}
 		}
-		if (this->enabled)
-			this->onEnable();
+		if (enabled)
+			onEnable();
 	}
 }
 
@@ -283,7 +283,7 @@ void IModule::onSaveConfig(void* confVoid) {
 
 	json obj = {};
 	//auto obj = conf->at(modName);
-	for (auto sett : this->settings) {
+	for (auto sett : settings) {
 		switch (sett->valueType) {
 		case ValueType::FLOAT_T:
 			obj.emplace(sett->name, sett->value->_float);
@@ -319,30 +319,30 @@ bool IModule::isFlashMode() {
 }
 
 void IModule::setEnabled(bool enabled) {
-	if (this->enabled != enabled) {
-		this->enabled = enabled;
+	if (enabled != enabled) {
+		enabled = enabled;
 #ifndef _DEBUG
 		if (!isFlashMode())  // Only print jetpack stuff in debug mode
 #endif
-			logF("%s %s", enabled ? "Enabled" : "Disabled", this->getModuleName());
+			logF("%s %s", enabled ? "Enabled" : "Disabled", getModuleName());
 
 		if (enabled)
-			this->onEnable();
+			onEnable();
 		else
-			this->onDisable();
+			onDisable();
 	}
 }
 
 void IModule::toggle() {
-	setEnabled(!this->enabled);
+	setEnabled(!enabled);
 }
 
 bool IModule::isEnabled() {
-	return this->enabled;
+	return enabled;
 }
 
 const char* IModule::getTooltip() {
-	return this->tooltip;
+	return tooltip;
 }
 void IModule::onAttack(C_Entity*) {
 }
@@ -360,7 +360,7 @@ void IModule::clientMessageF(const char* fmt, ...) {
 	char message[300];
 	vsprintf_s(message, 300, fmt, arg);
 
-	GameData::log("[%s]: %s", this->getModuleName(), message);
+	GameData::log("[%s]: %s", getModuleName(), message);
 
 	va_end(arg);
 }

@@ -5,7 +5,7 @@ Flyto::Flyto() : IModule(0, Category::FLYS, "Fly like a bird! (Mineplex Fly By K
 	registerBoolSetting("CreativeFly", &vanilla, vanilla);
 	registerBoolSetting("CubeGlide", &cubeMode, cubeMode);
 	registerBoolSetting("Mineplex", &mineplexMode, mineplexMode);
-	registerBoolSetting("Damage", &this->dmg, this->dmg);
+	registerBoolSetting("Damage", &dmg, dmg);
 }
 
 Flyto::~Flyto() {
@@ -33,7 +33,7 @@ bool Flyto::isFlashMode() {
 void Flyto::onEnable() {
 	if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
 		if (g_Data.isInGame()) {
-			if (this->dmg) {
+			if (dmg) {
 				auto player = g_Data.getLocalPlayer();
 				//player->animateHurt();
 			}

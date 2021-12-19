@@ -1,7 +1,7 @@
 #include "NGFly.h"
 
 NGFly::NGFly() : IModule(0, Category::SERVER, "Bypassing fly for NetherGames") {
-	this->glideMod = 0.00f;
+	glideMod = 0.00f;
 	registerFloatSetting("Speed", &speed, speed, 0.50f, 4.f);
 }
 

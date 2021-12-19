@@ -34,7 +34,7 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 				C_ItemStack* stack = c->_getItemStack(TextHolder("inventory_items"), i);
 				C_ItemStack* stack2 = c->_getItemStack(TextHolder("hotbar_items"), i);
 				if (stack != nullptr && stack->item != NULL || stack2 != nullptr && stack2->item != NULL)
-					if (!this->enhanced || invcleanerMod->stackIsUseful(stack) || invcleanerMod->stackIsUseful(stack))
+					if (!enhanced || invcleanerMod->stackIsUseful(stack) || invcleanerMod->stackIsUseful(stack))
 						items.push_back(i);
 			}
 			if (!items.empty()) {
@@ -57,7 +57,7 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 			for (int i = 0; i < 54; i++) {
 				C_ItemStack* stack = c->_getItemStack(TextHolder("container_items"), i);
 				if (stack != nullptr && stack->item != NULL)
-					if (!this->enhanced || invcleanerMod->stackIsUseful(stack))
+					if (!enhanced || invcleanerMod->stackIsUseful(stack))
 						items.push_back(i);
 			}
 			if (!items.empty()) {

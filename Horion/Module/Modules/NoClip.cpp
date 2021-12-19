@@ -2,9 +2,9 @@
 #include "../ModuleManager.h"
 
 NoClip::NoClip() : IModule(0x0, Category::MOVEMENT, "NoClip through walls on all axis") {
-	registerFloatSetting("Horizontal Speed", &this->speed, this->speed, 0.1f, 1.f);
-	registerFloatSetting("Vertical Speed", &this->upanddown, this->upanddown, 0.1f, 1.f);
-	this->registerBoolSetting("Save Old POS", &this->NoPacket, this->NoPacket);
+	registerFloatSetting("Horizontal Speed", &speed, speed, 0.1f, 1.f);
+	registerFloatSetting("Vertical Speed", &upanddown, upanddown, 0.1f, 1.f);
+	registerBoolSetting("Save Old POS", &NoPacket, NoPacket);
 }
 
 NoClip::~NoClip() {

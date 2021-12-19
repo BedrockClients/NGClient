@@ -1,15 +1,15 @@
 #include "TPAura.h"
 
 TPAura::TPAura() : IModule(0x0, Category::COMBAT, "TP like fuck so you dont get hit") {
-	this->registerBoolSetting("MobAura", &this->isMobAura, this->isMobAura);
-	this->registerBoolSetting("MultiAura", &this->isMulti, this->isMulti);
-	this->registerBoolSetting("Lerp", &this->lerp, this->lerp);
-	this->registerBoolSetting("UnlimitedRange", &this->unlim, this->unlim);
-	this->registerFloatSetting("range", &this->range, this->range, 0.5f, 20.f);
-	this->registerIntSetting("TP delay", &this->delay, this->delay, 0, 20);
-	this->registerIntSetting("Attack delay", &this->delay1, this->delay1, 0, 20);
-	this->registerBoolSetting("AutoWeapon", &this->autoweapon, this->autoweapon);
-	this->registerBoolSetting("Silent Rotations", &this->silent, this->silent);
+	registerBoolSetting("MobAura", &isMobAura, isMobAura);
+	registerBoolSetting("MultiAura", &isMulti, isMulti);
+	registerBoolSetting("Lerp", &lerp, lerp);
+	registerBoolSetting("UnlimitedRange", &unlim, unlim);
+	registerFloatSetting("range", &range, range, 0.5f, 20.f);
+	registerIntSetting("TP delay", &delay, delay, 0, 20);
+	registerIntSetting("Attack delay", &delay1, delay1, 0, 20);
+	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
+	registerBoolSetting("Silent Rotations", &silent, silent);
 }
 
 TPAura::~TPAura() {
@@ -157,7 +157,7 @@ void TPAura::onTick(C_GameMode* gm) {
 
 void TPAura::onEnable() {
 	if (g_Data.getLocalPlayer() == nullptr)
-		this->setEnabled(false);
+		setEnabled(false);
 }
 
 void TPAura::onSendPacket(C_Packet* packet) {

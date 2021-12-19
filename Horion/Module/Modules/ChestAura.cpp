@@ -36,5 +36,5 @@ void ChestAura::onTick(C_GameMode* gm) {
 }
 
 void ChestAura::onDisable() {
-	this->chestlist.clear();  // this code should be changed later, the chestlist has to be cleared when loading into a new world
+	chestlist.clear();  // this code should be changed later, the chestlist has to be cleared when loading into a new world
 }

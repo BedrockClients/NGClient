@@ -2,8 +2,8 @@
 #include "../ModuleManager.h"
 
 MinevilleFly::MinevilleFly() : IModule(0, Category::SERVER, "MinevilleFly") {
-	this->glideMod = 0.00f;
-	registerFloatSetting("Speed", &this->speed, this->speed, 1.f, 4.f);
+	glideMod = 0.00f;
+	registerFloatSetting("Speed", &speed, speed, 1.f, 4.f);
 }
 
 MinevilleFly::~MinevilleFly() {

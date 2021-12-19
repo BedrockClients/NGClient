@@ -1,7 +1,7 @@
 #include "HiveNuker.h"
 
 HiveNuker::HiveNuker() : IModule(VK_NUMPAD9, Category::SERVER, "Destroys blocks around you") {
-	registerIntSetting("Range", &this->range, this->range, 1, 8);
+	registerIntSetting("Range", &range, range, 1, 8);
 }
 
 HiveNuker::~HiveNuker() {

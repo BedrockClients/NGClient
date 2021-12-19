@@ -4,8 +4,8 @@ Blink::Blink() : IModule(0, Category::PLAYER, "Stops you from sending packets an
 }
 
 Blink::~Blink() {
-	this->getMovePlayerPacketHolder()->clear();
-	this->getPlayerAuthInputPacketHolder()->clear();
+	getMovePlayerPacketHolder()->clear();
+	getPlayerAuthInputPacketHolder()->clear();
 }
 
 const char* Blink::getModuleName() {

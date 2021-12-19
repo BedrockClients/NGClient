@@ -1,7 +1,7 @@
 #include "XP.h"
 
 XP::XP() : IModule(0x0, Category::SERVER, "Gives You Shit Loads Of XP!") {
-	this->registerIntSetting("amount", &this->amount, this->amount, 1, 5000);
+	registerIntSetting("amount", &amount, amount, 1, 5000);
 }
 
 XP::~XP() {

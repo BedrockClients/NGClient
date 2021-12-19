@@ -4,13 +4,13 @@
 #include "../ModuleManager.h"
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
-	registerBoolSetting("Spoof", &this->spoof, this->spoof);
-	registerBoolSetting("AirPlace", &this->airplace, this->airplace);
-	registerBoolSetting("Auto Select", &this->autoselect, this->autoselect);
-	registerBoolSetting("Predict", &this->predict, this->predict);
-	registerBoolSetting("Rotations", &this->rot, this->rot);
-	registerBoolSetting("Y Lock", &this->yLock, this->yLock);
-	registerBoolSetting("Staircase Mode", &this->staircaseMode, this->staircaseMode);
+	registerBoolSetting("Spoof", &spoof, spoof);
+	registerBoolSetting("AirPlace", &airplace, airplace);
+	registerBoolSetting("Auto Select", &autoselect, autoselect);
+	registerBoolSetting("Predict", &predict, predict);
+	registerBoolSetting("Rotations", &rot, rot);
+	registerBoolSetting("Y Lock", &yLock, yLock);
+	registerBoolSetting("Staircase Mode", &staircaseMode, staircaseMode);
 }
 
 Scaffold::~Scaffold() {
@@ -122,7 +122,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 	vec3_t vel = g_Data.getLocalPlayer()->velocity;
 	vel = vel.normalize();  // Only use values from 0 - 1
 
-	if (this->staircaseMode) {
+	if (staircaseMode) {
 		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 1 block below the player
 		blockBelow.y -= g_Data.getLocalPlayer()->height;
 		blockBelow.y -= 1.5f;
@@ -175,7 +175,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 				}
 			}
 		}
-	if (this->spoof) {
+	if (spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		supplies->selectedHotbarSlot = slot;
 	}

@@ -2,8 +2,8 @@
 #include "../ModuleManager.h"
 
 Zoom::Zoom() : IModule('C', Category::VISUAL, "Zoom in or out!") {
-	registerFloatSetting("Strength", &this->strength, this->strength, -100.f, 100.f);
-	registerBoolSetting("Smooth", &this->smooth, this->smooth);
+	registerFloatSetting("Strength", &strength, strength, -100.f, 100.f);
+	registerBoolSetting("Smooth", &smooth, smooth);
 }
 
 Zoom::~Zoom() {
