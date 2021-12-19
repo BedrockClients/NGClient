@@ -4,6 +4,7 @@ ConfigCommand::ConfigCommand() : IMCCommand("config", "Load/save configs", "<loa
 }
 
 ConfigCommand::~ConfigCommand() {
+	registerAlias("c");
 }
 
 bool ConfigCommand::execute(std::vector<std::string>* args) {
