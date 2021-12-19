@@ -166,14 +166,27 @@ void Scaffold::onTick(C_GameMode* gm) {
 				blockBelowtest2.z -= vel.z * 0.3f;
 				if (predict) {
 					if (!tryScaffold(blockBelowtest2)) {
-						blockBelowtest2.x -= vel.x * 0.2f;
+						blockBelowtest2.x -= vel.x / 3.5f;
 						blockBelowtest2.z += vel.z;
 						blockBelowtest2.x += vel.x;
 						tryScaffold(blockBelowtest2);
-						blockBelowtest2.z -= vel.z * 0.1f;
+						blockBelowtest2.z -= vel.z / 3.5f;
 					}
 				}
 			}
+		if (!tryScaffold(blockBelowtest2)) {
+			if (speed > 0.05f) {
+				blockBelowtest2.z -= vel.z * 0.4f;
+				if (!tryScaffold(blockBelowtest2)) {
+					blockBelowtest2.x -= vel.x * 0.4f;
+					if (!tryScaffold(blockBelowtest2) && g_Data.getLocalPlayer()->isSprinting()) {
+						blockBelowtest2.z += vel.z;
+						blockBelowtest2.x += vel.x;
+						tryScaffold(blockBelowtest2);
+					}
+				}
+			}
+		}
 		}
 	if (spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
