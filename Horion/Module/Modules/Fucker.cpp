@@ -44,6 +44,12 @@ void Fucker::onTick(C_GameMode* gm) {
 						gm->destroyBlock(&blockPos, 0);
 					else {
 						bool isDestroyed = false;
+						if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
+							PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
+							gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
+							gm->destroyBlock(new vec3_ti(pointing->block), pointing->blockSide);
+							gm->stopDestroyBlock(pointing->block);
+						}
 						gm->startDestroyBlock(blockPos, gm->player->region->getBlock(blockPos)->data, isDestroyed);
 						gm->destroyBlock(&blockPos, gm->player->region->getBlock(blockPos)->data);
 						gm->stopDestroyBlock(blockPos);
