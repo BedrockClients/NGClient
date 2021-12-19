@@ -4,7 +4,7 @@
 NoClip::NoClip() : IModule(0x0, Category::MOVEMENT, "NoClip through walls on all axis") {
 	registerFloatSetting("Horizontal Speed", &speed, speed, 0.1f, 1.f);
 	registerFloatSetting("Vertical Speed", &upanddown, upanddown, 0.1f, 1.f);
-	registerBoolSetting("Save Old POS", &NoPacket, NoPacket);
+	registerBoolSetting("Save Old POS",&NoPacket, NoPacket);
 }
 
 NoClip::~NoClip() {
@@ -74,10 +74,9 @@ void NoClip::onMove(C_MoveInputHandler* input) {
 }
 
 void NoClip::onEnable() {
-	if (NoPacket)
-		if (g_Data.getLocalPlayer() != nullptr) {
-			oldPos = *g_Data.getLocalPlayer()->getPos();
-		}
+	if (g_Data.getLocalPlayer() != nullptr) {
+		oldPos = *g_Data.getLocalPlayer()->getPos();
+	}
 }
 
 void NoClip::onDisable() {
