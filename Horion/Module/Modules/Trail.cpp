@@ -50,7 +50,7 @@ void Trail::onTick(C_GameMode* gm) {
 		linePoints2.clear();
 		linePoints3.clear();
 		linePoints4.clear();
-		linePoints5.clear();
+		//linePoints5.clear();
 	}
 }
 
@@ -66,7 +66,7 @@ void Trail::onLevelRender() {
 	DrawUtils::drawLinestrip3d(linePoints2);
 	DrawUtils::drawLinestrip3d(linePoints3);
 	DrawUtils::drawLinestrip3d(linePoints4);
-	DrawUtils::drawLinestrip3d(linePoints5);
+	//DrawUtils::drawLinestrip3d(linePoints5);
 	}
 }
 
