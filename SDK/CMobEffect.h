@@ -3,7 +3,7 @@
 
 class CMobEffect {
 public:
-	virtual ~CMobEffect();
+	virtual void Destructor();
 	virtual void applyEffects(C_Entity *, int, int);
 	virtual void removeEffects(C_Entity *);
 	virtual void applyInstantaneousEffect(C_Entity *, C_Entity *, C_Entity *, int, float);
