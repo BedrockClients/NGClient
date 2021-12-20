@@ -234,7 +234,7 @@ void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 				std::string height = "height: " + std::to_string((targetList[0]->height));
 				std::string entityid = "EntityID: " + std::to_string((targetList[0]->getEntityTypeId()));
 				DrawUtils::drawText(textPos, &name, MC_Color(0, 0, 255), 1.f);
-				textPos.y += 10.f;
+				textPos.y += 20.f;
 				DrawUtils::drawText(textPos, &healthstring, MC_Color(0, 0, 255), 1.f);
 				textPos.y += 10.f;
 				DrawUtils::drawText(textPos, &distance, MC_Color(0, 0, 255), 1.f);
