@@ -239,9 +239,7 @@ void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 				Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
 				std::string name = targetList[0]->getNameTag()->getText();
 				std::string distance = "Distance: " + std::to_string((*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-				std::string X = "X: " + std::to_string((targetList[0]->getPos()->x));
-				std::string Y = "Y: " + std::to_string((targetList[0]->getPos()->y));
-				std::string Z = "Z: " + std::to_string((targetList[0]->getPos()->z));
+				std::string pos = "X: " + std::to_string((int)(targetList[0]->getPos()->x)) + " Y: " + std::to_string((int)(targetList[0]->getPos()->y)) + " Z: " + std::to_string((int)(targetList[0]->getPos()->z));
 				std::string DmgTime = "DmgTime: " + std::to_string((targetList[0]->damageTime));
 				std::string OnGround = "OnGround: " + std::to_string((targetList[0]->onGround));
 				std::string height = "height: " + std::to_string((targetList[0]->height));
@@ -250,11 +248,7 @@ void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 				textPos.y += 10.f;
 				DrawUtils::drawText(textPos, &distance, currColor, 1.f);
 				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &X, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &Y, currColor, 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &Z, currColor, 1.f);
+				DrawUtils::drawText(textPos, &pos, currColor, 1.f);
 				textPos.y += 10.f;
 				DrawUtils::drawText(textPos, &DmgTime, currColor, 1.f);
 				textPos.y += 10.f;
