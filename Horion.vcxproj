@@ -322,7 +322,6 @@
     <ClCompile Include="Horion\Module\Modules\NoClip.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
-    <ClCompile Include="Horion\Module\Modules\SoundPlayer.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
     <ClCompile Include="Horion\Module\Modules\targetHUD.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoSneak.cpp" />
