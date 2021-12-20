@@ -322,6 +322,7 @@
     <ClCompile Include="Horion\Module\Modules\NoClip.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
+    <ClCompile Include="Horion\Module\Modules\SoundPlayer.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
     <ClCompile Include="Horion\Module\Modules\targetHUD.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoSneak.cpp" />
@@ -549,6 +550,7 @@
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
     <ClInclude Include="Horion\Module\Modules\PotionAura.h" />
     <ClInclude Include="Horion\Module\Modules\Snowball_Aimbot.h" />
+    <ClInclude Include="Horion\Module\Modules\SoundPlayer.h" />
     <ClInclude Include="Horion\Module\Modules\SwingAnimations.h" />
     <ClInclude Include="Horion\Module\Modules\targetHUD.h" />
     <ClInclude Include="Horion\Module\Modules\AutoSneak.h" />

@@ -12,6 +12,7 @@
 #include "Modules/Aimbot.h"
 #include "Modules/AirJump.h"
 #include "Modules/AirSwim.h"
+#include "Modules/SoundPlayer.h"
 #include "Modules/AntiBot.h"
 #include "Modules/FastLadder.h"
 #include "Modules/AutoArmor.h"

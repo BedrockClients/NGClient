@@ -226,6 +226,7 @@
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
+    <ClCompile Include="Horion\Module\Modules\SoundPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -492,6 +493,7 @@
     <ClInclude Include="Horion\Module\Modules\PotionAura.h" />
     <ClInclude Include="Horion\Module\Modules\SwingAnimations.h" />
     <ClInclude Include="Horion\Module\Modules\AutoArmor.h" />
+    <ClInclude Include="Horion\Module\Modules\SoundPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

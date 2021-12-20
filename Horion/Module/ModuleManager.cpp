@@ -141,6 +141,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new LongJump()));
 		moduleList.push_back(std::shared_ptr<IModule>(new TestModule()));
 		moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));
+		moduleList.push_back(std::shared_ptr<IModule>(new SoundPlayer()));
 #ifdef _DEBUG
 		
 #endif
