@@ -352,7 +352,7 @@ public:
 	virtual __int64 getCommandPermissionLevel(void);                                                                                                                                                                              // 204
 	virtual bool isClientSide(void);                                                                                                                                                                                              // 205
 	virtual __int64 getMutableAttribute(__int64);                                                                                                                                                                         // 206
-	virtual __int64 getAttribute(__int64);                                                                                                                                                                                // 207
+	virtual __int64 getAttribute(int *);                                                                                                                                                                                          // 207
 	virtual __int64 getDeathTime(void);                                                                                                                                                                                           // 208
 	virtual __int64 heal(int);                                                                                                                                                                                                    // 209
 	virtual bool isInvertedHealAndHarm(void);                                                                                                                                                                                     // 210
@@ -534,6 +534,34 @@ public:
 
 	bool isSprinting() {
 		return false;  // TODO
+	}
+
+	float getHealth() {
+		static int *healthAttribute = 0x0;
+
+		if (healthAttribute == 0x0) {
+			uintptr_t sigOffset = FindSignature("48 8D 15 ? ? ? ? FF 90 ? ? ? ? F3 0F 2C 88 ? ? ? ? 85 C9 7E ? 48 8B 4C 24");
+			int offset = *(int *)(sigOffset + 3);
+			healthAttribute = (int *)(sigOffset + offset + 7);
+		}
+
+		__int64 attribute = getAttribute(healthAttribute);
+
+		return *(float *)(attribute + 0x84);
+	}
+
+	float getMaxHealth() {
+		static int *healthAttribute = 0x0;
+
+		if (healthAttribute == 0x0) {
+			uintptr_t sigOffset = FindSignature("48 8D 15 ? ? ? ? FF 90 ? ? ? ? F3 0F 2C 88 ? ? ? ? 85 C9 7E ? 48 8B 4C 24");
+			int offset = *(int *)(sigOffset + 3);
+			healthAttribute = (int *)(sigOffset + offset + 7);
+		}
+
+		__int64 attribute = getAttribute(healthAttribute);
+
+		return *(float *)(attribute + 0x80);
 	}
 };
 

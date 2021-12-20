@@ -224,39 +224,30 @@ void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 	if (!targetList.empty() && g_Data.isInGame() && Info->info){
 				vec4_t tempPos = vec4_t(120.f, 5.f, 90.f, 40.f);  //temp pos for the text pos, so we can create a pos that doesn't have player names overlapping from the box to the screen
 				vec2_t textPos = vec2_t(tempPos.y, tempPos.x);    //text pos
-				static float rcolors2[4];                         // Rainbow color array RGBA
-				static float disabledRcolors2[4];                 // Rainbow Colors, but for disabled modules
-				static float currColor[4];                        // ArrayList colors
 
-				// Rainbow color updates
-					Utils::ApplyRainbow(rcolors2, 0.001f);  // Increase Hue of rainbow color array
-					disabledRcolors2[0] = std::min(1.f, rcolors2[0] * 0.4f + 0.2f);
-					disabledRcolors2[1] = std::min(1.f, rcolors2[1] * 0.4f + 0.2f);
-					disabledRcolors2[2] = std::min(1.f, rcolors2[2] * 0.4f + 0.2f);
-					disabledRcolors2[3] = 1;
-				currColor[3] = rcolors2[3];
-				Utils::ColorConvertRGBtoHSV(rcolors2[0], rcolors2[1], rcolors2[2], currColor[0], currColor[2], currColor[2]);
-				Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
+				std::string healthstring = "Health : " + std::to_string((int)targetList[0]->getHealth());
 				std::string name = targetList[0]->getNameTag()->getText();
-				std::string distance = "Distance: " + std::to_string((*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
+				std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
 				std::string pos = "X: " + std::to_string((int)(targetList[0]->getPos()->x)) + " Y: " + std::to_string((int)(targetList[0]->getPos()->y)) + " Z: " + std::to_string((int)(targetList[0]->getPos()->z));
 				std::string DmgTime = "DmgTime: " + std::to_string((targetList[0]->damageTime));
 				std::string OnGround = "OnGround: " + std::to_string((targetList[0]->onGround));
 				std::string height = "height: " + std::to_string((targetList[0]->height));
 				std::string entityid = "EntityID: " + std::to_string((targetList[0]->getEntityTypeId()));
-				DrawUtils::drawText(textPos, &name, currColor, 1.f);
+				DrawUtils::drawText(textPos, &name, MC_Color(0, 0, 255), 1.f);
 				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &distance, currColor, 1.f);
+				DrawUtils::drawText(textPos, &healthstring, MC_Color(0, 0, 255), 1.f);
 				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &pos, currColor, 1.f);
+				DrawUtils::drawText(textPos, &distance, MC_Color(0, 0, 255), 1.f);
 				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &DmgTime, currColor, 1.f);
+				DrawUtils::drawText(textPos, &pos, MC_Color(0, 0, 255), 1.f);
 				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &OnGround, currColor, 1.f);
+				DrawUtils::drawText(textPos, &DmgTime, MC_Color(0, 0, 255), 1.f);
 				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &height, currColor, 1.f);
+				DrawUtils::drawText(textPos, &OnGround, MC_Color(0, 0, 255), 1.f);
 				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &entityid, currColor, 1.f);
+				DrawUtils::drawText(textPos, &height, MC_Color(0, 0, 255), 1.f);
+				textPos.y += 10.f;
+				DrawUtils::drawText(textPos, &entityid, MC_Color(0, 0, 255), 1.f);
 	}
 }
 

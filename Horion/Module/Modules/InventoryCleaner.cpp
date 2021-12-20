@@ -235,7 +235,7 @@ bool InventoryCleaner::stackIsUseful(C_ItemStack* itemStack) {
 	if (keepTools && (*itemStack->item)->isTool()) return true;       // Tools
 	if (keepFood && (*itemStack->item)->isFood()) return true;        // Food
 	if (keepBlocks && (*itemStack->item)->isBlock()) return true;     // Block
-	if (keepTools && (*itemStack->item)->itemId == 368) return true;  // Ender Pearl
+	if (keepTools && (*itemStack->item)->itemId == 442) return true;  // Ender Pearl
 	return false;
 }
 
