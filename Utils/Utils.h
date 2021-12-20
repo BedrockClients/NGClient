@@ -426,6 +426,8 @@ public:
 
 	static void GetCurrentSystemTime(tm& timeInfo);
 
+	static uintptr_t getBase();
+
 	static void ApplySystemTime(std::stringstream* ss);
 
 	static std::string sanitize(std::string text);

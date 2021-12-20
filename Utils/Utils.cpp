@@ -19,6 +19,12 @@ void Utils::ApplySystemTime(std::stringstream* ss) {
 	*ss << "[" << std::put_time(&timeInfo, "%T") << "." << std::setfill('0') << std::setw(4) << ms.count() << "] ";
 #endif
 }
+uintptr_t cachedBase = 0;
+
+uintptr_t Utils::getBase() {
+	if (cachedBase == 0) cachedBase = (uintptr_t)GetModuleHandleA("Minecraft.Windows.exe");
+	return cachedBase;
+}
 
 void Utils::GetCurrentSystemTime(tm& timeInfo) {
 	const std::chrono::system_clock::time_point systemNow = std::chrono::system_clock::now();

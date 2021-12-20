@@ -226,6 +226,7 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t windowSize = dat->windowSize;
 
 				std::string realname = "Name : " + Utils::sanitize(targetList[0]->getNameTag()->getText());//Get the name of the target
+				std::string healthstring = "Health : " + std::to_string((int)targetList[0]->getHealth());
 				auto distancestring = std::string("Distance : " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos())));//gets target distance
 				std::string pos = "Position [ X: " + std::to_string((int)(targetList[0]->getPos()->x)) + " Y: " + std::to_string((int)(targetList[0]->getPos()->y)) + " Z: " + std::to_string((int)(targetList[0]->getPos()->z)) + std::string(" ]");
 
@@ -244,6 +245,7 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				DrawUtils::drawRectangle(vec4_t(duotagteam), MC_Color(0, 246, 255), 1.f);
 
 				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 3.7f + windowSize.y / 4), &realname, MC_Color(1.f, 1.f, 1.f), 1.f);//name
+				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 4.f + windowSize.y / 4), &healthstring, MC_Color(1.f, 1.f, 1.f), 1.f); //health
 				// go up by .4 each time
 				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 4.3f + windowSize.y / 4),&distancestring, MC_Color(1.f, 1.f, 1.f), 1.f);//distance
 				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 4.7f + windowSize.y / 4), &pos, MC_Color(1.f, 1.f, 1.f), 1.f);  //Pos
