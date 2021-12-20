@@ -1,7 +1,7 @@
 #include "../ModuleManager.h"
 #include "SoundPlayer.h"
 
-SoundPlayer::SoundPlayer() : IModule(0x0, Category::PLAYER, "Plays Sounds") {
+SoundPlayer::SoundPlayer() : IModule(0x0, Category::PLAYER, "Replaces Sounds") {
 	registerBoolSetting("Random", &random, random);
 	registerIntSetting("Sound", &sound, sound, 0, 500);
 }
