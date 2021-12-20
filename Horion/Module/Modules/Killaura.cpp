@@ -116,13 +116,17 @@ void Killaura::onTick(C_GameMode* gm) {
 						if (!(i->damageTime > 1 && hurttime)) {
 							g_Data.getLocalPlayer()->swing();
 							g_Data.getCGameMode()->attack(i);
-						}
+							targethud++;
+						}else
+							targethud = 0;
 					}
 				} else {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
 						g_Data.getLocalPlayer()->swing();
 						g_Data.getCGameMode()->attack(targetList[0]);
-					}
+						targethud++;
+					} else
+						targethud = 0;
 				}
 				Odelay = 0;
 			}
@@ -213,11 +217,56 @@ void Killaura::onEnable() {
 void Killaura::onDisable() {
 	targetList.clear();
 }
-	void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
+void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
+	if (g_Data.isInGame() && !targetList.empty() && info) {
+		if (targethud >= 1) {
+			for (auto& i : targetList) {
+				C_GuiData* dat = g_Data.getClientInstance()->getGuiData();
+				vec2_t windowSize = dat->windowSize;
+
+				std::string realname = "Name : " + Utils::sanitize(targetList[0]->getNameTag()->getText());//Get the name of the target
+				auto distancestring = std::string("Distance : " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos())));//gets target distance
+				std::string pos = "Position [ X: " + std::to_string((int)(targetList[0]->getPos()->x)) + " Y: " + std::to_string((int)(targetList[0]->getPos()->y)) + " Z: " + std::to_string((int)(targetList[0]->getPos()->z)) + std::string(" ]");
+
+				vec4_t duotagteam = (vec4_t(windowSize.x / 1.5f - (windowSize.x / 7),windowSize.y / 1.7f - (windowSize.y / 13),windowSize.x / 1.8f + (windowSize.x / 9 + targetList[0]->getNameTag()->textLength),windowSize.y / 2 - windowSize.y / 8 + windowSize.y / 4));//Sets box size to name size of player
+				DrawUtils::fillRectangle(vec4_t(duotagteam),MC_Color(0.05f, 0.05f, 0.05f), 0.35f);
+				DrawUtils::drawRectangle(vec4_t(duotagteam),MC_Color(1.f, 1.f, 1.f), 1.f);
+				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 4.3f + windowSize.y / 4), &realname, MC_Color(1.f, 1.f, 1.f), 1.f);//name
+				// go up by .6 each time
+				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 5.3f + windowSize.y / 4),&distancestring, MC_Color(1.f, 1.f, 1.f), 1.f);//distance
+				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 5.9f + windowSize.y / 4), &pos, MC_Color(1.f, 1.f, 1.f), 1.f);  //Pos
+				DrawUtils::flush();
+				vec2_t textPos;
+				vec4_t rectPos;
+				auto* player = reinterpret_cast<C_Player*>(targetList[0]);
+				float x = windowSize.x / 1.5f - windowSize.x / 7.1f;
+				float y = windowSize.y / 2 - windowSize.y / 6.4f + windowSize.y / 4;
+				float scale = 3 * 0.26f;
+				float spacing = scale + 15.f + 2;
+				if (i->getEntityTypeId() == 63) {
+					// armor
+					for (int i = 0; i < 4; i++) {
+						C_ItemStack* stack = player->getArmor(i);
+						if (stack->item != nullptr) {
+							DrawUtils::drawItem(stack, vec2_t(x, y), 1.f, scale, stack->isEnchanted());
+							x += scale * spacing;
+						}
+					}
+					// item
+					{
+						C_ItemStack* stack = player->getSelectedItem();
+						if (stack->item != nullptr) {
+							DrawUtils::drawItem(stack, vec2_t(x, y), 1.f, scale, stack->isEnchanted());
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
+/* void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 	static auto Info = moduleMgr->getModule<Killaura>();
 
 	static auto Killauramod = moduleMgr->getModule<Killaura>();
@@ -250,6 +299,7 @@ void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 				DrawUtils::drawText(textPos, &entityid, MC_Color(0, 0, 255), 1.f);
 	}
 }
+*/
 
 void Killaura::onSendPacket(C_Packet* packet) {
 	if (g_Data.isInGame()) {
