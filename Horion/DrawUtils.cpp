@@ -423,7 +423,7 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 
 		static auto nameTagsMod = moduleMgr->getModule<NameTags>();
 
-		if (ent->getEntityTypeId() == 63 && nameTagsMod->displayArmor) {  // is player, show armor
+		if (ent->isAlive() && ent->isPlayer() && nameTagsMod->displayArmor) {  // is player, show armor
 			auto* player = reinterpret_cast<C_Player*>(ent);
 			float scale = textSize * 0.6f;
 			float spacing = scale + 15.f;
@@ -438,11 +438,11 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 				}
 			}
 			//item
-			C_ItemStack* stack = player->getSelectedItem();
-			if (stack->item != nullptr) {
-				DrawUtils::drawItem(stack, vec2_t(rectPos.z - 1.f - 15.f * scale, y), 1.f, scale, stack->isEnchanted());
+			C_PlayerInventoryProxy* supplies = player->getSupplies();
+			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
+			if (item->isValid())
+				DrawUtils::drawItem(item, vec2_t(rectPos.z - 1.f - 15.f * scale, y), 1.f, scale, item->isEnchanted());
 			}
-		}
 	}
 }
 
@@ -538,7 +538,6 @@ void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float
 	C_BaseActorRenderContext baseActorRenderCtx(screenCtx, g_Data.getClientInstance(), g_Data.getClientInstance()->minecraftGame);
 	C_ItemRenderer* renderer = baseActorRenderCtx.renderer;
 	renderer->renderGuiItemNew(&baseActorRenderCtx, item, g_Data.getClientInstance()->minecraftGame, itemPos.x, itemPos.y, opacity, scale, isEnchanted);
-
 }
 
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {

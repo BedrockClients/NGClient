@@ -219,8 +219,8 @@ void Killaura::onDisable() {
 }
 
 void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
-	if (g_Data.isInGame() && !targetList.empty() && info) {
-		if (targethud >= 1) {
+	if (g_Data.isInGame() && !targetList.empty() && info && g_Data.canUseMoveKeys && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
+		if (targethud >= 1 && targetList[0]->isPlayer()) {
 			for (auto& i : targetList) {
 				C_GuiData* dat = g_Data.getClientInstance()->getGuiData();
 				vec2_t windowSize = dat->windowSize;
@@ -229,37 +229,44 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				auto distancestring = std::string("Distance : " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos())));//gets target distance
 				std::string pos = "Position [ X: " + std::to_string((int)(targetList[0]->getPos()->x)) + " Y: " + std::to_string((int)(targetList[0]->getPos()->y)) + " Z: " + std::to_string((int)(targetList[0]->getPos()->z)) + std::string(" ]");
 
-				vec4_t duotagteam = (vec4_t(windowSize.x / 1.5f - (windowSize.x / 7),windowSize.y / 1.7f - (windowSize.y / 13),windowSize.x / 1.8f + (windowSize.x / 9 + targetList[0]->getNameTag()->textLength),windowSize.y / 2 - windowSize.y / 8 + windowSize.y / 4));//Sets box size to name size of player
+				vec4_t duotagteam = (vec4_t(windowSize.x / 1.5f - (windowSize.x / 7),windowSize.y / 1.8f - (windowSize.y / 13),windowSize.x / 1.8f + (windowSize.x / 9 + targetList[0]->getNameTag()->textLength),windowSize.y / 2 - windowSize.y / 8 + windowSize.y / 4));//Sets box size to name size of player
+				vec4_t hittingBox = (vec4_t(windowSize.x / 1.5f - (windowSize.x / 7.3),windowSize.y / 1.57f - (windowSize.y / 13),windowSize.x / 1.823f + (windowSize.x / 9 + targetList[0]->getNameTag()->textLength),windowSize.y / 2 - windowSize.y / 6.2 + windowSize.y / 4));  //Sets Player getting Hit Box
 				DrawUtils::fillRectangle(vec4_t(duotagteam),MC_Color(0.05f, 0.05f, 0.05f), 0.35f);
-				DrawUtils::drawRectangle(vec4_t(duotagteam),MC_Color(1.f, 1.f, 1.f), 1.f);
-				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 4.3f + windowSize.y / 4), &realname, MC_Color(1.f, 1.f, 1.f), 1.f);//name
-				// go up by .6 each time
-				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 5.3f + windowSize.y / 4),&distancestring, MC_Color(1.f, 1.f, 1.f), 1.f);//distance
-				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 5.9f + windowSize.y / 4), &pos, MC_Color(1.f, 1.f, 1.f), 1.f);  //Pos
+				if (!(targetList[0]->damageTime > 1))
+				DrawUtils::fillRectangle(vec4_t(hittingBox), MC_Color(0,255,0), 0.35f);
+				else
+				DrawUtils::fillRectangle(vec4_t(hittingBox), MC_Color(255,0, 0), 0.35f);
+				DrawUtils::drawRectangle(vec4_t(hittingBox), MC_Color(255, 255, 255), 1.f);
+				static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+				if (Surge->surge)
+				DrawUtils::drawRectangle(vec4_t(duotagteam),MC_Color(0, 0, 255), 1.f);
+				else
+				DrawUtils::drawRectangle(vec4_t(duotagteam), MC_Color(0, 246, 255), 1.f);
+
+				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 3.7f + windowSize.y / 4), &realname, MC_Color(1.f, 1.f, 1.f), 1.f);//name
+				// go up by .4 each time
+				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 4.3f + windowSize.y / 4),&distancestring, MC_Color(1.f, 1.f, 1.f), 1.f);//distance
+				DrawUtils::drawText(vec2_t(windowSize.x / 1.5f - windowSize.x / 7.25f, windowSize.y / 2 - windowSize.y / 4.7f + windowSize.y / 4), &pos, MC_Color(1.f, 1.f, 1.f), 1.f);  //Pos
 				DrawUtils::flush();
-				vec2_t textPos;
-				vec4_t rectPos;
-				auto* player = reinterpret_cast<C_Player*>(targetList[0]);
-				float x = windowSize.x / 1.5f - windowSize.x / 7.1f;
-				float y = windowSize.y / 2 - windowSize.y / 6.4f + windowSize.y / 4;
-				float scale = 3 * 0.26f;
-				float spacing = scale + 15.f + 2;
-				if (i->getEntityTypeId() == 63) {
-					// armor
+
+				{//Display Armor
+					static float constexpr scale = 1.f;
+					static float constexpr opacity = 0.25f;
+					static float constexpr spacing = scale + 15.f;
+					auto* player = reinterpret_cast<C_Player*>(targetList[0]);
+					float x = windowSize.x / 2.f + 25;
+					float y = windowSize.y - 208;
 					for (int i = 0; i < 4; i++) {
 						C_ItemStack* stack = player->getArmor(i);
-						if (stack->item != nullptr) {
-							DrawUtils::drawItem(stack, vec2_t(x, y), 1.f, scale, stack->isEnchanted());
+						if (stack->isValid()) {
+							DrawUtils::drawItem(stack, vec2_t(x, y), opacity, scale, stack->isEnchanted());
 							x += scale * spacing;
 						}
 					}
-					// item
-					{
-						C_ItemStack* stack = player->getSelectedItem();
-						if (stack->item != nullptr) {
-							DrawUtils::drawItem(stack, vec2_t(x, y), 1.f, scale, stack->isEnchanted());
-						}
-					}
+					C_PlayerInventoryProxy* supplies = player->getSupplies();
+					C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
+					if (item->isValid())
+						DrawUtils::drawItem(item, vec2_t(x, y), opacity, scale, item->isEnchanted());
 				}
 			}
 		}
