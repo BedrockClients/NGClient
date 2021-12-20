@@ -29,8 +29,29 @@ void Trail::onTick(C_GameMode* gm) {
 	if (player == nullptr) return;
 	vec3_t floorPos = *g_Data.getLocalPlayer()->getPos();
 	floorPos.y = g_Data.getLocalPlayer()->getAABB()->lower.y + 0.2f;
-	if (!stopTrail)
-	linePoints.push_back(floorPos);
+	if (!stopTrail) {
+		floorPos.y += 0.3;
+		linePoints.push_back(floorPos);
+		floorPos.y += 0.2;
+		linePoints1.push_back(floorPos);
+		floorPos.y += 0.2;
+		linePoints2.push_back(floorPos);
+		floorPos.y += 0.2;
+		linePoints3.push_back(floorPos);
+		floorPos.y += 0.2;
+		linePoints4.push_back(floorPos);
+		floorPos.y += 0.2;
+		linePoints5.push_back(floorPos);
+	}
+	float dist = (linePoints.front()).dist(*g_Data.getLocalPlayer()->getPos());
+	if (dist > 3.2) {
+		linePoints.clear();
+		linePoints1.clear();
+		linePoints2.clear();
+		linePoints3.clear();
+		linePoints4.clear();
+		linePoints5.clear();
+	}
 }
 
 void Trail::onLevelRender() {
@@ -41,6 +62,11 @@ void Trail::onLevelRender() {
 	DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1); else 
 	DrawUtils::setColor(0.f, 1.f, 1.f, 1);
 	DrawUtils::drawLinestrip3d(linePoints);
+	DrawUtils::drawLinestrip3d(linePoints1);
+	DrawUtils::drawLinestrip3d(linePoints2);
+	DrawUtils::drawLinestrip3d(linePoints3);
+	DrawUtils::drawLinestrip3d(linePoints4);
+	DrawUtils::drawLinestrip3d(linePoints5);
 	}
 }
 

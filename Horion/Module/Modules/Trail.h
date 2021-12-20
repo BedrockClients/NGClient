@@ -6,8 +6,11 @@ public:
 	~Trail();
 
 	std::vector<vec3_t> linePoints;
-	vec3_t startPos;
-	vec3_t startPosTop;
+	std::vector<vec3_t> linePoints1;
+	std::vector<vec3_t> linePoints2;
+	std::vector<vec3_t> linePoints3;
+	std::vector<vec3_t> linePoints4;
+	std::vector<vec3_t> linePoints5;
 
 	bool clearondisable = true;
 	bool stopTrail = false;
