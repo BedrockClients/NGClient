@@ -13,12 +13,33 @@ const char* HiveFly::getModuleName() {
 }
 
 void HiveFly::onEnable() {
+	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+	slot = supplies->selectedHotbarSlot;
+	supplies->selectedHotbarSlot = slot;
+	findBlock();
 }
 
 void HiveFly::onTick(C_GameMode* gm) {
 	gm->player->velocity.y = 0.f;
 	if (isEnabled())
 		*g_Data.getClientInstance()->minecraft->timer = timer;
+}
+
+bool HiveFly::findBlock() {
+	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+	C_Inventory* inv = supplies->inventory;
+	auto prevSlot = supplies->selectedHotbarSlot;
+	for (int n = 0; n < 36; n++) {
+		C_ItemStack* stack = inv->getItemStack(n);
+		if (stack->item != nullptr) {
+			if (stack->getItem()->itemId == 422) {
+				if (prevSlot != n)
+					supplies->selectedHotbarSlot = n;
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void HiveFly::onMove(C_MoveInputHandler* input) {
@@ -104,6 +125,20 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 	//actually moving code
 	if (upperObstructed || lowerObstructed) {
 		setEnabled(false);
+	}
+}
+
+void HiveFly::onSendPacket(C_Packet* packet) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr) {
+		auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+		movePacket->pitch = 90;
+	}
+}
+
+void HiveFly::onLevelRender() {
+	if (GameData::isRightClickDown()) {
+		g_Data.getLocalPlayer()->pitch = 90;
+		g_Data.getLocalPlayer()->pitch2 = 90;
 	}
 }
 
