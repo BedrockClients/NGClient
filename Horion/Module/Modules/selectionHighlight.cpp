@@ -9,8 +9,6 @@ selectionHighlight::selectionHighlight() : IModule(0x0, Category::VISUAL, "Custo
 	registerFloatSetting("Red", &rSelect, rSelect, 0.f, 1.f);
 	registerFloatSetting("Green", &gSelect, gSelect, 0.f, 1.f);
 	registerFloatSetting("Blue", &bSelect, bSelect, 0.f, 1.f);
-	//registerBoolSetting("FaceHighlight", &faceH, faceH);
-	//registerFloatSetting("FaceOpacity", &fOpacity, fOpacity, 0.f, 1.f);
 }
 
 selectionHighlight::~selectionHighlight() {

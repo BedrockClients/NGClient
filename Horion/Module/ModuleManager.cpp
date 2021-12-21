@@ -33,7 +33,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Step()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Glide()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiLagBack()));
-		moduleList.push_back(std::shared_ptr<IModule>(new EditionFaker()));
 		moduleList.push_back(std::shared_ptr<IModule>(new PotionAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Phase()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Freecam()));
@@ -108,10 +107,10 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoClick()));
 		moduleList.push_back(std::shared_ptr<IModule>(new SnowballAimbot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new BoatSpeed()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new BoatSpeed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiAnvil()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new AutoGapple()));
-		moduleList.push_back(std::shared_ptr<IModule>(new ArmourHud()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new ArmourHud()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Mineplex()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MineplexFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new CubeFly()));
@@ -128,11 +127,11 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new EntityFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new XP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockFly()));
-		moduleList.push_back(std::shared_ptr<IModule>(new BoatFly()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new BoatFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new GUI()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MinevilleFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
-		moduleList.push_back(std::shared_ptr<IModule>(new targetHUD()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new targetHUD()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new EntitySpider()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new EntityJesus()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EntitySpeed()));

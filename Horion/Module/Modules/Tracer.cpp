@@ -12,14 +12,9 @@ Tracer::Tracer() : IModule('R', Category::VISUAL, "Draws lines to ESP highlighte
 	registerBoolSetting("Mob Tracers", &isMob, isMob);
 	registerBoolSetting("Storage Tracers", &chest, chest);
 	registerBoolSetting("RGB Tracers", &RGB, RGB);
-	//registerBoolSetting("2D Tracers", &is2d, is2d);
 	registerIntSetting("Red", &customR, customR, 0, 255);
 	registerIntSetting("Green", &customG, customG, 0, 255);
 	registerIntSetting("Blue", &customB, customB, 0, 255);
-	//registerBoolSetting("Chests", &chest, chest);
-	//registerIntSetting("Red", &customR2, customR2, 0, 255);
-	//registerIntSetting("Green", &customG2, customG2, 0, 255);
-	//registerIntSetting("Blue", &customB2, customB2, 0, 255);
 }
 
 Tracer::~Tracer() {
