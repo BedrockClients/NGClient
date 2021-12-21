@@ -5,14 +5,22 @@
 
 class C_InventoryAction {
 public:
+	void fixInventoryStuff(ItemDescriptor* a1, C_ItemStack* a2);
 	C_InventoryAction() = default;
 	C_InventoryAction(int slot, C_ItemStack* sourceItem, C_ItemStack* targetItem, int sourceType = 0, int type = 0) {
 		memset(this, 0x0, sizeof(C_InventoryAction));
 		this->slot = slot;
-		if (sourceItem != nullptr)
+		if (sourceItem != nullptr) {
 			this->sourceItem = *sourceItem;
-		if (targetItem != nullptr)
+		}
+		if (targetItem != nullptr) {
 			this->targetItem = *targetItem;
+		}
+
+		// These seem to fix the inventory stuff
+		fixInventoryStuff(reinterpret_cast<ItemDescriptor*>(reinterpret_cast<__int64>(this) + 0x10), reinterpret_cast<C_ItemStack*>(reinterpret_cast<__int64>(this) + 0x110));
+		fixInventoryStuff(reinterpret_cast<ItemDescriptor*>(reinterpret_cast<__int64>(this) + 0x90), reinterpret_cast<C_ItemStack*>(reinterpret_cast<__int64>(this) + 0x1A0));
+
 		this->sourceType = sourceType;
 		this->type = type;
 	}

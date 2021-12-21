@@ -11,7 +11,7 @@ public:
 		m_item = item;
 	}
 	bool isEqual(ArmorStruct& src) {
-		if (m_item->getArmorValueWithEnchants() == src.m_item->getArmorValueWithEnchants())
+		if (this->m_item->getArmorValueWithEnchants() == src.m_item->getArmorValueWithEnchants())
 			return true;
 		else
 			return false;
@@ -35,8 +35,7 @@ const char* AutoArmor::getModuleName() {
 	return ("AutoArmor");
 }
 
-void AutoArmor::chestScreenController_tick(C_ChestScreenController* c) {
-}
+void AutoArmor::chestScreenController_tick(C_ChestScreenController* c) {}
 
 void AutoArmor::onTick(C_GameMode* gm) {
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
@@ -69,22 +68,53 @@ void AutoArmor::onTick(C_GameMode* gm) {
 			}
 		}
 
-		if (g_Data.getCGameMode()->player->getArmor(i)->item != nullptr)
-			armorList.push_back(ArmorStruct(g_Data.getCGameMode()->player->getArmor(i), reinterpret_cast<C_ArmorItem*>(*g_Data.getCGameMode()->player->getArmor(i)->item), i));
+		if (gm->player->getArmor(i)->item != nullptr)
+			armorList.push_back(ArmorStruct(gm->player->getArmor(i), reinterpret_cast<C_ArmorItem*>(*gm->player->getArmor(i)->item), i));
 
 		if (armorList.size() > 0) {
 			std::sort(armorList.begin(), armorList.end(), CompareArmorStruct());
-			C_ItemStack* armorItem = g_Data.getCGameMode()->player->getArmor(i);
+			C_ItemStack* armorItem = gm->player->getArmor(i);
 
 			if (armorItem->item != nullptr && (ArmorStruct(armorItem, reinterpret_cast<C_ArmorItem*>(*armorItem->item), 0).isEqual(armorList[0])) == false) {
 				int slot = inv->getFirstEmptySlot();
-				g_Data.getLocalPlayer()->getSupplies()->inventory->moveItem(armorList[0].m_slot, slot);
+
+				first = new C_InventoryAction(i, armorItem, nullptr, 632);
+				second = new C_InventoryAction(slot, nullptr, armorItem);
+
+				*g_Data.getLocalPlayer()->getArmor(i) = *emptyItemStack;
+				*inv->getItemStack(slot) = *armorItem;
+
+				manager->addInventoryAction(*first);
+				manager->addInventoryAction(*second);
+
+				delete first;
+				delete second;
+
+				first = new C_InventoryAction(armorList[0].m_slot, armorList[0].m_item, nullptr);
+				second = new C_InventoryAction(i, nullptr, armorList[0].m_item, 632);
+
+				*g_Data.getLocalPlayer()->getArmor(i) = *inv->getItemStack(armorList[0].m_slot);
+				*inv->getItemStack(armorList[0].m_slot) = *emptyItemStack;
+
+				manager->addInventoryAction(*first);
+				manager->addInventoryAction(*second);
+
+				delete first;
+				delete second;
 			}
 			if (armorItem->item == nullptr) {
 				*g_Data.getLocalPlayer()->getArmor(i) = *inv->getItemStack(armorList[0].m_slot);
+
+				first = new C_InventoryAction(armorList[0].m_slot, armorList[0].m_item, nullptr);
+				second = new C_InventoryAction(i, nullptr, armorList[0].m_item, 632);
+
 				*inv->getItemStack(armorList[0].m_slot) = *emptyItemStack;
-				g_Data.getLocalPlayer()->getSupplies()->inventory->removeItem(armorList[0].m_slot, i);
-				g_Data.getLocalPlayer()->getSupplies()->inventory->setItem(armorList[0].m_slot, *armorList[0].m_item);
+
+				manager->addInventoryAction(*first);
+				manager->addInventoryAction(*second);
+
+				delete first;
+				delete second;
 			}
 		}
 		armorList.clear();
