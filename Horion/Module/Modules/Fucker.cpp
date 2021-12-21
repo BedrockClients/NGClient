@@ -21,7 +21,7 @@ const char* Fucker::getModuleName() {
 }
 
 void Fucker::onTick(C_GameMode* gm) {
-	if (g_Data.isInGame()) {
+	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->localPlayer->isAlive()) {
 		vec3_t* pos = gm->player->getPos();
 		for (int x = (int)pos->x - range; x < pos->x + range; x++) {
 			for (int z = (int)pos->z - range; z < pos->z + range; z++) {
@@ -80,13 +80,15 @@ void Fucker::onSendPacket(C_Packet* packet) {
 
 void Fucker::onLevelRender() {
 	if (treasures) {
-		g_Data.forEachEntity([](C_Entity* ent, bool b) {
-			std::string name = ent->getNameTag()->getText();
-			int id = ent->getEntityTypeId();
-			if (name.find("Treasure") != std::string::npos && g_Data.getLocalPlayer()->getPos()->dist(*ent->getPos()) <= 5) {
-				g_Data.getCGameMode()->attack(ent);
-				g_Data.getLocalPlayer()->swingArm();
-			}
-		});
+		if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->localPlayer->isAlive()) {
+			g_Data.forEachEntity([](C_Entity* ent, bool b) {
+				std::string name = ent->getNameTag()->getText();
+				int id = ent->getEntityTypeId();
+				if (name.find("Treasure") != std::string::npos && g_Data.getLocalPlayer()->getPos()->dist(*ent->getPos()) <= 5) {
+					g_Data.getCGameMode()->attack(ent);
+					g_Data.getLocalPlayer()->swingArm();
+				}
+			});
+		}
 	}
 }
