@@ -232,24 +232,29 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 					std::string healthString = std::to_string(((int)targetList[0]->getHealth() / 2));
 					std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-
 					std::string healthDisplay = "Health: " + healthString;
 					std::string absorptionDisplay;
 					if (targetList[0]->getAbsorption() > 0) {
 						std::string absorptionString = std::to_string((int)(targetList[0]->getAbsorption() / 2));
 						absorptionDisplay = "Absorption: " + absorptionString;
 					}
-					DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(255, 127, 127), 0.7f, 1.f);
-					DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(204, 204, 0), 0.7f, 1.f);
+
+					DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(255, 88, 88), 0.7f, 1.f);
+					DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, 1.f);
 					DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, 1.f);
-
 					DrawUtils::flush();
-
+					
 					float absorptionBarWidth = (targetList[0]->getAbsorption() / targetList[0]->getMaxHealth()) * rectWidth;
+					if (!(targetList[0]->damageTime > 1))
 					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), 1.f);
+					else
+					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 0), 1.f);
 
 					float healthBarWidth = (targetList[0]->getHealth() / targetList[0]->getMaxHealth()) * rectWidth;
-					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 85, 85), 1.f);
+					if (!(targetList[0]->damageTime > 1))
+					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 88, 88), 1.f);
+					else
+					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 0, 0), 1.f);
 					rectPos.y += res.y / 12.f;
 					rectPos.w += res.y / 12.f;
 			}
