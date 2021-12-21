@@ -1,15 +1,14 @@
 #include "EditionFaker.h"
 
-EditionFaker::EditionFaker() : IModule(0, Category::SERVER, "Fakes your device to IOS") {
+EditionFaker::EditionFaker() : IModule(0, Category::SERVER, "Unknown, Android, iOS, macOS, FireOS, GearVR, HoloLens, Windows 10(PC), Windows, Dedicated, Orbis, NX") {
+	registerIntSetting("Edition", &edition, edition, 0, 10);
 }
 
 EditionFaker::~EditionFaker() {
 }
 
 int EditionFaker::getFakedEditon() {
-	// static const char* gameEditons[] = { "Unknown", "Android", "iOS", "macOS", "FireOS", "GearVR", "HoloLens", "Windows 10 (PC)", "Windows", "Dedicated", "Orbis", "NX" };
-
-	return 2;  // IOS
+	return edition;
 }
 
 const char* EditionFaker::getModuleName() {
