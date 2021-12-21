@@ -653,8 +653,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
 
 				vec2_t mousePos = *g_Data.getClientInstance()->getMousePos();
-				mousePos.div(windowSizeReal);
-				mousePos.mul(windowSize);
 
 				// Draw NG logo
 				static auto Surge = moduleMgr->getModule<ClickGuiMod>();
@@ -966,8 +964,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						}
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && hudModule->clickToggle) {
 							vec4_t selectedRect = rectPos;
-							selectedRect.x = leftRect.z;
-							selectedRect.x = rightRect.z;
+							//selectedRect.x = leftRect.z;
+							//selectedRect.x = rightRect.z;
 							if (leftMouseDown) {
 								DrawUtils::fillRectangle(selectedRect, MC_Color(0.8f, 0.8f, 0.8f), 0.8f);
 								if (executeClick)
