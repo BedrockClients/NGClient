@@ -10,7 +10,7 @@ bool isLeftClickDown = false;
 bool isRightClickDown = false;
 bool shouldToggleLeftClick = false;  // If true, toggle the focused module
 bool shouldToggleRightClick = false;
-bool resetStartPos = true;
+bool resetStartPos = false;
 bool initialised = false;
 int scrollingDirection = 0;
 
