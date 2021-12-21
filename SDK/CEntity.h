@@ -537,7 +537,7 @@ public:
 	}
 
 	float getHealth() {
-		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DA10) + 0x84);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
+		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x1EA089D) + 0x84);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
 	}
 
 	float getMaxHealth() {
@@ -549,7 +549,26 @@ public:
 	}
 
 };
+/*class Attribute *AccessAttributes() {
+		return *reinterpret_cast<class Attribute**>(FindSignature("F3 0F 2C 88 ? ? ? ? 85 C9 7E ? B0"));
+	};
 
+	float getHealth2() {
+		return *reinterpret_cast<float *>(FindSignature("F3 0F 2C 88 ? ? ? ? 85 C9 7E ? B0") + 0x84);
+	}
+
+class Attribute;
+
+class Attribute {
+public:
+private:
+	char pad_0x0000[0x80];  //0x0000
+public:
+	float MaxHealth;  //0x0080
+	float Health;     //0x0084
+
+};  //Size=0x0088
+*/
 #pragma pack(pop)
 
 class C_ServerPlayer;
