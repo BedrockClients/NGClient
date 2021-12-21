@@ -81,7 +81,7 @@ void Hooks::Init() {
 
 				g_Hooks.Player_tickWorldHook = std::make_unique<FuncHook>(localPlayerVtable[365], Hooks::Player_tickWorld);
 				#ifdef _DEBUG
-				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[73], Hooks::testy);
+				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[131], Hooks::testy);
 				#endif
 			}
 		}
@@ -1307,7 +1307,19 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto blinkMod = moduleMgr->getModule<Blink>();
 	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
-
+	static auto tp = moduleMgr->getModule<Teleport>();
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && tp->shouldTP && tp->isEnabled()) {
+		oFunc(a, packet);
+		oFunc(a, packet);
+		oFunc(a, packet);
+		oFunc(a, packet);
+		oFunc(a, packet);
+		oFunc(a, packet);
+		oFunc(a, packet);
+		oFunc(a, packet);
+		oFunc(a, packet);
+		oFunc(a, packet);
+	}
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
 
@@ -2053,8 +2065,8 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 bool Hooks::testy(C_Entity* ent) {
 	static auto oFunc = g_Hooks.testyHook->GetFastcall<float, C_Entity*>();
 	static auto test = moduleMgr->getModule<TestModule>();
-	if (test->isEnabled() && ent == g_Data.getLocalPlayer())
-		return false;
+	if (test->isEnabled())
+		return true;
 	oFunc(ent);
 }
 #endif

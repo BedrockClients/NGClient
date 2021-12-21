@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 class Teleport : public IModule {
-private:
+public:
 	bool hasClicked = false;
 	bool onlyHand = false;
 	bool bypass = false;
