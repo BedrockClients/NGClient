@@ -72,8 +72,6 @@ void Tower::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (!g_Data.canUseMoveKeys())
 		return;
 	auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
-	if (!selectedItem->isValid() || !(*selectedItem->item)->isBlock())  // Block in hand?
-		return;
 
 	vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 	blockBelow.y -= g_Data.getLocalPlayer()->height;
