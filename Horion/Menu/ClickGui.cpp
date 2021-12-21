@@ -175,13 +175,14 @@ void ClickGui::renderCategory(Category category) {
 			ourWindow->pos.x = yot / 7.f * 5.f;
 			break;
 		case Category::FLYS:
-			ourWindow->pos.x = yot / 7.f * 6.6f;
+			ourWindow->pos.x = yot / 7.f * 6.5f;
 			break;
 		case Category::GUI:
-			ourWindow->pos.x = yot / 7.f * 7.f;
+			ourWindow->pos.x = yot / 7.f * 4.f;
+			ourWindow->pos.y = 145.f;
 			break;
 		case Category::ENTITY:
-			ourWindow->pos.x = yot / 7.f * 8.f;
+			ourWindow->pos.x = yot / 7.f * 7.f;
 			break;
 		}
 	}
