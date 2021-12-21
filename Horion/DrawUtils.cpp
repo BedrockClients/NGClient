@@ -539,7 +539,7 @@ void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float
 	C_ItemRenderer* renderer = baseActorRenderCtx.renderer;
 	renderer->renderGuiItemNew(&baseActorRenderCtx, item, g_Data.getClientInstance()->minecraftGame, itemPos.x, itemPos.y, opacity, scale, isEnchanted);
 }
-
+static float rcolors[4];
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	std::string keyString = Utils::getKeybindName(key);
@@ -556,6 +556,20 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 			rectPos.y + 7.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
 		fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), 0.20f);
+		static auto Hud = moduleMgr->getModule<HudModule>();
+		// rainbow colors
+		{
+			if (rcolors[3] < 1) {
+				rcolors[0] = 0.2f;
+				rcolors[1] = 0.2f;
+				rcolors[2] = 1.f;
+				rcolors[3] = 1;
+			}
+			Utils::ApplyRainbow(rcolors, 0.0025f);
+		}
+		if (Hud->rgb)
+			drawText(textPos, &keyString, MC_Color(rcolors), 1.f, 1.f);
+		else
 		if (Surge->surge)
 		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 		else
@@ -571,6 +585,20 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 			rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
 		fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), 0.20f);
+		static auto Hud = moduleMgr->getModule<HudModule>();
+		// rainbow colors
+		{
+			if (rcolors[3] < 1) {
+				rcolors[0] = 0.2f;
+				rcolors[1] = 0.2f;
+				rcolors[2] = 1.f;
+				rcolors[3] = 1;
+			}
+			Utils::ApplyRainbow(rcolors, 0.0025f);
+		}
+		if (Hud->rgb)
+			drawText(textPos, &keyString, MC_Color(rcolors), 1.f, 1.f);
+		else
 		if (Surge->surge)
 		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 		else
@@ -591,6 +619,20 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 	vec2_t textPos(
 		(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 		rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
+	static auto Hud = moduleMgr->getModule<HudModule>();
+	// rainbow colors
+	{
+		if (rcolors[3] < 1) {
+			rcolors[0] = 0.2f;
+			rcolors[1] = 0.2f;
+			rcolors[2] = 1.f;
+			rcolors[3] = 1;
+		}
+		Utils::ApplyRainbow(rcolors, 0.0005f);
+	}
+	if (Hud->rgb)
+		drawText(textPos, &keyString, MC_Color(rcolors), 1.f, 1.f);
+	else
 	if (Surge->surge)
 	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 	else
@@ -610,6 +652,20 @@ void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 	vec2_t textPos(
 		(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 		rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
+	static auto Hud = moduleMgr->getModule<HudModule>();
+	// rainbow colors
+	{
+		if (rcolors[3] < 1) {
+			rcolors[0] = 0.2f;
+			rcolors[1] = 0.2f;
+			rcolors[2] = 1.f;
+			rcolors[3] = 1;
+		}
+		Utils::ApplyRainbow(rcolors, 0.0005f);
+	}
+	if (Hud->rgb)
+		drawText(textPos, &keyString, MC_Color(rcolors), 1.f, 1.f);
+	else
 	if(Surge->surge)
 	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 	else

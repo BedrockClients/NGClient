@@ -8,13 +8,9 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("MSG", &Msg, Msg);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Watermark", &watermark, watermark);
-	//registerBoolSetting("Coordinates", &coordinates, coordinates);
 	registerBoolSetting("Bools", &bools, bools);
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
 	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);
-	//registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);
-	//registerBoolSetting("Show FPS", &fps, fps);
-	//registerBoolSetting("Show CPS", &cps, cps);
 	registerBoolSetting("Always show", &alwaysShow, alwaysShow);
 	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
@@ -54,32 +50,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	float startY = tabgui ? 6 * f : 0.f;
 	if (tabgui && scriptMgr.getNumEnabledScripts() > 0)
 		startY += f;
-	/* 
-	{  // FPS
-		if (!(g_Data.getLocalPlayer() == nullptr || !fps)) {
-			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
-			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
-			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-			if (Surge->surge)
-					DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
-				else
-					DrawUtils::drawText(textPos, &fpsText, MC_Color(184, 0, 255), scale);
-			}
-			startY += f;
-		}
-	 {  // CPS
-		if (!(g_Data.getLocalPlayer() == nullptr || !cps)) {
-			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
-			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
-			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-		if (Surge->surge)
-					DrawUtils::drawText(textPos, &cpsText, MC_Color(0, 0, 255), scale);
-				else
-					DrawUtils::drawText(textPos, &cpsText, MC_Color(184, 0, 255), scale);
-			}
 
-			startY += f;
-		}*/
 	{  // Hello thing
 		if (!(g_Data.getLocalPlayer() == nullptr || !Msg || !GameData::canUseMoveKeys())) {
 			if (Surge->surge) {
@@ -144,7 +115,11 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
 			if (item->isValid())
 				DrawUtils::drawItem(item, vec2_t(xArmor, yArmor), opacity, scale, item->isEnchanted());
-
+			if (rgb) {
+				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(rcolors), scale);
+				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(rcolors), scale);
+				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(rcolors), scale);
+			}else
 			if (Surge->surge) {
 				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(0, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(0, 0, 255), scale);
@@ -157,51 +132,6 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		}
 	}
 
-	/* {  // Coordinates
-		if (!(g_Data.getLocalPlayer() == nullptr || !coordinates)) {
-			vec3_t* pos = g_Data.getLocalPlayer()->getPos();
-			std::string coordsX = "X: " + std::to_string((int)floorf(pos->x));
-			std::string coordsY = "Y: " + std::to_string((int)floorf(pos->y));
-			std::string coordsZ = "Z: " + std::to_string((int)floorf(pos->z));
-			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
-			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-			if (Surge->surge) {
-				DrawUtils::drawText(textPos, &coordsX, MC_Color(0, 0, 255), scale);
-				textPos.y += f;
-				DrawUtils::drawText(textPos, &coordsY, MC_Color(0, 0, 255), scale);
-				textPos.y += f;
-				DrawUtils::drawText(textPos, &coordsZ, MC_Color(0, 0, 255), scale);
-			} else {
-				DrawUtils::drawText(textPos, &coordsX, MC_Color(184, 0, 255), scale);
-				textPos.y += f;
-				DrawUtils::drawText(textPos, &coordsY, MC_Color(184, 0, 255), scale);
-				textPos.y += f;
-				DrawUtils::drawText(textPos, &coordsZ, MC_Color(184, 0, 255), scale);
-			}
-		}
-	}
-	{	// ArmorHUD
-
-		if (!(g_Data.getLocalPlayer() == nullptr || !displayArmor || !GameData::canUseMoveKeys())) {
-			static float constexpr scale = 1.f;
-			static float constexpr opacity = 0.25f;
-			static float constexpr spacing = scale + 15.f;
-			C_LocalPlayer* player = g_Data.getLocalPlayer();
-			float x = windowSize.x / 2.f + 10.f;
-			float y = windowSize.y - 65.5f;
-			for (int i = 0; i < 4; i++) {
-				C_ItemStack* stack = player->getArmor(i);
-				if (stack->isValid()) {
-					DrawUtils::drawItem(stack, vec2_t(x, y), opacity, scale, stack->isEnchanted());
-					x += scale * spacing;
-				}
-			}
-			C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
-			if (item->isValid())
-				DrawUtils::drawItem(item, vec2_t(x, y), opacity, scale, item->isEnchanted());
-		}
-	}*/
 	{  // Keystrokes
 		if (!(g_Data.getLocalPlayer() == nullptr || !keystrokes || !GameData::canUseMoveKeys())) {
 			C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
