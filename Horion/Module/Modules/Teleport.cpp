@@ -60,7 +60,7 @@ void Teleport::onTick(C_GameMode* gm) {
 			float dist = gm->player->getPos()->dist(tpPos);
 			g_Data.getLocalPlayer()->tryTeleportTo(tpPos, true, true, 1, 1);  //lerpTo is gone , vec2_t(1, 1), (int)fmax((int)dist * 0.1, 1));
 		} else
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&pee);
+			for (int i = 0; i < 5; i++)
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p2);
 			gm->player->tryTeleportTo(tpPos, true, true, 1, 1);
 		shouldTP = false;
