@@ -1,6 +1,6 @@
 #include "HiveFly.h"
 
-HiveFly::HiveFly() : IModule('0', Category::MOVEMENT, "Turn it on, Throw a pearl, then start flying!!") {
+HiveFly::HiveFly() : IModule('0', Category::SERVER, "Turn it on, Throw a pearl, then start flying!!") {
 	registerFloatSetting("Speed", &speed, speed, 0.01f, 0.50f);
 	registerFloatSetting("Timer", &timer, timer, 20.f, 100.f);
 }

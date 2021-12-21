@@ -83,10 +83,10 @@ static void patchBytes(BYTE* dst, BYTE* src, unsigned int size) {
 }
 
 void TestModule::onEnable() {
-	if (targetAddress == nullptr)
-		targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
-	BYTE* patch = (BYTE*)"\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
-	patchBytes((BYTE*)((uintptr_t)targetAddress), patch, 6);//FLUX SWING WOOOOOOOOOOOOOO
+	//if (targetAddress == nullptr)
+		//targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
+	//BYTE* patch = (BYTE*)"\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
+	//patchBytes((BYTE*)((uintptr_t)targetAddress), patch, 6);//FLUX SWING WOOOOOOOOOOOOOO
 }
 
 void TestModule::onTick(C_GameMode* gm) {

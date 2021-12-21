@@ -163,25 +163,25 @@ void ClickGui::renderCategory(Category category) {
 			ourWindow->pos.x = yot / 7.f;
 			break;
 		case Category::MOVEMENT:
-			ourWindow->pos.x = yot / 7.f * 2.5f;
+			ourWindow->pos.x = yot / 7.f * 2.f;
 			break;
 		case Category::PLAYER:
-			ourWindow->pos.x = yot / 7.f * 3.5f;
+			ourWindow->pos.x = yot / 7.f * 3.f;
 			break;
 		case Category::SERVER:
-			ourWindow->pos.x = yot / 7.f * 4.5f;
+			ourWindow->pos.x = yot / 7.f * 4.f;
 			break;
 		case Category::WORLD:
-			ourWindow->pos.x = yot / 7.f * 5.5f;
+			ourWindow->pos.x = yot / 7.f * 5.f;
 			break;
 		case Category::FLYS:
-			ourWindow->pos.x = yot / 7.f * 6.5f;
+			ourWindow->pos.x = yot / 7.f * 6.6f;
 			break;
 		case Category::GUI:
-			ourWindow->pos.x = yot / 7.f * 7.5f;
+			ourWindow->pos.x = yot / 7.f * 7.f;
 			break;
 		case Category::ENTITY:
-			ourWindow->pos.x = yot / 7.f * 8.5f;
+			ourWindow->pos.x = yot / 7.f * 8.f;
 			break;
 		}
 	}

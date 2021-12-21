@@ -3,6 +3,7 @@
 #include "../../Scripting/ScriptManager.h"
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
+	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
@@ -51,56 +52,42 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	std::string tempStr("Movement");
 	float len = DrawUtils::getTextWidth(&tempStr, scale) + 7.f;
 	float startY = tabgui ? 6 * f : 0.f;
-	if(tabgui && scriptMgr.getNumEnabledScripts() > 0)
+	if (tabgui && scriptMgr.getNumEnabledScripts() > 0)
 		startY += f;
-         { // FPS
+	{  // FPS
 		if (!(g_Data.getLocalPlayer() == nullptr || !fps)) {
 			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.00f);
-			if (rgb) {
-				DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
-			} else {
-				if (Surge->surge)
-				DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
+			if (Surge->surge)
+					DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
 				else
-				DrawUtils::drawText(textPos, &fpsText, MC_Color(184, 0, 255), scale);
+					DrawUtils::drawText(textPos, &fpsText, MC_Color(184, 0, 255), scale);
 			}
 			startY += f;
 		}
-	}
 	{  // CPS
 		if (!(g_Data.getLocalPlayer() == nullptr || !cps)) {
 			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.0f);
-			if (rgb) {
-				DrawUtils::drawText(textPos, &cpsText, MC_Color(rcolors), scale);
-			} else {
-				if (Surge->surge)
-				DrawUtils::drawText(textPos, &cpsText, MC_Color(0, 0, 255), scale);
+		if (Surge->surge)
+					DrawUtils::drawText(textPos, &cpsText, MC_Color(0, 0, 255), scale);
 				else
-				DrawUtils::drawText(textPos, &cpsText, MC_Color(184, 0, 255), scale);
+					DrawUtils::drawText(textPos, &cpsText, MC_Color(184, 0, 255), scale);
 			}
 
 			startY += f;
 		}
-	}
 	{  // Hello thing
 		if (!(g_Data.getLocalPlayer() == nullptr || !Msg || !GameData::canUseMoveKeys())) {
 			if (Surge->surge) {
 				std::string fpsText = "sup bitch";
 				vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
 				vec2_t textPos = vec2_t(rectPos.y + 250.5f, rectPos.x + 4.f);
-				if (rgb) {
-					DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
-				} else {
+				{
 					if (Surge->surge)
 						DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
-					else
-						DrawUtils::drawText(textPos, &fpsText, MC_Color(184, 0, 255), scale);
 				}
 				if (rcolors[3] < 1) {
 					rcolors[0] = 0.2f;
@@ -112,13 +99,9 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				std::string fpsText = "NG Client on Top!";
 				vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
 				vec2_t textPos = vec2_t(rectPos.y + 250.5f, rectPos.x + 4.f);
-				if (rgb) {
-					DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
-				} else {
+				{
 					if (Surge->surge)
 						DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
-					else
-						DrawUtils::drawText(textPos, &fpsText, MC_Color(184, 0, 255), scale);
 				}
 				if (rcolors[3] < 1) {
 					rcolors[0] = 0.2f;
@@ -129,36 +112,70 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 		}
 	}
+
+	{  // Hud
+		if (!(g_Data.getLocalPlayer() == nullptr || !Hud || !GameData::canUseMoveKeys())) {
+			vec3_t* pos = g_Data.getLocalPlayer()->getPos();
+			std::string coordsall = "X: " + std::to_string((int)floorf(pos->x)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z));
+			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
+			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
+			auto xcpsText = windowSize.x / 2.f - 180.f;
+			auto ycpsText = windowSize.y - 35.f;
+			auto xfpsText = windowSize.x / 2.f - 180.f;
+			auto yfpsText = windowSize.y - 45.f;
+			auto x = windowSize.x / 2.f - 180.f;
+			auto y = windowSize.y - 10.f;
+
+			static float constexpr scale = 1.f;
+			static float constexpr opacity = 0.25f;
+			static float constexpr spacing = scale + 15.f;
+			C_LocalPlayer* player = g_Data.getLocalPlayer();
+			float xArmor = windowSize.x / 2.f - 180.f;
+			float yArmor = windowSize.y - 25.f;
+			for (int i = 0; i < 4; i++) {
+				C_ItemStack* stack = player->getArmor(i);
+				if (stack->isValid()) {
+					DrawUtils::drawItem(stack, vec2_t(xArmor, yArmor), opacity, scale, stack->isEnchanted());
+					xArmor += scale * spacing;
+				}
+			}
+			C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
+			if (item->isValid())
+				DrawUtils::drawItem(item, vec2_t(xArmor, yArmor), opacity, scale, item->isEnchanted());
+
+			if (Surge->surge) {
+				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(0, 0, 255), scale);
+				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(0, 0, 255), scale);
+				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(0, 0, 255), scale);
+			} else {
+				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(184, 0, 255), scale);
+				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(184, 0, 255), scale);
+				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(184, 0, 255), scale);
+			}
+		}
+	}
+
 	{  // Coordinates
 		if (!(g_Data.getLocalPlayer() == nullptr || !coordinates)) {
 			vec3_t* pos = g_Data.getLocalPlayer()->getPos();
-
 			std::string coordsX = "X: " + std::to_string((int)floorf(pos->x));
 			std::string coordsY = "Y: " + std::to_string((int)floorf(pos->y));
 			std::string coordsZ = "Z: " + std::to_string((int)floorf(pos->z));
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.0f);
-			if (rgb) {
-				DrawUtils::drawText(textPos, &coordsX, MC_Color(rcolors), scale);
+			if (Surge->surge) {
+				DrawUtils::drawText(textPos, &coordsX, MC_Color(0, 0, 255), scale);
 				textPos.y += f;
-				DrawUtils::drawText(textPos, &coordsY, MC_Color(rcolors), scale);
+				DrawUtils::drawText(textPos, &coordsY, MC_Color(0, 0, 255), scale);
 				textPos.y += f;
-				DrawUtils::drawText(textPos, &coordsZ, MC_Color(rcolors), scale);
+				DrawUtils::drawText(textPos, &coordsZ, MC_Color(0, 0, 255), scale);
 			} else {
-				if (Surge->surge) {
-					DrawUtils::drawText(textPos, &coordsX, MC_Color(0, 0, 255), scale);
-					textPos.y += f;
-					DrawUtils::drawText(textPos, &coordsY, MC_Color(0, 0, 255), scale);
-					textPos.y += f;
-					DrawUtils::drawText(textPos, &coordsZ, MC_Color(0, 0, 255), scale);
-				} else {
-					DrawUtils::drawText(textPos, &coordsX, MC_Color(184, 0, 255), scale);
-					textPos.y += f;
-					DrawUtils::drawText(textPos, &coordsY, MC_Color(184, 0, 255), scale);
-					textPos.y += f;
-					DrawUtils::drawText(textPos, &coordsZ, MC_Color(184, 0, 255), scale);
-				}
+				DrawUtils::drawText(textPos, &coordsX, MC_Color(184, 0, 255), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsY, MC_Color(184, 0, 255), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsZ, MC_Color(184, 0, 255), scale);
 			}
 		}
 	}
