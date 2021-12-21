@@ -725,11 +725,11 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						} else {
 							if (Surge->surge) {
 								DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f, 2.f);
-								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
+								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 								DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), nameTextSize);
 							} else {
 								DrawUtils::drawRectangle(rect, MC_Color(184, 0, 255), 1.f, 2.f);
-								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 1.f);
+								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 								DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 246, 255), nameTextSize);
 							}
 						}
