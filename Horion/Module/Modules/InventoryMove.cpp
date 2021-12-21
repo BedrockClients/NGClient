@@ -18,7 +18,7 @@ void InventoryMove::onTick(C_GameMode* gm) {
 	if (input == nullptr)
 		return;
 
-	float speed = 0.325f;
+	float speed = 0.23f;
 	float yaw = gm->player->yaw;
 
 	if (GameData::isKeyDown(*input->spaceBarKey) && gm->player->onGround)
