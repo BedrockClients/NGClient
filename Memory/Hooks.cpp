@@ -1308,18 +1308,6 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
 	static auto tp = moduleMgr->getModule<Teleport>();
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && tp->shouldTP && tp->isEnabled()) {
-		oFunc(a, packet);
-		oFunc(a, packet);
-		oFunc(a, packet);
-		oFunc(a, packet);
-		oFunc(a, packet);
-		oFunc(a, packet);
-		oFunc(a, packet);
-		oFunc(a, packet);
-		oFunc(a, packet);
-		oFunc(a, packet);
-	}
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
 

@@ -43,7 +43,8 @@ void Teleport::onTick(C_GameMode* gm) {
 	}
 	if (!GameData::isRightClickDown()) 
 		hasClicked = false;
-
+	C_MovePlayerPacket pee(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
+	C_MovePlayerPacket p2(g_Data.getLocalPlayer(), tpPos);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (shouldTP && GameData::isKeyDown(*input->sneakKey)) {
 		tpPos.y += (gm->player->getPos()->y - gm->player->getAABB()->lower.y) + 1;  // eye height + 1
@@ -59,6 +60,8 @@ void Teleport::onTick(C_GameMode* gm) {
 			float dist = gm->player->getPos()->dist(tpPos);
 			g_Data.getLocalPlayer()->tryTeleportTo(tpPos, true, true, 1, 1);  //lerpTo is gone , vec2_t(1, 1), (int)fmax((int)dist * 0.1, 1));
 		} else
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&pee);
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p2);
 			gm->player->tryTeleportTo(tpPos, true, true, 1, 1);
 		shouldTP = false;
 	}
