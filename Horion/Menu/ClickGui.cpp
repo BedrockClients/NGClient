@@ -10,7 +10,7 @@ bool isLeftClickDown = false;
 bool isRightClickDown = false;
 bool shouldToggleLeftClick = false;  // If true, toggle the focused module
 bool shouldToggleRightClick = false;
-bool resetStartPos = false;
+bool resetStartPos = true;
 bool initialised = false;
 int scrollingDirection = 0;
 
@@ -152,7 +152,7 @@ void ClickGui::renderCategory(Category category) {
 	const std::shared_ptr<ClickWindow> ourWindow = getWindow(categoryName);
 
 	// Reset Windows to pre-set positions to avoid confusion
-	if (resetStartPos && ourWindow->pos.x <= 0) {
+	if (resetStartPos) {
 		float yot = g_Data.getGuiData()->windowSize.x;
 		ourWindow->pos.y = 4;
 		switch (category) {
@@ -175,7 +175,7 @@ void ClickGui::renderCategory(Category category) {
 			ourWindow->pos.x = yot / 7.f * 5.f;
 			break;
 		case Category::FLYS:
-			ourWindow->pos.x = yot / 7.f * 6.5f;
+			ourWindow->pos.x = yot / 7.f * 6.f;
 			break;
 		case Category::GUI:
 			ourWindow->pos.x = yot / 7.f * 4.f;
