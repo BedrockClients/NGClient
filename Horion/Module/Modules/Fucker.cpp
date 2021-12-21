@@ -34,8 +34,8 @@ void Fucker::onTick(C_GameMode* gm) {
 				if (id == 122 && eggs) destroy = true;   // Dragon Eggs
 				if (id == 92 && cakes) eat = true;       // Cakes
 				if (id == 54 && chests) destroy = true;  // Chests
-				if (id == 73 && redstone) destroy = true; // Lit Redstone
-				if (id == 74 && redstone) destroy = true;  // Redstone
+				if (id == 73 && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Lit Redstone
+				if (id == 74 && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Redstone
 				if (id == 56 && diamond) destroy = true;   // Diamond
 				if (id == 129 && emerald) destroy = true;  // Emerald
 

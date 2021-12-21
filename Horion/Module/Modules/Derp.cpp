@@ -57,13 +57,18 @@ void Derp::onTick(C_GameMode* gm) {
 	else
 		counter = 0;
 }
+
+float randFloat(float a, float b) {
+	float random = ((float)rand()) / (float)RAND_MAX;
+	float diff = b - a;
+	float r = random * diff;
+	return a + r;
+}
+
 void Derp::onSendPacket(C_Packet* packet) {
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && hive) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>()&& g_Data.getLocalPlayer() != nullptr && hive && g_Data.isInGame()) {
 		auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-		auto player = g_Data.getLocalPlayer();
-		movePacket->headYaw = (float)(rand() % 360);
-		movePacket->yaw = (float)(rand() % 360);
-		movePacket->headYaw = movePacket->yaw;
-		movePacket->yaw = movePacket->headYaw;
+		movePacket->pitch = randFloat(-90, 90);
+		movePacket->yaw = randFloat(-180, 180);
 	}
 }

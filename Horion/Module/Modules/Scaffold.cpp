@@ -202,9 +202,8 @@ void Scaffold::onLevelRender() {
 }
 
 void Scaffold::onSendPacket(C_Packet* packet) {
-	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>() && g_Data.getLocalPlayer() != nullptr && rot) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && rot) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			auto* authPacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
 			movePacket->pitch = 90;
 	}
 }

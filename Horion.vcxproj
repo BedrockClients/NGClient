@@ -549,6 +549,7 @@
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
     <ClInclude Include="Horion\Module\Modules\PotionAura.h" />
     <ClInclude Include="Horion\Module\Modules\Snowball_Aimbot.h" />
+    <ClInclude Include="Horion\Module\Modules\SoundPlayer.h" />
     <ClInclude Include="Horion\Module\Modules\SwingAnimations.h" />
     <ClInclude Include="Horion\Module\Modules\targetHUD.h" />
     <ClInclude Include="Horion\Module\Modules\AutoSneak.h" />

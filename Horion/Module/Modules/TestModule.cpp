@@ -32,9 +32,9 @@ TestModule::TestModule() : IModule(0, Category::WORLD, "For testing purposes") {
 				.addEntry(EnumEntry("3", 3));
 
 	registerFloatSetting("float1", &float1, 0, -10, 10);
-	registerIntSetting("int1", &int1, 0, -10, 10);
+	registerIntSetting("Sound", &int1, int1, 0, 500);
 	registerEnumSetting("Enum1", &enum1, 0);
-	registerBoolSetting("bool1", &bool1, true);
+	registerBoolSetting("Random", &bool1, true);
 }
 
 TestModule::~TestModule() {
@@ -75,9 +75,17 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 	}
 }
 
-static void patchBytes(BYTE* dst, BYTE* src, unsigned int size) {
+void Nop(BYTE* dst, unsigned int size) {
 	DWORD oldprotect;
 	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+	memset(dst, 0x90, size);
+	VirtualProtect(dst, size, oldprotect, &oldprotect);
+}
+
+void Patch(BYTE* dst, BYTE* src, unsigned int size) {
+	DWORD oldprotect;
+	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+
 	memcpy(dst, src, size);
 	VirtualProtect(dst, size, oldprotect, &oldprotect);
 }
@@ -98,12 +106,19 @@ void TestModule::onMove(C_MoveInputHandler* hand) {
 void TestModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 }
 
-void TestModule::onSendPacket(C_Packet* p) {
+void TestModule::onSendPacket(C_Packet* packet) {
+	if (packet->isInstanceOf<C_PlayerActionPacket>()) {
+		auto* soundpacket = reinterpret_cast<C_PlayerActionPacket*>(packet);
+		if (bool1)
+			soundpacket->action = (int)(rand() % 50);
+		else
+			soundpacket->action = float1;
+	}
 }
 
 void TestModule::onDisable() {
-	BYTE* patch = (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B\x46\x40\x48\x85\xC0";
-	patchBytes((BYTE*)((uintptr_t)targetAddress), patch, 6);
+	//BYTE* patch = (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B\x46\x40\x48\x85\xC0";
+	//patchBytes((BYTE*)((uintptr_t)targetAddress), patch, 6);
 }
 
 void TestModule::onLevelRender() {

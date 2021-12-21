@@ -77,6 +77,8 @@ void Hooks::Init() {
 
 				g_Hooks.Mob__isImmobileHook = std::make_unique<FuncHook>(localPlayerVtable[91], Hooks::Mob__isImmobile);
 
+				g_Hooks.Actor_isInWaterHook = std::make_unique<FuncHook>(localPlayerVtable[71], Hooks::Actor_isInWater);
+
 				g_Hooks.Player_tickWorldHook = std::make_unique<FuncHook>(localPlayerVtable[365], Hooks::Player_tickWorld);
 				#ifdef _DEBUG
 				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[73], Hooks::testy);
@@ -149,9 +151,6 @@ void Hooks::Init() {
 
 		void* ascendLadder = reinterpret_cast<void*>(FindSignature("C7 81 ? ? ? ? ? ? ? ? C3 CC CC CC CC CC C7 81 ? ? ? ? ? ? ? ? C3 CC CC CC CC CC C7 81"));
 		g_Hooks.Actor_ascendLadderHook = std::make_unique<FuncHook>(ascendLadder, Hooks::Actor_ascendLadder);
-
-		void* isInWater = reinterpret_cast<void*>(FindSignature("0F B6 81 ? ? ? ? C3 CC CC CC CC CC CC CC CC 0F B6 81 ? ? ? ? C3 CC CC CC CC CC CC CC CC 48 89 5C 24 ? 48 89 6C 24"));
-		g_Hooks.Actor_isInWaterHook = std::make_unique<FuncHook>(isInWater, Hooks::Actor_isInWater);
 
 		void* getGameEdition = reinterpret_cast<void*>(FindSignature("8B 91 ?? ?? ?? ?? 85 D2 74 1C 83 EA 01"));
 		g_Hooks.AppPlatform_getGameEditionHook = std::make_unique<FuncHook>(getGameEdition, Hooks::AppPlatform_getGameEdition);

@@ -492,6 +492,7 @@
     <ClInclude Include="Horion\Module\Modules\PotionAura.h" />
     <ClInclude Include="Horion\Module\Modules\SwingAnimations.h" />
     <ClInclude Include="Horion\Module\Modules\AutoArmor.h" />
+    <ClInclude Include="Horion\Module\Modules\SoundPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
