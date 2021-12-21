@@ -21,44 +21,46 @@ const char* Fucker::getModuleName() {
 }
 
 void Fucker::onTick(C_GameMode* gm) {
-	vec3_t* pos = gm->player->getPos();
-	for (int x = (int)pos->x - range; x < pos->x + range; x++) {
-		for (int z = (int)pos->z - range; z < pos->z + range; z++) {
-			for (int y = (int)pos->y - range; y < pos->y + range; y++) {
-				blockPos = vec3_ti(x, y, z);
-				destroy = false;
-				bool eat = false;
-				int id = gm->player->region->getBlock(blockPos)->toLegacy()->blockId;
+	if (g_Data.isInGame()) {
+		vec3_t* pos = gm->player->getPos();
+		for (int x = (int)pos->x - range; x < pos->x + range; x++) {
+			for (int z = (int)pos->z - range; z < pos->z + range; z++) {
+				for (int y = (int)pos->y - range; y < pos->y + range; y++) {
+					blockPos = vec3_ti(x, y, z);
+					destroy = false;
+					bool eat = false;
+					int id = gm->player->region->getBlock(blockPos)->toLegacy()->blockId;
 
-				if (id == 26 && beds) destroy = true;    // Beds
-				if (id == 122 && eggs) destroy = true;   // Dragon Eggs
-				if (id == 92 && cakes) eat = true;       // Cakes
-				if (id == 54 && chests) destroy = true;  // Chests
-				if (id == 73 && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Lit Redstone
-				if (id == 74 && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Redstone
-				if (id == 56 && diamond) destroy = true;   // Diamond
-				if (id == 129 && emerald) destroy = true;  // Emerald
+					if (id == 26 && beds) destroy = true;                                          // Beds
+					if (id == 122 && eggs) destroy = true;                                         // Dragon Eggs
+					if (id == 92 && cakes) eat = true;                                             // Cakes
+					if (id == 54 && chests) destroy = true;                                        // Chests
+					if (id == 73 && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Lit Redstone
+					if (id == 74 && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Redstone
+					if (id == 56 && diamond) destroy = true;                                       // Diamond
+					if (id == 129 && emerald) destroy = true;                                      // Emerald
 
-				if (destroy) {
-					if (!bypass)
-						gm->destroyBlock(&blockPos, 0);
-					else {
-						bool isDestroyed = false;
-						if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
-							PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
-							gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
-							gm->destroyBlock(new vec3_ti(pointing->block), pointing->blockSide);
-							gm->stopDestroyBlock(pointing->block);
+					if (destroy) {
+						if (!bypass)
+							gm->destroyBlock(&blockPos, 0);
+						else {
+							bool isDestroyed = false;
+							if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
+								PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
+								gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
+								gm->destroyBlock(new vec3_ti(pointing->block), pointing->blockSide);
+								gm->stopDestroyBlock(pointing->block);
+							}
+							gm->startDestroyBlock(blockPos, gm->player->region->getBlock(blockPos)->data, isDestroyed);
+							gm->destroyBlock(&blockPos, gm->player->region->getBlock(blockPos)->data);
+							gm->stopDestroyBlock(blockPos);
 						}
-						gm->startDestroyBlock(blockPos, gm->player->region->getBlock(blockPos)->data, isDestroyed);
-						gm->destroyBlock(&blockPos, gm->player->region->getBlock(blockPos)->data);
-						gm->stopDestroyBlock(blockPos);
 					}
-				}
-				if (eat) {
-					gm->buildBlock(&blockPos, 0);
-					g_Data.getLocalPlayer()->swingArm();
-					return;
+					if (eat) {
+						gm->buildBlock(&blockPos, 0);
+						g_Data.getLocalPlayer()->swingArm();
+						return;
+					}
 				}
 			}
 		}
