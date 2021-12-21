@@ -108,7 +108,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoClick()));
 		moduleList.push_back(std::shared_ptr<IModule>(new SnowballAimbot()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new BoatSpeed()));
+		moduleList.push_back(std::shared_ptr<IModule>(new BoatSpeed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiAnvil()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new AutoGapple()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ArmourHud()));
@@ -128,7 +128,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new EntityFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new XP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockFly()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new BoatFly()));
+		moduleList.push_back(std::shared_ptr<IModule>(new BoatFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new GUI()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MinevilleFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
