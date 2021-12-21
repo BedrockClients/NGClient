@@ -537,7 +537,7 @@ public:
 	}
 
 	float getHealth() {
-		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x1EA089D) + 0x84);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
+		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DA10) + 0x84);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
 	}
 
 	float getMaxHealth() {

@@ -6,6 +6,7 @@ class NoFall : public IModule {
 private:
 	bool groundy = false;
 	int counter = 1;
+	bool hive = true;
 	bool motion = false;
 	float glideMod = 0.f;
 	float glideModEffective = 0;

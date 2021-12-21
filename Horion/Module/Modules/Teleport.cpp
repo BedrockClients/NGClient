@@ -57,9 +57,9 @@ void Teleport::onTick(C_GameMode* gm) {
 			}
 			gm->player->setPos(tpPos);*/
 			float dist = gm->player->getPos()->dist(tpPos);
-			g_Data.getLocalPlayer()->setPos(tpPos);  //lerpTo is gone , vec2_t(1, 1), (int)fmax((int)dist * 0.1, 1));
-		}
-		else gm->player->setPos(tpPos);
+			g_Data.getLocalPlayer()->tryTeleportTo(tpPos, true, true, 1, 1);  //lerpTo is gone , vec2_t(1, 1), (int)fmax((int)dist * 0.1, 1));
+		} else
+			gm->player->tryTeleportTo(tpPos, true, true, 1, 1);
 		shouldTP = false;
 	}
 }

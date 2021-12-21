@@ -5,6 +5,7 @@ NoFall::NoFall() : IModule(0x0, Category::MOVEMENT, "NoFall") {
 	registerBoolSetting("Server", &server, server);
 	registerBoolSetting("NoPacket", &nopackety, nopackety);
 	registerBoolSetting("Motion", &motion, motion);
+	registerBoolSetting("Hive", &hive, hive);
 }
 
 NoFall::~NoFall() {
@@ -16,8 +17,13 @@ const char* NoFall::getModuleName() {
 
 void NoFall::onTick(C_GameMode* gm) {
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
-	if (groundy) {
+	if (groundy && g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 2.f) {
 		gm->player->onGround = true;
+	}
+	if (hive && gm->player->fallDistance > 2.5f) {
+			gm->player->tryTeleportTo(*gm->player->getPos(), true, true, 1, 1);
+			gm->player->onGround = true;
+			gm->player->fallDistance = 0.f;
 	}
 	if (motion) {
 		if (player->fallDistance > 4) {
