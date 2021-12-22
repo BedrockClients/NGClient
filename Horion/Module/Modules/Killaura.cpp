@@ -236,9 +236,8 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				//The actual box
 				counter++;
-				if (counter == 100) {
+				if (counter == 100)
 					counter--;
-				}
 
 				{
 					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333);
