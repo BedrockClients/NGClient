@@ -236,54 +236,55 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				//The actual box
 				counter++;
-				if (counter == 11) {
+				if (counter == 15) {
 					counter--;
 				}
 
 				{
-					DrawUtils::drawRectangle(vec4_t{rectPos.x + 9 - counter, rectPos.y + 9 - counter, rectPos.z - 9 + counter, rectPos.w - 9 + counter}, MC_Color(0, 0, 255), 0.5f);
-					DrawUtils::fillRectangle(vec4_t{rectPos.x + 9 - counter, rectPos.y + 9 - counter, rectPos.z - 9 + counter, rectPos.w - 9 + counter}, MC_Color(0, 0, 0), 0.3f);
+					DrawUtils::drawRectangle(vec4_t{rectPos.x + 13 - counter, rectPos.y + 13 - counter, rectPos.z - 13 + counter, rectPos.w - 13 + counter}, MC_Color(0, 0, 255), 0.5f);
+					DrawUtils::fillRectangle(vec4_t{rectPos.x + 13 - counter, rectPos.y + 13 - counter, rectPos.z - 13 + counter, rectPos.w - 13 + counter}, MC_Color(0, 0, 0), 0.3f);
 				}
 
 					std::string targetName = targetList[0]->getNameTag()->getText();
-				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + (res.y / 150.f)), &targetName, MC_Color(255, 255, 255), counter * .09f, 1.f);
+				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + (res.y / 150.f)), &targetName, MC_Color(255, 255, 255), counter * .06f, 1.f);
 
 					std::string healthString = std::to_string(((int)targetList[0]->getHealth() / 2));
 					std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
 					std::string healthDisplay = "Health: " + healthString;
 					std::string absorptionDisplay;
 					if (targetList[0]->getAbsorption() > 0) {
-						DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), 1.f);
+						DrawUtils::drawRectangle(vec4_t(rectPos.x + .2 + 14 - counter, rectPos.y + (res.y / 18.f) + 14 - counter, rectPos.x + 1 * rectWidth - 14 + counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) - 14 + counter), MC_Color(255, 255, 85), 1.f);
 						std::string absorptionString = std::to_string((int)(targetList[0]->getAbsorption() / 2));
 						absorptionDisplay = "Absorption: " + absorptionString;
+
+						//Absorbtion Bar
+						{
+							float absorptionBarWidth = (targetList[0]->getAbsorption() / targetList[0]->getMaxHealth()) * rectWidth;
+							if (!(targetList[0]->damageTime > 1))
+								DrawUtils::fillRectangle(vec4_t(rectPos.x + .2 + 14 - counter, rectPos.y + (res.y / 18.f) + 14 - counter, rectPos.x + absorptionBarWidth - 14 + counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) - 14 + counter), MC_Color(255, 255, 85), 1.f);
+							else
+								DrawUtils::fillRectangle(vec4_t(rectPos.x + .2 + 14 - counter, rectPos.y + (res.y / 18.f) + 14 - counter, rectPos.x + absorptionBarWidth - 14 + counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) - 14 + counter), MC_Color(255, 255, 0), 1.f);
+						}
 					}
 
 					//The text
 					{
-						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), counter * .063f, 1.f);
-						DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), counter * .063f, 1.f);
-						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), counter * .063f, 1.f);
+						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), counter * .047f, 1.f);
+						DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), counter * .047f, 1.f);
+						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), counter * .047f, 1.f);
 					}
 					DrawUtils::flush();
 					
-					//Absorbtion Bar
-					{
-						float absorptionBarWidth = (targetList[0]->getAbsorption() / targetList[0]->getMaxHealth()) * rectWidth;
-						if (!(targetList[0]->damageTime > 1))
-							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), 1.f);
-						else
-							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 0), 1.f);
-					}
 
 					//Health Bar
 					{
 						float healthBarWidth = (targetList[0]->getHealth() / targetList[0]->getMaxHealth()) * rectWidth;
 						if (!(targetList[0]->damageTime > 1)) {
-							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2 + 10 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 10 - counter, rectPos.x + healthBarWidth - 10 + counter, rectPos.w - 10 + counter), MC_Color(0, 255, 0), 1.f);
-							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2 + 10 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 10 - counter, rectPos.x + 1 * rectWidth - 10 + counter, rectPos.w - 10 + counter), MC_Color(0, 255, 0), 1.f);
+							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2 + 14 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 14 - counter, rectPos.x + healthBarWidth - 14 + counter, rectPos.w - 14 + counter), MC_Color(0, 255, 0), 1.f);
+							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2 + 14 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 14 - counter, rectPos.x + 1 * rectWidth - 14 + counter, rectPos.w - 14 + counter), MC_Color(0, 255, 0), 1.f);
 						} else {
-							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2 + 10 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 10 - counter, rectPos.x + healthBarWidth - 10 + counter, rectPos.w - 10 + counter), MC_Color(255, 0, 0), 1.f);
-							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2 + 10 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 10 - counter, rectPos.x + 1 * rectWidth - 10 + counter, rectPos.w - 10 + counter), MC_Color(255, 0, 0), 1.f);
+							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2 + 14 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 14 - counter, rectPos.x + healthBarWidth - 14 + counter, rectPos.w - 14 + counter), MC_Color(255, 0, 0), 1.f);
+							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2 + 14 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 14 - counter, rectPos.x + 1 * rectWidth - 14 + counter, rectPos.w - 14 + counter), MC_Color(255, 0, 0), 1.f);
 						}
 					}
 					rectPos.y += res.y / 12.f;
