@@ -20,7 +20,7 @@ void NoFall::onTick(C_GameMode* gm) {
 	if (groundy && g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 2.f) {
 		gm->player->onGround = true;
 	}
-	if (hive && gm->player->fallDistance > 2.5f) {
+	if (hive && gm->player->fallDistance > 4.f) {
 		vec3_t pos = *gm->player->getPos();
 		pos.y += 50;
 		gm->player->tryTeleportTo( pos, true, true, 1, 1);
