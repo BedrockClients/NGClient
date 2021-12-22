@@ -1319,7 +1319,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 			auto player = g_Data.getLocalPlayer();
 			if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
-				if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 2.f) {
+				if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 4.f) {
 					ree->onGround = true;
 					//disabler->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*ree));
 					return;  //dont send Off groung packet
