@@ -300,6 +300,7 @@
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\BoatFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\BoatSpeed.cpp" />
+    <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Click.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeSpeed.cpp" />
@@ -526,6 +527,7 @@
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
     <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
     <ClInclude Include="Horion\Module\Modules\BoatFly.h" />
+    <ClInclude Include="Horion\Module\Modules\chestaura.h" />
     <ClInclude Include="Horion\Module\Modules\Click.h" />
     <ClInclude Include="Horion\Module\Modules\CubeFly.h" />
     <ClInclude Include="Horion\Module\Modules\CubeSpeed.h" />
