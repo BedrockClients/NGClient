@@ -23,8 +23,10 @@ const char* ESP::getModuleName() {
 			return "ESP [Circle]";
 		} else if (betterESP) {
 			return "ESP [3D]";
-		} else if (iszephyr || is2d) {
+		} else if (is2d || is2d) {
 			return "ESP [2D]";
+		} else if (iszephyr || is2d) {
+			return "ESP [Zephyr]";
 		} else if (doRainbow) {
 			return "ESP [RGB]";
 		} else return "ESP";
