@@ -117,16 +117,20 @@ void Killaura::onTick(C_GameMode* gm) {
 							g_Data.getLocalPlayer()->swing();
 							g_Data.getCGameMode()->attack(i);
 							targethud++;
-						}else
+						} else {
 							targethud = 0;
+							counter = 0;
+						}
 					}
 				} else {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
 						g_Data.getLocalPlayer()->swing();
 						g_Data.getCGameMode()->attack(targetList[0]);
 						targethud++;
-					} else
+					} else {
 						targethud = 0;
+						counter = 0;
+					}
 				}
 				Odelay = 0;
 			}
@@ -137,6 +141,8 @@ void Killaura::onTick(C_GameMode* gm) {
 			}
 		}
 	}
+	if (targetList.empty())
+		counter = 0;
 }
 
 void Killaura::onLevelRender() {
@@ -208,6 +214,7 @@ void Killaura::onLevelRender() {
 }
 
 void Killaura::onEnable() {
+	counter = 0;
 	targetList.clear();
 	if (g_Data.isInGame()) {
 		if (g_Data.getLocalPlayer() == nullptr)
@@ -215,6 +222,7 @@ void Killaura::onEnable() {
 	}
 }
 void Killaura::onDisable() {
+	counter = 0;
 	targetList.clear();
 }
 
@@ -227,13 +235,18 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				float rectWidth = rectPos.z - rectPos.x;
 
 				//The actual box
+				counter++;
+				if (counter == 11) {
+					counter--;
+				}
+
 				{
-					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), 0.5f);
-					DrawUtils::fillRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), 0.3f);
+					DrawUtils::drawRectangle(vec4_t{rectPos.x + 9 - counter, rectPos.y + 9 - counter, rectPos.z - 9 + counter, rectPos.w - 9 + counter}, MC_Color(0, 0, 255), 0.5f);
+					DrawUtils::fillRectangle(vec4_t{rectPos.x + 9 - counter, rectPos.y + 9 - counter, rectPos.z - 9 + counter, rectPos.w - 9 + counter}, MC_Color(0, 0, 0), 0.3f);
 				}
 
 					std::string targetName = targetList[0]->getNameTag()->getText();
-					DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + (res.y / 150.f)),& targetName, MC_Color(255, 255, 255), 1.f, 1.f);
+				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + (res.y / 150.f)), &targetName, MC_Color(255, 255, 255), counter * .09f, 1.f);
 
 					std::string healthString = std::to_string(((int)targetList[0]->getHealth() / 2));
 					std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
@@ -247,9 +260,9 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 					//The text
 					{
-						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), 0.7f, 1.f);
-						DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, 1.f);
-						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, 1.f);
+						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), counter * .063f, 1.f);
+						DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), counter * .063f, 1.f);
+						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), counter * .063f, 1.f);
 					}
 					DrawUtils::flush();
 					
@@ -266,11 +279,11 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 					{
 						float healthBarWidth = (targetList[0]->getHealth() / targetList[0]->getMaxHealth()) * rectWidth;
 						if (!(targetList[0]->damageTime > 1)) {
-							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(0, 255, 0), 1.f);
-							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(0, 255, 0), 1.f);
+							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2 + 10 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 10 - counter, rectPos.x + healthBarWidth - 10 + counter, rectPos.w - 10 + counter), MC_Color(0, 255, 0), 1.f);
+							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2 + 10 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 10 - counter, rectPos.x + 1 * rectWidth - 10 + counter, rectPos.w - 10 + counter), MC_Color(0, 255, 0), 1.f);
 						} else {
-							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 0, 0), 1.f);
-							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(255, 0, 0), 1.f);
+							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2 + 10 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 10 - counter, rectPos.x + healthBarWidth - 10 + counter, rectPos.w - 10 + counter), MC_Color(255, 0, 0), 1.f);
+							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2 + 10 - counter, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2) + 10 - counter, rectPos.x + 1 * rectWidth - 10 + counter, rectPos.w - 10 + counter), MC_Color(255, 0, 0), 1.f);
 						}
 					}
 					rectPos.y += res.y / 12.f;
