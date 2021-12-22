@@ -609,7 +609,7 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	std::string keyString;
-	keyString = "LMB";
+	keyString = "LMB " + std::to_string(g_Data.getLeftCPS());
 	vec4_t rectPos(
 		pos.x,
 		pos.y + 2,
@@ -642,7 +642,7 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	std::string keyString;
-	keyString = "RMB";
+	keyString = "RMB " + std::to_string(g_Data.getRightCPS());
 	vec4_t rectPos(
 		pos.x,
 		pos.y + 2,

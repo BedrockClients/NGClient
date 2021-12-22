@@ -133,6 +133,7 @@
 #include "Modules/LongJump.h"
 #include "Modules/TestModule.h"
 #include "Modules/PacketLogger.h"
+#include "Modules/chestaura.h"
 #ifdef _DEBUG
 
 #endif
