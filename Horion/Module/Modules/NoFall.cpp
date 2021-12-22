@@ -21,7 +21,9 @@ void NoFall::onTick(C_GameMode* gm) {
 		gm->player->onGround = true;
 	}
 	if (hive && gm->player->fallDistance > 2.5f) {
-			gm->player->tryTeleportTo(*gm->player->getPos(), true, true, 1, 1);
+		vec3_t pos = *gm->player->getPos();
+		pos.y += 50;
+		gm->player->tryTeleportTo( pos, true, true, 1, 1);
 			gm->player->onGround = true;
 			gm->player->fallDistance = 0.f;
 	}
