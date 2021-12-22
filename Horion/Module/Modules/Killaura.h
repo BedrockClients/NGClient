@@ -12,6 +12,7 @@ private:
 	void findWeapon();
 	bool silent = false;
 	int targethud = 0;
+	int counter = 0;
 
 public:
 	bool rotations = true;
