@@ -6,7 +6,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
-	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor); // y tf did u add this and y does it render in a random ass spot
+	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor); //it does not render in a random spot I render on side of your screen
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Watermark", &watermark, watermark);
 	registerBoolSetting("Bools", &bools, bools);
