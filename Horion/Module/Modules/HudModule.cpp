@@ -6,6 +6,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
+	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Watermark", &watermark, watermark);
 	registerBoolSetting("Bools", &bools, bools);
@@ -85,6 +86,26 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		}
 	}
 
+	// ArmorHUD
+	if (!(g_Data.getLocalPlayer() == nullptr || !displayArmor || !GameData::canUseMoveKeys())) {
+		static float constexpr scale = 1.f;
+		static float constexpr spacingy = scale + 15.f;
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
+		float x = windowSize.x / 2.f - 320.f;
+		float y = windowSize.y - 240.f;
+		for (int i = 0; i < 4; i++) {
+			C_ItemStack* stack = player->getArmor(i);
+			if (stack->isValid()) {
+				DrawUtils::drawItem(stack, vec2_t(x, y), opacity, scale, stack->isEnchanted());
+				y += scale * spacingy;
+			}
+		}
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
+		if (item->isValid())
+			DrawUtils::drawItem(item, vec2_t(x, y), opacity, scale, item->isEnchanted());
+	}
+
 	{  // Hud
 		if (!(g_Data.getLocalPlayer() == nullptr || !Hud || !GameData::canUseMoveKeys())) {
 			vec3_t* pos = g_Data.getLocalPlayer()->getPos();
@@ -99,7 +120,6 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			auto y = windowSize.y - 25.f;
 
 			static float constexpr scale = 1.f;
-			static float constexpr opacity = 0.25f;
 			static float constexpr spacing = scale + 15.f;
 			C_LocalPlayer* player = g_Data.getLocalPlayer();
 			float xArmor = windowSize.x / 2.f - 180.f;

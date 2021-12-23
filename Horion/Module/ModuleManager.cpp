@@ -113,7 +113,7 @@ void ModuleManager::initModules() {
 		//moduleList.push_back(std::shared_ptr<IModule>(new AutoGapple()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new ArmourHud()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Mineplex()));
-		moduleList.push_back(std::shared_ptr<IModule>(new MineplexFly()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new MineplexFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new CubeFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new CubeSpeed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));

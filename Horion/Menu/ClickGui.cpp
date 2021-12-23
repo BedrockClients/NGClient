@@ -908,6 +908,7 @@ void ClickGui::render() {
 
 	shouldToggleLeftClick = false;
 	shouldToggleRightClick = false;
+	resetStartPos = false;
 
 	DrawUtils::flush();
 }
