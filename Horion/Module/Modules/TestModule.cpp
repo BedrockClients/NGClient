@@ -108,3 +108,6 @@ void TestModule::onDisable() {
 
 void TestModule::onLevelRender() {
 }
+
+void TestModule::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
+}
