@@ -2,11 +2,10 @@
 #include "../ModuleManager.h"
 #include "Module.h"
 class TestModule : public IModule {
-private:
-	int delay = 0;
-	void* targetAddress; //Yes
-
 public:
+	int delay = 0;
+	void* targetAddress;  //Yes
+	int counter = 0;
 	vec3_ti block;
 	float float1 = 0;
 	int int1 = 0;
@@ -20,6 +19,7 @@ public:
 	virtual const char* getModuleName() override;
 	virtual void onEnable() override;
 	virtual void onTick(C_GameMode* gm) override;
+	virtual void onPreRender(C_MinecraftUIRenderContext* renderCtx);
 	virtual void onPostRender(C_MinecraftUIRenderContext* renderCtx) override;
 	virtual void onSendPacket(C_Packet* p) override;
 	virtual void onMove(C_MoveInputHandler* hand) override;
