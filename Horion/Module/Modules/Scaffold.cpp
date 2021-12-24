@@ -2,13 +2,15 @@
 
 #include "../../../Utils/Logger.h"
 #include "../ModuleManager.h"
+uintptr_t HiveBypass1 = Utils::getBase() + 0x8F3895;  // Second one of 89 41 18 0F B6 42 ?? 88 41 ?? F2 0F 10 42 ?? F2 0F 11 41 ?? 8B 42 ?? 89 41 ?? 8B 42 ?? 89 41 ??
+uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // C7 40 18 03 00 00 00 48 8B 8D
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
 	registerBoolSetting("Spoof", &spoof, spoof);
 	registerBoolSetting("AirPlace", &airplace, airplace);
 	registerBoolSetting("Auto Select", &autoselect, autoselect);
 	registerBoolSetting("Predict", &predict, predict);
-	registerBoolSetting("Rotations", &rot, rot);
+	registerBoolSetting("Hive", &rot, rot);
 	registerBoolSetting("Y Lock", &yLock, yLock);
 	registerBoolSetting("Staircase Mode", &staircaseMode, staircaseMode);
 }
@@ -32,6 +34,21 @@ const char* Scaffold::getModuleName() {
 		else return "Scaffold";
 	} else
 		return "Scaffold";
+}
+
+void Nop(BYTE* dst, unsigned int size) {
+	DWORD oldprotect;
+	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+	memset(dst, 0x90, size);
+	VirtualProtect(dst, size, oldprotect, &oldprotect);
+}
+
+void Patch(BYTE* dst, BYTE* src, unsigned int size) {
+	DWORD oldprotect;
+	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+
+	memcpy(dst, src, size);
+	VirtualProtect(dst, size, oldprotect, &oldprotect);
 }
 
 bool Scaffold::tryScaffold(vec3_t blockBelow) {
@@ -100,10 +117,10 @@ bool Scaffold::findBlock() {
 void Scaffold::onTick(C_GameMode* gm) {
 
 	//float Pitch = (gm->player->pitch) * -(PI / 180); Correct Pitch
-
 	if (rot) {
-		//g_Data.getLocalPlayer()->pitch = 90;
-		//g_Data.getLocalPlayer()->pitch2 = 90;
+		g_Data.getLocalPlayer()->pointingStruct->rayHitType = 0;
+		Nop((BYTE*)HiveBypass1, 3);
+		Patch((BYTE*)HiveBypass2, (BYTE*)"\xC7\x40\x18\x00\x00\x00\x00", 7);
 	}
 
 	if (g_Data.getLocalPlayer() == nullptr)
@@ -195,17 +212,9 @@ void Scaffold::onTick(C_GameMode* gm) {
 }
 
 void Scaffold::onLevelRender() {
-	if (rot) {
-		g_Data.getLocalPlayer()->pitch = 90;
-		g_Data.getLocalPlayer()->pitch2 = 90;
-	}
 }
 
 void Scaffold::onSendPacket(C_Packet* packet) {
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && rot) {
-			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			movePacket->pitch = 90;
-	}
 }
 
 void Scaffold::onEnable() {
@@ -213,4 +222,8 @@ void Scaffold::onEnable() {
 	slot = supplies->selectedHotbarSlot;
 	blockBelowtest.y = g_Data.getLocalPlayer()->eyePos0.y;  // Block below the player
 	blockBelowtest.y -= 2.5f;
+}
+void Scaffold::onDisable() {
+	Patch((BYTE*)HiveBypass1, (BYTE*)"\x89\x41\x18", 3);
+	Patch((BYTE*)HiveBypass2, (BYTE*)"\xC7\x40\x18\x03\x00\x00\x00", 7);
 }

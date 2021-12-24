@@ -75,21 +75,6 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 	}
 }
 
-void Nop(BYTE* dst, unsigned int size) {
-	DWORD oldprotect;
-	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
-	memset(dst, 0x90, size);
-	VirtualProtect(dst, size, oldprotect, &oldprotect);
-}
-
-void Patch(BYTE* dst, BYTE* src, unsigned int size) {
-	DWORD oldprotect;
-	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
-
-	memcpy(dst, src, size);
-	VirtualProtect(dst, size, oldprotect, &oldprotect);
-}
-
 void TestModule::onEnable() {
 	//if (targetAddress == nullptr)
 		//targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
