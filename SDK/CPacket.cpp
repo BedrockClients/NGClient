@@ -33,7 +33,7 @@ PlayerAuthInputPacket::PlayerAuthInputPacket() {
 	memset(this, 0, sizeof(PlayerAuthInputPacket));  // Avoid overwriting vtable
 	vTable = PlayerAuthInputPacketVtable;
 }
-PlayerAuthInputPacket::PlayerAuthInputPacket(__int64 entityRuntimeId, vec3_t pos, float pitch, float yaw, float yawUnused) {
+PlayerAuthInputPacket::PlayerAuthInputPacket(vec3_t pos, float pitch, float yaw, float yawUnused) {
 	static uintptr_t** PlayerAuthInputPacketVtable = 0x0;
 	if (PlayerAuthInputPacketVtable == 0x0) {
 		uintptr_t sigOffset = FindSignature("48 8D 05 ?? ?? ?? ?? 48 89 01 F2 0F 10 42 ?? F2 0F 11 41 ?? F2 0F 10 42");
@@ -50,7 +50,19 @@ PlayerAuthInputPacket::PlayerAuthInputPacket(__int64 entityRuntimeId, vec3_t pos
 	this->pitch = pitch;
 	this->yaw = yaw;
 	this->yawUnused = yawUnused;
-	this->entityRuntimeId = entityRuntimeId;
+	this->num4294967298 = 4294967298;
+	this->zero = 0;
+	this->one = 1;
+	this->two = 2;
+	this->counter = 0;
+	this->InputAD = 0.f;
+	this->InputWS = 0.f;
+	for (int i = 0; i < 32; i++) {
+		this->padThingy[i] = 0;
+	}
+	for (int i = 0; i < 12; i++) {
+		this->epicpad[i] = 0;
+	}
 }
 /*C_ActorFallPacket::C_ActorFallPacket() {
 	static uintptr_t** ActorFallPacketVtable = 0x0;

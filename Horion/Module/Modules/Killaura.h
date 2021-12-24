@@ -11,10 +11,10 @@ private:
 	bool autoweapon = false;
 	void findWeapon();
 	bool silent = false;
-	int targethud = 0;
 	int counter = 0;
 
 public:
+	int targethud = 0;
 	bool rotations = true;
 	bool isMulti = true;
 	bool isMobAura = false;

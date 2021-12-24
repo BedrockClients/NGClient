@@ -11,11 +11,11 @@ const char* PacketLogger::getModuleName() {
 }
 
 void PacketLogger::onSendPacket(C_Packet* packet) {
-	 if (packet->isInstanceOf<C_PlayerActionPacket>()) {
-		auto pk = reinterpret_cast<C_PlayerActionPacket*>(packet);
-		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s action=%i", packet->getName()->getText(), pk->action);
-		return;
-	}
+	 //if (packet->isInstanceOf<PlayerAuthInputPacket>()) {
+		//auto pk = reinterpret_cast<PlayerAuthInputPacket*>(packet);
+		//g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s action=%i", packet->getName()->getText(), pk->velocity); not rlly needed rn
+	//	return;
+	//}
 
 	 if (packet->isInstanceOf<LevelSoundEventPacket>()) {
 		auto pk = reinterpret_cast<LevelSoundEventPacket*>(packet);
