@@ -523,7 +523,9 @@ public:
 				&v3);
 		return (__int64*)v1;
 	}
-
+	float getRealSpeed() {
+		return *reinterpret_cast<float *>(this->getSpeed() + 0x84);
+	}
 	int getTicksUsingItem() {
 		return this->ticksUsingItem;
 	}

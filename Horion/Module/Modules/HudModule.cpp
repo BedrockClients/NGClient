@@ -6,7 +6,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
-	//registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor); //This looks like complete shit (respectully) so im removing it.
+	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);//not complete so fuck off
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Watermark", &watermark, watermark);
 	registerBoolSetting("Bools", &bools, bools);
@@ -32,6 +32,10 @@ const char* HudModule::getModuleName() {
 	} else
 		return "HUD";
 }
+
+void HudModule::onTick(C_GameMode* gm) {
+}
+
 void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	// rainbow colors
@@ -91,8 +95,8 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		static float constexpr scale = 1.f;
 		static float constexpr spacingy = scale + 15.f;
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		float x = windowSize.x / 2.f - 320.f;
-		float y = windowSize.y - 240.f;
+		float x = windowSize.x - windowSize.x;
+		float y = windowSize.y / 2 - 20.f;
 		for (int i = 0; i < 4; i++) {
 			C_ItemStack* stack = player->getArmor(i);
 			if (stack->isValid()) {
@@ -112,6 +116,9 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			std::string coordsall = "X: " + std::to_string((int)floorf(pos->x)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z));
 			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
 			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
+			std::string Bps = "Blocks Per Second: " + std::to_string(g_Data.getLocalPlayer()->getRealSpeed());
+			auto xBps = windowSize.x / 2.f - 180.f;
+			auto yBps = windowSize.y - 55.f;
 			auto xcpsText = windowSize.x / 2.f - 180.f;
 			auto ycpsText = windowSize.y - 35.f;
 			auto xfpsText = windowSize.x / 2.f - 180.f;
@@ -139,15 +146,18 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(rcolors), scale);
 				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(rcolors), scale);
 				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(rcolors), scale);
+				DrawUtils::drawText(vec2_t{xBps, yBps}, &Bps, MC_Color(rcolors), scale);
 			}else
 			if (Surge->surge) {
 				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(0, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(0, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(0, 0, 255), scale);
+				DrawUtils::drawText(vec2_t{xBps, yBps}, &Bps, MC_Color(0, 0, 255), scale);
 			} else {
 				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(184, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(184, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(184, 0, 255), scale);
+				DrawUtils::drawText(vec2_t{xBps, yBps}, &Bps, MC_Color(184, 0, 255), scale);
 			}
 		}
 	}
@@ -186,4 +196,6 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 		}
 	}
+}
+void HudModule::onDisable() {
 }
