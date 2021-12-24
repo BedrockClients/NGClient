@@ -1,14 +1,18 @@
 #include "InsideTP.h"
-
+bool Behind;
+float BehindLength;
+float hoveringlength;
 InsideTP::InsideTP() : IModule(0x0, Category::COMBAT, "TP Into The Closest Entity") {
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
 	registerBoolSetting("UnlimitedRange", &unlim, unlim);
-	registerBoolSetting("PushMode", &pushm, pushm);
 	registerFloatSetting("range", &range, range, 0.5f, 20.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);
 	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
 	registerBoolSetting("Silent Rotations", &silent, silent);
+	registerBoolSetting("Behind", &Behind, Behind);
+	registerFloatSetting("BehindLength", &BehindLength, BehindLength, 0.1, 5);
+	registerFloatSetting("HoveringLength", &hoveringlength, hoveringlength, -5, 5);
 }
 
 InsideTP::~InsideTP() {
@@ -87,21 +91,19 @@ void InsideTP::onTick(C_GameMode* gm) {
 	g_Data.forEachEntity(findEntity1);
 
 	Odelay++;
-	if (!targetList.empty() && Odelay >= delay) {
-		vec3_t pos = *targetList[0]->getPos();
-		if (autoweapon) findWeapon();
-		if (!pushm) {
-			//if (g_Data.getLocalPlayer()->velocity.squaredxzlen() < 0.01) {
-			C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
-			//}
-			C_LocalPlayer* player = g_Data.getLocalPlayer();
-			player->setPos(pos);
-		} else {
-			float dist2 = gm->player->getPos()->dist(pos);
-			g_Data.getLocalPlayer()->setPos(pos);  // lerpTo gone   , vec2_t(1, 1), (int)fmax((int)dist2 * 0.1, 1));
+	vec3_t pos = *targetList[0]->getPos();
+	float cy = (targetList[0]->yaw + 90) * (PI / 180);
+
+	if (!targetList.empty()) {
+		if (Odelay >= delay) {
+			if (Behind) {
+				pos.x -= cos(cy) * BehindLength;
+				pos.z -= sin(cy) * BehindLength;
+				pos.y += hoveringlength;
+			}
+			g_Data.getLocalPlayer()->setPos(pos);
+			Odelay = 0;
 		}
-		Odelay = 0;
 	}
 }
 
