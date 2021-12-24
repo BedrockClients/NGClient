@@ -523,9 +523,30 @@ public:
 				&v3);
 		return (__int64*)v1;
 	}
+
 	float getRealSpeed() {
 		return *reinterpret_cast<float *>(this->getSpeed() + 0x84);
 	}
+
+	int getBlocksPerSecond() {
+		float BPS = 0.f;
+		vec3_t velocity = this->velocity;
+		if (velocity.x < 0.f)
+			velocity.x *= -1.f;
+		if (velocity.y < 0.f)
+			velocity.y *= -1.f;
+		if (velocity.z < 0.f)
+			velocity.z *= -1.f;
+		auto velx = velocity.x * velocity.x;
+		auto velz = velocity.z * velocity.z;
+		BPS = sqrtf(velx + velz) * 36.6f;
+
+		if (!this->onGround)
+			return BPS /= 1.5f;
+		else
+			return BPS;
+	}
+
 	int getTicksUsingItem() {
 		return this->ticksUsingItem;
 	}

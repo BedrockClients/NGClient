@@ -96,7 +96,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			std::string coordsall = "X: " + std::to_string((int)floorf(pos->x)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z));
 			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
 			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
-			std::string Bps = "BPS: " + std::to_string(g_Data.getLocalPlayer()->getRealSpeed());
+			std::string Bps = "BPS: " + std::to_string(g_Data.getLocalPlayer()->getBlocksPerSecond());
 			auto xBps = windowSize.x / 2.f - 180.f;
 			auto yBps = windowSize.y - 55.f;
 			auto xcpsText = windowSize.x / 2.f - 180.f;
