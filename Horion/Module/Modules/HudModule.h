@@ -19,7 +19,7 @@ public:
 	bool watermark = false;
 	bool coordinates = true;
 	bool keybinds = true;
-	bool displayArmor = true;
+	bool displayArmor = false;
 	bool keystrokes = true;
 	bool fps = true;
 	bool cps = true;
