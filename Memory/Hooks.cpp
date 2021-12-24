@@ -1664,7 +1664,10 @@ void Hooks::Actor_ascendLadder(C_Entity* _this) {
 void Hooks::Actor_swing(C_Entity* _this) {
 	static auto oFunc = g_Hooks.Actor_swingHook->GetFastcall<void, C_Entity*>();
 	static auto noSwingMod = moduleMgr->getModule<NoSwing>();
-	if (!noSwingMod->isEnabled()) return oFunc(_this);
+	static auto killMod = moduleMgr->getModule<Killaura>();
+	static auto scaffMod = moduleMgr->getModule<Scaffold>();
+	static auto breakmod = moduleMgr->getModule<Fucker>();
+	if (!(noSwingMod->isEnabled() || killMod->isEnabled() && killMod->noSwing || scaffMod->isEnabled() && scaffMod->noSwing || breakmod->isEnabled() && breakmod->noSwing && breakmod->destroy)) return oFunc(_this);
 }
 
 void Hooks::Actor_startSwimming(C_Entity* _this) {

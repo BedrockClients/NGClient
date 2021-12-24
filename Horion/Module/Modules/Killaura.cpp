@@ -11,6 +11,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	registerBoolSetting("Rotations", &rotations, rotations);
 	registerBoolSetting("Sexy Rotations", &sexy, sexy);
 	registerBoolSetting("Silent Rotations", &silent, silent);
+	registerBoolSetting("NoSwing", &noSwing, noSwing);
 }
 
 Killaura::~Killaura() {

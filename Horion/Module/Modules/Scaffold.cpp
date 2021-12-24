@@ -11,6 +11,7 @@ Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build
 	registerBoolSetting("Auto Select", &autoselect, autoselect);
 	registerBoolSetting("Predict", &predict, predict);
 	registerBoolSetting("Hive", &rot, rot);
+	registerBoolSetting("NoSwing", &noSwing, noSwing);
 	registerBoolSetting("Y Lock", &yLock, yLock);
 	registerBoolSetting("Staircase Mode", &staircaseMode, staircaseMode);
 }
@@ -191,6 +192,19 @@ void Scaffold::onTick(C_GameMode* gm) {
 					}
 				}
 			}
+		if (!tryScaffold(blockBelowtest2)) {
+			if (speed > 0.05f) {
+				blockBelowtest2.z -= vel.z * 0.3f;
+				if (!tryScaffold(blockBelowtest2)) {
+					blockBelowtest2.x -= vel.x * 0.3f;
+					if (!tryScaffold(blockBelowtest2) && g_Data.getLocalPlayer()->isSprinting()) {
+						blockBelowtest2.z += vel.z;
+						blockBelowtest2.x += vel.x;
+						tryScaffold(blockBelowtest2);
+					}
+				}
+			}
+		}
 		if (!tryScaffold(blockBelowtest2)) {
 			if (speed > 0.05f) {
 				blockBelowtest2.z -= vel.z * 0.3f;

@@ -2,6 +2,7 @@
 
 Fucker::Fucker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific things around you") {
 	registerBoolSetting("Hive Bypass", &bypass, bypass);
+	registerBoolSetting("NoSwing", &noSwing, noSwing);
 	registerIntSetting("Range", &range, range, 1, 10);
 	registerBoolSetting("Beds", &beds, beds);
 	registerBoolSetting("Eggs", &eggs, eggs);
@@ -58,6 +59,7 @@ void Fucker::onTick(C_GameMode* gm) {
 					}
 					if (eat) {
 						gm->buildBlock(&blockPos, 0);
+						if (!noSwing)
 						g_Data.getLocalPlayer()->swingArm();
 						return;
 					}

@@ -14,12 +14,13 @@ private:
 	bool diamond = false;
 	bool emerald = false;
 	bool bypass = false;
-	bool destroy;
 	vec3_ti blockPos;
 
 public:
 	Fucker();
 	~Fucker();
+	bool noSwing = false;
+	bool destroy;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

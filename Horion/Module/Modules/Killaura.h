@@ -16,6 +16,7 @@ private:
 public:
 	int targethud = 0;
 	bool rotations = true;
+	bool noSwing = false;
 	bool isMulti = true;
 	bool isMobAura = false;
 	bool hurttime = true;
