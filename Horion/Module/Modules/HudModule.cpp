@@ -60,32 +60,12 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		if (!(g_Data.getLocalPlayer() == nullptr || !Msg || !GameData::canUseMoveKeys())) {
 			if (Surge->surge) {
 				std::string fpsText = "sup bitch";
-				vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
-				vec2_t textPos = vec2_t(rectPos.y + 250.5f, rectPos.x + 4.f);
-				{
 					if (Surge->surge)
-						DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
-				}
-				if (rcolors[3] < 1) {
-					rcolors[0] = 0.2f;
-					rcolors[1] = 0.2f;
-					rcolors[2] = 1.f;
-					rcolors[3] = 1;
-				}
+						DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(0, 0, 255), scale);
 			} else {
 				std::string fpsText = "NG Client on Top!";
-				vec4_t rectPos = vec4_t(0.5f, startY + 30.f * scale, len, startY + 100.f * scale);
-				vec2_t textPos = vec2_t(rectPos.y + 250.5f, rectPos.x + 4.f);
-				{
-					if (Surge->surge)
-						DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
-				}
-				if (rcolors[3] < 1) {
-					rcolors[0] = 0.2f;
-					rcolors[1] = 0.2f;
-					rcolors[2] = 1.f;
-					rcolors[3] = 1;
-				}
+					if (!Surge->surge)
+						DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(184, 0, 255), scale);
 			}
 		}
 	}
