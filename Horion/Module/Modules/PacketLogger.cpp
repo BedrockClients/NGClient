@@ -1,6 +1,9 @@
 #include "PacketLogger.h"
+#include <iomanip>
+#include <basetsd.h>
 
 PacketLogger::PacketLogger() : IModule(0, Category::WORLD, "Logging Packets !") {
+	registerBoolSetting("Packet Addr", &packetadd, &packetadd);
 }
 
 PacketLogger::~PacketLogger() {
@@ -11,6 +14,16 @@ const char* PacketLogger::getModuleName() {
 }
 
 void PacketLogger::onSendPacket(C_Packet* packet) {
+	if (packetadd) {
+		auto player = g_Data.getLocalPlayer();
+		uint64_t currVTable = *(UINT64*)packet;
+		std::stringstream stream;
+		stream << std::hex << (currVTable - Utils::getBase());
+		std::string result(stream.str());
+		std::string packetText = packet->getName()->getText() + (std::string) " (Minecraft.Windows.exe+" + result + ")";
+		TextHolder txt = TextHolder(packetText);
+		player->displayClientMessage(&txt);
+	}
 	 //if (packet->isInstanceOf<PlayerAuthInputPacket>()) {
 		//auto pk = reinterpret_cast<PlayerAuthInputPacket*>(packet);
 		//g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s action=%i", packet->getName()->getText(), pk->velocity); not rlly needed rn
