@@ -528,7 +528,7 @@ public:
 		return *reinterpret_cast<float *>(this->getSpeed() + 0x84);
 	}
 
-	int getBlocksPerSecond() {
+	float getBlocksPerSecond() {
 		float BPS = 0.f;
 		vec3_t velocity = this->velocity;
 		if (velocity.x < 0.f)
