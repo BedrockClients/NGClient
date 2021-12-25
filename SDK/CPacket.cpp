@@ -22,7 +22,7 @@ LevelSoundEventPacket::LevelSoundEventPacket() {
 PlayerAuthInputPacket::PlayerAuthInputPacket() {
 	static uintptr_t** PlayerAuthInputPacketVtable = 0x0;
 	if (PlayerAuthInputPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 05 ?? ?? ?? ?? 48 89 01 F2 0F 10 42 ?? F2 0F 11 41 ?? F2 0F 10 42");
+		uintptr_t sigOffset = FindSignature("0F 84 ? ? ? ? 48 8D 0D ? ? ? ? 0F 57 C0 0F 11 00 C7 40 ? ? ? ? ?") + 6;
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		PlayerAuthInputPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -36,7 +36,7 @@ PlayerAuthInputPacket::PlayerAuthInputPacket() {
 PlayerAuthInputPacket::PlayerAuthInputPacket(vec3_t pos, float pitch, float yaw, float yawUnused) {
 	static uintptr_t** PlayerAuthInputPacketVtable = 0x0;
 	if (PlayerAuthInputPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 05 ?? ?? ?? ?? 48 89 01 F2 0F 10 42 ?? F2 0F 11 41 ?? F2 0F 10 42");
+		uintptr_t sigOffset = FindSignature("0F 84 ? ? ? ? 48 8D 0D ? ? ? ? 0F 57 C0 0F 11 00 C7 40 ? ? ? ? ?") + 6;
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		PlayerAuthInputPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
