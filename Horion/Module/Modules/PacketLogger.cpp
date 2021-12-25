@@ -24,6 +24,11 @@ void PacketLogger::onSendPacket(C_Packet* packet) {
 		TextHolder txt = TextHolder(packetText);
 		player->displayClientMessage(&txt);
 	}
+	if (packet->isInstanceOf<C_PlayerActionPacket>()) {
+		auto pk = reinterpret_cast<C_PlayerActionPacket*>(packet);
+		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s action=%i", packet->getName()->getText(), pk->action);
+		return;
+	}
 	 //if (packet->isInstanceOf<PlayerAuthInputPacket>()) {
 		//auto pk = reinterpret_cast<PlayerAuthInputPacket*>(packet);
 		//g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s action=%i", packet->getName()->getText(), pk->velocity); not rlly needed rn
