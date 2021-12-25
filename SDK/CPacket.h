@@ -79,6 +79,10 @@ public:
 	__int64 entityRuntimeId; // 0x40
 };
 
+class C_SubChunkRequestPacket : public C_Packet {
+public:
+	C_SubChunkRequestPacket();
+};
 
 class C_MobEquipmentPacket : public C_Packet {
 public:

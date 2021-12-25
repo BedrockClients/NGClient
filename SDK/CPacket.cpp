@@ -179,3 +179,18 @@ C_PlayerActionPacket::C_PlayerActionPacket() {
 	memset(this, 0, sizeof(C_PlayerActionPacket));  // Avoid overwriting vtable
 	vTable = playerActionPacketVtable;
 }
+
+C_SubChunkRequestPacket::C_SubChunkRequestPacket() {
+	static uintptr_t** subChunkRequestPacketVtable = 0x0;
+	if (subChunkRequestPacketVtable == 0x0) {
+		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 0F 57 C0 0F 11 45 D7");
+		int offset = *reinterpret_cast<int*>(sigOffset + 3);
+		subChunkRequestPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
+#ifdef _DEBUG
+		if (subChunkRequestPacketVtable == 0x0 || sigOffset == 0x0)
+			__debugbreak();
+#endif
+	}
+	memset(this, 0, sizeof(C_SubChunkRequestPacket));  // Avoid overwriting vtable
+	vTable = subChunkRequestPacketVtable;
+}

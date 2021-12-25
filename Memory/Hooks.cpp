@@ -1308,7 +1308,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
 	static auto tp = moduleMgr->getModule<Teleport>();
-	//if (packet->isInstanceOf<C_InventoryTransactionPacket>()) Good for testing packet sigs
+	//if (packet->isInstanceOf<C_SubChunkRequestPacket>()) //Good for testing packet sigs
 	//	g_Data.getLocalPlayer()->jumpFromGround();
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
