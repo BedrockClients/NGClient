@@ -84,6 +84,11 @@ public:
 	C_SubChunkRequestPacket();
 };
 
+class C_EmotePacket : public C_Packet {
+public:
+	C_EmotePacket();
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();
