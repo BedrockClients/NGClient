@@ -133,7 +133,7 @@ C_TextPacket::C_TextPacket() {
 C_MovePlayerPacket::C_MovePlayerPacket() {
 	static uintptr_t** movePlayerPacketVtable = 0x0;
 	if (movePlayerPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 05 ?? ?? ?? ?? 49 89 40 08 48 8B 47 30 49 89");
+		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 49 89 40 08 48 8B 47 30");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		movePlayerPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -147,7 +147,7 @@ C_MovePlayerPacket::C_MovePlayerPacket() {
 C_MovePlayerPacket::C_MovePlayerPacket(C_LocalPlayer* player, vec3_t pos) {
 	static uintptr_t** movePlayerPacketVtable = 0x0;
 	if (movePlayerPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 05 ?? ?? ?? ?? 49 89 40 08 48 8B 47 30 49 89");
+		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 49 89 40 08 48 8B 47 30");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		movePlayerPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
