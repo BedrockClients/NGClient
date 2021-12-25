@@ -209,3 +209,22 @@ C_EmotePacket::C_EmotePacket() {
 	memset(this, 0, sizeof(C_EmotePacket));  // Avoid overwriting vtable
 	vTable = emotePacketVtable;
 }
+
+C_AnimatePacket::C_AnimatePacket() {
+	static uintptr_t** animatePacketVtable = 0x0;
+	if (animatePacketVtable == 0x0) {
+		uintptr_t sigOffset = FindSignature("89 75 88 48 8D 0D ? ? ? ?") + 3;
+		int offset = *reinterpret_cast<int*>(sigOffset + 3);
+		animatePacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
+#ifdef _DEBUG
+		if (animatePacketVtable == 0x0 || sigOffset == 0x0)
+			__debugbreak();
+#endif
+	}
+	memset(this, 0, sizeof(C_AnimatePacket));  // Avoid overwriting vtable
+	vTable = animatePacketVtable;
+}
+/*
+C_AnimatePacket::C_AnimatePacket(AnimatePacket Action, __int64 entityRuntimeId, float) {
+}
+*/

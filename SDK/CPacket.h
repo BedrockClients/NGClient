@@ -89,6 +89,12 @@ public:
 	C_EmotePacket();
 };
 
+class C_AnimatePacket : public C_Packet {
+public:
+	C_AnimatePacket();
+	//C_AnimatePacket(class AnimatePacket Action, __int64 entityRuntimeId, float);
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();
