@@ -2,6 +2,7 @@
 #include "Module.h"
 class PacketLogger : public IModule {
 public:
+	bool packetadd;
 	PacketLogger();
 	~PacketLogger();
 

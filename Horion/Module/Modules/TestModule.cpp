@@ -83,6 +83,7 @@ void TestModule::onEnable() {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
+	auto player = g_Data.getLocalPlayer();
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {
@@ -107,4 +108,7 @@ void TestModule::onDisable() {
 }
 
 void TestModule::onLevelRender() {
+}
+
+void TestModule::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 }
