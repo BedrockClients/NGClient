@@ -7,7 +7,7 @@ TextHolder* C_Packet::getName() {
 LevelSoundEventPacket::LevelSoundEventPacket() {
 	static uintptr_t** LevelSoundEventPacketVtable = 0x0;
 	if (LevelSoundEventPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4D ? C7 45 ? ? ? ? ? F2 0F 10 00 F2 0F 11 45 ? 8B 40");
+		uintptr_t sigOffset = FindSignature("89 55 38 48 8D 0D ? ? ? ?") + 3;
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		LevelSoundEventPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
