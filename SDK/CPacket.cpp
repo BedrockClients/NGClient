@@ -117,7 +117,7 @@ C_InventoryTransactionPacket::C_InventoryTransactionPacket() {
 C_TextPacket::C_TextPacket() {
 	static uintptr_t** textPacketVtable = 0x0;
 	if (textPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 05 ?? ?? ?? ?? 48 8B F9 48 89 01 48 83 C1 ?? E8 ?? ?? ?? ?? 48 8D 8F");
+		uintptr_t sigOffset = FindSignature("90 48 8D 05 ? ? ? ? 48 89 44 24 ? 48 8D 4D D8") + 1;
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		textPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
