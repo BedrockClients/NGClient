@@ -95,6 +95,11 @@ public:
 	//C_AnimatePacket(class AnimatePacket Action, __int64 entityRuntimeId, float);
 };
 
+class C_NPCRequestPacket : public C_Packet {
+public:
+	C_NPCRequestPacket();
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();

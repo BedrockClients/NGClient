@@ -1308,8 +1308,9 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
 	static auto tp = moduleMgr->getModule<Teleport>();
-	//if (packet->isInstanceOf<C_EmotePacket>()) {  //Good for testing packet sigs
-	//	//return;
+	static auto test = moduleMgr->getModule<TestModule>();
+	//if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
+		//return;
 	//	g_Data.getLocalPlayer()->jumpFromGround();
 	//}
 

@@ -229,3 +229,18 @@ C_AnimatePacket::C_AnimatePacket() {
 C_AnimatePacket::C_AnimatePacket(AnimatePacket Action, __int64 entityRuntimeId, float) {
 }
 */
+
+C_NPCRequestPacket::C_NPCRequestPacket() {
+	static uintptr_t** npcRequestPacketVtable = 0x0;
+	if (npcRequestPacketVtable == 0x0) {
+		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 48 89 03 48 89 53 30");
+		int offset = *reinterpret_cast<int*>(sigOffset + 3);
+		npcRequestPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
+#ifdef _DEBUG
+		if (npcRequestPacketVtable == 0x0 || sigOffset == 0x0)
+			__debugbreak();
+#endif
+	}
+	memset(this, 0, sizeof(C_NPCRequestPacket));  // Avoid overwriting vtable
+	vTable = npcRequestPacketVtable;
+}
