@@ -244,3 +244,18 @@ C_NPCRequestPacket::C_NPCRequestPacket() {
 	memset(this, 0, sizeof(C_NPCRequestPacket));  // Avoid overwriting vtable
 	vTable = npcRequestPacketVtable;
 }
+
+PlayerSkinPacket::PlayerSkinPacket() {
+	static uintptr_t** playerSkinPacketVtable = 0x0;
+	if (playerSkinPacketVtable == 0x0) {
+		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 48 89 01 48 89 79 30 48 89 79 38 48 83 C1 40");
+		int offset = *reinterpret_cast<int*>(sigOffset + 3);
+		playerSkinPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
+#ifdef _DEBUG
+		if (playerSkinPacketVtable == 0x0 || sigOffset == 0x0)
+			__debugbreak();
+#endif
+	}
+	memset(this, 0, sizeof(PlayerSkinPacket));  // Avoid overwriting vtable
+	vTable = playerSkinPacketVtable;
+}

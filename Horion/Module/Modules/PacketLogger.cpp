@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <basetsd.h>
 
-PacketLogger::PacketLogger() : IModule(0, Category::WORLD, "Logging Packets !") {
+PacketLogger::PacketLogger() : IModule(0, Category::WORLD, "Logging Packets! (PlayerAuthInput & SubChunkRequest don't display for spam reasons)") {
 	registerBoolSetting("Packet Addr", &packetadd, &packetadd);
 }
 
@@ -40,8 +40,7 @@ void PacketLogger::onSendPacket(C_Packet* packet) {
 			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s sound=%i", packet->getName()->getText(), pk->sound);
 			return;
 		}
-
-		if (strcmp(packet->getName()->getText(), "PlayerAuthInputPacket") != 0) {
+		if (strcmp(packet->getName()->getText(), "PlayerAuthInputPacket") != 0 && strcmp(packet->getName()->getText(), "SubChunkRequestPacket") != 0) {
 			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s", packet->getName()->getText());
 		}
 	}
