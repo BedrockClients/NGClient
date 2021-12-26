@@ -1,7 +1,5 @@
 #include "SwingAnimations.h"
 
-using json = nlohmann::json;
-
 SwingAnimations::SwingAnimations() : IModule(0, Category::VISUAL, "SwingAnimations. Simple As That") {
 	registerBoolSetting("FloppySwing", &floppySwing, floppySwing);
 	registerBoolSetting("FluxSwing", &fluxSwing, fluxSwing);
@@ -46,6 +44,12 @@ void SwingAnimations::onEnable() {
 		Nop3((BYTE*)targetAddress, 8);
 	}
 
+	//NoObstruct
+	if (noObstructSwing) {
+		targetAddress = (void*)FindSignature("F3 ? ? F0 ? ? C8 F3 ? ? C8");
+		Nop3((BYTE*)targetAddress, 4);
+	}
+
 
 }
 
@@ -58,7 +62,11 @@ void SwingAnimations::onDisable() {
 
 	//Flux
 	if (fluxSwing)
-	Patch3((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
+		Patch3((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
+
+	//NoObstruct
+	if (noObstructSwing)
+		Patch3((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
 
 
 }
