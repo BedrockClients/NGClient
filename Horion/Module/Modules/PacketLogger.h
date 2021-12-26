@@ -3,6 +3,8 @@
 class PacketLogger : public IModule {
 public:
 	bool packetadd;
+	bool showauthinput;
+	bool showsubchunk;
 	PacketLogger();
 	~PacketLogger();
 
