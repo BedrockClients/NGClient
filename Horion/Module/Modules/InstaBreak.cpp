@@ -14,8 +14,8 @@ void InstaBreak::onTick(C_GameMode* gm) {
 	if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && bypass && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
 		PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
 		bool isDestroyed = false;
+		gm->stopDestroyBlock(pointing->block);
 		gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
 		gm->destroyBlock(new vec3_ti(pointing->block), pointing->blockSide);
-		gm->stopDestroyBlock(pointing->block);
 	}
 }

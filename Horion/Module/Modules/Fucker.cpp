@@ -48,23 +48,43 @@ void Fucker::onTick(C_GameMode* gm) {
 							bool isDestroyed = false;
 							if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
 								PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
+								gm->stopDestroyBlock(pointing->block);
 								gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
 								gm->destroyBlock(new vec3_ti(pointing->block), pointing->blockSide);
-								gm->stopDestroyBlock(pointing->block);
 							}
+							gm->stopDestroyBlock(blockPos);
 							gm->startDestroyBlock(blockPos, gm->player->region->getBlock(blockPos)->data, isDestroyed);
 							gm->destroyBlock(&blockPos, gm->player->region->getBlock(blockPos)->data);
-							gm->stopDestroyBlock(blockPos);
 						}
 					}
 					if (eat) {
 						gm->buildBlock(&blockPos, 0);
 						if (!noSwing)
-						g_Data.getLocalPlayer()->swingArm();
+							g_Data.getLocalPlayer()->swingArm();
 						return;
 					}
 				}
 			}
+		}
+		if (destroy) {
+			//srand(time(NULL));
+			//auto pos2 = *g_Data.getLocalPlayer()->getPos();
+			//float targetX = (float)(blockPos.x) - (float)(pos2.x);
+			//float targetY = (float)(blockPos.y) - (float)(pos2.y);
+			//float targetZ = (float)(blockPos.z) - (float)(pos2.z);
+			//float breakAimX = atan2f(targetZ, targetX) * (180.f / PI) - 90.f;
+			//float breakAimY = atan2f(targetY, sqrtf((targetX * targetX) + (targetZ * targetZ))) * (-180.f / PI);
+			//float xChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 10.f));
+			//xChange -= 5.f;
+			//float yChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 5.f));
+			//yChange -= 2.5f;
+			//C_MovePlayerPacket pkt;
+			//pkt.Position = pos2;
+			//pkt.pitch = breakAimX + yChange;
+			//pkt.yaw = breakAimY + xChange;
+			//pkt.onGround = g_Data.getLocalPlayer()->onGround;
+			//pkt.entityRuntimeID = g_Data.getLocalPlayer()->entityRuntimeId;
+			//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&pkt);
 		}
 	}
 }
