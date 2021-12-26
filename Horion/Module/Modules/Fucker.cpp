@@ -75,6 +75,7 @@ void Fucker::onSendPacket(C_Packet* packet) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(reinterpret_cast<vec3_t&>(blockPos));
 			movePacket->pitch = angle.x;
+			movePacket->headYaw = angle.y;
 			movePacket->yaw = angle.y;
 		}
 	}
@@ -88,6 +89,8 @@ void Fucker::onLevelRender() {
 				int id = ent->getEntityTypeId();
 				if (name.find("Treasure") != std::string::npos && g_Data.getLocalPlayer()->getPos()->dist(*ent->getPos()) <= 5) {
 					g_Data.getCGameMode()->attack(ent);
+					auto breakMod = moduleMgr->getModule<Fucker>();
+					if (!breakMod->noSwing)
 					g_Data.getLocalPlayer()->swingArm();
 				}
 			});

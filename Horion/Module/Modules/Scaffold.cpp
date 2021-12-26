@@ -229,6 +229,10 @@ void Scaffold::onLevelRender() {
 }
 
 void Scaffold::onSendPacket(C_Packet* packet) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && rot) {
+		auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+		movePacket->pitch = 90;
+	}
 }
 
 void Scaffold::onEnable() {
