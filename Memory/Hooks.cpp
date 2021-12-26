@@ -1281,6 +1281,7 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	static auto potionAuramod = moduleMgr->getModule<PotionAura>();
 	static auto freelookMod = moduleMgr->getModule<Freelook>();
 	static auto botMod = moduleMgr->getModule<FightBot>();
+	static auto targetMod = moduleMgr->getModule<TargetStrafe>();
 #ifdef _DEBUG
 	static auto test = moduleMgr->getModule<TestModule>();
 #endif
@@ -1295,6 +1296,9 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	}
 	if (freelookMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
 		sexyAngle = {freelookMod->oldPos.x, freelookMod->oldPos.y};
+	}
+	if (targetMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
+		sexyAngle = {targetMod->hoe.x, targetMod->hoe.y};
 	}
 	oFunc(_this, sexyAngle);
 }

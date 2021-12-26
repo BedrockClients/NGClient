@@ -22,6 +22,7 @@
 #include "Modules/AutoTotem.h"
 #include "Modules/Fucker.h"
 #include "Modules/Bhop.h"
+#include "Modules/TargetStrafe.h"
 #include "Modules/Blink.h"
 #include "Modules/BowAimbot.h"
 #include "Modules/AntilagBack.h"

@@ -227,6 +227,7 @@
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
     <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
+    <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -495,6 +496,7 @@
     <ClInclude Include="Horion\Module\Modules\AutoArmor.h" />
     <ClInclude Include="Horion\Module\Modules\SoundPlayer.h" />
     <ClInclude Include="Horion\Module\Modules\chestaura.h" />
+    <ClInclude Include="Horion\Module\Modules\TargetStrafe.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
