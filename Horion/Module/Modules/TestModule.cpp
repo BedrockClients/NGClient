@@ -76,14 +76,13 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 }
 
 void TestModule::onEnable() {
-	//if (targetAddress == nullptr)
-		//targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
-	//BYTE* patch = (BYTE*)"\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90";
-	//patchBytes((BYTE*)((uintptr_t)targetAddress), patch, 6);//FLUX SWING WOOOOOOOOOOOOOO
+	vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+	pos.y += 7;
+	g_Data.getLocalPlayer()->setPos(pos);
 }
 
 void TestModule::onTick(C_GameMode* gm) {
-	auto player = g_Data.getLocalPlayer();
+	
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {
@@ -93,18 +92,12 @@ void TestModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 }
 
 void TestModule::onSendPacket(C_Packet* packet) {
-	if (packet->isInstanceOf<C_PlayerActionPacket>()) {
-		auto* soundpacket = reinterpret_cast<C_PlayerActionPacket*>(packet);
-		if (bool1)
-			soundpacket->action = (int)(rand() % 50);
-		else
-			soundpacket->action = float1;
-	}
 }
 
 void TestModule::onDisable() {
-	//BYTE* patch = (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B\x46\x40\x48\x85\xC0";
-	//patchBytes((BYTE*)((uintptr_t)targetAddress), patch, 6);
+	vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+	pos.y += 7;
+	g_Data.getLocalPlayer()->setPos(pos);
 }
 
 void TestModule::onLevelRender() {
