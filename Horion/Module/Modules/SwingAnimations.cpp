@@ -50,6 +50,13 @@ void SwingAnimations::onEnable() {
 		Nop3((BYTE*)targetAddress, 4);
 	}
 
+	//PushSwing
+	if (pushSwing) {
+		targetAddress = (void*)FindSignature("F3 ? ? F0 ? ? C8 F3 ? ? C8");
+		targetAddress2 = (void*)FindSignature("F3 ? ? C1 ? ? C8 48 8D 15");
+		Nop3((BYTE*)targetAddress, 4);
+		Nop3((BYTE*)targetAddress2, 4);
+	}
 
 }
 
@@ -68,5 +75,9 @@ void SwingAnimations::onDisable() {
 	if (noObstructSwing)
 		Patch3((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
 
-
+	//PushSwing
+	if (pushSwing) {
+		Patch3((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\xF3\x0F\x2C\xC1", 4);
+		Patch3((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
+	}
 }
