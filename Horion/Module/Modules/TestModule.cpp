@@ -82,7 +82,8 @@ void TestModule::onEnable() {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
-	
+	//C_AnimatePacket p;
+	//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {
@@ -95,9 +96,9 @@ void TestModule::onSendPacket(C_Packet* packet) {
 }
 
 void TestModule::onDisable() {
-	vec3_t pos = *g_Data.getLocalPlayer()->getPos();
-	pos.y += 7;
-	g_Data.getLocalPlayer()->setPos(pos);
+	//vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+	//pos.y += 7;
+	//g_Data.getLocalPlayer()->setPos(pos);
 }
 
 void TestModule::onLevelRender() {

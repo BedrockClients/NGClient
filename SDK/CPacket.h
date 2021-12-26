@@ -106,6 +106,15 @@ public:
 	__int64 Unknown2;//Test
 };
 
+class PlayerSkinPacket : public C_Packet {
+public:
+	PlayerSkinPacket();
+	__int64 UUID;//Test
+	__int64 skin;//Test
+	std::string skinName;//Test
+	std::string oldSkinName;//Test
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();
