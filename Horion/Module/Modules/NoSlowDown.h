@@ -2,8 +2,8 @@
 #include "Module.h"
 class NoSlowDown : public IModule {
 private:
-	void* targetAddress;
-	void* targetAddress2;
+	uint8_t* opcode = 0;
+	uint8_t* opcode1 = 0;
 
 public:
 	NoSlowDown();
