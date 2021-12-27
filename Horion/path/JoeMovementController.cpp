@@ -175,7 +175,8 @@ void JoeMovementController::step(C_LocalPlayer *player, C_MoveInputHandler *move
 			} else {
 				static auto jees = moduleMgr->getModule<Jesus>();
 				player->setSprinting(curSeg.isAllowingSprint());
-				if (player->isInWater()) {
+				// if player is in the water
+				if (player->isInWater() || player->isOverWater()) {
 					player->setSprinting(curSeg.isAllowingSprint());
 					if (!jees->isEnabled()) {
 						jees->setEnabled(true);

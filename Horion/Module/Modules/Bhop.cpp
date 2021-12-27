@@ -6,7 +6,7 @@ Bhop::Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
 	registerBoolSetting("Hive", &hive, hive);
 	registerBoolSetting("Rotations", &rot, rot);
 	registerBoolSetting("Speed", &bhopspeed, bhopspeed);
-	registerFloatSetting("LowHop Frequency", &height, height, 0.1f, 1.f);
+	registerFloatSetting("LowHop Frequency", &hight, hight, 0.1f, 1.f);
 	registerFloatSetting("Bhop Speed", &speed, speed, 0.1f, 1.0f);
 	registerFloatSetting("Timer Speed", &tspeed, tspeed, 0.21f, 2.f);
 }
@@ -53,7 +53,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 
 	if (counter == 1) {
 		if (pressed && LowHop) {
-			player->velocity.y -= height;
+			player->velocity.y -= hight;
 		}
 	}
 
