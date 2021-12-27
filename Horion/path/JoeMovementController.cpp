@@ -184,7 +184,6 @@ void JoeMovementController::step(C_LocalPlayer *player, C_MoveInputHandler *move
 					player->setSprinting(curSeg.isAllowingSprint());
 					static auto jees = moduleMgr->getModule<Jesus>();
 					if (jees->isEnabled()) {
-						jees->setEnabled(false);
 						player->setPos((*player->getPos()).add(0, 0.01, 0));
 					}
 				}
