@@ -1,5 +1,4 @@
 #include "Bhop.h"
-int retard = 0;
 
 Bhop::Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
 	registerBoolSetting("Timer", &timer, timer);
@@ -57,10 +56,6 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 			player->velocity.y -= hight;
 		}
 	}
-	if (retard == 2) {
-		retard = 0;
-	}else
-	retard++;
 
 	if (counter == 2) {
 		counter = 0;
@@ -80,17 +75,6 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 		moveVec.x = moveVec2d.x * speed;
 		moveVec.y = player->velocity.y;
 		moveVec.z = moveVec2d.y * speed;
-		if (pressed) player->lerpMotion(moveVec);
-	} else if (hive && retard == 1) {
-		auto gay = speed / 2.1;
-		float calcYaw = (player->yaw + 90) * (PI / 180);
-		vec3_t moveVec;
-		float c = cos(calcYaw);
-		float s = sin(calcYaw);
-		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-		moveVec.x = moveVec2d.x * gay;
-		moveVec.y = player->velocity.y;
-		moveVec.z = moveVec2d.y * gay;
 		if (pressed) player->lerpMotion(moveVec);
 	} else if (!hive) {
 		float calcYaw = (player->yaw + 90) * (PI / 180);
