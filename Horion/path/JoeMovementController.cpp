@@ -173,37 +173,21 @@ void JoeMovementController::step(C_LocalPlayer *player, C_MoveInputHandler *move
 					movementHandler->isSneakDown = 1;
 
 			} else {
+				static auto jees = moduleMgr->getModule<Jesus>();
 				player->setSprinting(curSeg.isAllowingSprint());
 				if (player->isInWater()) {
 					player->setSprinting(curSeg.isAllowingSprint());
-					static auto jees = moduleMgr->getModule<Jesus>();
 					if (!jees->isEnabled()) {
 						jees->setEnabled(true);
 					}
 				} else {
 					player->setSprinting(curSeg.isAllowingSprint());
-					static auto jees = moduleMgr->getModule<Jesus>();
 					if (jees->isEnabled()) {
 						player->setPos((*player->getPos()).add(0, 0.01, 0));
 					}
 				}
-				if (player->isOverWater()) {
-					player->setSprinting(curSeg.isAllowingSprint());
-					static auto jees = moduleMgr->getModule<Jesus>();
-					if (!jees->isEnabled()) {
-						jees->setEnabled(true);
-					}
-				} else {
-					player->setSprinting(curSeg.isAllowingSprint());
-					static auto jees = moduleMgr->getModule<Jesus>();
-					if (jees->isEnabled()) {
-						player->setSprinting(curSeg.isAllowingSprint());
-						jees->setEnabled(false);
-						if (!player->isOverWater()) {
-							player->setSprinting(curSeg.isAllowingSprint());
-							player->setPos((*player->getPos()).add(0, 0.001, 0));
-						}
-					}
+				if (!player->isOverWater()) {
+					jees->setEnabled(false);
 				}
 				player->setSprinting(curSeg.isAllowingSprint());
 				tangent.y = 0;
