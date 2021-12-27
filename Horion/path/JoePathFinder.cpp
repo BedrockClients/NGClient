@@ -73,7 +73,7 @@ __forceinline bool isDangerous(const vec3_ti& pos, C_BlockSource* reg, bool allo
 	{
 		// there is a function called dealsContactDamage but it takes in so many parameters + plant growth that its not useful anymore
 		static std::set<uintptr_t**> knownVtableSet;
-		static std::vector<const char*> dangerousTiles{"sweet_berry_bush", "magma", "wither_rose", "cactus", "web"};
+		static std::vector<const char*> dangerousTiles{"sweet_berry_bush", "magma", "wither_rose", "cactus", "web", "lava", "ladder", "vine"};
 
 		for (uintptr_t** vtable : knownVtableSet) 
 			if (obs1->Vtable == vtable)
