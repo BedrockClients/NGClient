@@ -24,7 +24,7 @@ void JoeMovementController::step(C_LocalPlayer *player, C_MoveInputHandler *move
 	auto curSeg = this->currentPath->getSegment(this->stateInfo.currentPathSegment);
 
 	if(!curSeg.isInValidPosition(playerNode)){
-		logF("invalid position %i %i %i, %i %i %i", curSeg.getSegmentType(), this->stateInfo.currentPathSegment, this->stateInfo.currentPathSegment > 0 ? this->currentPath->getSegment(this->stateInfo.currentPathSegment - 1).getSegmentType() : 0, playerNode.x, playerNode.y, playerNode.z);
+		logF("invalid position %i %i %i, The Invalid Pos: %i %i %i", curSeg.getSegmentType(), this->stateInfo.currentPathSegment, this->stateInfo.currentPathSegment > 0 ? this->currentPath->getSegment(this->stateInfo.currentPathSegment - 1).getSegmentType() : 0, playerNode.x, playerNode.y, playerNode.z);
 		this->stateInfo.recoverToStartPos = true;
 	}
 
