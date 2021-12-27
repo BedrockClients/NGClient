@@ -5,6 +5,7 @@ SwingAnimations::SwingAnimations() : IModule(0, Category::VISUAL, "SwingAnimatio
 	registerBoolSetting("FluxSwing", &fluxSwing, fluxSwing);
 	registerBoolSetting("NoObstructSwing", &noObstructSwing, noObstructSwing);
 	registerBoolSetting("PushSwing", &pushSwing, pushSwing);
+	registerBoolSetting("FakeJavaSwing", &fakeJavaSwing, fakeJavaSwing);
 }
 
 SwingAnimations::~SwingAnimations() {
@@ -58,6 +59,12 @@ void SwingAnimations::onEnable() {
 		Nop3((BYTE*)targetAddress2, 4);
 	}
 
+	//Java
+	if (fakeJavaSwing) {
+		targetAddress = (void*)FindSignature("0F 28 F8 F3 0F 59 3D ? ? ? ? C6 47");
+		Nop3((BYTE*)targetAddress, 3);
+	}
+
 }
 
 void SwingAnimations::onDisable() {
@@ -80,4 +87,8 @@ void SwingAnimations::onDisable() {
 		Patch3((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\xF3\x0F\x2C\xC1", 4);
 		Patch3((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
 	}
+
+	//Java
+	if (fakeJavaSwing)
+		Patch3((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x28\xF8\xF3", 3);
 }

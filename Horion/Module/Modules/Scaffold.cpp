@@ -105,7 +105,7 @@ bool Scaffold::findBlock() {
 	for (int n = 0; n < 36; n++) {
 		C_ItemStack* stack = inv->getItemStack(n);
 		if (stack->item != nullptr) {
-			if (stack->getItem()->isBlock()) {
+			if (stack->getItem()->isBlock() && isUsefulBlock(stack)) {
 				if (prevSlot != n)
 					supplies->selectedHotbarSlot = n;
 				return true;
@@ -113,6 +113,23 @@ bool Scaffold::findBlock() {
 		}
 	}
 	return false;
+}
+
+bool Scaffold::isUsefulBlock(C_ItemStack* itemStack) {
+	std::vector<std::string> uselessSubstrings = {"_button", "chest", "vine", "pressure_plate", "fence", "_wall", "_stairs", "_table", "furnace", "trapdoor", "command_block", "torch", "carpet"};
+	std::vector<std::string> uselessNames = {"cake", "ladder", "tnt", "lever", "loom", "scaffolding", "web", "sand", "gravel", "dragon_egg", "anvil"};
+	std::string itemName = itemStack->getItem()->name.getText();
+	for (auto substring : uselessSubstrings) {
+		if (itemName.find(substring) != std::string::npos) {
+			return 0;
+		}
+	}
+	for (auto name : uselessNames) {
+		if (itemName == name) {
+			return 0;
+		}
+	}
+	return 1;
 }
 
 void Scaffold::onTick(C_GameMode* gm) {
@@ -238,7 +255,7 @@ void Scaffold::onSendPacket(C_Packet* packet) {
 void Scaffold::onEnable() {
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	slot = supplies->selectedHotbarSlot;
-	blockBelowtest.y = g_Data.getLocalPlayer()->eyePos0.y;  // Block below the player
+	blockBelowtest = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 	blockBelowtest.y -= 2.5f;
 }
 void Scaffold::onDisable() {

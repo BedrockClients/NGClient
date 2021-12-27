@@ -11,6 +11,7 @@ private:
 	bool staircaseMode = false;
 	bool tryScaffold(vec3_t blockBelow);
 	bool findBlock();
+	bool isUsefulBlock(C_ItemStack* itemStack);
 	bool rot = false;
 	vec3_t blockBelowtest;
 	vec3_t blockBelowtest2;

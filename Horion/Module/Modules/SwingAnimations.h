@@ -7,6 +7,7 @@ public:
 	bool fluxSwing = true;
 	bool noObstructSwing = false;
 	bool pushSwing = false;
+	bool fakeJavaSwing = false;
 	void* targetAddress;
 	void* targetAddress2;
 	SettingEnum enum1;
