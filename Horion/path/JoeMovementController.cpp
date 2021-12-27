@@ -2,6 +2,7 @@
 
 #include "../../Utils/Logger.h"
 #include <utility>
+#include "../Module/ModuleManager.h"
 JoeMovementController::JoeMovementController(std::shared_ptr<JoePath> path) : currentPath(path) {
 }
 
@@ -155,47 +156,82 @@ void JoeMovementController::step(C_LocalPlayer *player, C_MoveInputHandler *move
 	} break;
 	case WATER_WALK: {
 		{
+			player->setSprinting(curSeg.isAllowingSprint());
 			auto tangent = end.sub(start);
 			bool isVertical = tangent.magnitudexz() < 0.1f && fabsf(tangent.y) > 0.5f;
 
-			if(isVertical){
-				if(pPos.sub(end).magnitudexz() < 0.3f && fabsf(pPos.y - end.y) < 0.35f){
+			if (isVertical) {
+				player->setSprinting(curSeg.isAllowingSprint());
+				if (pPos.sub(end).magnitudexz() < 0.3f && fabsf(pPos.y - end.y) < 0.35f) {
 					this->stateInfo.nextSegment();
 					break;
 				}
 
-				if(pPos.y + 0.1f < end.y)
+				if (pPos.y + 0.1f < end.y)
 					movementHandler->isJumping = 1;
-				else if(pPos.y > end.y)
+				else if (pPos.y > end.y)
 					movementHandler->isSneakDown = 1;
 
-			}else{
-
-				if(player->isInWater())
-					movementHandler->isJumping = 1;
-
+			} else {
+				player->setSprinting(curSeg.isAllowingSprint());
+				if (player->isInWater()) {
+					player->setSprinting(curSeg.isAllowingSprint());
+					static auto jees = moduleMgr->getModule<Jesus>();
+					if (!jees->isEnabled()) {
+						jees->setEnabled(true);
+					}
+				} else {
+					player->setSprinting(curSeg.isAllowingSprint());
+					static auto jees = moduleMgr->getModule<Jesus>();
+					if (jees->isEnabled()) {
+						jees->setEnabled(false);
+						player->setPos((*player->getPos()).add(0, 0.01, 0));
+					}
+				}
+				if (player->isOverWater()) {
+					player->setSprinting(curSeg.isAllowingSprint());
+					static auto jees = moduleMgr->getModule<Jesus>();
+					if (!jees->isEnabled()) {
+						jees->setEnabled(true);
+					}
+				} else {
+					player->setSprinting(curSeg.isAllowingSprint());
+					static auto jees = moduleMgr->getModule<Jesus>();
+					if (jees->isEnabled()) {
+						player->setSprinting(curSeg.isAllowingSprint());
+						jees->setEnabled(false);
+						if (!player->isOverWater()) {
+							player->setSprinting(curSeg.isAllowingSprint());
+							player->setPos((*player->getPos()).add(0, 0.001, 0));
+						}
+					}
+				}
+				player->setSprinting(curSeg.isAllowingSprint());
 				tangent.y = 0;
 				tangent = tangent.normalize();
 				auto crossTangent = tangent.cross({0, 1, 0});
 				float sideError = fabsf(pPos.sub(end).dot(crossTangent));
-				if(sideError < 0.2f /*make sure we're not drifting to the side to much*/ && fabsf(pPos.sub(end).dot(tangent)) < 0.4f){
+				if (sideError < 0.2f /*make sure we're not drifting to the side to much*/ && fabsf(pPos.sub(end).dot(tangent)) < 0.4f) {
 					this->stateInfo.nextSegment();
 					break;
 				}
-				if(end.y > start.y && sideError > 0.15f && pPos.y - end.y < -0.1f)
-					walkTarget = start.add(tangent.mul(0.2f)); // center if we need to get up a block
+				if (end.y > start.y && sideError > 0.15f && pPos.y - end.y < -0.1f)
+					walkTarget = start.add(tangent.mul(0.2f));  // center if we need to get up a block
 			}
 
 			vec3_t flow{};
 
 			auto block = player->region->getBlock(playerNode);
-			if(!block->toLegacy()->material->isLiquid){
-				auto mod = playerNode.add(0, -1, 0);
+			if (!block->toLegacy()->material->isLiquid) {
+				player->setSprinting(curSeg.isAllowingSprint());
+				auto mod = playerNode.add(0, -0.9, 0);
 				block = player->region->getBlock(mod);
 
-				if(block->toLegacy()->material->isLiquid)
-					block->toLegacy()->liquidGetFlow(&flow, player->region, &mod);
-			}else{
+				if (block->toLegacy()->material->isLiquid)
+					player->setSprinting(curSeg.isAllowingSprint());
+				block->toLegacy()->liquidGetFlow(&flow, player->region, &mod);
+			} else {
+				player->setSprinting(curSeg.isAllowingSprint());
 				block->toLegacy()->liquidGetFlow(&flow, player->region, &playerNode);
 			}
 
