@@ -108,8 +108,6 @@ void JoeMovementController::step(C_LocalPlayer *player, C_MoveInputHandler *move
 		goto WALK;
 	} break;
 	case PARKOUR_JUMP_SINGLE: {
-		if(player->isSprinting())
-			player->setSprinting(false);
 		if(player->onGround){
 			if(fabsf(pPos.y - end.y) < 0.1f && pPos.dist(end) < 0.5f){// Check for end condition
 				this->stateInfo.nextSegment();
