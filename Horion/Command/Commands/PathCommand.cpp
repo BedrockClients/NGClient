@@ -22,7 +22,7 @@ bool PathCommand::execute(std::vector<std::string>* args) {
 	if (cmd == "y") {
 		assertTrue(args->size() > 2);
 		int yLevel = assertInt(args->at(2));
-		assertTrue(yLevel > 0 && yLevel < 256);
+		assertTrue(yLevel > -64 && yLevel < 321);
 
 		mod->goal = std::make_unique<JoeGoalY>((float)yLevel);
 		mod->setEnabled(true);
