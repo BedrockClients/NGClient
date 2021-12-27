@@ -1,25 +1,25 @@
 #include "PathCommand.h"
 
 #include "../../Module/ModuleManager.h"
-#include "../../path/goals/JoeGoalY.h"
-#include "../../path/goals/JoeGoalXZ.h"
 #include "../../path/goals/JoeGoalXYZ.h"
+#include "../../path/goals/JoeGoalXZ.h"
+#include "../../path/goals/JoeGoalY.h"
 
-PathCommand::PathCommand() : IMCCommand("path", "Joe path", "<y|xz|xyz> [args]"){
-	registerAlias("joe");
+PathCommand::PathCommand() : IMCCommand("path", "Joe path", "<y|xz|xyz/player> [coords/playername] [killaura]") {
+	this->registerAlias("joe");
 }
 PathCommand::~PathCommand() {
 }
-bool PathCommand::execute(std::vector<std::string> *args) {
+bool PathCommand::execute(std::vector<std::string>* args) {
 	assertTrue(args->size() > 1);
 	static auto mod = moduleMgr->getModule<FollowPathModule>();
-	if(mod->isEnabled()){
+	if (mod->isEnabled()) {
 		clientMessageF("Joe is already enabled, disable joe to use this command");
 		return true;
 	}
 
 	auto cmd = args->at(1);
-	if(cmd == "y"){
+	if (cmd == "y") {
 		assertTrue(args->size() > 2);
 		int yLevel = assertInt(args->at(2));
 		assertTrue(yLevel > 0 && yLevel < 256);
@@ -30,7 +30,7 @@ bool PathCommand::execute(std::vector<std::string> *args) {
 		clientMessageF("Starting search...");
 		return true;
 	}
-	if(cmd == "xz"){
+	if (cmd == "xz") {
 		assertTrue(args->size() > 3);
 		int x = assertInt(args->at(2));
 		int z = assertInt(args->at(3));
@@ -41,7 +41,7 @@ bool PathCommand::execute(std::vector<std::string> *args) {
 		clientMessageF("Starting search...");
 		return true;
 	}
-	if(cmd == "xyz"){
+	if (cmd == "xyz") {
 		assertTrue(args->size() > 4);
 		int x = assertInt(args->at(2));
 		int y = assertInt(args->at(3));
@@ -53,7 +53,7 @@ bool PathCommand::execute(std::vector<std::string> *args) {
 		clientMessageF("Starting search...");
 		return true;
 	}
-	if(cmd == "p" || cmd == "player"){
+	if (cmd == "p" || cmd == "player") {
 		std::string nameOfPlayer = args->at(2);
 		assertTrue(!nameOfPlayer.empty());
 		std::string nameOfPlayerLower = std::string(nameOfPlayer);
@@ -61,21 +61,21 @@ bool PathCommand::execute(std::vector<std::string> *args) {
 		nameOfPlayerLower = Utils::sanitize(nameOfPlayerLower);
 
 		vec3_t pos{};
-		auto playerFinder = [&](C_Entity* e, bool isNewList){
-			if(e == g_Data.getLocalPlayer())
+		auto playerFinder = [&](C_Entity* e, bool isNewList) {
+			if (e == g_Data.getLocalPlayer())
 				return;
 			std::string name(e->getNameTag()->getText());
 			std::transform(name.begin(), name.end(), name.begin(), ::tolower);
 
 			if (name.find(nameOfPlayerLower) == std::string::npos)
-			  return;
+				return;
 
 			pos = e->eyePos0;
 		};
 		g_Data.forEachEntity(playerFinder);
 
-		if(pos.iszero()){
-			clientMessageF("%s Player \"%s\" could not be found!", GOLD, nameOfPlayer.c_str());
+		if (pos.iszero()) {
+			clientMessageF("%s Player \"%s\" could not be found!", BLUE, nameOfPlayer.c_str());
 			return true;
 		}
 
@@ -83,10 +83,15 @@ bool PathCommand::execute(std::vector<std::string> *args) {
 		mod->goal = std::make_unique<JoeGoalXYZ>(endNode);
 		mod->setEnabled(true);
 		clientMessageF("Starting search...");
+		if (args->at(3) == "killaura") {
+			auto Kill = moduleMgr->getModule<Killaura>();
+			if (!Kill->isEnabled()) {
+				Kill->setEnabled(true);
+			}
+		}
 
 		return true;
 	}
-
 
 	return false;
 }
