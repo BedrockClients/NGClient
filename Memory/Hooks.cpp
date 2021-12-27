@@ -49,6 +49,7 @@ void Hooks::Init() {
 				logF("C_BlockLegacy signature not working!!!");
 			else {
 				g_Hooks.BlockLegacy_getRenderLayerHook = std::make_unique<FuncHook>(blockLegacyVtable[182], Hooks::BlockLegacy_getRenderLayer);
+				g_Hooks.BlockLegacy_getLightEmissionHook = std::make_unique<FuncHook>(blockLegacyVtable[185], Hooks::BlockLegacy_getLightEmission);
 			}
 		}
 
