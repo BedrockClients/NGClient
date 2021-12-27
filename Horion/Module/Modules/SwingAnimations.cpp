@@ -25,7 +25,6 @@ void Nop3(BYTE* dst, unsigned int size) {
 void Patch3(BYTE* dst, BYTE* src, unsigned int size) {
 	DWORD oldprotect;
 	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
-
 	memcpy(dst, src, size);
 	VirtualProtect(dst, size, oldprotect, &oldprotect);
 }
