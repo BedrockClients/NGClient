@@ -298,7 +298,7 @@ std::vector<Edge> findEdges(std::unordered_map<unsigned __int64, Node>& allNodes
 				if(isObstructed(newPos.add(0, 2, 0), reg)) // above old walk target
 					canJump = false;
 
-				newPos = startNode.pos.add(x * 2,0, z * 2); // 2 block distance, 1 block gap
+				newPos = startNode.pos.add(x * 2.3,0, z * 2.3); // 2 block distance, 1 block gap
 				if(isObstructedPlayer(newPos, reg)){// landing zone
 					// maybe jump up?
 					if(!canJump)

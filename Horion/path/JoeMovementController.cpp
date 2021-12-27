@@ -136,7 +136,9 @@ void JoeMovementController::step(C_LocalPlayer *player, C_MoveInputHandler *move
 				maxJumpDist = 0.7f;
 			if(posToJumpTarg < maxJumpDist && posToJumpTarg > 0 && player->velocity.dot(tangent) > 0.07f){
 				// jump
+				player->setSprinting(true);
 				movementHandler->isJumping = 1;
+				player->setSprinting(true);
 				goto WALK;
 			}
 			goto WALK;
