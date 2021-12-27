@@ -168,12 +168,11 @@ std::vector<Edge> findEdges(std::unordered_map<unsigned __int64, Node>& allNodes
 
 	if(isInWater){
 		{
-			auto mod = startNode.pos.add(0, 6, 0);
+			auto mod = startNode.pos.add(0, 1, 0);
 			auto block = reg->getBlock(mod);
 			if (block->toLegacy()->material->isLiquid && !block->toLegacy()->material->isSuperHot) {
 				if (!isObstructed(startNode.pos.add(0, 1, 0), reg, true) && !isObstructed(startNode.pos.add(0, 2, 0), reg, true))
 					edges.emplace_back(startNodeRef, findNode(allNodes, mod), 0.01, JoeSegmentType::WATER_WALK);
-				g_Data.getLocalPlayer()->velocity.y = 0.9;
 			}
 		}
 		if(!isObstructed(startNode.pos.add(0, -1, 0), reg, true) && canStandOn(startNode.pos.add(0, -2, 0), reg, true)){

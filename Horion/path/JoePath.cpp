@@ -42,11 +42,11 @@ void JoePath::initPathSegments() {
 			auto& curSeg = segments.at(i);
 			auto& nextSeg = segments.at(i + 1);
 			if(curSeg.getSegmentType() != JoeSegmentType::WALK || nextSeg.getSegmentType() != JoeSegmentType::WALK){
-				curSeg.setAllowSprint(false);
+				curSeg.setAllowSprint(true);
 				continue;
 			}
 			if(curSeg.getStart().y != curSeg.getEnd().y){
-				curSeg.setAllowSprint(false);
+				curSeg.setAllowSprint(true);
 				continue;
 			}
 
