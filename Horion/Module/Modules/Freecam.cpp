@@ -63,6 +63,8 @@ void Freecam::onPostRender(C_MinecraftUIRenderContext*) {
 	}
 }
 void Freecam::onLevelRender(){
+	if (!g_Data.isInGame())
+		setEnabled(false);
 	g_Data.getClientInstance()->getMoveTurnInput()->clearMovementState();
 	g_Data.getClientInstance()->getMoveTurnInput()->isJumping = 0;
 	g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown = 0;

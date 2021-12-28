@@ -1,4 +1,4 @@
-#include "ChestAura.h"
+#include "chestaura.h"
 
 ChestAura::ChestAura() : IModule(0, Category::PLAYER, "Aura for opening chests") {
 	registerIntSetting("Range", &this->range, this->range, 1, 10);
@@ -14,6 +14,8 @@ const char* ChestAura::getModuleName() {
 
 void ChestAura::onTick(C_GameMode* gm) {
 	if (g_Data.getLocalPlayer()->getSupplies()->inventory->isFull())
+		return;
+	if (!g_Data.getLocalPlayer()->canOpenContainerScreen())
 		return;
 
 	vec3_t* pos = gm->player->getPos();

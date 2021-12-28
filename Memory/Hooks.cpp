@@ -1643,8 +1643,8 @@ void Hooks::JumpPower(C_Entity* a1, float a2) {
 		return;
 	}
 	if (freeMod->isEnabled() && g_Data.getLocalPlayer() == a1) {
-		a1->velocity.y = 0;
-		return;
+		//a1->velocity.y = 0;
+		//return;
 	}
 	oFunc(a1, a2);
 }
