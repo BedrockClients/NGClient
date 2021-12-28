@@ -36,6 +36,18 @@ void AntiVoid::onTick(C_GameMode* gm) {
 	if (player->fallDistance >= distance) {
 		if (mode.selected == 0) {
 			player->setPos(orgipos);
+			static auto hopMod = moduleMgr->getModule<Bhop>();
+			static auto speedMod = moduleMgr->getModule<Speed>();
+			static auto scaffMod = moduleMgr->getModule<Scaffold>();
+			static auto surge = moduleMgr->getModule<ClickGuiMod>();
+			hopMod->setEnabled(false);
+			speedMod->setEnabled(false);
+			if (!scaffMod->isEnabled())
+				scaffMod->setEnabled(true);
+			if (surge->surge)
+				g_Data.getGuiData()->displayClientMessageF("[%sAntivoid%s] %sDisabled Speed, Bhop, and enabled Scaffold%s", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
+			else
+				g_Data.getGuiData()->displayClientMessageF("[%sAntivoid%s] %sDisabled Speed, Bhop, and enabled Scaffold%s", LIGHT_PURPLE, WHITE, LIGHT_PURPLE, WHITE, configMgr, WHITE);
 		}
 		if (mode.selected == 1) {
 			float dist = gm->player->getPos()->dist(orgipos);
