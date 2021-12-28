@@ -165,6 +165,9 @@ void Hooks::Init() {
 		void* getFov = reinterpret_cast<void*>(FindSignature("40 53 48 83 EC ?? 0F 29 7C 24 ?? 44"));
 		g_Hooks.LevelRendererPlayer_getFovHook = std::make_unique<FuncHook>(getFov, Hooks::LevelRendererPlayer_getFov);
 
+		void* getRMBHook = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ?? 56 57 41 56 48 83 EC ?? 48 8B ?? ?? ?? ?? ?? 48 33 C4 48 89 44 24 ?? 48 8B F2 4C 8B F1 0F 57 C0"));
+		g_Hooks.RMBManagerThingyHook = std::make_unique<FuncHook>(getRMBHook, Hooks::RMBManagerThingy);
+
 		void* tick_entityList = reinterpret_cast<void*>(FindSignature("48 89 ?? ?? ?? 57 48 83 EC ?? 48 8B ?? E8 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 48 8B D8 ?? ?? ?? ?? ?? ?? 48 99"));
 		g_Hooks.MultiLevelPlayer_tickHook = std::make_unique<FuncHook>(tick_entityList, Hooks::MultiLevelPlayer_tick);
 
@@ -359,6 +362,12 @@ __int64 Hooks::UIScene_setupAndRender(C_UIScene* uiscene, __int64 screencontext)
 	g_Hooks.shouldRender = false;
 
 	return oSetup(uiscene, screencontext);
+}
+
+void Hooks::RMBManagerThingy(__int64 a1, __int64 a2) {
+	static auto oClick = g_Hooks.RMBManagerThingyHook->GetFastcall<void, __int64, __int64>();
+	g_Hooks.RMBManager = a1;
+	oClick(a1, a2);
 }
 
 __int64 Hooks::UIScene_render(C_UIScene* uiscene, __int64 screencontext) {

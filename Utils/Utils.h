@@ -446,6 +446,8 @@ public:
 
 	static std::string sanitize(std::string text);
 
+	static void rightClick();
+
 	static std::wstring stringToWstring(std::string txt);
 
 	static bool endsWith(std::wstring const& fullString, std::wstring const& ending) {

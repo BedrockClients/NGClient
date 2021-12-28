@@ -1,7 +1,7 @@
 #include "ExtendedBlockReach.h"
 
 ExtendedBlockReach::ExtendedBlockReach() : IModule(0, Category::PLAYER, "Exteneded reach for placing/breaking blocks") {
-	registerFloatSetting(std::string("reach"), &blockReach, blockReach, 7, 10);
+	registerFloatSetting(std::string("reach"), &blockReach, blockReach, 7, 100);
 }
 
 ExtendedBlockReach::~ExtendedBlockReach() {

@@ -99,8 +99,7 @@ void PotionAura::onTick(C_GameMode* gm) {
 							auto inv = g_Data.getLocalPlayer()->getSupplies()->inventory;
 							C_ItemStack* stack = inv->getItemStack(8);
 							C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-							//g_Data.getLocalPlayer()->useC_Item(*stack, 8, true);
-							//g_Data.getLocalPlayer()->completeUsingC_Item();
+							Utils::rightClick();
 						}
 					}
 				} else {
@@ -108,8 +107,7 @@ void PotionAura::onTick(C_GameMode* gm) {
 						auto inv = g_Data.getLocalPlayer()->getSupplies()->inventory;
 						C_ItemStack* stack = inv->getItemStack(8);
 						C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-						//g_Data.getLocalPlayer()->useC_Item(*stack, 8, true);
-						//g_Data.getLocalPlayer()->completeUsingC_Item();
+						Utils::rightClick();
 					}
 				}
 				Odelay = 0;

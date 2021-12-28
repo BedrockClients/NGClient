@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include <Psapi.h>
 #include "HMath.h"
+#include "../Memory/Hooks.h"
 
 void Utils::ApplySystemTime(std::stringstream* ss) {
 	using namespace std::chrono;
@@ -142,7 +143,15 @@ void Utils::setClipboardText(std::string& text) {
 	CloseClipboard();
 	GlobalFree(hg);
 }
-uintptr_t Utils::FindSignatureModule(const char* szModule, const char* szSignature) {
+
+using rmb = void(__fastcall*)(__int64);
+static rmb rmbDownFunc = reinterpret_cast<rmb>(Utils::getBase() + 0x758D50);  // Second one of 40 53 48 83 EC ?? 48 8B 01 48 8B D9 FF 90 ?? ?? 00 00 48 8B C8 48 8B 10 FF 52 ?? 84 C0 ?? ?? 48 8B 03 48 8B CB FF 90 ?? ?? 00 00 80 B8 ?? ?? 00 00 01
+static rmb rmbUpFunc = reinterpret_cast<rmb>(Utils::getBase() + 0x759390);    // 48 89 5C 24 ?? 57 48 83 EC ?? 48 8B 01 48 8B D9 FF 90 ?? ?? 00 00 48 8B F8 48 85 C0 ?? ?? 48 8B ?? ?? ?? ?? ?? 80 B8 ?? ?? 00 00 00
+void Utils::rightClick() {
+	rmbDownFunc(g_Hooks.RMBManager);
+	rmbUpFunc(g_Hooks.RMBManager);
+}
+	uintptr_t Utils::FindSignatureModule(const char* szModule, const char* szSignature) {
 	const char* pattern = szSignature;
 	uintptr_t firstMatch = 0;
 	static const auto rangeStart = (uintptr_t)GetModuleHandleA(szModule);

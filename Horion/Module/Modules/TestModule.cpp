@@ -76,9 +76,9 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 }
 
 void TestModule::onEnable() {
-	vec3_t pos = *g_Data.getLocalPlayer()->getPos();
-	pos.y += 7;
-	g_Data.getLocalPlayer()->setPos(pos);
+	//vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+	//pos.y += 7;
+	//g_Data.getLocalPlayer()->setPos(pos);
 }
 
 void TestModule::onTick(C_GameMode* gm) {

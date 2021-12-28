@@ -75,6 +75,7 @@ public:
 		int addedTick;
 	};
 	std::vector<EntityListPointerHolder> entityList;
+	__int64 RMBManager = 0;
 
 	static void Init();
 	static void Restore();
@@ -84,6 +85,7 @@ private:
 	static void setPos(C_Entity* ent, vec3_t& poo);
 	static void Actor_rotation(C_Entity* _this, vec2_t& sexyAngle);
 	static void Actor_breathe(C_Entity* _this);
+	static void RMBManagerThingy(__int64 a1, __int64 a2);
 	static void* Player_tickWorld(C_Player* _this, __int64);
 	static void ClientInstanceScreenModel_sendChatMessage(void* _this, TextHolder* text);
 	static __int64 UIScene_setupAndRender(C_UIScene* uiscene, __int64 screencontext);
@@ -165,6 +167,7 @@ private:
 	std::unique_ptr<FuncHook> GetGammaHook;
 	std::unique_ptr<FuncHook> Actor_isInWaterHook;
 	std::unique_ptr<FuncHook> JumpPowerHook;
+	std::unique_ptr<FuncHook> RMBManagerThingyHook;
 	std::unique_ptr<FuncHook> MinecraftGame_onAppSuspendedHook;
 	std::unique_ptr<FuncHook> Actor_ascendLadderHook;
 	std::unique_ptr<FuncHook> Actor_swingHook;
