@@ -287,8 +287,6 @@
     <ClCompile Include="Horion\Module\Modules\AntiAnvil.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiImmobile.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Antikb.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AntiLagBack.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\ArrayList.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
@@ -377,7 +375,6 @@
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
     <ClCompile Include="Horion\Module\Modules\Radar.cpp" />
-    <ClCompile Include="Horion\Module\Modules\RainbowSky.cpp" />
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spammer.cpp" />
@@ -385,11 +382,9 @@
     <ClCompile Include="Horion\Module\Modules\Spider.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Step.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Teams.cpp" />
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />
     <ClCompile Include="Horion\Module\Modules\TestModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Timer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\TimeChanger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tower.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
@@ -397,7 +392,6 @@
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\ViewModel.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Velocity.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
     <ClCompile Include="Horion\Module\Modules\XP.cpp" />
     <ClCompile Include="Horion\Module\Modules\Xray.cpp" />
