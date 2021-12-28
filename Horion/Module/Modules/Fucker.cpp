@@ -66,37 +66,21 @@ void Fucker::onTick(C_GameMode* gm) {
 				}
 			}
 		}
-		if (destroy) {
-			srand(time(NULL));
-			auto pos2 = *g_Data.getLocalPlayer()->getPos();
-			float targetX = (float)(blockPos.x) - (float)(pos2.x);
-			float targetY = (float)(blockPos.y) - (float)(pos2.y);
-			float targetZ = (float)(blockPos.z) - (float)(pos2.z);
-			float breakAimX = atan2f(targetZ, targetX) * (180.f / PI) - 90.f;
-			float breakAimY = atan2f(targetY, sqrtf((targetX * targetX) + (targetZ * targetZ))) * (-180.f / PI);
-			float xChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 10.f));
-			xChange -= 5.f;
-			float yChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 5.f));
-			yChange -= 2.5f;
-			C_MovePlayerPacket pkt;
-			pkt.Position = pos2;
-			pkt.pitch = breakAimX + yChange;
-			pkt.yaw = breakAimY + xChange;
-			pkt.onGround = g_Data.getLocalPlayer()->onGround;
-			pkt.entityRuntimeID = g_Data.getLocalPlayer()->entityRuntimeId;
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&pkt);
-		}
 	}
+}
+float randomFloat(float a, float b) {
+	float random = ((float)rand()) / (float)RAND_MAX;
+	float diff = b - a;
+	float r = random * diff;
+	return a + r;
 }
 void Fucker::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>() && g_Data.getLocalPlayer() != nullptr && bypass) {
 		static auto instaBreakModule = moduleMgr->getModule<InstaBreak>();
 		if (destroy) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(reinterpret_cast<vec3_t&>(blockPos));
-			movePacket->pitch = angle.x;
-			movePacket->headYaw = angle.y;
-			movePacket->yaw = angle.y;
+			movePacket->pitch = randomFloat(-90, 90);
+			movePacket->yaw = randomFloat(-180, 180);
 		}
 	}
 }
