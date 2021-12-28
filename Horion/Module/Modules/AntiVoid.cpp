@@ -48,9 +48,9 @@ void AntiVoid::onTick(C_GameMode* gm) {
 			if (!towerMod->isEnabled())
 				towerMod->setEnabled(true);
 			if (surge->surge)
-				g_Data.getGuiData()->displayClientMessageF("[%sAntivoid%s] %sDisabled Speed, Bhop, and enabled Scaffold & Tower%s", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
+				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Bhop, and enabled Scaffold & Tower%s", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
 			else
-				g_Data.getGuiData()->displayClientMessageF("[%sAntivoid%s] %sDisabled Speed, Bhop, and enabled Scaffold & Tower%s", LIGHT_PURPLE, WHITE, LIGHT_PURPLE, WHITE, configMgr, WHITE);
+				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Bhop, and enabled Scaffold & Tower%s", LIGHT_PURPLE, WHITE, LIGHT_PURPLE, WHITE, configMgr, WHITE);
 		}
 		if (mode.selected == 1) {
 			float dist = gm->player->getPos()->dist(orgipos);
