@@ -2,9 +2,14 @@
 #include "ICommand.h"
 class EjectCommand : public IMCCommand {
 public:
-	EjectCommand();
-	~EjectCommand();
+	EjectCommand() : IMCCommand("uninject", "Removes the cheat from the game.", "") {
+		registerAlias("uninject");
+	}
+	~EjectCommand(){};
 
 	// Inherited via IMCCommand
-	virtual bool execute(std::vector<std::string>* args) override;
+	virtual bool execute(std::vector<std::string>* args) override {
+		GameData::terminate();
+		return true;
+	}
 };
