@@ -28,7 +28,9 @@ void Patch3(BYTE* dst, BYTE* src, unsigned int size) {
 	memcpy(dst, src, size);
 	VirtualProtect(dst, size, oldprotect, &oldprotect);
 }
-
+//f3 0f 11 54 24 ? 41 0f 28 d8 f3 0f 10 0d ? ? ? ? e8
+//41 0f 28 d8 f3 0f 10 0d ? ? ? ? e8 ? ? ? ? c6 47
+//nop these 2 and get real blochhit
 void SwingAnimations::onEnable() {
 	//Floppy
 	if (floppySwing) {
