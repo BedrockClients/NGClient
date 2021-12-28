@@ -35,22 +35,17 @@ void AntiVoid::onTick(C_GameMode* gm) {
 	}
 	if (player->fallDistance >= distance) {
 		if (mode.selected == 0) {
+			g_Data.getClientInstance()->getMoveTurnInput()->clearMovementState();
 			player->setPos(orgipos);
 			static auto hopMod = moduleMgr->getModule<Bhop>();
 			static auto speedMod = moduleMgr->getModule<Speed>();
-			static auto scaffMod = moduleMgr->getModule<Scaffold>();
-			static auto towerMod = moduleMgr->getModule<Tower>();
 			static auto surge = moduleMgr->getModule<ClickGuiMod>();
 			hopMod->setEnabled(false);
 			speedMod->setEnabled(false);
-			if (!scaffMod->isEnabled())
-				scaffMod->setEnabled(true);
-			if (!towerMod->isEnabled())
-				towerMod->setEnabled(true);
 			if (surge->surge)
-				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Bhop, and enabled Scaffold & Tower%s", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
+				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Bhop, and disabled move keys%s", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
 			else
-				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Bhop, and enabled Scaffold & Tower%s", LIGHT_PURPLE, WHITE, LIGHT_PURPLE, WHITE, configMgr, WHITE);
+				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Bhop, and disabled move keys%s", LIGHT_PURPLE, WHITE, LIGHT_PURPLE, WHITE, configMgr, WHITE);
 		}
 		if (mode.selected == 1) {
 			float dist = gm->player->getPos()->dist(orgipos);
