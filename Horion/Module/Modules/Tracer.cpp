@@ -55,7 +55,7 @@ void doRenderStuff3(C_Entity* ent, bool isRegularEntitie) {
 	auto entPosition = ent->aabb.centerPoint();
 	entPosition.y = ent->aabb.upper.y;
 
-	if (ent != g_Data.getLocalPlayer() && Target::isValidTarget(ent)) {
+	if (ent != g_Data.getLocalPlayer() && Target::isValidTarget(ent) && !tracerMod->chest) {
 		DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
 		DrawUtils::drawLine3d(forwardVec, entPosition);
 	}
@@ -88,7 +88,7 @@ void Tracer::onPreRender(C_MinecraftUIRenderContext* ctx) {
 				DrawUtils::drawTracer(*ent->getPos(), ent->damageTime);
 		});
 	if (chest) {
-		for (auto iter = bufferedChestList.begin(); iter != bufferedChestList.end(); ++iter)
-			DrawUtils::drawTracer(iter->centerPoint());
+		for (const auto& chest : bufferedChestList)
+			DrawUtils::drawTracer(chest.upper);
 	}
 }
