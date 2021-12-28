@@ -3,8 +3,8 @@
 #include <chrono>
 
 Freecam::Freecam() : IModule('V', Category::VISUAL, "Move your cam without moving the player") {
-	registerFloatSetting("Horizontal Speed", &this->speed, this->speed, 0.1f, 0.8f);
-	registerFloatSetting("Vertical Speed", &this->vspeed, this->vspeed, 0.1f, 0.8f);
+	registerFloatSetting("Horizontal Speed", &speed, speed, 0.1f, 0.8f);
+	registerFloatSetting("Vertical Speed", &vspeed, vspeed, 0.1f, 0.8f);
 }
 
 Freecam::~Freecam() {
