@@ -114,7 +114,6 @@
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
     <ClCompile Include="Horion\Module\Modules\Radar.cpp" />
-    <ClCompile Include="Horion\Module\Modules\RainbowSky.cpp" />
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spammer.cpp" />
@@ -122,18 +121,15 @@
     <ClCompile Include="Horion\Module\Modules\Spider.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Step.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Teams.cpp" />
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />
     <ClCompile Include="Horion\Module\Modules\TestModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Timer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\TimeChanger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tower.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
     <ClCompile Include="Horion\Module\Modules\TriggerBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\ViewModel.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Velocity.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
     <ClCompile Include="Horion\Module\Modules\Xray.cpp" />
     <ClCompile Include="Horion\Module\Modules\Zoom.cpp" />
@@ -199,7 +195,6 @@
     <ClCompile Include="Horion\Module\Modules\AutoJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoWalk.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Antikb.cpp" />
     <ClCompile Include="Horion\Module\Modules\XP.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Click.cpp" />
@@ -216,7 +211,6 @@
     <ClCompile Include="Horion\Command\Commands\GMCommand.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AntiLagBack.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />

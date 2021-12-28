@@ -1,14 +1,17 @@
 #pragma once
-
+#include "../ModuleManager.h"
 #include "Module.h"
-
 class Velocity : public IModule {
 public:
 	float xModifier = 0.f;
 	float yModifier = 0.f;
-	Velocity();
-	~Velocity();
+	Velocity() : IModule(0x0, Category::VISUAL, "Replaces Sounds"){
+		registerFloatSetting("Linear Modifier", &xModifier, xModifier, 0.f, 1.f);
+		registerFloatSetting("Height Modifier", &yModifier, yModifier, 0.f, 1.f);
+};
+	~Velocity(){};
 
-	// Inherited via IModule
-	virtual const char* getModuleName() override;
+	virtual const char* getModuleName() override {
+		return "Velocity";
+	}
 };
