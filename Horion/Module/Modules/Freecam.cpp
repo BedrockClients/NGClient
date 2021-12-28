@@ -1,7 +1,10 @@
 #include "Freecam.h"
 
-Freecam::Freecam() : IModule('V', Category::PLAYER, "Move your cam without moving the player") {
-	registerFloatSetting("Speed", &speed, speed, 0.50f, 1.25f);
+#include <chrono>
+
+Freecam::Freecam() : IModule('V', Category::VISUAL, "Move your cam without moving the player") {
+	registerFloatSetting("Horizontal Speed", &this->speed, this->speed, 0.1f, 0.8f);
+	registerFloatSetting("Vertical Speed", &this->vspeed, this->vspeed, 0.1f, 0.8f);
 }
 
 Freecam::~Freecam() {
@@ -11,49 +14,66 @@ const char* Freecam::getModuleName() {
 	return ("Freecam");
 }
 
-void Freecam::onTick(C_GameMode* gm) {
-	gm->player->fallDistance = 0.f;
-	gm->player->velocity = vec3_t(0, 0, 0);
-	gm->player->aabb.upper = gm->player->aabb.lower;
-}
-
-void Freecam::onEnable() {
-	if (g_Data.getLocalPlayer() != nullptr) {
-		oldPos = *g_Data.getLocalPlayer()->getPos();
-		oldOffset = g_Data.getLocalPlayer()->aabb.upper.sub(g_Data.getLocalPlayer()->aabb.lower);
+void Freecam::onPostRender(C_MinecraftUIRenderContext*) {
+	static auto prevTime = std::chrono::high_resolution_clock::now();
+	auto now = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float> tDiff = now - prevTime;
+	prevTime = now;
+	float TimeMultiplier = tDiff.count() / 0.05f;
+	if (wasDisabled) {
+		TimeMultiplier = 1.f;
+		wasDisabled = false;
 	}
-}
 
-void Freecam::onMove(C_MoveInputHandler* input) {
 	auto player = g_Data.getLocalPlayer();
-	if (player == nullptr) return;
 
-	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
-	bool pressed = moveVec2d.magnitude() > 0.01f;
+	float yaw = cameraRot.y;
+	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
+	if (GameData::isKeyDown(*input->sneakKey)) {
+		targetPos.y -= speed * TimeMultiplier;
+	}
+	if (GameData::isKeyDown(*input->spaceBarKey)) {
+		targetPos.y += speed * TimeMultiplier;
+	}
+	if (GameData::isKeyDown(*input->rightKey)) {
+		yaw += 90.f;
+		if (GameData::isKeyDown(*input->forwardKey))
+			yaw -= 45.f;
+		else if (GameData::isKeyDown(*input->backKey))
+			yaw += 45.f;
+	}
+	if (GameData::isKeyDown(*input->leftKey)) {
+		yaw -= 90.f;
+		if (GameData::isKeyDown(*input->forwardKey))
+			yaw += 45.f;
+		else if (GameData::isKeyDown(*input->backKey))
+			yaw -= 45.f;
+	}
+	if (GameData::isKeyDown(*input->backKey) && !GameData::isKeyDown(*input->leftKey) && !GameData::isKeyDown(*input->rightKey))
+		yaw += 180.f;
 
-	float calcYaw = (player->yaw + 90) * (PI / 180);
-	vec3_t moveVec;
-	float c = cos(calcYaw);
-	float s = sin(calcYaw);
-	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-	moveVec.x = moveVec2d.x * speed;
-	moveVec.y = player->velocity.y;
-	moveVec.z = moveVec2d.y * speed;
-	if (pressed) player->lerpMotion(moveVec);
-	C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
-	if (input->isJumping) {
-		player->velocity.y += 0.50f;
+	bool pressed = GameData::isKeyDown(*input->forwardKey) || GameData::isKeyDown(*input->backKey) || GameData::isKeyDown(*input->rightKey) || GameData::isKeyDown(*input->leftKey);
+	if (pressed) {
+		float calcYaw = (yaw + 90) * (PI / 180);
+		vec3_t moveVec;
+		moveVec.x = cos(calcYaw) * speed;
+		moveVec.y = player->velocity.y;
+		moveVec.z = sin(calcYaw) * speed;
+		targetPos = targetPos.add(moveVec.mul(TimeMultiplier));
 	}
-	if (input->isSneakDown) {
-		player->velocity.y -= 0.50f;
-	}
+}
+void Freecam::onLevelRender(){
+	g_Data.getClientInstance()->getMoveTurnInput()->clearMovementState();
+	g_Data.getClientInstance()->getMoveTurnInput()->isJumping = 0;
+	g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown = 0;
+	g_Data.getLocalPlayer()->setSneaking(false);
+}
+void Freecam::onEnable() {
+	targetPos = *g_Data.getLocalPlayer()->getPos();
+	lastPos = g_Data.getLocalPlayer()->viewAngles;
+	wasDisabled = true;
 }
 
 void Freecam::onDisable() {
-	auto plr = g_Data.getLocalPlayer();
-	if (plr) {
-		plr->setPos(oldPos);
-		*g_Data.getClientInstance()->minecraft->timer = 20.f;
-		plr->aabb.upper = plr->aabb.lower.add(oldOffset);
-	}
+	wasDisabled = true;
 }

@@ -1283,11 +1283,15 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	static auto freelookMod = moduleMgr->getModule<Freelook>();
 	static auto botMod = moduleMgr->getModule<FightBot>();
 	static auto targetMod = moduleMgr->getModule<TargetStrafe>();
+	static auto freeMod = moduleMgr->getModule<Freecam>();
 #ifdef _DEBUG
 	static auto test = moduleMgr->getModule<TestModule>();
 #endif
 	if (botMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
 		sexyAngle = {botMod->bot.x, botMod->bot.y};
+	}
+	if (freeMod->isEnabled() && g_Data.getLocalPlayer() == _this) {
+		sexyAngle = {freeMod->lastPos.x, freeMod->lastPos.y};
 	}
 	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->sexy) {
 		sexyAngle = {killauraMod->joe};
@@ -1308,7 +1312,6 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto oFunc = g_Hooks.LoopbackPacketSender_sendToServerHook->GetFastcall<void, C_LoopbackPacketSender*, C_Packet*>();
 
 	//static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
-	static auto freecamMod = moduleMgr->getModule<Freecam>();
 	static auto blinkMod = moduleMgr->getModule<Blink>();
 	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
@@ -1339,7 +1342,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 		}
 	}
 
-	if (freecamMod->isEnabled() || blinkMod->isEnabled()) {
+	if (blinkMod->isEnabled()) {
 		if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>()) {
 			if (blinkMod->isEnabled()) {
 				if (packet->isInstanceOf<C_MovePlayerPacket>()) {
@@ -1654,8 +1657,13 @@ bool Hooks::Actor_isInWater(C_Entity* _this) {
 void Hooks::JumpPower(C_Entity* a1, float a2) {
 	static auto oFunc = g_Hooks.JumpPowerHook->GetFastcall<void, C_Entity*, float>();
 	static auto highJumpMod = moduleMgr->getModule<HighJump>();
+	static auto freeMod = moduleMgr->getModule<Freecam>();
 	if (highJumpMod->isEnabled() && g_Data.getLocalPlayer() == a1) {
 		a1->velocity.y = highJumpMod->jumpPower;
+		return;
+	}
+	if (freeMod->isEnabled() && g_Data.getLocalPlayer() == a1) {
+		a1->velocity.y = 0;
 		return;
 	}
 	oFunc(a1, a2);
@@ -2038,6 +2046,14 @@ void Hooks::setPos(C_Entity* ent, vec3_t& poo) {
 void Hooks::LocalPlayer__updateFromCamera(__int64 a1, C_Camera* camera) {
 	auto func = g_Hooks.LocalPlayer__updateFromCameraHook->GetFastcall<__int64, __int64, C_Camera*>();
 	auto noHurtcamMod = moduleMgr->getModule<NoHurtcam>();
+	auto freecamMod = moduleMgr->getModule<Freecam>();
+
+	if (freecamMod->isEnabled() && g_Data.getLocalPlayer()->isAlive()) {
+		memcpy((void*)((uintptr_t)camera + 0xB8), &freecamMod->targetPos, sizeof(vec3_t));
+		camera->renderPlayerModel = true;
+		camera->renderFirstPersonObjects = false;
+		camera->getPlayerRotation(&freecamMod->cameraRot);
+	}
 
 	if (noHurtcamMod->isEnabled() && g_Data.isInGame() && g_Data.getLocalPlayer()->isAlive()) {
 		vec2_t rot;
