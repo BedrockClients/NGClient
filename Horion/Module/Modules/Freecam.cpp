@@ -57,7 +57,7 @@ void Freecam::onPostRender(C_MinecraftUIRenderContext*) {
 		float calcYaw = (yaw + 90) * (PI / 180);
 		vec3_t moveVec;
 		moveVec.x = cos(calcYaw) * speed;
-		moveVec.y = player->velocity.y;
+		moveVec.y = 0;
 		moveVec.z = sin(calcYaw) * speed;
 		targetPos = targetPos.add(moveVec.mul(TimeMultiplier));
 	}
