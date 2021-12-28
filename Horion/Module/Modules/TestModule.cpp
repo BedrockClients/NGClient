@@ -84,6 +84,7 @@ void TestModule::onEnable() {
 void TestModule::onTick(C_GameMode* gm) {
 	//C_AnimatePacket p;
 	//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
+	Utils::rightClick();
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {
