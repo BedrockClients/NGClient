@@ -28,7 +28,7 @@
 #include "Modules/AntilagBack.h"
 #include "Modules/AntiVoid.h"
 #include "Modules/selectionHighlight.h"
-#include "Modules/ChestESP.h"
+#include "Modules/StorageESP.h"
 #include "Modules/BlockEsp.h"
 #include "Modules/SwingAnimations.h"
 #include "Modules/ClickGuiMod.h"

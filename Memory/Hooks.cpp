@@ -425,8 +425,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			float elapsedFlot = (float)elapsed.QuadPart / frequency.QuadPart;
 			if (elapsedFlot > 1.5f && !hasSentWarning) {
 				hasSentWarning = true;
-				//auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
-				//box->closeTimer = 0;
+				auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
+				box->closeTimer = 0;
 				vec2_t windowSize = dat->windowSize;
 
 				DrawUtils::flush();
@@ -436,25 +436,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				return retval;
 		} else
 			wasConnectedBefore = true;
-	}
-	//Simple Inject Notification
-
-	if (justEnabled) {
-		enabledTicks++;
-		if (enabledTicks > 1 && enabledTicks < 1000) {
-			std::string text = "Thanks For Choosing The NG Client! We Are 22!";
-			auto catText = TextHolder("Thanks For Choosing The NG Client! We Are 22!");
-			vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-			vec4_t rectPos = vec4_t(0.5f, 6 * 10.f * 1 + 30.f * 1.f, 13.f, 6 * 10.f * 1 + 100.f * 1.f);
-			vec4_t rectPoos = vec4_t(windowSize.x, 6 * 11.f * 1 + 6.f * 1.5f, 13.f, 6 * 10.f * 1 + 15.f * 1.f);
-			DrawUtils::drawText(vec2_t(rectPos.y + 147.f, rectPos.x + 4.f), &text, MC_Color(154, 0, 200), enabledTicks / 500);
-			DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
-			DrawUtils::DrawOutline(vec2_t(282 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 4.2), vec2_t(enabledTicks / 5.4, enabledTicks / 83), MC_Color(184, 0, 255), 1.0);
-			DrawUtils::DrawOutline(vec2_t(284 - (renderCtx->getLineLength(DrawUtils::getFont(Fonts::SMOOTH), &catText, 0.6f) / 2), 3), vec2_t(enabledTicks / 5.5, enabledTicks / 83), MC_Color(0, 0, 0), 1.0);
-		} else if (enabledTicks > 1000) {  //this is so the text dissapears btw
-			justEnabled = false;
-			enabledTicks = 0;
-		}
 	}
 
 	if (GameData::shouldHide() || !moduleMgr->isInitialized())
@@ -1121,9 +1102,8 @@ float Hooks::Dimension_getSunIntensity(__int64 a1, float a2, vec3_t* a3, float a
 void Hooks::ChestBlockActor_tick(C_ChestBlockActor* _this, void* a) {
 	static auto oTick = g_Hooks.ChestBlockActor_tickHook->GetFastcall<void, C_ChestBlockActor*, void*>();
 	oTick(_this, a);
-	static auto* chestEspMod = moduleMgr->getModule<ChestESP>();
-	static auto* tracerMod = moduleMgr->getModule<Tracer>();
-	if (_this != nullptr && (chestEspMod->isEnabled() || tracerMod->isEnabled()))
+	static auto* chestEspMod = moduleMgr->getModule<StorageESP>();
+	if (_this != nullptr && chestEspMod->isEnabled())
 		GameData::addChestToList(_this);
 }
 

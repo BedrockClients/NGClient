@@ -21,7 +21,7 @@ public:
 	vec2_t cameraRot;
 
 	//for chests
-	std::vector<std::shared_ptr<AABB>> bufferedChestList;
+	std::vector<AABB> bufferedChestList;
 	std::mutex listLock;
 
 	Tracer();

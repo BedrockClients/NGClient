@@ -4,11 +4,11 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
-#include <fstream>
-#include <sstream>
 #include <algorithm>
 #include <ctime>
+#include <fstream>
 #include <random>
+#include <sstream>
 #include <vector>
 
 //#include "xorstr.h"
@@ -227,8 +227,22 @@ static inline void ImSwap(T& a, T& b) {
 #define FindSignature(szSignature) Utils::FindSignatureModule("Minecraft.Windows.exe", szSignature)
 #endif
 
+struct vec3_ti;
+
 class Utils {
 public:
+	static __forceinline unsigned __int64 rotBy(int in, unsigned int by) {
+		auto mut = static_cast<unsigned __int64>(in);
+		return ((mut & 0x7FFFFFui64) | ((static_cast<unsigned int>(in) >> 8u) & 0x800000u) /*copy sign bit*/) << by;
+	}
+
+	static size_t posToHash(const vec3_ti& pos);
+
+	template <typename type>
+	static inline auto lerp(type a, type b, float t) -> type {
+		return a + t * (b - a);
+	};
+
 	static inline unsigned int getCrcHash(const char* str, int seed = 0) {
 		static unsigned int crc32_lut[256] = {0};
 		if (!crc32_lut[1]) {
@@ -340,7 +354,7 @@ public:
 		return (*static_cast<Fn**>(thisptr))[IIdx](thisptr, argList...);
 	}
 
-	template < typename ret>
+	template <typename ret>
 	static inline auto FuncFromSigOffset(uintptr_t sig, int offset) -> ret {
 		return reinterpret_cast<ret>(sig + offset + 4 + *reinterpret_cast<int*>(sig + offset));
 	}
@@ -426,9 +440,9 @@ public:
 
 	static void GetCurrentSystemTime(tm& timeInfo);
 
-	static uintptr_t getBase();
-
 	static void ApplySystemTime(std::stringstream* ss);
+
+	static uintptr_t getBase();
 
 	static std::string sanitize(std::string text);
 

@@ -7,6 +7,7 @@
 #include "Logger.h"
 #include <Windows.h>
 #include <Psapi.h>
+#include "HMath.h"
 
 void Utils::ApplySystemTime(std::stringstream* ss) {
 	using namespace std::chrono;
@@ -122,6 +123,9 @@ std::string Utils::getClipboardText() {
 		CloseClipboard();
 		return std::string(pszText);
 	}
+}
+size_t Utils::posToHash(const vec3_ti& pos) {
+	return rotBy(pos.x, 0) | rotBy(pos.z, 24) | (static_cast<unsigned __int64>(pos.y) << 48u);
 }
 void Utils::setClipboardText(std::string& text) {
 	if (!OpenClipboard(nullptr))

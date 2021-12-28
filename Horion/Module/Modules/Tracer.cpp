@@ -67,11 +67,11 @@ void Tracer::onLevelRender() {
 
 void Tracer::onTick(C_GameMode* gm) {
 	auto listLock = g_Data.lockChestList();
-	auto* chestList = g_Data.getChestList();
+	auto& chestList = g_Data.getChestList();
 	auto ourListLock = std::scoped_lock(this->listLock);
 
 	this->bufferedChestList.clear();
-	this->bufferedChestList.insert(this->bufferedChestList.end(), chestList->begin(), chestList->end());
+	this->bufferedChestList.insert(this->bufferedChestList.end(), chestList.begin(), chestList.end());
 }
 
 void Tracer::onPreRender(C_MinecraftUIRenderContext* ctx) {
@@ -89,6 +89,6 @@ void Tracer::onPreRender(C_MinecraftUIRenderContext* ctx) {
 		});
 	if (chest) {
 		for (auto iter = bufferedChestList.begin(); iter != bufferedChestList.end(); ++iter)
-			DrawUtils::drawTracer(iter->get()->centerPoint());
+			DrawUtils::drawTracer(iter->centerPoint());
 	}
 }
