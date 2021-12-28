@@ -11,10 +11,11 @@ void Target::init(C_LocalPlayer** cl) {
 }
 
 bool Target::isValidTarget(C_Entity* ent) {
+	static auto freeMod = moduleMgr->getModule<Freecam>();
 	if (ent == NULL)
 		return false;
 
-	if (ent == g_Data.getLocalPlayer())
+	if (!freeMod->isEnabled() && ent == g_Data.getLocalPlayer())
 		return false;
 
 	static auto antibot = moduleMgr->getModule<AntiBot>();

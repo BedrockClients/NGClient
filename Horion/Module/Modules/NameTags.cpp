@@ -26,19 +26,32 @@ const char* NameTags::getModuleName() {
 }
 
 void drawNameTags(C_Entity* ent, bool) {
+	static auto freeMod = moduleMgr->getModule<Freecam>();
 	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 	static auto nameTagsMod = moduleMgr->getModule<NameTags>();
-
-	if (ent != localPlayer) {
-		if (ent->timeSinceDeath > 0)
-			return;
-		if (ent->getNameTag()->getTextLength() < 1)
-			return;
-		if (Target::isValidTarget(ent) && nameTagsMod != nullptr) {
-			nameTagsMod->nameTags.insert(Utils::sanitize(ent->getNameTag()->getText()));
-			float dist = ent->getPos()->dist(*g_Data.getLocalPlayer()->getPos());
-			DrawUtils::drawNameTags(ent, fmax(0.6f, 3.f / dist));
-			DrawUtils::flush();
+	if (freeMod->isEnabled()) {
+			if (ent->timeSinceDeath > 0)
+				return;
+			if (ent->getNameTag()->getTextLength() < 1)
+				return;
+			if (Target::isValidTarget(ent) && nameTagsMod != nullptr) {
+				nameTagsMod->nameTags.insert(Utils::sanitize(ent->getNameTag()->getText()));
+				float dist = ent->getPos()->dist(*g_Data.getLocalPlayer()->getPos());
+				DrawUtils::drawNameTags(ent, fmax(0.6f, 3.f / dist));
+				DrawUtils::flush();
+			}
+	} else {
+		if (ent != localPlayer) {
+			if (ent->timeSinceDeath > 0)
+				return;
+			if (ent->getNameTag()->getTextLength() < 1)
+				return;
+			if (Target::isValidTarget(ent) && nameTagsMod != nullptr) {
+				nameTagsMod->nameTags.insert(Utils::sanitize(ent->getNameTag()->getText()));
+				float dist = ent->getPos()->dist(*g_Data.getLocalPlayer()->getPos());
+				DrawUtils::drawNameTags(ent, fmax(0.6f, 3.f / dist));
+				DrawUtils::flush();
+			}
 		}
 	}
 }

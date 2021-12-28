@@ -23,13 +23,14 @@ const char* ESP::getModuleName() {
 			return "ESP [Circle]";
 		} else if (betterESP) {
 			return "ESP [3D]";
-		} else if (is2d || is2d) {
+		} else if (is2d) {
 			return "ESP [2D]";
-		} else if (iszephyr || is2d) {
+		} else if (iszephyr) {
 			return "ESP [Zephyr]";
 		} else if (doRainbow) {
 			return "ESP [RGB]";
-		} else return "ESP";
+		} else
+			return "ESP";
 	} else
 		return "ESP";
 }
@@ -41,9 +42,10 @@ void ESP::onEnable() {
 }
 void doRenderStuff(C_Entity* ent, bool isRegularEntitie) {
 	static auto espMod = moduleMgr->getModule<ESP>();
+	static auto freeMod = moduleMgr->getModule<Freecam>();
 
 	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-	if (ent == localPlayer)
+	if (!freeMod->isEnabled() && ent == localPlayer)
 		return;
 	if (ent->timeSinceDeath > 0)
 		return;
@@ -114,20 +116,39 @@ void ESP::onLevelRender() {
 		g_Data.forEachEntity([&](C_Entity* ent, bool valid) {
 			static auto noFriendsModule = moduleMgr->getModule<NoFriends>();
 			if (!noFriendsModule->isEnabled() && !FriendList::findPlayer(ent->getNameTag()->getText())) {
-				if (ent != g_Data.getLocalPlayer() && Target::isValidTarget(ent)) {
-					vec3_t Lines[36];
-					for (int i = 0; i < 36; i++) {
-						Lines[i] = {sinf((i * 9) / (120 / PI)), 0.f, cosf((i * 9) / (120 / PI))};
+				static auto freeMod = moduleMgr->getModule<Freecam>();
+				if (freeMod->isEnabled()) {
+					if (Target::isValidTarget(ent)) {
+						vec3_t Lines[36];
+						for (int i = 0; i < 36; i++) {
+							Lines[i] = {sinf((i * 9) / (120 / PI)), 0.f, cosf((i * 9) / (120 / PI))};
+						}
+						std::vector<vec3_t> posList;
+						vec3_t pos = ent->getPosOld()->lerp(ent->getPos(), DrawUtils::getLerpTime());
+						pos.y -= 1.62f;
+						pos.y += sin((Circle / 60) * PI) + 1;
+						for (auto& Booty : Lines) {
+							vec3_t curPos(pos.x, pos.y, pos.z);
+							posList.push_back(curPos.add(Booty));
+						}
+						DrawUtils::drawLinestrip3d(posList);
 					}
-					std::vector<vec3_t> posList;
-					vec3_t pos = ent->getPosOld()->lerp(ent->getPos(), DrawUtils::getLerpTime());
-					pos.y -= 1.62f;
-					pos.y += sin((Circle / 60) * PI) + 1;
-					for (auto& Booty : Lines) {
-						vec3_t curPos(pos.x, pos.y, pos.z);
-						posList.push_back(curPos.add(Booty));
+				} else {
+					if (ent != g_Data.getLocalPlayer() && Target::isValidTarget(ent)) {
+						vec3_t Lines[36];
+						for (int i = 0; i < 36; i++) {
+							Lines[i] = {sinf((i * 9) / (120 / PI)), 0.f, cosf((i * 9) / (120 / PI))};
+						}
+						std::vector<vec3_t> posList;
+						vec3_t pos = ent->getPosOld()->lerp(ent->getPos(), DrawUtils::getLerpTime());
+						pos.y -= 1.62f;
+						pos.y += sin((Circle / 60) * PI) + 1;
+						for (auto& Booty : Lines) {
+							vec3_t curPos(pos.x, pos.y, pos.z);
+							posList.push_back(curPos.add(Booty));
+						}
+						DrawUtils::drawLinestrip3d(posList);
 					}
-					DrawUtils::drawLinestrip3d(posList);
 				}
 			}
 		});
