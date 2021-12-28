@@ -286,7 +286,7 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 			if (info.State & MEM_FREE) continue;
 			if (info.State & MEM_RESERVE) continue;
 
-			if (*(__int64*)ent.ent > 0x6FF000000000 && *(__int64*)ent.ent < 0x800000000000 && *((int64_t*)ent.ent + 1) < 0x6FF000000000)
+			if (*(__int64*)ent.ent > 0x6FF000000000 && *(__int64*)ent.ent < 0x800000000000 && *((int64_t*)ent.ent + 1) < 0x6FF000000000 && *(__int64*)ent.ent <= Utils::getBase() + 0x10000000)
 				validEntities.push_back(ent);
 		}
 		g_Hooks.entityList.clear();
@@ -400,7 +400,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			if (info.State & MEM_FREE) continue;
 			if (info.State & MEM_RESERVE) continue;
 
-			if (*(__int64*)ent.ent > 0x6FF000000000 && *(__int64*)ent.ent < 0x800000000000 && *((int64_t*)ent.ent + 1) < 0x6FF000000000)
+			if (*(__int64*)ent.ent > 0x6FF000000000 && *(__int64*)ent.ent < 0x800000000000 && *((int64_t*)ent.ent + 1) < 0x6FF000000000 && *(__int64*)ent.ent <= Utils::getBase() + 0x10000000)
 				validEntities.push_back(ent);
 		}
 		g_Hooks.entityList.clear();
