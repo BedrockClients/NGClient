@@ -426,7 +426,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			if (elapsedFlot > 1.5f && !hasSentWarning) {
 				hasSentWarning = true;
 				auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
-				box->closeTimer = 0;
+				box->closeTimer = 5;
 				vec2_t windowSize = dat->windowSize;
 
 				DrawUtils::flush();
