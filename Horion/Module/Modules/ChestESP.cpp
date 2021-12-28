@@ -44,11 +44,11 @@ void ChestESP::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 }
 #include "../ModuleManager.h"
 void ChestESP::onTick(C_GameMode* gm) {
-	/*tickTimeout++;
+	tickTimeout++;
 	if (tickTimeout > 60) {
 		tickTimeout = 0;
 		g_Data.clearChestList();
-	}*/
+	}
 	// Swap list
 	static auto* tracerMod = moduleMgr->getModule<Tracer>();
 	auto listLock = g_Data.lockChestList();
