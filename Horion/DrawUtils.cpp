@@ -394,6 +394,8 @@ void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageD
 }
 
 void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, bool useUnicodeFont) {
+	static auto nametags = moduleMgr->getModule<NameTags>();
+	static auto underlinemod = moduleMgr->getModule<NameTags>();
 	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
 	vec2_t textPos;
 	vec4_t rectPos;
@@ -412,12 +414,16 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 		rectPos.w = textPos.y + textHeight + 2.f * textSize;
 		vec4_t subRectPos = rectPos;
 		subRectPos.y = subRectPos.w - 1.f * textSize;
-		fillRectangle(rectPos, MC_Color(0, 0, 0), 0.6f);
+		fillRectangle(rectPos, MC_Color(0, 0, 0), nametags->opacity);
 		if (Surge->surge) {
-			fillRectangle(subRectPos, MC_Color(0, 0, 255), 0.9f);
+			if (ent->isAlive() && ent->isPlayer() && underlinemod->underline) {
+				fillRectangle(subRectPos, MC_Color(0, 0, 255), nametags->opacity);
+			}
 			drawText(textPos, &text, MC_Color(0, 0, 255), textSize);
 		} else {
-			fillRectangle(subRectPos, MC_Color(0, 246, 255), 0.9f);
+			if (ent->isAlive() && ent->isPlayer() && underlinemod->underline) {
+				fillRectangle(subRectPos, MC_Color(0, 246, 255), nametags->opacity);
+			}
 			drawText(textPos, &text, MC_Color(0, 246, 255), textSize);
 		}
 

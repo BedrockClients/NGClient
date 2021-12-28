@@ -6,7 +6,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
-	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);//not complete so fuck off
+	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Watermark", &watermark, watermark);
 	registerBoolSetting("Bools", &bools, bools);
