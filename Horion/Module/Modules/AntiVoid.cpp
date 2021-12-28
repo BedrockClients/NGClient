@@ -17,11 +17,11 @@ const char* AntiVoid::getModuleName() {
 		if (mode.selected == 0) {
 			return "AntiVoid [Teleport]";
 		} else if (mode.selected == 1) {
-			return "Antivoid [Bounce]";
+			return "AntiVoid [Bounce]";
 		} else
-			return "Antivoid";
+			return "AntiVoid";
 	} else
-		return "Antivoid";
+		return "AntiVoid";
 }
 
 void AntiVoid::onTick(C_GameMode* gm) {
