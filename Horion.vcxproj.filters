@@ -169,7 +169,6 @@
     <ClCompile Include="SDK\CMinecraftUIRenderContext.cpp" />
     <ClCompile Include="SDK\CMoveInputHandler.cpp" />
     <ClCompile Include="SDK\CPacket.cpp" />
-    <ClCompile Include="SDK\MatrixStack.cpp" />
     <ClCompile Include="SDK\Tag.cpp" />
     <ClCompile Include="SDK\Tessellator.cpp" />
     <ClCompile Include="SDK\TextHolder.cpp" />
@@ -212,6 +211,7 @@
     <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
     <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
+    <ClCompile Include="Horion\Command\Commands\CBEPCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />

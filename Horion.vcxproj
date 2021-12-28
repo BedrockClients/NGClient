@@ -243,7 +243,7 @@
     <ClCompile Include="Horion\Command\Commands\DupeCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ExecuteCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\FriendListCommand.cpp" />
-	 <ClCompile Include="Horion\Command\Commands\CBEPCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\CBEPCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\HelpCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\HideCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ICommand.cpp" />
@@ -433,7 +433,6 @@
     <ClCompile Include="SDK\CMinecraftUIRenderContext.cpp" />
     <ClCompile Include="SDK\CMoveInputHandler.cpp" />
     <ClCompile Include="SDK\CPacket.cpp" />
-    <ClCompile Include="SDK\MatrixStack.cpp" />
     <ClCompile Include="SDK\Tag.cpp" />
     <ClCompile Include="SDK\Tessellator.cpp" />
     <ClCompile Include="SDK\TextHolder.cpp" />
