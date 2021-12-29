@@ -28,9 +28,7 @@
     <ClCompile Include="Horion\Command\Commands\SetprefixCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\SpammerCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\TeleportCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\TestCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ToggleCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\TopCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\UnbindCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\WaypointCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\XpCommand.cpp" />

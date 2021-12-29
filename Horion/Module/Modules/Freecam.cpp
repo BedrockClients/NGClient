@@ -3,8 +3,8 @@
 #include <chrono>
 
 Freecam::Freecam() : IModule('V', Category::VISUAL, "Move your cam without moving the player") {
-	registerFloatSetting("Horizontal Speed", &speed, speed, 0.1f, 0.8f);
-	registerFloatSetting("Vertical Speed", &vspeed, vspeed, 0.1f, 0.8f);
+	registerFloatSetting("Horizontal Speed", &speed, speed, 0.1f, 1.8f);
+	registerFloatSetting("Vertical Speed", &vspeed, vspeed, 0.1f, 1.8f);
 	registerBoolSetting("Freeze Rot", &freezerot, freezerot);
 }
 
@@ -25,8 +25,6 @@ void Freecam::onPostRender(C_MinecraftUIRenderContext*) {
 		TimeMultiplier = 1.f;
 		wasDisabled = false;
 	}
-
-	auto player = g_Data.getLocalPlayer();
 
 	float yaw = cameraRot.y;
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
