@@ -10,7 +10,7 @@ public:
 	Xray() : IModule(0x0, Category::VISUAL, "Allows you to see certain blocks easier"){};
 	~Xray(){};
 
-	void Xray::onTick(C_GameMode* gm) {
+	void onTick(C_GameMode* gm) {
 		if (smoothLightningSetting != nullptr) {
 			if (!gotSmoothInfo) {
 				gotSmoothInfo = true;
@@ -20,7 +20,7 @@ public:
 		}
 	}
 
-	void Xray::onDisable() {
+	void onDisable() {
 		if (smoothLightningSetting != nullptr && gotSmoothInfo) {
 			*smoothLightningSetting = wasSmooth;
 		}

@@ -15,11 +15,11 @@ public:
 	};
 	~Zoom(){};
 
-	void Zoom::onEnable() {
+	void onEnable() {
 		zooming = true;
 	}
 
-	void Zoom::onDisable() {
+	void onDisable() {
 		target = g_Data.fov;
 	}
 	virtual const char* getModuleName() override {
