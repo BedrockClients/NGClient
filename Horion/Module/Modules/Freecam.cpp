@@ -5,6 +5,7 @@
 Freecam::Freecam() : IModule('V', Category::VISUAL, "Move your cam without moving the player") {
 	registerFloatSetting("Horizontal Speed", &speed, speed, 0.1f, 0.8f);
 	registerFloatSetting("Vertical Speed", &vspeed, vspeed, 0.1f, 0.8f);
+	registerBoolSetting("Freeze Rot", &freezerot, freezerot);
 }
 
 Freecam::~Freecam() {

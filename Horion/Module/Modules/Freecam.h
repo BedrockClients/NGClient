@@ -15,6 +15,7 @@ public:
 	vec2_t cameraRot = {0.f, 0.f};
 	vec2_t lastPos;
 	bool wasDisabled = false;
+	bool freezerot = true;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

@@ -8,6 +8,7 @@ FightBot::FightBot() : IModule(0, Category::COMBAT, "Bot For PVP") {
 	registerBoolSetting("MultiAura", &isMulti, isMulti);
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
+	registerBoolSetting("Server Rotations", &silent, silent);
 }
 
 FightBot::~FightBot() {
@@ -176,4 +177,13 @@ void FightBot::onSendPacket(C_Packet* packet) {
 	}
 	targetListA = targetList.empty();
 	targetList.clear();
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
+		if (!targetList.empty()) {
+			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			movePacket->pitch = angle.x;
+			movePacket->headYaw = angle.y;
+			movePacket->yaw = angle.y;
+		}
+	}
 }
