@@ -19,11 +19,19 @@ void Totem::onTick(C_GameMode* gm) {
 		for (int i = 0; i < 36; i++) {
 			C_ItemStack* totem = inv->getItemStack(i);
 			if (totem->item != NULL && (*totem->item)->itemId == 568) {
-				C_InventoryAction first(i, totem, nullptr);
-				C_InventoryAction second(37, nullptr, totem);
-				g_Data.getLocalPlayer()->setOffhandSlot(totem);
-				manager->addInventoryAction(first);
-				manager->addInventoryAction(second);
+				int from = i;
+				int to = 36;
+				if (to != from) {
+					C_InventoryTransactionManager* manager = g_Data.getLocalPlayer()->getTransactionManager();
+					C_ItemStack* i1 = inv->getItemStack(from);
+					C_ItemStack* i2 = inv->getItemStack(to);
+					C_InventoryAction first(from, i1, nullptr);
+					C_InventoryAction second(to, i2, i1);
+					C_InventoryAction third(from, nullptr, i2);
+					manager->addInventoryAction(first);
+					manager->addInventoryAction(second);
+					manager->addInventoryAction(third);
+				}
 			}
 		}
 	}

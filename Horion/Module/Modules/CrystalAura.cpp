@@ -1,40 +1,30 @@
 #include "CrystalAura.h"
 
 CrystalAura::CrystalAura() : IModule(VK_NUMPAD0, Category::COMBAT, "Destroys nearby Crystals") {
-	registerIntSetting("Range", &range, range, 1, 10);
-	registerIntSetting("Crystal range", &cRange, cRange, 1, 15);
-	registerIntSetting("Place range", &eRange, eRange, 1, 5);
-	registerIntSetting("Player range", &pRange, pRange, 1, 10);
-	registerBoolSetting("Force", &Give, Give);
-	registerBoolSetting("Auto select", &AutoSelect, AutoSelect);
-	registerBoolSetting("Autoplace", &autoplace, autoplace);
-	registerBoolSetting("Enhance place", &pEnhanced, pEnhanced);
-	registerBoolSetting("Enhance destroy", &dEnhanced, dEnhanced);
-	registerBoolSetting("preview", &Preview, Preview);
+	registerIntSetting("Range", &this->range, this->range, 1, 7);
+	registerIntSetting("Crystal range", &this->cRange, this->cRange, 1, 7);
+	registerIntSetting("Place range", &this->eRange, this->eRange, 1, 7);
+	registerIntSetting("Player range", &this->pRange, this->pRange, 1, 7);
+	registerBoolSetting("Intop Made This", &this->renderr, this->renderr);
+	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
+	registerBoolSetting("Autoplace", &this->autoplace, this->autoplace);
+	registerBoolSetting("Suicide", &this->dump, this->dump);
+	registerBoolSetting("Enhance place", &this->pEnhanced, this->pEnhanced);
+	registerBoolSetting("Enhance destroy", &this->dEnhanced, this->dEnhanced);
+	registerBoolSetting("preview", &this->Preview, this->Preview);
 	delay = 0;
 }
 CrystalAura::~CrystalAura() {
 }
 const char* CrystalAura::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (autoplace || AutoSelect || pEnhanced) {
-			return "CrystalAura [Auto]";
-		} else if (Give) {
-			return "CrystalAura [Give]";
-		} else if (Preview) {
-			return "CrystalAura [Preview]";
-		} else
-			return "CrystalAura";
-	} else
-		return "CrystalAura";
+	return ("CrystalAura");
 }
 
 static std::vector<C_Entity*> targetList;
 
 void CrystalAura::onEnable() {
 	targetList.clear();
-	delay = 0;
+	this->delay = 0;
 }
 
 bool CfindEntity(C_Entity* curEnt, bool isRegularEntity) {
@@ -102,6 +92,10 @@ void CrystalAura::CPlace(C_GameMode* gm, vec3_t* pos) {
 							bestPos = blockPos;
 						}
 					}
+					if (dump) {
+						g_Data.getCGameMode()->buildBlock(&blockPos, 0);
+						gm->buildBlock(&blockPos, 0);
+					}
 				}
 			}
 		}
@@ -125,23 +119,46 @@ void CrystalAura::DestroyC(C_Entity* ent, int range) {
 }
 
 bool shouldChange = false;
-void CrystalAura::onTick(C_GameMode* gm) {
+
+static std::vector<C_Entity*> nutjoe;
+void nut(C_Entity* currentEntity, bool isRegularEntity) {
+	auto renderrr = moduleMgr->getModule<CrystalAura>();
+	if (renderrr->renderr) {
+		if (currentEntity == nullptr)
+			return;
+		if (currentEntity->getEntityTypeId() != 71)
+			return;
+
+		float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
+
+		if (dist < 100) {
+			nutjoe.push_back(currentEntity);
+		}
+	}
+}
+
+void CrystalAura::onLevelRender() {
+	if (this->renderr) {
+		if (!nutjoe.empty()) {
+			nutjoe[0]->despawn();
+		}
+	}
 	if (shouldChange) {
 		shouldChange = false;
 	}
-	delay++;
+	this->delay++;
 	if (supplies == nullptr)
 		supplies = g_Data.getLocalPlayer()->getSupplies();
 	if (inv == nullptr)
 		inv = supplies->inventory;
 	targetList.clear();
 	g_Data.forEachEntity(CfindEntity);
-	if (delay == 0) {
+	if (this->delay == 0) {
 		// place block around players?
 		return;
 	}
 
-	if (delay == 1 && AutoSelect) {
+	if (this->delay == 1 && AutoSelect) {
 		prevSlot = supplies->selectedHotbarSlot;
 		FinishSelect = true;
 		for (int n = 0; n < 9; n++) {
@@ -156,24 +173,24 @@ void CrystalAura::onTick(C_GameMode* gm) {
 		}
 		return;
 	}
-	if (delay == 2) {
+	if (this->delay == 2) {
 		if (autoplace && g_Data.getLocalPlayer()->getSelectedItemId() == 631) {  //endcrystal
 			if (pEnhanced)
 				for (auto& i : targetList)
-					CPlace(gm, i->getPos());
+					CPlace(g_Data.getCGameMode(), i->getPos());
 			else {
 				auto ptr = g_Data.getClientInstance()->getPointerStruct();
 				if (ptr->getEntity() == nullptr && ptr->rayHitType == 0)
-					CPlace(gm, &ptr->block.toFloatVector());
+					CPlace(g_Data.getCGameMode(), &ptr->block.toFloatVector());
 			}
 		}
 		return;
 	}
-	if (delay == 3 && FinishSelect) {
+	if (this->delay == 3 && FinishSelect) {
 		FinishSelect = false;
 		return;
 	}
-	if (delay == 4) {
+	if (this->delay == 4) {
 		g_Data.forEachEntity([](C_Entity* ent, bool b) {
 			if (ent->getEntityTypeId() != 71)
 				return;
@@ -186,8 +203,8 @@ void CrystalAura::onTick(C_GameMode* gm) {
 		});
 		return;
 	}
-	if (delay >= 5) {
-		delay = 0;
+	if (this->delay >= 4) {
+		this->delay = 0;
 		return;
 	}
 }
@@ -204,12 +221,12 @@ void CrystalAura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		if (ptr->getEntity() == nullptr && ptr->rayHitType == 0)
 			if (g_Data.getLocalPlayer()->region->getBlock(ptr->block)->toLegacy()->blockId == 49 ||
 				g_Data.getLocalPlayer()->region->getBlock(ptr->block)->toLegacy()->blockId == 7) {
-				DrawUtils::setColor(.75f, .25f, .5f, 1.f);
+				DrawUtils::setColor(.75f, 0.f, .75f, 1.f);
 				DrawUtils::drawBox(ptr->block.toVec3t().add(0.f, 1.5f, 0.f),
 								   ptr->block.add(1).toVec3t().add(0.f, 1.5f, 0.f), .3f);
 			}
 }
 
 void CrystalAura::onDisable() {
-	delay = 0;
+	this->delay = 0;
 }

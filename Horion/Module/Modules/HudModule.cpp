@@ -93,23 +93,26 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	{  // Hud
 		if (!(g_Data.getLocalPlayer() == nullptr || !Hud || !GameData::canUseMoveKeys())) {
 			vec3_t* pos = g_Data.getLocalPlayer()->getPos();
-			std::string coordsall = "X: " + std::to_string((int)floorf(pos->x)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z));
+			std::string coordsall = "Overworld X: " + std::to_string((int)floorf(pos->x)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z));
+			std::string Ncoordsall = "Nether X: " + std::to_string((int)floorf(pos->x/8)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z/8));
 			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
 			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
 			std::string Bps = "BPS: " + std::to_string((int)g_Data.getLocalPlayer()->getBlocksPerSecond());
-			auto xBps = windowSize.x / 2.f - 180.f;
-			auto yBps = windowSize.y - 55.f;
-			auto xcpsText = windowSize.x / 2.f - 180.f;
-			auto ycpsText = windowSize.y - 35.f;
-			auto xfpsText = windowSize.x / 2.f - 180.f;
-			auto yfpsText = windowSize.y - 45.f;
-			auto x = windowSize.x / 2.f - 180.f;
+			auto xBps = windowSize.x / 2.f - 210.f;
+			auto yBps = windowSize.y - 65.f;
+			auto xfpsText = windowSize.x / 2.f - 210.f;
+			auto yfpsText = windowSize.y - 55.f;
+			auto xcpsText = windowSize.x / 2.f - 210.f;
+			auto ycpsText = windowSize.y - 45.f;
+			auto Nx = windowSize.x / 2.f - 210.f;
+			auto Ny = windowSize.y - 35.f;
+			auto x = windowSize.x / 2.f - 210.f;
 			auto y = windowSize.y - 25.f;
 
 			static float constexpr scale = 1.f;
 			static float constexpr spacing = scale + 15.f;
 			C_LocalPlayer* player = g_Data.getLocalPlayer();
-			float xArmor = windowSize.x / 2.f - 180.f;
+			float xArmor = windowSize.x / 2.f - 210.f;
 			float yArmor = windowSize.y - 17.f;
 			for (int i = 0; i < 4; i++) {
 				C_ItemStack* stack = player->getArmor(i);
@@ -124,17 +127,20 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				DrawUtils::drawItem(item, vec2_t(xArmor, yArmor), opacity, scale, item->isEnchanted());
 			if (rgb) {
 				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(rcolors), scale);
+				DrawUtils::drawText(vec2_t{Nx, Ny}, &Ncoordsall, MC_Color(rcolors), scale);
 				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(rcolors), scale);
 				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(rcolors), scale);
 				DrawUtils::drawText(vec2_t{xBps, yBps}, &Bps, MC_Color(rcolors), scale);
 			}else
 			if (Surge->surge) {
 				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(0, 0, 255), scale);
+				DrawUtils::drawText(vec2_t{Nx, Ny}, &Ncoordsall, MC_Color(0, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(0, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(0, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xBps, yBps}, &Bps, MC_Color(0, 0, 255), scale);
 			} else {
 				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(184, 0, 255), scale);
+				DrawUtils::drawText(vec2_t{Nx, Ny}, &Ncoordsall, MC_Color(184, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(184, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(184, 0, 255), scale);
 				DrawUtils::drawText(vec2_t{xBps, yBps}, &Bps, MC_Color(184, 0, 255), scale);

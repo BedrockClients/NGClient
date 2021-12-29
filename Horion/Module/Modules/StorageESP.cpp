@@ -60,7 +60,4 @@ void StorageESP::onTick(C_GameMode* gm) {
 
 	this->bufferedChestList.clear();
 	this->bufferedChestList.insert(this->bufferedChestList.end(), chestList.begin(), chestList.end());
-	//chestList.clear();
-	//if (!tracerMod->isEnabled())
-		//chestList.clear();
 }

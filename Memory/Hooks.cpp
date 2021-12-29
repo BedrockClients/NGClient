@@ -1276,8 +1276,8 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 #ifdef _DEBUG
 	static auto test = moduleMgr->getModule<TestModule>();
 #endif
-	if (botMod->isEnabled() && g_Data.getLocalPlayer() == _this && !botMod->targetListA) {
-		sexyAngle = {botMod->bot.x, botMod->bot.y};
+	if (botMod->isEnabled() && g_Data.getLocalPlayer() == _this && !botMod->targetListA && botMod->sexy) {
+		sexyAngle = {botMod->joe};
 	}
 	if (freeMod->isEnabled() && freeMod->freezerot && g_Data.getLocalPlayer() == _this) {
 		sexyAngle = {freeMod->lastPos.x, freeMod->lastPos.y};

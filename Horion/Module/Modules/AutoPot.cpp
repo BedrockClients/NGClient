@@ -1,8 +1,9 @@
 #include "AutoPot.h"
-int slot = 0;
+#include "../../../Memory/Hooks.h"
+//int slot = 0;
 AutoPot::AutoPot() : IModule(0, Category::COMBAT, "Auto throws potions at the selected health") {
 	registerIntSetting("Health", &health, health, 1, 20);
-	registerIntSetting("Slot", &slot, slot, 1, 9);
+	//registerIntSetting("Slot", &slot, slot, 1, 9);
 }
 AutoPot::~AutoPot() {
 }
@@ -38,19 +39,35 @@ bool AutoPot::isPot(C_ItemStack* itemStack) {
 
 void AutoPot::onTick(C_GameMode* gm) {
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+	C_Inventory* inv = supplies->inventory;
 	if (g_Data.getLocalPlayer()->isAlive() && g_Data.isInGame()) {
-		//Put Pots in Horbar
+		//Put Pots in Horbar But not working for some reason
 		if (!g_Data.getLocalPlayer()->canOpenContainerScreen()) {
-			C_Inventory* inv = supplies->inventory;
+			int slot;
+			int potSlot;
 			for (int n = 0; n < 36; n++) {
 				C_ItemStack* stack = inv->getItemStack(n);
-				if (stack->item != nullptr) {
-					if (isPot(stack)) {
-							if (n != 5) inv->moveItem(n, 5);
-					}
+				if (stack->item != nullptr && isPot(stack)) {
+					auto PotSlot = inv->getFirstEmptySlot();
+					potSlot = PotSlot;
+					slot = n;
 				}
 			}
+
+			int from = potSlot;
+			int to = slot;
+			if (to != from) {
+				C_InventoryTransactionManager* manager = g_Data.getLocalPlayer()->getTransactionManager();
+				C_ItemStack* i1 = inv->getItemStack(from);
+				C_ItemStack* i2 = inv->getItemStack(to);
+				C_InventoryAction first(from, i1, nullptr);
+				C_InventoryAction second(to, i2, i1);
+				C_InventoryAction third(from, nullptr, i2);
+				manager->addInventoryAction(first);
+				manager->addInventoryAction(second);
+				manager->addInventoryAction(third);
 			}
+		}
 
 		//checks if it can throw yet
 		if (g_Data.getLocalPlayer()->getHealth() <= health) {

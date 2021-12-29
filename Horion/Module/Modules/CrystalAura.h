@@ -8,11 +8,10 @@ private:
 	int prevSlot;
 	int delay = 0;
 	int eRange = 3;
-	int give = 0;
-	bool Give = false;
 	bool autoplace = true;
 	bool pEnhanced = true;
 	bool dEnhanced = true;
+	bool dump = false;
 	bool Preview = true;
 	bool AutoSelect = true;
 	bool FinishSelect = false;
@@ -25,7 +24,7 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
-	virtual void onTick(C_GameMode* gm) override;
+	virtual void onLevelRender() override;
 	virtual void onPreRender(C_MinecraftUIRenderContext* renderCtx) override;
 	virtual void onEnable() override;
 	virtual void onDisable() override;
@@ -33,7 +32,7 @@ public:
 	int cRange = 10;
 	int pRange = 5;
 	int range = 10;
-
+	bool renderr = false;
 	void CPlace(C_GameMode* gm, vec3_t* pos);
 	void DestroyC(C_Entity* ent, int range);
 };

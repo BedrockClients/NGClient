@@ -1,14 +1,15 @@
 #include "FightBot.h"
 
-FightBot::FightBot() : IModule(0, Category::COMBAT, "Bot For PVP") {
-	registerFloatSetting("Range", &range, range, 3.f, 1000.f);
-	registerFloatSetting("Hit Range", &reach, reach, 2.f, 20.f);
+FightBot::FightBot() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
+	registerIntSetting("TargetRange", &targ, targ, 50, 500);
+	registerFloatSetting("HitRange", &range, range, 2.f, 20.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);
-	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("MultiAura", &isMulti, isMulti);
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
+	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
-	registerBoolSetting("Server Rotations", &silent, silent);
+	registerBoolSetting("Silent Rotations", &silent, silent);
+	registerBoolSetting("NoSwing", &noSwing, noSwing);
 }
 
 FightBot::~FightBot() {
@@ -17,11 +18,7 @@ FightBot::~FightBot() {
 const char* FightBot::getModuleName() {
 	auto HUD = moduleMgr->getModule<HudModule>();
 	if (isEnabled() && HUD->bools) {
-		if (rotations) {
-			return "FightBot [Rotations]";
-		} else if (sexy) {
-			return "FightBot [Sexy]";
-		} else if (silent) {
+		if (silent) {
 			return "FightBot [Silent]";
 		} else
 			return "FightBot";
@@ -29,15 +26,15 @@ const char* FightBot::getModuleName() {
 		return "FightBot";
 }
 
-static std::vector<C_Entity*> targetList;
+struct CompareTargetEnArray {
+	bool operator()(C_Entity* lhs, C_Entity* rhs) {
+		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
+		return (*lhs->getPos()).dist(*localPlayer->getPos()) < (*rhs->getPos()).dist(*localPlayer->getPos());
+	}
+};
 
-void findEeentity(C_Entity* currentEntity, bool isRegularEntity) {
-	struct CompareTargetEnArray {
-		bool operator()(C_Entity* lhs, C_Entity* rhs) {
-			C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-			return (*lhs->getPos()).dist(*localPlayer->getPos()) < (*rhs->getPos()).dist(*localPlayer->getPos());
-		}
-	};
+static std::vector<C_Entity*> targetList;
+void findadEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	static auto FightBotMod = moduleMgr->getModule<FightBot>();
 
@@ -56,6 +53,9 @@ void findEeentity(C_Entity* currentEntity, bool isRegularEntity) {
 	if (!currentEntity->isAlive())
 		return;
 
+	if (currentEntity->width <= 0.1f || currentEntity->height <= 0.1f)  // Don't hit this pesky antibot on 2b2e.org
+		return;
+
 	if (FightBotMod->isMobAura) {
 		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
 			return;
@@ -71,119 +71,137 @@ void findEeentity(C_Entity* currentEntity, bool isRegularEntity) {
 	}
 
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
-	if (dist < FightBotMod->range) {
+	if (dist < FightBotMod->targ) {
 		targetList.push_back(currentEntity);
 	}
 }
 
 void FightBot::findWeapon() {
-	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-	C_Inventory* inv = supplies->inventory;
-	float damage = 0;
-	int slot = supplies->selectedHotbarSlot;
-	for (int n = 0; n < 9; n++) {
-		C_ItemStack* stack = inv->getItemStack(n);
-		if (stack->item != nullptr) {
-			float currentDamage = stack->getAttackingDamageWithEnchants();
-			if (currentDamage > damage) {
-				damage = currentDamage;
-				slot = n;
-			}
-		}
-	}
-	supplies->selectedHotbarSlot = slot;
-}
-
-void FightBot::onTick(C_GameMode* gm) {
-	if (!g_Data.isInGame()) {
-		auto hop = moduleMgr->getModule<Bhop>();
-		hop->setEnabled(false);
-	}
-	targetListA = targetList.empty();
-	targetList.clear();
-	g_Data.forEachEntity(findEeentity);
-	struct CompareTargetEnArray {
-		bool operator()(C_Entity* lhs, C_Entity* rhs) {
-			C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-			return (*lhs->getPos()).dist(*localPlayer->getPos()) < (*rhs->getPos()).dist(*localPlayer->getPos());
-		}
-	};
-	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
-
-	Odelay++;
-	if (!targetList.empty() && Odelay >= delay) {
-		g_Data.getClientInstance()->getMoveTurnInput()->forward = true;
-		g_Data.getClientInstance()->localPlayer->setSprinting(true);
-		if (autoweapon) findWeapon();
-		if (isMulti) {
-			for (auto& i : targetList) {
-				if (!(i->damageTime > 1 && hurttime)) {
-					g_Data.getLocalPlayer()->swing();
-					g_Data.getCGameMode()->attack(i);
-				}
-			}
-		} else {
-			if (!(targetList[0]->damageTime > 1 && hurttime)) {
-				g_Data.getLocalPlayer()->swing();
-				g_Data.getCGameMode()->attack(targetList[0]);
-			}
-		}
-		if (sexy) {
-			vec2_t anglee = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-			bot = anglee;
-			auto player = g_Data.getLocalPlayer();
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-			player->yawUnused2 = angle.x;
-			player->yawUnused2 = angle.y;
-			player->bodyYaw = angle.x;
-			player->bodyYaw = angle.y;
-		}
-	}
-	int prevSlot;
-	if (autoweapon) {
-		auto supplies = g_Data.getLocalPlayer()->getSupplies();
-		prevSlot = supplies->selectedHotbarSlot;
-		auto FinishSelect = true;
-		auto inv = supplies->inventory;
+	if (g_Data.isInGame()) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		C_Inventory* inv = supplies->inventory;
+		float damage = 0;
+		int slot = supplies->selectedHotbarSlot;
 		for (int n = 0; n < 9; n++) {
 			C_ItemStack* stack = inv->getItemStack(n);
 			if (stack->item != nullptr) {
-				if (stack->getItem()->isWeapon()) {
-					if (prevSlot != n)
-						supplies->selectedHotbarSlot = n;
-					return;
+				float currentDamage = stack->getAttackingDamageWithEnchants();
+				if (currentDamage > damage) {
+					damage = currentDamage;
+					slot = n;
 				}
 			}
 		}
-		return;
+		supplies->selectedHotbarSlot = slot;
 	}
 }
 
-void FightBot::onEnable() {
-	if (g_Data.getLocalPlayer() == nullptr)
+void FightBot::onTick(C_GameMode* gm) {
+	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
+	targetListA = targetList.empty();
+	if (g_Data.isInGame()) {
+		g_Data.forEachEntity(findadEntity);
+		g_Data.getClientInstance()->getMoveTurnInput()->forward = true;
+		g_Data.getClientInstance()->localPlayer->setSprinting(true);
+		if (autoweapon) findWeapon();
+		if (!targetList.empty()) {
+			Odelay++;
+			if (Odelay >= delay) {
+				if (isMulti) {
+					for (auto& i : targetList) {
+						float dist = (*i->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
+						if (!(i->damageTime > 1 && hurttime) && dist < range) {
+							if (!noSwing)
+							g_Data.getLocalPlayer()->swing();
+							g_Data.getCGameMode()->attack(i);
+						}
+					}
+				} else {
+					float dist = (*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
+					if (!(targetList[0]->damageTime > 1 && hurttime) && dist < range) {
+						if (!noSwing)
+						g_Data.getLocalPlayer()->swing();
+						g_Data.getCGameMode()->attack(targetList[0]);
+					}
+				}
+				Odelay = 0;
+			}
+		}
+	}
+}
+
+void FightBot::onLevelRender() {
+	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
+	targetListA = targetList.empty();
+	if (g_Data.isInGame()) {
+		targetList.clear();
+		g_Data.forEachEntity(findadEntity);
+
+		if (!targetList.empty()) {
+			if (sexy) {
+				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
+				auto player = g_Data.getLocalPlayer();
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
+				player->bodyYaw = angle.x;
+				player->bodyYaw = angle.y;
+			}
+			int prevSlot;
+			if (autoweapon) {
+				auto supplies = g_Data.getLocalPlayer()->getSupplies();
+				prevSlot = supplies->selectedHotbarSlot;
+				auto FinishSelect = true;
+				auto inv = supplies->inventory;
+				for (int n = 0; n < 9; n++) {
+					C_ItemStack* stack = inv->getItemStack(n);
+					if (stack->item != nullptr) {
+						if (stack->getItem()->isWeapon()) {
+							if (prevSlot != n)
+								supplies->selectedHotbarSlot = n;
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+	if (!g_Data.isInGame())
 		setEnabled(false);
 }
 
+void FightBot::onEnable() {
+	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
+	targetList.clear();
+	if (g_Data.isInGame()) {
+		if (g_Data.getLocalPlayer() == nullptr)
+			setEnabled(false);
+	}
+}
 void FightBot::onDisable() {
 	targetList.clear();
 	g_Data.getClientInstance()->getMoveTurnInput()->forward = false;
 	g_Data.getClientInstance()->localPlayer->setSprinting(false);
+	g_Data.getClientInstance()->getMoveTurnInput()->clearMovementState();
 }
 
+
 void FightBot::onSendPacket(C_Packet* packet) {
-	if (!g_Data.isInGame()) {
-		auto hop = moduleMgr->getModule<Bhop>();
-		hop->setEnabled(false);
-	}
-	targetListA = targetList.empty();
-	targetList.clear();
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
-		if (!targetList.empty()) {
-			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-			movePacket->pitch = angle.x;
-			movePacket->headYaw = angle.y;
-			movePacket->yaw = angle.y;
+	if (g_Data.isInGame()) {
+		if (!g_Data.isInGame()) {
+			auto hop = moduleMgr->getModule<Bhop>();
+			hop->setEnabled(false);
+		}
+		targetListA = targetList.empty();
+		targetList.clear();
+		g_Data.forEachEntity(findadEntity);
+		std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
+		if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
+			if (!targetList.empty()) {
+				auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				movePacket->pitch = angle.x;
+				movePacket->headYaw = angle.y;
+				movePacket->yaw = angle.y;
+			}
 		}
 	}
 }
