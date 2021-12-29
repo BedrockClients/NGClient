@@ -1,17 +1,17 @@
 #include "CrystalAura.h"
 
 CrystalAura::CrystalAura() : IModule(VK_NUMPAD0, Category::COMBAT, "Destroys nearby Crystals") {
-	registerIntSetting("Range", &this->range, this->range, 1, 7);
-	registerIntSetting("Crystal range", &this->cRange, this->cRange, 1, 7);
-	registerIntSetting("Place range", &this->eRange, this->eRange, 1, 7);
-	registerIntSetting("Player range", &this->pRange, this->pRange, 1, 7);
-	registerBoolSetting("Intop Made This", &this->renderr, this->renderr);
-	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
-	registerBoolSetting("Autoplace", &this->autoplace, this->autoplace);
-	registerBoolSetting("Suicide", &this->dump, this->dump);
-	registerBoolSetting("Enhance place", &this->pEnhanced, this->pEnhanced);
-	registerBoolSetting("Enhance destroy", &this->dEnhanced, this->dEnhanced);
-	registerBoolSetting("preview", &this->Preview, this->Preview);
+	registerIntSetting("Range", &range, range, 1, 7);
+	registerIntSetting("Crystal range", &cRange, cRange, 1, 7);
+	registerIntSetting("Place range", &eRange, eRange, 1, 7);
+	registerIntSetting("Player range", &pRange, pRange, 1, 7);
+	registerBoolSetting("Intop Made This", &renderr, renderr);
+	registerBoolSetting("Auto select", &AutoSelect, AutoSelect);
+	registerBoolSetting("Autoplace", &autoplace, autoplace);
+	registerBoolSetting("Suicide", &dump, dump);
+	registerBoolSetting("Enhance place", &pEnhanced, pEnhanced);
+	registerBoolSetting("Enhance destroy", &dEnhanced, dEnhanced);
+	registerBoolSetting("preview", &Preview, Preview);
 	delay = 0;
 }
 CrystalAura::~CrystalAura() {

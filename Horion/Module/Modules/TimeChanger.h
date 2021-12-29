@@ -2,7 +2,6 @@
 #include "../ModuleManager.h"
 #include "Module.h"
 class TimeChanger : public IModule {
-private:
 public:
 	float modifier = 0.5f;
 	TimeChanger() : IModule(0x0, Category::VISUAL, "Changes the client-sided time.") {

@@ -7,14 +7,12 @@ float GUI::bcolor{0.f};
 
 GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
 
-	//registerBoolSetting("Box", &box, box);
 	registerBoolSetting("Better RGB Colors", &different, different);
 	registerBoolSetting("Side Bar", &bar, bar);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("under Bar", &underbar, underbar);
 	registerBoolSetting("Icy", &ice, ice);
 	registerBoolSetting("Bottom Right", &bottom, bottom);
-	//registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
 	registerFloatSetting("ArrayList Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
 	registerFloatSetting("Blue", &gcolor, gcolor, 0.f, 1.f);

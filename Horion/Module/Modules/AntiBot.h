@@ -1,4 +1,5 @@
 #pragma once
+#include "../ModuleManager.h"
 #include "Module.h"
 class AntiBot : public IModule {
 private:
@@ -10,9 +11,6 @@ private:
 	bool extraCheck = false;
 
 public:
-	AntiBot();
-	~AntiBot();
-
 	bool isHitboxCheckEnabled() {
 		return hitboxCheck && isEnabled();
 	}
@@ -31,7 +29,17 @@ public:
 	bool isExtraCheckEnabled() {
 		return extraCheck && isEnabled();
 	}
+	AntiBot() : IModule(0x0, Category::PLAYER, "Enable this module to filter bots!") {
+		registerBoolSetting("Hitbox Check", &hitboxCheck, hitboxCheck);
+		registerBoolSetting("Name Check", &nameCheck, nameCheck);
+		registerBoolSetting("Invisible Check", &invisibleCheck, invisibleCheck);
+		registerBoolSetting("EntityID Check", &entityIdCheck, entityIdCheck);
+		registerBoolSetting("Other Check", &otherCheck, otherCheck);
+		registerBoolSetting("Extra Check", &extraCheck, extraCheck);
+	};
+	~AntiBot(){};
 
-	// Inherited via IModule
-	virtual const char* getModuleName() override;
+	virtual const char* getModuleName() override {
+		return "AntiBot";
+	}
 };
