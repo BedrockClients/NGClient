@@ -11,19 +11,17 @@ InsideTP::InsideTP() : IModule(0x0, Category::COMBAT, "TP Into The Closest Entit
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
 	registerBoolSetting("Silent Rotations", &silent, silent);
 	registerBoolSetting("Behind", &Behind, Behind);
-	registerFloatSetting("BehindLength", &BehindLength, BehindLength, 0.1, 5);
+	registerFloatSetting("BehindLength", &BehindLength, BehindLength, 0.1f, 5.f);
 	registerFloatSetting("HoveringLength", &hoveringlength, hoveringlength, -5, 5);
 }
 
-InsideTP::~InsideTP() {
-}
+InsideTP::~InsideTP() {}
 
 const char* InsideTP::getModuleName() {
 	return ("InsideAura");
 }
 
 static std::vector<C_Entity*> targetList;
-
 void findEntity1(C_Entity* currentEntity, bool isRegularEntity) {
 	static auto insideMod = moduleMgr->getModule<InsideTP>();
 
@@ -60,7 +58,7 @@ void findEntity1(C_Entity* currentEntity, bool isRegularEntity) {
 			targetList.push_back(currentEntity);
 		}
 	} else {
-		if (dist < insideMod->unlimRange) {
+		if (dist < 1000.f) {
 			targetList.push_back(currentEntity);
 		}
 	}
@@ -87,7 +85,6 @@ void InsideTP::findWeapon() {
 void InsideTP::onTick(C_GameMode* gm) {
 	//Loop through all our players and retrieve their information
 	targetList.clear();
-
 	g_Data.forEachEntity(findEntity1);
 
 	Odelay++;

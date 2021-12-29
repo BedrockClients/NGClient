@@ -16,7 +16,6 @@ public:
 	bool isMobAura = false;
 	bool hurttime = true;
 	float range = 6;
-	float unlimRange = 50000;
 	bool unlim = false;
 
 	InsideTP();
