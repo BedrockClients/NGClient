@@ -121,8 +121,6 @@
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\ViewModel.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Xray.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Zoom.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoal.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoalXYZ.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoalXZ.cpp" />
@@ -184,7 +182,6 @@
     <ClCompile Include="Horion\Module\Modules\AutoJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoWalk.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
-    <ClCompile Include="Horion\Module\Modules\XP.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinevilleFly.cpp" />
