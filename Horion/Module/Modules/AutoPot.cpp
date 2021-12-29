@@ -18,7 +18,7 @@ bool AutoPot::findPot() {
 	for (int n = 0; n < 9; n++) {
 		C_ItemStack* stack = inv->getItemStack(n);
 		if (stack->item != nullptr) {
-			if (!isPot(stack)) {
+			if (isPot(stack)) {
 				if (prevSlot != n) {
 					supplies->selectedHotbarSlot = n;
 					C_MobEquipmentPacket p;
@@ -33,20 +33,7 @@ bool AutoPot::findPot() {
 }
 
 bool AutoPot::isPot(C_ItemStack* itemStack) {
-	std::vector<std::string> uselessSubstrings = {"splash_potion"};
-	std::vector<std::string> uselessNames = {"splash_potion"};
-	std::string itemName = itemStack->getItem()->name.getText();
-	for (auto substring : uselessSubstrings) {
-		if (itemName.find(substring) != std::string::npos) {
-			return 0;
-		}
-	}
-	for (auto name : uselessNames) {
-		if (itemName == name) {
-			return 0;
-		}
-	}
-	return 1;
+	return itemStack->getItem()->name.getText() == (std::string)"splash_potion";
 }
 
 void AutoPot::onTick(C_GameMode* gm) {
@@ -58,7 +45,7 @@ void AutoPot::onTick(C_GameMode* gm) {
 			for (int n = 0; n < 36; n++) {
 				C_ItemStack* stack = inv->getItemStack(n);
 				if (stack->item != nullptr) {
-					if (!isPot(stack)) {
+					if (isPot(stack)) {
 							if (n != 5) inv->moveItem(n, 5);
 					}
 				}
