@@ -4,7 +4,7 @@
 class AirStuck : public IModule {
 public:
 
-	AirStuck() : IModule(0x0, Category::MOVEMENT, "Become stuck.") {
+	AirStuck() : IModule(0x0, Category::MOVEMENT, "Become stuck more this you sis.") {
 
 	};
 	~AirStuck(){};
