@@ -151,7 +151,8 @@ void Utils::rightClick() {
 	rmbDownFunc(g_Hooks.RMBManager);
 	rmbUpFunc(g_Hooks.RMBManager);
 }
-	uintptr_t Utils::FindSignatureModule(const char* szModule, const char* szSignature) {
+
+uintptr_t Utils::FindSignatureModule(const char* szModule, const char* szSignature) {
 	const char* pattern = szSignature;
 	uintptr_t firstMatch = 0;
 	static const auto rangeStart = (uintptr_t)GetModuleHandleA(szModule);
