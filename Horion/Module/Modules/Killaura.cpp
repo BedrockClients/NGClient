@@ -43,7 +43,6 @@ static std::vector<C_Entity*> targetList;
 float rcolorrs[4];
 float Outline = 0;
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
-	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
 
 	if (currentEntity == nullptr)
@@ -105,6 +104,7 @@ void Killaura::findWeapon() {
 }
 
 void Killaura::onTick(C_GameMode* gm) {
+	auto player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
 	if (g_Data.isInGame()) {
 		g_Data.forEachEntity(findEntity);
@@ -115,7 +115,7 @@ void Killaura::onTick(C_GameMode* gm) {
 				if (isMulti) {
 					for (auto& i : targetList) {
 						if (!(i->damageTime > 1 && hurttime)) {
-							g_Data.getLocalPlayer()->swing();
+							player->swing();
 							g_Data.getCGameMode()->attack(i);
 							targethud++;
 						} else {
@@ -125,7 +125,7 @@ void Killaura::onTick(C_GameMode* gm) {
 					}
 				} else {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
-						g_Data.getLocalPlayer()->swing();
+						player->swing();
 						g_Data.getCGameMode()->attack(targetList[0]);
 						targethud++;
 					} else {
@@ -135,11 +135,6 @@ void Killaura::onTick(C_GameMode* gm) {
 				}
 				Odelay = 0;
 			}
-			if (rotations) {
-				auto player = g_Data.getLocalPlayer();
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-				player->bodyYaw = angle.y;
-			}
 		}
 	}
 	if (targetList.empty())
@@ -147,18 +142,21 @@ void Killaura::onTick(C_GameMode* gm) {
 }
 
 void Killaura::onLevelRender() {
+	auto player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
 	if (g_Data.isInGame()) {
 		targetList.clear();
 		g_Data.forEachEntity(findEntity);
 
 		if (!targetList.empty()) {
-			if (sexy) {
-				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-				auto player = g_Data.getLocalPlayer();
+			if (rotations) {
 				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-				player->bodyYaw = angle.x;
 				player->bodyYaw = angle.y;
+			}
+			if (sexy) {
+				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				player->bodyYaw = joe.x;
+				player->bodyYaw = joe.y;
 			}
 			int prevSlot;
 			if (autoweapon) {
@@ -222,6 +220,7 @@ void Killaura::onEnable() {
 			setEnabled(false);
 	}
 }
+
 void Killaura::onDisable() {
 	counter = 0;
 	targetList.clear();
@@ -242,8 +241,8 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				//The actual box
 				{
-					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333);
-					DrawUtils::fillRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 330.33333);
+					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333f);
+					DrawUtils::fillRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 330.33333f);
 				}
 
 				//all the displays
@@ -294,65 +293,17 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	}
 }
 
-/* void Killaura::onPostRender(C_MinecraftUIRenderContext* ctx) {
-	static auto Info = moduleMgr->getModule<Killaura>();
-
-	static auto Killauramod = moduleMgr->getModule<Killaura>();
-	if (!targetList.empty() && g_Data.isInGame() && Info->info){
-				vec4_t tempPos = vec4_t(120.f, 5.f, 90.f, 40.f);  //temp pos for the text pos, so we can create a pos that doesn't have player names overlapping from the box to the screen
-				vec2_t textPos = vec2_t(tempPos.y, tempPos.x);    //text pos
-
-				std::string healthstring = "Health : " + std::to_string((int)targetList[0]->getHealth());
-				std::string name = targetList[0]->getNameTag()->getText();
-				std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-				std::string pos = "X: " + std::to_string((int)(targetList[0]->getPos()->x)) + " Y: " + std::to_string((int)(targetList[0]->getPos()->y)) + " Z: " + std::to_string((int)(targetList[0]->getPos()->z));
-				std::string DmgTime = "DmgTime: " + std::to_string((targetList[0]->damageTime));
-				std::string OnGround = "OnGround: " + std::to_string((targetList[0]->onGround));
-				std::string height = "height: " + std::to_string((targetList[0]->height));
-				std::string entityid = "EntityID: " + std::to_string((targetList[0]->getEntityTypeId()));
-				DrawUtils::drawText(textPos, &name, MC_Color(0, 0, 255), 1.f);
-				textPos.y += 20.f;
-				DrawUtils::drawText(textPos, &healthstring, MC_Color(0, 0, 255), 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &distance, MC_Color(0, 0, 255), 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &pos, MC_Color(0, 0, 255), 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &DmgTime, MC_Color(0, 0, 255), 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &OnGround, MC_Color(0, 0, 255), 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &height, MC_Color(0, 0, 255), 1.f);
-				textPos.y += 10.f;
-				DrawUtils::drawText(textPos, &entityid, MC_Color(0, 0, 255), 1.f);
-	}
-}
-*/
-
 void Killaura::onSendPacket(C_Packet* packet) {
-	if (g_Data.isInGame()) {
-		if (!g_Data.isInGame()) {
-			auto hop = moduleMgr->getModule<Bhop>();
-			hop->setEnabled(false);
-		}
-		targetListA = targetList.empty();
-		targetList.clear();
-		g_Data.forEachEntity(findEntity);
-		struct CompareTargetEnArray {
-			bool operator()(C_Entity* lhs, C_Entity* rhs) {
-				C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-				return (*lhs->getPos()).dist(*localPlayer->getPos()) < (*rhs->getPos()).dist(*localPlayer->getPos());
-			}
-		};
-		std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
-		if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
-			if (!targetList.empty()) {
-				auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-				movePacket->pitch = angle.x;
-				movePacket->headYaw = angle.y;
-				movePacket->yaw = angle.y;
-			}
+	targetListA = targetList.empty();
+	targetList.clear();
+	g_Data.forEachEntity(findEntity);
+	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
+		if (!targetList.empty()) {
+			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			movePacket->pitch = joe.x;
+			movePacket->headYaw = joe.y;
+			movePacket->yaw = joe.y;
 		}
 	}
 }
