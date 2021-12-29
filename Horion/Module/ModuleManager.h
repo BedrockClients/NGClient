@@ -26,6 +26,7 @@
 #include "Modules/Blink.h"
 #include "Modules/BowAimbot.h"
 #include "Modules/AntilagBack.h"
+#include "Modules/AutoPot.h"
 #include "Modules/AntiVoid.h"
 #include "Modules/selectionHighlight.h"
 #include "Modules/StorageESP.h"

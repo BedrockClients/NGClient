@@ -59,7 +59,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		clientMessageF(builtStr.c_str());
 	} else if ((args->at(1) == "write" || args->at(1) == "load") && item) {
 		if (!Packetz->isEnabled()) {
-			Packetz->setEnabled(true);
+			//Packetz->setEnabled(true);
 		}
 		std::string tag;
 		if(isRaw){
@@ -93,7 +93,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		clientMessageF("%s%s", GREEN, "Successfully loaded mojangson !");
 
 			if (Packetz->isEnabled()) {
-				Packetz->setEnabled(false);
+				//Packetz->setEnabled(false);
 			}
 		//dupe item
 		C_InventoryAction* firstAction = nullptr;
@@ -109,7 +109,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 	} else {
 		clientMessageF("%s%s", RED, "Couldn't execute command correctly");
 		if (Packetz->isEnabled()) {
-			Packetz->setEnabled(false);
+			//Packetz->setEnabled(false);
 		}
 	}
 

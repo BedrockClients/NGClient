@@ -289,6 +289,7 @@
     <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoJump.cpp" />
+    <ClCompile Include="Horion\Module\Modules\AutoPot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoWalk.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
@@ -507,6 +508,7 @@
     <ClInclude Include="Horion\Module\Modules\AutoArmor.h" />
     <ClInclude Include="Horion\Module\Modules\AutoClick.h" />
     <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
     <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
     <ClInclude Include="Horion\Module\Modules\chestaura.h" />

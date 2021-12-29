@@ -22,6 +22,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new HudModule()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Killaura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ESP()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoPot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Jetpack()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Aimbot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new TriggerBot()));
