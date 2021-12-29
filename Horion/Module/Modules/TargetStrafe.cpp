@@ -24,7 +24,6 @@ struct CompareTargetEnArray {
 };
 
 static std::vector<C_Entity*> targetGist;
-
 void findGist(C_Entity* currentEntity, bool isRegularEntity) {
 	std::sort(targetGist.begin(), targetGist.end(), CompareTargetEnArray());
 	static auto killauraMod = moduleMgr->getModule<TargetStrafe>();
@@ -72,11 +71,10 @@ void findGist(C_Entity* currentEntity, bool isRegularEntity) {
 }
 
 void TargetStrafe::onMove(C_MoveInputHandler* input) {
+	targetGist.clear();
+	g_Data.forEachEntity(findGist);
+
 	if (!targetGist.empty()) {
-		if (!g_Data.isInGame()) {
-			auto hop = moduleMgr->getModule<Bhop>();
-			hop->setEnabled(false);
-		}
 		auto player = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
 
