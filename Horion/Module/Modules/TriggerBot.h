@@ -1,20 +1,43 @@
 #pragma once
-#include "Module.h"
+#include "../../../Utils/Target.h"
 #include "../ModuleManager.h"
-
+#include "Module.h"
 class TriggerBot : public IModule {
-private:
+public:
 	int delay = 0;
 	int Odelay = 0;
 	bool sword = true;
 
-public:
-	TriggerBot();
-	~TriggerBot();
+	TriggerBot() : IModule(0x0, Category::COMBAT, "Attacks entities you're looking at") {
+		registerIntSetting("delay", &delay, delay, 0, 20);
+	};
+	~TriggerBot(){};
 
-	// Inherited via IModule
-	virtual const char* getModuleName() override;
-	virtual void onEnable() override;
-	virtual void onDisable() override;
-	virtual void onTick(C_GameMode* gm) override;
+	void onEnable() {
+		C_Entity* target = g_Data.getClientInstance()->getPointerStruct()->getEntity();
+		if (!Target::isValidTarget(target))
+			return;
+	}
+
+	void onDisable() {
+		C_Entity* target = g_Data.getClientInstance()->getPointerStruct()->getEntity();
+		if (!Target::isValidTarget(target))
+			return;
+	}
+	void onTick(C_GameMode* gm) {
+		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
+		C_Entity* target = g_Data.getClientInstance()->getPointerStruct()->getEntity();
+
+		Odelay++;
+		if (target > 0 && Odelay >= delay) {
+			localPlayer->swingArm();
+			gm->attack(target);
+
+			Odelay = 0;
+		}
+	}
+
+	virtual const char* getModuleName() override {
+		return "TriggerBot";
+	}
 };
