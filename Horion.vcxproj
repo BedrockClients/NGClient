@@ -369,7 +369,6 @@
     <ClCompile Include="Horion\Module\Modules\TriggerBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
-    <ClCompile Include="Horion\Module\Modules\ViewModel.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoal.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoalXYZ.cpp" />
@@ -484,7 +483,6 @@
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
     <ClInclude Include="Horion\Module\Modules\AutoArmor.h" />
     <ClInclude Include="Horion\Module\Modules\AutoClick.h" />
-    <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
     <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
