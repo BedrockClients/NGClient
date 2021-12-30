@@ -83,10 +83,7 @@
     <ClCompile Include="Horion\Module\Modules\NoFriends.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoHurtcam.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoPacket.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoPaintingCrash.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoSwing.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoWeb.cpp" />
     <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
@@ -135,7 +132,6 @@
     <ClCompile Include="Memory\SlimMem.cpp" />
     <ClCompile Include="SDK\CBlockLegacy.cpp" />
     <ClCompile Include="SDK\CCamera.cpp" />
-    <ClCompile Include="SDK\CChestBlockActor.cpp" />
     <ClCompile Include="SDK\CClientInstance.cpp" />
     <ClCompile Include="SDK\CComplexInventoryTransaction.cpp" />
     <ClCompile Include="SDK\CEntity.cpp" />
