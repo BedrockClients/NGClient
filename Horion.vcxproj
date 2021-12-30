@@ -273,7 +273,6 @@
     <ClCompile Include="Horion\Module\Modules\AntiAnvil.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoPot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoWalk.cpp" />
