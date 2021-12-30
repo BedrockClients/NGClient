@@ -106,10 +106,8 @@
     <ClCompile Include="Horion\Module\Modules\Timer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tower.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\TriggerBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
-    <ClCompile Include="Horion\Module\Modules\ViewModel.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoal.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoalXYZ.cpp" />
@@ -182,7 +180,6 @@
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
     <ClCompile Include="Horion\Command\Commands\GMCommand.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
@@ -426,7 +423,6 @@
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
-    <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\Antikb.h" />
