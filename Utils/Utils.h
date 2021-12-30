@@ -444,6 +444,10 @@ public:
 
 	static uintptr_t getBase();
 
+	static void patchBytes(unsigned char* dst, unsigned char* src, unsigned int size);
+
+	static void nopBytes(unsigned char* dst, unsigned int size);
+
 	static std::string sanitize(std::string text);
 
 	static void rightClick();
