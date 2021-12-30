@@ -7,8 +7,6 @@
     <ClCompile Include="Horion\Command\Commands\CommandBlockExploitCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ConfigCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\CoordsCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\DamageCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\DupeCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ExecuteCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\FriendListCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\HelpCommand.cpp" />
@@ -23,11 +21,8 @@
     <ClCompile Include="Horion\Command\Commands\RelativeTeleportCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\SayCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ScriptCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\ServerCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\setoffhandCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\SetprefixCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\SpammerCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\TeleportCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ToggleCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\UnbindCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\WaypointCommand.cpp" />
@@ -186,7 +181,6 @@
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
-    <ClCompile Include="Horion\Command\Commands\GodmodeCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\GMCommand.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
