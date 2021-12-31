@@ -15,7 +15,7 @@ public:
 	}
 
 	void onDisable() {
-		*g_Data.getClientInstance()->minecraft->timer = (timer) = 20;
+		*g_Data.getClientInstance()->minecraft->timer = 20.f;
 	}
 
 	virtual const char* getModuleName() override {
