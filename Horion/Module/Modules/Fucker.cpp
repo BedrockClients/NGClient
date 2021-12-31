@@ -46,15 +46,10 @@ void Fucker::onTick(C_GameMode* gm) {
 							gm->destroyBlock(&blockPos, 0);
 						else {
 							bool isDestroyed = false;
-							if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
-								PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
-								gm->stopDestroyBlock(pointing->block);
-								gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
-								gm->destroyBlock(new vec3_ti(pointing->block), pointing->blockSide);
-							}
 							gm->stopDestroyBlock(blockPos);
-							gm->startDestroyBlock(blockPos, gm->player->region->getBlock(blockPos)->data, isDestroyed);
-							gm->destroyBlock(&blockPos, gm->player->region->getBlock(blockPos)->data);
+							gm->startDestroyBlock(blockPos, 0, isDestroyed);
+							gm->destroyBlock(&blockPos, 0);
+							gm->stopDestroyBlock(blockPos);
 						}
 					}
 					if (eat) {
@@ -68,21 +63,7 @@ void Fucker::onTick(C_GameMode* gm) {
 		}
 	}
 }
-float randomFloat(float a, float b) {
-	float random = ((float)rand()) / (float)RAND_MAX;
-	float diff = b - a;
-	float r = random * diff;
-	return a + r;
-}
 void Fucker::onSendPacket(C_Packet* packet) {
-	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>() && g_Data.getLocalPlayer() != nullptr && bypass) {
-		static auto instaBreakModule = moduleMgr->getModule<InstaBreak>();
-		if (destroy) {
-			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			movePacket->pitch = randomFloat(-90, 90);
-			movePacket->yaw = randomFloat(-180, 180);
-		}
-	}
 }
 
 void Fucker::onLevelRender() {

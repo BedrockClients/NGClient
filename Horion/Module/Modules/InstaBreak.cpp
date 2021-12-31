@@ -17,5 +17,6 @@ void InstaBreak::onTick(C_GameMode* gm) {
 		gm->stopDestroyBlock(pointing->block);
 		gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
 		gm->destroyBlock(new vec3_ti(pointing->block), pointing->blockSide);
+		gm->stopDestroyBlock(pointing->block);
 	}
 }
