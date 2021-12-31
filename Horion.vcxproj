@@ -270,11 +270,7 @@
     <ClCompile Include="Horion\Menu\TabGui.cpp" />
     <ClCompile Include="Horion\Module\ModuleManager.cpp" />
     <ClCompile Include="Horion\Module\Modules\Aimbot.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AntiAnvil.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoJump.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoPot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoWalk.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
@@ -298,7 +294,6 @@
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoSneak.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoSprint.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoTotem.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
@@ -309,8 +304,6 @@
     <ClCompile Include="Horion\Module\Modules\BlockEsp.cpp" />
     <ClCompile Include="Horion\Module\Modules\ClickGuiMod.cpp" />
     <ClCompile Include="Horion\Module\Modules\Compass.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Crasher.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Criticals.cpp" />
     <ClCompile Include="Horion\Module\Modules\CrystalAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeGlide.cpp" />
     <ClCompile Include="Horion\Module\Modules\Derp.cpp" />
@@ -345,10 +338,7 @@
     <ClCompile Include="Horion\Module\Modules\NoFriends.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoHurtcam.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoPacket.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoPaintingCrash.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoSwing.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoWeb.cpp" />
     <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
@@ -366,10 +356,8 @@
     <ClCompile Include="Horion\Module\Modules\Tower.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
-    <ClCompile Include="Horion\Module\Modules\TriggerBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
-    <ClCompile Include="Horion\Module\Modules\ViewModel.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoal.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoalXYZ.cpp" />
@@ -400,7 +388,6 @@
     <ClCompile Include="Memory\SlimMem.cpp" />
     <ClCompile Include="SDK\CBlockLegacy.cpp" />
     <ClCompile Include="SDK\CCamera.cpp" />
-    <ClCompile Include="SDK\CChestBlockActor.cpp" />
     <ClCompile Include="SDK\CClientInstance.cpp" />
     <ClCompile Include="SDK\CComplexInventoryTransaction.cpp" />
     <ClCompile Include="SDK\CEntity.cpp" />

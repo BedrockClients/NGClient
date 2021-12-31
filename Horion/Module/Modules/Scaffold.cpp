@@ -37,21 +37,6 @@ const char* Scaffold::getModuleName() {
 		return "Scaffold";
 }
 
-void Nop(BYTE* dst, unsigned int size) {
-	DWORD oldprotect;
-	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
-	memset(dst, 0x90, size);
-	VirtualProtect(dst, size, oldprotect, &oldprotect);
-}
-
-void Patch(BYTE* dst, BYTE* src, unsigned int size) {
-	DWORD oldprotect;
-	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
-
-	memcpy(dst, src, size);
-	VirtualProtect(dst, size, oldprotect, &oldprotect);
-}
-
 bool Scaffold::tryScaffold(vec3_t blockBelow) {
 	blockBelow = blockBelow.floor();
 
@@ -137,8 +122,8 @@ void Scaffold::onTick(C_GameMode* gm) {
 	//float Pitch = (gm->player->pitch) * -(PI / 180); Correct Pitch
 	if (rot) {
 		g_Data.getLocalPlayer()->pointingStruct->rayHitType = 0;
-		Nop((BYTE*)HiveBypass1, 3);
-		Patch((BYTE*)HiveBypass2, (BYTE*)"\xC7\x40\x18\x00\x00\x00\x00", 7);
+		Utils::nopBytes((BYTE*)HiveBypass1, 3);
+		Utils::patchBytes((BYTE*)HiveBypass2, (BYTE*)"\xC7\x40\x18\x00\x00\x00\x00", 7);
 	}
 
 	if (g_Data.getLocalPlayer() == nullptr)
@@ -259,6 +244,6 @@ void Scaffold::onEnable() {
 	blockBelowtest.y -= 2.5f;
 }
 void Scaffold::onDisable() {
-	Patch((BYTE*)HiveBypass1, (BYTE*)"\x89\x41\x18", 3);
-	Patch((BYTE*)HiveBypass2, (BYTE*)"\xC7\x40\x18\x03\x00\x00\x00", 7);
+	Utils::patchBytes((BYTE*)HiveBypass1, (BYTE*)"\x89\x41\x18", 3);
+	Utils::patchBytes((BYTE*)HiveBypass2, (BYTE*)"\xC7\x40\x18\x03\x00\x00\x00", 7);
 }

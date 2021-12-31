@@ -34,6 +34,20 @@ void Utils::GetCurrentSystemTime(tm& timeInfo) {
 	localtime_s(&timeInfo, &now_c);  // using localtime_s as std::localtime is not thread-safe.
 }
 
+void Utils::patchBytes(unsigned char* dst, unsigned char* src, unsigned int size) {
+	DWORD oldprotect;
+	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+	memcpy(dst, src, size);
+	VirtualProtect(dst, size, oldprotect, &oldprotect);
+}
+
+void Utils::nopBytes(unsigned char* dst, unsigned int size) {
+	DWORD oldprotect;
+	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+	memset(dst, 0x90, size);
+	VirtualProtect(dst, size, oldprotect, &oldprotect);
+}
+
 bool invalidChar(char c) {
 	return !(c >= 0 && *reinterpret_cast<unsigned char*>(&c) < 128);
 }

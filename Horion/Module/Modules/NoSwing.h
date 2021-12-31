@@ -2,9 +2,9 @@
 #include "Module.h"
 class NoSwing : public IModule {
 public:
-	NoSwing();
-	~NoSwing();
+	NoSwing() : IModule(0, Category::PLAYER, "Disable arm swing animation") {}
+	~NoSwing(){};
 
 	// Inherited via IModule
-	virtual const char* getModuleName() override;
+	virtual const char* getModuleName() override { return ("NoSwing"); }
 };

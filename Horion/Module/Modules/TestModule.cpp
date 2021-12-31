@@ -11,7 +11,6 @@
 #include <glm/mat4x4.hpp>
 #include <glm/trigonometric.hpp>  //radians
 #include <unordered_set>
-
 #include "../../../SDK/MatrixStack.h"
 #include "../../../Utils/Json.hpp"
 #include "../../../Utils/Logger.h"
@@ -22,8 +21,6 @@
 #include "../../path/goals/JoeGoal.h"
 #include "../../path/goals/JoeGoalXZ.h"
 #include "../../../SDK/CMobEffect.h"
-
-using json = nlohmann::json;
 
 TestModule::TestModule() : IModule(0, Category::WORLD, "For testing purposes") {
 	enum1 = SettingEnum(this)
@@ -82,9 +79,15 @@ void TestModule::onEnable() {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
-	//C_AnimatePacket p;
-	//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
-	Utils::rightClick();
+	/*C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+	C_Inventory* inv = supplies->inventory;
+	int slot = supplies->selectedHotbarSlot;
+	for (int n = 0; n < 9; n++) {
+		C_ItemStack* stack = inv->getItemStack(n);
+		if (stack->item != nullptr) {
+			supplies->inventory->moveItem(1, 9);
+		}
+	}*/ 
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {

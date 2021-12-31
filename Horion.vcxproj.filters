@@ -40,7 +40,6 @@
     <ClCompile Include="Horion\Module\Modules\Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\Flyto.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoSneak.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoSprint.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoTotem.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
@@ -51,8 +50,6 @@
     <ClCompile Include="Horion\Module\Modules\BlockEsp.cpp" />
     <ClCompile Include="Horion\Module\Modules\ClickGuiMod.cpp" />
     <ClCompile Include="Horion\Module\Modules\Compass.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Crasher.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Criticals.cpp" />
     <ClCompile Include="Horion\Module\Modules\CrystalAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeGlide.cpp" />
     <ClCompile Include="Horion\Module\Modules\Derp.cpp" />
@@ -86,10 +83,7 @@
     <ClCompile Include="Horion\Module\Modules\NoFriends.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoHurtcam.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoPacket.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoPaintingCrash.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoSwing.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoWeb.cpp" />
     <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
@@ -106,10 +100,8 @@
     <ClCompile Include="Horion\Module\Modules\Timer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tower.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\TriggerBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
-    <ClCompile Include="Horion\Module\Modules\ViewModel.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoal.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoalXYZ.cpp" />
@@ -140,7 +132,6 @@
     <ClCompile Include="Memory\SlimMem.cpp" />
     <ClCompile Include="SDK\CBlockLegacy.cpp" />
     <ClCompile Include="SDK\CCamera.cpp" />
-    <ClCompile Include="SDK\CChestBlockActor.cpp" />
     <ClCompile Include="SDK\CClientInstance.cpp" />
     <ClCompile Include="SDK\CComplexInventoryTransaction.cpp" />
     <ClCompile Include="SDK\CEntity.cpp" />
@@ -162,14 +153,12 @@
     <ClCompile Include="Utils\VoxelIntersector.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AntiAnvil.cpp" />
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeSpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoClip.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoWalk.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
@@ -185,11 +174,9 @@
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
     <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
     <ClCompile Include="Horion\Command\Commands\CBEPCommand.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoPot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -425,7 +412,6 @@
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
-    <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\Antikb.h" />
@@ -453,6 +439,7 @@
     <ClInclude Include="Horion\Module\Modules\chestaura.h" />
     <ClInclude Include="Horion\Module\Modules\TargetStrafe.h" />
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
