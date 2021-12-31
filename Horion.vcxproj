@@ -351,8 +351,6 @@
     <ClCompile Include="Horion\Module\Modules\HiveFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Step.cpp" />
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />
-    <ClCompile Include="Horion\Module\Modules\TestModule.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Timer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tower.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />

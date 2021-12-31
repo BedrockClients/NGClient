@@ -1,15 +1,24 @@
 #pragma once
+#include "../ModuleManager.h"
 #include "Module.h"
 class Timer : public IModule {
-private:
+public:
 	int timer = 50;
 
-public:
-	Timer();
-	~Timer();
+	Timer() : IModule(0x0, Category::PLAYER, "Increase the ticks per second") {
+		registerIntSetting("ticks per second", &timer, timer, 0, 200);
+	};
+	~Timer(){};
 
-	// Inherited via IModule
-	virtual const char* getModuleName() override;
-	virtual void onDisable() override;
-	virtual void onTick(C_GameMode* gm) override;
+	void onTick(C_GameMode* gm) {
+		*g_Data.getClientInstance()->minecraft->timer = static_cast<float>(timer);
+	}
+
+	void onDisable() {
+		*g_Data.getClientInstance()->minecraft->timer = (timer) = 20;
+	}
+
+	virtual const char* getModuleName() override {
+		return "Timer";
+	}
 };
