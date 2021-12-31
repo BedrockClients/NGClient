@@ -26,5 +26,5 @@ public:
 private:
 	char pad_0x0063[0x2D]; //0x0063
 public:
-	__int64 clearMovementState();;
+	__int64 clearMovementState() { return Utils::CallVFunc<4, __int64>(this); }
 };

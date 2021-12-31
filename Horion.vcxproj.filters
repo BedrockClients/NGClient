@@ -140,7 +140,6 @@
     <ClCompile Include="SDK\CInventoryTransaction.cpp" />
     <ClCompile Include="SDK\CItem.cpp" />
     <ClCompile Include="SDK\CMinecraftUIRenderContext.cpp" />
-    <ClCompile Include="SDK\CMoveInputHandler.cpp" />
     <ClCompile Include="SDK\CPacket.cpp" />
     <ClCompile Include="SDK\Tag.cpp" />
     <ClCompile Include="SDK\Tessellator.cpp" />

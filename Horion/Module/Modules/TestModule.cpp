@@ -79,15 +79,6 @@ void TestModule::onEnable() {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
-	/*C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-	C_Inventory* inv = supplies->inventory;
-	int slot = supplies->selectedHotbarSlot;
-	for (int n = 0; n < 9; n++) {
-		C_ItemStack* stack = inv->getItemStack(n);
-		if (stack->item != nullptr) {
-			supplies->inventory->moveItem(1, 9);
-		}
-	}*/ 
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {
