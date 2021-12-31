@@ -30,16 +30,16 @@ void Fucker::onTick(C_GameMode* gm) {
 					blockPos = vec3_ti(x, y, z);
 					destroy = false;
 					bool eat = false;
-					int id = gm->player->region->getBlock(blockPos)->toLegacy()->blockId;
+					std::string name = gm->player->region->getBlock(blockPos)->toLegacy()->name.getText();
 
-					if (id == 26 && beds) destroy = true;                                          // Beds
-					if (id == 122 && eggs) destroy = true;                                         // Dragon Eggs
-					if (id == 92 && cakes) eat = true;                                             // Cakes
-					if (id == 54 && chests) destroy = true;                                        // Chests
-					if (id == 73 && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Lit Redstone
-					if (id == 74 && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Redstone
-					if (id == 56 && diamond) destroy = true;                                       // Diamond
-					if (id == 129 && emerald) destroy = true;                                      // Emerald
+					if (name == "bed" && beds) destroy = true;                                      // Beds
+					if (name == "dragon_egg" && eggs) destroy = true;                                    // Dragon Eggs
+					if (name == "cake" && cakes) eat = true;                                         // Cakes
+					if (name == "chest" && chests) destroy = true;                                        // Chests
+					if (name == "lit_redstone_ore" && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Lit Redstone
+					if (name == "redstone_ore" && redstone && gm->player->getAbsorption() < 10) destroy = true;   // Redstone
+					if (name == "diamond_ore" && diamond) destroy = true;                                       // Diamond
+					if (name == "emerald_ore" && emerald) destroy = true;                                        // Emerald
 
 					if (destroy) {
 						if (!bypass)
