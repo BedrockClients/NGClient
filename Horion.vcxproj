@@ -293,7 +293,6 @@
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoSprint.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoTotem.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
     <ClCompile Include="Horion\Module\Modules\Blink.cpp" />
