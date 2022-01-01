@@ -1,4 +1,4 @@
-﻿#include "Hooks.h"
+#include "Hooks.h"
 
 #include <algorithm>
 #include <glm/ext/matrix_clip_space.hpp>
@@ -298,7 +298,7 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 		// TODO: refactor all modules to not use GameMode
 		C_GameMode* gm = *reinterpret_cast<C_GameMode**>(reinterpret_cast<__int64>(_this) + 0x1248);
 		GameData::updateGameData(gm);
-		moduleMgr->onTick(gm);
+		moduleMgr->onWorldTick(gm);
 	}
 	return o;
 }
@@ -1412,6 +1412,8 @@ float Hooks::LevelRendererPlayer_getFov(__int64 _this, float a2, bool a3) {
 
 void Hooks::MultiLevelPlayer_tick(C_EntityList* _this) {
 	static auto oTick = g_Hooks.MultiLevelPlayer_tickHook->GetFastcall<void, C_EntityList*>();
+	C_GameMode* gm = g_Data.getCGameMode();
+	if (gm != nullptr) moduleMgr->onTick(gm);
 	oTick(_this);
 	GameData::EntityList_tick(_this);
 }
