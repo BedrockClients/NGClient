@@ -150,6 +150,7 @@ public:
 	void onLoadConfig(void* conf);
 	void onSaveConfig(void* conf);
 	void onTick(C_GameMode* gameMode);
+	void onWorldTick(C_GameMode* gameMode);
 	void onAttack(C_Entity* attackedEnt);
 
 	void onKeyUpdate(int key, bool isDown);

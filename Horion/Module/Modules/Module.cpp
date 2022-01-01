@@ -199,6 +199,9 @@ bool IModule::allowAutoStart() {
 void IModule::onTick(C_GameMode*) {
 }
 
+void IModule::onWorldTick(C_GameMode*) {
+}
+
 void IModule::onKeyUpdate(int key, bool isDown) {
 	if (key == getKeybind()) {
 		if (isFlashMode())
