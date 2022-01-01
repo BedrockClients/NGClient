@@ -7,5 +7,5 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("NoWeb"); }
-	virtual void onTick(C_GameMode* gm) override { gm->player->slowdownFactor = {0, 0, 0}; }
+	virtual void onWorldTick(C_GameMode* gm) override { gm->player->slowdownFactor = {0, 0, 0}; }
 };

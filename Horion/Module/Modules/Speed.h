@@ -14,7 +14,7 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("Speed"); }
-	virtual void onTick(C_GameMode* gm) override {
+	virtual void onWorldTick(C_GameMode* gm) override {
 		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 		float* speedAdr = reinterpret_cast<float*>(g_Data.getLocalPlayer()->getSpeed() + 0x84);
 		*speedAdr = speed;

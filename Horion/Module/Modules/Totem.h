@@ -7,7 +7,7 @@ public:
 	~Totem(){}
 
 	virtual const char* getModuleName() override { return ("AutoTotem"); }
-	virtual void onTick(C_GameMode* gm) override {
+	virtual void onWorldTick(C_GameMode* gm) override {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;
 		C_InventoryTransactionManager* manager = g_Data.getLocalPlayer()->getTransactionManager();

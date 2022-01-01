@@ -32,7 +32,7 @@ public:
 	};
 	~ViewModel(){};
 
-	void ViewModel::onTick(C_GameMode* gm) {
+	void ViewModel::onWorldTick(C_GameMode* gm) {
 		if (g_Data.getLocalPlayer() == nullptr)
 			return;
 

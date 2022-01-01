@@ -12,7 +12,7 @@ public:
 	~Derp();
 
 	// Inherited via IModule
-	virtual void onTick(C_GameMode* gm) override;
+	virtual void onWorldTick(C_GameMode* gm) override;
 	virtual const char* getModuleName() override;
 	virtual void onSendPacket(C_Packet* packet) override;
 };

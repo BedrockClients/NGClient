@@ -7,7 +7,7 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("FastEat"); }
-	virtual void onTick(C_GameMode* gm) override {
+	virtual void onWorldTick(C_GameMode* gm) override {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;
 		for (int i = 0; i < 36; i++) {

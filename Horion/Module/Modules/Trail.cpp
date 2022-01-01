@@ -24,7 +24,7 @@ const char* Trail::getModuleName() {
 		return "Trail";
 }
 
-void Trail::onTick(C_GameMode* gm) {
+void Trail::onWorldTick(C_GameMode* gm) {
 	auto player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 	vec3_t floorPos = *g_Data.getLocalPlayer()->getPos();

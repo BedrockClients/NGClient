@@ -24,7 +24,7 @@ public:
 		if (!Target::isValidTarget(target))
 			return;
 	}
-	void onTick(C_GameMode* gm) {
+	void onWorldTick(C_GameMode* gm) {
 		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 		C_Entity* target = g_Data.getClientInstance()->getPointerStruct()->getEntity();
 

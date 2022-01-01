@@ -17,7 +17,7 @@ public:
 	};
 	~NoClip(){};
 
-	void onTick(C_GameMode* gm) {
+	void onWorldTick(C_GameMode* gm) {
 		gm->player->aabb.upper.y = gm->player->aabb.lower.y - (float)1.8f;
 		gm->player->velocity = vec3_t(0, 0, 0);
 		glideModEffective = glideMod;

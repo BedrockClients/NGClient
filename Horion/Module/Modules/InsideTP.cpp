@@ -82,7 +82,7 @@ void InsideTP::findWeapon() {
 	supplies->selectedHotbarSlot = slot;
 }
 
-void InsideTP::onTick(C_GameMode* gm) {
+void InsideTP::onWorldTick(C_GameMode* gm) {
 	//Loop through all our players and retrieve their information
 	targetList.clear();
 	g_Data.forEachEntity(findEntity1);

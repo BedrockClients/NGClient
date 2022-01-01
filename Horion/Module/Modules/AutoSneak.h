@@ -9,7 +9,7 @@ public:
 	~AutoSneak(){};
 
 	virtual const char* getModuleName() override { return ("AutoSneak"); }
-	virtual void onTick(C_GameMode* gm) override {
+	virtual void onWorldTick(C_GameMode* gm) override {
 		if (!doSilent)
 			g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown = true;
 	}

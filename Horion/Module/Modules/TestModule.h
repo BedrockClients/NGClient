@@ -9,7 +9,10 @@ public:
 	void onEnable() {
 	}
 
-	void onTick(C_GameMode* gm) {
+	void onWorldTick(C_GameMode* gm) {
+		gm->player->pitch = 0;
+		gm->player->bodyYaw = 90;
+		gm->player->yawUnused1 = 90;
 	}
 
 	void onMove(C_MoveInputHandler* hand) {

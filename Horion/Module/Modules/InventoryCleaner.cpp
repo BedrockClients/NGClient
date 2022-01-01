@@ -18,7 +18,7 @@ const char* InventoryCleaner::getModuleName() {
 	return ("InvCleaner");
 }
 
-void InventoryCleaner::onTick(C_GameMode* gm) {
+void InventoryCleaner::onWorldTick(C_GameMode* gm) {
 	if (g_Data.getLocalPlayer()->canOpenContainerScreen() && openInv) 
 		return;
 

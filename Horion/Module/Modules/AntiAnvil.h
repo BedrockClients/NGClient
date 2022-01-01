@@ -14,7 +14,7 @@ public:
 		return "AntiAnvil";
 	}
 
-	virtual void onTick(C_GameMode* gm) override {
+	virtual void onWorldTick(C_GameMode* gm) override {
 		std::vector<vec3_ti> checklist;
 
 		AABB aabb = gm->player->aabb.expandedXZ(-0.01f);

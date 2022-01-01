@@ -37,7 +37,7 @@ void Fly::onEnable() {
 }
 
 
-void Fly::onTick(C_GameMode* gm) {
+void Fly::onWorldTick(C_GameMode* gm) {
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (input == nullptr) return;
 	if (GameData::isKeyDown(*input->sneakKey) && (mode.selected == 2))

@@ -10,7 +10,7 @@ InstaBreak::~InstaBreak() {
 const char* InstaBreak::getModuleName() {
 	return ("InstaBreak");
 }
-void InstaBreak::onTick(C_GameMode* gm) {
+void InstaBreak::onWorldTick(C_GameMode* gm) {
 	if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && bypass && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
 		PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
 		bool isDestroyed = false;

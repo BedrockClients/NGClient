@@ -12,7 +12,7 @@ const char* NGFly::getModuleName() {
 		return ("NetherGamesFly");
 }
 
-void NGFly::onTick(C_GameMode* gm) {
+void NGFly::onWorldTick(C_GameMode* gm) {
 	glideModEffective = glideMod;
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 

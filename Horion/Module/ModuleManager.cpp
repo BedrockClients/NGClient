@@ -190,13 +190,13 @@ void ModuleManager::onSaveConfig(void* confVoid) {
 	}
 }
 
-void ModuleManager::onTick(C_GameMode* gameMode) {
+void ModuleManager::onWorldTick(C_GameMode* gameMode) {
 	if (!isInitialized())
 		return;
 	auto lock = lockModuleList();
 	for (auto& mod : moduleList) {
 		if (mod->isEnabled() || mod->callWhenDisabled())
-			mod->onTick(gameMode);
+			mod->onWorldTick(gameMode);
 	}
 }
 

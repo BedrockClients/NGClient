@@ -127,7 +127,7 @@ void TargetStrafe::onLevelRender() {
 	}
 }
 
-void TargetStrafe::onTick(C_GameMode* gm) {
+void TargetStrafe::onWorldTick(C_GameMode* gm) {
 	std::sort(targetGist.begin(), targetGist.end(), CompareTargetEnArray());
 	targetListB = targetGist.empty();
 	if (g_Data.getClientInstance()->isInGame()) {

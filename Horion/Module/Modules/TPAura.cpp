@@ -92,7 +92,7 @@ void TPAura::findWeapon() {
 	supplies->selectedHotbarSlot = slot;
 }
 
-void TPAura::onTick(C_GameMode* gm) {
+void TPAura::onWorldTick(C_GameMode* gm) {
 	//Loop through all our players and retrieve their information
 	targetList.clear();
 

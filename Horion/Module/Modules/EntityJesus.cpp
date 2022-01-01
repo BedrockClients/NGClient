@@ -56,7 +56,7 @@ void EntityJesus::onMove(C_MoveInputHandler* input) {
 	}
 }
 
-void EntityJesus::onTick(C_GameMode* gm) {
+void EntityJesus::onWorldTick(C_GameMode* gm) {
 	if (gm->player->isSneaking()) return;
 
 	if (getEntity[0]->hasEnteredWater()) {

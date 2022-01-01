@@ -24,7 +24,7 @@ public:
 		if (g_Data.getLocalPlayer() == nullptr)
 			setEnabled(false);
 	}
-	virtual void onTick(C_GameMode* gm) override {
+	virtual void onWorldTick(C_GameMode* gm) override {
 		if (g_Data.getLocalPlayer() == nullptr)
 			setEnabled(false);
 	}

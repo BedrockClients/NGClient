@@ -117,7 +117,7 @@ bool Scaffold::isUsefulBlock(C_ItemStack* itemStack) {
 	return 1;
 }
 
-void Scaffold::onTick(C_GameMode* gm) {
+void Scaffold::onWorldTick(C_GameMode* gm) {
 
 	//float Pitch = (gm->player->pitch) * -(PI / 180); Correct Pitch
 	if (rot) {

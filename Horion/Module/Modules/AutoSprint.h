@@ -10,7 +10,7 @@ public:
 	};
 	~AutoSprint(){};
 
-	void onTick(C_GameMode* gm) {
+	void onWorldTick(C_GameMode* gm) {
 		C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 		if (!GameData::isKeyDown(*input->sneakKey)) {
 			if (!gm->player->isSprinting() && gm->player->velocity.magnitudexz() > 0.01f) {

@@ -13,7 +13,7 @@ public:
 	}
 
 	// Inherited via IModule
-	virtual void onTick(C_GameMode* gm) override { gm->player->fallDistance = 0.f; }
+	virtual void onWorldTick(C_GameMode* gm) override { gm->player->fallDistance = 0.f; }
 	virtual const char* getModuleName() override { return ("Blink"); }
 
 	inline std::vector<C_MovePlayerPacket*>* getMovePlayerPacketHolder() { return &MovePlayerPacketHolder; };

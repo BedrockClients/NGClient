@@ -33,7 +33,7 @@ void findEntities(C_Entity* currentEntity, bool isRegularEntitie) {
 	}
 }
 
-void InfiniteAura::onTick(C_GameMode* gm) {
+void InfiniteAura::onWorldTick(C_GameMode* gm) {
 	//Loop through all our players and retrieve their information
 	targetList0.clear();
 	g_Data.forEachEntity(findEntities);

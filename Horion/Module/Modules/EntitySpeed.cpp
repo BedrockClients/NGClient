@@ -35,7 +35,7 @@ void getEntityId(C_Entity* currentEntity, bool isRegularEntity) {
 	}
 }
 
-void EntitySpeed::onTick(C_GameMode* gm) {
+void EntitySpeed::onWorldTick(C_GameMode* gm) {
 	targetList.clear();
 	g_Data.forEachEntity(getEntityId);
 

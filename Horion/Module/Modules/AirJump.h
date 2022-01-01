@@ -11,7 +11,7 @@ public:
 	};
 	~AirJump(){};
 
-	void onTick(C_GameMode* gm) {
+	void onWorldTick(C_GameMode* gm) {
 		if (legacyMode) {
 			gm->player->onGround = true;
 			return;

@@ -103,7 +103,7 @@ void Killaura::findWeapon() {
 	}
 }
 
-void Killaura::onTick(C_GameMode* gm) {
+void Killaura::onWorldTick(C_GameMode* gm) {
 	auto player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
 	if (g_Data.isInGame()) {

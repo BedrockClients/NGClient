@@ -96,7 +96,7 @@ void FightBot::findWeapon() {
 	}
 }
 
-void FightBot::onTick(C_GameMode* gm) {
+void FightBot::onWorldTick(C_GameMode* gm) {
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	targetListA = targetList.empty();
 	if (g_Data.isInGame()) {

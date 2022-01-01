@@ -14,7 +14,7 @@ const char* Spammer::getModuleName() {
 	return ("Spammer");
 }
 
-void Spammer::onTick(C_GameMode* gm) {
+void Spammer::onWorldTick(C_GameMode* gm) {
 	Odelay++;
 	if (Odelay > delay * 20) {
 		C_TextPacket textPacket;

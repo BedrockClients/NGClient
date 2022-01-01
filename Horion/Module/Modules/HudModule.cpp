@@ -33,7 +33,7 @@ const char* HudModule::getModuleName() {
 		return "HUD";
 }
 
-void HudModule::onTick(C_GameMode* gm) {
+void HudModule::onWorldTick(C_GameMode* gm) {
 }
 
 void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {

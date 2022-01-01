@@ -14,7 +14,7 @@ public:
 	Disabler();
 	virtual const char* getModuleName();
 	virtual void onMove(C_MoveInputHandler* input) override;
-	void onTick(C_GameMode* gm);
+	void onWorldTick(C_GameMode* gm);
 	void onSendPacket(C_Packet* packet) override;
 	//virtual void onSendPacket(C_Packet* packet) override;
 	inline std::vector<C_MovePlayerPacket*>* getMovePlayerPacketHolder() { return &MovePlayerPacketHolder; };

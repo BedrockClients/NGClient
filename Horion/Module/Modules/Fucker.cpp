@@ -21,7 +21,7 @@ const char* Fucker::getModuleName() {
 	return ("Breaker");
 }
 
-void Fucker::onTick(C_GameMode* gm) {
+void Fucker::onWorldTick(C_GameMode* gm) {
 	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->localPlayer->isAlive()) {
 		vec3_t* pos = gm->player->getPos();
 		for (int x = (int)pos->x - range; x < pos->x + range; x++) {

@@ -17,7 +17,7 @@ public:
 		return true;
 	}
 
-	void onTick(C_GameMode* gm) {
+	void onWorldTick(C_GameMode* gm) {
 		float calcYaw = (gm->player->yaw + 90) * (PI / 180);
 		float calcPitch = (gm->player->pitch) * -(PI / 180);
 

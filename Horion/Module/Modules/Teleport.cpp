@@ -20,7 +20,7 @@ const char* Teleport::getModuleName() {
 		return "Teleport";
 }
 
-void Teleport::onTick(C_GameMode* gm) {
+void Teleport::onWorldTick(C_GameMode* gm) {
 
 	if (!GameData::canUseMoveKeys()) 
 		return;
