@@ -301,16 +301,13 @@
     <ClCompile Include="Horion\Module\Modules\CubeGlide.cpp" />
     <ClCompile Include="Horion\Module\Modules\Derp.cpp" />
     <ClCompile Include="Horion\Module\Modules\ESP.cpp" />
-    <ClCompile Include="Horion\Module\Modules\FastEast.cpp" />
     <ClCompile Include="Horion\Module\Modules\AnchorAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fly.cpp" />
     <ClCompile Include="Horion\Module\Modules\FollowPathModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Freecam.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Freelook.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fucker.cpp" />
     <ClCompile Include="Horion\Module\Modules\Glide.cpp" />
     <ClCompile Include="Horion\Module\Modules\ChestStealer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Hitbox.cpp" />
     <ClCompile Include="Horion\Module\Modules\HudModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\InfiniteAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\InstaBreak.cpp" />
@@ -323,8 +320,6 @@
     <ClCompile Include="Horion\Module\Modules\Module.cpp" />
     <ClCompile Include="Horion\Module\Modules\NameTags.cpp" />
     <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Totem.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoHurtcam.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoPacket.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
     <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
@@ -334,12 +329,9 @@
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spammer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Speed.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spider.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Step.cpp" />
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Tower.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
@@ -510,6 +502,7 @@
     <ClInclude Include="Horion\Module\Modules\FullBright.h" />
     <ClInclude Include="Horion\Module\Modules\Glide.h" />
     <ClInclude Include="Horion\Module\Modules\ChestStealer.h" />
+    <ClCompile Include="Horion\Module\Modules\Hitbox.cpp" />
     <ClInclude Include="Horion\Module\Modules\HighJump.h" />
     <ClInclude Include="Horion\Module\Modules\Hitbox.h" />
     <ClInclude Include="Horion\Module\Modules\HudModule.h" />
