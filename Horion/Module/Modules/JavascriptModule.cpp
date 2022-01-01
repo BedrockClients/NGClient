@@ -23,13 +23,13 @@ const char* JavascriptModule::getModuleName() {
 		return "INVALID_MODULE";
 }
 
-void JavascriptModule::onWorldTick(C_GameMode* gm) {
+void JavascriptModule::onTick(C_GameMode* gm) {
 	auto p = backingScriptModule.lock();
 	if (!p)
 		return;
 
 	auto lock = p->lockCallbacks();
-	auto callback = p->getCallback(L"onWorldTick");
+	auto callback = p->getCallback(L"onTick");
 	if (callback == JS_INVALID_REFERENCE)
 		return;
 	

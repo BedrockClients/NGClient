@@ -8,5 +8,5 @@ public:
 	~InstaBreak();
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
-	virtual void onWorldTick(C_GameMode* gm) override;
+	virtual void onTick(C_GameMode* gm) override;
 };

@@ -25,7 +25,7 @@ const char* Derp::getModuleName() {
 		return "Derp";
 }
 
-void Derp::onWorldTick(C_GameMode* gm) {
+void Derp::onTick(C_GameMode* gm) {
 	if (packetMode) {
 		C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
 		if (epicStroke && !hive) {

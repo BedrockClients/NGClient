@@ -17,7 +17,7 @@ public:
 	virtual bool isFlashMode() override;
 	virtual void onEnable() override;
 	virtual const char* getModuleName() override;
-	virtual void onWorldTick(C_GameMode* gm) override;
+	virtual void onTick(C_GameMode* gm) override;
 	virtual void onDisable() override;
 	virtual void onMove(C_MoveInputHandler* input) override;
 };

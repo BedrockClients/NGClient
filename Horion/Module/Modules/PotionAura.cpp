@@ -85,7 +85,7 @@ void PotionAura::findWeapon() {
 	}
 }
 
-void PotionAura::onWorldTick(C_GameMode* gm) {
+void PotionAura::onTick(C_GameMode* gm) {
 	targetListA = targetLissst.empty();
 	if (g_Data.isInGame()) {
 		g_Data.forEachEntity(finnddEntity);

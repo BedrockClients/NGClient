@@ -19,7 +19,7 @@ const char* Glide::getModuleName() {
 		return ("Glide");
 }
 
-void Glide::onWorldTick(C_GameMode* gm) {
+void Glide::onTick(C_GameMode* gm) {
 	glideModEffective = glideMod;
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 

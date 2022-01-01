@@ -31,5 +31,5 @@ public:
 	virtual const char* getModuleName() override;
 	void onLevelRender() override;
 	virtual void onPreRender(C_MinecraftUIRenderContext* ctx) override;
-	virtual void onWorldTick(C_GameMode* gm) override;
+	virtual void onTick(C_GameMode* gm) override;
 };

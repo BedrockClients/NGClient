@@ -19,7 +19,7 @@ void HiveFly::onEnable() {
 	findBlock();
 }
 
-void HiveFly::onWorldTick(C_GameMode* gm) {
+void HiveFly::onTick(C_GameMode* gm) {
 	gm->player->velocity.y = 0.f;
 	if (isEnabled())
 		*g_Data.getClientInstance()->minecraft->timer = timer;

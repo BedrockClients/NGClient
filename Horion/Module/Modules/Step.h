@@ -12,7 +12,7 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("Step"); }
-	virtual void onWorldTick(C_GameMode* gm) override { gm->player->stepHeight = height; }
+	virtual void onTick(C_GameMode* gm) override { gm->player->stepHeight = height; }
 	virtual void onDisable() override {
 		if (g_Data.getLocalPlayer() != nullptr)
 			g_Data.getLocalPlayer()->stepHeight = 0.5625f;

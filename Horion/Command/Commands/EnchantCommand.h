@@ -130,7 +130,7 @@ public:
 		inv->addItemToFirstEmptySlot(item);
 		return true;
 	}
-	virtual void onWorldTick(C_GameMode* gm) {
+	virtual void onTick(C_GameMode* gm) {
 		auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
 		if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == NULL))  // Item in hand?
 			return;

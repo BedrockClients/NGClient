@@ -89,7 +89,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 	}
 }
 
-void Bhop::onWorldTick(C_GameMode* gm) {
+void Bhop::onTick(C_GameMode* gm) {
 	if (!g_Data.isInGame()) {
 		auto hop = moduleMgr->getModule<Bhop>();
 		hop->setEnabled(false);

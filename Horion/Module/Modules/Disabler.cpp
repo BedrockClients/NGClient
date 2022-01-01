@@ -10,7 +10,7 @@ const char* Disabler::getModuleName() {
 	return ("Disabler");
 }
 
-void Disabler::onWorldTick(C_GameMode* gm) {
+void Disabler::onTick(C_GameMode* gm) {
 	auto player = g_Data.getLocalPlayer();
 	if (elytra && g_Data.isInGame()) {
 		C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();

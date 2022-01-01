@@ -19,7 +19,7 @@ void CubeFly::onEnable() {
 	oldY = g_Data.getLocalPlayer()->getPos()->y;
 }
 
-void CubeFly::onWorldTick(C_GameMode* gm) {
+void CubeFly::onTick(C_GameMode* gm) {
 	if (gm->player->getPos()->y <= oldY) {
 		gm->player->jumpFromGround();
 	}

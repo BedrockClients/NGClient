@@ -11,7 +11,7 @@ const char* HiveNuker::getModuleName() {
 	return ("HiveNuker");
 }
 
-void HiveNuker::onWorldTick(C_GameMode* gm) {
+void HiveNuker::onTick(C_GameMode* gm) {
 	vec3_t* pos = gm->player->getPos();
 	for (int x = (int)pos->x - range; x < pos->x + range; x++) {
 		for (int z = (int)pos->z - range; z < pos->z + range; z++) {

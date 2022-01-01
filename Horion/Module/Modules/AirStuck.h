@@ -9,7 +9,7 @@ public:
 	};
 	~AirStuck(){};
 
-	void onWorldTick(C_GameMode* gm) {
+	void onTick(C_GameMode* gm) {
 		gm->player->velocity = vec3_t(0, 0, 0);
 	}
 

@@ -22,7 +22,7 @@ public:
 
 	const char *getModuleName() override;
 	void startSearch(vec3_ti startNode, C_BlockSource *region, float searchTimeout, std::function<void(bool, JoePath)> callback);
-	void onWorldTick(C_GameMode *mode) override;
+	void onTick(C_GameMode *mode) override;
 	void onEnable() override;
 	void onDisable() override;
 	void onLevelRender() override;

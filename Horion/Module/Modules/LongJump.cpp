@@ -31,7 +31,7 @@ void LongJump::onEnable() {
 	}
 }
 
-void LongJump::onWorldTick(C_GameMode* gm) {
+void LongJump::onTick(C_GameMode* gm) {
 	auto timerMod = moduleMgr->getModule<Timer>();
 	if (timerMod->isEnabled()) {
 		timerMod->setEnabled(false);

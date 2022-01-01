@@ -55,7 +55,7 @@ void FollowPathModule::onDisable() {
 	goal.reset();
 }
 
-void FollowPathModule::onWorldTick(C_GameMode *mode) {
+void FollowPathModule::onTick(C_GameMode *mode) {
 	if (!shouldStartSearch)
 		return;
 	shouldStartSearch = false;

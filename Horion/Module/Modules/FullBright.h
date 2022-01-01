@@ -13,7 +13,7 @@ public:
 
 	float originalGamma = -1;
 
-	void onWorldTick(C_GameMode* gm) {
+	void onTick(C_GameMode* gm) {
 		if (gammaPtr != nullptr && *gammaPtr != 10)
 			*gammaPtr = 10;
 	}

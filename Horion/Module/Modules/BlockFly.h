@@ -27,6 +27,6 @@ public:
 	virtual const char* getModuleName() override;
 	virtual void onEnable() override;
 	virtual void onMove(C_MoveInputHandler* input) override;
-	virtual void onWorldTick(C_GameMode* gm);
+	virtual void onTick(C_GameMode* gm);
 	virtual void onDisable() override;
 };

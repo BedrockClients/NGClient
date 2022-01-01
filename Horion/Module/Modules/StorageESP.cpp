@@ -46,7 +46,7 @@ void StorageESP::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	}
 }
 
-void StorageESP::onWorldTick(C_GameMode* gm) {
+void StorageESP::onTick(C_GameMode* gm) {
 	tickTimeout++;
 	if (tickTimeout > 120) {
 		tickTimeout = 0;

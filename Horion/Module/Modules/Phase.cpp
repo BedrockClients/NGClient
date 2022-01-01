@@ -10,7 +10,7 @@ const char* Phase::getModuleName() {
 	return ("Phase");
 }
 
-void Phase::onWorldTick(C_GameMode* gm) {
+void Phase::onTick(C_GameMode* gm) {
 	gm->player->aabb.upper.y = gm->player->aabb.lower.y;
 }
 

@@ -18,7 +18,7 @@ public:
 		player->startSwimming();
 	}
 
-	void onWorldTick(C_GameMode* gm) {
+	void onTick(C_GameMode* gm) {
 		auto player = g_Data.getLocalPlayer();
 		player->didEnterWaterBool = true;
 		if (particles)

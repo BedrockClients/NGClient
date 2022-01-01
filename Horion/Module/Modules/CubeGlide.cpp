@@ -26,7 +26,7 @@ void CubeGlide::onEnable() {
 	g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(vec3_t(0, 1, 0)));
 }
 
-void CubeGlide::onWorldTick(C_GameMode* gm) {
+void CubeGlide::onTick(C_GameMode* gm) {
 	float calcYaw = (gm->player->yaw + 90) * (PI / 180);
 
 	gameTick++;

@@ -13,7 +13,7 @@ const char* MegaDupe::getModuleName() {
 	return ("MegaDupe");
 }
 
-void MegaDupe::onWorldTick(C_GameMode* gm) {
+void MegaDupe::onTick(C_GameMode* gm) {
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	auto transactionManager = g_Data.getLocalPlayer()->getTransactionManager();
 	C_Inventory* inv = supplies->inventory;

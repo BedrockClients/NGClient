@@ -19,7 +19,7 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("ChestAura"); }
-	virtual void onWorldTick(C_GameMode* gm) override {
+	virtual void onTick(C_GameMode* gm) override {
 		if (g_Data.getLocalPlayer()->getSupplies()->inventory->isFull())
 			return;
 		if (!g_Data.getLocalPlayer()->canOpenContainerScreen())

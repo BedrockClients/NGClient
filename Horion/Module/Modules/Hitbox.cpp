@@ -46,6 +46,6 @@ void findTarget(C_Entity* currentEntity, bool isRegularEntitie) {
 	
 }
 
-void Hitbox::onWorldTick(C_GameMode* gm) {
+void Hitbox::onTick(C_GameMode* gm) {
 	g_Data.forEachEntity(findTarget);
 }

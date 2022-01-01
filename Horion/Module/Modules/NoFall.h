@@ -22,7 +22,7 @@ public:
 	};
 	~NoFall(){};
 
-	void onWorldTick(C_GameMode* gm) {
+	void onTick(C_GameMode* gm) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (groundy && g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 2.f) {
 			gm->player->onGround = true;

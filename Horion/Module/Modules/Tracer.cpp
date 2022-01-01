@@ -65,7 +65,7 @@ void Tracer::onLevelRender() {
 	
 }
 
-void Tracer::onWorldTick(C_GameMode* gm) {
+void Tracer::onTick(C_GameMode* gm) {
 	auto listLock = g_Data.lockChestList();
 	auto& chestList = g_Data.getChestList();
 	auto ourListLock = std::scoped_lock(this->listLock);

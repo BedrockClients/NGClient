@@ -128,7 +128,7 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 		*g_Data.getClientInstance()->minecraft->timer = 20.f;
 	}
 }
-void BlockFly::onWorldTick(C_GameMode* gm) {
+void BlockFly::onTick(C_GameMode* gm) {
 }
 
 void BlockFly::onDisable() {

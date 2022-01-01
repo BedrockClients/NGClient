@@ -20,7 +20,7 @@ const char* Mineplex::getModuleName() {
 		return "MineplexBypass";
 }
 
-void Mineplex::onWorldTick(C_GameMode* gm) {
+void Mineplex::onTick(C_GameMode* gm) {
 	if (!delayMode) {
 		C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
 		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);

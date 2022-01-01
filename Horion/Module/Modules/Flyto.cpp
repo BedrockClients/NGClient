@@ -42,7 +42,7 @@ void Flyto::onEnable() {
 	}
 }
 
-void Flyto::onWorldTick(C_GameMode* gm) {
+void Flyto::onTick(C_GameMode* gm) {
 	if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
 		if (g_Data.isInGame()) {
 			float calcYaw = (gm->player->yaw + 90) * (PI / 180);

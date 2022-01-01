@@ -13,6 +13,6 @@ public:
 	~Teleport();
 
 	// Inherited via IModule
-	virtual void onWorldTick(C_GameMode* gm) override;
+	virtual void onTick(C_GameMode* gm) override;
 	virtual const char* getModuleName() override;
 };

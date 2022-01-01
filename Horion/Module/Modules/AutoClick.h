@@ -19,7 +19,7 @@ public:
 	 };
 	~AutoClick(){};
 
-	void onWorldTick(C_GameMode* gm) {
+	void onTick(C_GameMode* gm) {
 		if ((GameData::isLeftClickDown() || !hold)) {
 			C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 			PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();

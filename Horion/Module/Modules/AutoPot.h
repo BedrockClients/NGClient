@@ -39,7 +39,7 @@ public:
 			movePacket->pitch = 90;
 		}
 	}
-	virtual void onWorldTick(C_GameMode* gm) override {
+	virtual void onTick(C_GameMode* gm) override {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;
 		if (g_Data.getLocalPlayer()->isAlive() && g_Data.isInGame()) {

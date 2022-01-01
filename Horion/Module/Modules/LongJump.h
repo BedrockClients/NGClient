@@ -12,7 +12,7 @@ private:
 public:
 	LongJump();
 	virtual const char* getModuleName();
-	virtual void onWorldTick(C_GameMode* gm) override;
+	virtual void onTick(C_GameMode* gm) override;
 	virtual void onDisable() override;
 	virtual void onEnable() override;
 	virtual void onMove(C_MoveInputHandler* input) override;

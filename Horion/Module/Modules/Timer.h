@@ -10,7 +10,7 @@ public:
 	};
 	~Timer(){};
 
-	void onWorldTick(C_GameMode* gm) {
+	void onTick(C_GameMode* gm) {
 		*g_Data.getClientInstance()->minecraft->timer = static_cast<float>(timer);
 	}
 

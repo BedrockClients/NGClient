@@ -19,7 +19,7 @@ const char* MinevilleFly::getModuleName() {
 		return ("MinevilleFly");
 }
 
-void MinevilleFly::onWorldTick(C_GameMode* gm) {
+void MinevilleFly::onTick(C_GameMode* gm) {
 	glideModEffective = glideMod;
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 

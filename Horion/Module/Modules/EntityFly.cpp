@@ -43,7 +43,7 @@ void findBooat(C_Entity* currentEntity, bool isRegularEntity) {
 	}
 }
 
-void EntityFly::onWorldTick(C_GameMode* gm) {
+void EntityFly::onTick(C_GameMode* gm) {
 	targetList.clear();
 	g_Data.forEachEntity(findBooat);
 
