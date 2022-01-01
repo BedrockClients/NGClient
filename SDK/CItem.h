@@ -198,6 +198,11 @@ public:
 		if (itemId == 259) return true;                   // Flint n Steel
 		if (itemId == 391) return true;                   // Compas
 		if (itemId == 422) return true;                   // EnderPearl
+		if (itemId == 571) return true;                   // Heart_of_the_sea
+		if (itemId == 560) return true;                   // DragonsBreath
+		if (itemId == 386) return true;                   // Paper
+		if (itemId == 568) return true;                   // Totem
+		if (itemId == 512) return true;                   // Emerald
 		return false;
 	}
 	bool isWeapon(void) {

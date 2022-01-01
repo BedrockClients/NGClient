@@ -1,6 +1,7 @@
 #include "AntiVoid.h"
-
+bool voidcheck = false;
 AntiVoid::AntiVoid() : IModule(0, Category::MOVEMENT, "Automatically teleports you back up if you fall down more than X blocks") {
+	registerBoolSetting("VoidCheck",&voidcheck,voidcheck);
 	registerEnumSetting("Mode", &mode, 0);
 	mode = SettingEnum(this)
 			   .addEntry(EnumEntry("Teleport", 0))
@@ -24,6 +25,21 @@ const char* AntiVoid::getModuleName() {
 		return "AntiVoid";
 }
 
+bool checkVoid() {
+	C_LocalPlayer* Player = g_Data.getLocalPlayer();
+	vec3_t blockBelow = Player->eyePos0;
+	blockBelow.y -= Player->height;
+	blockBelow.y -= 0.5f;
+	vec3_t bb = vec3_t(blockBelow.x, blockBelow.y, blockBelow.z);
+	for (int i = (int)(blockBelow.y); i > -62; i--) {
+		if ((((Player->region->getBlock(bb)->blockLegacy))->material->isSolid) || (((Player->region->getBlock(bb)->blockLegacy))->material->isLiquid)) {
+			return false;
+		}
+		bb.y -= 1.f;
+	}
+	return true;
+}
+
 void AntiVoid::onTick(C_GameMode* gm) {
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
@@ -33,7 +49,7 @@ void AntiVoid::onTick(C_GameMode* gm) {
 	if (player->region->getBlock(blockBelow)->blockLegacy->material->isSolid && player->onGround) {
 		orgipos = *player->getPos();
 	}
-	if (player->fallDistance >= distance) {
+	if (player->fallDistance >= distance && checkVoid()) {
 		if (mode.selected == 0) {
 			g_Data.getClientInstance()->getMoveTurnInput()->clearMovementState();
 			player->setPos(orgipos);
