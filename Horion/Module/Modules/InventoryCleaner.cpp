@@ -45,7 +45,7 @@ void InventoryCleaner::onTick(C_GameMode* gm) {
 			int item = 0;
 			for (int n = 0; n < 36; n++) {
 				C_ItemStack* stack = inv->getItemStack(n);
-				if (stack->item != NULL && stack->getItem()->isWeapon()) {
+				if (stack->item != NULL) {
 					float currentDamage = stack->getAttackingDamageWithEnchants();
 					if (currentDamage > damage) {
 						damage = currentDamage;
