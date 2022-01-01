@@ -1,13 +1,14 @@
 #pragma once
-
-#include "../../DrawUtils.h"
+#include "../ModuleManager.h"
 #include "Module.h"
-
 class NoFriends : public IModule {
 public:
-	NoFriends();
-	~NoFriends();
+	NoFriends() : IModule(0x0, Category::PLAYER, "Ignores friend list check"){
 
-	// Inherited via IModule
-	virtual const char* getModuleName() override;
+				  };
+	~NoFriends(){};
+
+	virtual const char* getModuleName() override {
+		return "NoFriends";
+	}
 };
