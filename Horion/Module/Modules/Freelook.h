@@ -1,19 +1,16 @@
 #pragma once
 #include "Module.h"
-
 class Freelook : public IModule {
-private:
 public:
 	vec2_t oldPos;
 	vec2_t Pos;
 
-	Freelook();
-	~Freelook();
+	Freelook() : IModule(0, Category::VISUAL, "Move straight while moving your camera around") {}
+	~Freelook(){};
 
-	virtual const char* getModuleName() override;
-	void onTick(C_GameMode* mode) override;
-	void onEnable() override;
-	void onDisable() override;
+	virtual const char* getModuleName() override { return "Freelook"; }
+	void onEnable() override { oldPos = g_Data.getLocalPlayer()->viewAngles; }
+	void onDisable() override { g_Data.getLocalPlayer()->applyTurnDelta(&oldPos); }
 	bool callWhenDisabled() override {
 		return true;
 	}
