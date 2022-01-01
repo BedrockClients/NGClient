@@ -324,7 +324,6 @@
     <ClCompile Include="Horion\Module\Modules\InventoryMove.cpp" />
     <ClCompile Include="Horion\Module\Modules\JavascriptModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Jesus.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Jetpack.cpp" />
     <ClCompile Include="Horion\Module\Modules\Killaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\MidClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\Module.cpp" />
