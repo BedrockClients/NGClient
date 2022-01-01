@@ -1,17 +1,33 @@
 #pragma once
+#include "../ModuleManager.h"
 #include "Module.h"
-
 class AutoWalk : public IModule {
-private:
+public:
 	bool sprint = false;
 	bool jump = false;
 
-public:
-	AutoWalk();
-	~AutoWalk();
+	AutoWalk() : IModule(0x0, Category::MOVEMENT, "Automatically walk for you") {
+		registerBoolSetting("Sprint", &sprint, sprint);
+		registerBoolSetting("Jump", &jump, jump);
+	};
+	~AutoWalk(){};
 
-	// Inherited via IModule
-	virtual const char* getModuleName() override;
-	virtual void onTick(C_GameMode* gm) override;
-	virtual void onDisable() override;
+	void onTick(C_GameMode* gm) {
+		auto player = g_Data.getLocalPlayer();
+
+		g_Data.getClientInstance()->getMoveTurnInput()->forward = true;
+
+		if (sprint) gm->player->setSprinting(true);
+		if (!sprint) gm->player->setSprinting(false);
+
+		if (player->onGround && jump) gm->player->jumpFromGround();
+	}
+
+	void onDisable() {
+		g_Data.getClientInstance()->getMoveTurnInput()->forward = false;
+	}
+
+	virtual const char* getModuleName() override {
+		return "AutoWalk";
+	}
 };

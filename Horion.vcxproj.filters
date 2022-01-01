@@ -149,7 +149,6 @@
     <ClCompile Include="Horion\Module\Modules\CubeSpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoWalk.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />

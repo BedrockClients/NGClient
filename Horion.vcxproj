@@ -271,7 +271,6 @@
     <ClCompile Include="Horion\Module\ModuleManager.cpp" />
     <ClCompile Include="Horion\Module\Modules\Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoWalk.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeFly.cpp" />
