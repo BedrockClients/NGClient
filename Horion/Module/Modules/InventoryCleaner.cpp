@@ -1,7 +1,7 @@
 #include "InventoryCleaner.h"
 
 #include "../ModuleManager.h"
-
+bool isUsefulExtraCheck(C_ItemStack* itemStack);
 InventoryCleaner::InventoryCleaner() : IModule(0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
 	registerBoolSetting("Tools", &keepTools, keepTools);
 	registerBoolSetting("Armor", &keepArmor, keepArmor);
@@ -228,13 +228,29 @@ std::vector<int> InventoryCleaner::findUselessItems() {
 
 	return uselessItems;
 }
+bool isUsefulExtraCheck(C_ItemStack* itemStack) {
+	std::vector<std::string> uselessSubstrings = {"_button", "chest", "vine", "pressure_plate", "fence", "_wall", "_stairs", "_table", "furnace", "trapdoor", "command_block", "torch", "carpet"};
+	std::vector<std::string> uselessNames = {"cake", "ladder", "tnt", "lever", "loom", "scaffolding", "web", "sand", "gravel", "dragon_egg", "anvil"};
+	std::string itemName = itemStack->getItem()->name.getText();
+	for (auto substring : uselessSubstrings) {
+		if (itemName.find(substring) != std::string::npos) {
+			return 0;
+		}
+	}
+	for (auto name : uselessNames) {
+		if (itemName == name) {
+			return 0;
+		}
+	}
+	return 1;
+}
 
 bool InventoryCleaner::stackIsUseful(C_ItemStack* itemStack) {
 	if (itemStack->item == nullptr) return true;
 	if (keepArmor && (*itemStack->item)->isArmor()) return true;      // Armor
 	if (keepTools && (*itemStack->item)->isTool()) return true;       // Tools
 	if (keepFood && (*itemStack->item)->isFood()) return true;        // Food
-	if (keepBlocks && (*itemStack->item)->isBlock()) return true;     // Block
+	if (keepBlocks && (*itemStack->item)->isBlock() && isUsefulExtraCheck(itemStack)) return true;     // Block
 	if (keepTools && (*itemStack->item)->itemId == 422) return true;  // Ender Pearl
 	return false;
 }
