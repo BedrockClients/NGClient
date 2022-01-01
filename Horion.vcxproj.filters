@@ -70,7 +70,6 @@
     <ClCompile Include="Horion\Module\Modules\MidClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\Module.cpp" />
     <ClCompile Include="Horion\Module\Modules\NameTags.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Totem.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoPacket.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
     <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
@@ -80,12 +79,9 @@
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spammer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Speed.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spider.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Step.cpp" />
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Tower.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
