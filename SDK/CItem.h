@@ -196,6 +196,8 @@ public:
 	bool isTool(void) {
 		if (getAttackDamage() > 0) return true;           // Does Attack Damage
 		if (itemId == 259) return true;                   // Flint n Steel
+		if (itemId == 391) return true;                   // Compas
+		if (itemId == 422) return true;                   // EnderPearl
 		return false;
 	}
 	bool isWeapon(void) {
@@ -214,7 +216,7 @@ public:
 		return false;
 	}
 	bool isShooter(void) {
-		if (itemId == 261 || itemId == 262 || itemId == 575 || 300) return true;  // Bow && crossbow
+		if (itemId == 261 || itemId == 262 || itemId == 575 || 300) return true;  // Bow, crossbows, arrows, tipped arrows
 		return false;
 	}
 	bool isPickaxe(void) {

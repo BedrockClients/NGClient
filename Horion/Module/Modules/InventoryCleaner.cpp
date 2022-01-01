@@ -45,7 +45,7 @@ void InventoryCleaner::onTick(C_GameMode* gm) {
 			int item = 0;
 			for (int n = 0; n < 36; n++) {
 				C_ItemStack* stack = inv->getItemStack(n);
-				if (stack->item != NULL) {
+				if (stack->item != NULL && stack->getItem()->isWeapon()) {
 					float currentDamage = stack->getAttackingDamageWithEnchants();
 					if (currentDamage > damage) {
 						damage = currentDamage;
@@ -260,7 +260,6 @@ bool InventoryCleaner::stackIsUseful(C_ItemStack* itemStack) {
 	if (keepBow && (*itemStack->item)->isShooter()) return true;                                    // Bow && crossbow
 	if (keepPick && (*itemStack->item)->isPickaxe()) return true;		//Picks
 	if (keepShovel && (*itemStack->item)->isShovel()) return true;		//Shovels
-	if (keepTools && (*itemStack->item)->itemId == 422) return true;  // Ender Pearl
 	return false;
 }
 
