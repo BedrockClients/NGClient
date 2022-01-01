@@ -2,9 +2,15 @@
 
 #include "../ModuleManager.h"
 bool isUsefulExtraCheck(C_ItemStack* itemStack);
+bool keepBow = false;
+bool keepPick = false;
+bool keepShovel = false;
 InventoryCleaner::InventoryCleaner() : IModule(0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
-	registerBoolSetting("Tools", &keepTools, keepTools);
 	registerBoolSetting("Armor", &keepArmor, keepArmor);
+	registerBoolSetting("Tools", &keepTools, keepTools);
+	registerBoolSetting("Pickaxe", &keepPick, keepPick);
+	registerBoolSetting("Shovel", &keepShovel, keepShovel);
+	registerBoolSetting("Bow", &keepBow, keepBow);
 	registerBoolSetting("Food", &keepFood, keepFood);
 	registerBoolSetting("Blocks", &keepBlocks, keepBlocks);
 	registerBoolSetting("OpenInv", &openInv, openInv);
@@ -251,6 +257,9 @@ bool InventoryCleaner::stackIsUseful(C_ItemStack* itemStack) {
 	if (keepTools && (*itemStack->item)->isTool()) return true;       // Tools
 	if (keepFood && (*itemStack->item)->isFood()) return true;        // Food
 	if (keepBlocks && (*itemStack->item)->isBlock() && isUsefulExtraCheck(itemStack)) return true;     // Block
+	if (keepBow && (*itemStack->item)->isShooter()) return true;                                    // Bow && crossbow
+	if (keepPick && (*itemStack->item)->isPickaxe()) return true;		//Picks
+	if (keepShovel && (*itemStack->item)->isShovel()) return true;		//Shovels
 	if (keepTools && (*itemStack->item)->itemId == 422) return true;  // Ender Pearl
 	return false;
 }

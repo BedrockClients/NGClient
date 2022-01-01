@@ -195,29 +195,9 @@ public:
 public:
 	bool isTool(void) {
 		if (getAttackDamage() > 0) return true;           // Does Attack Damage
-		if (itemId == 261 || itemId == 262) return true;  // Bow
 		if (itemId == 259) return true;                   // Flint n Steel
 		return false;
 	}
-	/*bool isFood(void) {
-		if (itemId == 322 || itemId == 466) return true;                                                                      // Golden Apple
-		if (itemId == 260) return true;                                                                                       // Apple
-		if (itemId == 282) return true;                                                                                       // Mushroom Stew
-		if (itemId == 297) return true;                                                                                       // Bread
-		if (itemId == 319 || itemId == 320) return true;                                                                      // Porkchop
-		if (itemId == 349 || itemId == 350 || itemId == 460 || itemId == 461 || itemId == 462 || itemId == 463) return true;  // Fish
-		if (itemId == 357) return true;                                                                                       // Cookie
-		if (itemId == 360) return true;                                                                                       // Melon
-		if (itemId == 363 || itemId == 364) return true;                                                                      // Beef
-		if (itemId == 365 || itemId == 366) return true;                                                                      // Chicken
-		if (itemId == 391) return true;                                                                                       // Carrot
-		if (itemId == 392 || itemId == 393) return true;                                                                      // Potato
-		if (itemId == 400) return true;                                                                                       // Pumpkin Pie
-		if (itemId == 411 || itemId == 412 || itemId == 413) return true;                                                     // Rabbit thing
-		if (itemId == 423 || itemId == 424) return true;                                                                      // Mutton
-		if (itemId == 450) return true;
-		return false;
-	}*/
 	bool isWeapon(void) {
 		if (itemId == 268) return true;  //Wooden Sword
 		if (itemId == 272) return true;  //Stone Sword
@@ -233,6 +213,29 @@ public:
 		if (itemId == 746) return true;  //Netherite Axe
 		return false;
 	}
+	bool isShooter(void) {
+		if (itemId == 261 || itemId == 262 || itemId == 575 || 300) return true;  // Bow && crossbow
+		return false;
+	}
+	bool isPickaxe(void) {
+		if (itemId == 310) return true;  //Wooden Pick
+		if (itemId == 314) return true;  //Stone Pick
+		if (itemId == 324) return true;  //Gold Pick
+		if (itemId == 297) return true;  //Iron Pick
+		if (itemId == 318) return true;  //Diamond Pick
+		if (itemId == 605) return true;  //Netherite Pick
+		return false;
+	}
+	bool isShovel(void) {
+		if (itemId == 309) return true;  //Wooden Shovel
+		if (itemId == 313) return true;  //Stone Shovel
+		if (itemId == 323) return true;  //Gold Shovel
+		if (itemId == 296) return true;  //Iron Shovel
+		if (itemId == 317) return true;  //Diamond Shovel
+		if (itemId == 604) return true;  //Netherite Shovel
+		return false;
+	}
+
 	bool isBlock(void) {
 		auto val = *reinterpret_cast<__int64***>(reinterpret_cast<__int64>(this) + 0x1A0);
 		return val != nullptr && *val != nullptr;
