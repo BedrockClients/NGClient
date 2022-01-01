@@ -42,7 +42,6 @@
     <ClCompile Include="Horion\Module\Modules\Flyto.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoTotem.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Blink.cpp" />
     <ClCompile Include="Horion\Module\Modules\BowAimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\selectionHighlight.cpp" />
     <ClCompile Include="Horion\Module\Modules\StorageESP.cpp" />
@@ -146,7 +145,6 @@
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\CubeSpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
@@ -154,7 +152,6 @@
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinevilleFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\EntitySpider.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityJesus.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
@@ -163,7 +160,6 @@
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
-    <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
     <ClCompile Include="Horion\Command\Commands\CBEPCommand.cpp" />
   </ItemGroup>
@@ -412,7 +408,6 @@
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
     <ClInclude Include="Horion\Module\Modules\EntityJesus.h" />
-    <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\Trail.h" />
     <ClInclude Include="Horion\Module\Modules\FightBot.h" />
     <ClInclude Include="Horion\Command\Commands\GodmodeCommand.h" />

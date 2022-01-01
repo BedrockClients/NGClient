@@ -272,13 +272,10 @@
     <ClCompile Include="Horion\Module\Modules\Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\chestaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\CubeSpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityJesus.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
-    <ClCompile Include="Horion\Module\Modules\EntitySpider.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\Flyto.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
@@ -294,7 +291,6 @@
     <ClCompile Include="Horion\Module\Modules\SwingAnimations.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoTotem.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Blink.cpp" />
     <ClCompile Include="Horion\Module\Modules\BowAimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\selectionHighlight.cpp" />
     <ClCompile Include="Horion\Module\Modules\StorageESP.cpp" />
@@ -469,7 +465,6 @@
     <ClInclude Include="Horion\Module\Modules\CubeSpeed.h" />
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\EntityJesus.h" />
-    <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
     <ClInclude Include="Horion\Module\Modules\FastLadder.h" />
     <ClInclude Include="Horion\Module\Modules\FightBot.h" />
