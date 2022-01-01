@@ -100,6 +100,11 @@ public:
 			}
 		}
 	}
+	virtual void onDisable() override {
+		g_Data.getLocalPlayer()->velocity.x = 0;
+		g_Data.getLocalPlayer()->velocity.y = 0;
+		g_Data.getLocalPlayer()->velocity.z = 0;
+	}
 	C_MovePlayerPacket* jetpack = nullptr;
 	CubeSpeed() : IModule(0x0, Category::SERVER, "Speed bypass for CubeCraft") {
 		registerFloatSetting("speed", &speedMod, 1, 0.3f, 2.5f);
