@@ -77,7 +77,6 @@
     <ClCompile Include="Horion\Module\Modules\Module.cpp" />
     <ClCompile Include="Horion\Module\Modules\NameTags.cpp" />
     <ClCompile Include="Horion\Module\Modules\Totem.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NightMode.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoFall.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoFriends.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoHurtcam.cpp" />
