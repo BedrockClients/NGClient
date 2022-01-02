@@ -203,6 +203,8 @@ public:
 		if (itemId == 386) return true;                   // Paper
 		if (itemId == 568) return true;                   // Totem
 		if (itemId == 512) return true;                   // Emerald
+		if (itemId == 548) return true;                   // Nametag
+		if (itemId == 521) return true;                   // EnchantedBook
 		return false;
 	}
 	bool isWeapon(void) {
