@@ -115,6 +115,11 @@ public:
 	std::string oldSkinName;//Test
 };
 
+class NetworkLatencyPacket : public C_Packet {
+public:
+	NetworkLatencyPacket();
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();
