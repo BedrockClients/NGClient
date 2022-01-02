@@ -81,7 +81,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 	float s = sin(calcYaw);
 	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
 	moveVec.x = moveVec2d.x * speed;
-	if (ZoomHop) moveVec.y = 0.3f;
+	if (ZoomHop && player->onGround) moveVec.y = 0.3f;
 	else moveVec.y = player->velocity.y * height;
 	moveVec.z = moveVec2d.y * speed;
 
