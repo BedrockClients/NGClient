@@ -150,11 +150,14 @@ void Killaura::onLevelRender() {
 
 		if (!targetList.empty()) {
 			if (rotations) {
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-				player->bodyYaw = angle.y;
+				player->pitch2 = joe.x;
+				player->pitch = joe.x;
+				player->yawUnused2 = joe.x;
+				player->yaw2 = joe.y;
+				// idk. When we have smooth rots that dont strafe, we will put them here.
 			}
 			if (sexy) {
-				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
 				player->bodyYaw = joe.x;
 				player->bodyYaw = joe.y;
 			}
