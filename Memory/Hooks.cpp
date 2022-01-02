@@ -1305,11 +1305,17 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
 	static auto tp = moduleMgr->getModule<Teleport>();
+	static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
+	static auto disabler = moduleMgr->getModule<Disabler>();
 	static auto test = moduleMgr->getModule<TestModule>();
 	//if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
 		//return;
 	//	g_Data.getLocalPlayer()->jumpFromGround();
 	//}
+
+	if (disabler->isEnabled() && disabler->hive && packet->isInstanceOf<NetworkLatencyPacket>()) {
+		return;
+	}
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
@@ -1324,7 +1330,6 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
 				if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 4.f) {
 					ree->onGround = true;
-					//disabler->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*ree));
 					return;  //dont send Off groung packet
 				}
 			}
@@ -1336,10 +1341,11 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 			if (blinkMod->isEnabled()) {
 				if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 					C_MovePlayerPacket* meme = reinterpret_cast<C_MovePlayerPacket*>(packet);
-					meme->onGround = true;  //Don't take Fall Damages when turned off
-											//blinkMod->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*meme));  // Saving the packets
+					meme->onGround = true;                                                            //Don't take Fall Damages when turned off
+					blinkMod->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*meme));  // Saving the packets
 				} else {
-					//blinkMod->getPlayerAuthInputPacketHolder()->push_back(new PlayerAuthInputPacket(*reinterpret_cast<PlayerAuthInputPacket*>(packet)));
+					if (g_Data.getRakNetInstance()->isonaServer())//if ur on a server, do this but if ur on a world dont bec it crashes
+					blinkMod->getPlayerAuthInputPacketHolder()->push_back(new PlayerAuthInputPacket(*reinterpret_cast<PlayerAuthInputPacket*>(packet)));
 				}
 			}
 			return;  // Dont call LoopbackPacketSender_sendToServer
@@ -1365,12 +1371,12 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 		}
 	}
 
-	//if (autoSneakMod->isEnabled() && g_Data.getLocalPlayer() != nullptr && autoSneakMod->doSilent && packet->isInstanceOf<C_PlayerActionPacket>()) {
-	//auto* pp = reinterpret_cast<C_PlayerActionPacket*>(packet);
+	if (autoSneakMod->isEnabled() && g_Data.getLocalPlayer() != nullptr && autoSneakMod->doSilent && packet->isInstanceOf<C_PlayerActionPacket>() && g_Data.getRakNetInstance()->isonaServer()) {
+		auto* pp = reinterpret_cast<C_PlayerActionPacket*>(packet);
 
-	//if (pp->action == 9 && pp->entityRuntimeId == g_Data.getLocalPlayer()->entityRuntimeId)
-	//return; //dont send uncrouch
-	//}
+		if (pp->action == 12 && pp->entityRuntimeId == g_Data.getLocalPlayer()->entityRuntimeId)
+			return;  //dont send uncrouch
+	}
 
 	moduleMgr->onSendPacket(packet);
 
