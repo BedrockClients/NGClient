@@ -1,4 +1,5 @@
 #include "Bhop.h"
+#include <stack>
 float speed = 0.50f;
 float height = 1.f;
 bool hive = false;
@@ -24,7 +25,11 @@ void Bhop::onTick(C_GameMode* gm) {
 	g_Data.getClientInstance()->minecraft->setTimerSpeed(static_cast<float>(timer));
 }
 
+void Bhop::onSendPacket(C_Packet* packet) {
+}
+
 void Bhop::onMove(C_MoveInputHandler* input) {
+	yes = input;
 	auto player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 
