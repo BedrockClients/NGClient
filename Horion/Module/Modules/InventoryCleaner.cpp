@@ -7,12 +7,12 @@ bool keepPick = false;
 bool keepShovel = false;
 InventoryCleaner::InventoryCleaner() : IModule(0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
 	registerBoolSetting("Armor", &keepArmor, keepArmor);
-	registerBoolSetting("Tools", &keepTools, keepTools);
 	registerBoolSetting("Pickaxe", &keepPick, keepPick);
 	registerBoolSetting("Shovel", &keepShovel, keepShovel);
 	registerBoolSetting("Bow", &keepBow, keepBow);
 	registerBoolSetting("Food", &keepFood, keepFood);
 	registerBoolSetting("Blocks", &keepBlocks, keepBlocks);
+	registerBoolSetting("Extra", &keepTools, keepTools);
 	registerBoolSetting("OpenInv", &openInv, openInv);
 	registerBoolSetting("AutoSort", &autoSort, autoSort);
 }

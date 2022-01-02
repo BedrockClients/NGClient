@@ -26,18 +26,21 @@ const char* AntiVoid::getModuleName() {
 }
 
 bool checkVoid() {
-	C_LocalPlayer* Player = g_Data.getLocalPlayer();
-	vec3_t blockBelow = Player->eyePos0;
-	blockBelow.y -= Player->height;
-	blockBelow.y -= 0.5f;
-	vec3_t bb = vec3_t(blockBelow.x, blockBelow.y, blockBelow.z);
-	for (int i = (int)(blockBelow.y); i > -62; i--) {
-		if ((((Player->region->getBlock(bb)->blockLegacy))->material->isSolid) || (((Player->region->getBlock(bb)->blockLegacy))->material->isLiquid)) {
-			return false;
+	if (voidcheck) {
+		C_LocalPlayer* Player = g_Data.getLocalPlayer();
+		vec3_t blockBelow = Player->eyePos0;
+		blockBelow.y -= Player->height;
+		blockBelow.y -= 0.5f;
+		vec3_t bb = vec3_t(blockBelow.x, blockBelow.y, blockBelow.z);
+		for (int i = (int)(blockBelow.y); i > -62; i--) {
+			if ((((Player->region->getBlock(bb)->blockLegacy))->material->isSolid) || (((Player->region->getBlock(bb)->blockLegacy))->material->isLiquid)) {
+				return false;
+			}
+			bb.y -= 1.f;
 		}
-		bb.y -= 1.f;
-	}
-	return true;
+		return true;
+	} else
+		return true;
 }
 
 void AntiVoid::onTick(C_GameMode* gm) {
