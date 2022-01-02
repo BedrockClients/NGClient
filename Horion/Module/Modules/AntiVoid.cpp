@@ -28,11 +28,12 @@ const char* AntiVoid::getModuleName() {
 }
 
 bool checkVoid() {
+	auto VoidMod = moduleMgr->getModule<AntiVoid>();
 	if (voidcheck) {
 		C_LocalPlayer* Player = g_Data.getLocalPlayer();
 		vec3_t blockBelow = Player->eyePos0;
 		blockBelow.y -= Player->height;
-		blockBelow.y -= 0.5f;
+		blockBelow.y -= VoidMod->distance;
 		vec3_t bb = vec3_t(blockBelow.x, blockBelow.y, blockBelow.z);
 		for (int i = (int)(blockBelow.y); i > -62; i--) {
 			if ((((Player->region->getBlock(bb)->blockLegacy))->material->isSolid) || (((Player->region->getBlock(bb)->blockLegacy))->material->isLiquid)) {
