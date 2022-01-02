@@ -11,11 +11,11 @@ public:
 	~Timer(){};
 
 	void onTick(C_GameMode* gm) {
-		*g_Data.getClientInstance()->minecraft->timer = static_cast<float>(timer);
+		g_Data.getClientInstance()->minecraft->setTimerSpeed(static_cast<float>(timer));
 	}
 
 	void onDisable() {
-		*g_Data.getClientInstance()->minecraft->timer = 20.f;
+		g_Data.getClientInstance()->minecraft->setTimerSpeed(20.f);
 	}
 
 	virtual const char* getModuleName() override {
