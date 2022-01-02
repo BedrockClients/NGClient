@@ -118,6 +118,8 @@ public:
 class NetworkLatencyPacket : public C_Packet {
 public:
 	NetworkLatencyPacket();
+	unsigned long timeStamp;//Test
+	bool sendBack;//Test
 };
 
 class C_MobEquipmentPacket : public C_Packet {
