@@ -4,6 +4,7 @@
 #include "../ModuleManager.h"
 uintptr_t HiveBypass1 = Utils::getBase() + 0x8F3895;  // Second one of 89 41 18 0F B6 42 ?? 88 41 ?? F2 0F 10 42 ?? F2 0F 11 41 ?? 8B 42 ?? 89 41 ?? 8B 42 ?? 89 41 ??
 uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // C7 40 18 03 00 00 00 48 8B 8D
+void* targetAddress = (void*)FindSignature("75 0A 80 7B 59 00");
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
 	registerBoolSetting("Spoof", &spoof, spoof);
@@ -141,8 +142,10 @@ void Scaffold::onTick(C_GameMode* gm) {
 	float speed = g_Data.getLocalPlayer()->velocity.magnitudexz();
 	vec3_t vel = g_Data.getLocalPlayer()->velocity;
 	vel = vel.normalize();  // Only use values from 0 - 1
-
 	if (staircaseMode) {
+		Utils::nopBytes((BYTE*)targetAddress, 2);
+	}
+	if (staircaseMode && g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown) {
 		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 1 block below the player
 		blockBelow.y -= g_Data.getLocalPlayer()->height;
 		blockBelow.y -= 1.5f;
@@ -244,6 +247,8 @@ void Scaffold::onEnable() {
 	blockBelowtest.y -= 2.5f;
 }
 void Scaffold::onDisable() {
+	if (staircaseMode)
+	Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x75\x0A", 2);
 	Utils::patchBytes((BYTE*)HiveBypass1, (BYTE*)"\x89\x41\x18", 3);
 	Utils::patchBytes((BYTE*)HiveBypass2, (BYTE*)"\xC7\x40\x18\x03\x00\x00\x00", 7);
 }
