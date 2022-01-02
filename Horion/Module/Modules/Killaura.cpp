@@ -160,20 +160,7 @@ void Killaura::onLevelRender() {
 			}
 			int prevSlot;
 			if (autoweapon) {
-				auto supplies = g_Data.getLocalPlayer()->getSupplies();
-				prevSlot = supplies->selectedHotbarSlot;
-				auto FinishSelect = true;
-				auto inv = supplies->inventory;
-				for (int n = 0; n < 9; n++) {
-					C_ItemStack* stack = inv->getItemStack(n);
-					if (stack->item != nullptr) {
-						if (stack->getItem()->isWeapon()) {
-							if (prevSlot != n)
-								supplies->selectedHotbarSlot = n;
-							return;
-						}
-					}
-				}
+				findWeapon();
 			}
 		}
 		auto esp = moduleMgr->getModule<ESP>();
