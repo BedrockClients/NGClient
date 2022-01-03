@@ -1312,10 +1312,12 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 		//return;
 	//	g_Data.getLocalPlayer()->jumpFromGround();
 	//}
-
+	
 	if (disabler->isEnabled() && disabler->hive && packet->isInstanceOf<NetworkLatencyPacket>()) {
-		return;
+		NetworkLatencyPacket pkt = (NetworkLatencyPacket*)packet;
+		if (pkt->timeStamp == 69420) return;
 	}
+	
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
