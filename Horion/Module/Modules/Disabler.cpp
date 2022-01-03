@@ -36,7 +36,7 @@ void Disabler::onMove(C_MoveInputHandler* input) {
 void Disabler::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<NetworkLatencyPacket>()) {
 		if (sendingEpicThingy == false) {
-			NetworkLatencyPacket* currentPacket = (NetworkLatencyPacket)packet;
+			NetworkLatencyPacket* currentPacket = (NetworkLatencyPacket*)packet;
 			unsigned __int64 now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 			latencyPacketQueue.push({ *currentPacket, now });
 			currentPacket->timeStamp = 69420;
