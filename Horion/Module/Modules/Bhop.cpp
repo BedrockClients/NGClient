@@ -85,8 +85,11 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 	else moveVec.y = player->velocity.y * height;
 	moveVec.z = moveVec2d.y * speed;
 
-	if (pressed && hive && player->onGround) player->lerpMotion(moveVec);
-	else if (pressed && !hive) player->lerpMotion(moveVec);
+		if (pressed && hive && player->onGround) player->lerpMotion(moveVec);
+	else 
+		if (pressed && ZoomHop && player->onGround) player->lerpMotion(moveVec);
+	else
+		if (pressed && !hive) player->lerpMotion(moveVec);
 }
 
 void Bhop::onDisable() {
