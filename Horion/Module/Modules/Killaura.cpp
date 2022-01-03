@@ -241,7 +241,13 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				}
 
 				//all the displays
-					std::string targetName = targetList[0]->getNameTag()->getText();
+				// 
+				//Gets the targets name, then makes it not go to next line
+				std::string targetName = targetList[0]->getNameTag()->getText();
+				targetName = Utils::sanitize(targetName);
+				Utils::replaceString(targetName, '\n', ' ');
+
+
 					std::string healthString = std::to_string(((int)targetList[0]->getHealth() / 2));
 					std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
 					std::string healthDisplay = "Health: " + healthString;

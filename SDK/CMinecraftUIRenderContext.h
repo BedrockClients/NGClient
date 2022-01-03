@@ -46,6 +46,11 @@ struct TextMeasureData {
 	bool bool2;
 };
 
+class NinesliceInfo {  // how the fuck did onix find what goes in this
+private:
+	char pad_0x0000[0xFF];  //0x0000
+};
+
 class C_MinecraftUIRenderContext {
 private:
 	float _[140];
@@ -60,12 +65,34 @@ public:
 	virtual __int64 drawText(C_Font* font, const float* pos, TextHolder* text, float* color, float alpha, unsigned int textAlignment, const TextMeasureData* textMeasureData, const uintptr_t* caretMeasureData);
 	virtual void flushText(float timeSinceLastFlush);                       // time used for ticking the obfuscated text
 	virtual __int64 drawImage(C_TexturePtr* texturePtr, vec2_t& ImagePos, vec2_t& ImageDimension,__int64& a4,vec2_t& idk);  // didnt bother putting in the parameters
-	virtual __int64 drawNinesliceNOTIMPLEMENTED();
+	virtual void drawNineslice(C_TexturePtr* const& texturePtr, NinesliceInfo NinesliceInfo);
 	virtual __int64 flushImages(MC_Color& color, __int64 flushImageAddr, __int64 hashedString);
-	virtual __int64 beginSharedMeshBatchNOTIMPLEMENTED();
-	virtual __int64 endSharedMeshBatchNOTIMPLEMENTED();
+	virtual void beginSharedMeshBatch(uintptr_t ComponentRenderBatch);
+	virtual void endSharedMeshBatch(float timeSinceLastFlush);
 	virtual void drawRectangle(const float* pos, const float* color, float alpha, int lineWidth);  // line width is guessed
 	virtual auto drawRect(vec4_t position, MC_Color& colour, float alpha, int lineWidth) -> void{};
 	virtual void fillRectangle(const float* pos, const float* color, float alpha);
-	// There are a few more functions but didnt bother
+	virtual void increaseStencilRef();
+	virtual void decreaseStencilRef();
+	virtual void resetStencilRef();
+	virtual void fillRectangleStencil(const float* pos);
+	virtual void enableScissorTest(const float* pos);
+	virtual void disableScissorTest();
+	virtual void setClippingRectangle(const float* pos);
+	virtual void setFullClippingRectangle();
+	virtual void saveCurrentClippingRectangle();
+	virtual void restoreSavedClippingRectangle();
+	virtual int getFullClippingRectangle();
+	virtual void updateCustom(uintptr_t a1);
+	virtual void renderCustom(uintptr_t a1, int a2, const float* pos);
+	virtual void cleanup();
+	virtual void removePersistentMeshes();
+	virtual int getZippedTexture(C_TexturePtr* Path, C_TexturePtr* ResourceLocation, bool a3);
+	virtual void unloadTexture(C_TexturePtr* ResourceLocation);
+	virtual int getUITextureInfo(C_TexturePtr* ResourceLocation, bool a2);
+	virtual void touchTexture(C_TexturePtr* ResourceLocation);
+	virtual int getMeasureStrategy(vec2_t const&);
+	virtual void snapImageSizeToGrid(vec2_t const&);
+	virtual void snapImagePositionToGrid(vec2_t const&);
+	virtual void notifyImageEstimate(unsigned long);
 };
