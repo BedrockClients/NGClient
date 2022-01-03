@@ -22,6 +22,7 @@ void CommandMgr::initCommands() {
 	commandList.push_back(new PlayerTeleportCommand());
 	commandList.push_back(new CBEPCommand());
 	commandList.push_back(new FriendListCommand());
+	commandList.push_back(new EmoteCommand());
 	commandList.push_back(new UnbindCommand());
 	commandList.push_back(new EnchantCommand());
 	commandList.push_back(new HelpCommand());

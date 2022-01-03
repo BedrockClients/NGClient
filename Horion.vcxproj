@@ -389,6 +389,7 @@
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
     <ClInclude Include="Horion\Command\Commands\BindCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\EmoteCommand.h" />
     <ClInclude Include="Horion\Command\Commands\GMCommand.h" />
     <ClInclude Include="Horion\Command\Commands\GodmodeCommand.h" />
     <ClInclude Include="Horion\Command\Commands\KitCommand.h" />

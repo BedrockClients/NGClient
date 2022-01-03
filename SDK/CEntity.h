@@ -670,7 +670,7 @@ public:
 	virtual __int64 getSleepTimer(void);                                                                                 // 396
 	virtual __int64 getPreviousTickSleepTimer(void);                                                                     // 397
 	virtual __int64 openSign(vec3_ti const &);                                                                           // 398
-	virtual __int64 playEmote(TextHolder *);                                                                             // 399
+	virtual void playEmote(std::string);																			   	 // 399
 	virtual bool isHostingC_Player(void);                                                                                // 400
 	virtual bool isLoading(void);                                                                                        // 401
 	virtual bool isC_PlayerInitialized(void);                                                                            // 402

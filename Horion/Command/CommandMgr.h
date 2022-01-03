@@ -15,6 +15,7 @@
 #include "Commands/HideCommand.h"
 #include "Commands/ICommand.h"
 #include "Commands/ModulesCommand.h"
+#include "Commands/EmoteCommand.h"
 #include "Commands/PanicCommand.h"
 #include "Commands/PlayerTeleportCommand.h"
 #include "Commands/RelativeTeleportCommand.h"
