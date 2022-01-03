@@ -846,40 +846,95 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							it->pos->x = 0.f;
 							it->pos->y = 0.f;
 						}
+						vec2_t textPos;
+						vec4_t FluxBar;
+						vec4_t rectPos;
+						vec4_t leftRect;
+						vec4_t underline;
+						vec4_t overline;
+						vec4_t topIce;
+						vec4_t rightRect;
 
-						vec2_t textPos = vec2_t(
-							xOffset + textPadding,
-							yOffset + textPadding);
-						vec4_t rectPos = vec4_t(
-							xOffset - 2,
+						static auto FluxMod = moduleMgr->getModule<GUI>();
+						if (FluxMod->Fluxbar) {
+						textPos = vec2_t(
+								xOffset + textPadding - 4,
+								yOffset + textPadding);
+						FluxBar = vec4_t(
+								windowSize.x - 3,
+								yOffset,
+								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+								yOffset + textPadding * 2 + textHeight);
+						rectPos = vec4_t(
+								xOffset - 6,
+								yOffset,
+								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+								yOffset + textPadding * 2 + textHeight);
+						leftRect = vec4_t(
+							xOffset - 6,
 							yOffset,
-							isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+							xOffset - 5,
 							yOffset + textPadding * 2 + textHeight);
-						vec4_t leftRect = vec4_t(
-							xOffset - 2,
+						topIce = vec4_t(
+							xOffset - 7,
 							yOffset,
-							xOffset - 1,
+							xOffset - 14,
 							yOffset + textPadding * 2 + textHeight);
-						vec4_t topIce = vec4_t(
-							xOffset - 3,
+						rightRect = vec4_t(
+							xOffset - 6,
 							yOffset,
-							xOffset - 1,
-							yOffset + textPadding * 2 + textHeight);
-						vec4_t rightRect = vec4_t(
-							xOffset - 2,
-							yOffset,
-							xOffset - 1,
+							xOffset - 5,
 							yOffset + textPadding * 7 + textHeight);
-						vec4_t underline = vec4_t(
-							xOffset - 2,
+						underline = vec4_t(
+							xOffset - 6,
 							leftRect.w,
 							windowSize.x,
 							leftRect.w + 1.f);
-						vec4_t overline = vec4_t(
-							xOffset - 3,
+						overline = vec4_t(
+							xOffset - 7,
 							yOffset,
-							xOffset - 2,
+							xOffset - 4,
 							yOffset + textPadding * 1 + textHeight);
+						} else {
+							textPos = vec2_t(
+								xOffset + textPadding ,
+								yOffset + textPadding);
+							FluxBar = vec4_t(
+								windowSize.x - 3,
+								yOffset,
+								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+								yOffset + textPadding * 2 + textHeight);
+							rectPos = vec4_t(
+								xOffset - 2,
+								yOffset,
+								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+								yOffset + textPadding * 2 + textHeight);
+							leftRect = vec4_t(
+								xOffset - 2,
+								yOffset,
+								xOffset - 1,
+								yOffset + textPadding * 2 + textHeight);
+							topIce = vec4_t(
+								xOffset - 3,
+								yOffset,
+								xOffset - 10,
+								yOffset + textPadding * 2 + textHeight);
+							rightRect = vec4_t(
+								xOffset - 6,
+								yOffset,
+								xOffset - 5,
+								yOffset + textPadding * 7 + textHeight);
+							underline = vec4_t(
+								xOffset - 2,
+								leftRect.w,
+								windowSize.x,
+								leftRect.w + 1.f);
+							overline = vec4_t(
+								xOffset - 3,
+								yOffset,
+								xOffset - 2,
+								yOffset + textPadding * 1 + textHeight);
+						}
 						c++;
 						b++;
 						if (b < 20)
@@ -899,6 +954,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						}
 						//DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), hudModule->arrayListOpacity);  // Background
 						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);
+						if (FluxMod->Fluxbar)
+						DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
 
 						static auto rgbmod = moduleMgr->getModule<GUI>();
 						if (rgbmod->rgb) {
