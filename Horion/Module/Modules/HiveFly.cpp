@@ -24,7 +24,7 @@ void HiveFly::onEnable() {
 void HiveFly::onTick(C_GameMode* gm) {
 	float rotChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.f)) + 1.f;
 	counter++;
-	if (counter <= 15) {
+	if (counter <= 10) {
 		findBlock();
 		auto player = g_Data.getLocalPlayer();
 		C_MovePlayerPacket mpp(player, *player->getPos());
