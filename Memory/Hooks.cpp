@@ -1313,11 +1313,6 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	//	g_Data.getLocalPlayer()->jumpFromGround();
 	//}
 	
-	if (disabler->isEnabled() && disabler->hive && packet->isInstanceOf<NetworkLatencyPacket>()) {
-		NetworkLatencyPacket* pkt = (NetworkLatencyPacket*)packet;
-		if (pkt->timeStamp == 69420) return;
-	}
-	
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
@@ -1382,6 +1377,11 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 
 	moduleMgr->onSendPacket(packet);
 
+	if (disabler->isEnabled() && disabler->hive && packet->isInstanceOf<NetworkLatencyPacket>()) {
+		NetworkLatencyPacket* pkt = (NetworkLatencyPacket*)packet;
+		if (pkt->timeStamp == 69420) return;
+	}
+	
 	/*if (strcmp(packet->getName()->getText(), "EmotePacket") == 0) {
 		auto varInt = reinterpret_cast<__int64*>(reinterpret_cast<__int64>(packet) + 0x28);
 		auto text = reinterpret_cast<TextHolder*>(reinterpret_cast<__int64>(packet) + 0x30);
