@@ -17,12 +17,14 @@ void HiveFly::onEnable() {
 	counter = 0;
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	slot = supplies->selectedHotbarSlot;
-	findBlock();
 }
 
 void HiveFly::onTick(C_GameMode* gm) {
 	float rotChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.f)) + 1.f;
 	counter++;
+	if (counter<= 5)
+		findBlock();
+
 	if (counter <= 10) {
 		auto player = g_Data.getLocalPlayer();
 		C_MovePlayerPacket mpp(player, *player->getPos());
