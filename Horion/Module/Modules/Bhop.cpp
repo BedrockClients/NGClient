@@ -8,7 +8,7 @@ int timer = 20;
 bool ZoomHop = false;
 Bhop::Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
 	registerBoolSetting("Hive", &hive, hive);
-	registerFloatSetting("Speed", &speed, speed, 0.10f, 1.00f);
+	registerFloatSetting("Speed", &speed, speed, 0.10f, 1.50f);
 	registerFloatSetting("Height", &height, height, 0.01f, 2.00f);
 	registerBoolSetting("ZoomHop", &ZoomHop, ZoomHop);
 	registerIntSetting("Timer", &timer, timer, 20, 50);
