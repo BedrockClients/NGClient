@@ -22,7 +22,7 @@ void Disabler::onEnable() {
 void Disabler::onTick(C_GameMode* gm) {
 	if (hive) {
 		unsigned __int64 now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-		while (!latencyPacketQueue.empty() && now - latencyPacketQueue.front().second >= 5000) {
+		while (!latencyPacketQueue.empty() && now - latencyPacketQueue.front().second >= 1000) {
 			NetworkLatencyPacket packetToSend = latencyPacketQueue.front().first;
 			sendingEpicThingy = true;
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&packetToSend);
