@@ -203,6 +203,7 @@ void Killaura::onLevelRender() {
 }
 
 void Killaura::onEnable() {
+	srand(time(NULL));
 	counter = 0;
 	targetList.clear();
 	if (g_Data.isInGame()) {
@@ -290,10 +291,15 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
 		if (!targetList.empty()) {
-			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			movePacket->pitch = joe.x;
-			movePacket->headYaw = joe.y;
-			movePacket->yaw = joe.y;
+			auto* pkt = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			float xChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.f));
+			xChange -= 1.5f;
+
+			pkt->yaw = joe.y + xChange;
+			pkt->headYaw = joe.y + xChange;
+			float yChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 1.5f));
+			yChange -= 0.75f;
+			pkt->pitch = joe.x + yChange;
 		}
 	}
 }
