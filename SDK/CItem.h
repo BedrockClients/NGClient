@@ -205,6 +205,7 @@ public:
 		if (itemId == 512) return true;                   // Emerald
 		if (itemId == 548) return true;                   // Nametag
 		if (itemId == 521) return true;                   // EnchantedBook
+		if (itemId == 570) return true;                   // NautalusShell
 		return false;
 	}
 	bool isWeapon(void) {
