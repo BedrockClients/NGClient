@@ -261,6 +261,26 @@ void DrawUtils::drawText(vec2_t pos, std::string* textStr, MC_Color color, float
 	renderCtx->drawText(fontPtr, posF, &text, color.arr, alpha, 0, &textMeasure, &caretMeasureData);
 }
 
+void DrawUtils::drawText2(vec2_t pos, std::string* textStr, float textSize, float alpha, Fonts font) {
+	TextHolder text(*textStr);
+	C_Font* fontPtr = getFont(font);
+	static uintptr_t caretMeasureData = 0xFFFFFFFF;
+
+	pos.y -= 1;
+
+	float posF[4];  // vec4_t(startX, startY, endX, endY);
+	posF[0] = pos.x;
+	posF[1] = pos.x + 1000;
+	posF[2] = pos.y;
+	posF[3] = pos.y + 1000;
+
+	TextMeasureData textMeasure{};
+	memset(&textMeasure, 0, sizeof(TextMeasureData));
+	textMeasure.textSize = textSize;
+
+	renderCtx->drawText(fontPtr, posF, &text, MC_Color().arr, alpha, 0, &textMeasure, &caretMeasureData);
+}
+
 void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outline) {
 	
 	vec3_t diff;
