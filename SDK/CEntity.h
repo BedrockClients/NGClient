@@ -566,12 +566,22 @@ public:
 		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DA10) + 0x84);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
 	}
 
+	float getMinHealth() {
+		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DA10) + 0x7C);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
+	}
+
 	float getMaxHealth() {
 		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DA10) + 0x80);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
 	}
 
 	float getAbsorption() {
 		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DB98) + 0x84);  // 48 8D 15 ?? ?? ?? ?? 48 8B CF FF 90 ?? ?? 00 00 F3 0F 10 B8 ?? ?? 00 00
+	}
+	float getMinAbsorption() {
+		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DB98) + 0x7C);  // 48 8D 15 ?? ?? ?? ?? 48 8B CF FF 90 ?? ?? 00 00 F3 0F 10 B8 ?? ?? 00 00
+	}
+	float getMaxAbsorption() {
+		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DB98) + 0x80);  // 48 8D 15 ?? ?? ?? ?? 48 8B CF FF 90 ?? ?? 00 00 F3 0F 10 B8 ?? ?? 00 00
 	}
 
 };
