@@ -13,7 +13,7 @@ public:
 	bool nopackety = false;
 	float range = 3;
 
-	NoFall() : IModule(0x0, Category::SERVER, "Gives You Shit Loads Of XP!"){
+	NoFall() : IModule(0x0, Category::SERVER, "Prevents fall damage on various servers"){
 		registerBoolSetting("OnGround", &groundy, groundy);
 		registerBoolSetting("Server", &server, server);
 		registerBoolSetting("NoPacket", &nopackety, nopackety);
