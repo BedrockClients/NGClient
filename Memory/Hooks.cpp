@@ -1379,7 +1379,10 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 
 	if (disabler->isEnabled() && disabler->hive && packet->isInstanceOf<NetworkLatencyPacket>()) {
 		NetworkLatencyPacket* pkt = (NetworkLatencyPacket*)packet;
-		if (pkt->timeStamp == 69420) return;
+		if (pkt->timeStamp == 69420) {
+			g_Data.getGuiData()->displayClientMessageF("DaddyUwU");
+			return;
+		}
 	}
 	
 	/*if (strcmp(packet->getName()->getText(), "EmotePacket") == 0) {
