@@ -417,11 +417,17 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 	static auto nametags = moduleMgr->getModule<NameTags>();
 	static auto underlinemod = moduleMgr->getModule<NameTags>();
 	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	auto Hud = moduleMgr->getModule<HudModule>();
 	vec2_t textPos;
 	vec4_t rectPos;
-	std::string text = ent->getNameTag()->getText();
-	text = Utils::sanitize(text);
-	Utils::replaceString(text, '\n', ' ');
+	std::string text;
+	if (Hud->displaySecondHalf) {
+		text = Utils::sanitize(ent->getNameTag()->getText());
+		Utils::replaceString(text, '\n', ' ');
+	} else {
+		text = Utils::sanitize(ent->getNameTag()->getText());
+		text = text.substr(0, text.find('\n'));
+	}
 
 	float textWidth = getTextWidth(&text, textSize);
 	float textHeight = DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() * textSize;

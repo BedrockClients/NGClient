@@ -13,6 +13,7 @@ public:
 	bool rgb = true;
 	bool bools = false;
 	bool rgbtext = true;
+	bool displaySecondHalf = true;
 	bool tabgui = false;
 	bool arraylist = true;
 	bool clickToggle = true;

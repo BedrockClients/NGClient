@@ -241,11 +241,17 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				}
 
 				//all the displays
-				// 
+				
 				//Gets the targets name, then makes it not go to next line
-				std::string targetName = targetList[0]->getNameTag()->getText();
-				targetName = Utils::sanitize(targetName);
-				Utils::replaceString(targetName, '\n', ' ');
+				std::string targetName;
+				auto Hud = moduleMgr->getModule<HudModule>();
+				if (Hud->displaySecondHalf) {
+					targetName = Utils::sanitize(targetList[0]->getNameTag()->getText());
+					Utils::replaceString(targetName, '\n', ' ');
+				} else {
+					targetName = Utils::sanitize(targetList[0]->getNameTag()->getText());
+					targetName = targetName.substr(0, targetName.find('\n'));
+				}
 
 
 					std::string healthString = std::to_string(((int)targetList[0]->getHealth() / 2));
