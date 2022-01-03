@@ -77,6 +77,7 @@ void Fucker::onSendPacket(C_Packet* packet) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			movePacket->pitch = randomFloat(-90, 90);
 			movePacket->yaw = randomFloat(-180, 180);
+			movePacket->headYaw = randomFloat(-180, 180);
 		}
 	}
 }
