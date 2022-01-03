@@ -9,7 +9,7 @@ FriendListCommand::~FriendListCommand() {
 }
 
 bool FriendListCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	assertTrue(args->size() >= 3);
 	std::string subcommand = args->at(1);
 	std::transform(subcommand.begin(), subcommand.end(), subcommand.begin(), ::tolower);

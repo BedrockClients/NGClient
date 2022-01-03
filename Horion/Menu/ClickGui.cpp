@@ -102,7 +102,7 @@ void ClickGui::renderLabel(const char* text) {
 }
 
 void ClickGui::renderTooltip(std::string* text) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 	vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 	vec2_t currentTooltipPos = vec2_t(5.f, windowSize.y - 15.f);
@@ -275,7 +275,7 @@ void ClickGui::renderCategory(Category category) {
 				currentYOffset + textHeight + (textPadding * 2));
 
 			bool allowRender = currentYOffset >= categoryHeaderYOffset;
-			static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+			static auto Surge = moduleMgr->getModule<HudModule>();
 			// Background
 			if (allowRender) {
 				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
@@ -816,7 +816,7 @@ void ClickGui::renderCategory(Category category) {
 				dragStart = mousePos;
 			}
 		}
-		static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+		static auto Surge = moduleMgr->getModule<HudModule>();
 		// Draw component
 		//yes
 		if (Surge->surge) {

@@ -16,6 +16,7 @@ public:
 	bool displaySecondHalf = true;
 	bool tabgui = false;
 	bool arraylist = true;
+	bool surge = false;
 	bool clickToggle = true;
 	bool watermark = false;
 	bool coordinates = true;

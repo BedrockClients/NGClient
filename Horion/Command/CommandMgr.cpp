@@ -94,7 +94,7 @@ void CommandMgr::execute(char* message) {
 				}
 			}
 		}
-		static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+		static auto Surge = moduleMgr->getModule<HudModule>();
 		if (Surge->surge)
 		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sSurge%s] %sCommand '%s' could not be found!", BLUE, WHITE, BLUE, cmd.c_str());
 		else 

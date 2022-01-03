@@ -489,7 +489,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		std::string screenName(g_Hooks.currentScreenName);
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
-			static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+			static auto Surge = moduleMgr->getModule<HudModule>();
 			if (Surge->surge) {
 				std::string text = "Surge  Client";
 				vec2_t textPos = vec2_t(wid.x / 1.38f - DrawUtils::getTextWidth(&text, 7.f) / 1.f, wid.y / -30.f);
@@ -646,7 +646,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t mousePos = *g_Data.getClientInstance()->getMousePos();
 
 				// Draw NG logo
-				static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+				static auto Surge = moduleMgr->getModule<HudModule>();
 				if (Surge->surge) {
 					// Draw Horion logo
 					static auto hudModule = moduleMgr->getModule<HudModule>();

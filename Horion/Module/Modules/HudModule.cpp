@@ -3,6 +3,7 @@
 #include "../../Scripting/ScriptManager.h"
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
+	registerBoolSetting("Surge", &surge, surge);
 	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
@@ -26,7 +27,9 @@ static float rcolors[4];
 const char* HudModule::getModuleName() {
 	auto HUD = moduleMgr->getModule<HudModule>();
 	if (isEnabled() && HUD->bools) {
-		if (rgb || Msg || clickToggle || watermark || coordinates || keybinds || keystrokes || displayArmor || fps || cps || alwaysShow) {
+		if (surge)
+			return "Hud [Surge]";
+		else if (rgb || Msg || clickToggle || watermark || coordinates || keybinds || keystrokes || displayArmor || fps || cps || alwaysShow) {
 			return "HUD [Customised]";
 		} else
 			return "HUD";
@@ -38,7 +41,7 @@ void HudModule::onTick(C_GameMode* gm) {
 }
 
 void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	// rainbow colors
 	{
 		if (rcolors[3] < 1) {

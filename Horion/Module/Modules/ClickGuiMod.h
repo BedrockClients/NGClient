@@ -9,7 +9,6 @@ public:
 
 	bool showTooltips = true;
 	bool RGB = false;
-	bool surge = false;
 	int font = 10;
 	float opacity = 0.05f;
 

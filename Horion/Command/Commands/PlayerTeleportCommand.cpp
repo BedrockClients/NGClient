@@ -37,7 +37,7 @@ bool PlayerTeleportCommand::execute(std::vector<std::string>* args) {
 		playerName = currentEntity->getNameTag()->getText();
 		gotEntity = true;
 	});
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	if (!gotEntity) {
 		if (Surge->surge)
 		clientMessageF("[%sSurge%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, nameOfPlayer.c_str());

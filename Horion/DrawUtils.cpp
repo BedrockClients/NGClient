@@ -416,7 +416,7 @@ void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageD
 void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, bool useUnicodeFont) {
 	static auto nametags = moduleMgr->getModule<NameTags>();
 	static auto underlinemod = moduleMgr->getModule<NameTags>();
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	auto Hud = moduleMgr->getModule<HudModule>();
 	vec2_t textPos;
 	vec4_t rectPos;
@@ -574,7 +574,7 @@ void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float
 }
 static float rcolors[4];
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString = Utils::getKeybindName(key);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (key == *input->spaceBarKey) {
@@ -640,7 +640,7 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 }
 
 void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString;
 	keyString = "LMB " + std::to_string(g_Data.getLeftCPS());
 	vec4_t rectPos(
@@ -673,7 +673,7 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 }
 
 void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString;
 	keyString = "RMB " + std::to_string(g_Data.getRightCPS());
 	vec4_t rectPos(
@@ -889,7 +889,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 	vec2_t target;
 	refdef->OWorldToScreen(origin, ent, target, fov, screenSize);
 	//vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	if (Surge->surge) {
 		if (target != vec2_t(0, 0)) {
 			//DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));

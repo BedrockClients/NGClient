@@ -10,7 +10,7 @@ NameSpoofCommand::~NameSpoofCommand() {
 }
 
 bool NameSpoofCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	if (args->at(1) == "name" && args->size() > 2) {
 		std::ostringstream os;
 		for (int i = 2; i < args->size(); i++) {

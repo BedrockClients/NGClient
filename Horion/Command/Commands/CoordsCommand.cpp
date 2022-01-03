@@ -9,7 +9,7 @@ CoordsCommand::~CoordsCommand() {
 }
 
 bool CoordsCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	vec3_t* pos = g_Data.getLocalPlayer()->getPos();
 	float yPos = pos->y - 1.62f;
 	if (Surge->surge)
