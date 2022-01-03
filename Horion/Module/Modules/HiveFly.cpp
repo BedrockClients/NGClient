@@ -17,7 +17,6 @@ void HiveFly::onEnable() {
 	counter = 0;
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	slot = supplies->selectedHotbarSlot;
-	supplies->selectedHotbarSlot = slot;
 	findBlock();
 }
 
@@ -25,14 +24,17 @@ void HiveFly::onTick(C_GameMode* gm) {
 	float rotChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.f)) + 1.f;
 	counter++;
 	if (counter <= 10) {
-		findBlock();
 		auto player = g_Data.getLocalPlayer();
 		C_MovePlayerPacket mpp(player, *player->getPos());
 		mpp.onGround = player->onGround;
 		mpp.pitch = 90.f - rotChange;
 		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
-		Utils::rightClick();
 	}
+	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+	if(counter == 5)
+		Utils::rightClick();
+	if (counter == 6)
+		supplies->selectedHotbarSlot = slot;
 	gm->player->velocity.y = 0.f;
 	if (isEnabled())
 		*g_Data.getClientInstance()->minecraft->timer = timer;
