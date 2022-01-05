@@ -230,7 +230,7 @@ void Hooks::Init() {
 		static auto bobViewHookF = [](__int64 _this, glm::mat4& matrix, float lerpT){
 			static auto origFunc = g_Hooks.lambdaHooks.at(lambda_counter)->GetFastcall<void, __int64, glm::mat4&, float>();
 			
-			static auto viewmodelMod = moduleMgr->getModule<ViewModel>();
+			static auto ViewMod = moduleMgr->getModule<ViewModel>();
 			auto p = g_Data.getLocalPlayer();
 			float degrees = fmodf(p->getPosOld()->lerp(p->getPos(), lerpT).x, 5) - 2.5f;
 			degrees *= 180 / 2.5f;
@@ -240,12 +240,26 @@ void Hooks::Init() {
 			glm::mat4 View = matrix;
 			
 			matrix = View;
-			if (viewmodelMod->isEnabled()) {
-				if (viewmodelMod->doTranslate)
-					matrix = glm::translate<float>(matrix, glm::vec3(viewmodelMod->xTrans, viewmodelMod->yTrans, viewmodelMod->zTrans));
-
-				if (viewmodelMod->doScale)
-					matrix = glm::scale_slow<float>(matrix, glm::vec3(viewmodelMod->xMod, viewmodelMod->yMod, viewmodelMod->zMod));
+			if (ViewMod->isEnabled()) {
+				auto p = g_Data.getLocalPlayer();
+				if (ViewMod->mode.selected == 0 && ViewMod->spin){
+				float degrees = fmaf(p->getPosOld()->lerp(p->getPos(), lerpT).z, 95 ,0);
+				matrix = glm::rotate<float>(matrix, glm::radians<float>(degrees), glm::vec3(0, 255, 0));
+				}
+				if (ViewMod->mode.selected == 1 && ViewMod->spin){
+				float degrees = fmaf(p->getPosOld()->lerp(p->getPos(), lerpT).z, 95 ,0);
+				matrix = glm::rotate<float>(matrix, glm::radians<float>(degrees), glm::vec3(0, 0, 255));
+				}
+				if (ViewMod->mode.selected == 2 && ViewMod->spin){
+				float degrees = fmaf(p->getPosOld()->lerp(p->getPos(), lerpT).z, 95 ,0);
+				matrix = glm::rotate<float>(matrix, glm::radians<float>(degrees), glm::vec3(255, 0, 0));
+				}
+				if (ViewMod->doRotation)
+					matrix = glm::rotate<float>(matrix, ViewMod->RotatePosition, glm::vec3(ViewMod->xRotate, ViewMod->yRotate, ViewMod->zRotate));
+				if (ViewMod->doTranslate)
+					matrix = glm::translate<float>(matrix, glm::vec3(ViewMod->xTrans, ViewMod->yTrans, ViewMod->zTrans));
+				if (ViewMod->doScale)
+					matrix = glm::scale<float>(matrix, glm::vec3(ViewMod->xMod, ViewMod->yMod, ViewMod->zMod));
 			}
 			return origFunc(_this, matrix, lerpT);
 		};
