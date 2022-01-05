@@ -42,6 +42,9 @@ struct CompareTargetEnArray {
 static std::vector<C_Entity*> targetList;
 float rcolorrs[4];
 float Outline = 0;
+
+__int64 actualPlayerVTable = Utils::getBase() + 0x3E403A0;
+
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
 
@@ -73,7 +76,7 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 		if (currentEntity->getEntityTypeId() == 69)  // xp
 			return;
 	} else {
-		if (!Target::isValidTarget(currentEntity))
+		if (!Target::isValidTarget(currentEntity) || *(__int64*)currentEntity != actualPlayerVTable)
 			return;
 	}
 
