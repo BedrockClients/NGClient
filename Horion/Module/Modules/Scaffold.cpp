@@ -4,13 +4,14 @@
 #include "../ModuleManager.h"
 uintptr_t HiveBypass1 = Utils::getBase() + 0x8F3895;  // Second one of 89 41 18 0F B6 42 ?? 88 41 ?? F2 0F 10 42 ?? F2 0F 11 41 ?? 8B 42 ?? 89 41 ?? 8B 42 ?? 89 41 ??
 uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // C7 40 18 03 00 00 00 48 8B 8D
-void* targetAddress = (void*)FindSignature("75 0A 80 7B 59 00");
+void* NoSneakAddress = (void*)FindSignature("75 0A 80 7B 59 00");
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
 	registerBoolSetting("Spoof", &spoof, spoof);
 	registerBoolSetting("AirPlace", &airplace, airplace);
 	registerBoolSetting("Auto Select", &autoselect, autoselect);
 	registerBoolSetting("Predict", &predict, predict);
+	registerBoolSetting("Spam", &spam, spam);
 	registerBoolSetting("Hive", &rot, rot);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
 	registerBoolSetting("Y Lock", &yLock, yLock);
@@ -36,6 +37,14 @@ const char* Scaffold::getModuleName() {
 		else return "Scaffold";
 	} else
 		return "Scaffold";
+}
+
+bool Scaffold::canPlaceHere(vec3_t blockPos) {
+	vec3_t bb = blockPos.floor();
+
+	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(bb));
+	C_BlockLegacy* blockLegacy = (block->blockLegacy);
+	return blockLegacy->material->isReplaceable;
 }
 
 bool Scaffold::tryScaffold(vec3_t blockBelow) {
@@ -80,6 +89,81 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 			}
 			//g_Data.getCGameMode()->buildBlock(&blok, i);
 		}
+	}
+	return false;
+}
+
+bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
+	static std::vector<vec3_ti> blockOffsets;
+	if (blockOffsets.empty()) {
+		int buildOutAmount = 3;
+		for (int y = -buildOutAmount; y <= 0; y++) {
+			for (int x = -buildOutAmount; x <= buildOutAmount; x++) {
+				for (int z = -buildOutAmount; z <= buildOutAmount; z++) {
+					blockOffsets.push_back(vec3_ti(x, y, z));
+				}
+			}
+		}
+		std::sort(blockOffsets.begin(), blockOffsets.end(),
+				  [](vec3_ti a, vec3_ti b) {
+					  return sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z)) < sqrtf((b.x * b.x) + (b.y * b.y) + (b.z * b.z));
+				  });
+	}
+
+	blockPos = blockPos.floor();
+
+	int attempts = 0;
+
+	for (int idx = 0; idx < blockOffsets.size(); idx++) { // This algorithm loops through the list every time. This is pretty inefficient, but the list is pretty small and it works so I won't bother optimizing it 
+		if (attempts >= 7) return false;
+		vec3_ti currentBlock = vec3_ti(blockPos).add(blockOffsets.at(idx));
+		C_Block* block = g_Data.getLocalPlayer()->region->getBlock(currentBlock);
+		C_BlockLegacy* blockLegacy = (block->blockLegacy);
+		if (blockLegacy->material->isReplaceable) {
+			vec3_ti blok(currentBlock);
+			int i = 0;
+			if (airplace) {
+				g_Data.getCGameMode()->buildBlock(&blok, i);
+				return true;
+			} else {
+				static std::vector<vec3_ti*> checklist;
+				bool foundCandidate = false;
+				if (checklist.empty()) {
+					checklist.push_back(new vec3_ti(0, -1, 0));
+					checklist.push_back(new vec3_ti(0, 1, 0));
+
+					checklist.push_back(new vec3_ti(0, 0, -1));
+					checklist.push_back(new vec3_ti(0, 0, 1));
+
+					checklist.push_back(new vec3_ti(-1, 0, 0));
+					checklist.push_back(new vec3_ti(1, 0, 0));
+				}
+
+				for (auto current : checklist) {
+					vec3_ti calc = blok.sub(*current);
+					bool Y = ((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable;
+					if (!((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable) {
+						// Found a solid block to click
+						foundCandidate = true;
+						blok = calc;
+						break;
+					}
+					i++;
+				}
+				if (foundCandidate) {
+					g_Data.getCGameMode()->buildBlock(&blok, i);
+					if (spam && idx != 0) {
+						idx = -1;
+						attempts++;
+					} 
+					else {
+						return true;
+					}
+				}
+				//g_Data.getCGameMode()->buildBlock(&blok, i);
+			}
+		}
+		if (idx == blockOffsets.size() - 1) return false;
 	}
 	return false;
 }
@@ -143,7 +227,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 	vec3_t vel = g_Data.getLocalPlayer()->velocity;
 	vel = vel.normalize();  // Only use values from 0 - 1
 	if (staircaseMode) {
-		Utils::nopBytes((BYTE*)targetAddress, 2);
+		Utils::nopBytes((BYTE*)NoSneakAddress, 2);
 	}
 	if (staircaseMode && g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown) {
 		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 1 block below the player
@@ -172,59 +256,42 @@ void Scaffold::onTick(C_GameMode* gm) {
 				}
 			}
 		}
-	} else {
-		if (yLock) {
+	} 
+	else {
+		if (yLock) { // I didn't make the build out thingy work with yLock 
 			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 			blockBelowtest2.y = blockBelowtest.y;
-		} else {
+		} 
+		else {
 			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 			blockBelowtest2.y -= 2.5f;
 		}
-
-			blockBelowtest2.z -= vel.z * 0.4f;
-		if (!tryScaffold(blockBelowtest2)) {
-				blockBelowtest2.x -= vel.x * 0.4f;
-			blockBelowtest2.z += vel.z;
-				blockBelowtest2.x += vel.x;
-			tryScaffold(blockBelowtest2);
-				blockBelowtest2.z -= vel.z * 0.3f;
-				if (predict) {
-					if (!tryScaffold(blockBelowtest2)) {
-						blockBelowtest2.x -= vel.x / 3.5f;
-						blockBelowtest2.z += vel.z;
-						blockBelowtest2.x += vel.x;
-						tryScaffold(blockBelowtest2);
-						blockBelowtest2.z -= vel.z / 3.5f;
-					}
-				}
-			}
-		if (!tryScaffold(blockBelowtest2)) {
-			if (speed > 0.05f) {
-				blockBelowtest2.z -= vel.z * 0.3f;
-				if (!tryScaffold(blockBelowtest2)) {
-					blockBelowtest2.x -= vel.x * 0.3f;
-					if (!tryScaffold(blockBelowtest2) && g_Data.getLocalPlayer()->isSprinting()) {
-						blockBelowtest2.z += vel.z;
-						blockBelowtest2.x += vel.x;
-						tryScaffold(blockBelowtest2);
-					}
-				}
+		if (canPlaceHere(blockBelowtest2)) {  // There is no block below us. We won't try to predict this tick (if it's enabled) 
+			tryActuallySomewhatDecentScaffold(blockBelowtest2);
+		} 
+		else {  // There is already a block below us
+			if (predict && g_Data.getClientInstance()->getMoveTurnInput()->forward) {  // Only predict while going forward since if you are moving to the side or backwards you probably don't want to predict 
+				// This is basically just code from my client but stripped down, if there's something you want me to add lmk 
+				float angleForSomeVeryEpicCalculations = (g_Data.getLocalPlayer()->yaw + 90.0f) * (PI / 180.f);
+				float magX = cos(angleForSomeVeryEpicCalculations);
+				float magZ = sin(angleForSomeVeryEpicCalculations);
+				if (magX >= 0.8f) {
+					blockBelowtest2.x += 1.f;
+				} 
+				else if (magX <= -0.8f) {
+					blockBelowtest2.x -= 1.f;
+				} 
+				else if (magZ >= 0.8f) {
+					blockBelowtest2.z += 1.f;
+				} 
+				else if (magZ <= -0.8f) {
+					blockBelowtest2.z -= 1.f;
+				} 
+				// Too lazy to add proper diagonal prediction to NG lol 
+				tryScaffold(blockBelowtest2);
 			}
 		}
-		if (!tryScaffold(blockBelowtest2)) {
-			if (speed > 0.05f) {
-				blockBelowtest2.z -= vel.z * 0.3f;
-				if (!tryScaffold(blockBelowtest2)) {
-					blockBelowtest2.x -= vel.x * 0.3f;
-					if (!tryScaffold(blockBelowtest2) && g_Data.getLocalPlayer()->isSprinting()) {
-						blockBelowtest2.z += vel.z;
-						blockBelowtest2.x += vel.x;
-						tryScaffold(blockBelowtest2);
-					}
-				}
-			}
-		}
-		}
+	}
 	if (spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		supplies->selectedHotbarSlot = slot;
@@ -245,7 +312,7 @@ void Scaffold::onEnable() {
 }
 void Scaffold::onDisable() {
 	if (staircaseMode)
-	Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x75\x0A", 2);
+	Utils::patchBytes((BYTE*)((uintptr_t)NoSneakAddress), (BYTE*)"\x75\x0A", 2);
 	Utils::patchBytes((BYTE*)HiveBypass1, (BYTE*)"\x89\x41\x18", 3);
 	Utils::patchBytes((BYTE*)HiveBypass2, (BYTE*)"\xC7\x40\x18\x03\x00\x00\x00", 7);
 }
