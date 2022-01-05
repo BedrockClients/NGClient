@@ -155,6 +155,7 @@
     <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
     <ClCompile Include="Horion\Command\Commands\CBEPCommand.cpp" />
     <ClCompile Include="Horion\Module\Modules\Hitbox.cpp" />
+    <ClCompile Include="SDK\MatrixStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -417,6 +418,8 @@
     <ClInclude Include="Horion\Module\Modules\TargetStrafe.h" />
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
+    <ClInclude Include="Horion\Command\Commands\EmoteCommand.h" />
+    <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

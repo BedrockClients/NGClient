@@ -8,6 +8,7 @@ float GUI::bcolor{0.f};
 GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
 
 	registerBoolSetting("Better RGB Colors", &different, different);
+	registerBoolSetting("Flux Bar", &Fluxbar, Fluxbar);
 	registerBoolSetting("Side Bar", &bar, bar);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("under Bar", &underbar, underbar);

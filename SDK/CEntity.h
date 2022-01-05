@@ -566,12 +566,22 @@ public:
 		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DA10) + 0x84);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
 	}
 
+	float getMinHealth() {
+		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DA10) + 0x7C);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
+	}
+
 	float getMaxHealth() {
 		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DA10) + 0x80);  // 48 8D 15 ?? ?? ?? ?? 48 8B CB FF 90 ?? ?? 00 00 F3 0F 2C 90 ?? ?? 00 00 85 D2 7E ?? 48 8B 46
 	}
 
 	float getAbsorption() {
 		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DB98) + 0x84);  // 48 8D 15 ?? ?? ?? ?? 48 8B CF FF 90 ?? ?? 00 00 F3 0F 10 B8 ?? ?? 00 00
+	}
+	float getMinAbsorption() {
+		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DB98) + 0x7C);  // 48 8D 15 ?? ?? ?? ?? 48 8B CF FF 90 ?? ?? 00 00 F3 0F 10 B8 ?? ?? 00 00
+	}
+	float getMaxAbsorption() {
+		return *reinterpret_cast<float *>(this->getAttribute(Utils::getBase() + 0x419DB98) + 0x80);  // 48 8D 15 ?? ?? ?? ?? 48 8B CF FF 90 ?? ?? 00 00 F3 0F 10 B8 ?? ?? 00 00
 	}
 
 };
@@ -660,7 +670,7 @@ public:
 	virtual __int64 getSleepTimer(void);                                                                                 // 396
 	virtual __int64 getPreviousTickSleepTimer(void);                                                                     // 397
 	virtual __int64 openSign(vec3_ti const &);                                                                           // 398
-	virtual __int64 playEmote(TextHolder *);                                                                             // 399
+	virtual void playEmote(std::string);																			   	 // 399
 	virtual bool isHostingC_Player(void);                                                                                // 400
 	virtual bool isLoading(void);                                                                                        // 401
 	virtual bool isC_PlayerInitialized(void);                                                                            // 402

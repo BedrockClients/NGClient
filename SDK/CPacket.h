@@ -115,6 +115,14 @@ public:
 	std::string oldSkinName;//Test
 };
 
+class NetworkLatencyPacket : public C_Packet {
+public:
+	NetworkLatencyPacket();
+	unsigned long timeStamp;//Test
+	bool sendBack;//Test
+	int pad[0x100];//0x0
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();

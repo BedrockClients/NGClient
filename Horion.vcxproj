@@ -375,6 +375,7 @@
     <ClCompile Include="SDK\CItem.cpp" />
     <ClCompile Include="SDK\CMinecraftUIRenderContext.cpp" />
     <ClCompile Include="SDK\CPacket.cpp" />
+    <ClCompile Include="SDK\MatrixStack.cpp" />
     <ClCompile Include="SDK\Tag.cpp" />
     <ClCompile Include="SDK\Tessellator.cpp" />
     <ClCompile Include="SDK\TextHolder.cpp" />
@@ -388,6 +389,7 @@
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
     <ClInclude Include="Horion\Command\Commands\BindCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\EmoteCommand.h" />
     <ClInclude Include="Horion\Command\Commands\GMCommand.h" />
     <ClInclude Include="Horion\Command\Commands\GodmodeCommand.h" />
     <ClInclude Include="Horion\Command\Commands\KitCommand.h" />
@@ -457,6 +459,7 @@
     <ClInclude Include="Horion\Module\Modules\CubeSpeed.h" />
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\EntityJesus.h" />
+    <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
     <ClInclude Include="Horion\Module\Modules\FastLadder.h" />
     <ClInclude Include="Horion\Module\Modules\FightBot.h" />

@@ -123,9 +123,9 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 		counter++;
 	}
 	if (timer) {
-		*g_Data.getClientInstance()->minecraft->timer = static_cast<float>(timer);
+		g_Data.getClientInstance()->minecraft->setTimerSpeed(static_cast<float>(timer));
 	} else {
-		*g_Data.getClientInstance()->minecraft->timer = 20.f;
+		g_Data.getClientInstance()->minecraft->setTimerSpeed(20.f);
 	}
 }
 void BlockFly::onTick(C_GameMode* gm) {
@@ -142,5 +142,5 @@ void BlockFly::onDisable() {
 			blinkMod->setEnabled(false);
 		}
 	}
-	*g_Data.getClientInstance()->minecraft->timer = 20.f;
+	g_Data.getClientInstance()->minecraft->setTimerSpeed(20.f);
 }

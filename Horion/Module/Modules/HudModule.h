@@ -13,8 +13,10 @@ public:
 	bool rgb = true;
 	bool bools = false;
 	bool rgbtext = true;
+	bool displaySecondHalf = true;
 	bool tabgui = false;
 	bool arraylist = true;
+	bool surge = false;
 	bool clickToggle = true;
 	bool watermark = false;
 	bool coordinates = true;

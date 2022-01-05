@@ -8,7 +8,7 @@ HideCommand::~HideCommand() {
 }
 
 bool HideCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	GameData::hide();
 	if (GameData::shouldHide()) {
 		if (Surge->surge)

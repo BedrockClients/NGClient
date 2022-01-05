@@ -42,6 +42,9 @@ struct CompareTargetEnArray {
 static std::vector<C_Entity*> targetList;
 float rcolorrs[4];
 float Outline = 0;
+
+__int64 actualPlayerVTable = Utils::getBase() + 0x3E403A0;
+
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
 
@@ -73,7 +76,7 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 		if (currentEntity->getEntityTypeId() == 69)  // xp
 			return;
 	} else {
-		if (!Target::isValidTarget(currentEntity))
+		if (!Target::isValidTarget(currentEntity) || *(__int64*)currentEntity != actualPlayerVTable)
 			return;
 	}
 
@@ -150,30 +153,20 @@ void Killaura::onLevelRender() {
 
 		if (!targetList.empty()) {
 			if (rotations) {
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-				player->bodyYaw = angle.y;
+				player->pitch2 = joe.x;
+				player->pitch = joe.x;
+				player->yawUnused2 = joe.x;
+				player->yaw2 = joe.y;
+				// idk. When we have smooth rots that dont strafe, we will put them here.
 			}
 			if (sexy) {
-				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
 				player->bodyYaw = joe.x;
 				player->bodyYaw = joe.y;
 			}
 			int prevSlot;
 			if (autoweapon) {
-				auto supplies = g_Data.getLocalPlayer()->getSupplies();
-				prevSlot = supplies->selectedHotbarSlot;
-				auto FinishSelect = true;
-				auto inv = supplies->inventory;
-				for (int n = 0; n < 9; n++) {
-					C_ItemStack* stack = inv->getItemStack(n);
-					if (stack->item != nullptr) {
-						if (stack->getItem()->isWeapon()) {
-							if (prevSlot != n)
-								supplies->selectedHotbarSlot = n;
-							return;
-						}
-					}
-				}
+				findWeapon();
 			}
 		}
 		auto esp = moduleMgr->getModule<ESP>();
@@ -213,6 +206,7 @@ void Killaura::onLevelRender() {
 }
 
 void Killaura::onEnable() {
+	srand(time(NULL));
 	counter = 0;
 	targetList.clear();
 	if (g_Data.isInGame()) {
@@ -241,12 +235,28 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				//The actual box
 				{
-					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333f);
 					DrawUtils::fillRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 330.33333f);
+
+					//Gives the rounded corners effect
+					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333f);
+					DrawUtils::drawRectangle(vec4_t{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333f);
+					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 0, 255), counter / 330.33333f);
 				}
 
 				//all the displays
-					std::string targetName = targetList[0]->getNameTag()->getText();
+				
+				//Gets the targets name, then makes it not go to next line
+				std::string targetName;
+				auto Hud = moduleMgr->getModule<HudModule>();
+				if (Hud->displaySecondHalf) {
+					targetName = Utils::sanitize(targetList[0]->getNameTag()->getText());
+					Utils::replaceString(targetName, '\n', ' ');
+				} else {
+					targetName = Utils::sanitize(targetList[0]->getNameTag()->getText());
+					targetName = targetName.substr(0, targetName.find('\n'));
+				}
+
+
 					std::string healthString = std::to_string(((int)targetList[0]->getHealth() / 2));
 					std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
 					std::string healthDisplay = "Health: " + healthString;
@@ -300,10 +310,15 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
 		if (!targetList.empty()) {
-			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			movePacket->pitch = joe.x;
-			movePacket->headYaw = joe.y;
-			movePacket->yaw = joe.y;
+			auto* pkt = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			float xChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.f));
+			xChange -= 1.5f;
+
+			pkt->yaw = joe.y + xChange;
+			pkt->headYaw = joe.y + xChange;
+			float yChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 1.5f));
+			yChange -= 0.75f;
+			pkt->pitch = joe.x + yChange;
 		}
 	}
 }

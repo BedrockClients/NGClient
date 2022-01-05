@@ -8,7 +8,7 @@ ConfigCommand::~ConfigCommand() {
 }
 
 bool ConfigCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	if (args->at(1) == "load") {
 		std::string name = args->at(2);
 		configMgr->loadConfig(name, false);

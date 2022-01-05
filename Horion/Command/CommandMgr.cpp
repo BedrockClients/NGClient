@@ -22,6 +22,7 @@ void CommandMgr::initCommands() {
 	commandList.push_back(new PlayerTeleportCommand());
 	commandList.push_back(new CBEPCommand());
 	commandList.push_back(new FriendListCommand());
+	commandList.push_back(new EmoteCommand());
 	commandList.push_back(new UnbindCommand());
 	commandList.push_back(new EnchantCommand());
 	commandList.push_back(new HelpCommand());
@@ -94,7 +95,7 @@ void CommandMgr::execute(char* message) {
 				}
 			}
 		}
-		static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+		static auto Surge = moduleMgr->getModule<HudModule>();
 		if (Surge->surge)
 		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sSurge%s] %sCommand '%s' could not be found!", BLUE, WHITE, BLUE, cmd.c_str());
 		else 

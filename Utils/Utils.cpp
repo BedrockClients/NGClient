@@ -70,6 +70,10 @@ std::string Utils::sanitize(std::string text) {
 	return out;
 }
 
+void Utils::replaceString(std::string& s, char fr, char to) {
+	std::replace(s.begin(), s.end(), fr, to);
+}
+
 std::wstring Utils::stringToWstring(std::string txt) {
 	int wchars_num = MultiByteToWideChar(CP_UTF8, 0, txt.c_str(), -1, NULL, 0);
 	wchar_t* wstr = new wchar_t[wchars_num];

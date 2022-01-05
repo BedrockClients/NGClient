@@ -13,7 +13,7 @@ KitCommand::~KitCommand() {
 }
 
 bool KitCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	C_ItemStack* yot = new C_ItemStack(***ItemRegistry::lookUpByName(std::make_unique<uintptr_t>().get(), std::make_unique<uintptr_t>().get(), TextHolder("shulker_box")), 1, 0);
 	int slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getFirstEmptySlot();
 	std::transform(args->at(1).begin(), args->at(1).end(), args->at(1).begin(), ::tolower);

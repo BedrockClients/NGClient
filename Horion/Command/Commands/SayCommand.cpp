@@ -46,7 +46,7 @@ bool SayCommand::execute(std::vector<std::string>* args) {
 	textPacket.sourceName.setText(g_Data.getLocalPlayer()->getNameTag()->getText());
 	textPacket.xboxUserId = std::to_string(g_Data.getLocalPlayer()->getUserId());
 	g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	if (Surge->surge)
 	clientMessageF("[%sNG%s] %sSent Message", GOLD, WHITE, LIGHT_PURPLE);
 	else

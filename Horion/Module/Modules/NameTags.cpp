@@ -76,4 +76,5 @@ void NameTags::onDisable() {
 		*ingameNametagSetting = lastSetting;
 		gotPrevSetting = false;
 	}
+	*ingameNametagSetting = true;
 }

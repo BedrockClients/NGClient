@@ -261,6 +261,26 @@ void DrawUtils::drawText(vec2_t pos, std::string* textStr, MC_Color color, float
 	renderCtx->drawText(fontPtr, posF, &text, color.arr, alpha, 0, &textMeasure, &caretMeasureData);
 }
 
+void DrawUtils::drawText2(vec2_t pos, std::string* textStr, float textSize, float alpha, Fonts font) {
+	TextHolder text(*textStr);
+	C_Font* fontPtr = getFont(font);
+	static uintptr_t caretMeasureData = 0xFFFFFFFF;
+
+	pos.y -= 1;
+
+	float posF[4];  // vec4_t(startX, startY, endX, endY);
+	posF[0] = pos.x;
+	posF[1] = pos.x + 1000;
+	posF[2] = pos.y;
+	posF[3] = pos.y + 1000;
+
+	TextMeasureData textMeasure{};
+	memset(&textMeasure, 0, sizeof(TextMeasureData));
+	textMeasure.textSize = textSize;
+
+	renderCtx->drawText(fontPtr, posF, &text, MC_Color().arr, alpha, 0, &textMeasure, &caretMeasureData);
+}
+
 void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outline) {
 	
 	vec3_t diff;
@@ -396,11 +416,18 @@ void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageD
 void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, bool useUnicodeFont) {
 	static auto nametags = moduleMgr->getModule<NameTags>();
 	static auto underlinemod = moduleMgr->getModule<NameTags>();
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
+	auto Hud = moduleMgr->getModule<HudModule>();
 	vec2_t textPos;
 	vec4_t rectPos;
-	std::string text = ent->getNameTag()->getText();
-	text = Utils::sanitize(text);
+	std::string text;
+	if (Hud->displaySecondHalf) {
+		text = Utils::sanitize(ent->getNameTag()->getText());
+		Utils::replaceString(text, '\n', ' ');
+	} else {
+		text = Utils::sanitize(ent->getNameTag()->getText());
+		text = text.substr(0, text.find('\n'));
+	}
 
 	float textWidth = getTextWidth(&text, textSize);
 	float textHeight = DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() * textSize;
@@ -547,7 +574,7 @@ void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float
 }
 static float rcolors[4];
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString = Utils::getKeybindName(key);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (key == *input->spaceBarKey) {
@@ -613,7 +640,7 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 }
 
 void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString;
 	keyString = "LMB " + std::to_string(g_Data.getLeftCPS());
 	vec4_t rectPos(
@@ -646,7 +673,7 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 }
 
 void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString;
 	keyString = "RMB " + std::to_string(g_Data.getRightCPS());
 	vec4_t rectPos(
@@ -751,6 +778,10 @@ void DrawUtils::drawBox3d(vec3_t lower, vec3_t upper) {
 	meshHelper_renderImm(game3dContext, myTess, entityFlatStaticMaterial);
 }
 void DrawUtils::fillRectangle(vec4_t pos, const MC_Color col, float alpha) {
+	DrawUtils::setColor(col.r, col.g, col.b, alpha);
+	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
+}
+void DrawUtils::fillRectangle2(vec4_t pos, const _RGB col, float alpha) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
 }
@@ -862,7 +893,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 	vec2_t target;
 	refdef->OWorldToScreen(origin, ent, target, fov, screenSize);
 	//vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	if (Surge->surge) {
 		if (target != vec2_t(0, 0)) {
 			//DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));

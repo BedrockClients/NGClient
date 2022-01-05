@@ -9,7 +9,10 @@ private:
 	bool predict = true;
 	bool yLock = false;
 	bool staircaseMode = false;
+	bool spam = false;
+	bool canPlaceHere(vec3_t blockPos);
 	bool tryScaffold(vec3_t blockBelow);
+	bool tryActuallySomewhatDecentScaffold(vec3_t blockBelow); 
 	bool findBlock();
 	bool isUsefulBlock(C_ItemStack* itemStack);
 	bool rot = false;

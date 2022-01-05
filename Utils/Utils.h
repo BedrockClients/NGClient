@@ -444,6 +444,8 @@ public:
 
 	static uintptr_t getBase();
 
+	static void replaceString(std::string& s, char fr, char to);
+
 	static void patchBytes(unsigned char* dst, unsigned char* src, unsigned int size);
 
 	static void nopBytes(unsigned char* dst, unsigned int size);

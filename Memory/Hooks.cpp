@@ -230,7 +230,7 @@ void Hooks::Init() {
 		static auto bobViewHookF = [](__int64 _this, glm::mat4& matrix, float lerpT){
 			static auto origFunc = g_Hooks.lambdaHooks.at(lambda_counter)->GetFastcall<void, __int64, glm::mat4&, float>();
 			
-			static auto viewmodelMod = moduleMgr->getModule<ViewModel>();
+			static auto ViewMod = moduleMgr->getModule<ViewModel>();
 			auto p = g_Data.getLocalPlayer();
 			float degrees = fmodf(p->getPosOld()->lerp(p->getPos(), lerpT).x, 5) - 2.5f;
 			degrees *= 180 / 2.5f;
@@ -240,12 +240,26 @@ void Hooks::Init() {
 			glm::mat4 View = matrix;
 			
 			matrix = View;
-			if (viewmodelMod->isEnabled()) {
-				if (viewmodelMod->doTranslate)
-					matrix = glm::translate<float>(matrix, glm::vec3(viewmodelMod->xTrans, viewmodelMod->yTrans, viewmodelMod->zTrans));
-
-				if (viewmodelMod->doScale)
-					matrix = glm::scale<float>(matrix, glm::vec3(viewmodelMod->xMod, viewmodelMod->yMod, viewmodelMod->zMod));
+			if (ViewMod->isEnabled()) {
+				auto p = g_Data.getLocalPlayer();
+				if (ViewMod->mode.selected == 0 && ViewMod->spin){
+				float degrees = fmaf(p->getPosOld()->lerp(p->getPos(), lerpT).z, 95 ,0);
+				matrix = glm::rotate<float>(matrix, glm::radians<float>(degrees), glm::vec3(0, 255, 0));
+				}
+				if (ViewMod->mode.selected == 1 && ViewMod->spin){
+				float degrees = fmaf(p->getPosOld()->lerp(p->getPos(), lerpT).z, 95 ,0);
+				matrix = glm::rotate<float>(matrix, glm::radians<float>(degrees), glm::vec3(0, 0, 255));
+				}
+				if (ViewMod->mode.selected == 2 && ViewMod->spin){
+				float degrees = fmaf(p->getPosOld()->lerp(p->getPos(), lerpT).z, 95 ,0);
+				matrix = glm::rotate<float>(matrix, glm::radians<float>(degrees), glm::vec3(255, 0, 0));
+				}
+				if (ViewMod->doRotation)
+					matrix = glm::rotate<float>(matrix, ViewMod->RotatePosition, glm::vec3(ViewMod->xRotate, ViewMod->yRotate, ViewMod->zRotate));
+				if (ViewMod->doTranslate)
+					matrix = glm::translate<float>(matrix, glm::vec3(ViewMod->xTrans, ViewMod->yTrans, ViewMod->zTrans));
+				if (ViewMod->doScale)
+					matrix = glm::scale<float>(matrix, glm::vec3(ViewMod->xMod, ViewMod->yMod, ViewMod->zMod));
 			}
 			return origFunc(_this, matrix, lerpT);
 		};
@@ -474,6 +488,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	static float rcolors[4];          // Rainbow color array RGBA
 	static float disabledRcolors[4];  // Rainbow Colors, but for disabled modules
 	static float currColor[4];        // ArrayList colors
+	static float SurgeColor[4];        // ArrayList colors
 
 	// Rainbow color updates
 	{
@@ -489,7 +504,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		std::string screenName(g_Hooks.currentScreenName);
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
-			static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+			static auto Surge = moduleMgr->getModule<HudModule>();
 			if (Surge->surge) {
 				std::string text = "Surge  Client";
 				vec2_t textPos = vec2_t(wid.x / 1.38f - DrawUtils::getTextWidth(&text, 7.f) / 1.f, wid.y / -30.f);
@@ -646,7 +661,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t mousePos = *g_Data.getClientInstance()->getMousePos();
 
 				// Draw NG logo
-				static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+				static auto Surge = moduleMgr->getModule<HudModule>();
 				if (Surge->surge) {
 					// Draw Horion logo
 					static auto hudModule = moduleMgr->getModule<HudModule>();
@@ -846,40 +861,95 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							it->pos->x = 0.f;
 							it->pos->y = 0.f;
 						}
+						vec2_t textPos;
+						vec4_t FluxBar;
+						vec4_t rectPos;
+						vec4_t leftRect;
+						vec4_t underline;
+						vec4_t overline;
+						vec4_t topIce;
+						vec4_t rightRect;
 
-						vec2_t textPos = vec2_t(
-							xOffset + textPadding,
-							yOffset + textPadding);
-						vec4_t rectPos = vec4_t(
-							xOffset - 2,
+						static auto FluxMod = moduleMgr->getModule<GUI>();
+						if (FluxMod->Fluxbar) {
+						textPos = vec2_t(
+								xOffset + textPadding - 4,
+								yOffset + textPadding);
+						FluxBar = vec4_t(
+								windowSize.x - 3,
+								yOffset,
+								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+								yOffset + textPadding * 2 + textHeight);
+						rectPos = vec4_t(
+								xOffset - 6,
+								yOffset,
+								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+								yOffset + textPadding * 2 + textHeight);
+						leftRect = vec4_t(
+							xOffset - 6,
 							yOffset,
-							isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+							xOffset - 5,
 							yOffset + textPadding * 2 + textHeight);
-						vec4_t leftRect = vec4_t(
-							xOffset - 2,
+						topIce = vec4_t(
+							xOffset - 7,
 							yOffset,
-							xOffset - 1,
+							xOffset - 14,
 							yOffset + textPadding * 2 + textHeight);
-						vec4_t topIce = vec4_t(
-							xOffset - 3,
+						rightRect = vec4_t(
+							xOffset - 6,
 							yOffset,
-							xOffset - 1,
-							yOffset + textPadding * 2 + textHeight);
-						vec4_t rightRect = vec4_t(
-							xOffset - 2,
-							yOffset,
-							xOffset - 1,
+							xOffset - 5,
 							yOffset + textPadding * 7 + textHeight);
-						vec4_t underline = vec4_t(
-							xOffset - 2,
+						underline = vec4_t(
+							xOffset - 6,
 							leftRect.w,
 							windowSize.x,
 							leftRect.w + 1.f);
-						vec4_t overline = vec4_t(
-							xOffset - 3,
+						overline = vec4_t(
+							xOffset - 7,
 							yOffset,
-							xOffset - 2,
+							xOffset - 4,
 							yOffset + textPadding * 1 + textHeight);
+						} else {
+							textPos = vec2_t(
+								xOffset + textPadding ,
+								yOffset + textPadding);
+							FluxBar = vec4_t(
+								windowSize.x - 3,
+								yOffset,
+								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+								yOffset + textPadding * 2 + textHeight);
+							rectPos = vec4_t(
+								xOffset - 2,
+								yOffset,
+								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
+								yOffset + textPadding * 2 + textHeight);
+							leftRect = vec4_t(
+								xOffset - 2,
+								yOffset,
+								xOffset - 1,
+								yOffset + textPadding * 2 + textHeight);
+							topIce = vec4_t(
+								xOffset - 3,
+								yOffset,
+								xOffset - 10,
+								yOffset + textPadding * 2 + textHeight);
+							rightRect = vec4_t(
+								xOffset - 6,
+								yOffset,
+								xOffset - 5,
+								yOffset + textPadding * 7 + textHeight);
+							underline = vec4_t(
+								xOffset - 2,
+								leftRect.w,
+								windowSize.x,
+								leftRect.w + 1.f);
+							overline = vec4_t(
+								xOffset - 3,
+								yOffset,
+								xOffset - 2,
+								yOffset + textPadding * 1 + textHeight);
+						}
 						c++;
 						b++;
 						if (b < 20)
@@ -897,8 +967,22 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							currColor[0] += 1.f / a * c;
 							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 						}
+						SurgeColor[3] = rcolors[3];
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[0], rcolors[0], SurgeColor[0], SurgeColor[2], SurgeColor[2]);
+						SurgeColor[0] += 1.f / a * c;
+						Utils::ColorConvertHSVtoRGB(SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0]);
+
 						//DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), hudModule->arrayListOpacity);  // Background
 						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);
+						if (FluxMod->Fluxbar)
+							if (FluxMod->rgb) {
+								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
+							} else {
+								if (Surge->surge)
+									DrawUtils::fillRectangle(FluxBar, MC_Color(SurgeColor), 1.f);
+								else
+									DrawUtils::fillRectangle(FluxBar, MC_Color(184, 0, 255), 1.f);
+							}
 
 						static auto rgbmod = moduleMgr->getModule<GUI>();
 						if (rgbmod->rgb) {
@@ -1305,11 +1389,14 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
 	static auto tp = moduleMgr->getModule<Teleport>();
+	static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
+	static auto disabler = moduleMgr->getModule<Disabler>();
 	static auto test = moduleMgr->getModule<TestModule>();
 	//if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
 		//return;
 	//	g_Data.getLocalPlayer()->jumpFromGround();
 	//}
+	
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
@@ -1324,7 +1411,6 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
 				if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 4.f) {
 					ree->onGround = true;
-					//disabler->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*ree));
 					return;  //dont send Off groung packet
 				}
 			}
@@ -1336,10 +1422,11 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 			if (blinkMod->isEnabled()) {
 				if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 					C_MovePlayerPacket* meme = reinterpret_cast<C_MovePlayerPacket*>(packet);
-					meme->onGround = true;  //Don't take Fall Damages when turned off
-											//blinkMod->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*meme));  // Saving the packets
+					meme->onGround = true;                                                            //Don't take Fall Damages when turned off
+					blinkMod->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*meme));  // Saving the packets
 				} else {
-					//blinkMod->getPlayerAuthInputPacketHolder()->push_back(new PlayerAuthInputPacket(*reinterpret_cast<PlayerAuthInputPacket*>(packet)));
+					if (g_Data.getRakNetInstance()->isonaServer())//if ur on a server, do this but if ur on a world dont bec it crashes
+					blinkMod->getPlayerAuthInputPacketHolder()->push_back(new PlayerAuthInputPacket(*reinterpret_cast<PlayerAuthInputPacket*>(packet)));
 				}
 			}
 			return;  // Dont call LoopbackPacketSender_sendToServer
@@ -1365,15 +1452,23 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 		}
 	}
 
-	//if (autoSneakMod->isEnabled() && g_Data.getLocalPlayer() != nullptr && autoSneakMod->doSilent && packet->isInstanceOf<C_PlayerActionPacket>()) {
-	//auto* pp = reinterpret_cast<C_PlayerActionPacket*>(packet);
+	if (autoSneakMod->isEnabled() && g_Data.getLocalPlayer() != nullptr && autoSneakMod->doSilent && packet->isInstanceOf<C_PlayerActionPacket>() && g_Data.getRakNetInstance()->isonaServer()) {
+		auto* pp = reinterpret_cast<C_PlayerActionPacket*>(packet);
 
-	//if (pp->action == 9 && pp->entityRuntimeId == g_Data.getLocalPlayer()->entityRuntimeId)
-	//return; //dont send uncrouch
-	//}
+		if (pp->action == 12 && pp->entityRuntimeId == g_Data.getLocalPlayer()->entityRuntimeId)
+			return;  //dont send uncrouch
+	}
 
 	moduleMgr->onSendPacket(packet);
 
+	if (disabler->isEnabled() && disabler->hive && packet->isInstanceOf<NetworkLatencyPacket>()) {
+		NetworkLatencyPacket* pkt = (NetworkLatencyPacket*)packet;
+		if (pkt->timeStamp == 69420) {
+			//g_Data.getGuiData()->displayClientMessageF("DaddyUwU");//tests
+			return;
+		}
+	}
+	
 	/*if (strcmp(packet->getName()->getText(), "EmotePacket") == 0) {
 		auto varInt = reinterpret_cast<__int64*>(reinterpret_cast<__int64>(packet) + 0x28);
 		auto text = reinterpret_cast<TextHolder*>(reinterpret_cast<__int64>(packet) + 0x30);

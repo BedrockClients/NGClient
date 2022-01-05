@@ -27,7 +27,7 @@ void LongJump::onEnable() {
 		g_Data.getLocalPlayer()->animateHurt();
 	}
 	if (slow && g_Data.getLocalPlayer()->onGround) {
-		*g_Data.getClientInstance()->minecraft->timer = 2.f;
+		g_Data.getClientInstance()->minecraft->setTimerSpeed(1.5f);
 	}
 }
 
@@ -70,5 +70,5 @@ void LongJump::onMove(C_MoveInputHandler* input) {
 }
 
 void LongJump::onDisable() {
-	*g_Data.getClientInstance()->minecraft->timer = 20.f;
+	g_Data.getClientInstance()->minecraft->setTimerSpeed(20.f);
 }

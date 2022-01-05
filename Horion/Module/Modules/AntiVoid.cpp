@@ -28,11 +28,12 @@ const char* AntiVoid::getModuleName() {
 }
 
 bool checkVoid() {
+	auto Avoid = moduleMgr->getModule<AntiVoid>();
 	if (voidcheck) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		vec3_t blockBelow = player->eyePos0;
 		blockBelow.y -= player->height;
-		blockBelow.y -= 0.5f;
+		blockBelow.y -= Avoid->distance;
 		vec3_t bb = vec3_t(blockBelow.x, blockBelow.y, blockBelow.z);
 		for (int i = (int)(blockBelow.y); i > -62; i--) {
 			if (player->region->getBlock(bb)->blockLegacy->material->isSolid || player->region->getBlock(bb)->blockLegacy->material->isLiquid) {
@@ -60,10 +61,10 @@ void AntiVoid::onTick(C_GameMode* gm) {
 			player->setPos(orgipos);
 			static auto hopMod = moduleMgr->getModule<Bhop>();
 			static auto speedMod = moduleMgr->getModule<Speed>();
-			static auto surge = moduleMgr->getModule<ClickGuiMod>();
+			static auto Surge = moduleMgr->getModule<HudModule>();
 			hopMod->setEnabled(false);
 			speedMod->setEnabled(false);
-			if (surge->surge)
+			if (Surge->surge)
 				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Bhop, and disabled move keys%s", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
 			else
 				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Bhop, and disabled move keys%s", LIGHT_PURPLE, WHITE, LIGHT_PURPLE, WHITE, configMgr, WHITE);

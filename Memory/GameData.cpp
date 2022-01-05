@@ -87,6 +87,7 @@ bool GameData::shouldTerminate() {
 }
 
 void GameData::terminate() {
+	g_Data.getClientInstance()->minecraft->setTimerSpeed(20.f);
 	g_Data.shouldTerminateB = true;
 }
 

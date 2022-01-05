@@ -68,7 +68,7 @@ void TabGui::renderLevel() {
 	// First loop: Get the maximum text length
 	float maxLength = 0.f;
 	int labelListLength = 0;
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	if (Surge->surge) {
 		for (auto it = labelList.begin(); it != labelList.end(); ++it) {
 			labelListLength++;

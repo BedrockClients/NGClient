@@ -14,6 +14,7 @@ public:
 	bool underbar = false;
 	bool ice = false;
 	bool rgb = false;
+	bool Fluxbar = false;
 	bool bottom = false;
 	bool rgbtext = true;
 	float opacity = true;

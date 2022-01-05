@@ -3,6 +3,7 @@
 #include "../../Scripting/ScriptManager.h"
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
+	registerBoolSetting("Surge", &surge, surge);
 	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
@@ -12,6 +13,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Bools", &bools, bools);
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
 	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);
+	registerBoolSetting("Show Second Names", &displaySecondHalf, displaySecondHalf);
 	registerBoolSetting("Always show", &alwaysShow, alwaysShow);
 	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
@@ -25,7 +27,9 @@ static float rcolors[4];
 const char* HudModule::getModuleName() {
 	auto HUD = moduleMgr->getModule<HudModule>();
 	if (isEnabled() && HUD->bools) {
-		if (rgb || Msg || clickToggle || watermark || coordinates || keybinds || keystrokes || displayArmor || fps || cps || alwaysShow) {
+		if (surge)
+			return "Hud [Surge]";
+		else if (rgb || Msg || clickToggle || watermark || coordinates || keybinds || keystrokes || displayArmor || fps || cps || alwaysShow) {
 			return "HUD [Customised]";
 		} else
 			return "HUD";
@@ -37,7 +41,7 @@ void HudModule::onTick(C_GameMode* gm) {
 }
 
 void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	// rainbow colors
 	{
 		if (rcolors[3] < 1) {
@@ -97,7 +101,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			std::string Ncoordsall = "Nether X: " + std::to_string((int)floorf(pos->x/8)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z/8));
 			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
 			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
-			std::string Bps = "BPS: " + std::to_string((int)g_Data.getLocalPlayer()->getBlocksPerSecond());
+			std::string Bps = "BPS: " + std::to_string((int)(g_Data.getLocalPlayer()->getPos()->dist(*g_Data.getLocalPlayer()->getPosOld()) * *g_Data.getClientInstance()->minecraft->timer));
 			auto xBps = windowSize.x / 2.f - 210.f;
 			auto yBps = windowSize.y - 65.f;
 			auto xfpsText = windowSize.x / 2.f - 210.f;

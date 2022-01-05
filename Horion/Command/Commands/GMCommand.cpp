@@ -9,7 +9,7 @@ GMCommand::~GMCommand() {
 }
 
 bool GMCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<ClickGuiMod>();
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	assertTrue(g_Data.getLocalPlayer() != nullptr);
 	assertTrue(args->size() > 1);
 	int gamemode = assertInt(args->at(1));

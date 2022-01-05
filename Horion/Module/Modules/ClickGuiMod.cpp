@@ -5,7 +5,6 @@
 ClickGuiMod::ClickGuiMod() : IModule(VK_TAB, Category::GUI, "The clickgui") {
 	registerBoolSetting("Show Tooltips", &showTooltips, showTooltips);
 	registerBoolSetting("RGB", &RGB, RGB);
-	registerBoolSetting("Surge", &surge, surge);
 	registerFloatSetting("Opacity", &opacity, opacity, 0.f, 1.f);
 }
 
@@ -15,9 +14,7 @@ ClickGuiMod::~ClickGuiMod() {
 const char* ClickGuiMod::getModuleName() {
 	auto HUD = moduleMgr->getModule<HudModule>();
 	if (isEnabled() && HUD->bools) {
-		if (surge) {
-			return "ClickGui [Surge]";
-		} else if (RGB) {
+		if (RGB) {
 			return "ClickGui [RGB]";
 		} else if (showTooltips) {
 			return "ClickGui [Tooltips]";
