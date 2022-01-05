@@ -258,7 +258,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 		}
 	} 
 	else {
-		if (yLock) { // I didn't make the build out thingy work with yLock 
+		if (yLock) { 
 			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 			blockBelowtest2.y = blockBelowtest.y;
 		} 
