@@ -245,7 +245,7 @@ void Hooks::Init() {
 					matrix = glm::translate<float>(matrix, glm::vec3(viewmodelMod->xTrans, viewmodelMod->yTrans, viewmodelMod->zTrans));
 
 				if (viewmodelMod->doScale)
-					matrix = glm::scale<float>(matrix, glm::vec3(viewmodelMod->xMod, viewmodelMod->yMod, viewmodelMod->zMod));
+					matrix = glm::scale_slow<float>(matrix, glm::vec3(viewmodelMod->xMod, viewmodelMod->yMod, viewmodelMod->zMod));
 			}
 			return origFunc(_this, matrix, lerpT);
 		};
@@ -474,6 +474,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	static float rcolors[4];          // Rainbow color array RGBA
 	static float disabledRcolors[4];  // Rainbow Colors, but for disabled modules
 	static float currColor[4];        // ArrayList colors
+	static float SurgeColor[4];        // ArrayList colors
 
 	// Rainbow color updates
 	{
@@ -952,10 +953,22 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							currColor[0] += 1.f / a * c;
 							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 						}
+						SurgeColor[3] = rcolors[3];
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[0], rcolors[0], SurgeColor[0], SurgeColor[2], SurgeColor[2]);
+						SurgeColor[0] += 1.f / a * c;
+						Utils::ColorConvertHSVtoRGB(SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0]);
+
 						//DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), hudModule->arrayListOpacity);  // Background
 						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);
 						if (FluxMod->Fluxbar)
-						DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
+							if (FluxMod->rgb) {
+								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
+							} else {
+								if (Surge->surge)
+									DrawUtils::fillRectangle(FluxBar, MC_Color(SurgeColor), 1.f);
+								else
+									DrawUtils::fillRectangle(FluxBar, MC_Color(184, 0, 255), 1.f);
+							}
 
 						static auto rgbmod = moduleMgr->getModule<GUI>();
 						if (rgbmod->rgb) {

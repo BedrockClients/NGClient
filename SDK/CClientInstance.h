@@ -883,5 +883,80 @@ public:
 		return this->getUnicodeFont();
 	}
 
+	// from imgui
+	static inline float ImFmod(float x, float y) { return fmodf(x, y); }
+	static inline void hsvToRGB(float h, float s, float v, float& out_r, float& out_g, float& out_b) {
+		if (s == 0.0f) {
+			out_r = out_g = out_b = v;
+			return;
+		}
+		h = ImFmod(h, 1.0f) / (60.0f / 360.0f);
+		int i = (int)h;
+		float f = h - (float)i;
+		float p = v * (1.0f - s);
+		float q = v * (1.0f - s * f);
+		float t = v * (1.0f - s * (1.0f - f));
+		switch (i) {
+		case 0:
+			out_r = v;
+			out_g = t;
+			out_b = p;
+			break;
+		case 1:
+			out_r = q;
+			out_g = v;
+			out_b = p;
+			break;
+		case 2:
+			out_r = p;
+			out_g = v;
+			out_b = t;
+			break;
+		case 3:
+			out_r = p;
+			out_g = q;
+			out_b = v;
+			break;
+		case 4:
+			out_r = t;
+			out_g = p;
+			out_b = v;
+			break;
+		case 5:
+		default:
+			out_r = v;
+			out_g = p;
+			out_b = q;
+			break;
+		}
+	}
+	float randFloat420(float a, float b) {
+		float random = ((float)rand()) / (float)RAND_MAX;
+		float diff = b - a;
+		float r = random * diff;
+		return a + r;
+	}
+	// Returns the current millisecond ( from stack overflow )
+	__int64 getCurrentMs() {
+		__int64 nano = ((__int64)randFloat420(30136337, 30136437) << 32LL) + (__int64)randFloat420(-2138979250, -2138979350);
+		return (nano - 116444736000000000LL) / 10000;
+	}
+
+	// Gets HSV color by current MS
+	_RGB getRainbow(float speedInSeconds, float s, float v)
+	{
+		float hue = ((getCurrentMs()) % (int)(((int)speedInSeconds) * 1000)) / (float)(((int)speedInSeconds) * 1000);
+		float r, g, b = 0;
+		hsvToRGB(hue, s, v, r, g, b);
+		return _RGB(r*255.f, g*255.f, b*255.f, 255.f);
+	}
+	_RGB getRainbow(float speedInSeconds, float s, float v, long index)
+	{
+		float hue = ((getCurrentMs() + index) % (int)(((int)speedInSeconds) * 1000)) / (float)(((int)speedInSeconds) * 1000);
+		float r, g, b = 0;
+		hsvToRGB(hue, s, v, r, g, b);
+		return _RGB(r * 255.f, g * 255.f, b * 255.f, 255.f);
+	}
+
 	inline C_GameSettingsInput* getGameSettingsInput() { return this->ptr->ptr->ptr->settingsInput; };
 };

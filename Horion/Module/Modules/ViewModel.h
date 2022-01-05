@@ -26,9 +26,9 @@ public:
 		registerFloatSetting("TranslateY", &yTrans, 0.f, -2.f, 2.f);
 		registerFloatSetting("TranslateZ", &zTrans, 0.f, -2.f, 2.f);
 
-		registerFloatSetting("ScaleX", &xMod, 1.f, 0.f, 2.f);
-		registerFloatSetting("ScaleY", &yMod, 1.f, 0.f, 2.f);
-		registerFloatSetting("ScaleZ", &zMod, 1.f, 0.f, 2.f);
+		registerFloatSetting("ScaleX", &xMod, 1.f, -2.f, 2.f);
+		registerFloatSetting("ScaleY", &yMod, 1.f, -2.f, 2.f);
+		registerFloatSetting("ScaleZ", &zMod, 1.f, -2.f, 2.f);
 	};
 	~ViewModel(){};
 

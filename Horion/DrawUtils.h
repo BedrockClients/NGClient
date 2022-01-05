@@ -102,6 +102,7 @@ public:
 	static void drawLine3d(const vec3_t& start, const vec3_t& end);
 	static void drawBox3d(vec3_t lower, vec3_t upper);
 	static void fillRectangle(vec4_t pos, const MC_Color col, float alpha);
+	static void fillRectangle2(vec4_t pos, const _RGB col, float alpha);
 	static inline void fillRectangle(vec2_t start, vec2_t end) {
 		DrawUtils::drawQuad({start.x, end.y}, {end.x, end.y}, {end.x, start.y}, {start.x, start.y});
 	}

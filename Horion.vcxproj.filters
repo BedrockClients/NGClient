@@ -419,6 +419,7 @@
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Command\Commands\EmoteCommand.h" />
+    <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

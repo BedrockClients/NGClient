@@ -781,6 +781,10 @@ void DrawUtils::fillRectangle(vec4_t pos, const MC_Color col, float alpha) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
 }
+void DrawUtils::fillRectangle2(vec4_t pos, const _RGB col, float alpha) {
+	DrawUtils::setColor(col.r, col.g, col.b, alpha);
+	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
+}
 void DrawUtils::DrawOutline(vec2_t position, vec2_t size, MC_Color colour, float width) {
 	if (renderCtx == nullptr) return;
 	renderCtx->drawRect(vec4_t(position.x, position.x + size.x, position.y, position.y + size.y), MC_Color(colour), colour.a, (int)width);
