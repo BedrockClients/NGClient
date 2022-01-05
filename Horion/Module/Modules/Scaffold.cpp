@@ -174,7 +174,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 		}
 	} else {
 		if (yLock) {
-			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
+			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Actually set the right horizontal position 
 			blockBelowtest2.y = blockBelowtest.y;
 		} else {
 			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
