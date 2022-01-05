@@ -6,7 +6,7 @@ float height = 1.f;
 bool hive = false;
 int timer = 20;
 bool ZoomHop = false;
-Bhop::Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
+Bhop::Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") { 
 	registerBoolSetting("Hive", &hive, hive);
 	registerFloatSetting("Speed", &speed, speed, 0.10f, 1.50f);
 	registerFloatSetting("Height", &height, height, 0.01f, 2.00f);
@@ -35,8 +35,6 @@ void Bhop::onTick(C_GameMode* gm) {
 
 void Bhop::onSendPacket(C_Packet* packet) {
 }
-
-int lastTick = 0;
 
 void Bhop::onMove(C_MoveInputHandler* input) {
 	cachedInput = *input;
