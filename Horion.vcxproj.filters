@@ -26,7 +26,6 @@
     <ClCompile Include="Horion\Command\Commands\ToggleCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\UnbindCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\WaypointCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\XpCommand.cpp" />
     <ClCompile Include="Horion\Config\AccountInformation.cpp" />
     <ClCompile Include="Horion\Config\ConfigManager.cpp" />
     <ClCompile Include="Horion\DrawUtils.cpp" />
@@ -75,7 +74,6 @@
     <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Radar.cpp" />
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spammer.cpp" />
@@ -130,7 +128,6 @@
     <ClCompile Include="Utils\Logger.cpp" />
     <ClCompile Include="Utils\SkinUtil.cpp" />
     <ClCompile Include="Utils\Target.cpp" />
-    <ClCompile Include="Utils\TextFormat.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
     <ClCompile Include="Utils\VoxelIntersector.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
@@ -156,6 +153,7 @@
     <ClCompile Include="Horion\Command\Commands\CBEPCommand.cpp" />
     <ClCompile Include="Horion\Module\Modules\Hitbox.cpp" />
     <ClCompile Include="SDK\MatrixStack.cpp" />
+    <ClCompile Include="Utils\TextFormat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -400,7 +398,6 @@
     <ClInclude Include="Horion\Module\Modules\MinevilleFly.h" />
     <ClInclude Include="Horion\Module\Modules\NGFly.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
-    <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
     <ClInclude Include="Horion\Module\Modules\EntityJesus.h" />
     <ClInclude Include="Horion\Module\Modules\Trail.h" />
     <ClInclude Include="Horion\Module\Modules\FightBot.h" />

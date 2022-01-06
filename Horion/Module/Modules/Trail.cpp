@@ -30,17 +30,17 @@ void Trail::onTick(C_GameMode* gm) {
 	vec3_t floorPos = *g_Data.getLocalPlayer()->getPos();
 	floorPos.y = g_Data.getLocalPlayer()->getAABB()->lower.y + 0.2f;
 	if (!stopTrail) {
-		floorPos.y += 0.3;
+		floorPos.y += 0.3f;
 		linePoints.push_back(floorPos);
-		floorPos.y += 0.2;
+		floorPos.y += 0.2f;
 		linePoints1.push_back(floorPos);
-		floorPos.y += 0.2;
+		floorPos.y += 0.2f;
 		linePoints2.push_back(floorPos);
-		floorPos.y += 0.2;
+		floorPos.y += 0.2f;
 		linePoints3.push_back(floorPos);
-		floorPos.y += 0.2;
+		floorPos.y += 0.2f;
 		linePoints4.push_back(floorPos);
-		floorPos.y += 0.2;
+		floorPos.y += 0.2f;
 		linePoints5.push_back(floorPos);
 	}
 	float dist = (linePoints.front()).dist(*g_Data.getLocalPlayer()->getPos());

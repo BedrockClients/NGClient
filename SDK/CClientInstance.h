@@ -938,7 +938,7 @@ public:
 	}
 	// Returns the current millisecond ( from stack overflow )
 	__int64 getCurrentMs() {
-		__int64 nano = ((__int64)randFloat420(30136337, 30136437) << 32LL) + (__int64)randFloat420(-2138979250, -2138979350);
+		__int64 nano = ((__int64)randFloat420(30136337.f, 30136437.f) << 32LL) + (__int64)randFloat420(-2138979250.f, -2138979350.f);
 		return (nano - 116444736000000000LL) / 10000;
 	}
 

@@ -120,7 +120,6 @@
 #include "Modules/GUI.h"
 #include "Modules/MinevilleFly.h"
 #include "Modules/NGFly.h"
-#include "Modules/EntitySpider.h"
 #include "Modules/EntityJesus.h"
 #include "Modules/EntitySpeed.h"
 #include "Modules/Trail.h"

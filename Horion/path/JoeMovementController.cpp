@@ -182,7 +182,7 @@ void JoeMovementController::step(C_LocalPlayer *player, C_MoveInputHandler *move
 				} else {
 					player->setSprinting(curSeg.isAllowingSprint());
 					if (jees->isEnabled()) {
-						player->setPos((*player->getPos()).add(0, 0.01, 0));
+						player->setPos((*player->getPos()).add(0.f, 0.01f, 0.f));
 					}
 				}
 				if (!player->isOverWater()) {
