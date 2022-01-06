@@ -154,6 +154,7 @@
     <ClCompile Include="Horion\Module\Modules\Hitbox.cpp" />
     <ClCompile Include="SDK\MatrixStack.cpp" />
     <ClCompile Include="Utils\TextFormat.cpp" />
+    <ClCompile Include="Horion\Module\Modules\TestModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
