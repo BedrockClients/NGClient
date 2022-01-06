@@ -19,6 +19,8 @@ public:
 	bool noSwing = false;
 	bool isMulti = true;
 	bool isMobAura = false;
+	bool blockHit = false;
+	bool gayFags = false;
 	bool hurttime = true;
 	float range = 6;
 	bool targetListA = false;

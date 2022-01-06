@@ -28,9 +28,12 @@ void SwingAnimations::onEnable() {
 	}
 
 	//Flux
-	if (fluxSwing) {
-		targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
-		Utils::nopBytes((BYTE*)targetAddress, 8);
+	static auto KillMod = moduleMgr->getModule<Killaura>();
+	if (!KillMod->isEnabled() && !KillMod->targethud >= 1 && !KillMod->blockHit) {
+		if (fluxSwing) {
+			targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
+			Utils::nopBytes((BYTE*)targetAddress, 8);
+		}
 	}
 
 	//NoObstruct
@@ -61,10 +64,12 @@ void SwingAnimations::onDisable() {
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
 	}
-
-	//Flux
-	if (fluxSwing)
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
+	static auto KillMod = moduleMgr->getModule<Killaura>();
+	if (!KillMod->isEnabled() && !KillMod->targethud >= 1 && !KillMod->blockHit && !KillMod->gayFags) {
+		//Flux
+		if (fluxSwing)
+			Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
+	}
 
 	//NoObstruct
 	if (noObstructSwing)
