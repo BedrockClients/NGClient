@@ -1,5 +1,7 @@
 #include "Killaura.h"
 
+void* targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
+
 Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
 	registerFloatSetting("range", &range, range, 2.f, 20.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);
@@ -8,6 +10,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
 	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
+	registerBoolSetting("BlockHit", &blockHit, blockHit);
 	registerBoolSetting("Rotations", &rotations, rotations);
 	registerBoolSetting("Sexy Rotations", &sexy, sexy);
 	registerBoolSetting("Silent Rotations", &silent, silent);
@@ -120,6 +123,8 @@ void Killaura::onTick(C_GameMode* gm) {
 						if (!(i->damageTime > 1 && hurttime)) {
 							player->swing();
 							g_Data.getCGameMode()->attack(i);
+							Utils::nopBytes((BYTE*)targetAddress, 8);
+							gayFags = true;
 							targethud++;
 						} else {
 							targethud = 0;
@@ -130,6 +135,8 @@ void Killaura::onTick(C_GameMode* gm) {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
 						player->swing();
 						g_Data.getCGameMode()->attack(targetList[0]);
+						Utils::nopBytes((BYTE*)targetAddress, 8);
+						gayFags = true;
 						targethud++;
 					} else {
 						targethud = 0;
@@ -142,6 +149,11 @@ void Killaura::onTick(C_GameMode* gm) {
 	}
 	if (targetList.empty())
 		counter = 0;
+
+	if (targetList.empty() || targethud <= 0 && blockHit) {
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
+		gayFags = false;
+	}
 }
 
 void Killaura::onLevelRender() {
@@ -216,6 +228,8 @@ void Killaura::onEnable() {
 }
 
 void Killaura::onDisable() {
+	Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
+	gayFags = false;
 	counter = 0;
 	targetList.clear();
 }

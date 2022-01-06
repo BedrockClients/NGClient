@@ -21,9 +21,9 @@ public:
 	float yTrans = 0.f;
 	float zTrans = 0.f;
 
-	float xRotate = 0.f;
-	float yRotate = 0.f;
-	float zRotate = 0.f;
+	float xRotate = 0.01f;
+	float yRotate = 0.01f;
+	float zRotate = 0.01f;
 	float RotatePosition = 0.f;
 
 	ViewModel() : IModule(0x0, Category::VISUAL, "Custom item view model") {
@@ -47,11 +47,11 @@ public:
 		registerFloatSetting("RotateX", &xRotate, 1.f, -2.f, 2.f);
 		registerFloatSetting("RotateY", &yRotate, 1.f, -2.f, 2.f);
 		registerFloatSetting("RotateZ", &zRotate, 1.f, -2.f, 2.f);
-		registerFloatSetting("RotatePos", &RotatePosition, 1.f, -10.f, 10.f);
+		registerFloatSetting("RotatePos", &RotatePosition, 1.f, 0.01f, 6.4f);
 	};
 	~ViewModel(){};
 
-	void ViewModel::onTick(C_GameMode* gm) {
+	void onTick(C_GameMode* gm) {
 		if (g_Data.getLocalPlayer() == nullptr)
 			return;
 
@@ -64,9 +64,9 @@ public:
 			yMod = 1.f;
 			zMod = 1.f;
 
-			xRotate = 0.f;
-			yRotate = 0.f;
-			zRotate = 0.f;
+			xRotate = 0.01f;
+			yRotate = 0.01f;
+			zRotate = 0.01f;
 			RotatePosition = 0.f;
 
 			Reset = false;

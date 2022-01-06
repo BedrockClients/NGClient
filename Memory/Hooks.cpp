@@ -231,6 +231,7 @@ void Hooks::Init() {
 			static auto origFunc = g_Hooks.lambdaHooks.at(lambda_counter)->GetFastcall<void, __int64, glm::mat4&, float>();
 			
 			static auto ViewMod = moduleMgr->getModule<ViewModel>();
+			static auto KillMod = moduleMgr->getModule<Killaura>();
 			auto p = g_Data.getLocalPlayer();
 			float degrees = fmodf(p->getPosOld()->lerp(p->getPos(), lerpT).x, 5) - 2.5f;
 			degrees *= 180 / 2.5f;
@@ -240,7 +241,11 @@ void Hooks::Init() {
 			glm::mat4 View = matrix;
 			
 			matrix = View;
-			if (ViewMod->isEnabled()) {
+			if (KillMod->isEnabled() && KillMod->targethud >= 1 && KillMod->blockHit && KillMod->gayFags) {
+				matrix = glm::rotate<float>(matrix,4.366805553436279, glm::vec3( 0.2570502758026123, -0.3729616403579712, -0.4111440181732178));
+				matrix = glm::scale<float>(matrix, glm::vec3(1.0092198848724365, 1.0092198848724365, 1.0016083717346191));
+				matrix = glm::translate<float>(matrix, glm::vec3(0.18068552017211914,-0.23932266235351563, 0.10432004928588867));
+			} else if (ViewMod->isEnabled()) {
 				auto p = g_Data.getLocalPlayer();
 				if (ViewMod->mode.selected == 0 && ViewMod->spin){
 				float degrees = fmaf(p->getPosOld()->lerp(p->getPos(), lerpT).z, 95 ,0);
