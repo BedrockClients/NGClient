@@ -876,7 +876,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								xOffset + textPadding - 4,
 								yOffset + textPadding);
 						FluxBar = vec4_t(
-								windowSize.x - 3,
+								windowSize.x - 2,
 								yOffset,
 								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
 								yOffset + textPadding * 2 + textHeight);
