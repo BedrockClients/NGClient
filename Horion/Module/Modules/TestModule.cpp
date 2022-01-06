@@ -72,4 +72,8 @@ void TestModule::onLevelRender() {
 }
 
 void TestModule::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
+	C_TexturePtr texture;
+	texture.filePath = TextHolder("texture/ui/hotbar_2");
+	__int64 yeah = 1;
+	renderCtx->drawImage(&texture, vec2_t(100, 100), vec2_t(500, 100), yeah, vec2_t(1, 1));
 }
