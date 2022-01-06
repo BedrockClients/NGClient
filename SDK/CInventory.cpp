@@ -8,12 +8,15 @@ void C_Inventory::dropSlot(int slot) {
 	if (func != 0)
 		func(this, slot, 0);
 }
-void C_Inventory::dropAll(int slot) {
-	// FillingContainer::dropAll
-	using dropAll_t = void(__fastcall*)(C_Inventory*, int, int, char);
-	static dropAll_t func = reinterpret_cast<dropAll_t>(FindSignature("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 41 56 48 83 EC ?? 48 8B 01 41 0F"));
-	if (func != 0)
-		func(this, slot, 0, 0);
+void C_Inventory::dropAll() {
+	// FillingContainer::dropAll will redo when needed
+	//using dropAll_t = void(__fastcall*)(C_Inventory*, int, int, char);
+	//static dropAll_t func = reinterpret_cast<dropAll_t>(FindSignature("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 41 56 48 83 EC ?? 48 8B 01 41 0F"));
+	//if (func != 0)
+	//func(this, slot, 0, 0);
+	for (int i = 0; i < 36; i++) {
+		dropSlot(i);
+	}
 }
 bool C_Inventory::isFull() {
 	int fullslots = 0;
