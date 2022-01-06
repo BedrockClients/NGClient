@@ -33,7 +33,7 @@ public:
 		registerBoolSetting("Scale", &doScale, doScale);
 		registerBoolSetting("Rotate", &doRotation, doRotation);
 		registerBoolSetting("Spin", &spin, spin);
-		mode = (*new SettingEnum(this)).addEntry(EnumEntry("Around Body", 1)).addEntry(EnumEntry("Circle", 2)).addEntry(EnumEntry("Vertical", 3));
+		mode = (*new SettingEnum(this)).addEntry(EnumEntry("Around Body", 1)).addEntry(EnumEntry("Circle", 2)).addEntry(EnumEntry("Virtical", 3));
 		registerEnumSetting("Spin Mode", &mode, 0);
 
 		registerFloatSetting("TranslateX", &xTrans, 0.f, -2.f, 2.f);

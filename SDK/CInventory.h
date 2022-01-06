@@ -14,7 +14,7 @@ public:
 	void dropSlot(int slot);
 
 	// DROPS WHOLE INVENTORY doesnt work tho
-	void dropAll();
+	void dropAll(int slot);
 
 	virtual __int64 init();
 	virtual bool serverInitItemStackIds(signed int a2, int a3, __int64 a4);

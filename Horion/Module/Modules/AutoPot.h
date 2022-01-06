@@ -56,8 +56,18 @@ public:
 					}
 				}
 
-				if (slot != 0) {
-					inv->swapSlots(slot, potSlot);
+				int from = potSlot;
+				int to = slot;
+				if (to != from) {
+					C_InventoryTransactionManager* manager = g_Data.getLocalPlayer()->getTransactionManager();
+					C_ItemStack* i1 = inv->getItemStack(from);
+					C_ItemStack* i2 = inv->getItemStack(to);
+					C_InventoryAction first(from, i1, nullptr);
+					C_InventoryAction second(to, i2, i1);
+					C_InventoryAction third(from, nullptr, i2);
+					manager->addInventoryAction(first);
+					manager->addInventoryAction(second);
+					manager->addInventoryAction(third);
 				}
 			}
 

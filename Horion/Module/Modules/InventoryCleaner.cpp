@@ -53,9 +53,7 @@ void InventoryCleaner::onTick(C_GameMode* gm) {
 					}
 				}
 			}
-			if (item != 0) {
-				inv->swapSlots(item, 0);
-			}
+			if (item != 0) inv->moveItem(item, 0);
 		}
 	}
 }

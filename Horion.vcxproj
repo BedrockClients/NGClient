@@ -258,6 +258,7 @@
     <ClCompile Include="Horion\Command\Commands\ToggleCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\UnbindCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\WaypointCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\XpCommand.cpp" />
     <ClCompile Include="Horion\Config\AccountInformation.cpp" />
     <ClCompile Include="Horion\Config\ConfigManager.cpp" />
     <ClCompile Include="Horion\DrawUtils.cpp" />
@@ -321,8 +322,10 @@
     <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoPacket.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Radar.cpp" />
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spammer.cpp" />
@@ -457,6 +460,7 @@
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\EntityJesus.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
+    <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
     <ClInclude Include="Horion\Module\Modules\FastLadder.h" />
     <ClInclude Include="Horion\Module\Modules\FightBot.h" />
     <ClInclude Include="Horion\Module\Modules\Flyto.h" />

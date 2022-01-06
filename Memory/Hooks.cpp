@@ -2176,7 +2176,7 @@ bool Hooks::testy(C_Entity* ent) {
 	static auto test = moduleMgr->getModule<TestModule>();
 	if (test->isEnabled())
 		return true;
-	return oFunc(ent);
+	oFunc(ent);
 }
 #endif
 

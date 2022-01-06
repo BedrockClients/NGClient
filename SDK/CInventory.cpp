@@ -8,15 +8,12 @@ void C_Inventory::dropSlot(int slot) {
 	if (func != 0)
 		func(this, slot, 0);
 }
-void C_Inventory::dropAll() {
-	// FillingContainer::dropAll will redo when needed
-	//using dropAll_t = void(__fastcall*)(C_Inventory*, int, int, char);
-	//static dropAll_t func = reinterpret_cast<dropAll_t>(FindSignature("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 41 56 48 83 EC ?? 48 8B 01 41 0F"));
-	//if (func != 0)
-	//func(this, slot, 0, 0);
-	for (int i = 0; i < 36; i++) {
-		dropSlot(i);
-	}
+void C_Inventory::dropAll(int slot) {
+	// FillingContainer::dropAll
+	using dropAll_t = void(__fastcall*)(C_Inventory*, int, int, char);
+	static dropAll_t func = reinterpret_cast<dropAll_t>(FindSignature("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 41 56 48 83 EC ?? 48 8B 01 41 0F"));
+	if (func != 0)
+		func(this, slot, 0, 0);
 }
 bool C_Inventory::isFull() {
 	int fullslots = 0;
@@ -72,12 +69,17 @@ void C_Inventory::moveItem(int from, int to = -1) {
 
 void C_Inventory::swapSlots(int from, int to) {
 	C_InventoryTransactionManager* manager = g_Data.getLocalPlayer()->getTransactionManager();
+
 	C_ItemStack* i1 = getItemStack(from);
 	C_ItemStack* i2 = getItemStack(to);
+
 	C_InventoryAction first(from, i1, nullptr);
 	C_InventoryAction second(to, i2, i1);
 	C_InventoryAction third(from, nullptr, i2);
 	manager->addInventoryAction(first);
 	manager->addInventoryAction(second);
 	manager->addInventoryAction(third);
+	C_ItemStack a = *i2;
+	*i2 = *i1;
+	*i1 = a;
 }
