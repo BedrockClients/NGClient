@@ -45,6 +45,7 @@ void C_ItemStack::fromTag(const Tag &tag) {
 	static ItemStackBase__loadItemF fromTag = reinterpret_cast<ItemStackBase__loadItemF>(FindSignature("48 89 5C 24 ? 48 89 74 24 ? 55 57 41 56 48 8D 6C 24 ? 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 45 37 48 8B DA 48 8B F9 48 89 4D 97 0F 57 C0 0F 11 45 A7 0F 11 45 B7 0F 11 45 C7 0F 11 45 D7 0F 11 45 E7 0F 11 45 F7 0F 11 45 07"));
 	fromTag(this, tag);
 }
+
 void C_ItemStack::save(CompoundTag **tag) {
 	using ItemStackBase__saveF = void(__fastcall *)(C_ItemStack *, CompoundTag **);
 	ItemStackBase__saveF save = reinterpret_cast<ItemStackBase__saveF>(FindSignature("48 89 5C 24 ?? 55 56 57 41 56 41 57 48 8D 6C 24 C9 48 81 EC ?? ?? ?? ?? 48 8B FA 48 8B F1 48 89 55 0F 45 33 ?? 44 89 7D"));
@@ -67,6 +68,14 @@ int C_ItemStack::getEnchantValue(int enchantId) {
 	using getEnchantsLevel_t = int(__fastcall *)(int, C_ItemStack *);
 	static getEnchantsLevel_t getEnchantsLevel = reinterpret_cast<getEnchantsLevel_t>(FindSignature("48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F2 0F B6 D9 33 FF 48 8B CA E8 ? ? ? ?"));
 	return getEnchantsLevel(enchantId, this);
+}
+void C_ItemStack::setCustomLore(std::string customLore) {
+	using setCustomLore_t = void(_fastcall*)(C_ItemStack*, TextHolder**);
+	setCustomLore_t setCustomLore = reinterpret_cast<setCustomLore_t>(FindSignature(""));
+	TextHolder lore = customLore;
+	TextHolder *pText = &lore;
+	TextHolder *vec[] = {pText, &pText[1], &pText[1]};
+	setCustomLore(this, vec);
 }
 void C_ItemStack::setVtable(void) {
 	static uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? C7 05 ? ? ? ? ? ? ? ? 48 8D 0D ? ? ? ? 48 89 05 ? ? ? ? C6 05 ? ? ? ? ? 48 83 C4");
