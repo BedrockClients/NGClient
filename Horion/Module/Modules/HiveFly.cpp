@@ -22,7 +22,7 @@ void HiveFly::onEnable() {
 void HiveFly::onTick(C_GameMode* gm) {
 	float rotChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.f)) + 1.f;
 	counter++;
-	if (counter<= 5)
+	if (counter<= 2)
 		findBlock();
 
 	if (counter <= 10) {
@@ -33,9 +33,9 @@ void HiveFly::onTick(C_GameMode* gm) {
 		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 	}
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-	if(counter == 5)
+	if(counter == 2)
 		Utils::rightClick();
-	if (counter == 6)
+	if (counter == 3)
 		supplies->selectedHotbarSlot = slot;
 	gm->player->velocity.y = 0.f;
 	if (isEnabled())
