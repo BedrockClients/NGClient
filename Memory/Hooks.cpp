@@ -245,7 +245,7 @@ void Hooks::Init() {
 			matrix = View;
 			if (KillMod->isEnabled() && KillMod->targethud >= 1 && KillMod->blockHit && KillMod->gayFags) {
 				matrix = glm::rotate<float>(matrix,4.366805553436279, glm::vec3( 0.2570502758026123, -0.3729616403579712, -0.4111440181732178));
-				matrix = glm::scale<float>(matrix, glm::vec3(1.0092198848724365, 1.0092198848724365, 1.0016083717346191));
+				//matrix = glm::scale<float>(matrix, glm::vec3(1.0092198848724365, 1.0092198848724365, 1.0016083717346191));
 				matrix = glm::translate<float>(matrix, glm::vec3(0.18068552017211914,-0.23932266235351563, 0.10432004928588867));
 			} else if (ViewMod->isEnabled()) {
 				auto p = g_Data.getLocalPlayer();
