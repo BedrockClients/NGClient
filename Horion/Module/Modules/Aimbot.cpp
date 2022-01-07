@@ -51,7 +51,6 @@ void Aimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	vec3_t origin = g_Data.getClientInstance()->levelRenderer->getOrigin();
 
 	//Loop through all our players and retrieve their information
-	static std::vector<C_Entity*> targetList;
 	targetList.clear();
 	for (size_t i = 0; i < allEntities.size(); i++) {
 		C_Entity* currentEntity = allEntities.at(i);
