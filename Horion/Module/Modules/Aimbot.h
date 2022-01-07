@@ -15,6 +15,8 @@ private:
 	bool lock = false;
 
 public:
+	std::vector<C_Entity*> targetList;
+
 	Aimbot();
 	~Aimbot();
 

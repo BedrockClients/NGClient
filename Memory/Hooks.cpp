@@ -61,14 +61,16 @@ void Hooks::Init() {
 			if (localPlayerVtable == 0x0 || sigOffset == 0x0)
 				logF("C_LocalPlayer signature not working!!!");
 			else {
-				/*g_Hooks.Actor_isInWaterHook = std::make_unique<FuncHook>(localPlayerVtable[65], Hooks::Actor_isInWater);
 				
-				g_Hooks.Actor_startSwimmingHook = std::make_unique<FuncHook>(localPlayerVtable[182], Hooks::Actor_startSwimming);
-				g_Hooks.Actor_ascendLadderHook = std::make_unique<FuncHook>(localPlayerVtable[333], Hooks::Actor_ascendLadder);*/
+				g_Hooks.Actor_startSwimmingHook = std::make_unique<FuncHook>(localPlayerVtable[201], Hooks::Actor_startSwimming);
+
+				g_Hooks.Actor_ascendLadderHook = std::make_unique<FuncHook>(localPlayerVtable[340], Hooks::Actor_ascendLadder);
 				
 				g_Hooks.Actor_rotationHook = std::make_unique<FuncHook>(localPlayerVtable[27], Hooks::Actor_rotation);
 
 				g_Hooks.Actor_swingHook = std::make_unique<FuncHook>(localPlayerVtable[219], Hooks::Actor_swing);
+
+				g_Hooks.Actor_lookAtHook = std::make_unique<FuncHook>(localPlayerVtable[249], Hooks::Actor_lookAt);
 
 				g_Hooks.JumpPowerHook = std::make_unique<FuncHook>(localPlayerVtable[346], Hooks::JumpPower); //jump from ground with movement proxy
 
@@ -150,8 +152,8 @@ void Hooks::Init() {
 		void* lerpFunc = reinterpret_cast<void*>(FindSignature("8B 02 89 81 ? ? ? ? 8B 42 ? 89 81 ? ? ? ? 8B 42 ? 89 81 ? ? ? ? C3 CC CC CC CC CC 48 89 5C 24"));
 		g_Hooks.Actor_lerpMotionHook = std::make_unique<FuncHook>(lerpFunc, Hooks::Actor_lerpMotion);
 
-		void* ascendLadder = reinterpret_cast<void*>(FindSignature("C7 81 ? ? ? ? ? ? ? ? C3 CC CC CC CC CC C7 81 ? ? ? ? ? ? ? ? C3 CC CC CC CC CC C7 81"));
-		g_Hooks.Actor_ascendLadderHook = std::make_unique<FuncHook>(ascendLadder, Hooks::Actor_ascendLadder);
+		//void* ascendLadder = reinterpret_cast<void*>(FindSignature("C7 81 ? ? ? ? ? ? ? ? C3 CC CC CC CC CC C7 81 ? ? ? ? ? ? ? ? C3 CC CC CC CC CC C7 81"));
+		//g_Hooks.Actor_ascendLadderHook = std::make_unique<FuncHook>(ascendLadder, Hooks::Actor_ascendLadder);
 
 		void* getGameEdition = reinterpret_cast<void*>(FindSignature("8B 91 ?? ?? ?? ?? 85 D2 74 1C 83 EA 01"));
 		g_Hooks.AppPlatform_getGameEditionHook = std::make_unique<FuncHook>(getGameEdition, Hooks::AppPlatform_getGameEdition);
@@ -243,7 +245,7 @@ void Hooks::Init() {
 			matrix = View;
 			if (KillMod->isEnabled() && KillMod->targethud >= 1 && KillMod->blockHit && KillMod->gayFags) {
 				matrix = glm::rotate<float>(matrix,4.366805553436279, glm::vec3( 0.2570502758026123, -0.3729616403579712, -0.4111440181732178));
-				matrix = glm::scale<float>(matrix, glm::vec3(1.0092198848724365, 1.0092198848724365, 1.0016083717346191));
+				//matrix = glm::scale<float>(matrix, glm::vec3(1.0092198848724365, 1.0092198848724365, 1.0016083717346191));
 				matrix = glm::translate<float>(matrix, glm::vec3(0.18068552017211914,-0.23932266235351563, 0.10432004928588867));
 			} else if (ViewMod->isEnabled()) {
 				auto p = g_Data.getLocalPlayer();
@@ -1778,6 +1780,12 @@ void Hooks::Actor_swing(C_Entity* _this) {
 	static auto scaffMod = moduleMgr->getModule<Scaffold>();
 	static auto breakmod = moduleMgr->getModule<Fucker>();
 	if (!(noSwingMod->isEnabled() || killMod->isEnabled() && killMod->noSwing || scaffMod->isEnabled() && scaffMod->noSwing || breakmod->isEnabled() && breakmod->noSwing && breakmod->destroy)) return oFunc(_this);
+}
+
+void Hooks::Actor_lookAt(C_Entity* _this, float a1, float a2) {
+	static auto oFunc = g_Hooks.Actor_lookAtHook->GetFastcall<void, C_Entity*, float, float>();
+	//idk, but we could do somthin
+	oFunc(_this, a1, a2);
 }
 
 void Hooks::Actor_startSwimming(C_Entity* _this) {

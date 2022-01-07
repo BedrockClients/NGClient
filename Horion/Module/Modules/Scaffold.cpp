@@ -6,6 +6,8 @@ uintptr_t HiveBypass1 = Utils::getBase() + 0x8F3895;  // Second one of 89 41 18 
 uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // C7 40 18 03 00 00 00 48 8B 8D
 void* NoSneakAddress = (void*)FindSignature("75 0A 80 7B 59 00");
 
+bool GayNigaFags = true;
+
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
 	registerBoolSetting("Spoof", &spoof, spoof);
 	registerBoolSetting("AirPlace", &airplace, airplace);
@@ -14,6 +16,7 @@ Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build
 	registerBoolSetting("Spam", &spam, spam);
 	registerBoolSetting("Hive", &rot, rot);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
+	registerBoolSetting("Block Count", &GayNigaFags, GayNigaFags);
 	registerBoolSetting("Y Lock", &yLock, yLock);
 	registerBoolSetting("Staircase Mode", &staircaseMode, staircaseMode);
 }
@@ -295,6 +298,28 @@ void Scaffold::onTick(C_GameMode* gm) {
 	if (spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		supplies->selectedHotbarSlot = slot;
+	}
+}
+
+void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
+	if (GayNigaFags) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		C_Inventory* inv = supplies->inventory;
+		for (int n = 0; n < 36; n++) {
+			C_ItemStack* stack = inv->getItemStack(n);
+			if (stack->item != nullptr && stack->getItem()->isBlock() && isUsefulBlock(stack)) {
+				auto Color = MC_Color();
+				if (stack->count >= 64)
+					Color = MC_Color(0, 255, 0);
+				else if (stack->count <= 63 && stack->count >= 33)
+					Color = MC_Color(255, 255, 0);
+				else if (stack->count <= 32)
+					Color = MC_Color(255, 0, 0);
+
+				vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+				DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(stack->count), Color, 1.3f);
+			}
+		}
 	}
 }
 
