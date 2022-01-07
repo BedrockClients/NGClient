@@ -666,6 +666,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
 
 				vec2_t mousePos = *g_Data.getClientInstance()->getMousePos();
+				mousePos.div(windowSizeReal);
+				mousePos.mul(windowSize);
 
 				// Draw NG logo
 				static auto Surge = moduleMgr->getModule<HudModule>();
@@ -752,6 +754,15 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 				// Draw ArrayList
 				if (moduleMgr->isInitialized() && shouldRenderArrayList) {
+					vec2_t textPos;
+					vec4_t FluxBar;
+					vec4_t rectPos;
+					vec4_t leftRect;
+					vec4_t underline;
+					vec4_t overline;
+					vec4_t topIce;
+					vec4_t rightRect;
+					vec4_t lastPos;
 					// Parameters
 					float textSize = hudModule->scale;
 					float textPadding = 1.0f * textSize;
@@ -844,6 +855,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					//int c = 0;
 
 					// Loop through mods to display Labels
+					float Length = 0.f;
 					for (std::set<IModuleContainer>::iterator it = modContainerList.begin(); it != modContainerList.end(); ++it) {
 						if (!it->shouldRender)
 							continue;
@@ -868,14 +880,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							it->pos->x = 0.f;
 							it->pos->y = 0.f;
 						}
-						vec2_t textPos;
-						vec4_t FluxBar;
-						vec4_t rectPos;
-						vec4_t leftRect;
-						vec4_t underline;
-						vec4_t overline;
-						vec4_t topIce;
-						vec4_t rightRect;
 
 						static auto FluxMod = moduleMgr->getModule<GUI>();
 						if (FluxMod->Fluxbar) {
@@ -908,10 +912,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							xOffset - 5,
 							yOffset + textPadding * 7 + textHeight);
 						underline = vec4_t(
-							xOffset - 6,
-							leftRect.w,
-							windowSize.x,
-							leftRect.w + 1.f);
+							windowSize.x - (Length + 6.f + (textPadding * 2.f)),
+							leftRect.y,
+							leftRect.x,
+							leftRect.y + 1.f);
 						overline = vec4_t(
 							xOffset - 7,
 							yOffset,
@@ -947,16 +951,17 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								xOffset - 5,
 								yOffset + textPadding * 7 + textHeight);
 							underline = vec4_t(
-								xOffset - 2,
-								leftRect.w,
-								windowSize.x,
-								leftRect.w + 1.f);
+								windowSize.x - (Length + 2.f + (textPadding * 2.f)),
+								leftRect.y,
+								leftRect.x,
+								leftRect.y + 1.f);
 							overline = vec4_t(
 								xOffset - 3,
 								yOffset,
 								xOffset - 2,
 								yOffset + textPadding * 1 + textHeight);
 						}
+						Length = textWidth;
 						c++;
 						b++;
 						if (b < 20)
@@ -965,8 +970,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							b = 0;
 						if (gui->different) {
 							currColor[3] = rcolors[5];
+							currColor[3] = rcolors[5];
 							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 3.5f / a * c;
+							currColor[0] += 0.5f / a * c;
 							Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
 						} else {
 							currColor[3] = rcolors[3];
@@ -974,10 +980,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							currColor[0] += 1.f / a * c;
 							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 						}
-						SurgeColor[3] = rcolors[3];
-						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[0], rcolors[0], SurgeColor[0], SurgeColor[2], SurgeColor[2]);
-						SurgeColor[0] += 1.f / a * c;
-						Utils::ColorConvertHSVtoRGB(SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0], SurgeColor[0]);
 
 						//DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), hudModule->arrayListOpacity);  // Background
 						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);
@@ -986,7 +988,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
 							} else {
 								if (Surge->surge)
-									DrawUtils::fillRectangle(FluxBar, MC_Color(SurgeColor), 1.f);
+									DrawUtils::fillRectangle(FluxBar, MC_Color(10, 10, 255), 1.f);
 								else
 									DrawUtils::fillRectangle(FluxBar, MC_Color(184, 0, 255), 1.f);
 							}
@@ -1069,6 +1071,17 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							yOffset -= textHeight + (textPadding * 2);
 						} else {
 							yOffset += textHeight + (textPadding * 2);
+						}
+					}
+					static auto rgbText = moduleMgr->getModule<GUI>();
+					if (rgbText->underbar) {
+						if (rgbText->rgb) {
+							DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(currColor), 1.f);
+						} else {
+							if (Surge->surge)
+								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(0, 0, 0), 1.f);
+							else
+								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(184, 0, 255), 1.f);
 						}
 					}
 					c = 0;
