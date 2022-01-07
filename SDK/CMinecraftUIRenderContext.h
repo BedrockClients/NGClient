@@ -56,7 +56,6 @@ private:
 	float _[140];
 
 public:
-	C_TexturePtr* getTexture(C_TexturePtr* ptr, C_FilePath& path);
 	virtual ~C_MinecraftUIRenderContext();
 	virtual float getLineLength(C_Font* font, TextHolder* str, float textSize);//bool unknown
 	virtual float getTextAlpha();
@@ -87,6 +86,7 @@ public:
 	virtual void renderCustom(uintptr_t a1, int a2, const float* pos);
 	virtual void cleanup();
 	virtual void removePersistentMeshes();
+	virtual C_TexturePtr* getTexture(C_TexturePtr* ptr, C_FilePath& path);
 	virtual int getZippedTexture(C_TexturePtr* Path, C_TexturePtr* ResourceLocation, bool a3);
 	virtual void unloadTexture(C_TexturePtr* ResourceLocation);
 	virtual int getUITextureInfo(C_TexturePtr* ResourceLocation, bool a2);
