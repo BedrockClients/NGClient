@@ -348,6 +348,8 @@ public:
 		*(bool*)(reinterpret_cast<__int64>(this)+ 0x30) = b;
 	}
 
+	void setCustomLore(std::string customLore);
+
 private:
 	inline void setVtable(void);
 };
