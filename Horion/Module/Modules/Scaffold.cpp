@@ -308,16 +308,17 @@ void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		for (int n = 0; n < 36; n++) {
 			C_ItemStack* stack = inv->getItemStack(n);
 			if (stack->item != nullptr && stack->getItem()->isBlock() && isUsefulBlock(stack)) {
+				auto count = inv->getItemCount(*stack);
 				auto Color = MC_Color();
-				if (stack->count >= 64)
+				if (count >= 64)
 					Color = MC_Color(0, 255, 0);
-				else if (stack->count <= 63 && stack->count >= 33)
+				else if (count <= 63 && count >= 33)
 					Color = MC_Color(255, 255, 0);
-				else if (stack->count <= 32)
+				else if (count <= 32)
 					Color = MC_Color(255, 0, 0);
 
 				vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-				DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(stack->count), Color, 1.3f);
+				DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(count), Color, 1.3f);
 			}
 		}
 	}
