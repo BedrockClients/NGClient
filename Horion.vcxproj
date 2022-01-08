@@ -276,7 +276,6 @@
     <ClCompile Include="Horion\Module\Modules\EntityJesus.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Flyto.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />

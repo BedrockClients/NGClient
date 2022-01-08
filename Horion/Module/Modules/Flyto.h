@@ -1,7 +1,8 @@
 #pragma once
+#include "../ModuleManager.h"
 #include "Module.h"
 class Flyto : public IModule {
-private:
+public:
 	float speed = 1.5f;
 	int gameTick = 0;
 	bool vanilla = true;
@@ -9,14 +10,102 @@ private:
 	bool mineplexMode = false;
 	bool dmg = true;
 
-public:
-	Flyto();
-	~Flyto();
+	Flyto() : IModule(0x0, Category::FLYS, "Fly like a bird! (Mineplex Fly By Kow)") {
+		registerFloatSetting("Fly Speed", &speed, speed, 0.5f, 3.f);
+		registerBoolSetting("CreativeFly", &vanilla, vanilla);
+		registerBoolSetting("CubeGlide", &cubeMode, cubeMode);
+		registerBoolSetting("Mineplex", &mineplexMode, mineplexMode);
+		registerBoolSetting("Damage", &dmg, dmg);
+	};
+	~Flyto(){};
 
-	// Inherited via IModule
-	virtual bool isFlashMode() override;
-	virtual void onEnable() override;
-	virtual const char* getModuleName() override;
-	virtual void onTick(C_GameMode* gm) override;
-	virtual void onDisable() override;
+	bool isFlashMode() {
+		if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
+			if (g_Data.isInGame()) {
+				if (vanilla) {
+					return false;
+				} else if (cubeMode || mineplexMode) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+
+	void onEnable() {
+		if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
+			if (g_Data.isInGame()) {
+				if (dmg) {
+					auto player = g_Data.getLocalPlayer();
+					//player->animateHurt();
+				}
+				if (cubeMode) g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(vec3_t(0, 1, 0)));
+			}
+		}
+	}
+
+	void onTick(C_GameMode* gm) {
+		if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
+			if (g_Data.isInGame()) {
+				float calcYaw = (gm->player->yaw + 90) * (PI / 180);
+				float calcPitch = (gm->player->pitch) * -(PI / 180);
+
+				if (vanilla)
+					gm->player->canFly = true;
+				if (cubeMode) {
+					gameTick++;
+
+					vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+					pos.y += 1.3f;
+					C_MovePlayerPacket a(g_Data.getLocalPlayer(), pos);
+					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
+					pos.y -= 1.3f;
+					C_MovePlayerPacket a2(g_Data.getLocalPlayer(), pos);
+					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a2);
+
+					vec3_t moveVec;
+					moveVec.x = cos(calcYaw) * speed;
+					moveVec.z = sin(calcYaw) * speed;
+
+					gm->player->lerpMotion(moveVec);
+
+					if (gameTick >= 5) {
+						gameTick = 0;
+						float yaw = gm->player->yaw * (PI / 180);
+						float length = 4.f;
+
+						float x = -sin(yaw) * length;
+						float z = cos(yaw) * length;
+
+						gm->player->setPos(pos.add(vec3_t(x, 0.5f, z)));
+					}
+				}
+
+				if (mineplexMode) {  //by Kow
+					vec3_t moveVec;
+					moveVec.x = cos(calcYaw) * speed;
+					moveVec.y = -0.0f;
+					moveVec.z = sin(calcYaw) * speed;
+
+					gm->player->lerpMotion(moveVec);
+				}
+			}
+		}
+	}
+
+	void onDisable() {
+		if (vanilla) {
+			if (g_Data.getLocalPlayer() != nullptr)
+				if (g_Data.getLocalPlayer()->gamemode != 1)
+					g_Data.getLocalPlayer()->canFly = false;
+		}
+		if (cubeMode || mineplexMode)
+			g_Data.getLocalPlayer()->velocity = vec3_t(0, 0, 0);
+	}
+
+	virtual const char* getModuleName() override {
+		return "Fly+";
+	}
 };
