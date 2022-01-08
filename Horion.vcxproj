@@ -466,6 +466,7 @@
     <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
+    <ClInclude Include="Horion\Module\Modules\Snow.h" />
     <ClInclude Include="Horion\Module\Modules\MegaDupe.h" />
     <ClInclude Include="Horion\Module\Modules\Mineplex.h" />
     <ClInclude Include="Horion\Module\Modules\MinevilleFly.h" />
