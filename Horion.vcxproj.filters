@@ -49,7 +49,6 @@
     <ClCompile Include="Horion\Module\Modules\Compass.cpp" />
     <ClCompile Include="Horion\Module\Modules\CrystalAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeGlide.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Derp.cpp" />
     <ClCompile Include="Horion\Module\Modules\ESP.cpp" />
     <ClCompile Include="Horion\Module\Modules\AnchorAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fly.cpp" />
