@@ -290,7 +290,7 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 						DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
 						std::string absorptionString = std::to_string(Absorbtion);
 						absorptionDisplay = "Absorption: " + absorptionString;
-						float absorptionBarWidth = (Absorbtion / 20) * rectWidth;
+						float absorptionBarWidth = (Absorbtion / 10) * rectWidth;
 							if (!(targetList[0]->damageTime > 1))
 								DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
 							else
