@@ -237,7 +237,6 @@ void Killaura::onDisable() {
 
 void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (g_Data.isInGame() && !targetList.empty() && info && g_Data.canUseMoveKeys && g_Data.getLocalPlayer()->canOpenContainerScreen() && targethud >= 1 && targetList[0]->isPlayer()) {
-		C_LocalPlayer* Player = g_Data.getClientInstance()->localPlayer;
 
 		//Atributes
 		AbsorptionAttribute attribute = AbsorptionAttribute();
@@ -247,82 +246,81 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		auto HealthMax = ((int)targetList[0]->getAttribute(&attribute2)->maximumValue);
 
 		vec2_t res = g_Data.getClientInstance()->getGuiData()->windowSize;
-			if (Player != nullptr) {
-				vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) + (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 8.f));  // vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) - (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 24.f));
-				float rectWidth = rectPos.z - rectPos.x;
+		C_LocalPlayer* Player = g_Data.getClientInstance()->localPlayer;
+		if (Player != nullptr) {
+			vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) + (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 8.f));  // vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) - (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 24.f));
+			float rectWidth = rectPos.z - rectPos.x;
 
-				//counter for fade
-				counter++;
-				if (counter == 100)
-					counter--;
+			//counter for fade
+			counter++;
+			if (counter == 100)
+				counter--;
 
-				//The actual box
-				{
-					DrawUtils::fillRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 330.33333f);
+			//The actual box
+			{
+				DrawUtils::fillRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 330.33333f);
 
-					//Gives the rounded corners effect
-					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333f);
-					DrawUtils::drawRectangle(vec4_t{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333f);
-					DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 0, 255), counter / 330.33333f);
-				}
-
-				//all the displays
-				
-				//Gets the targets name, then makes it not go to next line
-				std::string targetName;
-				auto Hud = moduleMgr->getModule<HudModule>();
-				if (Hud->displaySecondHalf) {
-					targetName = Utils::sanitize(targetList[0]->getNameTag()->getText());
-					Utils::replaceString(targetName, '\n', ' ');
-				} else {
-					targetName = Utils::sanitize(targetList[0]->getNameTag()->getText());
-					targetName = targetName.substr(0, targetName.find('\n'));
-				}
-
-
-					std::string healthString = std::to_string(Health);
-					std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-					std::string healthDisplay = "Health: " + healthString;
-					std::string absorptionDisplay;
-
-					//Absorbtion Bar
-					if (Absorbtion > 0) {
-						DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
-						std::string absorptionString = std::to_string(Absorbtion);
-						absorptionDisplay = "Absorption: " + absorptionString;
-						float absorptionBarWidth = (Absorbtion / 10) * rectWidth;
-							if (!(targetList[0]->damageTime > 1))
-								DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
-							else
-								DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 0), counter / 100.f);
-					}
-
-					//The text
-					{
-						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + (res.y / 150.f)), &targetName, MC_Color(255, 255, 255), 1.f, counter / 100.f); // name
-						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), 0.7f, counter / 100.f); // health
-						DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, counter / 100.f);// absorbtion
-						DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, counter / 100.f);// distance
-					}
-					DrawUtils::flush();
-					
-
-					//Health Bar
-					{
-						float healthBarWidth = (Health / HealthMax) * rectWidth;
-						if (!(targetList[0]->damageTime > 1)) {
-							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
-							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
-						} else {
-							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
-							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
-						}
-					}
-					rectPos.y += res.y / 12.f;
-					rectPos.w += res.y / 12.f;
+				//Gives the rounded corners effect
+				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333f);
+				DrawUtils::drawRectangle(vec4_t{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 330.33333f);
+				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 0, 255), counter / 330.33333f);
 			}
 
+			//all the displays
+
+			//Gets the targets name, then makes it not go to next line
+			std::string targetName;
+			auto Hud = moduleMgr->getModule<HudModule>();
+			if (Hud->displaySecondHalf) {
+				targetName = Utils::sanitize(targetList[0]->getNameTag()->getText());
+				Utils::replaceString(targetName, '\n', ' ');
+			} else {
+				targetName = Utils::sanitize(targetList[0]->getNameTag()->getText());
+				targetName = targetName.substr(0, targetName.find('\n'));
+			}
+
+			std::string healthString = std::to_string(((int)Health));
+			std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
+			std::string healthDisplay = "Health: " + healthString;
+			std::string absorptionDisplay;
+
+			//Absorbtion Bar
+			if (Absorbtion > 0) {
+				DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
+				std::string absorptionString = std::to_string((int)(Absorbtion));
+				absorptionDisplay = "Absorption: " + absorptionString;
+				float absorptionBarWidth = (Absorbtion / HealthMax) * rectWidth;
+				if (!(targetList[0]->damageTime > 1))
+					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
+				else
+					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 0), counter / 100.f);
+			}
+
+			//The text
+			{
+				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + (res.y / 150.f)), &targetName, MC_Color(255, 255, 255), 1.f, counter / 100.f);                 // name
+				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), 0.7f, counter / 100.f);              // health
+				DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, counter / 100.f);  // absorbtion
+				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, counter / 100.f);               // distance
+			}
 			DrawUtils::flush();
+
+			//Health Bar
+			{
+				float healthBarWidth = (Health / HealthMax) * rectWidth;
+				if (!(targetList[0]->damageTime > 1)) {
+					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
+					DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
+				} else {
+					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
+					DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
+				}
+			}
+			rectPos.y += res.y / 12.f;
+			rectPos.w += res.y / 12.f;
+		}
+
+		DrawUtils::flush();
 	}
 }
 
