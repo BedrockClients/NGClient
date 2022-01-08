@@ -48,6 +48,36 @@ public:
 	PlayerSaturationAttribute() { this->hash = 8589934848; }
 };
 
+class AttackDamageAttribute : public Attribute {
+public:
+	AttackDamageAttribute() { this->hash = 51539607553; }
+};
+
+class FollowRangeAttribute : public Attribute {
+public:
+	FollowRangeAttribute() { this->hash = 30064771073; }
+};
+
+class PlayerLevelAttribute : public Attribute {
+public:
+	PlayerLevelAttribute() { this->hash = 17179869440; }
+};
+
+class PlayerExperienceAttribute : public Attribute {
+public:
+	PlayerExperienceAttribute() { this->hash = 21474836736; }
+};
+
+class KnockbackResistanceAttribute : public Attribute {
+public:
+	KnockbackResistanceAttribute() { this->hash = 34359738369; }
+};
+
+class LuckAttribute : public Attribute {
+public:
+	LuckAttribute() { this->hash = 60129542401; }
+};
+
 class AttributeInstance {
 private:
 	char __padding[0x74];
