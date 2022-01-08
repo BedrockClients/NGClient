@@ -241,9 +241,9 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		//Atributes
 		AbsorptionAttribute attribute = AbsorptionAttribute();
 		HealthAttribute attribute2 = HealthAttribute();
-		auto Absorbtion = ((int)targetList[0]->getAttribute(&attribute)->currentValue);
-		auto Health = ((int)targetList[0]->getAttribute(&attribute2)->currentValue);
-		auto HealthMax = ((int)targetList[0]->getAttribute(&attribute2)->maximumValue);
+		float Absorbtion = ((int)targetList[0]->getAttribute(&attribute)->currentValue);
+		float Health = ((int)targetList[0]->getAttribute(&attribute2)->currentValue);
+		float HealthMax = ((int)targetList[0]->getAttribute(&attribute2)->maximumValue);
 
 		vec2_t res = g_Data.getClientInstance()->getGuiData()->windowSize;
 		C_LocalPlayer* Player = g_Data.getClientInstance()->localPlayer;
