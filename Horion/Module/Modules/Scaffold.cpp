@@ -5,7 +5,7 @@
 uintptr_t HiveBypass1 = Utils::getBase() + 0x8F3895;  // Second one of 89 41 18 0F B6 42 ?? 88 41 ?? F2 0F 10 42 ?? F2 0F 11 41 ?? 8B 42 ?? 89 41 ?? 8B 42 ?? 89 41 ??
 uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // C7 40 18 03 00 00 00 48 8B 8D
 void* NoSneakAddress = (void*)FindSignature("75 0A 80 7B 59 00");
-
+bool THICCC = false;
 bool GayNigaFags = true;
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
@@ -14,6 +14,7 @@ Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build
 	registerBoolSetting("Auto Select", &autoselect, autoselect);
 	registerBoolSetting("Predict", &predict, predict);
 	registerBoolSetting("Spam", &spam, spam);
+	registerBoolSetting("Thick Scaffold", &THICCC, THICCC);
 	registerBoolSetting("Hive", &rot, rot);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
 	registerBoolSetting("Block Count", &GayNigaFags, GayNigaFags);
@@ -292,6 +293,8 @@ void Scaffold::onTick(C_GameMode* gm) {
 				} 
 				// Too lazy to add proper diagonal prediction to NG lol 
 				tryScaffold(blockBelowtest2);
+				if (THICCC)
+				tryActuallySomewhatDecentScaffold(blockBelowtest2);
 			}
 		}
 	}
@@ -302,6 +305,10 @@ void Scaffold::onTick(C_GameMode* gm) {
 }
 
 void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
+	if (spoof) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		supplies->selectedHotbarSlot = slot;
+	}
 	if (GayNigaFags) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;
@@ -325,6 +332,10 @@ void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 }
 
 void Scaffold::onLevelRender() {
+	if (spoof) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		supplies->selectedHotbarSlot = slot;
+	}
 }
 
 void Scaffold::onSendPacket(C_Packet* packet) {
