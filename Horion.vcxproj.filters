@@ -53,7 +53,6 @@
     <ClCompile Include="Horion\Module\Modules\FollowPathModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Freecam.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fucker.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Glide.cpp" />
     <ClCompile Include="Horion\Module\Modules\ChestStealer.cpp" />
     <ClCompile Include="Horion\Module\Modules\HudModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\InfiniteAura.cpp" />
