@@ -274,7 +274,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 			tryActuallySomewhatDecentScaffold(blockBelowtest2);
 		} 
 		else {  // There is already a block below us
-			if (predict && g_Data.getClientInstance()->getMoveTurnInput()->forward) {  // Only predict while going forward since if you are moving to the side or backwards you probably don't want to predict 
+			if (predict) {
 				// This is basically just code from my client but stripped down, if there's something you want me to add lmk 
 				float angleForSomeVeryEpicCalculations = (g_Data.getLocalPlayer()->yaw + 90.0f) * (PI / 180.f);
 				float magX = cos(angleForSomeVeryEpicCalculations);
