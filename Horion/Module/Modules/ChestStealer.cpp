@@ -64,6 +64,7 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 			if (!items.empty()) {
 				for (int i : items) {
 					c->handleAutoPlace(0x7FFFFFFF, "container_items", i);
+					return;
 				}
 			} else {
 				delay++;

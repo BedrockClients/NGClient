@@ -33,6 +33,7 @@ void InventoryCleaner::onTick(C_GameMode* gm) {
 	if (!dropSlots.empty()) {
 		for (int i : dropSlots) {
 			g_Data.getLocalPlayer()->getSupplies()->inventory->dropSlot(i);
+			return;
 		}
 	}
 
