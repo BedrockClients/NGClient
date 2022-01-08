@@ -72,7 +72,6 @@
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Spammer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spider.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />
