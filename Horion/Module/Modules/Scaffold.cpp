@@ -7,11 +7,13 @@ uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // C7 40 18 03 00 00 00 48
 void* NoSneakAddress = (void*)FindSignature("75 0A 80 7B 59 00");
 bool THICCC = false;
 bool GayNigaFags = true;
+bool Fullselect = false;
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
 	registerBoolSetting("Spoof", &spoof, spoof);
 	registerBoolSetting("AirPlace", &airplace, airplace);
 	registerBoolSetting("Auto Select", &autoselect, autoselect);
+	registerBoolSetting("Full Select", &Fullselect, Fullselect);
 	registerBoolSetting("Predict", &predict, predict);
 	registerBoolSetting("Spam", &spam, spam);
 	registerBoolSetting("Thick Scaffold", &THICCC, THICCC);
@@ -176,13 +178,26 @@ bool Scaffold::findBlock() {
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	C_Inventory* inv = supplies->inventory;
 	auto prevSlot = supplies->selectedHotbarSlot;
-	for (int n = 0; n < 36; n++) {
-		C_ItemStack* stack = inv->getItemStack(n);
-		if (stack->item != nullptr) {
-			if (stack->getItem()->isBlock() && isUsefulBlock(stack)) {
-				if (prevSlot != n)
-					supplies->selectedHotbarSlot = n;
-				return true;
+	if (!Fullselect) {
+		for (int n = 0; n < 8; n++) {
+			C_ItemStack* stack = inv->getItemStack(n);
+			if (stack->item != nullptr) {
+				if (stack->getItem()->isBlock() && isUsefulBlock(stack)) {
+					if (prevSlot != n)
+						supplies->selectedHotbarSlot = n;
+					return true;
+				}
+			}
+		}
+	} else {
+		for (int n = 0; n < 36; n++) {
+			C_ItemStack* stack = inv->getItemStack(n);
+			if (stack->item != nullptr) {
+				if (stack->getItem()->isBlock() && isUsefulBlock(stack)) {
+					if (prevSlot != n)
+						supplies->selectedHotbarSlot = n;
+					return true;
+				}
 			}
 		}
 	}
