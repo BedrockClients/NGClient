@@ -41,6 +41,7 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 				for (int i : items) {
 					c->handleAutoPlace(0x7FFFFFFF, "inventory_items", i);
 					c->handleAutoPlace(0x7FFFFFFF, "hotbar_items", i);
+					return;
 				}
 			} else {
 				delay++;
