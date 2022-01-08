@@ -24,14 +24,14 @@ public:
 		pxSize = pixelSize / 2.f * effectiveZoom;
 		topPad = g_Data.getGuiData()->heightGame / 2.f;
 	}
-	Radar() : IModule(0, Category::VISUAL, "Radar") {
-		//registerBoolSetting("Show Grid", &grid, true);
-		registerIntSetting("Size", &size, size, 50, 200);
-		registerFloatSetting("Pixel Size", &pixelSize, pixelSize, 2, 4);
-		registerFloatSetting("Zoom", &zoom, zoom, 1.0f / 4.0f, 4.0f);
-		registerFloatSetting("Background Opacity", &bgOpacity, bgOpacity, 0.1f, 1.0f);
-		registerFloatSetting("Pixel Opacity", &pxOpacity, pxOpacity, 0.1f, 1.0f);
-	}
+	Radar() : IModule(0x0, Category::VISUAL, "Radar") {
+	//registerBoolSetting("Show Grid", &grid, true);
+	registerIntSetting("Size", &size, size, 50.0f, 200.0f);
+	registerFloatSetting("Pixel Size", &pixelSize, pixelSize, 2.0f, 4.0f);
+	registerFloatSetting("Zoom", &zoom, zoom, 1.0f / 4.0f, 4.0f);
+	registerFloatSetting("Background Opacity", &bgOpacity, bgOpacity, 0.1f, 1.0f);
+	registerFloatSetting("Pixel Opacity", &pxOpacity, pxOpacity, 0.1f, 1.0f);
+};
 	~Radar(){};
 	void renderEntity(C_Entity* currentEntity, bool isRegularEntity) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();

@@ -271,12 +271,10 @@
     <ClCompile Include="Horion\Module\Modules\Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\CubeFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityJesus.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Flyto.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
@@ -298,14 +296,11 @@
     <ClCompile Include="Horion\Module\Modules\Compass.cpp" />
     <ClCompile Include="Horion\Module\Modules\CrystalAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\CubeGlide.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Derp.cpp" />
     <ClCompile Include="Horion\Module\Modules\ESP.cpp" />
     <ClCompile Include="Horion\Module\Modules\AnchorAura.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Fly.cpp" />
     <ClCompile Include="Horion\Module\Modules\FollowPathModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Freecam.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fucker.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Glide.cpp" />
     <ClCompile Include="Horion\Module\Modules\ChestStealer.cpp" />
     <ClCompile Include="Horion\Module\Modules\HudModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\InfiniteAura.cpp" />
@@ -326,7 +321,6 @@
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Spammer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spider.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />

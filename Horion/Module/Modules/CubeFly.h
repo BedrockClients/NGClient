@@ -1,7 +1,10 @@
 #pragma once
+#include "../ModuleManager.h"
 #include "Module.h"
 class CubeFly : public IModule {
-private:
+public:
+	int oldY;
+
 	float speed = 1.5f;
 	float ystart = 1.f;
 	float yflying = 0.5f;
@@ -9,14 +12,27 @@ private:
 	int delaytp = 5;
 	int tpdist = 3;
 
-public:
-	CubeFly();
-	~CubeFly();
+	CubeFly() : IModule(0x0, Category::SERVER, "Fly on CubeCraft!"){
 
-	// Inherited via IModule
-	virtual const char* getModuleName() override;
-	virtual bool isFlashMode() override;
-	virtual void onEnable() override;
-	virtual void onTick(C_GameMode* gm) override;
-	virtual void onDisable() override;
+	};
+	~CubeFly(){};
+
+	bool isFlashMode() {
+		return true;
+	}
+
+	void onEnable() {
+		oldY = g_Data.getLocalPlayer()->getPos()->y;
+	}
+
+	void onTick(C_GameMode* gm) {
+		if (gm->player->getPos()->y <= oldY) {
+			gm->player->jumpFromGround();
+		}
+		gm->player->onGround = true;
+	}
+
+	virtual const char* getModuleName() override {
+		return "CubeFly";
+	}
 };
