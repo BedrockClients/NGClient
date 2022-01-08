@@ -290,23 +290,6 @@ void Scaffold::onTick(C_GameMode* gm) {
 		} 
 		else {  // There is already a block below us
 			if (predict) {
-				// This is basically just code from my client but stripped down, if there's something you want me to add lmk 
-				float angleForSomeVeryEpicCalculations = (g_Data.getLocalPlayer()->yaw + 90.0f) * (PI / 180.f);
-				float magX = cos(angleForSomeVeryEpicCalculations);
-				float magZ = sin(angleForSomeVeryEpicCalculations);
-				if (magX >= 0.8f) {
-					blockBelowtest2.x += 1.f;
-				} 
-				else if (magX <= -0.8f) {
-					blockBelowtest2.x -= 1.f;
-				} 
-				else if (magZ >= 0.8f) {
-					blockBelowtest2.z += 1.f;
-				} 
-				else if (magZ <= -0.8f) {
-					blockBelowtest2.z -= 1.f;
-				} 
-				// Too lazy to add proper diagonal prediction to NG lol 
 				tryScaffold(blockBelowtest2);
 				blockBelowtest2.z -= vel.z * 0.4f;
 				if (!tryScaffold(blockBelowtest2)) {

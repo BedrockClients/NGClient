@@ -413,6 +413,7 @@
     <ClInclude Include="Horion\Command\Commands\EmoteCommand.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\Snow.h" />
+    <ClInclude Include="SDK\CAttribute.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

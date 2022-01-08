@@ -1,4 +1,5 @@
 #include "Killaura.h"
+#include "../../../SDK/CAttribute.h"
 
 void* targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
 
@@ -236,8 +237,17 @@ void Killaura::onDisable() {
 
 void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (g_Data.isInGame() && !targetList.empty() && info && g_Data.canUseMoveKeys && g_Data.getLocalPlayer()->canOpenContainerScreen() && targethud >= 1 && targetList[0]->isPlayer()) {
-		vec2_t res = g_Data.getClientInstance()->getGuiData()->windowSize;
 		C_LocalPlayer* Player = g_Data.getClientInstance()->localPlayer;
+
+		//Atributes
+		static AbsorptionAttribute attribute = AbsorptionAttribute();
+		static HealthAttribute attribute2 = HealthAttribute();
+		auto Absorbtion = ((int)targetList[0]->getAttribute(&attribute)->currentValue);
+		auto AbsorbtionMax = ((int)targetList[0]->getAttribute(&attribute)->maximumValue);
+		auto Health = ((int)targetList[0]->getAttribute(&attribute2)->currentValue);
+		auto HealthMax = ((int)targetList[0]->getAttribute(&attribute2)->maximumValue);
+
+		vec2_t res = g_Data.getClientInstance()->getGuiData()->windowSize;
 			if (Player != nullptr) {
 				vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) + (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 8.f));  // vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) - (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 24.f));
 				float rectWidth = rectPos.z - rectPos.x;
@@ -271,17 +281,17 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				}
 
 
-					std::string healthString = std::to_string(((int)targetList[0]->getHealth() / 2));
+					std::string healthString = std::to_string(Health);
 					std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
 					std::string healthDisplay = "Health: " + healthString;
 					std::string absorptionDisplay;
 
 					//Absorbtion Bar
-					if (targetList[0]->getAbsorption() > 0) {
+					if (Absorbtion > 0) {
 						DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
-						std::string absorptionString = std::to_string((int)(targetList[0]->getAbsorption() / 2));
+						std::string absorptionString = std::to_string(Absorbtion);
 						absorptionDisplay = "Absorption: " + absorptionString;
-							float absorptionBarWidth = (targetList[0]->getAbsorption() / targetList[0]->getMaxHealth()) * rectWidth;
+						float absorptionBarWidth = (Absorbtion / HealthMax) * rectWidth;
 							if (!(targetList[0]->damageTime > 1))
 								DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
 							else
@@ -300,7 +310,7 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 					//Health Bar
 					{
-						float healthBarWidth = (targetList[0]->getHealth() / targetList[0]->getMaxHealth()) * rectWidth;
+						float healthBarWidth = (Health / HealthMax) * rectWidth;
 						if (!(targetList[0]->damageTime > 1)) {
 							DrawUtils::fillRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
 							DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);

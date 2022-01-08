@@ -1,5 +1,6 @@
 #pragma once
 #include "Module.h"
+#include "../../../SDK/CAttribute.h"
 
 class AutoPot : public IModule {
 private:
@@ -29,21 +30,18 @@ private:
 public:
 	AutoPot() : IModule(0, Category::COMBAT, "Auto throws potions at the selected health") {
 		registerIntSetting("Health", &health, health, 1, 20);
-		//registerIntSetting("Slot", &slot, slot, 1, 9);
 	}
 	~AutoPot(){}
 
-	virtual void onSendPacket(C_Packet* packet) {
-		if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->getHealth() <= health) {
-			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			movePacket->pitch = 90;
-		}
-	}
 	virtual void onTick(C_GameMode* gm) override {
+		//Atributes
+		static HealthAttribute attribute = HealthAttribute();
+		auto Health = g_Data.getLocalPlayer()->getAttribute(&attribute)->currentValue;
+		auto HealthMax = g_Data.getLocalPlayer()->getAttribute(&attribute)->maximumValue;
+
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;
 		if (g_Data.getLocalPlayer()->isAlive() && g_Data.isInGame()) {
-			//Put Pots in Horbar But not working for some reason
 			if (!g_Data.getLocalPlayer()->canOpenContainerScreen()) {
 				int slot;
 				int potSlot;
@@ -55,15 +53,23 @@ public:
 						slot = n;
 					}
 				}
-
 				if (slot != 0) {
 					inv->swapSlots(slot, potSlot);
 				}
 			}
 
 			//checks if it can throw yet
-			if (g_Data.getLocalPlayer()->getHealth() <= health) {
+			if (Health < health) {
 				findPot();
+
+				//Rots to look down
+				float rotChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.f)) + 1.f;
+				auto player = g_Data.getLocalPlayer();
+				C_MovePlayerPacket mpp(player, *player->getPos());
+				mpp.onGround = player->onGround;
+				mpp.pitch = 90.f - rotChange;
+				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
+
 				Utils::rightClick();
 			}
 		}
