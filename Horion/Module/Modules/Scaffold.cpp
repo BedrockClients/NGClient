@@ -222,7 +222,36 @@ bool Scaffold::isUsefulBlock(C_ItemStack* itemStack) {
 }
 
 void Scaffold::onTick(C_GameMode* gm) {
+}
 
+void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
+	if (spoof) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		supplies->selectedHotbarSlot = slot;
+	}
+	if (GayNigaFags) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		C_Inventory* inv = supplies->inventory;
+		for (int n = 0; n < 36; n++) {
+			C_ItemStack* stack = inv->getItemStack(n);
+			if (stack->item != nullptr && stack->getItem()->isBlock() && isUsefulBlock(stack)) {
+				auto count = inv->getItemCount(*stack);
+				auto Color = MC_Color();
+				if (count >= 64)
+					Color = MC_Color(0, 255, 0);
+				else if (count <= 63 && count >= 33)
+					Color = MC_Color(255, 255, 0);
+				else if (count <= 32)
+					Color = MC_Color(255, 0, 0);
+
+				vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+				DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(count), Color, 1.3f);
+			}
+		}
+	}
+}
+
+void Scaffold::onLevelRender() {
 	//float Pitch = (gm->player->pitch) * -(PI / 180); Correct Pitch
 	if (rot) {
 		g_Data.getLocalPlayer()->pointingStruct->rayHitType = 0;
@@ -275,20 +304,17 @@ void Scaffold::onTick(C_GameMode* gm) {
 				}
 			}
 		}
-	} 
-	else {
-		if (yLock) { 
+	} else {
+		if (yLock) {
 			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 			blockBelowtest2.y = blockBelowtest.y;
-		} 
-		else {
+		} else {
 			blockBelowtest2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 			blockBelowtest2.y -= 2.5f;
 		}
-		if (canPlaceHere(blockBelowtest2)) {  // There is no block below us. We won't try to predict this tick (if it's enabled) 
+		if (canPlaceHere(blockBelowtest2)) {  // There is no block below us. We won't try to predict this tick (if it's enabled)
 			tryActuallySomewhatDecentScaffold(blockBelowtest2);
-		} 
-		else {  // There is already a block below us
+		} else {  // There is already a block below us
 			if (predict) {
 				tryScaffold(blockBelowtest2);
 				blockBelowtest2.z -= vel.z * 0.4f;
@@ -298,60 +324,26 @@ void Scaffold::onTick(C_GameMode* gm) {
 					blockBelowtest2.x += vel.x;
 					tryScaffold(blockBelowtest2);
 					blockBelowtest2.z -= vel.z * 0.3f;
-						if (!tryScaffold(blockBelowtest2)) {
-							blockBelowtest2.x -= vel.x * 0.2f;
-							blockBelowtest2.z += vel.z;
-							blockBelowtest2.x += vel.x;
-							tryScaffold(blockBelowtest2);
-							blockBelowtest2.z -= vel.z * 0.1f;
-						}
-						if (!tryScaffold(blockBelowtest2)) {
-							blockBelowtest2.x -= vel.x * 0.2f;
-							blockBelowtest2.z += vel.z;
-							blockBelowtest2.x += vel.x;
-							tryScaffold(blockBelowtest2);
-							blockBelowtest2.z -= vel.z * 0.1f;
-						}
+					if (!tryScaffold(blockBelowtest2)) {
+						blockBelowtest2.x -= vel.x * 0.2f;
+						blockBelowtest2.z += vel.z;
+						blockBelowtest2.x += vel.x;
+						tryScaffold(blockBelowtest2);
+						blockBelowtest2.z -= vel.z * 0.1f;
+					}
+					if (!tryScaffold(blockBelowtest2)) {
+						blockBelowtest2.x -= vel.x * 0.2f;
+						blockBelowtest2.z += vel.z;
+						blockBelowtest2.x += vel.x;
+						tryScaffold(blockBelowtest2);
+						blockBelowtest2.z -= vel.z * 0.1f;
+					}
 				}
 				if (THICCC)
-				tryActuallySomewhatDecentScaffold(blockBelowtest2);
+					tryActuallySomewhatDecentScaffold(blockBelowtest2);
 			}
 		}
 	}
-	if (spoof) {
-		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-		supplies->selectedHotbarSlot = slot;
-	}
-}
-
-void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
-	if (spoof) {
-		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-		supplies->selectedHotbarSlot = slot;
-	}
-	if (GayNigaFags) {
-		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-		C_Inventory* inv = supplies->inventory;
-		for (int n = 0; n < 36; n++) {
-			C_ItemStack* stack = inv->getItemStack(n);
-			if (stack->item != nullptr && stack->getItem()->isBlock() && isUsefulBlock(stack)) {
-				auto count = inv->getItemCount(*stack);
-				auto Color = MC_Color();
-				if (count >= 64)
-					Color = MC_Color(0, 255, 0);
-				else if (count <= 63 && count >= 33)
-					Color = MC_Color(255, 255, 0);
-				else if (count <= 32)
-					Color = MC_Color(255, 0, 0);
-
-				vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-				DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(count), Color, 1.3f);
-			}
-		}
-	}
-}
-
-void Scaffold::onLevelRender() {
 	if (spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		supplies->selectedHotbarSlot = slot;
