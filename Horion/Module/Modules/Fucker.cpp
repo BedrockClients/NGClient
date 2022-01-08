@@ -1,4 +1,5 @@
 #include "Fucker.h"
+#include "../../../SDK/CAttribute.h"
 
 Fucker::Fucker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific things around you") {
 	registerBoolSetting("Hive Bypass", &bypass, bypass);
@@ -32,12 +33,14 @@ void Fucker::onTick(C_GameMode* gm) {
 					bool eat = false;
 					std::string name = gm->player->region->getBlock(blockPos)->toLegacy()->name.getText();
 
+					static AbsorptionAttribute attribute = AbsorptionAttribute();
+
 					if (name == "bed" && beds) destroy = true;                                      // Beds
 					if (name == "dragon_egg" && eggs) destroy = true;                                    // Dragon Eggs
 					if (name == "cake" && cakes) eat = true;                                         // Cakes
 					if (name == "chest" && chests) destroy = true;                                        // Chests
-					if (name == "lit_redstone_ore" && redstone && gm->player->getAbsorption() < 10) destroy = true;  // Lit Redstone
-					if (name == "redstone_ore" && redstone && gm->player->getAbsorption() < 10) destroy = true;   // Redstone
+					if (name == "lit_redstone_ore" && redstone && gm->player->getAttribute(&attribute)->currentValue < 10) destroy = true;  // Lit Redstone
+					if (name == "redstone_ore" && redstone && gm->player->getAttribute(&attribute)->currentValue < 10) destroy = true;      // Redstone
 					if (name == "diamond_ore" && diamond) destroy = true;                                       // Diamond
 					if (name == "emerald_ore" && emerald) destroy = true;                                        // Emerald
 
