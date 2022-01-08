@@ -1372,6 +1372,7 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	static auto oFunc = g_Hooks.Actor_rotationHook->GetFastcall<void, C_Entity*, vec2_t&>();
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
+	static auto infiniteauraMod = moduleMgr->getModule<InfiniteAura>();
 	static auto potionAuramod = moduleMgr->getModule<PotionAura>();
 	static auto freelookMod = moduleMgr->getModule<Freelook>();
 	static auto botMod = moduleMgr->getModule<FightBot>();
@@ -1388,6 +1389,9 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	}
 	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->sexy) {
 		sexyAngle = {killauraMod->joe};
+	}
+	if (infiniteauraMod->isEnabled() && !infiniteauraMod->targetListC && g_Data.getLocalPlayer() == _this && infiniteauraMod->sex) {
+		sexyAngle = {infiniteauraMod->amogus.x, infiniteauraMod->amogus.y};
 	}
 	if (potionAuramod->isEnabled() && g_Data.getLocalPlayer() == _this && !potionAuramod->targetListA && potionAuramod->sexy) {
 		sexyAngle = {potionAuramod->joe};
@@ -1410,6 +1414,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
 	static auto tp = moduleMgr->getModule<Teleport>();
 	static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
+	static auto HiveInf = moduleMgr->getModule<InfiniteAura>();
 	static auto disabler = moduleMgr->getModule<Disabler>();
 	static auto test = moduleMgr->getModule<TestModule>();
 	//if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
@@ -1423,6 +1428,40 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 
 	if (nofall->isEnabled() && g_Data.isInGame() && nofall->nopackety && g_Data.getLocalPlayer()->fallDistance > 2.5f && !g_Data.getLocalPlayer()->onGround)
 		return;
+
+	if (HiveInf->isEnabled() && g_Data.isInGame()) {
+		if (HiveInf->hivee) {
+			auto player = g_Data.getLocalPlayer();
+			if (packet->isInstanceOf<C_MovePlayerPacket>()) {
+				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
+				ree->onGround = true;
+				if (HiveInf->counter == 1) {
+					if (packet->isInstanceOf<C_MovePlayerPacket>()) {
+						return;
+					}
+				}
+			}
+		}
+	} else if (!HiveInf->isEnabled()) {
+		if (HiveInf->getMovePlayerPacketHolder()->size() > 0 && HiveInf->counter == 1) {
+			for (auto it : *HiveInf->getMovePlayerPacketHolder()) {
+				oFunc(a, (it));
+				delete it;
+				it = nullptr;
+			}
+			HiveInf->getMovePlayerPacketHolder()->clear();
+			return;
+		}
+		if (HiveInf->getPlayerAuthInputPacketHolder()->size() > 0 && HiveInf->counter == 1) {
+			for (auto it : *HiveInf->getPlayerAuthInputPacketHolder()) {
+				oFunc(a, (it));
+				delete it;
+				it = nullptr;
+			}
+			HiveInf->getPlayerAuthInputPacketHolder()->clear();
+			return;
+		}
+	}
 
 	if (nofall->isEnabled() && g_Data.isInGame()) {
 		if (nofall->server) {
