@@ -5,6 +5,7 @@ public:
 	bool packetadd;
 	bool showauthinput;
 	bool showsubchunk;
+	SettingEnum addressType;
 	PacketLogger();
 	~PacketLogger();
 
