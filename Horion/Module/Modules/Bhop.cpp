@@ -14,6 +14,42 @@ Bhop::Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
 	registerIntSetting("Timer", &timer, timer, 20, 50);
 }
 
+int speedIndexThingyForHive = 30;
+
+float epicHiveSpeedArrayThingy[31] = {
+	1.000000,
+	0.615560, 
+	0.583347,
+	0.554032,
+	0.527356,
+	0.503081,
+	0.480991,
+	0.460888,
+	0.442595,
+	0.425948,
+	0.410800,
+	0.397015,
+	0.384470,
+	0.373055,
+	0.362666,
+	0.353213,
+	0.344611,
+	0.336783,
+	0.329659,
+	0.323177,
+	0.317277,
+	0.311909,
+	0.307024,
+	0.302579,
+	0.298534,
+	0.294852,
+	0.291502,
+	0.265267,
+	0.241393,
+	0.219668,
+	0.199898 
+};
+
 Bhop::~Bhop() {
 }
 
@@ -22,6 +58,7 @@ const char* Bhop::getModuleName() {
 }
 
 void Bhop::onEnable() {
+	speedIndexThingyForHive = 30;
 }
 
 C_MoveInputHandler cachedInput;
@@ -86,7 +123,21 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 	else moveVec.y = player->velocity.y * height;
 	moveVec.z = moveVec2d.y * speed;
 
-	if (pressed && hive && player->onGround) player->lerpMotion(moveVec);
+	if (pressed && hive) {
+		if (ZoomHop) {
+			if (player->onGround) speedIndexThingyForHive = 0;
+			float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive];
+			moveVec.x = moveVec2d.x * currentSpeed;
+			moveVec.z = moveVec2d.y * currentSpeed;
+			if (player->onGround) moveVec.y = 0.3f;
+			else moveVec.y = player->velocity.y;
+			player->lerpMotion(moveVec);
+			if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
+		} 
+		else {
+			if (player->onGround) player->lerpMotion(moveVec);
+		}
+	}
 	else if (pressed && !hive) player->lerpMotion(moveVec);
 }
 
