@@ -293,6 +293,28 @@ void Scaffold::onTick(C_GameMode* gm) {
 				} 
 				// Too lazy to add proper diagonal prediction to NG lol 
 				tryScaffold(blockBelowtest2);
+				blockBelowtest2.z -= vel.z * 0.4f;
+				if (!tryScaffold(blockBelowtest2)) {
+					blockBelowtest2.x -= vel.x * 0.4f;
+					blockBelowtest2.z += vel.z;
+					blockBelowtest2.x += vel.x;
+					tryScaffold(blockBelowtest2);
+					blockBelowtest2.z -= vel.z * 0.3f;
+						if (!tryScaffold(blockBelowtest2)) {
+							blockBelowtest2.x -= vel.x * 0.2f;
+							blockBelowtest2.z += vel.z;
+							blockBelowtest2.x += vel.x;
+							tryScaffold(blockBelowtest2);
+							blockBelowtest2.z -= vel.z * 0.1f;
+						}
+						if (!tryScaffold(blockBelowtest2)) {
+							blockBelowtest2.x -= vel.x * 0.2f;
+							blockBelowtest2.z += vel.z;
+							blockBelowtest2.x += vel.x;
+							tryScaffold(blockBelowtest2);
+							blockBelowtest2.z -= vel.z * 0.1f;
+						}
+				}
 				if (THICCC)
 				tryActuallySomewhatDecentScaffold(blockBelowtest2);
 			}
