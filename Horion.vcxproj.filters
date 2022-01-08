@@ -128,7 +128,6 @@
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
-    <ClCompile Include="Horion\Module\Modules\CubeFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
