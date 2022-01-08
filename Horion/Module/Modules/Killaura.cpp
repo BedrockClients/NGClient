@@ -279,7 +279,7 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				targetName = targetName.substr(0, targetName.find('\n'));
 			}
 
-			std::string healthString = std::to_string(((int)Health / 2));
+			std::string healthString = std::to_string(((int)Health));
 			std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
 			std::string healthDisplay = "Health: " + healthString;
 			std::string absorptionDisplay;
@@ -287,7 +287,7 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			//Absorbtion Bar
 			if (Absorbtion > 0) {
 				DrawUtils::drawRectangle(vec4_t(rectPos.x + .2, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
-				std::string absorptionString = std::to_string((int)(Absorbtion / 2));
+				std::string absorptionString = std::to_string((int)(Absorbtion));
 				absorptionDisplay = "Absorption: " + absorptionString;
 				float absorptionBarWidth = (Absorbtion / HealthMax) * rectWidth;
 				if (!(targetList[0]->damageTime > 1))
