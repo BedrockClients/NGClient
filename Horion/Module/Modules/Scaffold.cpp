@@ -354,12 +354,18 @@ void Scaffold::onSendPacket(C_Packet* packet) {
 }
 
 void Scaffold::onEnable() {
-	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-	slot = supplies->selectedHotbarSlot;
+	if (autoselect) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		slot = supplies->selectedHotbarSlot;
+	}
 	blockBelowtest = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 	blockBelowtest.y -= 2.5f;
 }
 void Scaffold::onDisable() {
+	if (autoselect) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		supplies->selectedHotbarSlot = slot;
+	}
 	if (staircaseMode)
 	Utils::patchBytes((BYTE*)((uintptr_t)NoSneakAddress), (BYTE*)"\x75\x0A", 2);
 	Utils::patchBytes((BYTE*)HiveBypass1, (BYTE*)"\x89\x41\x18", 3);
