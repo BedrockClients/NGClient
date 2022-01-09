@@ -116,7 +116,7 @@ public:
 				float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive];
 				moveVec.x = moveVec2d.x * currentSpeed;
 				moveVec.z = moveVec2d.y * currentSpeed;
-				if (player->onGround) moveVec.y = 0.06f;
+				if (player->onGround) moveVec.y = 0.075f;
 				else moveVec.y = player->velocity.y;
 				player->lerpMotion(moveVec);
 				if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
