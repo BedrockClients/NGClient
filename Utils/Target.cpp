@@ -30,20 +30,19 @@ bool Target::isValidTarget(C_Entity* ent) {
 	if (ent->getEntityTypeId() <= 130 && ent->getEntityTypeId() != 63 && antibot->isEntityIdCheckEnabled())
 		return false;
 
-	if (ent->getEntityTypeId() == 63) {
-		if (teams->isColorCheckEnabled()) {
-			std::string targetName = ent->getNameTag()->getText();
-			std::string localName = g_Data.getLocalPlayer()->getNameTag()->getText();
-			if (targetName.length() > 2 && localName.length() > 2) {
-				targetName = std::regex_replace(targetName, std::regex("\\§r"), "");
-				localName = std::regex_replace(localName, std::regex("\\§r"), "");
-				if (targetName.at(0) == localName.at(0)) return false;
-			}
+	if (teams->isColorCheckEnabled()) {
+		g_Data.getGuiData()->displayClientMessageF("Got to the actual color check!");
+		std::string targetName = ent->getNameTag()->getText();
+		std::string localName = g_Data.getLocalPlayer()->getNameTag()->getText();
+		if (targetName.length() > 2 && localName.length() > 2) {
+			targetName = std::regex_replace(targetName, std::regex("\\§r"), "");
+			localName = std::regex_replace(localName, std::regex("\\§r"), "");
+			if (targetName.at(0) == localName.at(0)) return false;
 		}
-		if (teams->isAlliedCheckEnabled()) {
-			C_LocalPlayer* p = g_Data.getLocalPlayer();
-			if (p->isAlliedTo(ent)) return false;
-		}
+	}
+	if (teams->isAlliedCheckEnabled()) {
+		C_LocalPlayer* p = g_Data.getLocalPlayer();
+		if (p->isAlliedTo(ent)) return false;
 	}
 
 	// Temporarily removed from gui, tons of false negatives
