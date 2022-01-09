@@ -236,8 +236,7 @@ void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		for (int n = 0; n < 36; n++) {
 			C_ItemStack* stack = inv->getItemStack(n);
 			if (stack->item != nullptr && stack->getItem()->isBlock() && isUsefulBlock(stack)) {
-				int count = inv->getItemCount(*stack);
-				totalCount += count;
+				totalCount += stack->count;
 			}
 		}
 		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
