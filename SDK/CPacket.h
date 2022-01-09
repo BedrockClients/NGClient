@@ -123,6 +123,23 @@ public:
 	int pad[0x100];//0x0
 };
 
+class CommandRequestPacket : C_Packet {
+public:
+	uint64_t VTable;  //0x0000
+	int two;
+	int one;
+	uint64_t zeroes[4];
+	TextHolder payload;
+	uint64_t thingy[6];
+
+public:
+	CommandRequestPacket(std::string cmd) {
+		this->two = 2;
+		this->one = 1;
+		this->payload.setText(cmd);
+	}
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();
