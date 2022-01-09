@@ -34,19 +34,9 @@ bool Target::isValidTarget(C_Entity* ent) {
 		std::string targetName = ent->getNameTag()->getText();
 		std::string localName = g_Data.getLocalPlayer()->getNameTag()->getText();
 		if (targetName.length() > 2 && localName.length() > 2) {
-			targetName = std::regex_replace(targetName, std::regex("\\§r"), "");
-			localName = std::regex_replace(localName, std::regex("\\§r"), "");
-			int formatPos = targetName.find("Â");
-			while (formatPos != std::string::npos) {
-				targetName.erase(formatPos, 1);
-				formatPos = targetName.find("Â");
+			if (targetName.at(2) == localName.at(2)) {
+				return false;
 			}
-			formatPos = localName.find("Â");
-			while (formatPos != std::string::npos) {
-				localName.erase(formatPos, 1);
-				formatPos = localName.find("Â");
-			}
-			if (targetName.at(0) == localName.at(0)) return false;
 		}
 	}
 	if (teams->isAlliedCheckEnabled()) {
