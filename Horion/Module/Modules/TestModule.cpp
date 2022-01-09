@@ -51,9 +51,15 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 }
 
 void TestModule::onEnable() {
+	//static std::vector<vec3_t> uwu;
+	//	uwu.push_back(vec3_t(10, 17, 10));
+	//vec3_t calc = uwu.sub(*current);
 }
 
 void TestModule::onTick(C_GameMode* gm) {
+	//gm->player->pitch = 0;
+	//gm->player->bodyYaw = 90;
+	//gm->player->yawUnused1 = 90;
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {
@@ -66,6 +72,7 @@ void TestModule::onSendPacket(C_Packet* packet) {
 }
 
 void TestModule::onDisable() {
+	g_Data.getClientInstance()->minecraft->setTimerSpeed(20.f);
 }
 
 void TestModule::onLevelRender() {
@@ -75,5 +82,6 @@ void TestModule::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	C_TexturePtr texture;
 	texture.filePath = TextHolder("texture/ui/hotbar_2");
 	__int64 yot = 0;
-	renderCtx->drawImage(&texture, vec2_t(100, 100), vec2_t(500, 100), yot, vec2_t(1, 1));
+	DrawUtils::drawImage("texture/ui/hotbar_2", vec2_t(100, 100), vec2_t(100, 300), vec2_t(1, 1));
+	//renderCtx->drawImage(&texture, vec2_t(100, 100), vec2_t(500, 100), yot, vec2_t(1, 1));
 }
