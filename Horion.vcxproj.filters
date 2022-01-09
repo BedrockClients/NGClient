@@ -416,6 +416,7 @@
     <ClInclude Include="Horion\Module\Modules\Snow.h" />
     <ClInclude Include="SDK\CAttribute.h" />
     <ClInclude Include="Horion\Module\Modules\HackerDetect.h" />
+    <ClInclude Include="Horion\Module\Modules\FastStop.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

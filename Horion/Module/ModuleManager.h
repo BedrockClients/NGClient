@@ -21,6 +21,7 @@
 #include "Modules/AutoSprint.h"
 #include "Modules/AutoTotem.h"
 #include "Modules/Snow.h"
+#include "Modules/FastStop.h"
 #include "Modules/Fucker.h"
 #include "Modules/Bhop.h"
 #include "Modules/TargetStrafe.h"
