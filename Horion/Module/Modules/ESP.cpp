@@ -49,6 +49,8 @@ void doRenderStuff(C_Entity* ent, bool isRegularEntitie) {
 		return;
 	if (ent->timeSinceDeath > 0)
 		return;
+	if (!g_Data.canUseMoveKeys() && !g_Data.isInGame())
+		return;
 	static auto noFriendsModule = moduleMgr->getModule<NoFriends>();
 	if (!noFriendsModule->isEnabled() && FriendList::findPlayer(ent->getNameTag()->getText())) {
 		DrawUtils::setColor(0.1f, 0.9f, 0.1f, (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
@@ -72,18 +74,21 @@ void doRenderStuff(C_Entity* ent, bool isRegularEntitie) {
 			DrawUtils::setColor(0.9f, 0.9f, 0.9f, (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
 	} else
 		return;
-	if (espMod->is2d)
-		DrawUtils::draw2D(ent, (float)fmax(0.4f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()) * 3.f)));
-	else if (espMod->iszephyr)
-		DrawUtils::drawZephyr(ent, (float)fmax(0.4f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()) * 3.f)));
-	else if (espMod->betterESP)
-		DrawUtils::drawBetterESP(ent, (float)fmax(0.2f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()))));
-	else
-		DrawUtils::drawEntityBox(ent, (float)fmax(0.2f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()))));
+	if (g_Data.canUseMoveKeys() && g_Data.isInGame()) {
+		if (espMod->is2d)
+			DrawUtils::draw2D(ent, (float)fmax(0.4f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()) * 3.f)));
+		else if (espMod->iszephyr)
+			DrawUtils::drawZephyr(ent, (float)fmax(0.4f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()) * 3.f)));
+		else if (espMod->betterESP)
+			DrawUtils::drawBetterESP(ent, (float)fmax(0.2f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()))));
+		else
+			DrawUtils::drawEntityBox(ent, (float)fmax(0.2f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()))));
+	}
 }
 
 void ESP::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	for (auto pos : lastPos) {
+		if (g_Data.canUseMoveKeys() && g_Data.isInGame())
 		DrawUtils::drawBox(pos.toFloatVector(), pos.add(1, 1, 1).toFloatVector(), 1, false);
 	}
 	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
@@ -107,7 +112,7 @@ void ESP::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 float Circle = 0;
 void ESP::onLevelRender() {
-	if (circle) {
+	if (circle && (g_Data.canUseMoveKeys() && g_Data.isInGame())) {
 		Circle++;
 		if (doRainbow) {
 			DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);

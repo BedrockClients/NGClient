@@ -19,29 +19,33 @@ struct CompareTargetEnArray {
 };
 
 void findHackerman(C_Entity* currentEntity, bool isRegularEntity) {
-	static auto hackerdetect = moduleMgr->getModule<HackerDetect>();
+	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && g_Data.canUseMoveKeys()) {
+		static auto hackerdetect = moduleMgr->getModule<HackerDetect>();
 
-	if (currentEntity == nullptr)
-		return;
+		if (currentEntity == nullptr)
+			return;
 
-	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
-		return;
+		if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
+			return;
 
-	if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
-		return;
+		if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
+			return;
 
-	if (!g_Data.getLocalPlayer()->isAlive())
-		return;
+		if (!g_Data.getLocalPlayer()->isAlive())
+			return;
 
-	if (!currentEntity->isAlive())
-		return;
+		if (!currentEntity->isAlive())
+			return;
 
-	if (!currentEntity->isPlayer())
-		return;
+		if (!currentEntity->isPlayer())
+			return;
+		if (!currentEntity->isValidTarget())
+			return;
 
-	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
-	if (dist < 1000) {
-		targetHackerman.push_back(currentEntity);
+		float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
+		if (dist < 1000) {
+			targetHackerman.push_back(currentEntity);
+		}
 	}
 }
 
@@ -52,7 +56,7 @@ void HackerDetect::onTick(C_GameMode* gm) {
 		auto target = targetHackerman[0];
 		auto speed = target->getRealSpeed();
 		auto name = target->getNameTag()->getText();
-		if (target->stepHeight > 0.6000f || target->isInWall() || target->isImmobile() && target->getBlocksPerSecond() > 1.f || target->damageTime < 1 && target->getBlocksPerSecond() > 12.f) {
+		if (target->stepHeight > 0.6000f || target->isInWall() || target->isImmobile() && target->getBlocksPerSecond() > 1.f || target->getBlocksPerSecond() > 12.f) {
 			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s is hacking", name);
 		}
 	}
