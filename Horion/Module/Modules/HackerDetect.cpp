@@ -39,7 +39,7 @@ void findHackerman(C_Entity* currentEntity, bool isRegularEntity) {
 
 		if (!currentEntity->isPlayer())
 			return;
-		if (!currentEntity->isValidTarget())
+		if (!currentEntity->isValidTarget(currentEntity))
 			return;
 
 		float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
@@ -51,7 +51,7 @@ void findHackerman(C_Entity* currentEntity, bool isRegularEntity) {
 
 void HackerDetect::onTick(C_GameMode* gm) {
 	targetHackerman.clear();
-	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && g_Data.canUseMoveKeys()) {
+	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->pointingStruct->getLevelTicks() > 50) {
 		g_Data.forEachEntity(findHackerman);
 		auto target = targetHackerman[0];
 		auto speed = target->getRealSpeed();
