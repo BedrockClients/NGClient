@@ -116,7 +116,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 	float s = sin(calcYaw);
 	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
 	moveVec.x = moveVec2d.x * speed;
-	if (ZoomHop && player->onGround) moveVec.y = 0.16f;
+	if (ZoomHop && player->onGround) moveVec.y = 0.25f;
 	else moveVec.y = player->velocity.y * height;
 	moveVec.z = moveVec2d.y * speed;
 
@@ -126,7 +126,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 			float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive];
 			moveVec.x = moveVec2d.x * currentSpeed;
 			moveVec.z = moveVec2d.y * currentSpeed;
-			if (player->onGround) moveVec.y = 0.16f;
+			if (player->onGround) moveVec.y = 0.25f;
 			else moveVec.y = player->velocity.y;
 			player->lerpMotion(moveVec);
 			if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
