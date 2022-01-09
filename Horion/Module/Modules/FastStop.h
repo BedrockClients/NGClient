@@ -14,8 +14,9 @@ public:
 		auto player = g_Data.getLocalPlayer();
 		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
-		if (!pressed)
+		if (!pressed) {
 			player->velocity.x = 0;
 			player->velocity.z = 0;
+		}
 	}
 };
