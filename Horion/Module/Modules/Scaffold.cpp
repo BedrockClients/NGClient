@@ -232,22 +232,23 @@ void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (GayNigaFags) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;
+		int totalCount = 0;
 		for (int n = 0; n < 36; n++) {
 			C_ItemStack* stack = inv->getItemStack(n);
 			if (stack->item != nullptr && stack->getItem()->isBlock() && isUsefulBlock(stack)) {
-				auto count = inv->getItemCount(*stack);
-				auto Color = MC_Color();
-				if (count >= 64)
-					Color = MC_Color(0, 255, 0);
-				else if (count <= 63 && count >= 33)
-					Color = MC_Color(255, 255, 0);
-				else if (count <= 32)
-					Color = MC_Color(255, 0, 0);
-
-				vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-				DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(count), Color, 1.3f);
+				int count = inv->getItemCount(*stack);
+				totalCount += count;
 			}
 		}
+		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+		MC_Color Color = MC_Color();
+		if (totalCount >= 64)
+			Color = MC_Color(0, 255, 0);
+		else if (totalCount <= 63 && totalCount >= 33)
+			Color = MC_Color(255, 255, 0);
+		else if (totalCount <= 32)
+			Color = MC_Color(255, 0, 0);
+		DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(totalCount), Color, 1.3f);
 	}
 }
 
