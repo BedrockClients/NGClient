@@ -31,7 +31,6 @@ bool Target::isValidTarget(C_Entity* ent) {
 		return false;
 
 	if (teams->isColorCheckEnabled()) {
-		g_Data.getGuiData()->displayClientMessageF("Got to the actual color check!");
 		std::string targetName = ent->getNameTag()->getText();
 		std::string localName = g_Data.getLocalPlayer()->getNameTag()->getText();
 		if (targetName.length() > 2 && localName.length() > 2) {
