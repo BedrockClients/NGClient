@@ -77,6 +77,7 @@
 #include "Modules/Speed.h"
 #include "Modules/HiveFly.h"
 #include "Modules/Step.h"
+#include "Modules/HackerDetect.h"
 #include "Modules/TimeChanger.h"
 #include "Modules/Timer.h"
 #include "Modules/Tower.h"

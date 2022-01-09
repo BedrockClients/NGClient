@@ -50,6 +50,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoPacket()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Speed()));
+		moduleList.push_back(std::shared_ptr<IModule>(new HackerDetect()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Fucker()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));

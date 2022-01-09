@@ -149,6 +149,7 @@
     <ClCompile Include="SDK\MatrixStack.cpp" />
     <ClCompile Include="Utils\TextFormat.cpp" />
     <ClCompile Include="Horion\Module\Modules\TestModule.cpp" />
+    <ClCompile Include="Horion\Module\Modules\HackerDetect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -414,6 +415,7 @@
     <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\Snow.h" />
     <ClInclude Include="SDK\CAttribute.h" />
+    <ClInclude Include="Horion\Module\Modules\HackerDetect.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

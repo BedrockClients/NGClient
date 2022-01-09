@@ -536,8 +536,6 @@ public:
 		vec3_t velocity = this->velocity;
 		if (velocity.x < 0.f)
 			velocity.x *= -1.f;
-		if (velocity.y < 0.f)
-			velocity.y *= -1.f;
 		if (velocity.z < 0.f)
 			velocity.z *= -1.f;
 		auto velx = velocity.x * velocity.x;
