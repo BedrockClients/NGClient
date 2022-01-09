@@ -480,10 +480,8 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 }
 
  void DrawUtils::drawEntityBox(C_Entity* ent, float lineWidth) {
-	vec3_t* start = ent->getPosOld();
 	vec3_t* end = ent->getPos();
-
-	vec3_t lerped = start->lerp(end, lerpT);
+	vec3_t lerped = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
 
 	AABB render(lerped, ent->width, ent->height, end->y - ent->aabb.lower.y);
 	render.upper.y += 0.1f;
@@ -492,10 +490,8 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 }
 
 void DrawUtils::drawBetterESP(C_Entity* ent, float lineWidth) {
-	vec3_t* start = ent->getPosOld();
 	vec3_t* end = ent->getPos();
-
-	vec3_t lerped = start->lerp(end, lerpT);
+	vec3_t lerped = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
 
 	AABB render(lerped, ent->width, ent->height, end->y - ent->aabb.lower.y);
 	render.upper.y += 0.1f;
@@ -504,10 +500,8 @@ void DrawUtils::drawBetterESP(C_Entity* ent, float lineWidth) {
 }
 
 void DrawUtils::draw2D(C_Entity* ent, float lineWidth) {
-	vec3_t* start = &vec3_t(ent->eyePos0.x, ent->eyePos0.y + 0.15f, ent->eyePos0.z);
-	vec3_t* end = &vec3_t(ent->eyePos0.x, ent->eyePos0.y + 0.15f, ent->eyePos0.z);
-
-	vec3_t base = start->lerp(end, lerpT);
+	vec3_t* end = ent->getPos();
+	vec3_t base = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
 
 	float ofs = (g_Data.getLocalPlayer()->yaw + 90.f) * (PI / 180);
 
@@ -545,10 +539,8 @@ void DrawUtils::draw2D(C_Entity* ent, float lineWidth) {
 }
 
 void DrawUtils::drawZephyr(C_Entity* ent, float lineWidth) {
-	vec3_t* start = &vec3_t(ent->eyePos0.x, ent->eyePos0.y + 0.15f, ent->eyePos0.z);
-	vec3_t* end = &vec3_t(ent->eyePos0.x, ent->eyePos0.y + 0.15f, ent->eyePos0.z);
-
-	vec3_t base = start->lerp(end, lerpT);
+	vec3_t* end = ent->getPos();
+	vec3_t base = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
 
 	float ofs = (g_Data.getLocalPlayer()->yaw + 90.f) * (PI / 180);
 
