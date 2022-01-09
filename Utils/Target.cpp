@@ -36,6 +36,16 @@ bool Target::isValidTarget(C_Entity* ent) {
 		if (targetName.length() > 2 && localName.length() > 2) {
 			targetName = std::regex_replace(targetName, std::regex("\\§r"), "");
 			localName = std::regex_replace(localName, std::regex("\\§r"), "");
+			int formatPos = targetName.find("Â");
+			while (formatPos != std::string::npos) {
+				targetName.erase(formatPos, 1);
+				formatPos = targetName.find("Â");
+			}
+			formatPos = localName.find("Â");
+			while (formatPos != std::string::npos) {
+				localName.erase(formatPos, 1);
+				formatPos = localName.find("Â");
+			}
 			if (targetName.at(0) == localName.at(0)) return false;
 		}
 	}
