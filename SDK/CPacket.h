@@ -132,12 +132,7 @@ public:
 	TextHolder payload;
 	uint64_t thingy[6];
 
-public:
-	CommandRequestPacket(std::string cmd) {
-		this->two = 2;
-		this->one = 1;
-		this->payload.setText(cmd);
-	}
+	CommandRequestPacket(std::string cmd);
 };
 
 class C_MobEquipmentPacket : public C_Packet {

@@ -288,4 +288,7 @@ CommandRequestPacket::CommandRequestPacket(std::string cmd) {
 	}
 	memset(this, 0, sizeof(CommandRequestPacket));  // Avoid overwriting vtable
 	vTable = commandRequestPacketVtable;
+	this->two = 2;
+	this->one = 1;
+	this->payload.setText(cmd);
 }
