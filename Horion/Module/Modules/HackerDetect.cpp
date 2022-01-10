@@ -24,7 +24,7 @@ void findHackerman(C_Entity* currentEntity, bool isRegularEntity) {
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && g_Data.canUseMoveKeys()) {
 		static auto hackerdetect = moduleMgr->getModule<HackerDetect>();
 
-		if (currentEntity == nullptr)
+		if (currentEntity == nullptr || *(__int64*)currentEntity != theVTableOfAnEntityThatIsProbablyActuallyAPlayerAndNotSomeRandomFuckingThingThatMakesYouCrash)
 			return;
 
 		if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
@@ -41,7 +41,7 @@ void findHackerman(C_Entity* currentEntity, bool isRegularEntity) {
 
 		if (!currentEntity->isPlayer())
 			return;
-		if (!currentEntity->isValidTarget(currentEntity) || *(__int64*)currentEntity != theVTableOfAnEntityThatIsProbablyActuallyAPlayerAndNotSomeRandomFuckingThingThatMakesYouCrash)
+		if (!currentEntity->isValidTarget(currentEntity))
 			return;
 
 		float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
