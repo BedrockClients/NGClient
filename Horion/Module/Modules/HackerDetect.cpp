@@ -18,6 +18,8 @@ struct CompareTargetEnArray {
 	}
 };
 
+__int64 theVTableOfAnEntityThatIsProbablyActuallyAPlayerAndNotSomeRandomFuckingThingThatMakesYouCrash = Utils::getBase() + 0x3E403A0;
+
 void findHackerman(C_Entity* currentEntity, bool isRegularEntity) {
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && g_Data.canUseMoveKeys()) {
 		static auto hackerdetect = moduleMgr->getModule<HackerDetect>();
@@ -39,7 +41,7 @@ void findHackerman(C_Entity* currentEntity, bool isRegularEntity) {
 
 		if (!currentEntity->isPlayer())
 			return;
-		if (!currentEntity->isValidTarget(currentEntity))
+		if (!currentEntity->isValidTarget(currentEntity) || *(__int64*)currentEntity != theVTableOfAnEntityThatIsProbablyActuallyAPlayerAndNotSomeRandomFuckingThingThatMakesYouCrash)
 			return;
 
 		float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
