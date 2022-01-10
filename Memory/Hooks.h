@@ -84,7 +84,7 @@ public:
 private:
 	static void setPos(C_Entity* ent, vec3_t& poo);
 	static void Actor_rotation(C_Entity* _this, vec2_t& sexyAngle);
-	static void Actor_breathe(C_Entity* _this);
+	static void Actor_baseTick(C_Entity* _this);
 	static void RMBManagerThingy(__int64 a1, __int64 a2);
 	static void* Player_tickWorld(C_Player* _this, __int64);
 	static void ClientInstanceScreenModel_sendChatMessage(void* _this, TextHolder* text);
@@ -141,7 +141,7 @@ private:
 
 	std::unique_ptr<FuncHook> Actor_rotationHook;
 	std::unique_ptr<FuncHook> setPosHook;
-	std::unique_ptr<FuncHook> Actor_breatheHook;
+	std::unique_ptr<FuncHook> Actor_baseTickHook;
 	std::unique_ptr<FuncHook> Player_tickWorldHook;
 	std::unique_ptr<FuncHook> ClientInstanceScreenModel_sendChatMessageHook;
 	std::unique_ptr<FuncHook> UIScene_setupAndRenderHook;
