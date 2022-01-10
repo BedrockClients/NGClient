@@ -179,6 +179,9 @@ void Hooks::Init() {
 		void* renderLevel = reinterpret_cast<void*>(FindSignature("48 89 5C 24 10 48 89 74 24 20 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 49 8B F8 48 8B DA"));
 		g_Hooks.LevelRenderer_renderLevelHook = std::make_unique<FuncHook>(renderLevel, Hooks::LevelRenderer_renderLevel);
 
+		void* playerCallBackHook = reinterpret_cast<void*>(FindSignature("73 ? b0 ? c3 32 c0 c3 cc cc cc cc cc 48 83 ec"));
+		g_Hooks.playerCallBack_Hook = std::make_unique<FuncHook>(playerCallBackHook, Hooks::playerCallBack);
+
 		void* clickHook = reinterpret_cast<void*>(FindSignature("48 8B C4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 54 41 55 41 56 41 57 48 83 EC ? 44 0F B7 BC 24 ? ? ? ? 48 8B D9"));
 		g_Hooks.ClickFuncHook = std::make_unique<FuncHook>(clickHook, Hooks::ClickFunc);
 
@@ -322,6 +325,15 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 		moduleMgr->onWorldTick(gm);
 	}
 	return o;
+}
+
+void* Hooks::playerCallBack(C_Player* lp, void* a2) {
+	static auto oTick = g_Hooks.playerCallBack_Hook->GetFastcall<void*, C_Player*, void*>();
+	if (lp == g_Data.getLocalPlayer()) {
+		C_GameMode* gm = g_Data.getCGameMode();
+		if (gm != nullptr) moduleMgr->onTick(gm);
+	}
+	return oTick;
 }
 
 void Hooks::ClientInstanceScreenModel_sendChatMessage(void* _this, TextHolder* text) {
@@ -1566,8 +1578,6 @@ float Hooks::LevelRendererPlayer_getFov(__int64 _this, float a2, bool a3) {
 
 void Hooks::MultiLevelPlayer_tick(C_EntityList* _this) {
 	static auto oTick = g_Hooks.MultiLevelPlayer_tickHook->GetFastcall<void, C_EntityList*>();
-	C_GameMode* gm = g_Data.getCGameMode();
-	if (gm != nullptr) moduleMgr->onTick(gm);
 	oTick(_this);
 	GameData::EntityList_tick(_this);
 }

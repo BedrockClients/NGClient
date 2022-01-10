@@ -117,6 +117,13 @@ void Killaura::onTick(C_GameMode* gm) {
 		g_Data.forEachEntity(findEntity);
 		if (autoweapon) findWeapon();
 		if (!targetList.empty()) {
+			if (rotations) {
+				//player->pitch2 = joe.x;
+				//player->pitch = joe.y;
+				//player->yawUnused1 = joe.y;
+				//player->yaw2 = joe.y;
+				// idk. When we have smooth rots that dont strafe, we will put them here.
+			}
 			Odelay++;
 			if (Odelay >= delay) {
 				if (isMulti) {
@@ -165,13 +172,6 @@ void Killaura::onLevelRender() {
 		g_Data.forEachEntity(findEntity);
 
 		if (!targetList.empty()) {
-			if (rotations) {
-				player->pitch2 = joe.x;
-				player->pitch = joe.x;
-				player->yawUnused2 = joe.x;
-				player->yaw2 = joe.y;
-				// idk. When we have smooth rots that dont strafe, we will put them here.
-			}
 			if (sexy) {
 				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
 				player->bodyYaw = joe.x;

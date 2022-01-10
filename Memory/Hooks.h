@@ -136,6 +136,7 @@ private:
 	static void LocalPlayer__updateFromCamera(__int64 a1, C_Camera* a2);
 	static bool Mob__isImmobile(C_Entity*);
 	static bool testy(C_Entity*);
+	static void* playerCallBack(C_Player* lp, void* a2);
 	static void InventoryTransactionManager__addAction(C_InventoryTransactionManager*, C_InventoryAction&);
 	static void LevelRendererPlayer__renderNameTags(__int64 a1, __int64 a2, TextHolder* name, __int64 a4);
 
@@ -152,6 +153,7 @@ private:
 	std::unique_ptr<FuncHook> Dimension_getSunIntensityHook;
 	std::unique_ptr<FuncHook> ChestBlockActor_tickHook;
 	std::unique_ptr<FuncHook> Actor_lerpMotionHook;
+	std::unique_ptr<FuncHook> playerCallBack_Hook;
 	std::unique_ptr<FuncHook> AppPlatform_getGameEditionHook;
 	std::unique_ptr<FuncHook> PleaseAutoCompleteHook;
 	std::unique_ptr<FuncHook> LoopbackPacketSender_sendToServerHook;

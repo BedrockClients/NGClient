@@ -57,9 +57,14 @@ void TestModule::onEnable() {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
-	//gm->player->pitch = 0;
-	//gm->player->bodyYaw = 90;
-	//gm->player->yawUnused1 = 90;
+	//gm->player->pitch = 90;
+	gm->player->pitch = 0;
+	gm->player->bodyYaw = 90;
+	gm->player->yawUnused1 = 90;
+}
+
+void TestModule::onWorldTick(C_GameMode* gm) {
+	//gm->player->pitch = 90;
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {
