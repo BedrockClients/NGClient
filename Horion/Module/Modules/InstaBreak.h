@@ -3,7 +3,7 @@
 
 class InstaBreak : public IModule {
 public:
-	bool bypass = false;
+	SettingEnum mode;
 	InstaBreak();
 	~InstaBreak();
 	// Inherited via IModule
