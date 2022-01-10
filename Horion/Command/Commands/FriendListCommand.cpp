@@ -35,7 +35,7 @@ bool FriendListCommand::execute(std::vector<std::string>* args) {
 		if (currentEntity == 0)
 			break;
 
-		if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
+		if (currentEntity != g_Data.getLocalPlayer())  // Skip Local player
 			continue;
 
 		if (currentEntityName.find(searchedName) == std::string::npos)  // Continue if name not found
