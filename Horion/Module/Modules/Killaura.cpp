@@ -118,11 +118,7 @@ void Killaura::onTick(C_GameMode* gm) {
 		if (autoweapon) findWeapon();
 		if (!targetList.empty()) {
 			if (rotations) {
-				//player->pitch2 = joe.x;
-				//player->pitch = joe.y;
-				//player->yawUnused1 = joe.y;
-				//player->yaw2 = joe.y;
-				// idk. When we have smooth rots that dont strafe, we will put them here.
+				// idk. Someone else mess with rots that dont strafe, we will put them here.
 			}
 			Odelay++;
 			if (Odelay >= delay) {
