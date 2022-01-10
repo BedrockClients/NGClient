@@ -76,7 +76,7 @@ void Hooks::Init() {
 
 				g_Hooks.setPosHook = std::make_unique<FuncHook>(localPlayerVtable[19], Hooks::setPos);
 
-				g_Hooks.Actor_breatheHook = std::make_unique<FuncHook>(localPlayerVtable[49], Hooks::Actor_breathe);
+				g_Hooks.Actor_baseTickHook = std::make_unique<FuncHook>(localPlayerVtable[49], Hooks::Actor_baseTick);
 
 				g_Hooks.Mob__isImmobileHook = std::make_unique<FuncHook>(localPlayerVtable[91], Hooks::Mob__isImmobile);
 
@@ -359,8 +359,8 @@ void Hooks::ClientInstanceScreenModel_sendChatMessage(void* _this, TextHolder* t
 	oSendMessage(_this, text);
 }
 
-void Hooks::Actor_breathe(C_Entity* ent) {
-	static auto oFunc = g_Hooks.Actor_breatheHook->GetFastcall<void, C_Entity*>();
+void Hooks::Actor_baseTick(C_Entity* ent) {
+	static auto oFunc = g_Hooks.Actor_baseTickHook->GetFastcall<void, C_Entity*>();
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (!player || !player->pointingStruct) return oFunc(ent);
 
