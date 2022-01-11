@@ -195,54 +195,56 @@ public:
 public:
 	bool isTool(void) {
 		if (getAttackDamage() > 0) return true;           // Does Attack Damage
-		if (name.getText() == 259) return true;                   // Flint n Steel
-		if (name.getText() == 391) return true;                   // Compas
-		if (name.getText() == 422) return true;                   // EnderPearl
-		if (name.getText() == 571) return true;                   // Heart_of_the_sea
-		if (name.getText() == 560) return true;                   // DragonsBreath
-		if (name.getText() == 386) return true;                   // Paper
-		if (name.getText() == 568) return true;                   // Totem
-		if (name.getText() == 512) return true;                   // Emerald
-		if (name.getText() == 548) return true;                   // Nametag
-		if (name.getText() == 521) return true;                   // EnchantedBook
-		if (name.getText() == 570) return true;                   // NautalusShell
+		if (name.getText() == "flint_and_steel") return true;                   // Flint_n_Steel
+		if (name.getText() == "compas") return true;                   // Compas
+		if (name.getText() == "ender_pearl") return true;                   // Ender_Pearl
+		if (name.getText() == "heart_of_the_sea") return true;                   // Heart_of_the_sea
+		if (name.getText() == "dragon_breath") return true;                   // dragon_breath
+		if (name.getText() == "paper") return true;                   // Paper
+		if (name.getText() == "totem") return true;                   // Totem
+		if (name.getText() == "emerald") return true;                   // Emerald
+		if (name.getText() == "diamond") return true;                   // diamond
+		if (name.getText() == "gold") return true;                   // gold
+		if (name.getText() == "nametag") return true;                   // Nametag
+		if (name.getText() == "enchanted_book") return true;                   // enchanted_book
+		if (name.getText() == "nautilus_shell") return true;                   // nautilus_shell
 		return false;
 	}
 	bool isWeapon(void) {
-		if (name.getText() == "wooden_sword") return true;  //Wooden Sword
-		if (name.getText() == 272) return true;  //Stone Sword
-		if (name.getText() == 283) return true;  //Gold Sword
-		if (name.getText() == 267) return true;  //Iron Sword
-		if (name.getText() == 276) return true;  //Diamond Sword
-		if (name.getText() == 743) return true;  //Netherite Sword
-		if (name.getText() == 271) return true;  //Wooden Axe
-		if (name.getText() == 275) return true;  //Stone Axe
-		if (name.getText() == 286) return true;  //Gold Axe
-		if (name.getText() == 258) return true;  //Iron Axe
-		if (name.getText() == 279) return true;  //Diamond Axe
-		if (name.getText() == 746) return true;  //Netherite Axe
+		if (name.getText() == "wooden_sword") return true;  //wooden_sword
+		if (name.getText() == "stone_sword") return true;  //stone_sword
+		if (name.getText() == "gold_sword") return true;  //gold_sword
+		if (name.getText() == "iron_sword") return true;  //iron_sword
+		if (name.getText() == "diamond_sword") return true;  //diamond_sword
+		if (name.getText() == "netherite_sword") return true;  //netherite_sword
+		if (name.getText() == "wooden_axe") return true;  //wooden_axe
+		if (name.getText() == "stone_axe") return true;  //stone_axe
+		if (name.getText() == "gold_axe") return true;  //gold_axe
+		if (name.getText() == "iron_axe") return true;  //iron_axe
+		if (name.getText() == "diamond_axe") return true;  //diamond_axe
+		if (name.getText() == "netherite_axe") return true;  //netherite_axe
 		return false;
 	}
 	bool isShooter(void) {
-		if (name.getText() == 261 || name.getText() == 262 || name.getText() == 575 || 300) return true;  // Bow, crossbows, arrows, tipped arrows
+		if (name.getText() == "bow" || name.getText() == "crossbow" || name.getText() == "arrow" || name.getText() == "tipped_arrow") return true;  // Bow, crossbows, arrows, tipped arrows
 		return false;
 	}
 	bool isPickaxe(void) {
-		if (name.getText() == 310) return true;  //Wooden Pick
-		if (name.getText() == 314) return true;  //Stone Pick
-		if (name.getText() == 324) return true;  //Gold Pick
-		if (name.getText() == 297) return true;  //Iron Pick
-		if (name.getText() == 318) return true;  //Diamond Pick
-		if (name.getText() == 605) return true;  //Netherite Pick
+		if (name.getText() == "wooden_pickaxe") return true;  //wooden_pickaxe
+		if (name.getText() == "stone_pickaxe") return true;  //stone_pickaxe
+		if (name.getText() == "gold_pickaxe") return true;  //gold_pickaxe
+		if (name.getText() == "iron_pickaxe") return true;  //iron_pickaxe
+		if (name.getText() == "diamond_pickaxe") return true;  //diamond_pickaxe
+		if (name.getText() == "netherite_pickaxe") return true;  //netherite_pickaxe
 		return false;
 	}
 	bool isShovel(void) {
-		if (name.getText() == 309) return true;  //Wooden Shovel
-		if (name.getText() == 313) return true;  //Stone Shovel
-		if (name.getText() == 323) return true;  //Gold Shovel
-		if (name.getText() == 296) return true;  //Iron Shovel
-		if (name.getText() == 317) return true;  //Diamond Shovel
-		if (name.getText() == 604) return true;  //Netherite Shovel
+		if (name.getText() == "wooden_shovel") return true;  //wooden_shovel
+		if (name.getText() == "stone_shovel") return true;  //stone_shovel
+		if (name.getText() == "gold_shovel") return true;  //gold_shovel
+		if (name.getText() == "iron_shovel") return true;  //iron_shovel
+		if (name.getText() == "diamond_shovel") return true;  //diamond_shovel
+		if (name.getText() == "netherite_shovel") return true;  //netherite_shovel
 		return false;
 	}
 
