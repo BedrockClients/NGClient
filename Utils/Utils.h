@@ -454,6 +454,8 @@ public:
 
 	static void rightClick();
 
+	static bool getShouldLocalPlayerBeImmobile();
+
 	static std::wstring stringToWstring(std::string txt);
 
 	static bool endsWith(std::wstring const& fullString, std::wstring const& ending) {

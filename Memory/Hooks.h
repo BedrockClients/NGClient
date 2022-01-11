@@ -76,6 +76,7 @@ public:
 	};
 	std::vector<EntityListPointerHolder> entityList;
 	__int64 RMBManager = 0;
+	bool shouldLocalPlayerBeImmobile = false;
 
 	static void Init();
 	static void Restore();

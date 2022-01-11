@@ -170,6 +170,10 @@ void Utils::rightClick() {
 	rmbUpFunc(g_Hooks.RMBManager);
 }
 
+bool Utils::getShouldLocalPlayerBeImmobile() {
+	return g_Hooks.shouldLocalPlayerBeImmobile;
+}
+
 uintptr_t Utils::FindSignatureModule(const char* szModule, const char* szSignature) {
 	const char* pattern = szSignature;
 	uintptr_t firstMatch = 0;
