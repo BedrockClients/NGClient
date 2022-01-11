@@ -331,6 +331,7 @@ void IModule::setEnabled(bool enabled) {
 		if (!isFlashMode())  // Only print jetpack stuff in debug mode
 #endif
 		logF("%s %s", enabled ? "Enabled" : "Disabled", this->getModuleName());
+
 		//Toggle Notifications
 		static auto HUD = moduleMgr->getModule<HudModule>();
 		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
@@ -339,7 +340,7 @@ void IModule::setEnabled(bool enabled) {
 		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications)
 			shouldShow = false;
 
-			if (shouldShow) {
+		if (shouldShow) {
 			auto CheckEnabled = enabled ? "Enabled" : "Disabled";
 			auto box = std::make_shared<InfoBoxData>(this->getModuleName(), CheckEnabled);
 			box.get()->fade();
