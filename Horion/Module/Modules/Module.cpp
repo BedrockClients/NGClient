@@ -338,7 +338,7 @@ void IModule::setEnabled(bool enabled) {
 			auto CheckEnabled = enabled ? "Enabled" : "Disabled";
 			auto box = std::make_shared<InfoBoxData>(this->getModuleName(), CheckEnabled);
 			box.get()->fadeVal = -100;
-			box.get()->closeTimer = 5;
+			box.get()->closeTimer = 3;
 			g_Data.infoBoxQueue.push(box);
 		}
 
