@@ -4,6 +4,7 @@
 
 #include "../../../Utils/Json.hpp"
 #include "../../../Utils/Logger.h"
+#include "../ModuleManager.h"
 
 using json = nlohmann::json;
 
@@ -329,7 +330,17 @@ void IModule::setEnabled(bool enabled) {
 #ifndef _DEBUG
 		if (!isFlashMode())  // Only print jetpack stuff in debug mode
 #endif
-			logF("%s %s", enabled ? "Enabled" : "Disabled", this->getModuleName());
+		logF("%s %s", enabled ? "Enabled" : "Disabled", this->getModuleName());
+		//Toggle Notifications
+		static auto HUD = moduleMgr->getModule<HudModule>();
+		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
+		if (!ClickGUI->isEnabled() && !isFlashMode() && HUD->notifications) {
+			auto CheckEnabled = enabled ? "Enabled" : "Disabled";
+			auto box = std::make_shared<InfoBoxData>(this->getModuleName(), CheckEnabled);
+			box.get()->fadeVal = -100;
+			box.get()->closeTimer = 5;
+			g_Data.infoBoxQueue.push(box);
+		}
 
 		if (enabled)
 			this->onEnable();

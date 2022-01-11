@@ -87,7 +87,11 @@ private:
 	bool customGeoActive = false;
 	std::shared_ptr<std::tuple<std::shared_ptr<unsigned char[]>, size_t>> customTexture;
 	bool customTextureActive = false;
+
+public:
 	std::queue<std::shared_ptr<InfoBoxData>> infoBoxQueue;
+
+private:
 
 	bool injectorConnectionActive = false;
 	const SlimUtils::SlimModule* gameModule = 0;
