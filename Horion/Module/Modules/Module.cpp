@@ -334,11 +334,17 @@ void IModule::setEnabled(bool enabled) {
 		//Toggle Notifications
 		static auto HUD = moduleMgr->getModule<HudModule>();
 		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
-		if (!ClickGUI->isEnabled() && !isFlashMode() && HUD->notifications) {
+		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
+		bool shouldShow = true;
+		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications)
+			shouldShow = false;
+
+			if (shouldShow) {
 			auto CheckEnabled = enabled ? "Enabled" : "Disabled";
 			auto box = std::make_shared<InfoBoxData>(this->getModuleName(), CheckEnabled);
+			box.get()->fade();
 			box.get()->fadeVal = -100;
-			box.get()->closeTimer = 3;
+			box.get()->closeTimer = 2.5;
 			g_Data.infoBoxQueue.push(box);
 		}
 
