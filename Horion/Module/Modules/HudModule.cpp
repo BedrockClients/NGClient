@@ -10,6 +10,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Watermark", &watermark, watermark);
+	registerBoolSetting("Notifications", &notifications, notifications);
 	registerBoolSetting("Bools", &bools, bools);
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
 	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);

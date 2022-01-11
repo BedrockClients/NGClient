@@ -1124,6 +1124,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	{
 		auto box = g_Data.getFreshInfoBox();
 		if (box) {
+			static auto Surge = moduleMgr->getModule<HudModule>();
 			box->fade();
 			if (box->fadeTarget == 1 && box->closeTimer <= 0 && box->closeTimer > -1)
 				box->fadeTarget = 0;
@@ -1160,7 +1161,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				centerPos.x + paddingHoriz + std::max(titleWidth, msgWidth) / 2,
 				centerPos.y + paddingVert * 2 + titleTextHeight + messageHeight * lines);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), box->fadeVal);
-			DrawUtils::drawRectangle(rectPos, rcolors, box->fadeVal, 2.f);
+			if (Surge->rgb)
+			DrawUtils::drawRectangle(rectPos, currColor, box->fadeVal, 2.f);
+			else if (Surge->surge)
+				DrawUtils::drawRectangle(rectPos, MC_Color(0,0,255), box->fadeVal, 2.f);
+			else
+			DrawUtils::drawRectangle(rectPos, MC_Color(184,0,255), box->fadeVal, 2.f);
+
 			DrawUtils::drawText(textPos, &box->title, MC_Color(), titleTextSize, box->fadeVal);
 			DrawUtils::drawText(msgPos, &box->message, MC_Color(), messageTextSize, box->fadeVal);
 		}
@@ -2239,8 +2246,10 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 	auto func = g_Hooks.Mob__isImmobileHook->GetFastcall<bool, C_Entity*>();
 
 	static auto antiImmobileMod = moduleMgr->getModule<AntiImmobile>();
-	if (antiImmobileMod->isEnabled() && ent == g_Data.getLocalPlayer())
+	if (antiImmobileMod->isEnabled() && ent == g_Data.getLocalPlayer()) {
+		g_Hooks.shouldLocalPlayerBeImmobile = func(ent);
 		return false;
+	}
 
 	return func(ent);
 }

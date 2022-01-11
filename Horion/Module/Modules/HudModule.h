@@ -7,6 +7,7 @@ public:
 	~HudModule();
 
 	bool Msg = true;
+	bool notifications = true;
 	bool Hud = true;
 	bool enabled = true;
 	bool different = false;
