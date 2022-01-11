@@ -195,54 +195,54 @@ public:
 public:
 	bool isTool(void) {
 		if (getAttackDamage() > 0) return true;           // Does Attack Damage
-		if (itemId == 259) return true;                   // Flint n Steel
-		if (itemId == 391) return true;                   // Compas
-		if (itemId == 422) return true;                   // EnderPearl
-		if (itemId == 571) return true;                   // Heart_of_the_sea
-		if (itemId == 560) return true;                   // DragonsBreath
-		if (itemId == 386) return true;                   // Paper
-		if (itemId == 568) return true;                   // Totem
-		if (itemId == 512) return true;                   // Emerald
-		if (itemId == 548) return true;                   // Nametag
-		if (itemId == 521) return true;                   // EnchantedBook
-		if (itemId == 570) return true;                   // NautalusShell
+		if (name.getText() == 259) return true;                   // Flint n Steel
+		if (name.getText() == 391) return true;                   // Compas
+		if (name.getText() == 422) return true;                   // EnderPearl
+		if (name.getText() == 571) return true;                   // Heart_of_the_sea
+		if (name.getText() == 560) return true;                   // DragonsBreath
+		if (name.getText() == 386) return true;                   // Paper
+		if (name.getText() == 568) return true;                   // Totem
+		if (name.getText() == 512) return true;                   // Emerald
+		if (name.getText() == 548) return true;                   // Nametag
+		if (name.getText() == 521) return true;                   // EnchantedBook
+		if (name.getText() == 570) return true;                   // NautalusShell
 		return false;
 	}
 	bool isWeapon(void) {
-		if (itemId == 268) return true;  //Wooden Sword
-		if (itemId == 272) return true;  //Stone Sword
-		if (itemId == 283) return true;  //Gold Sword
-		if (itemId == 267) return true;  //Iron Sword
-		if (itemId == 276) return true;  //Diamond Sword
-		if (itemId == 743) return true;  //Netherite Sword
-		if (itemId == 271) return true;  //Wooden Axe
-		if (itemId == 275) return true;  //Stone Axe
-		if (itemId == 286) return true;  //Gold Axe
-		if (itemId == 258) return true;  //Iron Axe
-		if (itemId == 279) return true;  //Diamond Axe
-		if (itemId == 746) return true;  //Netherite Axe
+		if (name.getText() == "wooden_sword") return true;  //Wooden Sword
+		if (name.getText() == 272) return true;  //Stone Sword
+		if (name.getText() == 283) return true;  //Gold Sword
+		if (name.getText() == 267) return true;  //Iron Sword
+		if (name.getText() == 276) return true;  //Diamond Sword
+		if (name.getText() == 743) return true;  //Netherite Sword
+		if (name.getText() == 271) return true;  //Wooden Axe
+		if (name.getText() == 275) return true;  //Stone Axe
+		if (name.getText() == 286) return true;  //Gold Axe
+		if (name.getText() == 258) return true;  //Iron Axe
+		if (name.getText() == 279) return true;  //Diamond Axe
+		if (name.getText() == 746) return true;  //Netherite Axe
 		return false;
 	}
 	bool isShooter(void) {
-		if (itemId == 261 || itemId == 262 || itemId == 575 || 300) return true;  // Bow, crossbows, arrows, tipped arrows
+		if (name.getText() == 261 || name.getText() == 262 || name.getText() == 575 || 300) return true;  // Bow, crossbows, arrows, tipped arrows
 		return false;
 	}
 	bool isPickaxe(void) {
-		if (itemId == 310) return true;  //Wooden Pick
-		if (itemId == 314) return true;  //Stone Pick
-		if (itemId == 324) return true;  //Gold Pick
-		if (itemId == 297) return true;  //Iron Pick
-		if (itemId == 318) return true;  //Diamond Pick
-		if (itemId == 605) return true;  //Netherite Pick
+		if (name.getText() == 310) return true;  //Wooden Pick
+		if (name.getText() == 314) return true;  //Stone Pick
+		if (name.getText() == 324) return true;  //Gold Pick
+		if (name.getText() == 297) return true;  //Iron Pick
+		if (name.getText() == 318) return true;  //Diamond Pick
+		if (name.getText() == 605) return true;  //Netherite Pick
 		return false;
 	}
 	bool isShovel(void) {
-		if (itemId == 309) return true;  //Wooden Shovel
-		if (itemId == 313) return true;  //Stone Shovel
-		if (itemId == 323) return true;  //Gold Shovel
-		if (itemId == 296) return true;  //Iron Shovel
-		if (itemId == 317) return true;  //Diamond Shovel
-		if (itemId == 604) return true;  //Netherite Shovel
+		if (name.getText() == 309) return true;  //Wooden Shovel
+		if (name.getText() == 313) return true;  //Stone Shovel
+		if (name.getText() == 323) return true;  //Gold Shovel
+		if (name.getText() == 296) return true;  //Iron Shovel
+		if (name.getText() == 317) return true;  //Diamond Shovel
+		if (name.getText() == 604) return true;  //Netherite Shovel
 		return false;
 	}
 
@@ -377,6 +377,6 @@ public:
 
 class ItemRegistry {
 public:
-	static C_Item*** getItemFromId(void* ptr, int itemId);
+	static C_Item ***getItemFromId(void *ptr, int itemId);
 	static C_Item*** lookUpByName(void*, void*, TextHolder&);
 };
