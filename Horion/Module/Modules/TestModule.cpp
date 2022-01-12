@@ -54,10 +54,10 @@ void TestModule::onEnable() {
 }
 
 void TestModule::onPlayerTick(C_Player* plr) {
-	auto player = g_Data.getLocalPlayer();	
-	player->pitch = 0;
-	player->bodyYaw = 90;
-	player->yawUnused1 = 90;
+	player = g_Data.getLocalPlayer();
+	//plr->pitch = 0;
+	//plr->bodyYaw = 90;
+	//plr->yawUnused1 = 90;
 }
 
 void TestModule::onTick(C_GameMode* gm) {

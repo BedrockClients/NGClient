@@ -3,6 +3,7 @@
 #include "Module.h"
 class TestModule : public IModule {
 public:
+	C_Entity* player;
 	int delay = 0;
 	void* targetAddress;  //Yes
 	int counter = 0;
