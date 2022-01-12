@@ -43,7 +43,6 @@
     <ClCompile Include="Horion\Module\Modules\BowAimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\selectionHighlight.cpp" />
     <ClCompile Include="Horion\Module\Modules\StorageESP.cpp" />
-    <ClCompile Include="Horion\Module\Modules\BlockEsp.cpp" />
     <ClCompile Include="Horion\Module\Modules\ClickGuiMod.cpp" />
     <ClCompile Include="Horion\Module\Modules\Compass.cpp" />
     <ClCompile Include="Horion\Module\Modules\CrystalAura.cpp" />

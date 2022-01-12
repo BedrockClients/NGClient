@@ -26,11 +26,11 @@ public:
 	}
 	Radar() : IModule(0x0, Category::VISUAL, "Radar") {
 	//registerBoolSetting("Show Grid", &grid, true);
-	registerIntSetting("Size", &size, size, 50.0f, 200.0f);
+	registerIntSetting("Size", &size, size, 50.0, 200.0);
 	registerFloatSetting("Pixel Size", &pixelSize, pixelSize, 2.0f, 4.0f);
-	registerFloatSetting("Zoom", &zoom, zoom, 1.0f / 4.0f, 4.0f);
+	registerFloatSetting("Zoom", &zoom, zoom, 1.0 / 4.0, 4.0);
 	registerFloatSetting("Background Opacity", &bgOpacity, bgOpacity, 0.1f, 1.0f);
-	registerFloatSetting("Pixel Opacity", &pxOpacity, pxOpacity, 0.1f, 1.0f);
+	registerFloatSetting("Pixel Opacity", &pxOpacity, pxOpacity, 0.1, 1.0);
 };
 	~Radar(){};
 	void renderEntity(C_Entity* currentEntity, bool isRegularEntity) {
