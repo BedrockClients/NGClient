@@ -29,7 +29,7 @@ void SwingAnimations::onEnable() {
 
 	//Flux
 	static auto KillMod = moduleMgr->getModule<Killaura>();
-	if (!KillMod->isEnabled() && !KillMod->targethud >= 1 && !KillMod->blockHit) {
+	if (!KillMod->isEnabled() && !KillMod->blockHit) {
 		if (fluxSwing) {
 			targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
 			Utils::nopBytes((BYTE*)targetAddress, 8);
