@@ -338,7 +338,7 @@ void* Hooks::playerCallBack(C_Player* lp, void* a2) {
 	static auto oTick = g_Hooks.playerCallBack_Hook->GetFastcall<void*, C_Player*, void*>();
 	if (lp == g_Data.getLocalPlayer()) {
 		C_GameMode* gm = g_Data.getCGameMode();
-		if (gm != nullptr) moduleMgr->onTick(gm);
+		if (gm != nullptr) moduleMgr->onPlayerTick(gm);
 	}
 	return oTick;
 }
@@ -1244,7 +1244,7 @@ float Hooks::Dimension_getSunIntensity(__int64 a1, float a2, vec3_t* a3, float a
 	return oGetSunIntensity(a1, a2, a3, a4);
 }
 
-void Hooks::ChestBlockActor_tick(C_ChestBlockActor* _this, void* a) {
+void Hooks::ChestBlockActor_tic1k(C_ChestBlockActor* _this, void* a) {
 	static auto oTick = g_Hooks.ChestBlockActor_tickHook->GetFastcall<void, C_ChestBlockActor*, void*>();
 	oTick(_this, a);
 	static auto* chestEspMod = moduleMgr->getModule<StorageESP>();
@@ -1598,6 +1598,10 @@ float Hooks::LevelRendererPlayer_getFov(__int64 _this, float a2, bool a3) {
 
 void Hooks::MultiLevelPlayer_tick(C_EntityList* _this) {
 	static auto oTick = g_Hooks.MultiLevelPlayer_tickHook->GetFastcall<void, C_EntityList*>();
+	if (_this == g_Data.getLocalPlayer()) {
+		C_GameMode* gm = g_Data.getCGameMode();
+		if (gm != nullptr) moduleMgr->onTick(gm);
+	}
 	oTick(_this);
 	GameData::EntityList_tick(_this);
 }
