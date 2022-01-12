@@ -66,9 +66,8 @@ struct CoolSkinData {
 class Hooks {
 private:
 	bool shouldRender = true;
-	char currentScreenName[100];
-
 public:
+	char currentScreenName[100];
 	std::vector<std::shared_ptr<FuncHook>> lambdaHooks;
 	struct EntityListPointerHolder {
 		C_Entity* ent;

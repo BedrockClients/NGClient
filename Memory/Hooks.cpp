@@ -527,6 +527,14 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	{
 		// Main Menu
+		if (g_Data.allowWIPFeatures()) {
+			if (HImGui.Button("Disable Aura", vec2_t(wid.x * (0.765f - 0.5f), wid.y * 0.92f), true)) {
+				auto box = g_Data.addInfoBox("test","test");
+				box->closeTimer = 5;
+				static auto aura = moduleMgr->getModule<Killaura>();
+				if(aura->isEnabled())aura->setEnabled(false);
+			}
+		}
 		std::string screenName(g_Hooks.currentScreenName);
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
