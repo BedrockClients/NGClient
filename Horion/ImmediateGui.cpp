@@ -96,7 +96,8 @@ bool ImmediateGui::Button(const char* label, vec2_t pos, bool centered) {
 
 	button->updatePos(pos);
 	button->draw(this->mousePos, label);
-	if (button->canClick() && this->leftMb.trySteal()) {  // Click
+	if (button->canClick() && g_Data.hidController->leftClickDown) {  // Click
+		g_Data.hidController->leftClickDown = false;
 		return true;
 	}
 
