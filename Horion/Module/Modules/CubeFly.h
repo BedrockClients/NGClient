@@ -3,20 +3,16 @@
 #include "Module.h"
 class CubeFly : public IModule {
 public:
-	int oldY;
-
 	float speed = 1.5f;
 	float ystart = 1.f;
 	float yflying = 0.5f;
 	int gameTick = 0;
 	int delaytp = 5;
 	int tpdist = 3;
-
+	int oldY;
 	CubeFly() : IModule(0x0, Category::SERVER, "Fly on CubeCraft!"){
-
 	};
 	~CubeFly(){};
-
 	bool isFlashMode() {
 		return true;
 	}

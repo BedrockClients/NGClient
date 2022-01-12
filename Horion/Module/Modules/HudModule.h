@@ -11,7 +11,7 @@ public:
 	bool Hud = true;
 	bool enabled = true;
 	bool different = false;
-	bool rgb = true;
+	bool rgb = false;
 	bool bools = false;
 	bool rgbtext = true;
 	bool displaySecondHalf = true;
