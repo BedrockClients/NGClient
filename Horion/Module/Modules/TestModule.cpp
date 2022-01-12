@@ -51,20 +51,19 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 }
 
 void TestModule::onEnable() {
-	//static std::vector<vec3_t> uwu;
-	//	uwu.push_back(vec3_t(10, 17, 10));
-	//vec3_t calc = uwu.sub(*current);
+}
+
+void TestModule::onPlayerTick(C_GameMode* gm) {
+	auto player = g_Data.getLocalPlayer();	
+	gm->player->pitch = 0;
+	gm->player->bodyYaw = 90;
+	gm->player->yawUnused1 = 90;
 }
 
 void TestModule::onTick(C_GameMode* gm) {
-	auto player = g_Data.getLocalPlayer();
-	//	gm->player->pitch = 0;
-//	gm->player->bodyYaw = 90;
-//	gm->player->yawUnused1 = 90;
 }
 
 void TestModule::onWorldTick(C_GameMode* gm) {
-	//gm->player->pitch = 90;
 }
 
 void TestModule::onMove(C_MoveInputHandler* hand) {
@@ -77,7 +76,6 @@ void TestModule::onSendPacket(C_Packet* packet) {
 }
 
 void TestModule::onDisable() {
-//	g_Data.getClientInstance()->minecraft->setTimerSpeed(20.f);
 }
 
 void TestModule::onLevelRender() {
