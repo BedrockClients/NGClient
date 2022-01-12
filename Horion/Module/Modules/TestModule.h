@@ -20,7 +20,7 @@ public:
 	virtual void onEnable() override;
 	virtual void onTick(C_GameMode* gm) override;
 	virtual void onWorldTick(C_GameMode* gm) override;
-	virtual void onPlayerTick(C_GameMode* gm) override;
+	virtual void onPlayerTick(C_Player* plr) override;
 	virtual void onPreRender(C_MinecraftUIRenderContext* renderCtx);
 	virtual void onPostRender(C_MinecraftUIRenderContext* renderCtx) override;
 	virtual void onSendPacket(C_Packet* p) override;

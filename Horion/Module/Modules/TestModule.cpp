@@ -53,11 +53,11 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 void TestModule::onEnable() {
 }
 
-void TestModule::onPlayerTick(C_GameMode* gm) {
+void TestModule::onPlayerTick(C_Player* plr) {
 	auto player = g_Data.getLocalPlayer();	
-	gm->player->pitch = 0;
-	gm->player->bodyYaw = 90;
-	gm->player->yawUnused1 = 90;
+	player->pitch = 0;
+	player->bodyYaw = 90;
+	player->yawUnused1 = 90;
 }
 
 void TestModule::onTick(C_GameMode* gm) {

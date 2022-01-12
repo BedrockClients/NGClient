@@ -152,6 +152,7 @@ public:
 	void onLoadConfig(void* conf);
 	void onSaveConfig(void* conf);
 	void onTick(C_GameMode* gameMode);
+	void onPlayerTick(C_Player* plr);
 	void onWorldTick(C_GameMode* gameMode);
 	void onAttack(C_Entity* attackedEnt);
 

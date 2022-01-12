@@ -213,6 +213,16 @@ void ModuleManager::onWorldTick(C_GameMode* gameMode) {
 	}
 }
 
+void ModuleManager::onPlayerTick(C_Player* plr) {
+	if (!isInitialized())
+		return;
+	auto lock = lockModuleList();
+	for (auto& mod : moduleList) {
+		if (mod->isEnabled() || mod->callWhenDisabled())
+			mod->onPlayerTick(plr);
+	}
+}
+
 void ModuleManager::onAttack(C_Entity* attackEnt) {
 	if (!isInitialized())
 		return;
