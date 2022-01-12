@@ -201,6 +201,9 @@ bool IModule::allowAutoStart() {
 void IModule::onTick(C_GameMode*) {
 }
 
+void IModule::onPlayerTick(C_GameMode*) {
+}
+
 void IModule::onWorldTick(C_GameMode*) {
 }
 
