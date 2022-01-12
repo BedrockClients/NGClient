@@ -8,6 +8,8 @@ void* NoSneakAddress = (void*)FindSignature("75 0A 80 7B 59 00");
 bool THICCC = false;
 bool GayNigaFags = true;
 bool Fullselect = false;
+bool SukinMyBigJuicyAss = true;
+vec3_t blockBelowUrMom;
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
 	registerBoolSetting("Spoof", &spoof, spoof);
@@ -18,6 +20,7 @@ Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build
 	registerBoolSetting("Spam", &spam, spam);
 	registerBoolSetting("Thick Scaffold", &THICCC, THICCC);
 	registerBoolSetting("Hive", &rot, rot);
+	registerBoolSetting("Rotations", &SukinMyBigJuicyAss, SukinMyBigJuicyAss);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
 	registerBoolSetting("Block Count", &GayNigaFags, GayNigaFags);
 	registerBoolSetting("Y Lock", &yLock, yLock);
@@ -278,27 +281,27 @@ void Scaffold::onLevelRender() {
 		Utils::nopBytes((BYTE*)NoSneakAddress, 2);
 	}
 	if (staircaseMode && g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown) {
-		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 1 block below the player
-		blockBelow.y -= g_Data.getLocalPlayer()->height;
-		blockBelow.y -= 1.5f;
+		blockBelowUrMom = g_Data.getLocalPlayer()->eyePos0;  // Block 1 block below the player
+		blockBelowUrMom.y -= g_Data.getLocalPlayer()->height;
+		blockBelowUrMom.y -= 1.5f;
 
 		vec3_t blockBelowBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 2 blocks below the player
 		blockBelowBelow.y -= g_Data.getLocalPlayer()->height;
 		blockBelowBelow.y -= 2.0f;
 
-		if (!tryScaffold(blockBelow) && !tryScaffold(blockBelowBelow)) {
+		if (!tryScaffold(blockBelowUrMom) && !tryScaffold(blockBelowBelow)) {
 			if (speed > 0.05f) {  // Are we actually walking?
-				blockBelow.z -= vel.z * 0.4f;
+				blockBelowUrMom.z -= vel.z * 0.4f;
 				blockBelowBelow.z -= vel.z * 0.4f;
-				if (!tryScaffold(blockBelow) && !tryScaffold(blockBelowBelow)) {
-					blockBelow.x -= vel.x * 0.4f;
+				if (!tryScaffold(blockBelowUrMom) && !tryScaffold(blockBelowBelow)) {
+					blockBelowUrMom.x -= vel.x * 0.4f;
 					blockBelowBelow.x -= vel.x * 0.4f;
-					if (!tryScaffold(blockBelow) && !tryScaffold(blockBelowBelow) && g_Data.getLocalPlayer()->isSprinting()) {
-						blockBelow.z += vel.z;
-						blockBelow.x += vel.x;
+					if (!tryScaffold(blockBelowUrMom) && !tryScaffold(blockBelowBelow) && g_Data.getLocalPlayer()->isSprinting()) {
+						blockBelowUrMom.z += vel.z;
+						blockBelowUrMom.x += vel.x;
 						blockBelowBelow.z += vel.z;
 						blockBelowBelow.x += vel.x;
-						tryScaffold(blockBelow);
+						tryScaffold(blockBelowUrMom);
 						tryScaffold(blockBelowBelow);
 					}
 				}
@@ -344,9 +347,25 @@ void Scaffold::onLevelRender() {
 			}
 		}
 	}
+	
 	if (spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		supplies->selectedHotbarSlot = slot;
+	}
+}
+void Scaffold::onPlayerTick(C_Player* plr) {
+	if (SukinMyBigJuicyAss) {
+		vec2_t joe;
+		if (staircaseMode && g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown)
+			joe = plr->getPos()->CalcAngle(blockBelowUrMom).normAngles();
+		else
+			joe = plr->getPos()->CalcAngle(blockBelowtest2).normAngles();
+
+		plr->bodyYaw = joe.x;
+		plr->bodyYaw = joe.y;
+		plr->yawUnused1 = joe.x;
+		plr->yawUnused1 = joe.y;
+		plr->pitch = 75.f;
 	}
 }
 

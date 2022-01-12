@@ -30,6 +30,7 @@ public:
 	virtual void onEnable() override;
 	virtual void onDisable() override;
 	virtual void onLevelRender();
+	virtual void onPlayerTick(C_Player* plr) override;
 	virtual void onPostRender(C_MinecraftUIRenderContext* renderCtx);
 	virtual void onSendPacket(C_Packet* packet);
 };
