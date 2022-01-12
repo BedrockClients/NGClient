@@ -80,21 +80,16 @@ void Fucker::onPlayerTick(C_Player* plr) {
 	}
 }
 
-float randomFloat(float a, float b) {
-	float random = ((float)rand()) / (float)RAND_MAX;
-	float diff = b - a;
-	float r = random * diff;
-	return a + r;
-}
-
 void Fucker::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>() && g_Data.getLocalPlayer() != nullptr && bypass) {
 		static auto instaBreakModule = moduleMgr->getModule<InstaBreak>();
 		if (destroy) {
+			instaBreakModule->mode.selected == 1;
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			movePacket->pitch = randomFloat(-90, 90);
-			movePacket->yaw = randomFloat(-180, 180);
-			movePacket->headYaw = randomFloat(-180, 180);
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(vec3_t(blockPos.x, blockPos.y, blockPos.z));
+			movePacket->pitch = angle.x;
+			movePacket->yaw = angle.y;
+			movePacket->headYaw = angle.y;
 		}
 	}
 }
