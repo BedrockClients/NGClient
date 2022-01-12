@@ -73,7 +73,6 @@ private:
 	C_LocalPlayer* localPlayer = nullptr;
 	C_GameMode* gameMode = nullptr;
 	C_EntityList* entityList = nullptr;
-	C_HIDController* hidController = nullptr;
 	C_RakNetInstance* raknetInstance = nullptr;
 	void* hDllInst = 0;
 	std::unordered_set<AABB, AABBHasher> chestList;
@@ -87,10 +86,6 @@ private:
 	bool customGeoActive = false;
 	std::shared_ptr<std::tuple<std::shared_ptr<unsigned char[]>, size_t>> customTexture;
 	bool customTextureActive = false;
-
-public:
-	std::queue<std::shared_ptr<InfoBoxData>> infoBoxQueue;
-
 private:
 
 	bool injectorConnectionActive = false;
@@ -105,6 +100,8 @@ private:
 	TextHolder* fakeName;
 
 public:
+	C_HIDController* hidController = nullptr;
+	std::queue<std::shared_ptr<InfoBoxData>> infoBoxQueue;
 	NetworkedData networkedData;
 
 	static bool canUseMoveKeys();

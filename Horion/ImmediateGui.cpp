@@ -53,14 +53,6 @@ void ButtonInfo::draw(vec2_t mousePos, const char* label) {
 }
 
 void ImmediateGui::onMouseClickUpdate(int key, bool isDown) {
-	switch (key) {
-	case 1:  // Left Click
-		this->leftMb.nextIsDown = true;
-		break;
-	case 2:  // Right Click
-		this->rightMb.nextIsDown = true;
-		break;
-	}
 }
 
 void ImmediateGui::startFrame() {
@@ -69,21 +61,11 @@ void ImmediateGui::startFrame() {
 	this->mousePos = *g_Data.getClientInstance()->getMousePos();
 	this->mousePos = this->mousePos.div(windowSizeReal);
 	this->mousePos = this->mousePos.mul(windowSize);
-
-	this->leftMb.update();
-	this->rightMb.update();
-
-	if (g_Data.getClientInstance()->getMouseGrabbed()) {
-		this->leftMb.isClicked = false;
-		this->rightMb.isClicked = false;
-
-		this->mousePos = {-1000, 1000};
-	}
 }
 
 void ImmediateGui::endFrame() {
-	this->leftMb.isClicked = false;
-	this->rightMb.isClicked = false;
+	//this->leftMb.isClicked = false;
+	//this->rightMb.isClicked = false;
 }
 
 bool ImmediateGui::Button(const char* label, vec2_t pos, bool centered) {
@@ -96,7 +78,8 @@ bool ImmediateGui::Button(const char* label, vec2_t pos, bool centered) {
 
 	button->updatePos(pos);
 	button->draw(this->mousePos, label);
-	if (button->canClick() && this->leftMb.trySteal()) {  // Click
+	if (g_Data.isLeftClickDown()) {  // Click
+		g_Data.hidController->leftClickDown = false;
 		return true;
 	}
 
