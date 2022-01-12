@@ -5,6 +5,7 @@
 #include "../../../Utils/Json.hpp"
 #include "../../../Utils/Logger.h"
 #include "../ModuleManager.h"
+#include "../../../Memory/Hooks.h"
 
 using json = nlohmann::json;
 
@@ -337,7 +338,8 @@ void IModule::setEnabled(bool enabled) {
 		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
 		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 		bool shouldShow = true;
-		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications)
+		std::string screenName(g_Hooks.currentScreenName);
+		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications || strcmp(screenName.c_str(), "start_screen") == 0)
 			shouldShow = false;
 
 		if (shouldShow) {

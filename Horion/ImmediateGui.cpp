@@ -70,7 +70,7 @@ void ImmediateGui::startFrame() {
 	this->mousePos = this->mousePos.div(windowSizeReal);
 	this->mousePos = this->mousePos.mul(windowSize);
 
-	this->leftMb.update();
+this->leftMb.update();
 	this->rightMb.update();
 
 	if (g_Data.getClientInstance()->getMouseGrabbed()) {
@@ -96,8 +96,7 @@ bool ImmediateGui::Button(const char* label, vec2_t pos, bool centered) {
 
 	button->updatePos(pos);
 	button->draw(this->mousePos, label);
-	if (g_Data.isLeftClickDown()) {  // Click
-		g_Data.hidController->leftClickDown = false;
+	if (button->canClick() && this->leftMb.trySteal()) {  // Click
 		return true;
 	}
 
