@@ -2,6 +2,7 @@
 #include "../../../SDK/CAttribute.h"
 
 Fucker::Fucker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific things around you") {
+	registerBoolSetting("Rotations", &rots, rots);
 	registerBoolSetting("Hive Bypass", &bypass, bypass);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
 	registerIntSetting("Range", &range, range, 1, 10);
@@ -62,6 +63,19 @@ void Fucker::onTick(C_GameMode* gm) {
 					}
 				}
 			}
+		}
+	}
+}
+
+void Fucker::onPlayerTick(C_Player* plr) {
+	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->localPlayer->isAlive()) {
+		if (destroy && rots) {
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(vec3_t(blockPos.x, blockPos.y, blockPos.z));
+			plr->bodyYaw = angle.x;
+			plr->bodyYaw = angle.y;
+			plr->yawUnused1 = angle.x;
+			plr->yawUnused1 = angle.y;
+			plr->pitch = angle.x;
 		}
 	}
 }
