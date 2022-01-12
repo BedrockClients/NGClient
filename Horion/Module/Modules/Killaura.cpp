@@ -340,15 +340,16 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
 		if (!targetList.empty()) {
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			auto* pkt = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			float xChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.f));
 			xChange -= 1.5f;
 
-			pkt->yaw = joe.y + xChange;
-			pkt->headYaw = joe.y + xChange;
+			pkt->yaw = angle.y + xChange;
+			pkt->headYaw = angle.y + xChange;
 			float yChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 1.5f));
 			yChange -= 0.75f;
-			pkt->pitch = joe.x + yChange;
+			pkt->pitch = angle.x + yChange;
 		}
 	}
 }
