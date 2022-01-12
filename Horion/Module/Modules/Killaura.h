@@ -35,6 +35,7 @@ public:
 	virtual const char* getModuleName() override;
 	virtual void onTick(C_GameMode* gm) override;
 	virtual void onLevelRender() override;
+	virtual void onPlayerTick(C_Player* plr) override;
 	virtual void onEnable() override;
 	virtual void onDisable() override;
 	virtual void onSendPacket(C_Packet* packet) override;

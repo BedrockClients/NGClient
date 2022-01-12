@@ -110,6 +110,9 @@ void Killaura::findWeapon() {
 	}
 }
 
+void Killaura::onPlayerTick(C_Player* plr) {
+}
+
 void Killaura::onTick(C_GameMode* gm) {
 	auto player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
