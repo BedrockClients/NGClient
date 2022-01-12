@@ -125,6 +125,7 @@ public:
 	virtual bool allowAutoStart();
 
 	virtual void onTick(C_GameMode*);
+	virtual void onPlayerTick(C_GameMode*);
 	virtual void onWorldTick(C_GameMode*);
 	virtual void onKeyUpdate(int key, bool isDown);
 	virtual void onEnable();
