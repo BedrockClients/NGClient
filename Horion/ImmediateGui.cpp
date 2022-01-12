@@ -44,10 +44,12 @@ void ButtonInfo::draw(vec2_t mousePos, const char* label) {
 		
 	DrawUtils::drawText(textPos, &str, MC_Color());
 	if (isInSelectableSurface(mousePos)) {  // Mouse hovering over us
-		DrawUtils::fillRectangle(surface, MC_Color(28, 50, 77), 1);
+		DrawUtils::fillRectangle(surface, MC_Color(0,0,0), 1);
+		DrawUtils::drawRectangle(surface, MC_Color(0,0,255), 1);
 		this->canClickB = true;
 	} else {
-		DrawUtils::fillRectangle(surface, MC_Color(13, 29, 48), 1);
+		DrawUtils::fillRectangle(surface, MC_Color(10, 10, 10), 0.7);
+		DrawUtils::drawRectangle(surface, MC_Color(0, 0, 255), 0.7);
 		this->canClickB = false;
 	}		
 }

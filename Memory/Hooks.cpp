@@ -527,13 +527,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	{
 		// Main Menu
-		if (g_Data.allowWIPFeatures()) {
-			if (HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.92f), true)) {
+		std::string screenName(g_Hooks.currentScreenName);
+		if (g_Data.allowWIPFeatures() && strcmp(screenName.c_str(), "inventory_screen") == 0) {
+			if (HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.04f), true)) {
 				static auto aura = moduleMgr->getModule<Killaura>();
 				if(aura->isEnabled())aura->setEnabled(false);
 			}
 		}
-		std::string screenName(g_Hooks.currentScreenName);
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
 			static auto Surge = moduleMgr->getModule<HudModule>();
