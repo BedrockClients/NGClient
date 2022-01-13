@@ -115,9 +115,7 @@ void Killaura::onPlayerTick(C_Player* plr) {
 	g_Data.forEachEntity(findEntity);
 	if (!targetList.empty()) {
 		vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-		plr->bodyYaw = angle.x;
 		plr->bodyYaw = angle.y;
-		plr->yawUnused1 = angle.x;
 		plr->yawUnused1 = angle.y;
 		plr->pitch = angle.x;
 	}
