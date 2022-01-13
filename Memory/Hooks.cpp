@@ -171,8 +171,8 @@ void Hooks::Init() {
 		void* getFov = reinterpret_cast<void*>(FindSignature("40 53 48 83 EC ?? 0F 29 7C 24 ?? 44"));
 		g_Hooks.LevelRendererPlayer_getFovHook = std::make_unique<FuncHook>(getFov, Hooks::LevelRendererPlayer_getFov);
 
-		void* destroySpeed = reinterpret_cast<void*>(FindSignature("48 89 5C 24 18 48 89 74 24 20 57 48 83 EC 40 48 8B FA OF 29 74 24 30 48 8B 91 88 OB 00 00 48 8B D9"));
-		g_Hooks.getDestroySpeedHook = std::make_unique<FuncHook>(destroySpeed, Hooks::getDestroySpeed);
+		//void* destroySpeed = reinterpret_cast<void*>(FindSignature("48 89 5C 24 18 48 89 74 24 20 57 48 83 EC 40 48 8B FA OF 29 74 24 30 48 8B 91 88 OB 00 00 48 8B D9"));
+		//g_Hooks.getDestroySpeedHook = std::make_unique<FuncHook>(destroySpeed, Hooks::getDestroySpeed);
 
 		void* getRMBHook = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ?? 56 57 41 56 48 83 EC ?? 48 8B ?? ?? ?? ?? ?? 48 33 C4 48 89 44 24 ?? 48 8B F2 4C 8B F1 0F 57 C0"));
 		g_Hooks.RMBManagerThingyHook = std::make_unique<FuncHook>(getRMBHook, Hooks::RMBManagerThingy);
@@ -2272,13 +2272,6 @@ bool Hooks::testy(C_Entity* ent) {
 	return oFunc(ent);
 }
 #endif
-float Hooks::getDestroySpeed(C_Block& block) {
-	static auto oFunc = g_Hooks.testyHook->GetFastcall<float, C_Block&>();
-	static auto instabreakMod = moduleMgr->getModule<InstaBreak>();
-	if (instabreakMod->isEnabled() && instabreakMod->mode.selected == 2)
-		return 75.f;
-	return oFunc(block);
-}
 
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {
 	auto func = g_Hooks.InventoryTransactionManager__addActionHook->GetFastcall<void, C_InventoryTransactionManager*, C_InventoryAction&>();

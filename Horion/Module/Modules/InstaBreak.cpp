@@ -3,9 +3,9 @@
 InstaBreak::InstaBreak() : IModule(VK_NUMPAD4, Category::WORLD, "Break any block instantly") {
 	registerEnumSetting("Mode", &mode, 0);
 	mode = SettingEnum(this)
-		.addEntry(EnumEntry("Normal", 0))
-		.addEntry(EnumEntry("Hold", 1))
-		.addEntry(EnumEntry("FastBreak", 2));
+			   .addEntry(EnumEntry("Normal", 0))
+			   .addEntry(EnumEntry("Hold", 1));
+		//.addEntry(EnumEntry("FastBreak", 2));
 }
 
 InstaBreak::~InstaBreak() {
