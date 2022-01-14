@@ -1341,16 +1341,21 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto disabler = moduleMgr->getModule<Disabler>();
 	static auto test = moduleMgr->getModule<TestModule>();
 	//if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
-		//return;
+	//return;
 	//	g_Data.getLocalPlayer()->jumpFromGround();
 	//}
-	
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
 
-	if (nofall->isEnabled() && g_Data.isInGame() && nofall->nopackety && g_Data.getLocalPlayer()->fallDistance > 2.5f && !g_Data.getLocalPlayer()->onGround)
+	if (nofall->isEnabled() && g_Data.isInGame() && nofall->nopackety && !g_Data.getLocalPlayer()->onGround) {
+		if (packet->isInstanceOf<C_MovePlayerPacket>()) {
+			auto* mpp = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			mpp->onGround = true;
+		}
+		g_Data.getLocalPlayer()->fallDistance = 0.f;
 		return;
+	}
 
 	if (HiveInf->isEnabled() && g_Data.isInGame()) {
 		if (HiveInf->hivee) {
