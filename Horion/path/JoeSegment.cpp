@@ -64,7 +64,7 @@ void JoeSegment::setValidPositions(const std::vector<vec3_ti>& validPositions) {
 void JoeSegment::init() {
 	std::vector<vec3_ti> positions = {start, end};
 
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	auto reg = player->region;
 
 	switch(this->segmentType){

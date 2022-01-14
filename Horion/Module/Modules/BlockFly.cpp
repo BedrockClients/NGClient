@@ -28,13 +28,13 @@ const char* BlockFly::getModuleName() {
 
 void BlockFly::onEnable() {
 	if (dmg) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		//player->animateHurt();
 	}
 }
 
 void BlockFly::onMove(C_MoveInputHandler* input) {
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 
 	if (player->isInLava() == 1 || player->isInWater() == 1)
@@ -93,7 +93,7 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 		player->velocity.x = 0.f;
 		player->velocity.y = 0.00f;
 		player->velocity.z = 0.f;
-		//auto player = g_Data.getLocalPlayer();
+		//C_LocalPlayer* player = g_Data.getLocalPlayer();
 		//player->jumpFromGround();
 	}
 	if (pressed && counter == 5) {
@@ -133,7 +133,7 @@ void BlockFly::onTick(C_GameMode* gm) {
 
 void BlockFly::onDisable() {
 	auto blinkMod = moduleMgr->getModule<Scaffold>();
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	blinkMod->spoof = true;
 	if (safe) {
 		//hi :)

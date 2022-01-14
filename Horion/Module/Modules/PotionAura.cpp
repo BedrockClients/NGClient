@@ -113,7 +113,7 @@ void PotionAura::onTick(C_GameMode* gm) {
 				Odelay = 0;
 			}
 			if (rotations) {
-				auto player = g_Data.getLocalPlayer();
+				C_LocalPlayer* player = g_Data.getLocalPlayer();
 				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetLissst[0]->getPos()).normAngles();
 				player->bodyYaw = angle.y;
 			}
@@ -139,7 +139,7 @@ void PotionAura::onLevelRender() {
 		if (!targetLissst.empty()) {
 			if (sexy) {
 				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetLissst[0]->getPos()).normAngles();
-				auto player = g_Data.getLocalPlayer();
+				C_LocalPlayer* player = g_Data.getLocalPlayer();
 				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetLissst[0]->getPos()).normAngles();
 				player->bodyYaw = angle.x;
 				player->bodyYaw = angle.y;

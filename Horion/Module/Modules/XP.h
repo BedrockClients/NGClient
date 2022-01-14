@@ -11,7 +11,7 @@ public:
 	~XP(){};
 
 	void onTick(C_GameMode* gm) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		player->addLevels(amount);
 	}
 

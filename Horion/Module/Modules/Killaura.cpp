@@ -122,7 +122,7 @@ void Killaura::onPlayerTick(C_Player* plr) {
 }
 
 void Killaura::onTick(C_GameMode* gm) {
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
 	if (g_Data.isInGame()) {
 		g_Data.forEachEntity(findEntity);
@@ -172,7 +172,7 @@ void Killaura::onTick(C_GameMode* gm) {
 }
 
 void Killaura::onLevelRender() {
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
 	if (g_Data.isInGame()) {
 		targetList.clear();

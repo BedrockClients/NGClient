@@ -76,7 +76,7 @@ public:
 		if (hive) {
 			cachedInput = *input;
 			yes = input;
-			auto player = g_Data.getLocalPlayer();
+			C_LocalPlayer* player = g_Data.getLocalPlayer();
 			if (player == nullptr) return;
 
 			if (player->isInLava() == 1 || player->isInWater() == 1)

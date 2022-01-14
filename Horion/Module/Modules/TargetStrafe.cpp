@@ -75,7 +75,7 @@ void TargetStrafe::onMove(C_MoveInputHandler* input) {
 	g_Data.forEachEntity(findGist);
 
 	if (!targetGist.empty()) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
 
 		if (player->isInLava() == 1 || player->isInWater() == 1)
@@ -134,7 +134,7 @@ void TargetStrafe::onTick(C_GameMode* gm) {
 		targetGist.clear();
 		g_Data.forEachEntity(findGist);
 		if (!targetGist.empty()) {
-			auto player = g_Data.getLocalPlayer();
+			C_LocalPlayer* player = g_Data.getLocalPlayer();
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetGist[0]->getPos()).normAngles();
 			player->yawUnused2 = angle.x;
 			player->yawUnused2 = angle.y;

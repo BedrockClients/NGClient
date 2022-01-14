@@ -25,7 +25,7 @@ const char* Trail::getModuleName() {
 }
 
 void Trail::onTick(C_GameMode* gm) {
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 	vec3_t floorPos = *g_Data.getLocalPlayer()->getPos();
 	floorPos.y = g_Data.getLocalPlayer()->getAABB()->lower.y + 0.2f;
@@ -55,7 +55,7 @@ void Trail::onTick(C_GameMode* gm) {
 }
 
 void Trail::onLevelRender() {
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 	if (!linePoints.empty()) {
 	if (Rainbow) 
@@ -71,7 +71,7 @@ void Trail::onLevelRender() {
 }
 
 void Trail::onDisable() {
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 	if (clearondisable)
 	linePoints.clear();

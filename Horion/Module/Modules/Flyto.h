@@ -38,7 +38,7 @@ public:
 		if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
 			if (g_Data.isInGame()) {
 				if (dmg) {
-					auto player = g_Data.getLocalPlayer();
+					C_LocalPlayer* player = g_Data.getLocalPlayer();
 					//player->animateHurt();
 				}
 				if (cubeMode) g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(vec3_t(0, 1, 0)));

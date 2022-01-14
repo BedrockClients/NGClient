@@ -11,7 +11,7 @@ public:
 		return "FastStop";
 	}
 	virtual void onMove(C_MoveInputHandler* input) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
 		if (!pressed) {

@@ -64,7 +64,7 @@ public:
 
 				//Rots to look down
 				float rotChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.f)) + 1.f;
-				auto player = g_Data.getLocalPlayer();
+				C_LocalPlayer* player = g_Data.getLocalPlayer();
 				C_MovePlayerPacket mpp(player, *player->getPos());
 				mpp.onGround = player->onGround;
 				mpp.pitch = 90.f - rotChange;

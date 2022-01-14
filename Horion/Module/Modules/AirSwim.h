@@ -11,7 +11,7 @@ public:
 	~AirSwim(){};
 
 	void onEnable() {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr)
 			return;
 		player->didEnterWaterBool = true;
@@ -19,7 +19,7 @@ public:
 	}
 
 	void onTick(C_GameMode* gm) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		player->didEnterWaterBool = true;
 		if (particles)
 			player->doWaterSplashEffect();
@@ -27,7 +27,7 @@ public:
 	}
 
 	void onDisable() {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr)
 			return;
 		player->didEnterWaterBool = false;

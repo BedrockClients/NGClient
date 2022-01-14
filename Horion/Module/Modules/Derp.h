@@ -19,12 +19,12 @@ public:
 		if (packetMode) {
 			C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
 			if (epicStroke && !hive) {
-				auto player = g_Data.getLocalPlayer();
+				C_LocalPlayer* player = g_Data.getLocalPlayer();
 				player->yaw = player->bodyYaw + 180;
 				p.pitch = (float)(rand() % 360);
 				p.yaw = (float)(rand() % 360);
 			} else {
-				auto player = g_Data.getLocalPlayer();
+				C_LocalPlayer* player = g_Data.getLocalPlayer();
 				player->yaw = player->bodyYaw + 180;
 				p.pitch = (float)(counter % 360);
 				p.yaw = (float)(counter % 360);
@@ -32,12 +32,12 @@ public:
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
 		} else {
 			if (epicStroke && !hive) {
-				auto player = g_Data.getLocalPlayer();
+				C_LocalPlayer* player = g_Data.getLocalPlayer();
 				player->yaw = player->bodyYaw + 180;
 				gm->player->pitch = (float)(rand() % 360);
 				gm->player->bodyYaw = (float)(rand() % 360);
 			} else if (!hive) {
-				auto player = g_Data.getLocalPlayer();
+				C_LocalPlayer* player = g_Data.getLocalPlayer();
 				player->yaw = player->bodyYaw - 180;
 			}
 		}

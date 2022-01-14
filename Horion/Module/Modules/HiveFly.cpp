@@ -26,7 +26,7 @@ void HiveFly::onTick(C_GameMode* gm) {
 		findBlock();
 
 	if (counter <= 10) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		C_MovePlayerPacket mpp(player, *player->getPos());
 		mpp.onGround = player->onGround;
 		mpp.pitch = 90.f - rotChange;
@@ -61,7 +61,7 @@ bool HiveFly::findBlock() {
 
 void HiveFly::onMove(C_MoveInputHandler* input) {
 	if (counter >= 15) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
 
 		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
@@ -160,7 +160,7 @@ void HiveFly::onLevelRender() {
 void HiveFly::onDisable() {
 	counter = 0;
 	if (g_Data.getLocalPlayer() != nullptr) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		player->velocity.y = 0.f;
 		*g_Data.getClientInstance()->minecraft->timer = 20.f;
 	}

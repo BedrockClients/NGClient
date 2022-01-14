@@ -33,7 +33,7 @@ public:
 	}
 
 	void onMove(C_MoveInputHandler* input) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
 
 		float yaw = player->yaw;

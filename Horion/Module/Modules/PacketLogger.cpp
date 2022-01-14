@@ -19,7 +19,7 @@ const char* PacketLogger::getModuleName() {
 
 void PacketLogger::onSendPacket(C_Packet* packet) {
 	if (packetadd && addressType.selected == 0) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		uint64_t currVTable = *(UINT64*)packet;
 		std::stringstream stream;
 		stream << std::hex << (currVTable - Utils::getBase());
@@ -30,7 +30,7 @@ void PacketLogger::onSendPacket(C_Packet* packet) {
 	}
 
 	if (packetadd && addressType.selected == 1) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		uint64_t currVTable = *(UINT64*)packet;
 		std::stringstream stream;
 		stream << std::hex << (currVTable - Utils::getBase() + 0x140000000);

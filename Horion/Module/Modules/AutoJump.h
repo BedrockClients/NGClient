@@ -9,7 +9,7 @@ public:
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("AutoJump"); }
 	virtual void onTick(C_GameMode* gm) override {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 
 		if (player->onGround) player->jumpFromGround();
 	}

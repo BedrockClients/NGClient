@@ -228,9 +228,6 @@ void Hooks::Init() {
 		void* localPlayerUpdateFromCam = reinterpret_cast<void*>(FindSignature("48 89 5C 24 10 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 80"));
 		g_Hooks.LocalPlayer__updateFromCameraHook = std::make_unique<FuncHook>(localPlayerUpdateFromCam, Hooks::LocalPlayer__updateFromCamera);
 
-		//void* MobIsImmobile = reinterpret_cast<void*>(FindSignature("40 53 48 83 EC ? 48 8B D9 E8 ? ? ? ? 84 C0 75 ? 48 8B 03 48 8B CB"));
-		//g_Hooks.Mob__isImmobileHook = std::make_unique<FuncHook>(MobIsImmobile, Hooks::Mob__isImmobile);
-
 		//void* renderNameTags = reinterpret_cast<void*>(FindSignature("4C 8B DC 49 89 5B ? 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 41 0F 29 73 ? 41 0F 29 7B ? 45 0F 29 43 ? 48 8B 05"));
 		//g_Hooks.LevelRendererPlayer__renderNameTagsHook = std::make_unique<FuncHook>(renderNameTags, Hooks::LevelRendererPlayer__renderNameTags);
 
@@ -1357,7 +1354,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 
 	if (HiveInf->isEnabled() && g_Data.isInGame()) {
 		if (HiveInf->hivee) {
-			auto player = g_Data.getLocalPlayer();
+			C_LocalPlayer* player = g_Data.getLocalPlayer();
 			if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
 				ree->onGround = true;
@@ -1391,7 +1388,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 
 	if (nofall->isEnabled() && g_Data.isInGame()) {
 		if (nofall->server) {
-			auto player = g_Data.getLocalPlayer();
+			C_LocalPlayer* player = g_Data.getLocalPlayer();
 			if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
 				if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 4.f) {

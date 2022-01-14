@@ -43,7 +43,7 @@ void LongJump::onMove(C_MoveInputHandler* input) {
 		auto hop = moduleMgr->getModule<Bhop>();
 		hop->setEnabled(false);
 	}
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 	bool pressed = moveVec2d.magnitude() > 0.01f;

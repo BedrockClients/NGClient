@@ -60,7 +60,7 @@ void FollowPathModule::onTick(C_GameMode *mode) {
 		return;
 	shouldStartSearch = false;
 
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	auto pPos = player->eyePos0;
 	vec3_ti startNode((int)floorf(pPos.x), (int)roundf(pPos.y - 1.62f), (int)floorf(pPos.z));
 

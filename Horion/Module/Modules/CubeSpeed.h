@@ -9,7 +9,7 @@ private:
 
 public:
 	virtual void onMove(C_MoveInputHandler* input) override {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
 

@@ -13,7 +13,7 @@ public:
 	~AutoWalk(){};
 
 	void onTick(C_GameMode* gm) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 
 		g_Data.getClientInstance()->getMoveTurnInput()->forward = true;
 

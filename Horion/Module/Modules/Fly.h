@@ -111,7 +111,7 @@ public:
 	}
 
 	void onMove(C_MoveInputHandler* input) {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 		if (mode.selected == 2) {
 			if (player == nullptr) return;

@@ -8,7 +8,7 @@ public:
 	~XpCommand(){};
 
 	bool execute(std::vector<std::string>* args) override {
-		auto player = g_Data.getLocalPlayer();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (!player) return false;
 
 		std::string amount = args->at(1);

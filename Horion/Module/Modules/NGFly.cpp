@@ -30,7 +30,7 @@ const char* NGFly::getRawModuleName() {
 }
 
 void NGFly::onMove(C_MoveInputHandler* input) {
-	auto player = g_Data.getLocalPlayer();
+	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 
 	if (player->isInLava() == 1 || player->isInWater() == 1)
