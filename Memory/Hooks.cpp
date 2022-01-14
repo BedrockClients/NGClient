@@ -2167,7 +2167,13 @@ bool Hooks::testy(C_Entity* ent) {
 	return oFunc(ent);
 }
 #endif
-
+/*float Hooks::getDestroySpeed(C_Block& block) {
+	static auto oFunc = g_Hooks.testyHook->GetFastcall<float, C_Block&>();
+	static auto instabreakMod = moduleMgr->getModule<InstaBreak>();
+	if (instabreakMod->isEnabled() && instabreakMod->mode.selected == 2)
+		return 75.f;
+	return oFunc(block);
+}*/
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {
 	auto func = g_Hooks.InventoryTransactionManager__addActionHook->GetFastcall<void, C_InventoryTransactionManager*, C_InventoryAction&>();
 
