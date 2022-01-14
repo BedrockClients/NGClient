@@ -533,7 +533,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		//Draw Buttons
 		static auto GUI2 = moduleMgr->getModule<ClickGuiMod>();
 		if (!g_Data.canUseMoveKeys() && !GUI2->isEnabled()) {
-			if (HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.04f), true)) {
+			if (HImGui.Button("Disable Aura", vec2_t(wid.x / 10, wid.y / 10), true)) {
 				static auto aura = moduleMgr->getModule<Killaura>();
 				if (aura->isEnabled()) aura->setEnabled(false);
 			}
@@ -544,7 +544,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			static auto Surge = moduleMgr->getModule<HudModule>();
 			if (Surge->surge) {
 				std::string text = "Surge  Client";
-				vec2_t textPos = vec2_t(wid.x / 1.38f - DrawUtils::getTextWidth(&text, 7.f) / 1.f, wid.y / -30.f);
+				auto gay = wid.x / 2;
+				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text,text.size() / 3.3), wid.y / 70);
 				vec4_t rectPos = vec4_t(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
 				static auto rgbborderhud = moduleMgr->getModule<HudModule>();
 				if (rgbborderhud->rgb) {
