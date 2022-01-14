@@ -336,9 +336,9 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 
 void* Hooks::playerCallBack(C_Player* lp, void* a2) {
 	static auto oTick = g_Hooks.playerCallBack_Hook->GetFastcall<void*, C_Player*, void*>();
-	if (lp == g_Data.getLocalPlayer() && g_Data.getLocalPlayer() != nullptr) {
-		moduleMgr->onPlayerTick(lp);
-	}
+//I  dont think we need the check for if lp = g_Data.getLocalPlayer. Maybe removing it might fix the invis glitch.
+	moduleMgr->onPlayerTick(lp);
+	
 	return oTick;
 }
 
