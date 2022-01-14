@@ -292,3 +292,18 @@ CommandRequestPacket::CommandRequestPacket(std::string cmd) {
 	this->one = 1;
 	this->payload.setText(cmd);
 }
+
+C_InteractPacket::C_InteractPacket(/*enum InteractPacket::Action, class ActorRuntimeID, vec3_t const&*/) {
+	static uintptr_t** interactPacketVtable = 0x0;
+	if (interactPacketVtable == 0x0) {
+		uintptr_t sigOffset = FindSignature("48 8D 15 ? ? ? ? C7 40 ? ? ? ? ? 33 C9 C7 40 ? ? ? ? ? 48 89 48 28 48 89 48 30 89 48 38 88 48 40 48 89 48 48 48 89 48 50");
+		int offset = *reinterpret_cast<int*>(sigOffset + 3);
+		interactPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
+#ifdef _DEBUG
+		if (interactPacketVtable == 0x0 || sigOffset == 0x0)
+			__debugbreak();
+#endif
+	}
+	memset(this, 0, sizeof(C_InteractPacket));  // Avoid overwriting vtable
+	vTable = interactPacketVtable;
+}

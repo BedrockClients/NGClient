@@ -182,7 +182,7 @@ bool Scaffold::findBlock() {
 	C_Inventory* inv = supplies->inventory;
 	auto prevSlot = supplies->selectedHotbarSlot;
 	if (!Fullselect) {
-		for (int n = 0; n < 8; n++) {
+		for (int n = 0; n < 9; n++) {
 			C_ItemStack* stack = inv->getItemStack(n);
 			if (stack->item != nullptr) {
 				if (stack->getItem()->isBlock() && isUsefulBlock(stack)) {

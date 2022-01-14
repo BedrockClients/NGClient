@@ -135,6 +135,13 @@ public:
 	CommandRequestPacket(std::string cmd);
 };
 
+class C_InteractPacket : public C_Packet {
+public:
+	C_InteractPacket(/**enum InteractPacket::Action, class ActorRuntimeID, vec3_t const&*/);
+	unsigned char actionID;//Test
+	long targetRuntimeEntityID;//Test
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();
