@@ -527,16 +527,16 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	{
 		// Main Menu
 		std::string screenName(g_Hooks.currentScreenName);
-		bool screenCheck = true;
 
-		//Check if screen is good to render
-		if (screenName != "inventory_screen" || screenName != "start_screen" && screenName != "pause_screen")
-			screenCheck = false;
+		//strcmp(screenName.c_str(), "start_screen") == 0 || strcmp(screenName.c_str(), "pause_screen") == 0 || strcmp(screenName.c_str(), "inventory_screen") == 0 //Use this to check the screens
 
 		//Draw Buttons
-		if (HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.04f), true) && !screenCheck) {
+		static auto GUI2 = moduleMgr->getModule<ClickGuiMod>();
+		if (!g_Data.canUseMoveKeys() && !GUI2->isEnabled()) {
+			if (HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.04f), true)) {
 				static auto aura = moduleMgr->getModule<Killaura>();
-				if(aura->isEnabled())aura->setEnabled(false);
+				if (aura->isEnabled()) aura->setEnabled(false);
+			}
 		}
 
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
