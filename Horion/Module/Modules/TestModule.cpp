@@ -1,4 +1,5 @@
 #include "TestModule.h"
+#include "../../../Memory/Hooks.h"
 
 TestModule::TestModule() : IModule(0, Category::WORLD, "For testing purposes") {
 	enum1 = SettingEnum(this)
@@ -82,6 +83,10 @@ void TestModule::onLevelRender() {
 }
 
 void TestModule::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
+	std::string screenName(g_Hooks.currentScreenName);
+	if (screenName != "toast_screen" && screenName != "start_screen" && screenName != "debug_screen" && screenName != "pause_screen" && screenName != "À$0a-" && screenName != "ÀA&w-")
+	DrawUtils::drawText(vec2_t{100, 100}, &screenName, MC_Color(0, 0, 255));
+
 	//C_TexturePtr texture;
 	//texture.filePath = TextHolder("texture/ui/hotbar_2");
 	//__int64 yot = 0;

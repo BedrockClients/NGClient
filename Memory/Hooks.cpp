@@ -336,7 +336,7 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 
 void* Hooks::playerCallBack(C_Player* lp, void* a2) {
 	static auto oTick = g_Hooks.playerCallBack_Hook->GetFastcall<void*, C_Player*, void*>();
-	if (lp == g_Data.getLocalPlayer()) {
+	if (lp == g_Data.getLocalPlayer() && g_Data.getLocalPlayer() != nullptr) {
 		moduleMgr->onPlayerTick(lp);
 	}
 	return oTick;
@@ -527,12 +527,17 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	{
 		// Main Menu
 		std::string screenName(g_Hooks.currentScreenName);
-		if (strcmp(screenName.c_str(), "inventory_screen") == 0 || strcmp(screenName.c_str(), "start_screen") == 0) {
-			if (HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.04f), true)) {
+
+		bool screenCheck = false;
+
+		if (screenName == "inventory_screen" || screenName == "start_screen" && screenName == "pause_screen")
+			screenCheck = true;
+
+		if (screenCheck && HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.04f), true)) {
 				static auto aura = moduleMgr->getModule<Killaura>();
 				if(aura->isEnabled())aura->setEnabled(false);
-			}
 		}
+
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
 			static auto Surge = moduleMgr->getModule<HudModule>();
