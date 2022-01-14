@@ -527,13 +527,14 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	{
 		// Main Menu
 		std::string screenName(g_Hooks.currentScreenName);
+		bool screenCheck = true;
 
-		bool screenCheck = false;
+		//Check if screen is good to render
+		if (screenName != "inventory_screen" || screenName != "start_screen" && screenName != "pause_screen")
+			screenCheck = false;
 
-		if (screenName == "inventory_screen" || screenName == "start_screen" && screenName == "pause_screen")
-			screenCheck = true;
-
-		if (screenCheck && HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.04f), true)) {
+		//Draw Buttons
+		if (HImGui.Button("Disable Aura", vec2_t(wid.x * 0.04f, wid.y * 0.04f), true) && !screenCheck) {
 				static auto aura = moduleMgr->getModule<Killaura>();
 				if(aura->isEnabled())aura->setEnabled(false);
 		}
@@ -557,118 +558,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					DrawUtils::drawText(textPos, &text, MC_Color(currColor), 8.f);
 				} else {
 					DrawUtils::drawText(textPos, &text, MC_Color(0, 0, 255), 8.f);
-				}
-			}
-			// Draw Custom Buttons
-			if (g_Data.allowWIPFeatures() && g_Data.isInjectorConnectionActive()) {
-				if (HImGui.Button("Load Script Folder", vec2_t(wid.x * (0.765f - 0.5f), wid.y * 0.92f), true)) {
-					HorionDataPacket packet;
-					packet.cmd = CMD_FOLDERCHOOSER;
-					auto tmp = std::shared_ptr<unsigned char[]>(new unsigned char[300]);
-					packet.data.swap(tmp);
-					memset(packet.data.get(), 0, 300);
-					strcpy_s((char*)packet.data.get(), 200, "{\"title\": \"Select a Script Folder\", \"filter\":\".js\"}");
-					packet.dataArraySize = (int)strlen((char*)packet.data.get());
-					packet.params[0] = g_Data.addInjectorResponseCallback([](std::shared_ptr<HorionDataPacket> pk) {
-						if (pk->params[0] != 1) {  // Dialog Canceled, reset geo
-							auto box = g_Data.addInfoBox("Scripting", "Invalid Folder");
-							box->closeTimer = 8;
-							return;
-						}
-
-						wchar_t* jsonData = reinterpret_cast<wchar_t*>(pk->data.get());
-						std::wstring jsonDataStr(jsonData);
-
-						json parsed = json::parse(jsonDataStr);
-						if (parsed["path"].is_string()) {
-							auto box = g_Data.addInfoBox("Importing Script", "Please wait...");
-							std::thread gamer([parsed, box]() {
-								auto result = scriptMgr.importScriptFolder(parsed["path"].get<std::string>());
-								if (result)
-									box->fadeTarget = 0;
-								else {
-									box->message = "Script import error, \ncheck the console";
-									box->closeTimer = 8;
-								}
-							});
-							gamer.detach();
-						}
-					});
-
-					g_Data.sendPacketToInjector(packet);
-				}
-				if (HImGui.Button("Custom Geometry", vec2_t(wid.x * 0.765f, wid.y * 0.92f), true)) {
-					HorionDataPacket packet;
-					packet.cmd = CMD_FILECHOOSER;
-					auto tmp = std::shared_ptr<unsigned char[]>(new unsigned char[300]);
-					packet.data.swap(tmp);
-					memset(packet.data.get(), 0, 300);
-					strcpy_s((char*)packet.data.get(), 200, "{\"title\": \"Select a 3d object\", \"filter\":\"Object Files (*.obj)|*.obj\"}");
-					packet.dataArraySize = (int)strlen((char*)packet.data.get());
-					packet.params[0] = g_Data.addInjectorResponseCallback([](std::shared_ptr<HorionDataPacket> pk) {
-						if (pk->params[0] != 1 && std::get<0>(g_Data.getCustomGeoOverride())) {  // Dialog Canceled, reset geo
-							auto box = g_Data.addInfoBox("Geometry reset", "Geometry override removed");
-							box->closeTimer = 1;
-							return;
-						}
-
-						wchar_t* jsonData = reinterpret_cast<wchar_t*>(pk->data.get());
-						std::wstring jsonDataStr(jsonData);
-
-						json parsed = json::parse(jsonDataStr);
-						if (parsed["path"].is_string()) {
-							auto box = g_Data.addInfoBox("Importing Skin", "Please wait...");
-							std::thread gamer([parsed, box]() {
-								SkinUtil::importGeo(Utils::stringToWstring(parsed["path"].get<std::string>()));
-								box->fadeTarget = 0;
-							});
-							gamer.detach();
-						}
-					});
-
-					g_Data.sendPacketToInjector(packet);
-				}
-				if (HImGui.Button("Custom Texture", vec2_t(wid.x * 0.5f, wid.y * 0.92f), true)) {
-					HorionDataPacket packet;
-					packet.cmd = CMD_FILECHOOSER;
-					auto tmp = std::shared_ptr<unsigned char[]>(new unsigned char[500]);
-					packet.data.swap(tmp);
-					memset(packet.data.get(), 0, 500);
-					strcpy_s((char*)packet.data.get(), 400, "{\"title\": \"Select a raw image file\", \"filter\":\"Raw image files (*.data, *.raw)|*.data;*.raw\"}");
-					packet.dataArraySize = (int)strlen((char*)packet.data.get());
-					packet.params[0] = g_Data.addInjectorResponseCallback([](std::shared_ptr<HorionDataPacket> pk) {
-						if (pk->params[0] != 1 && std::get<0>(g_Data.getCustomTextureOverride())) {  // Dialog Canceled, reset texture
-							auto box = g_Data.addInfoBox("Texture reset", "Texture override removed");
-							box->closeTimer = 1;
-							return;
-						}
-
-						wchar_t* jsonData = reinterpret_cast<wchar_t*>(pk->data.get());
-						std::wstring jsonDataStr(jsonData);
-
-						json parsed = json::parse(jsonDataStr);
-						if (parsed["path"].is_string()) {
-							auto box = g_Data.addInfoBox("Importing texture...", "");
-							std::thread gamer([parsed, box]() {
-								auto contents = Utils::readFileContents(Utils::stringToWstring(parsed["path"].get<std::string>()));
-								if (contents.size() > 0) {
-									auto texturePtr = std::shared_ptr<unsigned char[]>(new unsigned char[contents.size() + 1]);
-									memcpy(texturePtr.get(), contents.c_str(), contents.size());
-									texturePtr.get()[contents.size()] = 0;
-									g_Data.setCustomTextureOverride(true, std::make_shared<std::tuple<std::shared_ptr<unsigned char[]>, size_t>>(texturePtr, contents.size()));
-									box->title = "Success";
-									box->closeTimer = 0.3f;
-								} else {
-									box->title = "Error!";
-									box->message = "Could not read texture file (empty?)";
-									box->closeTimer = 2.f;
-								}
-							});
-							gamer.detach();
-						}
-					});
-
-					g_Data.sendPacketToInjector(packet);
 				}
 			}
 		} else {
