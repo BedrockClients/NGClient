@@ -70,8 +70,6 @@ void Hooks::Init() {
 
 				g_Hooks.Actor_swingHook = std::make_unique<FuncHook>(localPlayerVtable[219], Hooks::Actor_swing);
 
-				g_Hooks.Actor_lookAtHook = std::make_unique<FuncHook>(localPlayerVtable[249], Hooks::Actor_lookAt);
-
 				g_Hooks.JumpPowerHook = std::make_unique<FuncHook>(localPlayerVtable[346], Hooks::JumpPower); //jump from ground with movement proxy
 
 				g_Hooks.setPosHook = std::make_unique<FuncHook>(localPlayerVtable[19], Hooks::setPos);
@@ -1760,12 +1758,6 @@ void Hooks::Actor_swing(C_Entity* _this) {
 	static auto scaffMod = moduleMgr->getModule<Scaffold>();
 	static auto breakmod = moduleMgr->getModule<Fucker>();
 	if (!(noSwingMod->isEnabled() || killMod->isEnabled() && killMod->noSwing || scaffMod->isEnabled() && scaffMod->noSwing || breakmod->isEnabled() && breakmod->noSwing && breakmod->destroy)) return oFunc(_this);
-}
-
-void Hooks::Actor_lookAt(C_Entity* _this, float a1, float a2) {
-	static auto oFunc = g_Hooks.Actor_lookAtHook->GetFastcall<void, C_Entity*, float, float>();
-	//idk, but we could do somthin
-	oFunc(_this, a1, a2);
 }
 
 void Hooks::Actor_startSwimming(C_Entity* _this) {
