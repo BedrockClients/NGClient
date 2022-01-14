@@ -361,9 +361,7 @@ void Scaffold::onPlayerTick(C_Player* plr) {
 		else
 			joe = plr->getPos()->CalcAngle(blockBelowtest2).normAngles();
 		if (findBlock()) {
-			plr->bodyYaw = joe.x;
 			plr->bodyYaw = joe.y;
-			plr->yawUnused1 = joe.x;
 			plr->yawUnused1 = joe.y;
 			plr->pitch = 75.f;
 		}
