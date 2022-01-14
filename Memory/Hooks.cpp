@@ -82,7 +82,7 @@ void Hooks::Init() {
 
 				g_Hooks.Player_tickWorldHook = std::make_unique<FuncHook>(localPlayerVtable[365], Hooks::Player_tickWorld);
 				#ifdef _DEBUG
-				g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[131], Hooks::testy);
+				//g_Hooks.testyHook = std::make_unique<FuncHook>(localPlayerVtable[1], Hooks::testy);
 				#endif
 			}
 		}
