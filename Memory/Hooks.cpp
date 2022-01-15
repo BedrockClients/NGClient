@@ -166,9 +166,6 @@ void Hooks::Init() {
 		void* getFov = reinterpret_cast<void*>(FindSignature("40 53 48 83 EC ?? 0F 29 7C 24 ?? 44"));
 		g_Hooks.LevelRendererPlayer_getFovHook = std::make_unique<FuncHook>(getFov, Hooks::LevelRendererPlayer_getFov);
 
-		//void* destroySpeed = reinterpret_cast<void*>(FindSignature("48 89 5C 24 18 48 89 74 24 20 57 48 83 EC 40 48 8B FA OF 29 74 24 30 48 8B 91 88 OB 00 00 48 8B D9"));
-		//g_Hooks.getDestroySpeedHook = std::make_unique<FuncHook>(destroySpeed, Hooks::getDestroySpeed);
-
 		void* getRMBHook = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ?? 56 57 41 56 48 83 EC ?? 48 8B ?? ?? ?? ?? ?? 48 33 C4 48 89 44 24 ?? 48 8B F2 4C 8B F1 0F 57 C0"));
 		g_Hooks.RMBManagerThingyHook = std::make_unique<FuncHook>(getRMBHook, Hooks::RMBManagerThingy);
 
@@ -207,6 +204,9 @@ void Hooks::Init() {
 
 		void* _getSkinPack = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? B8 ? ? ? ? E8 ? ? ? ? 48 2B E0 48 8B 05 ? ? ? ? 48 33 C4 48 89 85 ? ? ? ? 4C 8B EA 48 8B F1"));
 		g_Hooks.SkinRepository___loadSkinPackHook = std::make_unique<FuncHook>(_getSkinPack, Hooks::SkinRepository___loadSkinPack);
+
+		void* destroySpeed = reinterpret_cast<void*>(FindSignature("48 89 5C 24 18 48 89 74 24 20 57 48 83 EC 40 48 8B FA OF 29 74 24 30 48 8B 91 88 OB 00 00 48 8B D9"));
+		g_Hooks.getDestroySpeedHook = std::make_unique<FuncHook>(destroySpeed, Hooks::getDestroySpeed);
 
 		//void* _toStyledString = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 48 89 74 24 ? 57 48 81 EC ? ? ? ? 49 8B D8 48 8B F9"));
 		//g_Hooks.toStyledStringHook = std::make_unique<FuncHook>(_toStyledString, Hooks::toStyledString);
@@ -1181,7 +1181,6 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 	static syncShit_t syncShit = nullptr;
 	if (syncShit == nullptr) {
 		uintptr_t sigOffset = 0;
-		// sig of function: (present 3 times in the exe)
 		sigOffset = FindSignature("40 53 48 83 EC ? 48 8B DA 48 8D 4C 24 ? E8 ? ? ? ? 90 48 8B 40 ? 48 8B 08 48 8B 01 48 8B D3 FF 90 ? ? ? ? 90 F0 48 FF 0D ? ? ? ? 48 8B 44 24 ? 48 85 C0 74 ? 48 83 38 ? 74 ? 80 7C 24 ? ? 74 ? F0 48 FF 0D ? ? ? ? 48 8B 4C 24 ? 48 85 C9 74 ? 80 7C 24 ? ? 74 ? E8 ? ? ? ? C6 44 24 ? ? 48 8D 4C 24 ? E8 ? ? ? ? 48 8D 4C 24 ? E8 ? ? ? ? 80 7C 24 ? ? 74 ? 48 8B 4C 24 ? E8 ? ? ? ? 90 48 83 C4 ? 5B C3 B9 ? ? ? ? E8 ? ? ? ? CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC 40 53");
 		auto funcOffset = *reinterpret_cast<int*>(sigOffset);
 		syncShit = reinterpret_cast<syncShit_t>(sigOffset);
@@ -2154,13 +2153,13 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 	return oFunc(ent);
 }
 #endif*/
-/*float Hooks::getDestroySpeed(C_Block& block) {
-	static auto oFunc = g_Hooks.testyHook->GetFastcall<float, C_Block&>();
+float Hooks::getDestroySpeed(C_Block& block) {
+	static auto oFunc = g_Hooks.getDestroySpeedHook->GetFastcall<float, C_Block&>();
 	static auto instabreakMod = moduleMgr->getModule<InstaBreak>();
 	if (instabreakMod->isEnabled() && instabreakMod->mode.selected == 2)
-		return 75.f;
+		return 100.f;
 	return oFunc(block);
-}*/
+}
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {
 	auto func = g_Hooks.InventoryTransactionManager__addActionHook->GetFastcall<void, C_InventoryTransactionManager*, C_InventoryAction&>();
 
