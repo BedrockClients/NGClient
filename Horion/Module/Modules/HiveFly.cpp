@@ -40,10 +40,12 @@ void HiveFly::onEnable() {
 	dontGoDown = true;
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player != nullptr) {
-		vec3_t myPos = *player->getPos();
-		myPos.y += 2.1f;
-		player->setPos(myPos);
-		player->jumpFromGround();
+		if (player->onGround == true) {
+			vec3_t myPos = *player->getPos();
+			myPos.y += 2.1f;
+			player->setPos(myPos);
+			player->jumpFromGround();
+		}
 	}
 }
 
