@@ -673,6 +673,26 @@ public:
 	virtual __int64 _getSpawnChunkLimit(void);                                                                           // 443
 	virtual __int64 _updateChunkPublisherView(vec3_t const &, float);    
 
+	void enchantItem(C_ItemStack *item, int id, int level) {
+		using getEnchantsFromUserData_t = void(__fastcall *)(C_ItemStack *, void *);
+		using addEnchant_t = bool(__fastcall *)(void *, __int64);
+		using saveEnchantsToUserData_t = void(__fastcall *)(C_ItemStack *, void *);
+		static getEnchantsFromUserData_t getEnchantsFromUserData = reinterpret_cast<getEnchantsFromUserData_t>(FindSignature("48 89 5C 24 ? 55 56 57 48 81 EC ? ? ? ? 48 8B F2 48 8B D9 48 89 54 24 ? 33 FF 89 7C 24 ? E8 ? ? ? ? 84 C0"));
+		static addEnchant_t addEnchant = reinterpret_cast<addEnchant_t>(FindSignature("48 89 5C 24 ?? 48 89 54 24 ?? 57 48 83 EC ?? 45 0F"));
+		static saveEnchantsToUserData_t saveEnchantsToUserData = 0x0;
+		if (!saveEnchantsToUserData) {
+			saveEnchantsToUserData = reinterpret_cast<saveEnchantsToUserData_t>(FindSignature("48 89 5C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 0F 29 B4 24 ? ? ? ? 48 8B FA 4C 8B C1 48 8B 41 08 48 85 C0"));
+		}
+		void *EnchantData = malloc(0x60);
+		if (EnchantData != nullptr)
+			memset(EnchantData, 0x0, 0x60);
+		getEnchantsFromUserData(item, EnchantData);
+		__int64 enchantPair = ((__int64)level << 32) | id;
+		if (addEnchant(EnchantData, enchantPair))  // Upper 4 bytes = level, lower 4 bytes = enchant type
+			saveEnchantsToUserData(item, EnchantData);
+		free(EnchantData);
+
+	}
 };
 
 class C_ServerPlayer : public C_Player {
