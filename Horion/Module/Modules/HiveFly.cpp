@@ -35,14 +35,14 @@ float epicHiveFlySpeedArrayThingy[15] = {
 
 int flySpeedIndex = 0;
 
-bool dontGoDown = true;
+int stopYThingy = 0;
 
 void HiveFly::onEnable() {
 	srand(time(NULL));
 	counter = 0;
 	counter69 = 0;
 	flySpeedIndex = 0;
-	dontGoDown = true;
+	stopYThingy = 0;
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player != nullptr) {
 		if (player->onGround == true) {
@@ -82,11 +82,12 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 		float moveSpeed = epicHiveFlySpeedArrayThingy[flySpeedIndex++ % 15];
 		moveVec.x = moveVec2d.x * moveSpeed;
 
-		if (dontGoDown)
-			moveVec.y = 0.f;
-		else
+		if (stopYThingy >= 5) {
+			stopYThingy = 0;
 			moveVec.y = player->velocity.y;
-		dontGoDown = !dontGoDown;
+		}
+		else moveVec.y = 0.f;
+		stopYThingy++;
 
 		moveVec.z = moveVec2d.y * moveSpeed;
 
