@@ -70,6 +70,13 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 		vec3_ti blok(blockBelow);
 		int i = 0;
 		if (airplace) {
+			if (fagNigas && GameData::isKeyDown(*input->spaceBarKey) && !yLock) {
+				vec3_t moveVec;
+				moveVec.x = g_Data.getLocalPlayer()->velocity.x;
+				moveVec.y = UpwardsFlyinNigas;
+				moveVec.z = g_Data.getLocalPlayer()->velocity.z;
+				g_Data.getLocalPlayer()->lerpMotion(moveVec);
+			}
 			g_Data.getCGameMode()->buildBlock(&blok, i);
 			return true;
 		} else {
@@ -98,7 +105,7 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 				i++;
 			}
 			if (foundCandidate) {
-				if (fagNigas && GameData::isKeyDown(*input->spaceBarKey)) {
+				if (fagNigas && GameData::isKeyDown(*input->spaceBarKey) && !yLock) {
 					vec3_t moveVec;
 					moveVec.x = g_Data.getLocalPlayer()->velocity.x;
 					moveVec.y = UpwardsFlyinNigas;
@@ -145,6 +152,13 @@ bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
 			vec3_ti blok(currentBlock);
 			int i = 0;
 			if (airplace) {
+				if (fagNigas && GameData::isKeyDown(*input->spaceBarKey) && !yLock) {
+					vec3_t moveVec;
+					moveVec.x = g_Data.getLocalPlayer()->velocity.x;
+					moveVec.y = UpwardsFlyinNigas;
+					moveVec.z = g_Data.getLocalPlayer()->velocity.z;
+					g_Data.getLocalPlayer()->lerpMotion(moveVec);
+				}
 				g_Data.getCGameMode()->buildBlock(&blok, i);
 				return true;
 			} else {
@@ -173,7 +187,7 @@ bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
 					i++;
 				}
 				if (foundCandidate) {
-					if (fagNigas && GameData::isKeyDown(*input->spaceBarKey)) {
+					if (fagNigas && GameData::isKeyDown(*input->spaceBarKey) && !yLock) {
 						vec3_t moveVec;
 						moveVec.x = g_Data.getLocalPlayer()->velocity.x;
 						moveVec.y = UpwardsFlyinNigas;
