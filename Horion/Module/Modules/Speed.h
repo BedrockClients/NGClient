@@ -10,7 +10,7 @@ public:
 	C_MoveInputHandler cachedInput;
 
 	Speed() : IModule(VK_NUMPAD2, Category::MOVEMENT, "Speed up!") {
-		registerBoolSetting("Hive", &hive, hive);
+		//registerBoolSetting("Hive", &hive, hive);
 		registerFloatSetting("speed", &speed, 1, 0.1f, 3.f);
 	}
 	~Speed(){};
@@ -21,11 +21,11 @@ public:
 	int speedIndexThingyForHive = 30;
 
 	float epicHiveSpeedArrayThingy[31] = {
-		1.000000,
-		0.615560,
-		0.583347,
-		0.554032,
-		0.527356,
+		0.980000,
+		0.575560,
+		0.555560,
+		0.544032,
+		0.517356,
 		0.503081,
 		0.480991,
 		0.460888,
@@ -91,11 +91,7 @@ public:
 			if (pressed) {
 				player->setSprinting(true);
 				if (player->onGround) {
-					C_PlayerActionPacket jmp;
-					jmp.entityRuntimeId = player->entityRuntimeId;
-					jmp.face = 0;
-					jmp.action = 8;
-					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&jmp);
+					player->jumpFromGround();
 				}
 				C_MovePlayerPacket mpp(player, *player->getPos());
 				mpp.onGround = player->onGround;

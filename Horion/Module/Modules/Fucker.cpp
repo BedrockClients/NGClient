@@ -96,9 +96,10 @@ void Fucker::onLevelRender() {
 	if (treasures) {
 		if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->localPlayer->isAlive()) {
 			g_Data.forEachEntity([](C_Entity* ent, bool b) {
-				std::string name = ent->getNameTag()->getText();
-				int id = ent->getEntityTypeId();
-				if (name.find("Treasure") != std::string::npos && g_Data.getLocalPlayer()->getPos()->dist(*ent->getPos()) <= 5) {
+				std::string targetName = ent->getNameTag()->getText();
+				std::string localName = g_Data.getLocalPlayer()->getNameTag()->getText();
+				auto TeamsMod = moduleMgr->getModule<Teams>();
+				if (targetName.find("Treasure") != std::string::npos && g_Data.getLocalPlayer()->getPos()->dist(*ent->getPos()) <= 5 && targetName.length() > 2 && localName.length() > 2 && targetName.at(2) != localName.at(2)) {
 					g_Data.getCGameMode()->attack(ent);
 					auto breakMod = moduleMgr->getModule<Fucker>();
 					if (!breakMod->noSwing)

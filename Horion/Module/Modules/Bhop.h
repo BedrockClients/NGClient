@@ -11,12 +11,12 @@ public:
 	int speedIndexThingyForHive = 30;
 	bool ZoomHop = false;
 	float epicHiveSpeedArrayThingy[31] = {
-		1.000000,
-		0.615560,
-		0.583347,
-		0.554032,
-		0.527356,
-		0.503081,
+		0.990000,
+		0.605560,
+		0.573347,
+		0.544032,
+		0.517356,
+		0.493081,
 		0.480991,
 		0.460888,
 		0.442595,
@@ -74,15 +74,7 @@ public:
 		if (pressed) {
 			player->setSprinting(true);
 			if (player->onGround) {
-				if (ZoomHop) {
-					C_PlayerActionPacket jmp;
-					jmp.entityRuntimeId = player->entityRuntimeId;
-					jmp.face = 0;
-					jmp.action = 8;
-					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&jmp);
-				} else {
 					player->jumpFromGround();
-				}
 			}
 			C_MovePlayerPacket mpp(player, *player->getPos());
 			mpp.onGround = player->onGround;
@@ -99,7 +91,7 @@ public:
 		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
 		moveVec.x = moveVec2d.x * speed;
 		if (ZoomHop && player->onGround)
-			moveVec.y = 0.25f;
+			moveVec.y = player->velocity.y;
 		else
 			moveVec.y = player->velocity.y * height;
 		moveVec.z = moveVec2d.y * speed;
@@ -110,10 +102,7 @@ public:
 				float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive];
 				moveVec.x = moveVec2d.x * currentSpeed;
 				moveVec.z = moveVec2d.y * currentSpeed;
-				if (player->onGround)
-					moveVec.y = 0.25f;
-				else
-					moveVec.y = player->velocity.y;
+				moveVec.y = player->velocity.y;
 				player->lerpMotion(moveVec);
 				if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
 			} else {

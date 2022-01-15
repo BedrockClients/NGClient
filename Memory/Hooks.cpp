@@ -331,7 +331,8 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 
 void* Hooks::playerCallBack(C_Player* lp, void* a2) {
 	static auto oTick = g_Hooks.playerCallBack_Hook->GetFastcall<void*, C_Player*, void*>();
-//I  dont think we need the check for if lp = g_Data.getLocalPlayer. Maybe removing it might fix the invis glitch.
+//om, we need this check or else is makes all entitys look the directions we are setting rotations to look lol
+	if (lp == g_Data.getLocalPlayer())
 	moduleMgr->onPlayerTick(lp);
 	
 	return oTick;
