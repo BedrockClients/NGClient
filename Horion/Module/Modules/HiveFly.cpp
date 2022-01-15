@@ -1,7 +1,10 @@
 #include "HiveFly.h"
 int counter = 0;
+bool clip = false;
+float clipHeight = 2.f;
 HiveFly::HiveFly() : IModule('0', Category::SERVER, "How the fuck does this bypass ?!?!?") {
-
+	registerBoolSetting("Clip Up", &clip, clip);
+	registerFloatSetting("Clip Height", &clipHeight, clipHeight, 0.5f, 5.f);
 }
 
 HiveFly::~HiveFly() {
@@ -40,9 +43,9 @@ void HiveFly::onEnable() {
 	dontGoDown = true;
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player != nullptr) {
-		if (player->onGround == true) {
+		if (player->onGround == true && clip) {
 			vec3_t myPos = *player->getPos();
-			myPos.y += 2.1f;
+			myPos.y += clipHeight;
 			player->setPos(myPos);
 			player->jumpFromGround();
 		}
