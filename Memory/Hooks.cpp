@@ -1182,18 +1182,6 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 	static auto oAutoComplete = g_Hooks.PleaseAutoCompleteHook->GetFastcall<void, __int64, __int64, TextHolder*, int>();
 	char* tx = text->getText();
 
-	using syncShit_t = void(__fastcall*)(__int64*, TextHolder*);
-	static syncShit_t syncShit = nullptr;
-	if (syncShit == nullptr) {
-		uintptr_t sigOffset = 0;
-		// sig of function: (present 3 times in the exe)
-		sigOffset = FindSignature("48 8B D7 48 8B 8B ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 ? ?") + 11;
-		auto funcOffset = *reinterpret_cast<int*>(sigOffset);
-		sigOffset += 4 + funcOffset;
-
-		syncShit = reinterpret_cast<syncShit_t>(sigOffset);
-	}
-
 	if (tx != nullptr && text->getTextLength() >= 1 && tx[0] == '.') {
 		std::string search = tx + 1;                                              // Dont include the '.'
 		std::transform(search.begin(), search.end(), search.begin(), ::tolower);  // make the search text lowercase
@@ -1281,8 +1269,6 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 				}
 
 				text->setText(firstResult.cmdAlias.substr(0, maxReplaceLength));  // Set text
-				// now sync with the UI thread
-				syncShit(0, text);
 			}
 		}
 
