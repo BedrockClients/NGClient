@@ -11,7 +11,7 @@ public:
 	int speedIndexThingyForHive = 30;
 	bool ZoomHop = false;
 	float epicHiveSpeedArrayThingy[31] = {
-		0.810000,
+		0.760000,
 		0.615560, 
 		0.583347,
 		0.554032,
@@ -76,11 +76,14 @@ public:
 			player->setSprinting(true);
 			if (player->onGround) {
 				if (ZoomHop) {
+					/*
 					C_PlayerActionPacket jmp;
 					jmp.entityRuntimeId = player->entityRuntimeId;
 					jmp.face = 0;
 					jmp.action = 8;
 					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&jmp);
+					*/
+					player->jumpFromGround();
 					player->velocity.y = 0.35f;
 				}
 				else player->jumpFromGround();
