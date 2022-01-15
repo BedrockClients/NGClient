@@ -1,6 +1,6 @@
 #include "HiveFly.h"
 int counter = 0;
-HiveFly::HiveFly() : IModule('0', Category::SERVER, "Wheeeeeeeeeeeeee") {
+HiveFly::HiveFly() : IModule('0', Category::SERVER, "How the fuck does this bypass ?!?!?") {
 
 }
 

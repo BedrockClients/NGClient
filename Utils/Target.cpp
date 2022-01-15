@@ -36,16 +36,18 @@ bool Target::isValidTarget(C_Entity* ent) {
 		if (targetName.length() > 2 && localName.length() > 2) {
 			if (targetName.at(2) == localName.at(2) && ent->isPlayer()) {
 				static auto espMod = moduleMgr->getModule<ESP>();
-				C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-				DrawUtils::setColor(0.1f, 0.9f, 0.1f, (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
-				if (espMod->is2d)
-					DrawUtils::draw2D(ent, (float)fmax(0.4f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()) * 3.f)));
-				else if (espMod->iszephyr)
-					DrawUtils::drawZephyr(ent, (float)fmax(0.4f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()) * 3.f)));
-				else if (espMod->betterESP)
-					DrawUtils::drawBetterESP(ent, (float)fmax(0.2f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()))));
-				else
-					DrawUtils::drawEntityBox(ent, (float)fmax(0.2f, 1 / (float)fmax(1, localPlayer->getPos()->dist(*ent->getPos()))));
+				if (espMod->isEnabled()) {
+					C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
+					DrawUtils::setColor(0.1f, 0.9f, 0.1f, (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
+					if (espMod->is2d)
+						DrawUtils::draw2D(ent, (float)fmax(0.4f, 1 / (float)fmax(1, localPlayer->eyePos0.dist(ent->eyePos0) * 3.f)));
+					else if (espMod->iszephyr)
+						DrawUtils::drawZephyr(ent, (float)fmax(0.4f, 1 / (float)fmax(1, localPlayer->eyePos0.dist(ent->eyePos0) * 3.f)));
+					else if (espMod->betterESP)
+						DrawUtils::drawBetterESP(ent, (float)fmax(0.2f, 1 / (float)fmax(1, localPlayer->eyePos0.dist(ent->eyePos0))));
+					else
+						DrawUtils::drawEntityBox(ent, (float)fmax(0.2f, 1 / (float)fmax(1, localPlayer->eyePos0.dist(ent->eyePos0))));
+				}
 				return false;
 			}
 		}
