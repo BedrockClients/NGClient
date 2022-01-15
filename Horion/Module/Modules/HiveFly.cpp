@@ -2,6 +2,7 @@
 int counter = 0;
 bool clip = false;
 float clipHeight = 2.f;
+int counter69 = 0;
 HiveFly::HiveFly() : IModule('0', Category::SERVER, "How the fuck does this bypass ?!?!?") {
 	registerBoolSetting("Clip Up", &clip, clip);
 	registerFloatSetting("Clip Height", &clipHeight, clipHeight, 0.5f, 5.f);
@@ -39,6 +40,7 @@ bool dontGoDown = true;
 void HiveFly::onEnable() {
 	srand(time(NULL));
 	counter = 0;
+	counter69 = 0;
 	flySpeedIndex = 0;
 	dontGoDown = true;
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
@@ -48,39 +50,57 @@ void HiveFly::onEnable() {
 				vec3_t myPos = *player->getPos();
 				myPos.y += clipHeight;
 				player->setPos(myPos);
-			} else
-			player->jumpFromGround();
+			} else {
+				counter69++;
+				if (counter69 <= 2) {
+					vec3_t moveVec;
+					moveVec.x = 0;
+					moveVec.y = 1.f;
+					moveVec.z = 0;
+					g_Data.getLocalPlayer()->lerpMotion(moveVec);
+				}
+			}
+		} else {
+			counter69 = 10;
 		}
 	}
 }
 
 void HiveFly::onMove(C_MoveInputHandler* input) {
-	C_LocalPlayer* player = g_Data.getLocalPlayer();
-	if (player == nullptr) return;
+	counter69++;
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
+		if (player == nullptr) return;
 
-	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
-	bool pressed = moveVec2d.magnitude() > 0.01f;
+		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		bool pressed = moveVec2d.magnitude() > 0.01f;
 
-	float calcYaw = (player->yaw + 90) * (PI / 180);
-	vec3_t moveVec;
-	float c = cos(calcYaw);
-	float s = sin(calcYaw);
-	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-	float moveSpeed = epicHiveFlySpeedArrayThingy[flySpeedIndex++ % 15];
-	moveVec.x = moveVec2d.x * moveSpeed;
+		float calcYaw = (player->yaw + 90) * (PI / 180);
+		vec3_t moveVec;
+		float c = cos(calcYaw);
+		float s = sin(calcYaw);
+		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+		float moveSpeed = epicHiveFlySpeedArrayThingy[flySpeedIndex++ % 15];
+		moveVec.x = moveVec2d.x * moveSpeed;
 
-	if (dontGoDown)
-		moveVec.y = 0.f;
-	else
-		moveVec.y = player->velocity.y;
-	dontGoDown = !dontGoDown;
+		if (dontGoDown)
+			moveVec.y = 0.f;
+		else
+			moveVec.y = player->velocity.y;
+		dontGoDown = !dontGoDown;
 
-	moveVec.z = moveVec2d.y * moveSpeed;
-	if (pressed) player->lerpMotion(moveVec);
-	if (!pressed) {
-		player->velocity.x = 0;
-		player->velocity.z = 0;
-	}
+		moveVec.z = moveVec2d.y * moveSpeed;
+
+		if (counter69 >= 10 && !clip) {
+			if (pressed) player->lerpMotion(moveVec);
+
+		} else if (clip) {
+			if (pressed) player->lerpMotion(moveVec);
+		}
+
+		if (!pressed) {
+			player->velocity.x = 0;
+			player->velocity.z = 0;
+		}
 }
 
 void HiveFly::onSendPacket(C_Packet* packet) {
@@ -90,6 +110,7 @@ void HiveFly::onLevelRender() {
 }
 
 void HiveFly::onDisable() {
+	counter69 = 0;
 	counter = 0;
 	if (g_Data.getLocalPlayer() != nullptr) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
