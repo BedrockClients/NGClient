@@ -80,7 +80,7 @@ public:
 		moveVec.x = moveVec2d.x * speed;
 		if (ZoomHop && player->onGround)
 			moveVec.y = player->velocity.y;
-		else
+		else if(player->onGround)
 			moveVec.y = player->velocity.y * height;
 		moveVec.z = moveVec2d.y * speed;
 
