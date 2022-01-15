@@ -2146,8 +2146,9 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 	auto func = g_Hooks.Mob__isImmobileHook->GetFastcall<bool, C_Entity*>();
 
 	static auto antiImmobileMod = moduleMgr->getModule<AntiImmobile>();
-	if (antiImmobileMod->isEnabled() && ent == g_Data.getLocalPlayer()) {
+	if (ent == g_Data.getLocalPlayer()) {
 		g_Hooks.shouldLocalPlayerBeImmobile = func(ent);
+		if (antiImmobileMod->isEnabled())
 		return false;
 	}
 
