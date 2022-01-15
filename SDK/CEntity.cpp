@@ -41,6 +41,10 @@ bool PointingStruct::hasEntity() {
 	return rayHitType == 1;
 }
 
+float C_Entity::getBlocksPerSecond() {
+	return getTicksPerSecond() * *g_Data.getClientInstance()->minecraft->timer;
+}
+
 C_Entity *PointingStruct::getEntity() {
 	if (rayHitType != 1) return nullptr;
 	C_Entity *retval = nullptr;

@@ -531,22 +531,14 @@ public:
 		return *reinterpret_cast<float *>(this->getSpeed() + 0x84);
 	}
 
-	float getBlocksPerSecond() {
-		float BPS = 0.f;
-		vec3_t velocity = this->velocity;
-		if (velocity.x < 0.f)
-			velocity.x *= -1.f;
-		if (velocity.z < 0.f)
-			velocity.z *= -1.f;
-		auto velx = velocity.x * velocity.x;
-		auto velz = velocity.z * velocity.z;
-		BPS = sqrtf(velx + velz) * 36.6f;
-
-		if (!this->onGround)
-			return BPS /= 1.5f;
-		else
-			return BPS;
+	float getTicksPerSecond() {
+		vec3_t targetPos = *this->getPos();
+		vec3_t targetPosOld = *this->getPosOld();
+		float hVel = sqrtf(((targetPos.x - targetPosOld.x) * (targetPos.x - targetPosOld.x)) + ((targetPos.z - targetPosOld.z) * (targetPos.z - targetPosOld.z)));
+		return hVel;
 	}
+
+	float getBlocksPerSecond();
 
 	int getTicksUsingItem() {
 		return this->ticksUsingItem;

@@ -102,7 +102,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			std::string Ncoordsall = "Nether X: " + std::to_string((int)floorf(pos->x/8)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z/8));
 			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
 			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
-			std::string Bps = "BPS: " + std::to_string((int)(g_Data.getLocalPlayer()->getPos()->dist(*g_Data.getLocalPlayer()->getPosOld()) * *g_Data.getClientInstance()->minecraft->timer));
+			std::string Bps = "BPS: " + std::to_string((int)g_Data.getLocalPlayer()->getBlocksPerSecond());
 			auto xBps = windowSize.x / 2.f - 210.f;
 			auto yBps = windowSize.y - 65.f;
 			auto xfpsText = windowSize.x / 2.f - 210.f;
