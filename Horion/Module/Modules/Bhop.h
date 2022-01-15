@@ -62,7 +62,6 @@ public:
 				player->setSprinting(true);
 				if (player->onGround) {
 					player->jumpFromGround();
-					player->velocity.y = 0.368f;
 				}
 				C_MovePlayerPacket mpp(player, *player->getPos());
 				mpp.onGround = player->onGround;
