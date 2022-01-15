@@ -8,19 +8,12 @@ public:
 	float height = 1.f;
 	bool hive = false;
 	int timer = 20;
-	int speedIndexThingyForHive = 30;
+	int speedIndexThingyForHive = 20;
 	bool ZoomHop = false;
-	float epicHiveSpeedArrayThingy[31] = {
-		0.810000,
-		0.615560, 
-		0.583347,
-		0.554032,
-		0.527356,
-		0.503081,
-		0.480991,
-		0.460888,
-		0.442595,
-		0.425948,
+	float epicHiveSpeedArrayThingy[21] = {
+		0.450888,
+		0.432595,
+		0.420948,
 		0.410800,
 		0.397015,
 		0.384470,
@@ -38,11 +31,7 @@ public:
 		0.298534,
 		0.294852,
 		0.291502,
-		0.265267,
-		0.241393,
-		0.219668,
-		0.199898
-	};
+		0.265267};
 	C_MoveInputHandler* yes;
 	C_MoveInputHandler cachedInput;
 	Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
@@ -98,7 +87,7 @@ public:
 				moveVec.z = moveVec2d.y * currentSpeed;
 				moveVec.y = player->velocity.y;
 				player->lerpMotion(moveVec);
-				if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
+				if (speedIndexThingyForHive < 20) speedIndexThingyForHive++;
 			} else {
 				if (player->onGround) player->lerpMotion(moveVec);
 			}
@@ -112,5 +101,5 @@ public:
 	}
 	//virtual void onSendPacket(C_Packet* packet) override;
 	virtual void onDisable() override { g_Data.getClientInstance()->minecraft->setTimerSpeed(20.f); }
-	virtual void onEnable() override { speedIndexThingyForHive = 30; }
+	virtual void onEnable() override { speedIndexThingyForHive = 20; }
 };
