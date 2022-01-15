@@ -82,7 +82,7 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 		float moveSpeed = epicHiveFlySpeedArrayThingy[flySpeedIndex++ % 15];
 		moveVec.x = moveVec2d.x * moveSpeed;
 
-		if (stopYThingy >= 5) {
+		if (stopYThingy >= 3) {
 			stopYThingy = 0;
 			moveVec.y = player->velocity.y;
 		}
