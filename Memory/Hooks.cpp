@@ -1323,6 +1323,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto tp = moduleMgr->getModule<Teleport>();
 	static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
 	static auto HiveInf = moduleMgr->getModule<InfiniteAura>();
+	static auto hiveFly = moduleMgr->getModule<HiveFly>();
 	static auto disabler = moduleMgr->getModule<Disabler>();
 	static auto test = moduleMgr->getModule<TestModule>();
 	//if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
@@ -1333,7 +1334,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
 
-	if (nofall->isEnabled() && g_Data.isInGame() && nofall->nopackety && !g_Data.getLocalPlayer()->onGround) {
+	if (nofall->isEnabled() && g_Data.isInGame() && nofall->nopackety && !g_Data.getLocalPlayer()->onGround && !hiveFly->isEnabled()) {
 		if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 			auto* mpp = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			mpp->onGround = true;
@@ -1377,7 +1378,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	}
 
 	if (nofall->isEnabled() && g_Data.isInGame()) {
-		if (nofall->server) {
+		if (nofall->server && !hiveFly->isEnabled()) {
 			C_LocalPlayer* player = g_Data.getLocalPlayer();
 			if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);

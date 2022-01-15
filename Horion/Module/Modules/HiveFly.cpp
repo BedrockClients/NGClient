@@ -55,13 +55,13 @@ void HiveFly::onEnable() {
 				if (counter69 <= 2) {
 					vec3_t moveVec;
 					moveVec.x = 0;
-					moveVec.y = 1.f;
+					moveVec.y = 0.8f;
 					moveVec.z = 0;
 					g_Data.getLocalPlayer()->lerpMotion(moveVec);
 				}
 			}
 		} else {
-			counter69 = 10;
+			counter69 = 8;
 		}
 	}
 }
@@ -90,7 +90,7 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 
 		moveVec.z = moveVec2d.y * moveSpeed;
 
-		if (counter69 >= 10 && !clip) {
+		if (counter69 >= 8 && !clip) {
 			if (pressed) player->lerpMotion(moveVec);
 
 		} else if (clip) {
