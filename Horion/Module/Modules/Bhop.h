@@ -9,7 +9,6 @@ public:
 	bool hive = false;
 	int timer = 20;
 	int speedIndexThingyForHive = 20;
-	bool ZoomHop = false;
 	float epicHiveSpeedArrayThingy[21] = {
 		0.450888,
 		0.432595,
@@ -38,7 +37,6 @@ public:
 		registerBoolSetting("Hive", &hive, hive);
 		registerFloatSetting("Speed", &speed, speed, 0.10f, 1.50f);
 		registerFloatSetting("Height", &height, height, 0.01f, 2.00f);
-		registerBoolSetting("ZoomHop", &ZoomHop, ZoomHop);
 		registerIntSetting("Timer", &timer, timer, 20, 50);
 	}
 	~Bhop(){};
@@ -47,61 +45,66 @@ public:
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("Bhop"); }
 	virtual void onMove(C_MoveInputHandler* input) override {
-		cachedInput = *input;
-		yes = input;
-		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		if (player == nullptr) return;
+			cachedInput = *input;
+			yes = input;
+			C_LocalPlayer* player = g_Data.getLocalPlayer();
+			if (player == nullptr) return;
 
-		if (player->isInLava() == 1 || player->isInWater() == 1)
-			return;
+			if (player->isInLava() == 1 || player->isInWater() == 1)
+				return;
 
-		if (player->isSneaking())
-			return;
+			if (player->isSneaking())
+				return;
 
-		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
-		bool pressed = moveVec2d.magnitude() > 0.01f;
+			vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+			bool pressed = moveVec2d.magnitude() > 0.01f;
 
-		if (pressed) {
-			player->setSprinting(true);
-			if (player->onGround) {
-				player->jumpFromGround();	
-				if (ZoomHop) {
+		if (hive) {
+			if (pressed) {
+				player->setSprinting(true);
+				if (player->onGround) {
+					player->jumpFromGround();
 					player->velocity.y = 0.368f;
 				}
+				C_MovePlayerPacket mpp(player, *player->getPos());
+				mpp.onGround = player->onGround;
+				mpp.pitch += 0.5f;
+				mpp.yaw += 0.5f;
+				mpp.headYaw += 0.5f;
+				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 			}
-				
-		}
 
-		float calcYaw = (player->yaw + 90) * (PI / 180);
-		vec3_t moveVec;
-		float c = cos(calcYaw);
-		float s = sin(calcYaw);
-		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-		moveVec.x = moveVec2d.x * speed;
-		if (ZoomHop && player->onGround)
-			moveVec.y = player->velocity.y;
-		else if(player->onGround)
-			moveVec.y = player->velocity.y * height;
-		moveVec.z = moveVec2d.y * speed;
+			float calcYaw = (player->yaw + 90) * (PI / 180);
+			vec3_t moveVec;
+			float c = cos(calcYaw);
+			float s = sin(calcYaw);
+			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
 
-		if (pressed && hive) {
-			if (ZoomHop) {
+			if (pressed) {
 				if (player->onGround) speedIndexThingyForHive = 0;
 				float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive];
 				moveVec.x = moveVec2d.x * currentSpeed;
-				moveVec.z = moveVec2d.y * currentSpeed;
 				moveVec.y = player->velocity.y;
+				moveVec.z = moveVec2d.y * currentSpeed;
 				player->lerpMotion(moveVec);
-				if (speedIndexThingyForHive < 20) speedIndexThingyForHive++;
-			} else {
-				if (player->onGround) player->lerpMotion(moveVec);
+				if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
 			}
-		} else if (pressed && !hive)
-			player->lerpMotion(moveVec);
+		} else {
+			if (player->onGround && pressed)
+				player->jumpFromGround();
+
+			float calcYaw = (player->yaw + 90) * (PI / 180);
+			vec3_t moveVec;
+			float c = cos(calcYaw);
+			float s = sin(calcYaw);
+			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+			moveVec.x = moveVec2d.x * speed;
+			moveVec.y = player->velocity.y * height;
+			moveVec.z = moveVec2d.y * speed;
+			if (pressed) player->lerpMotion(moveVec);
+		}
 	}
 	virtual void onTick(C_GameMode* gm) override {
-		if (ZoomHop)
-			hive = true;
 		g_Data.getClientInstance()->minecraft->setTimerSpeed(static_cast<float>(timer));
 	}
 	//virtual void onSendPacket(C_Packet* packet) override;
