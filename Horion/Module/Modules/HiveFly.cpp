@@ -114,7 +114,9 @@ void HiveFly::onDisable() {
 	counter = 0;
 	if (g_Data.getLocalPlayer() != nullptr) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
+		player->velocity.x= 0.f;
 		player->velocity.y = 0.f;
+		player->velocity.z = 0.f;
 		*g_Data.getClientInstance()->minecraft->timer = 20.f;
 	}
 }
