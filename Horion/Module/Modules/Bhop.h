@@ -63,8 +63,13 @@ public:
 
 		if (pressed) {
 			player->setSprinting(true);
-			if (player->onGround)
+			if (player->onGround) {
 				player->jumpFromGround();	
+				if (ZoomHop) {
+					player->velocity.y = 0.35f;
+				}
+			}
+				
 		}
 
 		float calcYaw = (player->yaw + 90) * (PI / 180);
