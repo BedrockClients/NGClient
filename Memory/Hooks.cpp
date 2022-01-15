@@ -1187,7 +1187,7 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 	if (syncShit == nullptr) {
 		uintptr_t sigOffset = 0;
 		// sig of function: (present 3 times in the exe)
-		sigOffset = FindSignature("48 8B D7 48 8B 8B ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8B 9C") + 11;
+		sigOffset = FindSignature("48 8B D7 48 8B 8B ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 ? ?") + 11;
 		auto funcOffset = *reinterpret_cast<int*>(sigOffset);
 		sigOffset += 4 + funcOffset;
 
