@@ -75,8 +75,16 @@ public:
 		if (pressed) {
 			player->setSprinting(true);
 			if (player->onGround) {
-					player->jumpFromGround();
-				if (ZoomHop) player->velocity.y = 0.35f;
+				if (ZoomHop) {
+					C_PlayerActionPacket jmp;
+					jmp.entityRuntimeId = player->entityRuntimeId;
+					jmp.face = 0;
+					jmp.action = 8;
+					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&jmp);
+					player->velocity.y = 0.35f;
+				}
+				else player->jumpFromGround();
+				
 			}
 		}
 
