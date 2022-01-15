@@ -120,7 +120,6 @@
 #include "Modules/XP.h"
 #include "Modules/BlockFly.h"
 #include "Modules/GUI.h"
-#include "Modules/MinevilleFly.h"
 #include "Modules/NGFly.h"
 #include "Modules/EntityJesus.h"
 #include "Modules/EntitySpeed.h"

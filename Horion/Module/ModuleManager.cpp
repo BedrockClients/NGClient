@@ -129,7 +129,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new XP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new GUI()));
-		moduleList.push_back(std::shared_ptr<IModule>(new MinevilleFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new EntitySpider()));
 		//moduleList.push_back(std::shared_ptr<IModule>(new EntityJesus()));
