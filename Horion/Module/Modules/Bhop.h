@@ -66,7 +66,7 @@ public:
 			if (player->onGround) {
 				player->jumpFromGround();	
 				if (ZoomHop) {
-					player->velocity.y = 0.35f;
+					player->velocity.y = 0.368f;
 				}
 			}
 				
