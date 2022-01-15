@@ -59,7 +59,7 @@ void HackerDetect::onTick(C_GameMode* gm) {
 		auto target = targetHackerman[0];
 		auto speed = target->getRealSpeed();
 		auto name = target->getNameTag()->getText();
-		if (target->stepHeight > 0.6000f || target->isInWall() || (target->isImmobile() && target->getBlocksPerSecond() > 0.1f && target->getBlocksPerSecond() < 3.f && Utils::getShouldLocalPlayerBeImmobile())) {
+		if (target->stepHeight > 0.6000f || target->isInWall() || (target->isImmobile() && target->getBlocksPerSecond() > 0.7f && target->getBlocksPerSecond() < 60.f && Utils::getShouldLocalPlayerBeImmobile())) {
 			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s is hacking", name);
 		}
 	}
