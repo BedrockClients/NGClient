@@ -16,21 +16,21 @@ const char* HiveFly::getModuleName() {
 }
 
 float epicHiveFlySpeedArrayThingy[15] = {
-	0.810000,
-	0.615560,
-	0.583347,
-	0.554032,
-	0.527356,
-	0.503081,
-	0.480991,
-	0.460888,
-	0.442595,
-	0.425948,
+	0.450888,
+	0.432595,
+	0.420948,
 	0.410800,
 	0.397015,
 	0.384470,
 	0.373055,
-	0.362666
+	0.362666,
+	0.353213,
+	0.344611,
+	0.336783,
+	0.329659,
+	0.323177,
+	0.317277,
+	0.311909
 };
 
 int flySpeedIndex = 0;
@@ -53,15 +53,11 @@ void HiveFly::onEnable() {
 			} else {
 				counter69++;
 				if (counter69 <= 2) {
-					vec3_t moveVec;
-					moveVec.x = 0;
-					moveVec.y = 1.f;
-					moveVec.z = 0;
-					g_Data.getLocalPlayer()->lerpMotion(moveVec);
+					player->jumpFromGround();
 				}
 			}
 		} else {
-			counter69 = 10;
+			counter69 = 6;
 		}
 	}
 }
@@ -90,7 +86,7 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 
 		moveVec.z = moveVec2d.y * moveSpeed;
 
-		if (counter69 >= 10 && !clip) {
+		if (counter69 >= 6 && !clip) {
 			if (pressed) player->lerpMotion(moveVec);
 
 		} else if (clip) {
