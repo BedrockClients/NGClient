@@ -50,43 +50,45 @@ float Outline = 0;
 __int64 actualPlayerVTable = Utils::getBase() + 0x3E403A0;
 
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
-	static auto killauraMod = moduleMgr->getModule<Killaura>();
+	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+		static auto killauraMod = moduleMgr->getModule<Killaura>();
 
-	if (currentEntity == nullptr)
-		return;
-
-	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
-		return;
-
-	if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
-		return;
-
-	if (!g_Data.getLocalPlayer()->isAlive())
-		return;
-
-	if (!currentEntity->isAlive())
-		return;
-
-	if (currentEntity->width <= 0.10f || currentEntity->height <= 0.10f)  // Don't hit this pesky antibot on 2b2e.org
-		return;
-
-	if (killauraMod->isMobAura) {
-		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
+		if (currentEntity == nullptr)
 			return;
-		if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
-			return;
-		if (currentEntity->getEntityTypeId() == 64)  // item
-			return;
-		if (currentEntity->getEntityTypeId() == 69)  // xp
-			return;
-	} else {
-		if (!Target::isValidTarget(currentEntity) || *(__int64*)currentEntity != actualPlayerVTable)
-			return;
-	}
 
-	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
-	if (dist < killauraMod->range) {
-		targetList.push_back(currentEntity);
+		if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
+			return;
+
+		if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
+			return;
+
+		if (!g_Data.getLocalPlayer()->isAlive())
+			return;
+
+		if (!currentEntity->isAlive())
+			return;
+
+		if (currentEntity->width <= 0.10f || currentEntity->height <= 0.10f)  // Don't hit this pesky antibot on 2b2e.org
+			return;
+
+		if (killauraMod->isMobAura) {
+			if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
+				return;
+			if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
+				return;
+			if (currentEntity->getEntityTypeId() == 64)  // item
+				return;
+			if (currentEntity->getEntityTypeId() == 69)  // xp
+				return;
+		} else {
+			if (!Target::isValidTarget(currentEntity) || *(__int64*)currentEntity != actualPlayerVTable)
+				return;
+		}
+
+		float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
+		if (dist < killauraMod->range) {
+			targetList.push_back(currentEntity);
+		}
 	}
 }
 
@@ -113,7 +115,7 @@ void Killaura::findWeapon() {
 void Killaura::onPlayerTick(C_Player* plr) {
 	targetList.clear();
 	g_Data.forEachEntity(findEntity);
-	if (!targetList.empty()) {
+	if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 		plr->bodyYaw = angle.y;
 		plr->yawUnused1 = angle.y;
@@ -127,7 +129,7 @@ void Killaura::onTick(C_GameMode* gm) {
 	if (g_Data.isInGame()) {
 		g_Data.forEachEntity(findEntity);
 		if (autoweapon) findWeapon();
-		if (!targetList.empty()) {
+		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 			if (rotations) {
 				// idk. Someone else mess with rots that dont strafe, we will put them here.
 			}
@@ -174,7 +176,7 @@ void Killaura::onTick(C_GameMode* gm) {
 void Killaura::onLevelRender() {
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
-	if (g_Data.isInGame()) {
+	if (g_Data.isInGame() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		targetList.clear();
 		g_Data.forEachEntity(findEntity);
 
