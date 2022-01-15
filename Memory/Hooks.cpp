@@ -160,9 +160,6 @@ void Hooks::Init() {
 		void* getGameEdition = reinterpret_cast<void*>(FindSignature("8B 91 ?? ?? ?? ?? 85 D2 74 1C 83 EA 01"));
 		g_Hooks.AppPlatform_getGameEditionHook = std::make_unique<FuncHook>(getGameEdition, Hooks::AppPlatform_getGameEdition);
 
-		void* autoComplete = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 55 56 57 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 44 24 ? 41 8B D9"));
-		g_Hooks.PleaseAutoCompleteHook = std::make_unique<FuncHook>(autoComplete, Hooks::PleaseAutoComplete);
-
 		uintptr_t** packetSenderVtable = reinterpret_cast<uintptr_t**>(*(uintptr_t*)g_Data.getClientInstance()->loopbackPacketSender);
 		g_Hooks.LoopbackPacketSender_sendToServerHook = std::make_unique<FuncHook>(packetSenderVtable[2], Hooks::LoopbackPacketSender_sendToServer);
 
@@ -192,6 +189,9 @@ void Hooks::Init() {
 
 		void* chestScreenControllerTick = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 57 48 83 EC ? 48 8B F9 E8 ? ? ? ? 48 8B 17"));
 		g_Hooks.ChestScreenController_tickHook = std::make_unique<FuncHook>(chestScreenControllerTick, Hooks::ChestScreenController_tick);
+
+		void* autoComplete = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 55 56 57 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 44 24 ? 41 8B D9"));
+		g_Hooks.PleaseAutoCompleteHook = std::make_unique<FuncHook>(autoComplete, Hooks::PleaseAutoComplete);
 
 		void* fullbright = reinterpret_cast<void*>(FindSignature("48 83 EC ?? 80 B9 ?? ?? ?? ?? ?? 48 8D 54 24 ?? 48 8B 01 74 35 41 B8 0D 01 00 00"));
 		g_Hooks.GetGammaHook = std::make_unique<FuncHook>(fullbright, Hooks::GetGamma);
@@ -2141,15 +2141,14 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 
 	return func(ent);
 }
-#ifdef _DEBUG
-bool Hooks::testy(C_Entity* ent) {
+/*#ifdef _DEBUG bool Hooks::testy(C_Entity* ent) {
 	static auto oFunc = g_Hooks.testyHook->GetFastcall<bool, C_Entity*>();
 	static auto test = moduleMgr->getModule<TestModule>();
 	if (test->isEnabled())
 		return true;
 	return oFunc(ent);
 }
-#endif
+#endif*/
 /*float Hooks::getDestroySpeed(C_Block& block) {
 	static auto oFunc = g_Hooks.testyHook->GetFastcall<float, C_Block&>();
 	static auto instabreakMod = moduleMgr->getModule<InstaBreak>();
