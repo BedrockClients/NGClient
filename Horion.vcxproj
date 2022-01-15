@@ -545,7 +545,6 @@
     <ClInclude Include="Horion\Module\Modules\TestModule.h" />
     <ClInclude Include="Horion\Module\Modules\Timer.h" />
     <ClInclude Include="Horion\Module\Modules\TimeChanger.h" />
-    <ClInclude Include="Horion\Module\Modules\Tower.h" />
     <ClInclude Include="Horion\Module\Modules\Tracer.h" />
     <ClInclude Include="Horion\Module\Modules\Trail.h" />
     <ClInclude Include="Horion\Module\Modules\TriggerBot.h" />

@@ -13,7 +13,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
 	registerBoolSetting("BlockHit", &blockHit, blockHit);
 	registerBoolSetting("Rotations", &rotations, rotations);
-	registerBoolSetting("Sexy Rotations", &sexy, sexy);
+	registerBoolSetting("Strafe Rotations", &sexy, sexy);
 	registerBoolSetting("Silent Rotations", &silent, silent);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
 }

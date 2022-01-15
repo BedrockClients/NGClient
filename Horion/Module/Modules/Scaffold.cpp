@@ -9,22 +9,26 @@ bool THICCC = false;
 bool GayNigaFags = true;
 bool Fullselect = false;
 bool SukinMyBigJuicyAss = true;
+bool fagNigas = false;
+float UpwardsFlyinNigas = 0.5f;
 vec3_t blockBelowUrMom;
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
-	registerBoolSetting("Spoof", &spoof, spoof);
+	registerBoolSetting("Staircase Mode", &staircaseMode, staircaseMode);
+	registerBoolSetting("Tower", &fagNigas, fagNigas);
+	registerFloatSetting("Tower Speed", &UpwardsFlyinNigas, UpwardsFlyinNigas, 0.3f, 1.f);
 	registerBoolSetting("AirPlace", &airplace, airplace);
 	registerBoolSetting("Auto Select", &autoselect, autoselect);
 	registerBoolSetting("Full Select", &Fullselect, Fullselect);
+	registerBoolSetting("Spoof", &spoof, spoof);
 	registerBoolSetting("Predict", &predict, predict);
 	registerBoolSetting("Spam", &spam, spam);
-	registerBoolSetting("Thick Scaffold", &THICCC, THICCC);
+	registerBoolSetting("Y Lock", &yLock, yLock);
 	registerBoolSetting("Hive", &rot, rot);
 	registerBoolSetting("Rotations", &SukinMyBigJuicyAss, SukinMyBigJuicyAss);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
 	registerBoolSetting("Block Count", &GayNigaFags, GayNigaFags);
-	registerBoolSetting("Y Lock", &yLock, yLock);
-	registerBoolSetting("Staircase Mode", &staircaseMode, staircaseMode);
+	registerBoolSetting("Thick Scaffold", &THICCC, THICCC);
 }
 
 Scaffold::~Scaffold() {
@@ -57,6 +61,7 @@ bool Scaffold::canPlaceHere(vec3_t blockPos) {
 }
 
 bool Scaffold::tryScaffold(vec3_t blockBelow) {
+	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	blockBelow = blockBelow.floor();
 
 	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(blockBelow));
@@ -93,6 +98,13 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 				i++;
 			}
 			if (foundCandidate) {
+				if (fagNigas && GameData::isKeyDown(*input->spaceBarKey)) {
+					vec3_t moveVec;
+					moveVec.x = g_Data.getLocalPlayer()->velocity.x;
+					moveVec.y = UpwardsFlyinNigas;
+					moveVec.z = g_Data.getLocalPlayer()->velocity.z;
+					g_Data.getLocalPlayer()->lerpMotion(moveVec);
+				}
 				g_Data.getCGameMode()->buildBlock(&blok, i);
 				return true;
 			}
@@ -127,6 +139,7 @@ bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
 		if (attempts >= 7) return false;
 		vec3_ti currentBlock = vec3_ti(blockPos).add(blockOffsets.at(idx));
 		C_Block* block = g_Data.getLocalPlayer()->region->getBlock(currentBlock);
+		C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 		C_BlockLegacy* blockLegacy = (block->blockLegacy);
 		if (blockLegacy->material->isReplaceable) {
 			vec3_ti blok(currentBlock);
@@ -160,6 +173,13 @@ bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
 					i++;
 				}
 				if (foundCandidate) {
+					if (fagNigas && GameData::isKeyDown(*input->spaceBarKey)) {
+						vec3_t moveVec;
+						moveVec.x = g_Data.getLocalPlayer()->velocity.x;
+						moveVec.y = UpwardsFlyinNigas;
+						moveVec.z = g_Data.getLocalPlayer()->velocity.z;
+						g_Data.getLocalPlayer()->lerpMotion(moveVec);
+					}
 					g_Data.getCGameMode()->buildBlock(&blok, i);
 					if (spam && idx != 0) {
 						idx = -1;
