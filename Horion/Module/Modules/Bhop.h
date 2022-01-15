@@ -11,12 +11,12 @@ public:
 	int speedIndexThingyForHive = 30;
 	bool ZoomHop = false;
 	float epicHiveSpeedArrayThingy[31] = {
-		0.990000,
-		0.605560,
-		0.573347,
-		0.544032,
-		0.517356,
-		0.493081,
+		0.810000,
+		0.615560, 
+		0.583347,
+		0.554032,
+		0.527356,
+		0.503081,
 		0.480991,
 		0.460888,
 		0.442595,
@@ -41,7 +41,8 @@ public:
 		0.265267,
 		0.241393,
 		0.219668,
-		0.199898};
+		0.199898
+	};
 	C_MoveInputHandler* yes;
 	C_MoveInputHandler cachedInput;
 	Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
@@ -75,13 +76,8 @@ public:
 			player->setSprinting(true);
 			if (player->onGround) {
 					player->jumpFromGround();
+				if (ZoomHop) player->velocity.y = 0.35f;
 			}
-			C_MovePlayerPacket mpp(player, *player->getPos());
-			mpp.onGround = player->onGround;
-			mpp.pitch += 0.5f;
-			mpp.yaw += 0.5f;
-			mpp.headYaw += 0.5f;
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 		}
 
 		float calcYaw = (player->yaw + 90) * (PI / 180);
