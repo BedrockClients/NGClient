@@ -2157,7 +2157,7 @@ float Hooks::getDestroySpeed(C_Block& block) {
 	static auto oFunc = g_Hooks.getDestroySpeedHook->GetFastcall<float, C_Block&>();
 	static auto instabreakMod = moduleMgr->getModule<InstaBreak>();
 	if (instabreakMod->isEnabled() && instabreakMod->mode.selected == 2)
-		return 100.f;
+		return NAN;
 	return oFunc(block);
 }
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {
