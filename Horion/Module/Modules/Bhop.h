@@ -5,7 +5,6 @@
 class Bhop : public IModule {
 public:
 	float speed = 0.50f;
-	float height = 1.f;
 	bool hive = false;
 	int timer = 20;
 	int speedIndexThingyForHive = 20;
@@ -36,7 +35,6 @@ public:
 	Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
 		registerBoolSetting("Hive", &hive, hive);
 		registerFloatSetting("Speed", &speed, speed, 0.10f, 1.50f);
-		registerFloatSetting("Height", &height, height, 0.01f, 2.00f);
 		registerIntSetting("Timer", &timer, timer, 20, 50);
 	}
 	~Bhop(){};
@@ -99,7 +97,7 @@ public:
 			float s = sin(calcYaw);
 			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
 			moveVec.x = moveVec2d.x * speed;
-			moveVec.y = player->velocity.y * height;
+			moveVec.y = player->velocity.y;
 			moveVec.z = moveVec2d.y * speed;
 			if (pressed) player->lerpMotion(moveVec);
 		}
