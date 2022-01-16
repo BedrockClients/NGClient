@@ -77,7 +77,7 @@ void TestModule::onSendPacket(C_Packet* packet) {
 }
 
 void TestModule::onDisable() {
-	CommandRequestPacket mpp(std::string("q sky"));
+	CommandRequestPacket mpp("/q sky");
 	g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 }
 

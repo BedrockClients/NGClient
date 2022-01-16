@@ -132,6 +132,7 @@ public:
 	TextHolder payload;
 	uint64_t thingy[6];
 
+	CommandRequestPacket();
 	CommandRequestPacket(std::string cmd);
 };
 
