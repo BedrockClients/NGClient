@@ -95,7 +95,7 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 }
 
 void Killaura::findWeapon() {
-	if (g_Data.isInGame()) {
+	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;
 		float damage = 0;
@@ -113,25 +113,31 @@ void Killaura::findWeapon() {
 		supplies->selectedHotbarSlot = slot;
 	}
 }
-float nigr = 340;
+float nigr = 0;
 void Killaura::onPlayerTick(C_Player* plr) {
-	auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
+	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+		auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
 
-	if (nigr == 416)
-		nigr = 340;
-	else
-		nigr++;
-	if (!targetList.empty() && bigblacknigasballs && blockHit && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
-		float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
-		*speedAdr = nigr;
-	}
-	targetList.clear();
-	g_Data.forEachEntity(findEntity);
-	if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && rotations){
-		vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-		plr->bodyYaw = angle.y;
-		plr->yawUnused1 = angle.y;
-		plr->pitch = angle.x;
+		if (nigr >= 505)
+			nigr = 340;
+		else
+			nigr += 2.f;
+
+		if (nigr <= 339)
+			nigr = 340;
+
+		if (!targetList.empty() && bigblacknigasballs && blockHit && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
+			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
+			*speedAdr = nigr;
+		}
+		targetList.clear();
+		g_Data.forEachEntity(findEntity);
+		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && rotations) {
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			plr->bodyYaw = angle.y;
+			plr->yawUnused1 = angle.y;
+			plr->pitch = angle.x;
+		}
 	}
 }
 
@@ -140,7 +146,7 @@ void Killaura::onTick(C_GameMode* gm) {
 
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
-	if (g_Data.isInGame()) {
+	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		g_Data.forEachEntity(findEntity);
 		if (autoweapon) findWeapon();
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
@@ -190,7 +196,7 @@ void Killaura::onTick(C_GameMode* gm) {
 void Killaura::onLevelRender() {
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
-	if (g_Data.isInGame() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		targetList.clear();
 		g_Data.forEachEntity(findEntity);
 
@@ -352,7 +358,7 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	targetList.clear();
 	g_Data.forEachEntity(findEntity);
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent && g_Data.isInGame()) {
 		if (!targetList.empty()) {
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			auto* pkt = reinterpret_cast<C_MovePlayerPacket*>(packet);
