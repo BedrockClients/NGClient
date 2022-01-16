@@ -1,2 +1,2 @@
 <b>NG Client 
-is a client that bamboozles the Hive anticheat 
+is a client that bamboozles the Hive anticheat hard   
