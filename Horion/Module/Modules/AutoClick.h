@@ -19,7 +19,7 @@ public:
 	 };
 	~AutoClick(){};
 
-	void onTick(C_GameMode* gm) {
+	virtual void onTick(C_GameMode* gm) {
 		if ((GameData::isLeftClickDown() || !hold)) {
 			C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 			PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
@@ -48,10 +48,12 @@ public:
 				}
 			}
 		}
-
+	}
+	virtual void onLevelRender() {
 		if (rightclick) {
 			if ((GameData::isRightClickDown() || !hold) && g_Data.isInGame()) {
 				PointingStruct* pstruct = g_Data.getClientInstance()->getPointerStruct();
+				auto gm = g_Data.getCGameMode();
 				Odelay++;
 				if (Odelay >= delay) {
 					g_Data.rightclickCount++;
