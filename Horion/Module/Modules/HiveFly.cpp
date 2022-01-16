@@ -1,4 +1,5 @@
 #include "HiveFly.h"
+#include "../ModuleManager.h"
 int counter = 0;
 bool clip = false;
 float clipHeight = 2.f;
@@ -38,6 +39,9 @@ int flySpeedIndex = 0;
 int stopYThingy = 0;
 
 void HiveFly::onEnable() {
+	static auto BhopMod = moduleMgr->getModule<Bhop>();
+	if (BhopMod->isEnabled())
+		BhopMod->setEnabled(false);
 	srand(time(NULL));
 	counter = 0;
 	counter69 = 0;
