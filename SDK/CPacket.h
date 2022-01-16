@@ -123,7 +123,7 @@ public:
 	int pad[0x100];//0x0
 };
 
-class CommandRequestPacket : C_Packet {
+class CommandRequestPacket : public C_Packet {
 public:
 	uint64_t VTable;  //0x0000
 	int two;

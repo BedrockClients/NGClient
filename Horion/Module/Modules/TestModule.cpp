@@ -77,15 +77,17 @@ void TestModule::onSendPacket(C_Packet* packet) {
 }
 
 void TestModule::onDisable() {
+	CommandRequestPacket mpp(std::string("q sky"));
+	g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 }
 
 void TestModule::onLevelRender() {
 }
 
 void TestModule::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
-	std::string screenName(g_Hooks.currentScreenName);
-	if (screenName != "toast_screen" && screenName != "start_screen" && screenName != "debug_screen" && screenName != "pause_screen" && screenName != "À$0a-" && screenName != "ÀA&w-")
-	DrawUtils::drawText(vec2_t{100, 100}, &screenName, MC_Color(0, 0, 255));
+	//std::string screenName(g_Hooks.currentScreenName);
+	//if (screenName != "toast_screen" && screenName != "start_screen" && screenName != "debug_screen" && screenName != "pause_screen" && screenName != "À$0a-" && screenName != "ÀA&w-")
+	//DrawUtils::drawText(vec2_t{100, 100}, &screenName, MC_Color(0, 0, 255));
 
 	//C_TexturePtr texture;
 	//texture.filePath = TextHolder("texture/ui/hotbar_2");
