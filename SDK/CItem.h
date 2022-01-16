@@ -195,56 +195,37 @@ public:
 public:
 	bool isTool(void) {
 		if (getAttackDamage() > 0) return true;           // Does Attack Damage
-		if (name.getText() == (std::string)"flint_and_steel") return true;                   // Flint_n_Steel
-		if (name.getText() == (std::string) "compas") return true;               // Compas
-		if (name.getText() == (std::string) "ender_pearl") return true;                      // Ender_Pearl
-		if (name.getText() == (std::string) "heart_of_the_sea") return true;     // Heart_of_the_sea
-		if (name.getText() == (std::string) "dragon_breath") return true;                    // dragon_breath
-		if (name.getText() == (std::string) "paper") return true;                // Paper
-		if (name.getText() == (std::string) "totem") return true;                            // Totem
-		if (name.getText() == (std::string) "emerald") return true;              // Emerald
-		if (name.getText() == (std::string) "diamond") return true;                          // diamond
-		if (name.getText() == (std::string) "gold") return true;                 // gold
-		if (name.getText() == (std::string) "nametag") return true;                          // Nametag
-		if (name.getText() == (std::string) "enchanted_book") return true;       // enchanted_book
-		if (name.getText() == (std::string) "nautilus_shell") return true;                   // nautilus_shell
+		if (((std::string)name.getText()).find("flint_and_steel") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("compass") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("_pearl") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("heart_of_the_sea") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("_breath") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("paper") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("totem") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("emerald") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("diamond") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("gold") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("name_tag") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("enchanted_book") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("nautilus_shell") != std::string::npos) return true;
 		return false;
 	}
 	bool isWeapon(void) {
-		if (name.getText() == (std::string) "wooden_sword") return true;  //wooden_sword
-		if (name.getText() == (std::string) "stone_sword") return true;   //stone_sword
-		if (name.getText() == (std::string) "gold_sword") return true;    //gold_sword
-		if (name.getText() == (std::string) "iron_sword") return true;    //iron_sword
-		if (name.getText() == (std::string) "diamond_sword") return true;  //diamond_sword
-		if (name.getText() == (std::string) "netherite_sword") return true;  //netherite_sword
-		if (name.getText() == (std::string) "wooden_axe") return true;       //wooden_axe
-		if (name.getText() == (std::string) "stone_axe") return true;        //stone_axe
-		if (name.getText() == (std::string) "gold_axe") return true;         //gold_axe
-		if (name.getText() == (std::string) "iron_axe") return true;         //iron_axe
-		if (name.getText() == (std::string) "diamond_axe") return true;      //diamond_axe
-		if (name.getText() == (std::string) "netherite_axe") return true;    //netherite_axe
+		if (((std::string)name.getText()).find("_sword") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("_axe") != std::string::npos) return true;
 		return false;
 	}
 	bool isShooter(void) {
-		if (name.getText() == (std::string) "bow" || name.getText() == (std::string) "crossbow" || name.getText() == (std::string) "arrow" || name.getText() == (std::string)"tipped_arrow") return true;  // Bow, crossbows, arrows, tipped arrows
+		if (((std::string)name.getText()).find("bow") != std::string::npos) return true;
+		if (((std::string)name.getText()).find("arrow") != std::string::npos) return true;
 		return false;
 	}
 	bool isPickaxe(void) {
-		if (name.getText() == (std::string) "wooden_pickaxe") return true;     //wooden_pickaxe
-		if (name.getText() == (std::string) "stone_pickaxe") return true;      //stone_pickaxe
-		if (name.getText() == (std::string) "gold_pickaxe") return true;       //gold_pickaxe
-		if (name.getText() == (std::string) "iron_pickaxe") return true;       //iron_pickaxe
-		if (name.getText() == (std::string) "diamond_pickaxe") return true;    //diamond_pickaxe
-		if (name.getText() == (std::string) "netherite_pickaxe") return true;  //netherite_pickaxe
+		if (((std::string)name.getText()).find("_pickaxe") != std::string::npos) return true;
 		return false;
 	}
 	bool isShovel(void) {
-		if (name.getText() == (std::string) "wooden_shovel") return true;     //wooden_shovel
-		if (name.getText() == (std::string) "stone_shovel") return true;      //stone_shovel
-		if (name.getText() == (std::string) "gold_shovel") return true;       //gold_shovel
-		if (name.getText() == (std::string) "iron_shovel") return true;       //iron_shovel
-		if (name.getText() == (std::string) "diamond_shovel") return true;    //diamond_shovel
-		if (name.getText() == (std::string) "netherite_shovel") return true;  //netherite_shovel
+		if (((std::string)name.getText()).find("_shovel") != std::string::npos) return true;
 		return false;
 	}
 

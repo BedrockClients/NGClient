@@ -115,11 +115,13 @@ void Killaura::findWeapon() {
 }
 float nigr = 340;
 void Killaura::onPlayerTick(C_Player* plr) {
+	auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
+
 	if (nigr == 416)
 		nigr = 340;
 	else
 		nigr++;
-	if (!targetList.empty() && bigblacknigasballs && blockHit) {
+	if (!targetList.empty() && bigblacknigasballs && blockHit && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
 		float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
 		*speedAdr = nigr;
 	}
@@ -134,6 +136,8 @@ void Killaura::onPlayerTick(C_Player* plr) {
 }
 
 void Killaura::onTick(C_GameMode* gm) {
+	auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
+
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
 	if (g_Data.isInGame()) {
@@ -171,13 +175,13 @@ void Killaura::onTick(C_GameMode* gm) {
 		counter = 0;
 
 	if (!targetList.empty()) {
-		if (blockHit)
+		if (blockHit && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon())
 			Utils::nopBytes((BYTE*)targetAddress, 8);
 
 		player->swing();
 	}
 
-	if (targetList.empty() && blockHit) {
+	if (targetList.empty() && blockHit && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 		gayFags = false;
 	}
