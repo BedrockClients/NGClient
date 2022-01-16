@@ -2,6 +2,7 @@
 #include "../../../SDK/CAttribute.h"
 
 void* targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
+bool bigblacknigasballs = false;
 
 Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
 	registerFloatSetting("range", &range, range, 2.f, 20.f);
@@ -12,6 +13,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
 	registerBoolSetting("BlockHit", &blockHit, blockHit);
+	registerBoolSetting("SlowBlock", &bigblacknigasballs, bigblacknigasballs);
 	registerBoolSetting("Rotations", &rotations, rotations);
 	registerBoolSetting("Strafe Rotations", &sexy, sexy);
 	registerBoolSetting("Silent Rotations", &silent, silent);
@@ -111,8 +113,16 @@ void Killaura::findWeapon() {
 		supplies->selectedHotbarSlot = slot;
 	}
 }
-
+float nigr = 340;
 void Killaura::onPlayerTick(C_Player* plr) {
+	if (nigr == 416)
+		nigr = 340;
+	else
+		nigr++;
+	if (!targetList.empty() && bigblacknigasballs && blockHit) {
+		float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
+		*speedAdr = nigr;
+	}
 	targetList.clear();
 	g_Data.forEachEntity(findEntity);
 	if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && rotations){
@@ -135,10 +145,7 @@ void Killaura::onTick(C_GameMode* gm) {
 				if (isMulti) {
 					for (auto& i : targetList) {
 						if (!(i->damageTime > 1 && hurttime)) {
-							player->swing();
 							g_Data.getCGameMode()->attack(i);
-							if (blockHit)
-							Utils::nopBytes((BYTE*)targetAddress, 8);
 							gayFags = true;
 							targethud++;
 						} else {
@@ -148,10 +155,7 @@ void Killaura::onTick(C_GameMode* gm) {
 					}
 				} else {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
-						player->swing();
 						g_Data.getCGameMode()->attack(targetList[0]);
-						if (blockHit)
-						Utils::nopBytes((BYTE*)targetAddress, 8);
 						gayFags = true;
 						targethud++;
 					} else {
@@ -166,7 +170,14 @@ void Killaura::onTick(C_GameMode* gm) {
 	if (targetList.empty())
 		counter = 0;
 
-	if (targetList.empty() || targethud <= 0 && blockHit) {
+	if (!targetList.empty()) {
+		if (blockHit)
+			Utils::nopBytes((BYTE*)targetAddress, 8);
+
+		player->swing();
+	}
+
+	if (targetList.empty() && blockHit) {
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 		gayFags = false;
 	}

@@ -19,6 +19,13 @@ int enabledTicks = 0;
 TextHolder styledReturnText;
 //#define TEST_DEBUG
 
+void blockRotate(glm::mat4& matrix, float upper) {
+	matrix = glm::translate<float>(matrix, glm::vec3(-0.5F, upper, 0.0F));
+	matrix = glm::rotate<float>(matrix, 30.0F, glm::vec3(0.0F, 1.0F, 0.0F));
+	matrix = glm::rotate<float>(matrix, -80.0F, glm::vec3(1.0F, 0.0F, 0.0F));
+	matrix = glm::rotate<float>(matrix, 60.0F, glm::vec3(0.0F, 1.0F, 0.0F));
+}
+
 void Hooks::Init() {
 	logF("Setting up Hooks...");
 	// clang-format off
@@ -244,11 +251,15 @@ void Hooks::Init() {
 			glm::mat4 View = matrix;
 			
 			matrix = View;
-			if (KillMod->isEnabled() && KillMod->targethud >= 1 && KillMod->blockHit && KillMod->gayFags) {
-				matrix = glm::rotate<float>(matrix,4.366805553436279, glm::vec3( 0.2570502758026123, -0.3729616403579712, -0.4111440181732178));
-				//matrix = glm::scale<float>(matrix, glm::vec3(1.0092198848724365, 1.0092198848724365, 1.0016083717346191));
-				matrix = glm::translate<float>(matrix, glm::vec3(0.18068552017211914,-0.23932266235351563, 0.10432004928588867));
-			} else if (ViewMod->isEnabled()) {
+		if (KillMod->isEnabled() && !KillMod->targetListA&& KillMod->blockHit && KillMod->gayFags) {
+			 lerpT = 0.f;
+				// translate for bedrock
+				matrix = glm::translate<float>(matrix, glm::vec3(0.42222223281, 0.0, -0.16666666269302368));
+				// java translated
+				matrix = glm::translate<float>(matrix, glm::vec3(-0.15f, 0.15f, -0.2f));
+				blockRotate(matrix, 0.2f);
+				return;
+		 } else if (ViewMod->isEnabled()) {
 				auto p = g_Data.getLocalPlayer();
 				if (ViewMod->mode.selected == 0 && ViewMod->spin){
 				float degrees = fmaf(p->getPosOld()->lerp(p->getPos(), lerpT).z, 95 ,0);
