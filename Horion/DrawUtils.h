@@ -97,6 +97,7 @@ public:
 
 	static void drawTriangle(vec2_t p1, vec2_t p2, vec2_t p3);
 	static void drawQuad(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4);
+	static void drawElipse(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4);
 	static void drawLine(vec2_t start, vec2_t end, float lineWidth);  // rgba
 	static void drawLinestrip3d(const std::vector<vec3_t>& points);
 	static void drawLine3d(const vec3_t& start, const vec3_t& end);

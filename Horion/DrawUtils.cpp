@@ -217,6 +217,10 @@ void DrawUtils::drawQuad(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4) {
 	meshHelper_renderImm(screenContext2d, tesselator, uiMaterial);
 }
 
+void DrawUtils::drawElipse(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4) {
+	//Draw Circle
+}
+
 void DrawUtils::drawLine(vec2_t start, vec2_t end, float lineWidth) {
 	float modX = 0 - (start.y - end.y);
 	float modY = start.x - end.x;
