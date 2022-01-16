@@ -59,7 +59,7 @@ void HiveFly::onEnable() {
 				if (counter69 <= 2) {
 					vec3_t moveVec;
 					moveVec.x = 0;
-					moveVec.y = 1.f;
+					moveVec.y = 0.7f;
 					moveVec.z = 0;
 					g_Data.getLocalPlayer()->lerpMotion(moveVec);
 				}
