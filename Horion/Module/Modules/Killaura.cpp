@@ -115,7 +115,7 @@ void Killaura::findWeapon() {
 void Killaura::onPlayerTick(C_Player* plr) {
 	targetList.clear();
 	g_Data.forEachEntity(findEntity);
-	if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+	if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && rotations){
 		vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 		plr->bodyYaw = angle.y;
 		plr->yawUnused1 = angle.y;
@@ -130,9 +130,6 @@ void Killaura::onTick(C_GameMode* gm) {
 		g_Data.forEachEntity(findEntity);
 		if (autoweapon) findWeapon();
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
-			if (rotations) {
-				// idk. Someone else mess with rots that dont strafe, we will put them here.
-			}
 			Odelay++;
 			if (Odelay >= delay) {
 				if (isMulti) {
@@ -140,6 +137,7 @@ void Killaura::onTick(C_GameMode* gm) {
 						if (!(i->damageTime > 1 && hurttime)) {
 							player->swing();
 							g_Data.getCGameMode()->attack(i);
+							if (blockHit)
 							Utils::nopBytes((BYTE*)targetAddress, 8);
 							gayFags = true;
 							targethud++;
@@ -152,6 +150,7 @@ void Killaura::onTick(C_GameMode* gm) {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
 						player->swing();
 						g_Data.getCGameMode()->attack(targetList[0]);
+						if (blockHit)
 						Utils::nopBytes((BYTE*)targetAddress, 8);
 						gayFags = true;
 						targethud++;
