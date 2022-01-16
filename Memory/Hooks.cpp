@@ -1189,14 +1189,6 @@ int Hooks::AppPlatform_getGameEdition(__int64 _this) {
 void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4) {
 	static auto oAutoComplete = g_Hooks.PleaseAutoCompleteHook->GetFastcall<void, __int64, __int64, TextHolder*, int>();
 	char* tx = text->getText();
-	using syncShit_t = void(__fastcall*)(__int64*, TextHolder*);
-	static syncShit_t syncShit = nullptr;
-	if (syncShit == nullptr) {
-		uintptr_t sigOffset = 0;
-		sigOffset = FindSignature("40 53 48 83 EC ? 48 8B DA 48 8D 4C 24 ? E8 ? ? ? ? 90 48 8B 40 ? 48 8B 08 48 8B 01 48 8B D3 FF 90 ? ? ? ? 90 F0 48 FF 0D ? ? ? ? 48 8B 44 24 ? 48 85 C0 74 ? 48 83 38 ? 74 ? 80 7C 24 ? ? 74 ? F0 48 FF 0D ? ? ? ? 48 8B 4C 24 ? 48 85 C9 74 ? 80 7C 24 ? ? 74 ? E8 ? ? ? ? C6 44 24 ? ? 48 8D 4C 24 ? E8 ? ? ? ? 48 8D 4C 24 ? E8 ? ? ? ? 80 7C 24 ? ? 74 ? 48 8B 4C 24 ? E8 ? ? ? ? 90 48 83 C4 ? 5B C3 B9 ? ? ? ? E8 ? ? ? ? CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC 40 53");
-		auto funcOffset = *reinterpret_cast<int*>(sigOffset);
-		syncShit = reinterpret_cast<syncShit_t>(sigOffset);
-	}
 	if (tx != nullptr && text->getTextLength() >= 1 && tx[0] == '.') {
 		std::string search = tx + 1;                                              // Dont include the '.'
 		std::transform(search.begin(), search.end(), search.begin(), ::tolower);  // make the search text lowercase
@@ -1282,12 +1274,12 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 					maxReplaceLength++;
 					firstResult.cmdAlias.append(" ");
 				}
-
 				text->setText(firstResult.cmdAlias.substr(0, maxReplaceLength));  // Set text
-				syncShit(0, text);
+				using syncShit = void(__fastcall*)(TextHolder*, TextHolder*);
+				static syncShit sync = reinterpret_cast<syncShit>(Utils::FindSignature("40 53 48 83 EC ? 48 8B DA 48 8D 4C 24 ? E8 ? ? ? ? 90 48 8B 40 ? 48 8B 08 48 8B 01 48 8B D3 FF 90 ? ? ? ? 90 F0 48 FF 0D ? ? ? ? 48 8B 44 24 ? 48 85 C0 74 ? 48 83 38 ? 74 ? 80 7C 24 ? ? 74 ? F0 48 FF 0D ? ? ? ? 48 8B 4C 24 ? 48 85 C9 74 ? 80 7C 24 ? ? 74 ? E8 ? ? ? ? C6 44 24 ? ? 48 8D 4C 24 ? E8 ? ? ? ? 48 8D 4C 24 ? E8 ? ? ? ? 80 7C 24 ? ? 74 ? 48 8B 4C 24 ? E8 ? ? ? ? 90 48 83 C4 ? 5B C3 B9 ? ? ? ? E8 ? ? ? ? CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC CC 40 53"));
+				sync(text, text);
 			}
 		}
-
 		return;
 	}
 	oAutoComplete(a1, a2, text, a4);
