@@ -112,6 +112,7 @@ void HiveConfig::onEnable() {
 	Scaff->autoselect = true;
 	Scaff->Fullselect = true;
 	Scaff->spoof = true;
+	Scaff->spam = true;
 	Scaff->rot = true;
 	Scaff->SukinMyBigJuicyAss = true;
 	Scaff->noSwing = true;
@@ -130,7 +131,7 @@ void HiveConfig::onEnable() {
 	Fuck->rots = false;
 	Fuck->treasures = true;
 	Fuck->chests = false;
-	Fuck->range = 4;
+	Fuck->range = 5;
 	//Teams
 	Team->colorCheck = true;
 	//Disabler
