@@ -2,7 +2,6 @@
 #include "../../../SDK/CAttribute.h"
 
 void* targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
-bool bigblacknigasballs = false;
 
 Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
 	registerFloatSetting("range", &range, range, 2.f, 20.f);

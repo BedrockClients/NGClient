@@ -72,6 +72,9 @@ private:
 			case Category::SERVER:
 				categoryName = "Server";
 				break;
+			case Category::CONFIG:
+				categoryName = "Configs";
+				break;
 			case Category::ENTITY:
 				categoryName = "Entity";
 				break;

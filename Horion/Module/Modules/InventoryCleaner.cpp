@@ -2,9 +2,6 @@
 
 #include "../ModuleManager.h"
 bool isUsefulExtraCheck(C_ItemStack* itemStack);
-bool keepBow = false;
-bool keepPick = false;
-bool keepShovel = false;
 InventoryCleaner::InventoryCleaner() : IModule(0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
 	registerBoolSetting("Armor", &keepArmor, keepArmor);
 	registerBoolSetting("Pickaxe", &keepPick, keepPick);

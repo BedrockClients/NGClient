@@ -1,7 +1,11 @@
 #pragma once
 #include "Module.h"
 class InventoryCleaner : public IModule {
-private:
+public:
+	bool stackIsUseful(C_ItemStack* itemStack);
+	InventoryCleaner();
+	~InventoryCleaner();
+
 	bool sorted = false;
 
 	std::vector<int> findStackableItems();
@@ -15,11 +19,9 @@ private:
 
 	bool openInv = true;
 	bool autoSort = false;
-
-public:
-	bool stackIsUseful(C_ItemStack* itemStack);
-	InventoryCleaner();
-	~InventoryCleaner();
+	bool keepBow = false;
+	bool keepPick = false;
+	bool keepShovel = false;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

@@ -2,11 +2,10 @@
 #include "../ModuleManager.h"
 #include "Module.h"
 class Teams : public IModule {
-private:
+public:
 	bool alliedCheck = false;
 	bool colorCheck = true;
 
-public:
 	Teams() : IModule(0x0, Category::COMBAT, "DOSENT WORK!!!") {
 		registerBoolSetting("is allied", &alliedCheck, alliedCheck);
 		registerBoolSetting("same color", &colorCheck, colorCheck);

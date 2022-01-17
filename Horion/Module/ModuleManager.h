@@ -17,6 +17,7 @@
 #include "Modules/FastLadder.h"
 #include "Modules/AutoArmor.h"
 #include "Modules/Flyto.h"
+#include "Modules/HiveConfig.h"
 #include "Modules/AutoSneak.h"
 #include "Modules/AutoSprint.h"
 #include "Modules/AutoTotem.h"

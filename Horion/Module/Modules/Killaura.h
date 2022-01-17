@@ -4,7 +4,8 @@
 #include "Module.h"
 
 class Killaura : public IModule {
-private:
+public:
+	bool bigblacknigasballs = false;
 	bool info = false;
 	int delay = 0;
 	int Odelay = 0;
@@ -12,8 +13,6 @@ private:
 	void findWeapon();
 	bool silent = false;
 	int counter = 0;
-
-public:
 	int targethud = 0;
 	bool rotations = true;
 	bool noSwing = false;

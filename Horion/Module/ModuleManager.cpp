@@ -84,6 +84,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new NoFriends()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Spammer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new selectionHighlight()));
+		moduleList.push_back(std::shared_ptr<IModule>(new HiveConfig()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiBot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Derp()));

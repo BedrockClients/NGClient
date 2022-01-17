@@ -1,10 +1,14 @@
 #pragma once
 #include "Module.h"
 class HiveFly : public IModule {
-private:
 public:
 	HiveFly();
 	~HiveFly();
+
+	int counter = 0;
+	bool clip = false;
+	float clipHeight = 2.f;
+	int counter69 = 0;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

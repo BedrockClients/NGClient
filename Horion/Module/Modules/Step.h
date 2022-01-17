@@ -1,10 +1,9 @@
 #pragma once
 #include "Module.h"
 class Step : public IModule {
-private:
+public:
 	float height = 2.f;
 
-public:
 	Step() : IModule(0, Category::MOVEMENT, "Increases your step height") {
 		registerFloatSetting("height", &height, height, 1.f, 2.f);
 	}

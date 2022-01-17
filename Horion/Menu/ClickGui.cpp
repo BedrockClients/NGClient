@@ -181,6 +181,10 @@ void ClickGui::renderCategory(Category category) {
 			ourWindow->pos.x = yot / 7.f * 4.f;
 			ourWindow->pos.y = 145.f;
 			break;
+		case Category::CONFIG:
+			ourWindow->pos.x = yot / 7.f * 4.f;
+			ourWindow->pos.y = 220.f;
+			break;
 		case Category::ENTITY:
 			ourWindow->pos.x = yot / 7.f * 5.f;
 			ourWindow->pos.y = 145.f;
@@ -904,6 +908,7 @@ void ClickGui::render() {
 	renderCategory(Category::GUI);
 	renderCategory(Category::FLYS);
 	renderCategory(Category::SERVER);
+	renderCategory(Category::CONFIG);
 	renderCategory(Category::ENTITY);
 
 	shouldToggleLeftClick = false;

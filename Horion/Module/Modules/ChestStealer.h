@@ -1,15 +1,14 @@
 #pragma once
 #include "Module.h"
 class ChestStealer : public IModule {
-private:
+public:
+	ChestStealer();
+	~ChestStealer();
+
 	int delay = 0;
 	int setDelay = 7;
 	bool enhanced = true;
 	bool dump = false;
-
-public:
-	ChestStealer();
-	~ChestStealer();
 
 	// Inherited via IModule
 	virtual void chestScreenController_tick(C_ChestScreenController* c);

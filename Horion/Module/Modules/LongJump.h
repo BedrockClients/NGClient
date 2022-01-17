@@ -3,13 +3,13 @@
 #include "Module.h"
 
 class LongJump : public IModule {
-private:
+public:
+
 	float height = 1.f;
 	bool slow = false;
 	float speed = 2.f;
 	bool hit = false;
 
-public:
 	LongJump();
 	virtual const char* getModuleName();
 	virtual void onTick(C_GameMode* gm) override;

@@ -1,9 +1,6 @@
 #include "HiveFly.h"
 #include "../ModuleManager.h"
-int counter = 0;
-bool clip = false;
-float clipHeight = 2.f;
-int counter69 = 0;
+
 HiveFly::HiveFly() : IModule('0', Category::SERVER, "How the fuck does this bypass ?!?!?") {
 	registerBoolSetting("Clip Up", &clip, clip);
 	registerFloatSetting("Clip Height", &clipHeight, clipHeight, 0.5f, 5.f);

@@ -5,13 +5,6 @@
 uintptr_t HiveBypass1 = Utils::getBase() + 0x8F3895;  // Second one of 89 41 ? 0F B6 42 ? 88 41 ? F2 0F 10 42 ? F2 0F 11 41 ? 8B 42 ? 89 41 ? 8B 42 ? 89 41 ? 8B 42 ? 89 41 ? 8B 42 ? 48 83 C2 ? 89 41 ? 48 83 C1 ? E8 ? ? ? ? 0F B6 43
 uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // C7 40 ? ? ? ? ? 48 8B 8D ? ? ? ? 48 33 CC E8 ? ? ? ? 4C 8D 9C 24
 void* NoSneakAddress = (void*)FindSignature("75 0A 80 7B 59 00");
-bool THICCC = false;
-bool GayNigaFags = true;
-bool Fullselect = false;
-bool SukinMyBigJuicyAss = true;
-bool fagNigas = false;
-float UpwardsFlyinNigas = 0.5f;
-vec3_t blockBelowUrMom;
 
 Scaffold::Scaffold() : IModule(VK_NUMPAD1, Category::WORLD, "Automatically build blocks beneath you") {
 	registerBoolSetting("Staircase Mode", &staircaseMode, staircaseMode);

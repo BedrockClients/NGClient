@@ -2,7 +2,8 @@
 #include "../ModuleManager.h"
 #include "Module.h"
 class AntiBot : public IModule {
-private:
+public:
+
 	bool hitboxCheck = true;
 	bool nameCheck = false;
 	bool invisibleCheck = true;
@@ -10,7 +11,7 @@ private:
 	bool otherCheck = true;
 	bool extraCheck = false;
 
-public:
+
 	bool isHitboxCheckEnabled() {
 		return hitboxCheck && isEnabled();
 	}

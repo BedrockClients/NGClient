@@ -3,7 +3,9 @@
 #include "Module.h"
 
 class Fucker : public IModule {
-private:
+public:
+	Fucker();
+	~Fucker();
 	int range = 5;
 	bool beds = false;
 	bool eggs = false;
@@ -16,10 +18,6 @@ private:
 	bool bypass = false;
 	bool rots = true;
 	vec3_ti blockPos;
-
-public:
-	Fucker();
-	~Fucker();
 	bool noSwing = false;
 	bool destroy;
 

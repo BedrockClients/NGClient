@@ -15,7 +15,8 @@ enum class Category {
 	WORLD = 5,
 	FLYS = 6,
 	GUI = 7,
-	ENTITY = 8
+	CONFIG = 8,
+	ENTITY = 9
 };
 
 struct EnumEntry {
