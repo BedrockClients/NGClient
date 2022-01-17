@@ -6,7 +6,7 @@ public:
 	~ChestStealer();
 
 	int delay = 0;
-	int setDelay = 7;
+	int setDelay = 0;
 	bool enhanced = true;
 	bool dump = false;
 

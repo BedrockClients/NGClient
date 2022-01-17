@@ -3,6 +3,7 @@
 #include "../ModuleManager.h"
 bool isUsefulExtraCheck(C_ItemStack* itemStack);
 InventoryCleaner::InventoryCleaner() : IModule(0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
+	registerIntSetting("Delay", &setDelay, setDelay, 0, 10);
 	registerBoolSetting("Armor", &keepArmor, keepArmor);
 	registerBoolSetting("Pickaxe", &keepPick, keepPick);
 	registerBoolSetting("Shovel", &keepShovel, keepShovel);
@@ -24,13 +25,16 @@ const char* InventoryCleaner::getModuleName() {
 void InventoryCleaner::onTick(C_GameMode* gm) {
 	if (g_Data.getLocalPlayer()->canOpenContainerScreen() && openInv) 
 		return;
-
+	delay++;
 	// Drop useless items
 	std::vector<int> dropSlots = findUselessItems();
 	if (!dropSlots.empty()) {
 		for (int i : dropSlots) {
-			g_Data.getLocalPlayer()->getSupplies()->inventory->dropSlot(i);
-			return;
+			if (delay > setDelay && setDelay >= 1) {
+				g_Data.getLocalPlayer()->getSupplies()->inventory->dropSlot(i);
+				delay = 0;
+			} else if (setDelay <= 0)
+				g_Data.getLocalPlayer()->getSupplies()->inventory->dropSlot(i);
 		}
 	}
 

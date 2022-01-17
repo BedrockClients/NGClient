@@ -7,6 +7,8 @@ public:
 	~InventoryCleaner();
 
 	bool sorted = false;
+	int delay = 0;
+	int setDelay = 0;
 
 	std::vector<int> findStackableItems();
 	std::vector<int> findUselessItems();
