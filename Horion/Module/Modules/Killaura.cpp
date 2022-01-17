@@ -177,10 +177,11 @@ void Killaura::onTick(C_GameMode* gm) {
 		g_Data.forEachEntity(findEntity);
 		if (autoweapon) findWeapon();
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
-			PlayerCount++;
 			Odelay++;
 			if (PlayerCount == targetList.size())
 				PlayerCount = 0;
+			else
+				PlayerCount++;
 
 			if (Odelay >= delay) {
 				if (targ.selected == 1) {
@@ -192,6 +193,7 @@ void Killaura::onTick(C_GameMode* gm) {
 						} else {
 							targethud = 0;
 							counter = 0;
+							PlayerCount = 0;
 						}
 					}
 				} else if (targ.selected == 0) {
@@ -202,6 +204,7 @@ void Killaura::onTick(C_GameMode* gm) {
 					} else {
 						targethud = 0;
 						counter = 0;
+						PlayerCount = 0;
 					}
 				} else {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
@@ -211,6 +214,7 @@ void Killaura::onTick(C_GameMode* gm) {
 					} else {
 						targethud = 0;
 						counter = 0;
+						PlayerCount = 0;
 					}
 				}
 				Odelay = 0;
@@ -231,6 +235,7 @@ void Killaura::onTick(C_GameMode* gm) {
 	if (targetList.empty() && mode.selected != 3 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 		gayFags = false;
+		PlayerCount = 0;
 	}
 }
 
@@ -289,13 +294,15 @@ void Killaura::onLevelRender() {
 	}
 	if (!g_Data.isInGame())
 		setEnabled(false);
+	if (targetList.empty())
+		PlayerCount = 0;
 }
 
 void Killaura::onEnable() {
 	srand(time(NULL));
+	targetList.clear();
 	counter = 0;
 	PlayerCount = 0;
-	targetList.clear();
 	if (g_Data.isInGame()) {
 		if (g_Data.getLocalPlayer() == nullptr)
 			setEnabled(false);
@@ -303,11 +310,11 @@ void Killaura::onEnable() {
 }
 
 void Killaura::onDisable() {
+	targetList.clear();
 	Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 	gayFags = false;
 	counter = 0;
 	PlayerCount = 0;
-	targetList.clear();
 }
 
 void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
