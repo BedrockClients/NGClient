@@ -98,13 +98,12 @@ void HiveConfig::onEnable() {
 	KillMod->setKeybind('F');
 	KillMod->range = 7.f;
 	KillMod->delay = 0;
-	KillMod->silent = true;
+	KillMod->rots.selected = 1;
 	KillMod->mode.selected = 1;
+	KillMod->targ.selected = 0;
 	KillMod->info = true;
 	KillMod->hurttime = false;
 	KillMod->isMobAura = false;
-	KillMod->isMulti = true;
-	KillMod->sexy = false;
 	//Scaffold
 	Scaff->setKeybind('G');
 	Scaff->staircaseMode = true;

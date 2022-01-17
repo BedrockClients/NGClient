@@ -5,9 +5,19 @@ void* targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0")
 Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
 	registerFloatSetting("range", &range, range, 2.f, 20.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);
-	registerBoolSetting("MultiAura", &isMulti, isMulti);
+	registerEnumSetting("Targeting", &targ, 2);
+	targ = SettingEnum(this)
+	.addEntry(EnumEntry("Switch", 0))
+	.addEntry(EnumEntry("Multi", 1))
+	.addEntry(EnumEntry("Single", 2));
 	registerBoolSetting("Info", &info, info);
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
+	registerEnumSetting("Rotations", &rots, 3);
+	rots = SettingEnum(this)
+	.addEntry(EnumEntry("Strafe", 0))
+	.addEntry(EnumEntry("Client", 1))
+	.addEntry(EnumEntry("Silent", 2))
+	.addEntry(EnumEntry("None", 3));
 	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
 	registerEnumSetting("BlockHit", &mode, 3);
@@ -16,9 +26,6 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	.addEntry(EnumEntry("SmoothBlock", 1))
 	.addEntry(EnumEntry("Normal", 2))
 	.addEntry(EnumEntry("None", 3));
-	registerBoolSetting("Rotations", &rotations, rotations);
-	registerBoolSetting("Strafe Rotations", &sexy, sexy);
-	registerBoolSetting("Silent Rotations", &silent, silent);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
 }
 
@@ -28,11 +35,11 @@ Killaura::~Killaura() {
 const char* Killaura::getModuleName() {
 	auto HUD = moduleMgr->getModule<HudModule>();
 	if (isEnabled() && HUD->bools) {
-		if (rotations) {
-			return "Killaura [Rotations]";
-		} else if (sexy) {
+		if (rots.selected == 0) {
 			return "Killaura [Strafe]";
-		} else if (silent) {
+		} else if (rots.selected == 1) {
+			return "Killaura [Client]";
+		} else if (rots.selected == 2) {
 			return "Killaura [Silent]";
 		} else
 			return "Killaura";
@@ -50,7 +57,6 @@ struct CompareTargetEnArray {
 static std::vector<C_Entity*> targetList;
 float rcolorrs[4];
 float Outline = 0;
-int PlayerCount = 0;
 
 __int64 actualPlayerVTable = Utils::getBase() + 0x3E403A0;
 
@@ -118,6 +124,7 @@ void Killaura::findWeapon() {
 }
 float nigr = 0;
 float nigr2 = 0;
+int PlayerCount = 0;
 void Killaura::onPlayerTick(C_Player* plr) {
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
@@ -147,8 +154,13 @@ void Killaura::onPlayerTick(C_Player* plr) {
 		}
 		targetList.clear();
 		g_Data.forEachEntity(findEntity);
-		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && rotations) {
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && rots.selected == 1) {
+			vec2_t angle;
+			if (targ.selected == 0)
+			angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos());
+			else
+			angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+
 			plr->bodyYaw = angle.y;
 			plr->yawUnused1 = angle.y;
 			plr->pitch = angle.x;
@@ -165,9 +177,13 @@ void Killaura::onTick(C_GameMode* gm) {
 		g_Data.forEachEntity(findEntity);
 		if (autoweapon) findWeapon();
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+			PlayerCount++;
 			Odelay++;
+			if (PlayerCount == targetList.size())
+				PlayerCount = 0;
+
 			if (Odelay >= delay) {
-				if (isMulti) {
+				if (targ.selected == 1) {
 					for (auto& i : targetList) {
 						if (!(i->damageTime > 1 && hurttime)) {
 							g_Data.getCGameMode()->attack(i);
@@ -177,6 +193,15 @@ void Killaura::onTick(C_GameMode* gm) {
 							targethud = 0;
 							counter = 0;
 						}
+					}
+				} else if (targ.selected == 0) {
+					if (!(targetList[0]->damageTime > 1 && hurttime)) {
+						g_Data.getCGameMode()->attack(targetList[PlayerCount]);
+						gayFags = true;
+						targethud++;
+					} else {
+						targethud = 0;
+						counter = 0;
 					}
 				} else {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
@@ -192,8 +217,10 @@ void Killaura::onTick(C_GameMode* gm) {
 			}
 		}
 	}
-	if (targetList.empty())
+	if (targetList.empty()) {
 		counter = 0;
+		PlayerCount = 0;
+	}
 
 	if (!targetList.empty()) {
 		if (mode.selected != 3 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon())
@@ -215,7 +242,10 @@ void Killaura::onLevelRender() {
 		g_Data.forEachEntity(findEntity);
 
 		if (!targetList.empty()) {
-			if (sexy) {
+			if (rots.selected == 0) {
+				if (targ.selected == 0)
+				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos()).normAngles();
+				else
 				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
 				//player->bodyYaw = joe.x;
 				//player->bodyYaw = joe.y;
@@ -264,6 +294,7 @@ void Killaura::onLevelRender() {
 void Killaura::onEnable() {
 	srand(time(NULL));
 	counter = 0;
+	PlayerCount = 0;
 	targetList.clear();
 	if (g_Data.isInGame()) {
 		if (g_Data.getLocalPlayer() == nullptr)
@@ -275,6 +306,7 @@ void Killaura::onDisable() {
 	Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 	gayFags = false;
 	counter = 0;
+	PlayerCount = 0;
 	targetList.clear();
 }
 
@@ -372,9 +404,14 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	targetList.clear();
 	g_Data.forEachEntity(findEntity);
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent && g_Data.isInGame()) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && rots.selected == 1 || rots.selected == 2 && g_Data.isInGame()) {
 		if (!targetList.empty()) {
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			vec2_t angle;
+			if (targ.selected == 0)
+			angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos());
+			else
+			angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+
 			auto* pkt = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			float xChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.f));
 			xChange -= 1.5f;

@@ -1302,7 +1302,7 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	if (freeMod->isEnabled() && freeMod->freezerot && g_Data.getLocalPlayer() == _this) {
 		sexyAngle = {freeMod->lastPos.x, freeMod->lastPos.y};
 	}
-	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->sexy) {
+	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->rots.selected == 0) {
 		sexyAngle = {killauraMod->joe};
 	}
 	if (infiniteauraMod->isEnabled() && !infiniteauraMod->targetListC && g_Data.getLocalPlayer() == _this && infiniteauraMod->sex) {
