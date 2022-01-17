@@ -104,6 +104,7 @@ void HiveConfig::onEnable() {
 	KillMod->info = true;
 	KillMod->hurttime = false;
 	KillMod->isMobAura = false;
+	KillMod->noSwing = false;
 	//Scaffold
 	Scaff->setKeybind('G');
 	Scaff->staircaseMode = true;
