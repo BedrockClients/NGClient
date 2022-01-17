@@ -123,10 +123,10 @@ void Hooks::Init() {
 			{
 				g_Hooks.ZipPackAccessStrategy__isTrustedHook = std::make_unique<FuncHook>(directoryPackVtable2[6], Hooks::ReturnTrue);
 			}
-			g_Hooks.SkinRepository___checkSignatureFileInPack = std::make_unique<FuncHook>(FindSignature("48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 44 24 ? 48 8B 39 48 8B 59 ? 48 85 DB"), Hooks::ReturnTrue);
+			g_Hooks.SkinRepository___checkSignatureFileInPack = std::make_unique<FuncHook>(FindSignature("48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 44 24 ? 48 8B 79"), Hooks::ReturnTrue);
 		}
 	}
-
+	
 	// Signatures
 	{
 		//void* Actor_breath = reinterpret_cast<void*>(FindSignature("48 89 5C 24 18 56 48 83 EC 50 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 44 24 40 8B 81"));
@@ -337,13 +337,12 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 	return o;
 }
 
-void* Hooks::playerCallBack(C_Player* lp, void* a2) {
+void Hooks::playerCallBack(C_Player* lp, void* a2) {
 	static auto oTick = g_Hooks.playerCallBack_Hook->GetFastcall<void*, C_Player*, void*>();
 //om, we need this check or else is makes all entitys look the directions we are setting rotations to look lol
 	if (lp == g_Data.getLocalPlayer())
 	moduleMgr->onPlayerTick(lp);
-	
-	return oTick;
+	oTick;
 }
 
 void Hooks::ClientInstanceScreenModel_sendChatMessage(void* _this, TextHolder* text) {
