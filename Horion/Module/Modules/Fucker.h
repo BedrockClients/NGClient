@@ -7,6 +7,8 @@ public:
 	Fucker();
 	~Fucker();
 	int range = 5;
+	int delay = 1;
+	int Odelay = 0;
 	bool beds = false;
 	bool eggs = false;
 	bool cakes = false;

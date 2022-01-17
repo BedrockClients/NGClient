@@ -3,7 +3,7 @@
 #include "../ModuleManager.h"
 
 ChestStealer::ChestStealer() : IModule(0, Category::PLAYER, "Automatically takes or dumps all items out of a chest or into a chest") {
-	registerIntSetting("Close Delay", &setDelay, setDelay, 0, 20);
+	registerIntSetting("Steal Delay", &setDelay, setDelay, 0, 10);
 	registerBoolSetting("enhanced", &enhanced, enhanced);
 	registerBoolSetting("dump", &dump, dump);
 }
@@ -52,6 +52,7 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 			}
 		}
 	} else {
+		delay++;
 		if (c != nullptr) {
 			std::vector<int> items = {};
 			auto invcleanerMod = moduleMgr->getModule<InventoryCleaner>();
@@ -63,16 +64,14 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 			}
 			if (!items.empty()) {
 				for (int i : items) {
+					if (delay > setDelay && setDelay >= 1) {
+						c->handleAutoPlace(0x7FFFFFFF, "container_items", i);
+						delay = 0;
+					} else if (setDelay <= 0)
 					c->handleAutoPlace(0x7FFFFFFF, "container_items", i);
-					return;
 				}
-			} else {
-				delay++;
-				if (delay > setDelay) {
-					c->tryExit();
-					delay = 0;
-				}
-			}
+			} else 
+			c->tryExit();
 		}
 	}
 }
