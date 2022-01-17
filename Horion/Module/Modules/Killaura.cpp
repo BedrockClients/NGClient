@@ -176,8 +176,6 @@ void Killaura::onPlayerTick(C_Player* plr) {
 }
 
 void Killaura::onTick(C_GameMode* gm) {
-	if (targ.selected == 0 && delay <= 2)
-		delay = 3;
 	auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
