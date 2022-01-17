@@ -2,8 +2,8 @@
 
 #include "../../../Utils/Logger.h"
 #include "../ModuleManager.h"
-uintptr_t HiveBypass1 = Utils::getBase() + 0x8F3895;  // Second one of 89 41 18 0F B6 42 ?? 88 41 ?? F2 0F 10 42 ?? F2 0F 11 41 ?? 8B 42 ?? 89 41 ?? 8B 42 ?? 89 41 ??
-uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // C7 40 18 03 00 00 00 48 8B 8D
+uintptr_t HiveBypass1 = Utils::getBase() + 0x8F3895;  // Second one of 89 41 ? 0f b6 42 ? 88 41 ? f2 0f 10 42 ? f2 0f 11 41 ? 8b 42 ? 89 41 ? 8b 42 ? 89 41 ? 8b 42 ? 89 41 ? 8b 42 ? 48 83 c2 ? 89 41 ? 48 83 c1 ? e8 ? ? ? ? 0f b6 43
+uintptr_t HiveBypass2 = Utils::getBase() + 0x8F87C7;  // c7 40 ? ? ? ? ? 48 8b 8d ? ? ? ? 48 33 cc e8 ? ? ? ? 4c 8d 9c 24
 void* NoSneakAddress = (void*)FindSignature("75 0A 80 7B 59 00");
 bool THICCC = false;
 bool GayNigaFags = true;
