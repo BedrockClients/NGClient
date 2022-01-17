@@ -1,4 +1,5 @@
 #include "Killaura.h"
+
 #include "../../../SDK/CAttribute.h"
 
 void* targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
@@ -7,25 +8,25 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	registerIntSetting("delay", &delay, delay, 0, 20);
 	registerEnumSetting("Targeting", &targ, 2);
 	targ = SettingEnum(this)
-	.addEntry(EnumEntry("Switch", 0))
-	.addEntry(EnumEntry("Multi", 1))
-	.addEntry(EnumEntry("Single", 2));
+			   .addEntry(EnumEntry("Switch", 0))
+			   .addEntry(EnumEntry("Multi", 1))
+			   .addEntry(EnumEntry("Single", 2));
 	registerBoolSetting("Info", &info, info);
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
 	registerEnumSetting("Rotations", &rots, 3);
 	rots = SettingEnum(this)
-	.addEntry(EnumEntry("Strafe", 0))
-	.addEntry(EnumEntry("Client", 1))
-	.addEntry(EnumEntry("Silent", 2))
-	.addEntry(EnumEntry("None", 3));
+			   .addEntry(EnumEntry("Strafe", 0))
+			   .addEntry(EnumEntry("Client", 1))
+			   .addEntry(EnumEntry("Silent", 2))
+			   .addEntry(EnumEntry("None", 3));
 	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
 	registerEnumSetting("BlockHit", &mode, 3);
 	mode = SettingEnum(this)
-	.addEntry(EnumEntry("SlowBlock", 0))
-	.addEntry(EnumEntry("SmoothBlock", 1))
-	.addEntry(EnumEntry("Normal", 2))
-	.addEntry(EnumEntry("None", 3));
+			   .addEntry(EnumEntry("SlowBlock", 0))
+			   .addEntry(EnumEntry("SmoothBlock", 1))
+			   .addEntry(EnumEntry("Normal", 2))
+			   .addEntry(EnumEntry("None", 3));
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
 }
 
@@ -44,7 +45,7 @@ const char* Killaura::getModuleName() {
 		} else
 			return "Killaura";
 	} else
-	return "Killaura";
+		return "Killaura";
 }
 
 struct CompareTargetEnArray {
@@ -62,6 +63,7 @@ __int64 actualPlayerVTable = Utils::getBase() + 0x3E403A0;
 
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+		std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 		static auto killauraMod = moduleMgr->getModule<Killaura>();
 
 		if (currentEntity == nullptr)
@@ -127,6 +129,7 @@ float nigr2 = 0;
 int PlayerCount = 0;
 void Killaura::onPlayerTick(C_Player* plr) {
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+		std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 		auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
 
 		if (nigr >= 505)
@@ -157,9 +160,9 @@ void Killaura::onPlayerTick(C_Player* plr) {
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && rots.selected == 1) {
 			vec2_t angle;
 			if (targ.selected == 0)
-			angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos());
+				angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos());
 			else
-			angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 
 			plr->bodyYaw = angle.y;
 			plr->yawUnused1 = angle.y;
@@ -169,19 +172,20 @@ void Killaura::onPlayerTick(C_Player* plr) {
 }
 
 void Killaura::onTick(C_GameMode* gm) {
+	if (targ.selected == 0 && delay <= 2)
+		delay = 3;
 	auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
-
+	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		g_Data.forEachEntity(findEntity);
 		if (autoweapon) findWeapon();
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+			PlayerCount++;
 			Odelay++;
-			if (PlayerCount == targetList.size())
+			if (PlayerCount == targetList.capacity())
 				PlayerCount = 0;
-			else
-				PlayerCount++;
 
 			if (Odelay >= delay) {
 				if (targ.selected == 1) {
@@ -193,7 +197,6 @@ void Killaura::onTick(C_GameMode* gm) {
 						} else {
 							targethud = 0;
 							counter = 0;
-							PlayerCount = 0;
 						}
 					}
 				} else if (targ.selected == 0) {
@@ -204,7 +207,6 @@ void Killaura::onTick(C_GameMode* gm) {
 					} else {
 						targethud = 0;
 						counter = 0;
-						PlayerCount = 0;
 					}
 				} else {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
@@ -214,7 +216,6 @@ void Killaura::onTick(C_GameMode* gm) {
 					} else {
 						targethud = 0;
 						counter = 0;
-						PlayerCount = 0;
 					}
 				}
 				Odelay = 0;
@@ -229,17 +230,17 @@ void Killaura::onTick(C_GameMode* gm) {
 	if (!targetList.empty()) {
 		if (mode.selected != 3 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon())
 			Utils::nopBytes((BYTE*)targetAddress, 8);
-			player->swing();
+		player->swing();
 	}
 
 	if (targetList.empty() && mode.selected != 3 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 		gayFags = false;
-		PlayerCount = 0;
 	}
 }
 
 void Killaura::onLevelRender() {
+	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	targetListA = targetList.empty();
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
@@ -249,9 +250,9 @@ void Killaura::onLevelRender() {
 		if (!targetList.empty()) {
 			if (rots.selected == 0) {
 				if (targ.selected == 0)
-				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos()).normAngles();
+					joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos()).normAngles();
 				else
-				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
+					joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
 				//player->bodyYaw = joe.x;
 				//player->bodyYaw = joe.y;
 			}
@@ -294,15 +295,13 @@ void Killaura::onLevelRender() {
 	}
 	if (!g_Data.isInGame())
 		setEnabled(false);
-	if (targetList.empty())
-		PlayerCount = 0;
 }
 
 void Killaura::onEnable() {
 	srand(time(NULL));
-	targetList.clear();
 	counter = 0;
 	PlayerCount = 0;
+	targetList.clear();
 	if (g_Data.isInGame()) {
 		if (g_Data.getLocalPlayer() == nullptr)
 			setEnabled(false);
@@ -310,16 +309,16 @@ void Killaura::onEnable() {
 }
 
 void Killaura::onDisable() {
-	targetList.clear();
 	Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 	gayFags = false;
 	counter = 0;
 	PlayerCount = 0;
+	targetList.clear();
 }
 
 void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
+	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 	if (g_Data.isInGame() && !targetList.empty() && info && g_Data.canUseMoveKeys && g_Data.getLocalPlayer()->canOpenContainerScreen() && targethud >= 1 && targetList[0]->isPlayer()) {
-
 		//Atributes
 		AbsorptionAttribute attribute = AbsorptionAttribute();
 		HealthAttribute attribute2 = HealthAttribute();
@@ -415,9 +414,9 @@ void Killaura::onSendPacket(C_Packet* packet) {
 		if (!targetList.empty()) {
 			vec2_t angle;
 			if (targ.selected == 0)
-			angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos());
+				angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos());
 			else
-			angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 
 			auto* pkt = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			float xChange = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.f));
