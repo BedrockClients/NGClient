@@ -2,7 +2,6 @@
 #include "../../../SDK/CAttribute.h"
 
 void* targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
-
 Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
 	registerFloatSetting("range", &range, range, 2.f, 20.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);
@@ -11,8 +10,12 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
 	registerBoolSetting("hurttime", &hurttime, hurttime);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
-	registerBoolSetting("BlockHit", &blockHit, blockHit);
-	registerBoolSetting("SlowBlock", &bigblacknigasballs, bigblacknigasballs);
+	registerEnumSetting("BlockHit", &mode, 3);
+	mode = SettingEnum(this)
+	.addEntry(EnumEntry("SlowBlock", 0))
+	.addEntry(EnumEntry("SmoothBlock", 1))
+	.addEntry(EnumEntry("Normal", 2))
+	.addEntry(EnumEntry("None", 3));
 	registerBoolSetting("Rotations", &rotations, rotations);
 	registerBoolSetting("Strafe Rotations", &sexy, sexy);
 	registerBoolSetting("Silent Rotations", &silent, silent);
@@ -28,7 +31,7 @@ const char* Killaura::getModuleName() {
 		if (rotations) {
 			return "Killaura [Rotations]";
 		} else if (sexy) {
-			return "Killaura [Sexy]";
+			return "Killaura [Strafe]";
 		} else if (silent) {
 			return "Killaura [Silent]";
 		} else
@@ -47,6 +50,7 @@ struct CompareTargetEnArray {
 static std::vector<C_Entity*> targetList;
 float rcolorrs[4];
 float Outline = 0;
+int PlayerCount = 0;
 
 __int64 actualPlayerVTable = Utils::getBase() + 0x3E403A0;
 
@@ -113,6 +117,7 @@ void Killaura::findWeapon() {
 	}
 }
 float nigr = 0;
+float nigr2 = 0;
 void Killaura::onPlayerTick(C_Player* plr) {
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
@@ -125,9 +130,20 @@ void Killaura::onPlayerTick(C_Player* plr) {
 		if (nigr <= 339)
 			nigr = 340;
 
-		if (!targetList.empty() && bigblacknigasballs && blockHit && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
+		if (nigr2 >= 369)
+			nigr2 = 340;
+		else
+			nigr2 += 1.f;
+
+		if (nigr2 <= 339)
+			nigr2 = 340;
+
+		if (!targetList.empty() && mode.selected == 0 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
 			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
 			*speedAdr = nigr;
+		} else if (!targetList.empty() && mode.selected == 1 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
+			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
+			*speedAdr = nigr2;
 		}
 		targetList.clear();
 		g_Data.forEachEntity(findEntity);
@@ -180,13 +196,12 @@ void Killaura::onTick(C_GameMode* gm) {
 		counter = 0;
 
 	if (!targetList.empty()) {
-		if (blockHit && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon())
+		if (mode.selected != 3 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon())
 			Utils::nopBytes((BYTE*)targetAddress, 8);
-
-		player->swing();
+			player->swing();
 	}
 
-	if (targetList.empty() && blockHit && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
+	if (targetList.empty() && mode.selected != 3 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
 		gayFags = false;
 	}
@@ -202,8 +217,8 @@ void Killaura::onLevelRender() {
 		if (!targetList.empty()) {
 			if (sexy) {
 				joe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
-				player->bodyYaw = joe.x;
-				player->bodyYaw = joe.y;
+				//player->bodyYaw = joe.x;
+				//player->bodyYaw = joe.y;
 			}
 			int prevSlot;
 			if (autoweapon) {

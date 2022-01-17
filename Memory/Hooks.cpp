@@ -252,7 +252,7 @@ void Hooks::Init() {
 			
 			matrix = View;
 			auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
-		if (KillMod->isEnabled() && !KillMod->targetListA&& KillMod->blockHit && KillMod->gayFags && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
+		if (KillMod->isEnabled() && !KillMod->targetListA && KillMod->mode.selected != 3 && KillMod->gayFags && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
 			 lerpT = 0.f;
 				// translate for bedrock
 				matrix = glm::translate<float>(matrix, glm::vec3(0.42222223281, 0.0, -0.16666666269302368));

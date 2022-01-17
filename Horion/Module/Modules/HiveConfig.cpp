@@ -56,6 +56,7 @@ void HiveConfig::onEnable() {
 	static auto ChestSteal = moduleMgr->getModule<ChestStealer>();
 	static auto Disable = moduleMgr->getModule<Disabler>();
 	static auto AntiKBMod = moduleMgr->getModule<Antikb>();
+	static auto SwingAnimation = moduleMgr->getModule<SwingAnimations>();
 	static auto ArrayList = moduleMgr->getModule<GUI>();
 	static auto Long = moduleMgr->getModule<LongJump>();
 
@@ -89,6 +90,7 @@ void HiveConfig::onEnable() {
 	StepBro->setEnabled(true);
 	ESPMod->setEnabled(true);
 	Team->setEnabled(true);
+	SwingAnimation->setEnabled(true);
 
 	//Set All Settings
 
@@ -96,12 +98,11 @@ void HiveConfig::onEnable() {
 	KillMod->setKeybind('F');
 	KillMod->range = 7.f;
 	KillMod->delay = 0;
-	KillMod->blockHit = true;
 	KillMod->silent = true;
-	KillMod->blockHit = true;
-	KillMod->bigblacknigasballs = true;
+	KillMod->mode.selected = 1;
 	KillMod->info = true;
 	KillMod->hurttime = false;
+	KillMod->isMobAura = false;
 	KillMod->isMulti = true;
 	KillMod->sexy = false;
 	//Scaffold
@@ -115,6 +116,8 @@ void HiveConfig::onEnable() {
 	Scaff->rot = true;
 	Scaff->SukinMyBigJuicyAss = true;
 	Scaff->noSwing = true;
+	Scaff->yLock = true;
+	Scaff->predict = false;
 	Scaff->GayNigaFags = true;
 	//Bhop
 	Hop->setKeybind('C');
@@ -125,8 +128,9 @@ void HiveConfig::onEnable() {
 	Fuck->noSwing = true;
 	Fuck->redstone = true;
 	Fuck->bypass = true;
-	Fuck->rots = true;
+	Fuck->rots = false;
 	Fuck->treasures = true;
+	Fuck->chests = false;
 	Fuck->range = 4;
 	//Teams
 	Team->colorCheck = true;
@@ -235,6 +239,8 @@ void HiveConfig::onEnable() {
 	HudMod->scale = 0.75f;
 	//InstaBreak
 	Break->mode.selected = 1;
+	//Swing Animations
+	SwingAnimation->fluxSwing = true;
 
 	//Tell User Binds
 	g_Data.getGuiData()->displayClientMessageF("=======================================");

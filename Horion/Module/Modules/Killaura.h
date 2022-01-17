@@ -5,7 +5,7 @@
 
 class Killaura : public IModule {
 public:
-	bool bigblacknigasballs = false;
+	SettingEnum mode;
 	bool info = false;
 	int delay = 0;
 	int Odelay = 0;
@@ -18,7 +18,6 @@ public:
 	bool noSwing = false;
 	bool isMulti = true;
 	bool isMobAura = false;
-	bool blockHit = false;
 	bool gayFags = false;
 	bool hurttime = true;
 	float range = 6;
