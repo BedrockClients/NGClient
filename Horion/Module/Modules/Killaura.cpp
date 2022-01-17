@@ -196,6 +196,8 @@ void Killaura::onTick(C_GameMode* gm) {
 					for (auto& i : targetList) {
 						if (!(i->damageTime > 1 && hurttime)) {
 							g_Data.getCGameMode()->attack(i);
+							if (noSwing)
+								return;
 							gayFags = true;
 							targethud++;
 						} else {
@@ -206,6 +208,8 @@ void Killaura::onTick(C_GameMode* gm) {
 				} else if (targ.selected == 0) {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
 						g_Data.getCGameMode()->attack(targetList[PlayerCount]);
+						if (noSwing)
+							return;
 						gayFags = true;
 						targethud++;
 					} else {
@@ -215,6 +219,8 @@ void Killaura::onTick(C_GameMode* gm) {
 				} else {
 					if (!(targetList[0]->damageTime > 1 && hurttime)) {
 						g_Data.getCGameMode()->attack(targetList[0]);
+						if (noSwing)
+							return;
 						gayFags = true;
 						targethud++;
 					} else {

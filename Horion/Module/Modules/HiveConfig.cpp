@@ -96,7 +96,7 @@ void HiveConfig::onEnable() {
 
 	//Killaura
 	KillMod->setKeybind('F');
-	KillMod->range = 7.f;
+	KillMod->range = 6.f;
 	KillMod->delay = 0;
 	KillMod->rots.selected = 1;
 	KillMod->mode.selected = 1;
