@@ -212,8 +212,8 @@ void Hooks::Init() {
 		void* _getSkinPack = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? B8 ? ? ? ? E8 ? ? ? ? 48 2B E0 48 8B 05 ? ? ? ? 48 33 C4 48 89 85 ? ? ? ? 4C 8B EA 48 8B F1"));
 		g_Hooks.SkinRepository___loadSkinPackHook = std::make_unique<FuncHook>(_getSkinPack, Hooks::SkinRepository___loadSkinPack);
 
-		//void* destroySpeed = reinterpret_cast<void*>(FindSignature("48 89 5C 24 18 48 89 74 24 20 57 48 83 EC 40 48 8B FA OF 29 74 24 30 48 8B 91 88 OB 00 00 48 8B D9"));
-		//g_Hooks.getDestroySpeedHook = std::make_unique<FuncHook>(destroySpeed, Hooks::getDestroySpeed);
+		void* destroySpeed = reinterpret_cast<void*>(FindSignature("48 89 5C 24 18 48 89 74 24 20 57 48 83 EC 40 48 8B FA OF 29 74 24 30 48 8B 91 88 OB 00 00 48 8B D9"));
+		g_Hooks.getDestroySpeedHook = std::make_unique<FuncHook>(destroySpeed, Hooks::getDestroySpeed);
 
 		//void* _toStyledString = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 48 89 74 24 ? 57 48 81 EC ? ? ? ? 49 8B D8 48 8B F9"));
 		//g_Hooks.toStyledStringHook = std::make_unique<FuncHook>(_toStyledString, Hooks::toStyledString);
@@ -2156,12 +2156,12 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 	return oFunc(ent);
 }
 #endif*/
-float Hooks::getDestroySpeed(C_Block& block) {
-	static auto oFunc = g_Hooks.getDestroySpeedHook->GetFastcall<float, C_Block&>();
+float Hooks::getDestroySpeed(C_Player* _this, C_Block& block) {
+	static auto oFunc = g_Hooks.getDestroySpeedHook->GetFastcall<float, C_Player*, C_Block&>();
 	static auto instabreakMod = moduleMgr->getModule<InstaBreak>();
 	if (instabreakMod->isEnabled() && instabreakMod->mode.selected == 2)
 		return NAN;
-	return oFunc(block);
+	return oFunc(_this, block);
 }
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {
 	auto func = g_Hooks.InventoryTransactionManager__addActionHook->GetFastcall<void, C_InventoryTransactionManager*, C_InventoryAction&>();
