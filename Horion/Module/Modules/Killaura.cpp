@@ -188,7 +188,7 @@ void Killaura::onTick(C_GameMode* gm) {
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 			PlayerCount++;
 			Odelay++;
-			if (PlayerCount == targetList.size())
+			if (PlayerCount >= targetList.size())
 				PlayerCount = 0;
 
 			if (Odelay >= delay) {
