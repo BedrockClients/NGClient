@@ -152,10 +152,10 @@ void Killaura::onPlayerTick(C_Player* plr) {
 		if (nigr2 <= 339)
 			nigr2 = 340;
 
-		if (!targetList.empty() && mode.selected == 0 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
+		if (!targetList.empty() && mode.selected == 0 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon() && !noSwing) {
 			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
 			*speedAdr = nigr;
-		} else if (!targetList.empty() && mode.selected == 1 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
+		} else if (!targetList.empty() && mode.selected == 1 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon() && !noSwing) {
 			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
 			*speedAdr = nigr2;
 		}
@@ -188,7 +188,7 @@ void Killaura::onTick(C_GameMode* gm) {
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 			PlayerCount++;
 			Odelay++;
-			if (PlayerCount == targetList.capacity())
+			if (PlayerCount == targetList.size())
 				PlayerCount = 0;
 
 			if (Odelay >= delay) {
