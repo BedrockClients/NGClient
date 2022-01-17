@@ -101,6 +101,7 @@ void HiveConfig::onEnable() {
 	KillMod->blockHit = true;
 	KillMod->bigblacknigasballs = true;
 	KillMod->info = true;
+	KillMod->hurttime = false;
 	KillMod->isMulti = true;
 	KillMod->sexy = false;
 	//Scaffold
@@ -159,7 +160,7 @@ void HiveConfig::onEnable() {
 	ESPMod->circle = false;
 	ESPMod->doRainbow = false;
 	ESPMod->is2d = false;
-	ESPMod->iszephyr = false;
+	ESPMod->iszephyr = true;
 	ESPMod->isMobEsp = false;
 	//FullBright
 	Bright->intensity = 25.f;
