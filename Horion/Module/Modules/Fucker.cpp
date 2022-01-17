@@ -53,6 +53,7 @@ void Fucker::onTick(C_GameMode* gm) {
 							gm->startDestroyBlock(blockPos, 0, isDestroyed);
 							gm->stopDestroyBlock(blockPos);
 							gm->destroyBlock(&blockPos, 0);
+							return;
 						}
 					}
 					if (eat) {
