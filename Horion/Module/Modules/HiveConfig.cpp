@@ -193,7 +193,7 @@ void HiveConfig::onEnable() {
 	AntiBotMod->otherCheck = false;
 	AntiBotMod->invisibleCheck = false;
 	//ChestStealer
-	ChestSteal->delay = 10;
+	ChestSteal->delay = 0;
 	ChestSteal->enhanced = true;
 	ChestSteal->dump = false;
 	//InvCleaner
