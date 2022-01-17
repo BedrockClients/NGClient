@@ -118,7 +118,7 @@ void HiveConfig::onEnable() {
 	Scaff->SukinMyBigJuicyAss = true;
 	Scaff->noSwing = true;
 	Scaff->yLock = true;
-	Scaff->predict = false;
+	Scaff->predict = true;
 	Scaff->GayNigaFags = true;
 	//Bhop
 	Hop->setKeybind('C');
