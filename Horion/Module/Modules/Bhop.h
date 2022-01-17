@@ -57,7 +57,8 @@ public:
 			vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 			bool pressed = moveVec2d.magnitude() > 0.01f;
 
-		if (hive) {
+		static auto Flight = moduleMgr->getModule<HiveFly>();
+		if (hive && !Flight->isEnabled()) {
 			if (pressed) {
 				player->setSprinting(true);
 				if (player->onGround) {
@@ -86,7 +87,7 @@ public:
 				player->lerpMotion(moveVec);
 				if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
 			}
-		} else {
+		} else if (!Flight->isEnabled()) {
 			if (player->onGround && pressed)
 				player->jumpFromGround();
 
