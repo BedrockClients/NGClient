@@ -148,6 +148,7 @@
     <ClCompile Include="Horion\Module\Modules\AnchorAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Radar.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveConfig.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />

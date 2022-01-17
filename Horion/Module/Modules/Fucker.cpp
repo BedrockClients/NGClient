@@ -81,7 +81,7 @@ void Fucker::onPlayerTick(C_Player* plr) {
 void Fucker::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>() && g_Data.getLocalPlayer() != nullptr && bypass) {
 		static auto instaBreakModule = moduleMgr->getModule<InstaBreak>();
-		if (destroy) {
+		if (destroy && g_Data.isInGame() && packet != nullptr) {
 			instaBreakModule->mode.selected == 1;
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(vec3_t(blockPos.x, blockPos.y, blockPos.z));

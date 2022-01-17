@@ -42,66 +42,7 @@ public:
 	inline std::vector<C_MovePlayerPacket*>* getMovePlayerPacketHolder() { return &MovePlayerPacketHolder; };
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("Bhop"); }
-	virtual void onMove(C_MoveInputHandler* input) override {
-			cachedInput = *input;
-			yes = input;
-			C_LocalPlayer* player = g_Data.getLocalPlayer();
-			if (player == nullptr) return;
-
-			if (player->isInLava() == 1 || player->isInWater() == 1)
-				return;
-
-			if (player->isSneaking())
-				return;
-
-			vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
-			bool pressed = moveVec2d.magnitude() > 0.01f;
-
-		static auto Flight = moduleMgr->getModule<HiveFly>();
-		if (hive && !Flight->isEnabled()) {
-			if (pressed) {
-				player->setSprinting(true);
-				if (player->onGround) {
-					player->jumpFromGround();
-				}
-				C_MovePlayerPacket mpp(player, *player->getPos());
-				mpp.onGround = player->onGround;
-				mpp.pitch += 0.5f;
-				mpp.yaw += 0.5f;
-				mpp.headYaw += 0.5f;
-				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
-			}
-
-			float calcYaw = (player->yaw + 90) * (PI / 180);
-			vec3_t moveVec;
-			float c = cos(calcYaw);
-			float s = sin(calcYaw);
-			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-
-			if (pressed) {
-				if (player->onGround) speedIndexThingyForHive = 0;
-				float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive];
-				moveVec.x = moveVec2d.x * currentSpeed;
-				moveVec.y = player->velocity.y;
-				moveVec.z = moveVec2d.y * currentSpeed;
-				player->lerpMotion(moveVec);
-				if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
-			}
-		} else if (!Flight->isEnabled()) {
-			if (player->onGround && pressed)
-				player->jumpFromGround();
-
-			float calcYaw = (player->yaw + 90) * (PI / 180);
-			vec3_t moveVec;
-			float c = cos(calcYaw);
-			float s = sin(calcYaw);
-			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-			moveVec.x = moveVec2d.x * speed;
-			moveVec.y = player->velocity.y;
-			moveVec.z = moveVec2d.y * speed;
-			if (pressed) player->lerpMotion(moveVec);
-		}
-	}
+	virtual void onMove(C_MoveInputHandler* input) override;
 	virtual void onTick(C_GameMode* gm) override {
 		g_Data.getClientInstance()->minecraft->setTimerSpeed(static_cast<float>(timer));
 	}
