@@ -128,6 +128,10 @@ float nigr = 0;
 float nigr2 = 0;
 int PlayerCount = 0;
 void Killaura::onPlayerTick(C_Player* plr) {
+	static auto prevTime = std::chrono::high_resolution_clock::now();
+	auto now = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float> tDiff = now - prevTime;
+	prevTime = now;
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
 		std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 		auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
@@ -143,7 +147,7 @@ void Killaura::onPlayerTick(C_Player* plr) {
 		if (nigr2 >= 369)
 			nigr2 = 340;
 		else
-			nigr2 += 1.f;
+			nigr2 += 1.5f;
 
 		if (nigr2 <= 339)
 			nigr2 = 340;
