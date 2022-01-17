@@ -394,7 +394,7 @@ void Scaffold::onPlayerTick(C_Player* plr) {
 			joe = plr->getPos()->CalcAngle(blockBelowUrMom).normAngles();
 		else
 			joe = plr->getPos()->CalcAngle(blockBelowtest2).normAngles();
-		if (findBlock()) {
+		if (findBlock() && g_Data.getLocalPlayer()->getBlocksPerSecond() > 0.1f) {
 			plr->bodyYaw = joe.y;
 			plr->yawUnused1 = joe.y;
 			plr->pitch = 75.f;
@@ -403,6 +403,19 @@ void Scaffold::onPlayerTick(C_Player* plr) {
 }
 
 void Scaffold::onSendPacket(C_Packet* packet) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() || packet->isInstanceOf<PlayerAuthInputPacket>()) {
+		if (g_Data.getLocalPlayer() != nullptr && g_Data.canUseMoveKeys() && rot) {
+			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
+			if (g_Data.getLocalPlayer()->getBlocksPerSecond() > 0.1f || GameData::isKeyDown(*input->spaceBarKey)) {
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(blockBelowtest2);
+				movePacket->pitch = angle.x;
+				movePacket->headYaw = angle.y;
+				movePacket->yaw = angle.y;
+			}
+		}
+	}
+	//Credits Packet
 }
 
 void Scaffold::onEnable() {
