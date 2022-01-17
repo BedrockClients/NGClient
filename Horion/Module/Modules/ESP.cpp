@@ -87,26 +87,27 @@ void doRenderStuff(C_Entity* ent, bool isRegularEntitie) {
 }
 
 void ESP::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
-	for (auto pos : lastPos) {
-		if (g_Data.canUseMoveKeys() && g_Data.isInGame())
-		DrawUtils::drawBox(pos.toFloatVector(), pos.add(1, 1, 1).toFloatVector(), 1, false);
-	}
-	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
+	if (g_Data.canUseMoveKeys() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+		for (auto pos : lastPos) {
+			DrawUtils::drawBox(pos.toFloatVector(), pos.add(1, 1, 1).toFloatVector(), 1, false);
+		}
+		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 
-	if (localPlayer != nullptr && GameData::canUseMoveKeys()) {
-		// Rainbow colors
-		{
-			if (rcolors[3] < 1) {
-				rcolors[0] = 0.2f;
-				rcolors[1] = 0.2f;
-				rcolors[2] = 1.f;
-				rcolors[3] = 1;
+		if (localPlayer != nullptr && GameData::canUseMoveKeys()) {
+			// Rainbow colors
+			{
+				if (rcolors[3] < 1) {
+					rcolors[0] = 0.2f;
+					rcolors[1] = 0.2f;
+					rcolors[2] = 1.f;
+					rcolors[3] = 1;
+				}
+
+				Utils::ApplyRainbow(rcolors, 0.0015f);
 			}
 
-			Utils::ApplyRainbow(rcolors, 0.0015f);
+			g_Data.forEachEntity(doRenderStuff);
 		}
-
-		g_Data.forEachEntity(doRenderStuff);
 	}
 }
 
