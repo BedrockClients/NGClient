@@ -100,7 +100,7 @@ void HiveConfig::onEnable() {
 	KillMod->delay = 0;
 	KillMod->rots.selected = 1;
 	KillMod->mode.selected = 1;
-	KillMod->targ.selected = 1;
+	KillMod->targ.selected = 0;
 	KillMod->info = true;
 	KillMod->hurttime = false;
 	KillMod->isMobAura = false;
