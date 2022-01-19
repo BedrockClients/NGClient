@@ -62,6 +62,7 @@ void TestModule::onPlayerTick(C_Player* plr) {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
+	g_Data.getGuiData()->displayClientMessage(&std::to_string(g_Data.getLocalPlayer()->pointingStruct->rayHitType));
 }
 
 void TestModule::onWorldTick(C_GameMode* gm) {
@@ -77,8 +78,8 @@ void TestModule::onSendPacket(C_Packet* packet) {
 }
 
 void TestModule::onDisable() {
-	CommandRequestPacket mpp("/q sky");
-	g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
+	//CommandRequestPacket mpp("/q sky");
+	//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 }
 
 void TestModule::onLevelRender() {

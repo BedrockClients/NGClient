@@ -12,16 +12,23 @@
 class C_GameMode;
 
 class PointingStruct {
-	char pad_0x0000[0xA28];  //0x0000
-public:
-	int rayHitType;    //0x08E0
-	int blockSide;     //0x08E4
-	vec3_ti block;     //0x08E8
-	vec3_t rayHitVec;  //0x08F4
 private:
-	C_Entity *entityPtr;          //0x0900
-	C_Entity *entityPtr2;         //0x0908
-	uint64_t GamingEntityFinder;  //0x0910
+	char firstpad[0x5E8]; //0x8
+public:
+	int levelTicks; //0x5F0
+private:
+	char secondpad[0x434]; //0x5F4
+public:
+	int rayHitType;    //0x0A28
+	int blockSide;     //0x0A2C
+	vec3_ti block;     //0x0A30
+	vec3_t rayHitVec;  //0x0A3C
+private:
+	C_Entity *entityPtr;          //0x0A48
+	C_Entity *entityPtr2;         //0x0A50
+	uint64_t GamingEntityFinder;  //0x0A58
+
+	virtual void DONTREMOVEPLS();
 
 public:
 	bool hasEntity();       //to not go trough the entity list twice
