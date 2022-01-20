@@ -34,7 +34,8 @@ public:
 	bool hasEntity();       //to not go trough the entity list twice
 	C_Entity *getEntity();  //returns the entity that the player is looking at
 	int getLevelTicks() {
-		return *reinterpret_cast<int*>(reinterpret_cast<__int64>(this) + 0x5F0);
+		return levelTicks;
+		//return *reinterpret_cast<int*>(reinterpret_cast<__int64>(this) + 0x5F0);
 	}
 };
 
