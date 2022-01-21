@@ -69,7 +69,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new HighJump()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoWeb()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AnchorAura()));
-		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new HiveFly())); Not for public build lol 
 		moduleList.push_back(std::shared_ptr<IModule>(new FastEat()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Jesus()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FastLadder()));
