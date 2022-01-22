@@ -69,7 +69,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new HighJump()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoWeb()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AnchorAura()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new HiveFly())); Not for public build lol 
 		moduleList.push_back(std::shared_ptr<IModule>(new FastEat()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Jesus()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FastLadder()));
@@ -142,7 +141,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new SoundPlayer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestAura()));
 #ifdef _DEBUG
-		
+		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));  // Not for public build lol
 #endif
 
 		// Sort modules alphabetically
