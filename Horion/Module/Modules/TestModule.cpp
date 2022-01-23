@@ -62,7 +62,6 @@ void TestModule::onPlayerTick(C_Player* plr) {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
-	g_Data.getGuiData()->displayClientMessage(&std::to_string(g_Data.getLocalPlayer()->pointingStruct->rayHitType));
 }
 
 void TestModule::onWorldTick(C_GameMode* gm) {
