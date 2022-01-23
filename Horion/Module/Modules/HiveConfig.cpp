@@ -145,10 +145,12 @@ void HiveConfig::onEnable() {
 	Select->rSelect = 1.f;
 	Select->bSelect = 1.f;
 	Select->gSelect = 1.f;
+#ifdef _DEBUG
 	//HiveFly
 	HiveFli->setKeybind('R');
 	HiveFli->clip = false;
 	HiveFli->clipHeight = 5.f;
+#endif
 	//LongJump
 	Long->setKeybind('X');
 	Long->slow = true;
@@ -255,6 +257,12 @@ void HiveConfig::onEnable() {
 				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, LIGHT_PURPLE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
 		}
 	}
+
+	//No Hivefly In Release
+#ifdef _DEBUG
+#else
+	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %sHiveFly is currently not available in release mode.", WHITE, RED, WHITE, RED);
+#endif
 
 	//Success
 	if (HudMod->surge) {
