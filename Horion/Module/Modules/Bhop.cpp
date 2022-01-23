@@ -23,7 +23,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 		float s = sin(calcYaw);
 		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
 #ifdef _DEBUG
-		if (pressed && Flight->isEnabled()) {
+		if (pressed && !Flight->isEnabled()) {
 			player->setSprinting(true);
 			if (player->onGround) {
 				player->jumpFromGround();
@@ -66,7 +66,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 	} else {
 
 #ifdef _DEBUG
-		if (player->onGround && pressed && Flight->isEnabled())
+		if (player->onGround && pressed && !Flight->isEnabled())
 			player->jumpFromGround();
 #else
 		if (player->onGround && pressed)
@@ -81,7 +81,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 		moveVec.y = player->velocity.y;
 		moveVec.z = moveVec2d.y * speed;
 #ifdef _DEBUG
-		if (pressed && Flight->isEnabled())
+		if (pressed && !Flight->isEnabled())
 			player->lerpMotion(moveVec);
 #else
 		if (pressed)
