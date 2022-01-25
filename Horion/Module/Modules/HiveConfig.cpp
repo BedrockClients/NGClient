@@ -90,7 +90,7 @@ void HiveConfig::onEnable() {
 	StepBro->setEnabled(true);
 	ESPMod->setEnabled(true);
 	Team->setEnabled(true);
-	SwingAnimation->setEnabled(true);
+	//SwingAnimation->setEnabled(true);
 
 	//Set All Settings
 
@@ -245,7 +245,11 @@ void HiveConfig::onEnable() {
 	//InstaBreak
 	Break->mode.selected = 1;
 	//Swing Animations
-	SwingAnimation->fluxSwing = true;
+	SwingAnimation->fluxSwing = false;
+	SwingAnimation->fakeJavaSwing = false;
+	SwingAnimation->floppySwing = false;
+	SwingAnimation->noObstructSwing = false;
+	SwingAnimation->pushSwing = false;
 
 	//Tell User Binds
 	g_Data.getGuiData()->displayClientMessageF("=======================================");
