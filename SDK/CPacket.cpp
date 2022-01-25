@@ -307,3 +307,18 @@ C_InteractPacket::C_InteractPacket(/*enum InteractPacket::Action, class ActorRun
 	memset(this, 0, sizeof(C_InteractPacket));  // Avoid overwriting vtable
 	vTable = interactPacketVtable;
 }
+
+ActorEventPacket::ActorEventPacket() {
+	static uintptr_t** actorEvenPacketVtable = 0x0;
+	if (actorEvenPacketVtable == 0x0) {
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4D ? 48 89 45 ? C6 45 ? ? 44 89 75");
+		int offset = *reinterpret_cast<int*>(sigOffset + 3);
+		actorEvenPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
+#ifdef _DEBUG
+		if (actorEvenPacketVtable == 0x0 || sigOffset == 0x0)
+			__debugbreak();
+#endif
+	}
+	memset(this, 0, sizeof(ActorEventPacket));  // Avoid overwriting vtable
+	vTable = actorEvenPacketVtable;
+}

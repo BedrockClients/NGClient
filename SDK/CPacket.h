@@ -143,6 +143,11 @@ public:
 	long targetRuntimeEntityID;//Test
 };
 
+class ActorEventPacket : public C_Packet {
+public:
+	ActorEventPacket();
+};
+
 class C_MobEquipmentPacket : public C_Packet {
 public:
 	C_MobEquipmentPacket();
