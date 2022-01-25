@@ -9,7 +9,7 @@ public:
 	float glideMod = -.0f;
 	SettingEnum mode;
 
-	Fly() : IModule(0x0, Category::MOVEMENT, "become birb") {
+	Fly() : IModule(0x0, Category::FLYS, "become birb") {
 		mode = (*new SettingEnum(this))
 				   .addEntry(EnumEntry("Fly", 1))
 				   .addEntry(EnumEntry("CubeFly", 2))
