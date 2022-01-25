@@ -23,6 +23,9 @@ const char* InventoryCleaner::getModuleName() {
 }
 
 void InventoryCleaner::onTick(C_GameMode* gm) {
+	//std::string screenName(g_Hooks.currentScreenName);
+	//if (strcmp(screenName.c_str(), "inventory_screen") == 0 && openInv)
+		//return;
 	if (g_Data.getLocalPlayer()->canOpenContainerScreen() && openInv) 
 		return;
 	delay++;
