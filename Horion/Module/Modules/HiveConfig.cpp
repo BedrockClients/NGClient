@@ -100,7 +100,11 @@ void HiveConfig::onEnable() {
 	KillMod->delay = 0;
 	KillMod->rots.selected = 1;
 	KillMod->mode.selected = 1;
+#ifdef _DEBUG
+	KillMod->targ.selected = 1;
+#else
 	KillMod->targ.selected = 0;
+#endif
 	KillMod->info = true;
 	KillMod->hurttime = false;
 	KillMod->isMobAura = false;
@@ -145,12 +149,10 @@ void HiveConfig::onEnable() {
 	Select->rSelect = 1.f;
 	Select->bSelect = 1.f;
 	Select->gSelect = 1.f;
-#ifdef _DEBUG
 	//HiveFly
 	HiveFli->setKeybind('R');
 	HiveFli->clip = false;
 	HiveFli->clipHeight = 5.f;
-#endif
 	//LongJump
 	Long->setKeybind('X');
 	Long->slow = true;

@@ -22,7 +22,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 		float c = cos(calcYaw);
 		float s = sin(calcYaw);
 		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-#ifdef _DEBUG
+
 		if (pressed && !Flight->isEnabled()) {
 			player->setSprinting(true);
 			if (player->onGround) {
@@ -42,36 +42,9 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 			player->lerpMotion(moveVec);
 			if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
 		}
-#else
-		if (pressed) {
-			player->setSprinting(true);
-			if (player->onGround) {
-				player->jumpFromGround();
-			}
-			C_MovePlayerPacket mpp(player, *player->getPos());
-			mpp.onGround = player->onGround;
-			mpp.pitch += 0.5f;
-			mpp.yaw += 0.5f;
-			mpp.headYaw += 0.5f;
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
-			if (player->onGround) speedIndexThingyForHive = 0;
-			float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive];
-			moveVec.x = moveVec2d.x * currentSpeed;
-			moveVec.y = player->velocity.y;
-			moveVec.z = moveVec2d.y * currentSpeed;
-			player->lerpMotion(moveVec);
-			if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
-		}
-#endif
 	} else {
-
-#ifdef _DEBUG
 		if (player->onGround && pressed && !Flight->isEnabled())
 			player->jumpFromGround();
-#else
-		if (player->onGround && pressed)
-			player->jumpFromGround();
-#endif
 		float calcYaw = (player->yaw + 90) * (PI / 180);
 		vec3_t moveVec;
 		float c = cos(calcYaw);
@@ -80,12 +53,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 		moveVec.x = moveVec2d.x * speed;
 		moveVec.y = player->velocity.y;
 		moveVec.z = moveVec2d.y * speed;
-#ifdef _DEBUG
 		if (pressed && !Flight->isEnabled())
 			player->lerpMotion(moveVec);
-#else
-		if (pressed)
-			player->lerpMotion(moveVec);
-#endif
 	}
 }
