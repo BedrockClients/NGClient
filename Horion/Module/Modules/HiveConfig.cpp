@@ -124,6 +124,7 @@ void HiveConfig::onEnable() {
 	Scaff->yLock = true;
 	Scaff->predict = false;
 	Scaff->GayNigaFags = true;
+	Scaff->THICCC = false;
 	//Bhop
 	Hop->setKeybind('C');
 	Hop->speed = 0.90;
@@ -244,6 +245,8 @@ void HiveConfig::onEnable() {
 	HudMod->scale = 0.75f;
 	//InstaBreak
 	Break->mode.selected = 1;
+	//Reach
+	ReachMod->reachValue = 7.f;
 	//Swing Animations
 	SwingAnimation->fluxSwing = false;
 	SwingAnimation->fakeJavaSwing = false;

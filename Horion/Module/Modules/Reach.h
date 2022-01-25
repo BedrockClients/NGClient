@@ -2,13 +2,14 @@
 #include "Module.h"
 
 class Reach : public IModule {
-private:
+public:
+
 	float reachValue = 3;
 	float originalReach = 0;
 	float* reachPtr = nullptr;
 	unsigned long oldProtect = 0;
 
-public:
+
 	Reach();
 	~Reach();
 
