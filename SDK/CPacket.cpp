@@ -7,7 +7,7 @@ TextHolder* C_Packet::getName() {
 LevelSoundEventPacket::LevelSoundEventPacket() {
 	static uintptr_t** LevelSoundEventPacketVtable = 0x0;
 	if (LevelSoundEventPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("89 55 38 48 8D 0D ? ? ? ?") + 3;
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4D ? C7 45 ? ? ? ? ? F2 0F 10 00 F2 0F 11 45 ? 8B 40 ? 89 45 ? C7 45");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		LevelSoundEventPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -22,7 +22,7 @@ LevelSoundEventPacket::LevelSoundEventPacket() {
 PlayerAuthInputPacket::PlayerAuthInputPacket() {
 	static uintptr_t** PlayerAuthInputPacketVtable = 0x0;
 	if (PlayerAuthInputPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("0F 84 ? ? ? ? 48 8D 0D ? ? ? ? 0F 57 C0 0F 11 00 C7 40 ? ? ? ? ?") + 6;
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 0F 57 C0 0F 11 00 C7 40 ? ? ? ? ? C7 40 ? ? ? ? ? 48 8D 05 ? ? ? ? 48 89 02 33 C0 48 89 42");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		PlayerAuthInputPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -36,7 +36,7 @@ PlayerAuthInputPacket::PlayerAuthInputPacket() {
 PlayerAuthInputPacket::PlayerAuthInputPacket(vec3_t pos, float pitch, float yaw, float yawUnused) {
 	static uintptr_t** PlayerAuthInputPacketVtable = 0x0;
 	if (PlayerAuthInputPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("0F 84 ? ? ? ? 48 8D 0D ? ? ? ? 0F 57 C0 0F 11 00 C7 40 ? ? ? ? ?") + 6;
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 0F 57 C0 0F 11 00 C7 40 ? ? ? ? ? C7 40 ? ? ? ? ? 48 8D 05 ? ? ? ? 48 89 02 33 C0 48 89 42");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		PlayerAuthInputPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -117,7 +117,7 @@ C_InventoryTransactionPacket::C_InventoryTransactionPacket() {
 C_TextPacket::C_TextPacket() {
 	static uintptr_t** textPacketVtable = 0x0;
 	if (textPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("90 48 8D 05 ? ? ? ? 48 89 44 24 ? 48 8D 4D D8") + 1;
+		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 48 89 44 24 ? 48 8D 4D ? E8 ? ? ? ? 48 8D 4D ? E8 ? ? ? ? 48 8D 4D ? E8 ? ? ? ? 48 8D 4D ? E8 ? ? ? ? 48 8D 4D ? E8 ? ? ? ? 48 8D 4D ? E8 ? ? ? ? 48 8B 4D");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		textPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -168,7 +168,7 @@ C_MovePlayerPacket::C_MovePlayerPacket(C_LocalPlayer* player, vec3_t pos) {
 C_PlayerActionPacket::C_PlayerActionPacket() {
 	static uintptr_t** playerActionPacketVtable = 0x0;
 	if (playerActionPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("89 5D EF 48 8D 0D ? ? ? ?") + 3;
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4D ? 66 0F 7F 45 ? C7 45 ? ? ? ? ? 48 89 45 ? 49 8B 8D");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		playerActionPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -214,7 +214,7 @@ C_EmotePacket::C_EmotePacket() {
 C_AnimatePacket::C_AnimatePacket() {
 	static uintptr_t** animatePacketVtable = 0x0;
 	if (animatePacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("89 75 88 48 8D 0D ? ? ? ?") + 3;
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4C 24 ? 49 8B 8E");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		animatePacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -263,7 +263,7 @@ PlayerSkinPacket::PlayerSkinPacket() {
 NetworkLatencyPacket::NetworkLatencyPacket() {
 	static uintptr_t** networkLatencyPacketVtable = 0x0;
 	if (networkLatencyPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("89 41 28 48 8D 05 ? ? ? ? 48 89 01 C7 41 ? ? ? ? ?") + 3;
+		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 48 89 01 C7 41 ? ? ? ? ? 66 C7 41 ? ? ? FF 15");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		networkLatencyPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
