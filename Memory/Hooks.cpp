@@ -510,7 +510,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	bool shouldPostRender = true;
 	bool shouldRenderArrayList = true;
-	//bool shouldRenderTabGui = false;
 	bool shouldRenderWatermark = true;
 
 	static float rcolors[4];          // Rainbow color array RGBA
@@ -657,11 +656,11 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 						static std::string name = "NG";
 #ifdef _DEBUG
-						static std::string version = "Public";
+						static std::string version = "";
 #elif defined _BETA
-						static std::string version = "Public";
+						static std::string version = "";
 #else
-						static std::string version = "Public";
+						static std::string version = "";
 #endif
 
 						float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);

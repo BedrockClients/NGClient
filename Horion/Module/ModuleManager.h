@@ -121,7 +121,6 @@
 #include "Modules/BlockFly.h"
 #include "Modules/GUI.h"
 #include "Modules/NGFly.h"
-#include "Modules/EntityJesus.h"
 #include "Modules/EntitySpeed.h"
 #include "Modules/Trail.h"
 #include "Modules/FightBot.h"

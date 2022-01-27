@@ -129,8 +129,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new GUI()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new EntitySpider()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new EntityJesus()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EntitySpeed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Trail()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FightBot()));
@@ -141,7 +139,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));  // Not for public build the public it out 
 #ifdef _DEBUG
-		//moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));  // Not for public build lol
 #endif
 
 		// Sort modules alphabetically

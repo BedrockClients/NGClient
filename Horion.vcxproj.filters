@@ -127,7 +127,6 @@
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\EntityJesus.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
@@ -385,7 +384,6 @@
     <ClInclude Include="Horion\Module\Modules\GUI.h" />
     <ClInclude Include="Horion\Module\Modules\NGFly.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
-    <ClInclude Include="Horion\Module\Modules\EntityJesus.h" />
     <ClInclude Include="Horion\Module\Modules\Trail.h" />
     <ClInclude Include="Horion\Module\Modules\FightBot.h" />
     <ClInclude Include="Horion\Command\Commands\GodmodeCommand.h" />

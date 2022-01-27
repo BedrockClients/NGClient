@@ -4,7 +4,7 @@
 
 void* targetAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
 Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
-	registerFloatSetting("range", &range, range, 2.f, 20.f);
+	registerFloatSetting("range", &range, range, 2.f, 10.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);
 	registerEnumSetting("Targeting", &targ, 2);
 	targ = SettingEnum(this)
