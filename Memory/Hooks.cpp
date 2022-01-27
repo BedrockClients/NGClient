@@ -510,7 +510,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	bool shouldPostRender = true;
 	bool shouldRenderArrayList = true;
-	bool shouldRenderTabGui = false;
+	//bool shouldRenderTabGui = false;
 	bool shouldRenderWatermark = true;
 
 	static float rcolors[4];          // Rainbow color array RGBA
@@ -584,7 +584,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				}
 			}
 		} else {
-			//shouldRenderTabGui = hudModule->tabgui && hudModule->isEnabled();
 			shouldRenderArrayList = hudModule->arraylist && hudModule->isEnabled();
 			shouldRenderWatermark = hudModule->watermark && hudModule->isEnabled();
 
@@ -592,12 +591,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				ClickGui::render();
 				shouldPostRender = false;
 				shouldRenderArrayList = false;
-				shouldRenderTabGui = false;
 				shouldRenderWatermark = false;
 			}
-
-			if (shouldRenderTabGui) TabGui::render();
-
 			{
 				// Display ArrayList on the Right?
 				static constexpr bool isOnRightSide = true;

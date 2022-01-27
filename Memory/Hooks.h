@@ -9,7 +9,6 @@
 #include "../Horion/DrawUtils.h"
 #include "../Horion/ImmediateGui.h"
 #include "../Horion/Menu/ClickGui.h"
-#include "../Horion/Menu/TabGui.h"
 #include "../Horion/Module/ModuleManager.h"
 #include "../SDK/CBlockLegacy.h"
 #include "../SDK/CCamera.h"
