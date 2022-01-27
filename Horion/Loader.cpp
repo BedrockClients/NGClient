@@ -175,7 +175,6 @@ DWORD WINAPI injectorConnectionThread(LPVOID lpParam) {
 									CloseHandle(file);
 								}
 							}
-							g_Data.setAccountInformation(AccountInformation::fromToken(data.at("discordAuth").get<std::string>(), serialNum));
 						}
 					}
 					if (flags & (1 << 2))  // WIP Features

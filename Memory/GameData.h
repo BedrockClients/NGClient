@@ -5,8 +5,6 @@
 #include <unordered_set>
 #include <functional>
 #include <mutex>
-
-#include "../Horion/Config/AccountInformation.h"
 #include "../SDK/CChestBlockActor.h"
 #include "../SDK/CClientInstance.h"
 #include "../SDK/CGameMode.h"
@@ -95,7 +93,6 @@ private:
 	bool shouldHideB = false;
 	bool isAllowingWIPFeatures = false;
 	__int64 lastUpdate;
-	AccountInformation accountInformation = AccountInformation::asGuest();
 	static void retrieveClientInstance();
 	TextHolder* fakeName;
 
@@ -168,17 +165,6 @@ public:
 	}
 	inline auto getCustomTextureOverride() {
 		return std::make_tuple(this->customTextureActive, this->customTexture);
-	}
-	inline AccountInformation getAccountInformation() { return this->accountInformation; };
-	inline void setAccountInformation(AccountInformation newAcc) {
-		if (newAcc.verify())
-			this->accountInformation = newAcc;
-		else {
-			#ifdef _BETA
-			this->terminate();
-			*reinterpret_cast<int*>(0) = 1;
-			#endif
-		}
 	}
 	void sendPacketToInjector(HorionDataPacket horionDataPack);
 	inline int addInjectorResponseCallback(std::function<void(std::shared_ptr<HorionDataPacket>)> callback) {
