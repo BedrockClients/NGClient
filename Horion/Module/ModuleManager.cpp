@@ -100,7 +100,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoSneak()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoHurtcam()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiImmobile()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new	NoPaintingCrash()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Waypoints()));
 		moduleList.push_back(std::shared_ptr<IModule>(new TimeChanger()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Spider()));

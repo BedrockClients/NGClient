@@ -251,7 +251,6 @@
     <ClInclude Include="Horion\Module\Modules\NoFriends.h" />
     <ClInclude Include="Horion\Module\Modules\NoHurtcam.h" />
     <ClInclude Include="Horion\Module\Modules\NoPacket.h" />
-    <ClInclude Include="Horion\Module\Modules\NoPaintingCrash.h" />
     <ClInclude Include="Horion\Module\Modules\NoSlowDown.h" />
     <ClInclude Include="Horion\Module\Modules\NoSwing.h" />
     <ClInclude Include="Horion\Module\Modules\NoWeb.h" />
