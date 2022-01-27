@@ -308,7 +308,7 @@ C_InteractPacket::C_InteractPacket(/*enum InteractPacket::Action, class ActorRun
 	vTable = interactPacketVtable;
 }
 
-ActorEventPacket::ActorEventPacket() {
+ActorEventPacket::ActorEventPacket(uint64_t entityRuntimeId, char eventId, int16_t itemId) {
 	static uintptr_t** actorEvenPacketVtable = 0x0;
 	if (actorEvenPacketVtable == 0x0) {
 		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4D ? 48 89 45 ? C6 45 ? ? 44 89 75");
@@ -321,4 +321,9 @@ ActorEventPacket::ActorEventPacket() {
 	}
 	memset(this, 0, sizeof(ActorEventPacket));  // Avoid overwriting vtable
 	vTable = actorEvenPacketVtable;
+	this->two = 2;
+	this->one = 1;
+	this->entityRuntimeId = entityRuntimeId;
+	this->eventId = eventId;
+	this->itemId = itemId;
 }

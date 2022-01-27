@@ -145,7 +145,16 @@ public:
 
 class ActorEventPacket : public C_Packet {
 public:
-	ActorEventPacket();
+	uint64_t VTable;           //0x0000
+	int two;                   //0x0008
+	int one;                   //0x000C
+	char pad_0xC[0x20];        //0x0010
+	uint64_t entityRuntimeId;  //0x0030
+	char eventId;              //0x0038
+	char pad_0x39[0x5];        //0x0039
+	int16_t itemId;            //0x003E
+	//ActorEventPacket();
+	ActorEventPacket(uint64_t entityRuntimeId, char eventId, int16_t itemId);
 };
 
 class C_MobEquipmentPacket : public C_Packet {
