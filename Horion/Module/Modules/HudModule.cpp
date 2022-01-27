@@ -4,6 +4,7 @@
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Surge", &surge, surge);
+	registerBoolSetting("Buttons", &Buttons, Buttons);
 	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
