@@ -45,7 +45,6 @@ void CommandMgr::initCommands() {
 	commandList.push_back(new TopCommand());
 	commandList.push_back(new GMCommand());
 	commandList.push_back(new GodmodeCommand());
-
 	commandList.push_back(new CommandBlockExploitCommand());
 	commandList.push_back(new NameSpoofCommand());
 	commandList.push_back(new ExecuteCommand());

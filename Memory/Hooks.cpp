@@ -569,7 +569,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			// Draw BIG epic Surge watermark
 			static auto Surge = moduleMgr->getModule<HudModule>();
 			if (Surge->surge) {
-				std::string text = "Surge  Client";
+				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
 				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text,text.size() / 3.3), wid.y / 70);
 				vec4_t rectPos = vec4_t(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
@@ -698,7 +698,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					vec4_t rectPos;
 					vec4_t leftRect;
 					vec4_t underline;
-					vec4_t overline;
 					vec4_t topIce;
 					vec4_t rightRect;
 					vec4_t lastPos;
@@ -855,11 +854,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							leftRect.y,
 							leftRect.x,
 							leftRect.y + 1.f);
-						overline = vec4_t(
-							xOffset - 7,
-							yOffset,
-							xOffset - 4,
-							yOffset + textPadding * 1 + textHeight);
 						} else {
 							textPos = vec2_t(
 								xOffset + textPadding ,
@@ -894,11 +888,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								leftRect.y,
 								leftRect.x,
 								leftRect.y + 1.f);
-							overline = vec4_t(
-								xOffset - 3,
-								yOffset,
-								xOffset - 2,
-								yOffset + textPadding * 1 + textHeight);
 						}
 						Length = textWidth;
 						c++;
@@ -934,11 +923,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 						static auto rgbmod = moduleMgr->getModule<GUI>();
 						if (rgbmod->rgb) {
-							static auto box = moduleMgr->getModule<GUI>();
-							if (box->box) {
-								DrawUtils::fillRectangle(overline, MC_Color(currColor), 1.f);
-							}
-
 							static auto underbarmod = moduleMgr->getModule<GUI>();
 							if (underbarmod->underbar) {
 								DrawUtils::fillRectangle(underline, MC_Color(currColor), 1.f);
@@ -949,14 +933,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);
 							}
 						} else {
-							static auto box = moduleMgr->getModule<GUI>();
-							if (box->box) {
-								if (Surge->surge)
-									DrawUtils::fillRectangle(overline, MC_Color(184, 0, 255), 1.f);
-								else
-									DrawUtils::fillRectangle(overline, MC_Color(0, 0, 0), 1.f);
-							}
-
 							static auto underbarmod = moduleMgr->getModule<GUI>();
 							if (underbarmod->underbar) {
 								if (Surge->surge)
