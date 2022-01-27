@@ -534,14 +534,34 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		//strcmp(screenName.c_str(), "start_screen") == 0 || strcmp(screenName.c_str(), "pause_screen") == 0 || strcmp(screenName.c_str(), "inventory_screen") == 0 //Use this to check the screens
 
 		//Draw Buttons
+		static auto GUI1 = moduleMgr->getModule<ClickGuiMod>();
+		if (!g_Data.canUseMoveKeys() && !GUI1->isEnabled()) {
+			if (HImGui.Button("Disable Spammer", vec2_t(wid.x / 17.86, wid.y / 45), true)) {
+				static auto crasher = moduleMgr->getModule<Crasher>();
+				if (crasher->isEnabled()) crasher->setEnabled(false);
+			}
+		}
 		static auto GUI2 = moduleMgr->getModule<ClickGuiMod>();
 		if (!g_Data.canUseMoveKeys() && !GUI2->isEnabled()) {
-			if (HImGui.Button("Disable Aura", vec2_t(wid.x / 10, wid.y / 10), true)) {
+			if (HImGui.Button("Disable Crasher", vec2_t(wid.x / 20, wid.y / 15), true)) {
+				static auto crasher = moduleMgr->getModule<Crasher>();
+				if (crasher->isEnabled()) crasher->setEnabled(false);
+			}
+		}
+		static auto GUI3 = moduleMgr->getModule<ClickGuiMod>();
+		if (!g_Data.canUseMoveKeys() && !GUI3->isEnabled()) {
+			if (HImGui.Button("Disable Nuker", vec2_t(wid.x / 22, wid.y / 9), true)) {
 				static auto aura = moduleMgr->getModule<Killaura>();
 				if (aura->isEnabled()) aura->setEnabled(false);
 			}
 		}
-
+		static auto GUI4 = moduleMgr->getModule<ClickGuiMod>();
+		if (!g_Data.canUseMoveKeys() && !GUI4->isEnabled()) {
+			if (HImGui.Button("Disable Aura", vec2_t(wid.x / 24, wid.y / 6.37), true)) {
+				static auto aura = moduleMgr->getModule<Killaura>();
+				if (aura->isEnabled()) aura->setEnabled(false);
+			}
+		}
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
 			static auto Surge = moduleMgr->getModule<HudModule>();
@@ -556,7 +576,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				} else {
 					DrawUtils::fillRectangle(rectPos, MC_Color(255, 255, 255), 0.f);
 				}
-				//DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 0.f);
 				static auto rgbHud = moduleMgr->getModule<HudModule>();
 				if (rgbHud->rgb) {
 					DrawUtils::drawText(textPos, &text, MC_Color(currColor), 8.f);
