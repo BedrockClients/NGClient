@@ -1,6 +1,8 @@
 #include "HackerDetect.h"
 
+bool chat = false;
 HackerDetect::HackerDetect() : IModule(0, Category::SERVER, "Detects Hackers") {
+	registerBoolSetting("SendMessage", &chat, chat);
 }
 
 HackerDetect::~HackerDetect() {
@@ -59,8 +61,16 @@ void HackerDetect::onTick(C_GameMode* gm) {
 		auto target = targetHackerman[0];
 		auto speed = target->getRealSpeed();
 		auto name = target->getNameTag()->getText();
-		if ((target->isImmobile() && target->getTicksPerSecond() > 0.05f && target->getTicksPerSecond() < 3.f && Utils::getShouldLocalPlayerBeImmobile())) {
-			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s is hacking", name);
+		if ((target->getTicksPerSecond() > 0 && target->getTicksPerSecond() < 100  && target->isImmobile() && Utils::getShouldLocalPlayerBeImmobile())) {
+			if (!chat)
+				g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s is hacking", name);
+			else {
+				C_TextPacket textPacket;
+				textPacket.message.setText(std::string(name) + "is hacking");
+				textPacket.sourceName.setText(g_Data.getLocalPlayer()->getNameTag()->getText());
+				textPacket.xboxUserId = std::to_string(g_Data.getLocalPlayer()->getUserId());
+				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
+			}
 		}
 	}
 }
