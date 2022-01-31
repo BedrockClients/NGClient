@@ -66,7 +66,7 @@ void HackerDetect::onTick(C_GameMode* gm) {
 				g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s is hacking", name);
 			else {
 				C_TextPacket textPacket;
-				textPacket.message.setText(std::string(name) + "is hacking");
+				textPacket.message.setText(std::string(name) + " is hacking");
 				textPacket.sourceName.setText(g_Data.getLocalPlayer()->getNameTag()->getText());
 				textPacket.xboxUserId = std::to_string(g_Data.getLocalPlayer()->getUserId());
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
