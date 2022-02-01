@@ -645,13 +645,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					}
 				} else {
 					if (shouldRenderWatermark) {
-						constexpr float nameTextSize = 1.0f;
-						constexpr float versionTextSize = 0.10f;
+						constexpr float nameTextSize = 1.49f;
+						constexpr float versionTextSize = 0.6f;
 						static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-						constexpr float borderPadding = 1;
-						constexpr float margin = 5;
+						constexpr float borderPadding = 0;
+						constexpr float margin = 0;
 
-						static std::string name = "NG";
+						static std::string name = "NG Client";
 #ifdef _DEBUG
 						static std::string version = "";
 #elif defined _BETA
@@ -663,27 +663,22 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 						float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
 						vec4_t rect = vec4_t(
-							windowSize.x - margin - fullTextLength - borderPadding * 2,
-							windowSize.y - margin - textHeight,
+							windowSize.x - fullTextLength,
+							windowSize.y - textHeight,
 							windowSize.x - margin + borderPadding,
 							windowSize.y - margin);
 						static auto rgbTexthud = moduleMgr->getModule<HudModule>();
 						if (rgbTexthud->rgb) {
-							DrawUtils::drawRectangle(rect, MC_Color(rcolors), 1.f, 2.f);
-							DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(rcolors), nameTextSize);
+							DrawUtils::drawText(vec2_t(rect.x + borderPadding - 520, rect.y - 300), &name, MC_Color(rcolors), nameTextSize);
 						} else {
 							if (Surge->surge) {
 								DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f, 2.f);
 								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-								DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), nameTextSize);
+								DrawUtils::drawText(vec2_t(rect.x + borderPadding - 520, rect.y - 300), &name, MC_Color(0, 0, 255), nameTextSize);
 							} else {
-								DrawUtils::drawRectangle(rect, MC_Color(184, 0, 255), 1.f, 2.f);
-								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-								DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 246, 255), nameTextSize);
+								DrawUtils::drawText(vec2_t(rect.x - 580, rect.y - 320), &name, MC_Color(184, 0, 255), nameTextSize);
 							}
 						}
-						//DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(rcolors), versionTextSize);
 					}
 				}
 
