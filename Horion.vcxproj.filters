@@ -6,7 +6,6 @@
     <ClCompile Include="Horion\Command\Commands\KitCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\CommandBlockExploitCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ConfigCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\CoordsCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ExecuteCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\FriendListCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\HelpCommand.cpp" />
