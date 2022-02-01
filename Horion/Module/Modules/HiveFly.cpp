@@ -1,6 +1,9 @@
 #include "HiveFly.h"
 #include "../ModuleManager.h"
 
+uintptr_t ViewBobBoi = FindSignature("0F B6 80 DB 01 00 00");
+
+
 HiveFly::HiveFly() : IModule('0', Category::SERVER, "How the fuck does this bypass ?!?!?") {
 	registerBoolSetting("Clip Up", &clip, clip);
 	registerFloatSetting("Clip Height", &clipHeight, clipHeight, 0.5f, 5.f);
@@ -90,9 +93,10 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 
 		if (counter69 >= 8 && !clip) {
 			if (pressed) player->lerpMotion(moveVec);
-
+			Utils::patchBytes((BYTE*)ViewBobBoi, (BYTE*)"\xB8\x01\x00\x00\x00\x90\x90", 7);
 		} else if (clip) {
 			if (pressed) player->lerpMotion(moveVec);
+			Utils::patchBytes((BYTE*)ViewBobBoi, (BYTE*)"\xB8\x01\x00\x00\x00\x90\x90", 7);
 		}
 
 		if (!pressed) {
@@ -110,6 +114,7 @@ void HiveFly::onLevelRender() {
 void HiveFly::onDisable() {
 	counter69 = 0;
 	counter = 0;
+	Utils::patchBytes((BYTE*)ViewBobBoi, (BYTE*)"\x0F\xB6\x80\xDB\x01\x00\x00", 7);
 	if (g_Data.getLocalPlayer() != nullptr) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		player->velocity.x= 0.f;
