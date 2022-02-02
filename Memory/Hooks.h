@@ -139,6 +139,7 @@ private:
 	static void playerCallBack(C_Player* lp, void* a2);
 	static void InventoryTransactionManager__addAction(C_InventoryTransactionManager*, C_InventoryAction&);
 	static void LevelRendererPlayer__renderNameTags(__int64 a1, __int64 a2, TextHolder* name, __int64 a4);
+	static void onActorDie(C_Entity*, __int64);
 
 	std::unique_ptr<FuncHook> Actor_rotationHook;
 	std::unique_ptr<FuncHook> setPosHook;
@@ -199,6 +200,7 @@ private:
 	std::unique_ptr<FuncHook> getDestroySpeedHook;
 	std::unique_ptr<FuncHook> InventoryTransactionManager__addActionHook;
 	std::unique_ptr<FuncHook> LevelRendererPlayer__renderNameTagsHook;
+	std::unique_ptr<FuncHook> actorDieHook;
 };
 
 extern Hooks g_Hooks;

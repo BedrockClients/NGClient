@@ -218,6 +218,9 @@ void Hooks::Init() {
 		//void* InGamePlayScreen___renderLevel = reinterpret_cast<void*>(FindSignature("48 89 5C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ?? ?? ?? ?? 48 81 EC ?? ?? ?? ?? 0F 29 B4 24 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 85 ?? ?? ?? ?? 49 8B D8 4C"));
 		//g_Hooks.InGamePlayScreen___renderLevelHook = std::make_unique<FuncHook>(InGamePlayScreen___renderLevel, Hooks::InGamePlayScreen___renderLevel);
 
+		void* actorDie = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ?? 57 48 83 ?? ?? ?? ?? ?? ?? 00 00 00 48 ?? F9 ?? ?? ?? ?? 00 00 01"));
+		g_Hooks.actorDieHook = std::make_unique<FuncHook>(actorDie, Hooks::onActorDie);
+
 #ifdef TEST_DEBUG
 		void* addAction = reinterpret_cast<void*>(FindSignature("40 56 57 41 54 41 56 41 57 48 83 EC 30 48 C7 44 24 ? ? ? ? ? 48 89 5C 24 ? 48 89 6C 24 ? 45 0F B6 F8 4C 8B F2 48 8B F9 48 8B 01 48 8B 88 ? ? ? ?"));
 		g_Hooks.InventoryTransactionManager__addActionHook = std::make_unique<FuncHook>(addAction, Hooks::InventoryTransactionManager__addAction);
@@ -2137,6 +2140,17 @@ float Hooks::getDestroySpeed(C_Player* _this, C_Block& block) {
 		return NAN;
 	return oFunc(_this, block);
 }
+
+void Hooks::onActorDie(C_Entity* _this, __int64 damageSource) {
+	static auto oFunc = g_Hooks.actorDieHook->GetFastcall<void, C_Entity*, __int64>();
+	C_LocalPlayer* Player = g_Data.getLocalPlayer();
+	if (_this == Player) {
+		std::string msg = "You died at (" + std::to_string((int)Player->getPos()->x) + ", " + std::to_string((int)Player->aabb.lower.y) + ", " + std::to_string((int)Player->getPos()->z) + ")";
+		g_Data.getGuiData()->displayClientMessage(&msg);
+	}
+	oFunc(_this, damageSource);
+}
+
 void Hooks::InventoryTransactionManager__addAction(C_InventoryTransactionManager* _this, C_InventoryAction& action) {
 	auto func = g_Hooks.InventoryTransactionManager__addActionHook->GetFastcall<void, C_InventoryTransactionManager*, C_InventoryAction&>();
 
