@@ -1,4 +1,4 @@
-#include "Hooks.h"
+﻿#include "Hooks.h"
 
 #include <algorithm>
 #include <glm/ext/matrix_clip_space.hpp>
@@ -645,7 +645,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					}
 				} else {
 					if (shouldRenderWatermark) {
-						constexpr float nameTextSize = 1.49f;
+						constexpr float nameTextSize = 1.0f;
 						constexpr float versionTextSize = 0.6f;
 						static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 						constexpr float borderPadding = 0;
@@ -676,7 +676,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 								DrawUtils::drawText(vec2_t(rect.x + borderPadding - 520, rect.y - 300), &name, MC_Color(0, 0, 255), nameTextSize);
 							} else {
-								DrawUtils::drawText(vec2_t(rect.x - 580, rect.y - 320), &name, MC_Color(184, 0, 255), nameTextSize);
+								DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(184, 0, 255), nameTextSize);
 							}
 						}
 					}
