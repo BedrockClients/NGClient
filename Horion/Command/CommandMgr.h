@@ -39,6 +39,7 @@
 #include "Commands/TestCommand.h"
 #include "Commands/ScriptCommand.h"
 #include "Commands/PathCommand.h"
+//#include "Commands/ClientName.h"
 
 #ifdef _DEBUG
 #endif

@@ -51,6 +51,7 @@ void CommandMgr::initCommands() {
 	commandList.push_back(new ScriptCommand());
 	commandList.push_back(new PathCommand());
 	commandList.push_back(new TestCommand());
+	//commandList.push_back(new ClientName());
 #ifdef _DEBUG
 	
 #endif

@@ -24,7 +24,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 HudModule::~HudModule() {
 }
 
-static float rcolors[4];
+static float rcolors2[4];
 
 const char* HudModule::getModuleName() {
 	auto HUD = moduleMgr->getModule<HudModule>();
@@ -46,14 +46,16 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	static auto Surge = moduleMgr->getModule<HudModule>();
 	// rainbow colors
 	{
-		if (rcolors[3] < 1) {
-			rcolors[0] = 0.2f;
-			rcolors[1] = 0.2f;
-			rcolors[2] = 1.f;
-			rcolors[3] = 1;
+		if (rcolors2[3] < 1) {
+			rcolors2[0] = 0.2f;
+			rcolors2[1] = 0.2f;
+			rcolors2[2] = 1.f;
+			rcolors2[3] = 1;
 		}
-		Utils::ApplyRainbow(rcolors, 0.0015f);
+
+		Utils::ApplyRainbow(rcolors2, 0.0015f);
 	}
+
 	vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 	float f = 10.f * scale;
 	std::string tempStr("Movement");
@@ -132,11 +134,11 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			if (item->isValid())
 				DrawUtils::drawItem(item, vec2_t(xArmor, yArmor), opacity, scale, item->isEnchanted());
 			if (rgb) {
-				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(rcolors), scale);
-				DrawUtils::drawText(vec2_t{Nx, Ny}, &Ncoordsall, MC_Color(rcolors), scale);
-				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(rcolors), scale);
-				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(rcolors), scale);
-				DrawUtils::drawText(vec2_t{xBps, yBps}, &Bps, MC_Color(rcolors), scale);
+				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(rcolors2), scale);
+				DrawUtils::drawText(vec2_t{Nx, Ny}, &Ncoordsall, MC_Color(rcolors2), scale);
+				DrawUtils::drawText(vec2_t{xfpsText, yfpsText}, &fpsText, MC_Color(rcolors2), scale);
+				DrawUtils::drawText(vec2_t{xcpsText, ycpsText}, &cpsText, MC_Color(rcolors2), scale);
+				DrawUtils::drawText(vec2_t{xBps, yBps}, &Bps, MC_Color(rcolors2), scale);
 			}else
 			if (Surge->surge) {
 				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(0, 0, 255), scale);
@@ -169,7 +171,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				DrawUtils::drawRightMouseKeystroke(vec2_t(43.f, windowSize.y - 25));
 			}
 			if (rgb) {
-				DrawUtils::setColor(*rcolors, *rcolors, *rcolors, *rcolors);
+				DrawUtils::setColor(*rcolors2, *rcolors2, *rcolors2, *rcolors2);
 				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(32.f, windowSize.y - 84));
 				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(10.f, windowSize.y - 62));
 				DrawUtils::drawKeystroke(*input->backKey, vec2_t(32.f, windowSize.y - 62));

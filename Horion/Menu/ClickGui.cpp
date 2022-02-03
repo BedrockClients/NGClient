@@ -182,8 +182,8 @@ void ClickGui::renderCategory(Category category) {
 			ourWindow->pos.y = 145.f;
 			break;
 		case Category::CONFIG:
-			ourWindow->pos.x = yot / 7.f * 4.f;
-			ourWindow->pos.y = 220.f;
+			ourWindow->pos.x = yot / 7.f * 5.8f;
+			ourWindow->pos.y = 145.f;
 			break;
 		case Category::ENTITY:
 			ourWindow->pos.x = yot / 7.f * 5.f;

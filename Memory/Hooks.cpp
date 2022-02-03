@@ -640,7 +640,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 						static auto rgbTexthud = moduleMgr->getModule<HudModule>();
 						if (rgbTexthud->rgb) {
-							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(currColor), 1.5f, nameTextSize);
+							DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(currColor), nameTextSize);
 						} else {
 							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), 1.5f, nameTextSize);
 						}
@@ -653,7 +653,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 						constexpr float borderPadding = 0;
 						constexpr float margin = 0;
-
+	                   
 						static std::string name = "NG Client";
 #ifdef _DEBUG
 						static std::string version = "";
@@ -677,7 +677,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							if (Surge->surge) {
 								DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f, 2.f);
 								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-								DrawUtils::drawText(vec2_t(rect.x + borderPadding - 520, rect.y - 300), &name, MC_Color(0, 0, 255), nameTextSize);
+								DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(184, 0, 255), nameTextSize);
 							} else {
 								DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(184, 0, 255), nameTextSize);
 							}
