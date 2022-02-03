@@ -117,7 +117,7 @@ void HiveFly::onDisable() {
 	Utils::patchBytes((BYTE*)ViewBobBoi, (BYTE*)"\x0F\xB6\x80\xDB\x01\x00\x00", 7);
 	if (g_Data.getLocalPlayer() != nullptr) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		player->velocity.x= 0.f;
+		player->velocity.x = 0.f;
 		player->velocity.y = 0.f;
 		player->velocity.z = 0.f;
 		*g_Data.getClientInstance()->minecraft->timer = 20.f;

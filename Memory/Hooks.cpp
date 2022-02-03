@@ -533,6 +533,38 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		//strcmp(screenName.c_str(), "start_screen") == 0 || strcmp(screenName.c_str(), "pause_screen") == 0 || strcmp(screenName.c_str(), "inventory_screen") == 0 //Use this to check the screens
 		// 
 		//Draw Buttons
+		
+		
+		if (strcmp(screenName.c_str(), "start_screen") == 0) {
+			MC_Color black = MC_Color(0, 0, 0);
+			vec2_t text = vec2_t(7, 7);
+			vec2_t outline = vec2_t(7, 8);
+			vec4_t bar = vec4_t(2, 2, 85, 5);
+			vec4_t box = vec4_t(2, 5, 85, 75);
+			DrawUtils::fillRectangle(bar, rcolors, 1.f);
+			DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
+
+			std::string string;
+			string = "NG Client";
+			DrawUtils::drawText(outline, &string, rcolors, 2.f, 1.f);
+			DrawUtils::drawText(text, &string, black, 2.f, 1.f);
+			text.y += 20.f;
+			outline.y += 20.f;
+			string = "Placeholder text 1";
+			DrawUtils::drawText(outline, &string, rcolors, 1.f, 1.f);
+			DrawUtils::drawText(text, &string, black, 1.f, 1.f);
+			text.y += 10.f;
+			outline.y += 10.f;
+			string = "Placeholder text 2";
+			DrawUtils::drawText(outline, &string, rcolors, 1.f, 1.f);
+			DrawUtils::drawText(text, &string, black, 1.f, 1.f);
+			string = "Placeholder text 3\nwith paragraph"; //Paragraphs > new text
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(outline, &string, rcolors, 1.f, 1.f);
+			DrawUtils::drawText(text, &string, black, 1.f, 1.f);
+		} 
+
 		static auto buttonsmod = moduleMgr->getModule<HudModule>();
 		if (buttonsmod->Buttons) {
 			static auto GUI1 = moduleMgr->getModule<ClickGuiMod>();
