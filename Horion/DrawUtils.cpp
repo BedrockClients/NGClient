@@ -871,7 +871,7 @@ void DrawUtils::drawLinestrip3d(const std::vector<vec3_t>& points) {
 }
 
 void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
-	static float rcolors2[4];  // Rainbow color array RGBA
+	static float rcolors2[4];           // Rainbow color array RGBA
 	static float disabledRcolors2[4];  // Rainbow Colors, but for disabled modules
 	static float currColor[4];        // ArrayList colors
 
@@ -905,7 +905,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
 				if (target != vec2_t(0, 0)) {
 					if (tracerMod->RGB) {
-						DrawUtils::setColor(rcolors2[0], rcolors2[1], rcolors2[2], 1);
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
 						DrawUtils::setColor(((float)0 / (float)255), ((float)0 / (float)255), ((float)255 / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
 					}
@@ -916,7 +916,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
 				if (target != vec2_t(0, 0)) {
 					if (tracerMod->RGB) {
-						DrawUtils::setColor(rcolors2[0], rcolors2[1], rcolors2[2], 1);
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
 						DrawUtils::setColor(((float)0 / (float)255), ((float)0 / (float)255), ((float)255 / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
 					}
@@ -927,7 +927,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
 				if (target != vec2_t(0, 0)) {
 					if (tracerMod->RGB) {
-						DrawUtils::setColor(rcolors2[0], rcolors2[1], rcolors2[2], 1);
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
 						DrawUtils::setColor(((float)0 / (float)255), ((float)0 / (float)255), ((float)255 / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
 					}
@@ -942,7 +942,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
 				if (target != vec2_t(0, 0)) {
 					if (tracerMod->RGB) {
-						DrawUtils::setColor(rcolors2[0], rcolors2[1], rcolors2[2], 1);
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
 						DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
 					}
@@ -953,7 +953,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
 				if (target != vec2_t(0, 0)) {
 					if (tracerMod->RGB) {
-						DrawUtils::setColor(rcolors2[0], rcolors2[1], rcolors2[2], 1);
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
 						DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
 					}
@@ -964,7 +964,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
 				if (target != vec2_t(0, 0)) {
 					if (tracerMod->RGB) {
-						DrawUtils::setColor(rcolors2[0], rcolors2[1], rcolors2[2], 1);
+						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
 						DrawUtils::setColor(((float)tracerMod->customR / (float)255), ((float)tracerMod->customG / (float)255), ((float)tracerMod->customB / (float)255), (float)fmax(0.1f, (float)fmin(1.f, 15 / (damageTime + 1))));
 					}

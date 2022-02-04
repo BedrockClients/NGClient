@@ -528,43 +528,40 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	{
 		// Main Menu
-		std::string screenName(g_Hooks.currentScreenName);
-
-		//strcmp(screenName.c_str(), "start_screen") == 0 || strcmp(screenName.c_str(), "pause_screen") == 0 || strcmp(screenName.c_str(), "inventory_screen") == 0 //Use this to check the screens
-		// 
-		//Draw Buttons
-		
+		std::string screenName(g_Hooks.currentScreenName);		
 		
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			MC_Color black = MC_Color(0, 0, 0);
+			MC_Color wight = MC_Color(255, 255, 255);
 			vec2_t text = vec2_t(7, 7);
 			vec2_t outline = vec2_t(7, 8);
-			vec4_t bar = vec4_t(2, 2, 85, 5);
-			vec4_t box = vec4_t(2, 5, 85, 75);
-			DrawUtils::fillRectangle(bar, rcolors, 1.f);
+			vec4_t bar = vec4_t(2, 2, 80, 5);
+			vec4_t box = vec4_t(2, 5, 80, 70);
+			DrawUtils::fillRectangle(bar, currColor, 1.f);
 			DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
 
 			std::string string;
 			string = "NG Client";
-			DrawUtils::drawText(outline, &string, rcolors, 2.f, 1.f);
-			DrawUtils::drawText(text, &string, black, 2.f, 1.f);
+			DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
+			DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
 			text.y += 20.f;
 			outline.y += 20.f;
-			string = "Placeholder text 1";
-			DrawUtils::drawText(outline, &string, rcolors, 1.f, 1.f);
-			DrawUtils::drawText(text, &string, black, 1.f, 1.f);
+			string = "Fix The Watermark";
+			//DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			text.y += 10.f;
 			outline.y += 10.f;
 			string = "Placeholder text 2";
-			DrawUtils::drawText(outline, &string, rcolors, 1.f, 1.f);
-			DrawUtils::drawText(text, &string, black, 1.f, 1.f);
+			//DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			string = "Placeholder text 3\nwith paragraph"; //Paragraphs > new text
 			text.y += 10.f;
 			outline.y += 10.f;
-			DrawUtils::drawText(outline, &string, rcolors, 1.f, 1.f);
-			DrawUtils::drawText(text, &string, black, 1.f, 1.f);
+			//DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 		} 
 
+		//Draw Buttons
 		static auto buttonsmod = moduleMgr->getModule<HudModule>();
 		if (buttonsmod->Buttons) {
 			static auto GUI1 = moduleMgr->getModule<ClickGuiMod>();
@@ -680,13 +677,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					}
 				} else {
 					if (shouldRenderWatermark) {
-						constexpr float nameTextSize = 1.0f;
+						constexpr float nameTextSize = 0.8f;
 						constexpr float versionTextSize = 0.6f;
 						static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 						constexpr float borderPadding = 0;
 						constexpr float margin = 0;
 	                   
-						static std::string name = "NG Client";
+						static std::string name = "NG Client - 9.0";
 #ifdef _DEBUG
 						static std::string version = "";
 #elif defined _BETA
@@ -702,16 +699,20 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							windowSize.y - textHeight,
 							windowSize.x - margin + borderPadding,
 							windowSize.y - margin);
+						vec4_t Watermarkbar = vec4_t(2, 2, 45, 4);
+						DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+						vec4_t Watermarbox = vec4_t(2, 2, 45, 10);
+						DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.1f);
 						static auto rgbTexthud = moduleMgr->getModule<HudModule>();
 						if (rgbTexthud->rgb) {
-							DrawUtils::drawText(vec2_t(rect.x + borderPadding - 520, rect.y - 300), &name, MC_Color(rcolors), nameTextSize);
+							DrawUtils::drawText(vec2_t(rect.x - 520, rect.y - 300), &name, MC_Color(rcolors), nameTextSize);
 						} else {
 							if (Surge->surge) {
 								DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f, 2.f);
 								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 								DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(184, 0, 255), nameTextSize);
 							} else {
-								DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(184, 0, 255), nameTextSize);
+								DrawUtils::drawText(vec2_t(2, 4), &name, MC_Color(184, 0, 255), nameTextSize);
 							}
 						}
 					}
