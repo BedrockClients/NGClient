@@ -16,7 +16,6 @@
 #include "../Memory/MinHook.h"
 #include "../SDK/CChestBlockActor.h"
 #include "../SDK/CClientInstance.h"
-#include "../SDK/CClientInstanceScreenModel.h"
 #include "../SDK/CEntity.h"
 #include "../SDK/CGameMode.h"
 #include "../SDK/CPacket.h"
