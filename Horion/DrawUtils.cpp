@@ -408,13 +408,12 @@ void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageD
 
 	__int64 yot = 0;
 	static unsigned __int64 hashedString = 0xA99285D21E94FC80;
-	//FlushImage!!!! Thx Yaami!!!!
-	static uintptr_t flushImageAddr = FindSignature("48 8B C4 55 56 57 41 54 41 55 41 56 41 57 48 8D A8 ? ? ? ? 48 81 EC ? ? ? ? 48 C7 45 ? ? ? ? ? 48 89 58 ? ? ? 70");
+	static uintptr_t flushImageAddr = FindSignature("48 8B C4 48 89 58 10 48 89 70 18 55 57 41 54 41 56 41 57 48 8D A8 ?? ?? ?? ?? 48 81 EC ?? ?? ?? ?? 0F 29 70 C8 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 85 ?? ?? ?? ?? 4D 8B E1");
 
 	if (texturePtr != nullptr) {
 		renderCtx->drawImage(texturePtr, imagePos, ImageDimension, yot, idk);
 		MC_Color col(1.f, 1.f, 1.f);
-		renderCtx->flushImages(col, flushImageAddr, (__int64)&hashedString);
+		renderCtx->flushImages(col, 1.f, (__int64)&hashedString);
 	}
 }
 
