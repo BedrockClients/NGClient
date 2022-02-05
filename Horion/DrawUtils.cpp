@@ -413,7 +413,7 @@ void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageD
 	if (texturePtr != nullptr) {
 		renderCtx->drawImage(texturePtr, imagePos, ImageDimension, yot, idk);
 		MC_Color col(1.f, 1.f, 1.f);
-		renderCtx->flushImages(col, 1.f, (__int64)&hashedString);
+		renderCtx->flushImages(col, flushImageAddr, (__int64)&hashedString);
 	}
 }
 
