@@ -529,16 +529,20 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	{
 		// Main Menu
 		std::string screenName(g_Hooks.currentScreenName);		
-		
+		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
+			//x y z w
+			vec4_t box = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 70);
+			vec4_t bar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 5);
+			vec2_t text = vec2_t(windowSize.x / windowSize.x, 7);
+			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 7.5);
+			
+
 			MC_Color black = MC_Color(0, 0, 0);
 			MC_Color wight = MC_Color(255, 255, 255);
-			vec2_t text = vec2_t(7, 7);
-			vec2_t outline = vec2_t(7, 8);
-			vec4_t bar = vec4_t(2, 2, 80, 5);
-			vec4_t box = vec4_t(2, 5, 80, 70);
-			DrawUtils::fillRectangle(bar, currColor, 1.f);
 			DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
+			DrawUtils::fillRectangle(bar, currColor, 1.f);
 
 			std::string string;
 			string = "NG Client";
@@ -547,17 +551,17 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			text.y += 20.f;
 			outline.y += 20.f;
 			string = "Fix The Watermark";
-			//DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+			DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			text.y += 10.f;
 			outline.y += 10.f;
 			string = "Placeholder text 2";
-			//DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+			DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			string = "Placeholder text 3\nwith paragraph"; //Paragraphs > new text
 			text.y += 10.f;
 			outline.y += 10.f;
-			//DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+			DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 		} 
 
@@ -638,6 +642,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 				// Draw NG logo
 				static auto Surge = moduleMgr->getModule<HudModule>();
+				static auto hudModule = moduleMgr->getModule<HudModule>();
+				static auto rgbTexthud = moduleMgr->getModule<HudModule>();
 				if (Surge->surge) {
 					// Draw Horion logo
 					static auto hudModule = moduleMgr->getModule<HudModule>();
@@ -664,10 +670,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							windowSize.y - margin - textHeight,
 							windowSize.x - margin + borderPadding,
 							windowSize.y - margin);
-						static auto rgbborderhud = moduleMgr->getModule<HudModule>();
 						DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
 						DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-						static auto rgbTexthud = moduleMgr->getModule<HudModule>();
 						if (rgbTexthud->rgb) {
 							DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(currColor), nameTextSize);
 						} else {
@@ -677,42 +681,46 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					}
 				} else {
 					if (shouldRenderWatermark) {
-						constexpr float nameTextSize = 0.8f;
-						constexpr float versionTextSize = 0.6f;
-						static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-						constexpr float borderPadding = 0;
-						constexpr float margin = 0;
-	                   
-						static std::string name = "NG Client - 9.0";
+						if (!(strcmp(screenName.c_str(), "start_screen") == 0)) {
+							constexpr float nameTextSize = 0.8f;
+							constexpr float versionTextSize = 0.6f;
+							static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+							constexpr float borderPadding = 0;
+							constexpr float margin = 0;
+
+							static std::string name = "NG Client | Dev Bild";
 #ifdef _DEBUG
-						static std::string version = "";
+							static std::string version = "";
 #elif defined _BETA
-						static std::string version = "";
+							static std::string version = "";
 #else
-						static std::string version = "";
+							static std::string version = "";
 #endif
 
-						float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
-						float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-						vec4_t rect = vec4_t(
-							windowSize.x - fullTextLength,
-							windowSize.y - textHeight,
-							windowSize.x - margin + borderPadding,
-							windowSize.y - margin);
-						vec4_t Watermarkbar = vec4_t(2, 2, 45, 4);
-						DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-						vec4_t Watermarbox = vec4_t(2, 2, 45, 10);
-						DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.1f);
-						static auto rgbTexthud = moduleMgr->getModule<HudModule>();
-						if (rgbTexthud->rgb) {
-							DrawUtils::drawText(vec2_t(rect.x - 520, rect.y - 300), &name, MC_Color(rcolors), nameTextSize);
-						} else {
-							if (Surge->surge) {
-								DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f, 2.f);
-								DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-								DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(184, 0, 255), nameTextSize);
+							float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+							float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+							vec4_t rect = vec4_t(
+								windowSize.x - fullTextLength,
+								windowSize.y - textHeight,
+								windowSize.x - margin + borderPadding,
+								windowSize.y - margin);
+							if (rgbTexthud->rgb) {
+								//x y z w
+								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 45, 4);
+								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 45, 10);
+								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / 2 - 164.f), &name, MC_Color(currColor), nameTextSize);
+
+								DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.1f);
+								DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
 							} else {
-								DrawUtils::drawText(vec2_t(2, 4), &name, MC_Color(184, 0, 255), nameTextSize);
+								//x y z w
+								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
+								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
+								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+
+								DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+								DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
 							}
 						}
 					}
