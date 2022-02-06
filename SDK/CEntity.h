@@ -37,6 +37,15 @@ public:
 		return levelTicks;
 		//return *reinterpret_cast<int*>(reinterpret_cast<__int64>(this) + 0x5F0);
 	}
+	void playSound(std::string sound, vec3_t const &position, float volume, float pitch) {
+		using playSound_t = void(__fastcall *)(PointingStruct*, TextHolder *, vec3_t const &, float, float);
+		// Using getBase so there's a much smaller and barely noticeable delay when we call this function for the first time
+		static playSound_t func = reinterpret_cast<playSound_t>(Utils::getBase() + 0x2236810);  // 48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 83 EC 50 48 ?? ?? ?? ?? 00 00 33 FF 48 2B ?? ?? ?? 00 00 49 8B F0 48 C1 F8 03 48 8B EA
+		if (func != 0) {
+			TextHolder th(sound);
+			func(this, &th, position, volume, pitch);
+		}
+	}
 };
 
 class C_Player;
