@@ -59,7 +59,7 @@ static std::vector<C_Entity*> targetList;
 float rcolorrs[4];
 float Outline = 0;
 
-__int64 actualPlayerVTable = Utils::getBase() + 0x3E403A0;
+__int64 actualPlayerVTable = Utils::getBase() + 0x4195A10;
 
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
