@@ -335,7 +335,7 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		float HealthMax = ((int)targetList[0]->getAttribute(&attribute2)->maximumValue);
 
 		vec2_t res = g_Data.getClientInstance()->getGuiData()->windowSize;
-		C_LocalPlayer* Player = g_Data.getClientInstance()->localPlayer;
+		C_LocalPlayer* Player = g_Data.getClientInstance()->getLocalPlayer();
 		if (Player != nullptr) {
 			vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) + (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 8.f));  // vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) - (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 24.f));
 			float rectWidth = rectPos.z - rectPos.x;

@@ -1,19 +1,20 @@
 #pragma once
 
 #include "../Utils/HMath.h"
+#include "../Utils/Utils.h"
 #include "TextHolder.h"
 //#include "Tag.h"
 
 class C_Material {
 public:
-	int type; // 5 for water, 6 for lava
+	int type;  // 5 for water, 6 for lava
 	bool isFlammable;
 	bool isNeverBuildable;
 	bool isAlwaysDestroyable;
 	bool isReplaceable;
 	bool isLiquid;  // 0x0008
 private:
-	char pad2[0x3]; // 0x009
+	char pad2[0x3];  // 0x009
 public:
 	float translucency;  // 0x00C
 	bool isBlockingMotion;
@@ -48,17 +49,22 @@ public:
 	void liquidGetFlow(vec3_t* flowOut, C_BlockSource*, const vec3_ti* pos);
 	bool getCollisionShape(AABB* collShapeOut, C_Block* block, C_BlockSource* blockSource, const vec3_ti* pos, C_Entity* actor);
 	bool hasWater(C_BlockSource*, const vec3_ti& pos);
+	void setExplodeable(float a2) {
+		using setExplodeable = void(__fastcall*)(C_BlockLegacy*, float);
+		static setExplodeable explode = reinterpret_cast<setExplodeable>(Utils::FindSignature("F3 0F 59 0D ? ? ? ? 48 8B C1"));
+		explode(this, a2);
+	}
 };
 
 class C_Block {
 public:
-	uint8_t data; // 0x8
+	uint8_t data;  // 0x8
 
 private:
 	char pad[0x7];
 
 public:
-	C_BlockLegacy* blockLegacy; // 0x10
+	C_BlockLegacy* blockLegacy;  // 0x10
 
 	inline C_BlockLegacy* toLegacy() { return blockLegacy; }
 
@@ -79,7 +85,8 @@ public:
 
 class C_BlockSource {
 public:
-	C_Block* getBlock(const vec3_ti& block);;
+	C_Block* getBlock(const vec3_ti& block);
+	;
 
 	C_BlockActor* getBlockEntity(const vec3_ti& block);
 

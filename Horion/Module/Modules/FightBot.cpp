@@ -102,7 +102,7 @@ void FightBot::onTick(C_GameMode* gm) {
 	if (g_Data.isInGame()) {
 		g_Data.forEachEntity(findadEntity);
 		g_Data.getClientInstance()->getMoveTurnInput()->forward = true;
-		g_Data.getClientInstance()->localPlayer->setSprinting(true);
+		g_Data.getClientInstance()->getLocalPlayer()->setSprinting(true);
 		if (autoweapon) findWeapon();
 		if (!targetList.empty()) {
 			Odelay++;
@@ -179,7 +179,7 @@ void FightBot::onEnable() {
 void FightBot::onDisable() {
 	targetList.clear();
 	g_Data.getClientInstance()->getMoveTurnInput()->forward = false;
-	g_Data.getClientInstance()->localPlayer->setSprinting(false);
+	g_Data.getClientInstance()->getLocalPlayer()->setSprinting(false);
 	g_Data.getClientInstance()->getMoveTurnInput()->clearMovementState();
 }
 

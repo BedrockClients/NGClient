@@ -405,7 +405,6 @@
     <ClInclude Include="Horion\Module\Modules\HackerDetect.h" />
     <ClInclude Include="Horion\Module\Modules\FastStop.h" />
     <ClInclude Include="Horion\Module\Modules\HiveConfig.h" />
-    <ClInclude Include="Horion\Command\ClientName.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

@@ -378,7 +378,6 @@
     <ClCompile Include="Utils\VoxelIntersector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Horion\Command\ClientName.h" />
     <ClInclude Include="Horion\Command\CommandMgr.h" />
     <ClInclude Include="Horion\Command\Commands\BindCommand.h" />
     <ClInclude Include="Horion\Command\Commands\EmoteCommand.h" />

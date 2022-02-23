@@ -121,7 +121,7 @@ void TargetStrafe::onLevelRender() {
 			float dist = (*i->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 			if (dist < Srange) {
 				g_Data.getClientInstance()->getMoveTurnInput()->forward = false;
-				g_Data.getClientInstance()->localPlayer->setSprinting(false);
+				g_Data.getClientInstance()->getLocalPlayer()->setSprinting(false);
 			}
 		}
 	}
@@ -142,7 +142,7 @@ void TargetStrafe::onTick(C_GameMode* gm) {
 			player->bodyYaw = angle.y;
 			//g_Data.getClientInstance()->getMoveTurnInput()->left = true;
 			g_Data.getClientInstance()->getMoveTurnInput()->forward = true;
-			g_Data.getClientInstance()->localPlayer->setSprinting(true);
+			g_Data.getClientInstance()->getLocalPlayer()->setSprinting(true);
 			hoe = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetGist[0]->getPos());
 		}
 	}
@@ -151,5 +151,5 @@ void TargetStrafe::onTick(C_GameMode* gm) {
 void TargetStrafe::onDisable() {
 	g_Data.getClientInstance()->getMoveTurnInput()->forward = false;
 	//g_Data.getClientInstance()->getMoveTurnInput()->left = false;
-	g_Data.getClientInstance()->localPlayer->setSprinting(false);
+	g_Data.getClientInstance()->getLocalPlayer()->setSprinting(false);
 }

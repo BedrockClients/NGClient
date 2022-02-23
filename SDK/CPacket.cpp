@@ -1,4 +1,5 @@
 #include "CPacket.h"
+
 #include "../Utils/Utils.h"
 
 TextHolder* C_Packet::getName() {
@@ -183,7 +184,7 @@ C_PlayerActionPacket::C_PlayerActionPacket() {
 C_SubChunkRequestPacket::C_SubChunkRequestPacket() {
 	static uintptr_t** subChunkRequestPacketVtable = 0x0;
 	if (subChunkRequestPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 0F 57 C0 0F 11 45 D7");
+		uintptr_t sigOffset = FindSignature("48 8D 05 ? ? ? ? 48 8B F9 48 89 01 8B DA 48 83 C1 50 E8 ? ? ? ? 48 8D 4F 38 E8 ? ? ? ? 48 8D 05 ? ? ? ? 48 89 07");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		subChunkRequestPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -198,7 +199,7 @@ C_SubChunkRequestPacket::C_SubChunkRequestPacket() {
 C_EmotePacket::C_EmotePacket() {
 	static uintptr_t** emotePacketVtable = 0x0;
 	if (emotePacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 8D ? ? ? ? 48 89 85 ? ? ? ? 48 89 9D ? ? ? ?");
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 8D ? ? ? ? 48 89 85 ? ? ? ? 48 89 BD");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		emotePacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -214,7 +215,7 @@ C_EmotePacket::C_EmotePacket() {
 C_AnimatePacket::C_AnimatePacket() {
 	static uintptr_t** animatePacketVtable = 0x0;
 	if (animatePacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4C 24 ? 49 8B 8E");
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4D ? 48 8B 8E");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		animatePacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG
@@ -224,6 +225,7 @@ C_AnimatePacket::C_AnimatePacket() {
 	}
 	memset(this, 0, sizeof(C_AnimatePacket));  // Avoid overwriting vtable
 	vTable = animatePacketVtable;
+	unknown = -2147483648;
 }
 /*
 C_AnimatePacket::C_AnimatePacket(AnimatePacket Action, __int64 entityRuntimeId, float) {
@@ -311,7 +313,7 @@ C_InteractPacket::C_InteractPacket(/*enum InteractPacket::Action, class ActorRun
 ActorEventPacket::ActorEventPacket(uint64_t entityRuntimeId, char eventId, int16_t itemId) {
 	static uintptr_t** actorEvenPacketVtable = 0x0;
 	if (actorEvenPacketVtable == 0x0) {
-		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4D ? 48 89 45 ? C6 45 ? ? 44 89 75");
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4D ? 48 89 45 ? C6 45 ? ? 44 89 7D");
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		actorEvenPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
 #ifdef _DEBUG

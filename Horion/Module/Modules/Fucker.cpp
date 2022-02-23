@@ -24,7 +24,7 @@ const char* Fucker::getModuleName() {
 }
 
 void Fucker::onTick(C_GameMode* gm) {
-	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->localPlayer->isAlive()) {
+	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->getLocalPlayer()->isAlive()) {
 		vec3_t* pos = gm->player->getPos();
 		for (int x = (int)pos->x - range; x < pos->x + range; x++) {
 			for (int z = (int)pos->z - range; z < pos->z + range; z++) {
@@ -69,7 +69,7 @@ void Fucker::onTick(C_GameMode* gm) {
 }
 
 void Fucker::onPlayerTick(C_Player* plr) {
-	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->localPlayer->isAlive()) {
+	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->getLocalPlayer()->isAlive()) {
 		if (destroy && rots) {
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(vec3_t(blockPos.x, blockPos.y, blockPos.z));
 			plr->bodyYaw = angle.y;
@@ -95,7 +95,7 @@ void Fucker::onSendPacket(C_Packet* packet) {
 
 void Fucker::onLevelRender() {
 	if (treasures) {
-		if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->localPlayer->isAlive()) {
+		if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->getLocalPlayer()->isAlive()) {
 			g_Data.forEachEntity([](C_Entity* ent, bool b) {
 				std::string targetName = ent->getNameTag()->getText();
 				std::string localName = g_Data.getLocalPlayer()->getNameTag()->getText();

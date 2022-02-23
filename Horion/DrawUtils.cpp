@@ -53,7 +53,7 @@ void DrawUtils::setCtx(C_MinecraftUIRenderContext* ctx, C_GuiData* gui) {
 
 	ElapsedMicroseconds.QuadPart *= 1000000;
 	int ticksPerSecond = 20;
-	if(g_Data.getClientInstance()->minecraft)
+	if (g_Data.getClientInstance()->minecraft != nullptr && reinterpret_cast<__int64>(g_Data.getClientInstance()->minecraft) < 0xFFFFFFFFFFF00000)
 		if (g_Data.getClientInstance()->minecraft->timer != nullptr)
 			ticksPerSecond = (int)*g_Data.getClientInstance()->minecraft->timer;
 	if(ticksPerSecond < 1)
@@ -87,9 +87,11 @@ void DrawUtils::setCtx(C_MinecraftUIRenderContext* ctx, C_GuiData* gui) {
 		int offset = *reinterpret_cast<int*>(sigOffset + 3);
 		uiMaterial = reinterpret_cast<MaterialPtr*>(sigOffset + offset + 7);
 	}
-	if(entityFlatStaticMaterial == nullptr && g_Data.isInGame()){
+	/*
+	if (entityFlatStaticMaterial == nullptr && g_Data.isInGame()) {
 		entityFlatStaticMaterial = reinterpret_cast<MaterialPtr*>(g_Data.getClientInstance()->itemInHandRenderer->entityLineMaterial.materialPtr);
 	}
+	*/
 }
 
 void DrawUtils::setColor(float r, float g, float b, float a) {
@@ -569,12 +571,12 @@ void DrawUtils::drawZephyr(C_Entity* ent, float lineWidth) {
 	}
 }
 
-void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float scale, bool isEnchanted) {
+void DrawUtils::drawItem(C_ItemStack* item, const vec2_t& itemPos, float opacity, float scale, bool isEnchanted) {
 	__int64 scnCtx = reinterpret_cast<__int64*>(renderCtx)[2];
 	auto* screenCtx = reinterpret_cast<C_ScreenContext*>(scnCtx);
 	C_BaseActorRenderContext baseActorRenderCtx(screenCtx, g_Data.getClientInstance(), g_Data.getClientInstance()->minecraftGame);
 	C_ItemRenderer* renderer = baseActorRenderCtx.renderer;
-	renderer->renderGuiItemNew(&baseActorRenderCtx, item, g_Data.getClientInstance()->minecraftGame, itemPos.x, itemPos.y, opacity, scale, isEnchanted);
+	renderer->renderGuiItemNew(&baseActorRenderCtx, item, 0, itemPos.x, itemPos.y, opacity, scale, isEnchanted);
 }
 static float rcolors[4];
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {

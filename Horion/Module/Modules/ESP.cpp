@@ -45,9 +45,9 @@ void doRenderStuff(C_Entity* ent, bool isRegularEntitie) {
 	static auto freeMod = moduleMgr->getModule<Freecam>();
 
 	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-	if (!freeMod->isEnabled() && ent == localPlayer)
+	if (!freeMod->isEnabled())
 		return;
-	if (ent->timeSinceDeath > 0)
+	if (ent == localPlayer || ent == nullptr || ent->timeSinceDeath > 0)
 		return;
 	if (!g_Data.canUseMoveKeys() && !g_Data.isInGame())
 		return;

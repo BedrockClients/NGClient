@@ -1,7 +1,7 @@
 #pragma once
 #include "../Utils/HMath.h"
-#include "CEntity.h"
 #include "CComplexInventoryTransaction.h"
+#include "CEntity.h"
 #include "TextHolder.h"
 
 class C_Packet {
@@ -40,9 +40,9 @@ public:
 	uint64_t num4294967298;
 	char padThingy[32];
 	//uint64_t entityRuntimeId; //0x0020
-	float pitch;    //0x0028
+	float pitch;  //0x0028
 	float yaw;
-	vec3_t pos;      //0x0030
+	vec3_t pos;       //0x0030
 	float yawUnused;  //0x0038
 	vec3_t velocity;
 	float InputAD;  // 1 for A, -1 for D, multiply by sqrt(2)/2 if mixed with InputWS
@@ -72,11 +72,11 @@ public:
 class C_PlayerActionPacket : public C_Packet {
 public:
 	C_PlayerActionPacket();
-	char pad_0x8[0x28];  //0x8
-	vec3_ti blockPosition; // 0x28
-	int face; // 0x34
-	int action; // 0x38
-	__int64 entityRuntimeId; // 0x40
+	char pad_0x8[0x28];       //0x8
+	vec3_ti blockPosition;    // 0x28
+	int face;                 // 0x34
+	int action;               // 0x38
+	__int64 entityRuntimeId;  // 0x40
 };
 
 class C_SubChunkRequestPacket : public C_Packet {
@@ -87,40 +87,58 @@ public:
 class C_EmotePacket : public C_Packet {
 public:
 	C_EmotePacket();
+
+private:
+	char padding[0x28];
 };
 
 class C_AnimatePacket : public C_Packet {
 public:
 	C_AnimatePacket();
-	//C_AnimatePacket(class AnimatePacket Action, Actor&);
-	signed int actionId;//Test
-	long entityRuntimeId;//Test
+
+private:
+	char padding[0x28];
+
+public:
+	int64_t entityId;
+	int64_t action;
+	float unknown;
 };
 
 class C_NPCRequestPacket : public C_Packet {
 public:
 	C_NPCRequestPacket();
-	long entityRuntimeId;//Test
-	__int64 Unknown0;//Test
-	std::string Unknown1;//Test
-	__int64 Unknown2;//Test
+
+private:
+	char padding[0x28];
+
+public:
+	__int64 entityRuntimeId;
+	unsigned char unk1;
+	std::string unk2;
+	unsigned char unk3;
 };
 
 class PlayerSkinPacket : public C_Packet {
 public:
 	PlayerSkinPacket();
-	__int64 UUID;//Test
-	__int64 skin;//Test
-	std::string skinName;//Test
-	std::string oldSkinName;//Test
+
+private:
+	char padding[0x28];
+
+public:
+	__int64 UUID;
+	__int64 skin;  //meant to be skin class
+	std::string skinName;
+	std::string oldSkinName;
 };
 
 class NetworkLatencyPacket : public C_Packet {
 public:
 	NetworkLatencyPacket();
-	unsigned long timeStamp;//Test
-	bool sendBack;//Test
-	int pad[0x100];//0x0
+	unsigned long timeStamp;  //Test
+	bool sendBack;            //Test
+	int pad[0x100];           //0x0
 };
 
 class CommandRequestPacket : public C_Packet {
@@ -139,8 +157,13 @@ public:
 class C_InteractPacket : public C_Packet {
 public:
 	C_InteractPacket(/**enum InteractPacket::Action, class ActorRuntimeID, vec3_t const&*/);
-	unsigned char actionID;//Test
-	long targetRuntimeEntityID;//Test
+
+private:
+	char padding[0x28];
+
+public:
+	int action;
+	long target;
 };
 
 class ActorEventPacket : public C_Packet {
@@ -188,12 +211,12 @@ public:
 private:
 	char pad_0x8[0x28];  //0x8
 public:
-	int unknown = 0;//0x28
-	__int64* unknownStart = 0;  //0x30
-	__int64* unknownEnd = 0; //0x38
-	__int64 filler = 0;         // 0x40
-	C_ComplexInventoryTransaction* complexTransaction; // 0x48
-	unsigned char numTransactions; // 0x50
+	int unknown = 0;                                    //0x28
+	__int64* unknownStart = 0;                          //0x30
+	__int64* unknownEnd = 0;                            //0x38
+	__int64 filler = 0;                                 // 0x40
+	C_ComplexInventoryTransaction* complexTransaction;  // 0x48
+	unsigned char numTransactions;                      // 0x50
 };
 
 class C_TextPacket : public C_Packet {
@@ -236,6 +259,13 @@ public:
 	__int64 ridingEid;
 	int int1;
 	int int2;
+	/*
+	Modes:
+	0 - Normal
+	1 - Reset
+	2 - Teleportation
+	3 - Rotation
+	*/
 };
 
 #pragma pack(pop)
