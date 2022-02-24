@@ -35,7 +35,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 			mpp.headYaw += 0.5f;
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 			if (player->onGround) speedIndexThingyForHive = 0;
-			float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive];
+			float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive] * 0.9;
 			moveVec.x = moveVec2d.x * currentSpeed;
 			moveVec.y = player->velocity.y;
 			moveVec.z = moveVec2d.y * currentSpeed;
