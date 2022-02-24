@@ -5,7 +5,6 @@ SwingAnimations::SwingAnimations() : IModule(0, Category::VISUAL, "SwingAnimatio
 	registerBoolSetting("FluxSwing", &fluxSwing, fluxSwing);
 	registerBoolSetting("NoObstructSwing", &noObstructSwing, noObstructSwing);
 	registerBoolSetting("PushSwing", &pushSwing, pushSwing);
-	registerBoolSetting("FakeJavaSwing", &fakeJavaSwing, fakeJavaSwing);
 }
 
 SwingAnimations::~SwingAnimations() {
@@ -21,36 +20,30 @@ const char* SwingAnimations::getModuleName() {
 void SwingAnimations::onEnable() {
 	//Floppy
 	if (floppySwing) {
-		targetAddress2 = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 46 40 48 85 C0");
-		targetAddress = (void*)FindSignature("F3 ? ? F0 ? ? C8 F3 ? ? C8");
+		targetAddress2 = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 56 ? 48 85 D2 74 ? 48 8B 02");
+		targetAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
 		Utils::nopBytes((BYTE*)targetAddress2, 8);
 		Utils::nopBytes((BYTE*)targetAddress, 4);
 	}
 
 	//Flux
 	if (fluxSwing) {
-		targetAddress = (void*)FindSignature("e8 ? ? ? ? f3 0f 10 0d ? ? ? ? 41 0f 28 c0");
+		targetAddress = (void*)FindSignature("E8 ? ? ? ? F3 0F 10 0D ? ? ? ? 41 0F 28 C0");
 		Utils::nopBytes((BYTE*)targetAddress, 5);
 	}
 
 	//NoObstruct
 	if (noObstructSwing) {
-		targetAddress = (void*)FindSignature("F3 ? ? F0 ? ? C8 F3 ? ? C8");
+		targetAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
 		Utils::nopBytes((BYTE*)targetAddress, 4);
 	}
 
 	//PushSwing
 	if (pushSwing) {
-		targetAddress = (void*)FindSignature("F3 ? ? F0 ? ? C8 F3 ? ? C8");
-		targetAddress2 = (void*)FindSignature("F3 ? ? C1 ? ? C8 48 8D 15");
+		targetAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
+		targetAddress2 = (void*)FindSignature("F3 ? 2C C1 ? B7 ? 48 8D 15");
 		Utils::nopBytes((BYTE*)targetAddress, 4);
 		Utils::nopBytes((BYTE*)targetAddress2, 4);
-	}
-
-	//Java
-	if (fakeJavaSwing) {
-		targetAddress = (void*)FindSignature("0F 28 F8 F3 0F 59 3D ? ? ? ? C6 47");
-		Utils::nopBytes((BYTE*)targetAddress, 3);
 	}
 
 }
@@ -58,25 +51,21 @@ void SwingAnimations::onEnable() {
 void SwingAnimations::onDisable() {
 	//Floppy
 	if (floppySwing) {
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\x0F\x84\x00\x00\x00\x00\x48\x8B\x56\x00\x48\x85\xD2\x74\x00\x48\x8B\x02", 8);
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0\x0F\x28\xC8", 4);
 	}
 	
 	//Flux
 	if (fluxSwing)
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xE8\xC7\xF4\x3B\xFF\xF3\x0F\x10\x0D\x03\x32\x30\x02\x41\x0F\x28\xC0", 8);
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xE8\x34\x52\x37\xFF", 5);
 
 	//NoObstruct
 	if (noObstructSwing)
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0\x0F\x28\xC8", 4);
 
 	//PushSwing
 	if (pushSwing) {
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\xF3\x0F\x2C\xC1", 4);
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\xF3\x0F\x2C\xC1\x0F\xB7\xC8\x48\x8D\x15", 4);
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0\x0F\x28\xC8", 4);
 	}
-
-	//Java
-	if (fakeJavaSwing)
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x28\xF8\xF3", 3);
 }
