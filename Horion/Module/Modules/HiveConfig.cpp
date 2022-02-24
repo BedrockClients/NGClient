@@ -267,12 +267,6 @@ void HiveConfig::onEnable() {
 		}
 	}
 
-	//No Hivefly In Release
-#ifdef _DEBUG
-#else
-	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %sHiveFly is currently not available in release mode.", WHITE, RED, WHITE, RED);
-#endif
-
 	//Success
 	if (HudMod->surge) {
 		g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Successfully Made Config!", WHITE, BLUE, WHITE, BLUE);

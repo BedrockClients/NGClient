@@ -137,10 +137,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));
 		moduleList.push_back(std::shared_ptr<IModule>(new SoundPlayer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestAura()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));  // Not for public build the public it out 
-#ifdef _DEBUG
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
-#endif
 
 		// Sort modules alphabetically
 		std::sort(moduleList.begin(), moduleList.end(), [](auto lhs, auto rhs) {
