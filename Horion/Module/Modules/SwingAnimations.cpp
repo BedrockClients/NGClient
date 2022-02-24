@@ -22,7 +22,7 @@ void SwingAnimations::onEnable() {
 	if (floppySwing) {
 		targetAddress2 = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 56 ? 48 85 D2 74 ? 48 8B 02");
 		targetAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
-		Utils::nopBytes((BYTE*)targetAddress2, 8);
+		Utils::nopBytes((BYTE*)targetAddress2, 6);
 		Utils::nopBytes((BYTE*)targetAddress, 4);
 	}
 
@@ -51,7 +51,7 @@ void SwingAnimations::onEnable() {
 void SwingAnimations::onDisable() {
 	//Floppy
 	if (floppySwing) {
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\x0F\x84\x00\x00\x00\x00\x48\x8B\x56\x00\x48\x85\xD2\x74\x00\x48\x8B\x02", 8);
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\x0F\x84\x95\x02\x00\x00", 6);
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0\x0F\x28\xC8", 4);
 	}
 	
