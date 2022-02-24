@@ -1,10 +1,11 @@
 #pragma once
 
+#include <optional>
 #include <sstream>
+
+#include "../../../Utils/Json.hpp"
 #include "../../DrawUtils.h"
 #include "Module.h"
-#include "../../../Utils/Json.hpp"
-#include <optional>
 
 struct WaypointInstance {
 	vec3_t pos;

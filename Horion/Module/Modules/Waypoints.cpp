@@ -42,7 +42,7 @@ void Waypoints::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 		constexpr bool useFloatingPoint = false;
 		constexpr bool fadeOutAtDistance = true;
-			
+
 		std::string txt;
 		if (useFloatingPoint) {
 			std::ostringstream out;
@@ -57,13 +57,12 @@ void Waypoints::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				txt = txt + ", overworld)";
 			else if (wpDimension == 1)
 				txt = txt + ", nether)";
-		}else
+		} else
 			txt = txt + ")";
 
 		float alpha = 1;
 
 		if (fadeOutAtDistance && dist > 15) {
-				
 			vec2_t angle = localPlayer->currentPos.CalcAngle(pos);
 			float diff = angle.sub(localPlayer->viewAngles).normAngles().magnitude();
 			if (dist > 30) {
@@ -94,7 +93,7 @@ void Waypoints::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			textPos.y -= textHeight;
 			textPos.x -= textWidth / 2.f;
 
-			if (showCoordinates) {
+			if (this->showCoordinates) {
 				std::ostringstream out;
 				out.precision(1);
 				out << "(" << std::fixed << pos.x << ", " << pos.y << ", " << pos.z << ")";
@@ -107,27 +106,26 @@ void Waypoints::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			rectPos.z = textPos.x + textWidth + 1.f * size;
 			rectPos.w = textPos.y + textHeight + 2.f * size;
 
-			if (showCoordinates) 
+			if (this->showCoordinates)
 				rectPos.w += textHeight * 0.75f + 1.f * size;
 
 			MC_Color color(0, 0, 0);
-			if (currentDimension == 0 && wpDimension == 1) 
+			if (currentDimension == 0 && wpDimension == 1)
 				color.r = 0.2f;
-			
-			if (currentDimension == 1 && wpDimension == 0) 
+
+			if (currentDimension == 1 && wpDimension == 0)
 				color.b = 0.2f;
 
 			DrawUtils::fillRectangle(rectPos, color, alpha * 0.5f);
 			DrawUtils::drawText(textPos, &txt, MC_Color(255, 255, 255), size, alpha);
-			if (showCoordinates) {
+			if (this->showCoordinates) {
 				textPos.y += textHeight + 1.f * size;
-				
+
 				DrawUtils::drawText(textPos, &coordText, MC_Color(255, 255, 255), size * 0.75f, alpha);
 			}
 		}
 		DrawUtils::flush();
 	}
-	
 }
 
 using json = nlohmann::json;
@@ -149,7 +147,7 @@ void Waypoints::onLoadConfig(void* confVoid) {
 				vec3_t _pos;
 				int dim = 0;
 				auto val = it.value();
-				if (!val.contains("pos")) 
+				if (!val.contains("pos"))
 					continue;
 				auto pos = val.at("pos");
 				if (!pos.is_null() && pos.contains("x") && pos["x"].is_number_float() && pos.contains("y") && pos["y"].is_number_float() && pos.contains("z") && pos["z"].is_number_float()) {

@@ -23,7 +23,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
 	registerEnumSetting("BlockHit", &mode, 3);
 	mode = SettingEnum(this)
-			   .addEntry(EnumEntry("SlowBlock", 0))
+			   .addEntry(EnumEntry("SlideBlock", 0))
 			   .addEntry(EnumEntry("SmoothBlock", 1))
 			   .addEntry(EnumEntry("Normal", 2))
 			   .addEntry(EnumEntry("None", 3));
@@ -59,7 +59,7 @@ static std::vector<C_Entity*> targetList;
 float rcolorrs[4];
 float Outline = 0;
 
-__int64 actualPlayerVTable = Utils::getBase() + 0x4195A10;
+//__int64 actualPlayerVTable = Utils::getBase() + 0x4195A10;
 
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
@@ -94,7 +94,7 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 			if (currentEntity->getEntityTypeId() == 69)  // xp
 				return;
 		} else {
-			if (!Target::isValidTarget(currentEntity) || *(__int64*)currentEntity != actualPlayerVTable)
+			if (!Target::isValidTarget(currentEntity) /* || *(__int64*)currentEntity != actualPlayerVTable*/)
 				return;
 		}
 
@@ -153,10 +153,10 @@ void Killaura::onPlayerTick(C_Player* plr) {
 			nigr2 = 340;
 
 		if (!targetList.empty() && mode.selected == 0 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon() && !noSwing) {
-			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
+			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x79C);
 			*speedAdr = nigr;
 		} else if (!targetList.empty() && mode.selected == 1 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon() && !noSwing) {
-			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x7B4);
+			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x79C);
 			*speedAdr = nigr2;
 		}
 		targetList.clear();
@@ -237,12 +237,12 @@ void Killaura::onTick(C_GameMode* gm) {
 
 	if (!targetList.empty()) {
 		if (mode.selected != 3 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon())
-			Utils::nopBytes((BYTE*)targetAddress, 8);
+			Utils::nopBytes((BYTE*)targetAddress, 6);
 		player->swing();
 	}
 
 	if (targetList.empty() && mode.selected != 3 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x95\x02\x00\x00", 6);
 		gayFags = false;
 	}
 }
@@ -317,7 +317,7 @@ void Killaura::onEnable() {
 }
 
 void Killaura::onDisable() {
-	Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x83\x02\x00\x00\x48\x8B", 8);
+	Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x84\x95\x02\x00\x00", 6);
 	gayFags = false;
 	counter = 0;
 	PlayerCount = 0;
