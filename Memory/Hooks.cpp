@@ -1694,7 +1694,7 @@ float Hooks::GetGamma(uintptr_t* a1) {
 	static auto fullbright = moduleMgr->getModule<FullBright>();
 	static auto xrayMod = moduleMgr->getModule<Xray>();
 	static auto nametagmod = moduleMgr->getModule<NameTags>();
-	static auto zoomModule = moduleMgr->getModule<Zoom>();
+	static auto zoomMod = moduleMgr->getModule<Zoom>();
 
 	uintptr_t** list = (uintptr_t**)a1;
 
@@ -1720,13 +1720,8 @@ float Hooks::GetGamma(uintptr_t* a1) {
 			obtainedSettings++;
 		} else if (!strcmp(settingname->getText(), "gfx_field_of_view")) {
 			float* FieldOfView = (float*)((uintptr_t)list[i] + 24);
-			if (!zoomModule->isEnabled())
-			g_Data.fov = -*FieldOfView + 110.f;
-
-			if (moduleMgr->isInitialized()) {
-				if (!zoomModule->smooth && zoomModule->isEnabled()) *FieldOfView =  - zoomModule->target + 110.f;
-				if (zoomModule->smooth && zoomModule->zooming) *FieldOfView =  - zoomModule->modifier + 110.f;
-			}
+			if (zoomMod->isEnabled())
+				zoomMod->OGFov = *FieldOfView;
 			obtainedSettings++;
 		}
 		if (obtainedSettings == 3) break;
