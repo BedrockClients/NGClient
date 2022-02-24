@@ -3,27 +3,24 @@
 #include "Module.h"
 class Zoom : public IModule {
 public:
-	bool smooth = true;
-	bool zooming = false;
-	float strength = 20.f;
-	float target = 20.f;
-	float modifier = 20.f;
+	float strength = 0.5f;
+	float OGFov;
 
 	Zoom() : IModule(0x0, Category::VISUAL, "Zoom in or out!") {
-		registerFloatSetting("Strength", &strength, strength, -100.f, 100.f);
-		registerBoolSetting("Smooth", &smooth, smooth);
+		registerFloatSetting("Strength", &strength, strength, 0.f, 1.f);
 	};
 	~Zoom(){};
 
 	void onEnable() {
-		zooming = true;
 	}
-
+	void onPlayerTick(C_Player* e) {
+		if (g_Data.getLocalPlayer() != nullptr && g_Data.isInGame())
+			g_Data.getLocalPlayer()->setFieldOfViewModifier(strength);
+	}
 	void onDisable() {
-		target = g_Data.fov;
+		g_Data.getLocalPlayer()->setFieldOfViewModifier(OGFov);
 	}
 	virtual const char* getModuleName() override {
 		return "Zoom";
 	}
-
 };
