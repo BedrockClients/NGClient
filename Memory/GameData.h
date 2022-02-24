@@ -1,10 +1,11 @@
 #pragma once
 
+#include <functional>
 #include <map>
+#include <mutex>
 #include <queue>
 #include <unordered_set>
-#include <functional>
-#include <mutex>
+
 #include "../SDK/CChestBlockActor.h"
 #include "../SDK/CClientInstance.h"
 #include "../SDK/CGameMode.h"
@@ -22,7 +23,7 @@ enum DATAPACKET_CMD : int {
 	CMD_OPENBROWSER,
 	CMD_FILECHOOSER,
 	CMD_RESPONSE,
-	CMD_FOLDERCHOOSER, // sets permissions for a whole folder and sends the path over
+	CMD_FOLDERCHOOSER,  // sets permissions for a whole folder and sends the path over
 	CMD_LOG
 };
 
@@ -84,8 +85,8 @@ private:
 	bool customGeoActive = false;
 	std::shared_ptr<std::tuple<std::shared_ptr<unsigned char[]>, size_t>> customTexture;
 	bool customTextureActive = false;
-private:
 
+private:
 	bool injectorConnectionActive = false;
 	const SlimUtils::SlimModule* gameModule = 0;
 	SlimUtils::SlimMem* slimMem;
@@ -210,9 +211,9 @@ public:
 		
 		#else*/
 		localPlayer = clientInstance->getLocalPlayer();
-		
+
 		//#endif
-		
+
 		if (localPlayer == nullptr)
 			gameMode = nullptr;
 		return localPlayer;

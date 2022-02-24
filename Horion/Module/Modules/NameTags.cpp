@@ -72,9 +72,11 @@ void NameTags::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 }
 
 void NameTags::onDisable() {
-	if (ingameNametagSetting && gotPrevSetting) {
-		*ingameNametagSetting = lastSetting;
-		gotPrevSetting = false;
+	if (g_Data.getLocalPlayer() != nullptr) {
+		if (ingameNametagSetting && gotPrevSetting) {
+			*ingameNametagSetting = lastSetting;
+			gotPrevSetting = false;
+		}
+		*ingameNametagSetting = true;
 	}
-	*ingameNametagSetting = true;
 }
