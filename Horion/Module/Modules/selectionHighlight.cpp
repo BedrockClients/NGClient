@@ -41,7 +41,7 @@ void selectionHighlight::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 		if (g_Data.getLocalPlayer() != nullptr) {
 			float mC = thickness / 2;
-			auto pStruct = g_Data.getClientInstance()->getPointerStruct();
+			auto pStruct = g_Data.getLocalPlayer()->pointingStruct;
 
 			vec3_t hLower = pStruct->block.toVec3t();
 			hLower = hLower.floor();

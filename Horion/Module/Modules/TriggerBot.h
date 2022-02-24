@@ -14,19 +14,19 @@ public:
 	~TriggerBot(){};
 
 	void onEnable() {
-		C_Entity* target = g_Data.getClientInstance()->getPointerStruct()->getEntity();
+		C_Entity* target = g_Data.getLocalPlayer()->pointingStruct->getEntity();
 		if (!Target::isValidTarget(target))
 			return;
 	}
 
 	void onDisable() {
-		C_Entity* target = g_Data.getClientInstance()->getPointerStruct()->getEntity();
+		C_Entity* target = g_Data.getLocalPlayer()->pointingStruct->getEntity();
 		if (!Target::isValidTarget(target))
 			return;
 	}
 	void onTick(C_GameMode* gm) {
 		C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-		C_Entity* target = g_Data.getClientInstance()->getPointerStruct()->getEntity();
+		C_Entity* target = g_Data.getLocalPlayer()->pointingStruct->getEntity();
 
 		Odelay++;
 		if (target > 0 && Odelay >= delay) {

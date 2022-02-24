@@ -77,7 +77,7 @@ void AnchorAura::CPlace(C_GameMode* gm, vec3_t* pos) {
 #pragma warning(pop)
 		C_Block* block = gm->player->region->getBlock(blockPos);
 		C_Block* upperBlock = gm->player->region->getBlock(upperBlockPos);
-		gm->buildBlock(&blockPos, g_Data.getClientInstance()->getPointerStruct()->blockSide);
+		gm->buildBlock(&blockPos, g_Data.getLocalPlayer()->pointingStruct->blockSide);
 		return;
 	}
 	vec3_ti bestPos;
@@ -177,7 +177,7 @@ void AnchorAura::onLevelRender() {
 				for (auto& i : targetList)
 					CPlace(g_Data.getCGameMode(), i->getPos());
 			else {
-				auto ptr = g_Data.getClientInstance()->getPointerStruct();
+				auto ptr = g_Data.getLocalPlayer()->pointingStruct;
 				if (ptr->getEntity() == nullptr && ptr->rayHitType == 0)
 					CPlace(g_Data.getCGameMode(), &ptr->block.toFloatVector());
 			}
@@ -209,7 +209,7 @@ void AnchorAura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		g_Data.getLocalPlayer() == nullptr)
 		return;
 
-	auto ptr = g_Data.getClientInstance()->getPointerStruct();
+	auto ptr = g_Data.getLocalPlayer()->pointingStruct;
 	if (ptr != nullptr)
 		if (ptr->getEntity() == nullptr && ptr->rayHitType == 0)
 			if (g_Data.getLocalPlayer()->region->getBlock(ptr->block)->blockLegacy->material->isSolid ||

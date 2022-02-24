@@ -16,7 +16,7 @@ public:
 
 	void onTick(C_GameMode* gm) {
 		if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->canOpenContainerScreen() && mode.selected == 1) {
-			PointingStruct* pointing = g_Data.getClientInstance()->getPointerStruct();
+			PointingStruct* pointing = g_Data.getLocalPlayer()->pointingStruct;
 			bool isDestroyed = false;
 			gm->stopDestroyBlock(pointing->block);
 			gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
