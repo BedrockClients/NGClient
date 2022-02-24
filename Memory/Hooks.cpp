@@ -1059,14 +1059,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		}
 	}
 
-	// Zoom calc
-	{
-		static auto zoomModule = moduleMgr->getModule<Zoom>();
-		if (zoomModule->isEnabled()) zoomModule->target = zoomModule->strength;
-		zoomModule->modifier = zoomModule->target - ((zoomModule->target - zoomModule->modifier) * 0.8f);
-		if (abs(zoomModule->modifier - zoomModule->target) < 0.1f && !zoomModule->isEnabled())
-			zoomModule->zooming = false;
-	}
 
 	if (shouldPostRender) moduleMgr->onPostRender(renderCtx);
 	HImGui.endFrame();
