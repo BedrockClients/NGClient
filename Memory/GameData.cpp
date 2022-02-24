@@ -171,14 +171,12 @@ void GameData::forEachEntity(std::function<void(C_Entity*, bool)> callback) {
 	start = *(uintptr_t*)start;
 	stop = *(uintptr_t*)stop;
 	//logF("size: %i", (stop - start) / sizeof(uintptr_t*));
-
 	while (start < stop) {
 		C_Entity* ent = *(C_Entity**)start;
 		if (ent != nullptr)
 			callback(ent, false);
 		start += 8;
 	}
-
 	// New EntityList
 	{
 		// MultiplayerLevel::directTickEntities
@@ -195,7 +193,7 @@ void GameData::forEachEntity(std::function<void(C_Entity*, bool)> callback) {
 	}*/
 
 	if (this->localPlayer && this->localPlayer->pointingStruct) {
-		for (const auto& ent : g_Hooks.entityList) 
+		for (const auto& ent : g_Hooks.entityList)
 			if (ent.ent != nullptr) callback(ent.ent, false);
 	}
 }
