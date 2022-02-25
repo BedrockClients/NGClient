@@ -418,7 +418,8 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	targetList.clear();
 	g_Data.forEachEntity(findEntity);
 	std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && rots.selected == 1 || rots.selected == 2 && g_Data.isInGame()) {
+	static auto BreakerMod = moduleMgr->getModule<Fucker>();
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && rots.selected == 1 || rots.selected == 2 && g_Data.isInGame() && !BreakerMod->destroy) {
 		if (!targetList.empty()) {
 			vec2_t angle;
 			if (targ.selected == 0)
