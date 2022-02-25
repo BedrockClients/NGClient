@@ -330,9 +330,9 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 
 bool Hooks::playerCallBack(C_Player* lp, __int64 cock, __int64 penis) {
 	static auto oTick = g_Hooks.playerCallBack_Hook->GetFastcall<bool, C_Player*, __int64, __int64>();
-	//om, we need this check or else is makes all entitys look the directions we are setting rotations to look lol
+//om, we need this check or else is makes all entitys look the directions we are setting rotations to look lol
 	if (lp == g_Data.getLocalPlayer())
-		moduleMgr->onPlayerTick(lp);
+	moduleMgr->onPlayerTick(lp);
 
 	//Fix I Hope
 	{
@@ -348,7 +348,7 @@ bool Hooks::playerCallBack(C_Player* lp, __int64 cock, __int64 penis) {
 				if (info.State & MEM_FREE) continue;
 				if (info.State & MEM_RESERVE) continue;
 
-				if (ent.ent != nullptr && entity->isAlive() && *(__int64*)ent.ent > 0x6FF000000000 && *(__int64*)ent.ent < 0x800000000000 && *((int64_t*)ent.ent + 1) < 0x6FF000000000 && *(__int64*)ent.ent <= Utils::getBase() + 0x10000000)
+				if (*(__int64*)ent.ent != 0xFFFFFFFFFFFFFCD7 && entity != nullptr && ent.ent != nullptr && entity->isAlive() && *(__int64*)ent.ent > 0x6FF000000000 && *(__int64*)ent.ent < 0x800000000000 && *((int64_t*)ent.ent + 1) < 0x6FF000000000 && *(__int64*)ent.ent <= Utils::getBase() + 0x10000000)
 					validEntities.push_back(ent);
 			}
 			g_Hooks.entityList.clear();
@@ -453,28 +453,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	if (reinterpret_cast<__int64>(dat) < 0x500000000 || reinterpret_cast<__int64>(dat) > 0xFFFFFFFFFFF00000) return oText(a1, renderCtx);
 
 	DrawUtils::setCtx(renderCtx, dat);
-
-	//Fix I Hope
-	{
-		if (g_Data.getLocalPlayer() != nullptr) {
-			if (!g_Data.getLocalPlayer() || !g_Data.getLocalPlayer()->pointingStruct || !*(&g_Data.getLocalPlayer()->region + 1))
-				g_Hooks.entityList.clear();
-
-			std::vector<EntityListPointerHolder> validEntities;
-			for (const auto& ent : g_Hooks.entityList) {
-				auto entity = ent.ent;
-				MEMORY_BASIC_INFORMATION info;
-				VirtualQuery(ent.ent, &info, sizeof(MEMORY_BASIC_INFORMATION));
-				if (info.State & MEM_FREE) continue;
-				if (info.State & MEM_RESERVE) continue;
-
-				if (ent.ent != nullptr && entity->isAlive() && *(__int64*)ent.ent > 0x6FF000000000 && *(__int64*)ent.ent < 0x800000000000 && *((int64_t*)ent.ent + 1) < 0x6FF000000000 && *(__int64*)ent.ent <= Utils::getBase() + 0x10000000)
-					validEntities.push_back(ent);
-			}
-			g_Hooks.entityList.clear();
-			g_Hooks.entityList = validEntities;
-		}
-	}
 
 	{
 		static bool wasConnectedBefore = false;
