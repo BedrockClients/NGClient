@@ -684,7 +684,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							constexpr float borderPadding = 0;
 							constexpr float margin = 0;
 
-							static std::string name = "NG Client | Dev Bild";
+							static std::string name = "NG Client | Dev Build";
 #ifdef _DEBUG
 							static std::string version = "";
 #elif defined _BETA
