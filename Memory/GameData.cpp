@@ -195,6 +195,8 @@ void GameData::forEachEntity(std::function<void(C_Entity*, bool)> callback) {
 	if (this->localPlayer && this->localPlayer->pointingStruct) {
 		for (const auto& ent : g_Hooks.entityList)
 			if (ent.ent != nullptr) callback(ent.ent, false);
+		for (const auto& ent : g_Data.getLocalPlayer()->pointingStruct->getMiscEntityList())
+			if (ent != nullptr && ent->getEntityTypeId() >= 1 && ent->getEntityTypeId() <= 999999999) callback(ent, false);
 	}
 }
 

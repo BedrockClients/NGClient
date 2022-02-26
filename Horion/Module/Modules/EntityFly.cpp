@@ -27,15 +27,8 @@ void findBooat(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == g_Data.getLocalPlayer())
 		return;
 
-	if (currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 2118425 && currentEntity->getEntityTypeId() != 2118424)
+	if (currentEntity->getEntityTypeId() != 90 && currentEntity->getEntityTypeId() != 2186010 && currentEntity->getEntityTypeId() != 2118423 && currentEntity->getEntityTypeId() != 4876 && currentEntity->getEntityTypeId() != 2118424)
 		return;
-	//2118423 is horse
-	//2118425 is mule
-	//2118424 is donkey
-
-	//not worcking
-	//2186010 is skeleton horse
-	//Boat = 375
 	float boatdistance = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 
 	if (boatdistance < 3) {
