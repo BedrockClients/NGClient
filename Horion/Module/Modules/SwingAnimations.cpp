@@ -5,6 +5,7 @@ SwingAnimations::SwingAnimations() : IModule(0, Category::VISUAL, "SwingAnimatio
 	registerBoolSetting("FluxSwing", &fluxSwing, fluxSwing);
 	registerBoolSetting("NoObstructSwing", &noObstructSwing, noObstructSwing);
 	registerBoolSetting("PushSwing", &pushSwing, pushSwing);
+	registerBoolSetting("BrushSwing", &brushSwing, brushSwing);
 }
 
 SwingAnimations::~SwingAnimations() {
@@ -46,6 +47,12 @@ void SwingAnimations::onEnable() {
 		Utils::nopBytes((BYTE*)targetAddress2, 4);
 	}
 
+	//BrushSwing
+	if (brushSwing) {
+		targetAddress = (void*)FindSignature("0F 28 C6 F3 0F 59 05 ? ? ? ? F3 0F 2C C0 0F B7 C8");
+		Utils::nopBytes((BYTE*)targetAddress, 3);
+	}
+
 }
 
 void SwingAnimations::onDisable() {
@@ -68,4 +75,8 @@ void SwingAnimations::onDisable() {
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\xF3\x0F\x2C\xC1\x0F\xB7\xC8\x48\x8D\x15", 4);
 		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0\x0F\x28\xC8", 4);
 	}
+
+	//BrushSwing
+	if (brushSwing)
+		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x28\xC6\xF3\x0F\x59\x05", 3);
 }

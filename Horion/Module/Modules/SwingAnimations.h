@@ -4,6 +4,7 @@
 class SwingAnimations : public IModule {
 public:
 	bool floppySwing = false;
+	bool brushSwing = false;
 	bool fluxSwing = true;
 	bool noObstructSwing = false;
 	bool pushSwing = false;
