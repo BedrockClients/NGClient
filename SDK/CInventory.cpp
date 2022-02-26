@@ -15,7 +15,7 @@ void C_Inventory::dropAll() {
 	//if (func != 0)
 	//func(this, slot, 0, 0);
 	for (int i = 0; i < 36; i++) {
-		dropSlot(i);
+		this->dropSlot(i);
 	}
 }
 bool C_Inventory::isFull() {
