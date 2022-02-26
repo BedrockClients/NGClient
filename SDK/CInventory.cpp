@@ -49,13 +49,11 @@ void C_Inventory::moveItem(int from, int to = -1) {
 	C_ItemStack* item1 = getItemStack(from);
 	C_ItemStack* item2 = getItemStack(to);
 
-	if (item1->item == NULL) return;
 	if (item2->item == NULL) {
 		C_InventoryAction first(from, item1, nullptr);
 		C_InventoryAction second(to, nullptr, item1);
 		manager->addInventoryAction(first);
 		manager->addInventoryAction(second);
-		*item2 = *item1;
 		*item1 = *emptyItemStack;
 	} else {
 		C_InventoryAction first(from, item1, nullptr);
@@ -64,9 +62,6 @@ void C_Inventory::moveItem(int from, int to = -1) {
 		manager->addInventoryAction(first);
 		manager->addInventoryAction(second);
 		manager->addInventoryAction(third);
-		C_ItemStack a = *item2;
-		*item2 = *item1;
-		*item1 = a;
 	}
 }
 
