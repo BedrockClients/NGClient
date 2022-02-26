@@ -117,7 +117,7 @@ void HiveConfig::onEnable() {
 	Scaff->autoselect = true;
 	Scaff->Fullselect = true;
 	Scaff->spoof = true;
-	Scaff->spam = true;
+	Scaff->spam = false;
 	Scaff->rot = true;
 	Scaff->SukinMyBigJuicyAss = true;
 	Scaff->noSwing = true;
