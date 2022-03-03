@@ -966,8 +966,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 						}
 
-						//DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), hudModule->arrayListOpacity);  // Background
-						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);
+						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);//Background
 						if (FluxMod->Fluxbar)
 							if (FluxMod->rgb) {
 								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
@@ -1128,7 +1127,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 float* Hooks::Dimension_getFogColor(__int64 _this, float* color, __int64 a3, float a4) {
 	static auto oGetFogColor = g_Hooks.Dimension_getFogColorHook->GetFastcall<float*, __int64, float*, __int64, float>();
 
-	static float rcolors[4];
+	static float currColor[4];
 
 	static auto nightMod = moduleMgr->getModule<NightMode>();
 	if (nightMod->isEnabled()) {
@@ -1141,22 +1140,22 @@ float* Hooks::Dimension_getFogColor(__int64 _this, float* color, __int64 a3, flo
 
 	static auto rainbowSkyMod = moduleMgr->getModule<RainbowSky>();
 	if (rainbowSkyMod->isEnabled()) {
-		if (rcolors[3] < 1) {
-			rcolors[0] = 1;
-			rcolors[1] = 0.2f;
-			rcolors[2] = 0.2f;
-			rcolors[3] = 1;
+		if (currColor[3] < 1) {
+			currColor[0] = 1;
+			currColor[1] = 0.2f;
+			currColor[2] = 0.2f;
+			currColor[3] = 1;
 		}
 
-		Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], rcolors[0], rcolors[1], rcolors[2]);  // perfect code, dont question this
+		Utils::ColorConvertRGBtoHSV(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);  // perfect code, dont question this
 
-		rcolors[0] += 0.001f;
-		if (rcolors[0] >= 1)
-			rcolors[0] = 0;
+		currColor[0] += 0.001f;
+		if (currColor[0] >= 1)
+			currColor[0] = 0;
 
-		Utils::ColorConvertHSVtoRGB(rcolors[0], rcolors[1], rcolors[2], rcolors[0], rcolors[1], rcolors[2]);
+		Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 
-		return rcolors;
+		return currColor;
 	}
 	return oGetFogColor(_this, color, a3, a4);
 }

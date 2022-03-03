@@ -2,7 +2,6 @@
 #include "../ModuleManager.h"
 #include "Module.h"
 class RainbowSky : public IModule {
-private:
 public:
 	RainbowSky() : IModule(0x0, Category::VISUAL, "Makes your sky look rainbow!"){};
 	~RainbowSky(){};
