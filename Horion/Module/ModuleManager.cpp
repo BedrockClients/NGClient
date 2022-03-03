@@ -21,6 +21,7 @@ void ModuleManager::initModules() {
 
 		moduleList.push_back(std::shared_ptr<IModule>(new HudModule()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Killaura()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Surround()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Snow()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ESP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FastStop()));
