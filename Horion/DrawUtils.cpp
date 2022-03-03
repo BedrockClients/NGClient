@@ -721,7 +721,7 @@ void DrawUtils::CPS(char key, vec2_t pos) {
 			// box
 			pos.x,
 			pos.y,
-			pos.x + 64.f,
+			pos.x + 65.f,
 			pos.y + 15.f);
 		vec2_t textPos(
 			(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&cpsText) / 2.f),

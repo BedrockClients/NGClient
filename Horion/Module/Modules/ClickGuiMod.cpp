@@ -2,9 +2,16 @@
 
 #include "../../Menu/ClickGui.h"
 
+float ClickGuiMod::rcolor{0.f};
+float ClickGuiMod::gcolor{0.f};
+float ClickGuiMod::bcolor{0.f};
+
 ClickGuiMod::ClickGuiMod() : IModule(VK_TAB, Category::GUI, "The clickgui") {
 	registerBoolSetting("Show Tooltips", &showTooltips, showTooltips);
 	registerBoolSetting("RGB", &RGB, RGB);
+	registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
+	registerFloatSetting("Green", &gcolor, gcolor, 0.f, 1.f);
+	registerFloatSetting("Blue", &bcolor, bcolor, 0.f, 1.f);
 	registerFloatSetting("Opacity", &opacity, opacity, 0.f, 1.f);
 }
 

@@ -30,19 +30,18 @@ vec2_t dragStart = vec2_t();
 unsigned int focusedElement = -1;
 bool isFocused = false;
 
-static constexpr float textPadding = 0.83f;
-static constexpr float textSize = 0.83f;
-static constexpr float textHeight = textSize * 9.0f;
+static constexpr float textPadding = 0.80f;
+static constexpr float textSize = 0.80f;
+static constexpr float textHeight = textSize * 8.0f;
 static constexpr float categoryMargin = 0.5f;
-static constexpr float paddingRight = 13.5f;
+static constexpr float paddingRight = 13.f;
 static constexpr float crossSize = textHeight / 2.f;
 static constexpr float crossWidth = 0.3f;
-static constexpr float backgroundAlpha = 1.0f;
 static const MC_Color selectedModuleColor = MC_Color(184, 0, 255);
 static const MC_Color selectedSettingColor1 = MC_Color(184, 0, 255);
 static const MC_Color selectedSettingColor2 = MC_Color(184, 0, 255);
 static const MC_Color moduleColor = MC_Color(0, 0, 0);
-static const MC_Color SettingColor1 = MC_Color(0, 0, 0);     //not enabled enums
+static const MC_Color SettingColor1 = MC_Color(0, 0, 0);   //not enabled enums
 static const MC_Color SettingColor2 = MC_Color(0, 0, 0);  //enabled enums and enums when hovering over with mouse
 
 float currentYOffset = 0;
@@ -116,11 +115,11 @@ void ClickGui::renderTooltip(std::string* text) {
 		currentTooltipPos.x + (textPadding * 2) + textWidth + 2.f,
 		currentTooltipPos.y + textHeight + 2.f);
 	if (Surge->surge) {
-		DrawUtils::fillRectangle(rectPos, MC_Color(00, 00, 00), ClickguiOpac->opacity);
+		DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 		DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 		DrawUtils::drawText(textPos, text, MC_Color(0, 0, 255), textSize);
 	} else {
-		DrawUtils::fillRectangle(rectPos, MC_Color(00, 00, 00), ClickguiOpac->opacity);
+		DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 		DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 		DrawUtils::drawText(textPos, text, MC_Color(184, 0, 255), textSize);
 	}
@@ -291,7 +290,7 @@ void ClickGui::renderCategory(Category category) {
 						if (Surge->surge)
 							DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 255), ClickguiOpac->opacity);
 						else
-							DrawUtils::fillRectangle(rectPos, selectedModuleColor, ClickguiOpac->opacity);
+							DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 					}
 					std::string tooltip = mod->getTooltip();
 					static auto clickGuiMod = moduleMgr->getModule<ClickGuiMod>();
@@ -302,7 +301,7 @@ void ClickGui::renderCategory(Category category) {
 						shouldToggleLeftClick = false;
 					}
 				} else {
-					DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
+					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 				}
 			}
 
@@ -376,9 +375,9 @@ void ClickGui::renderCategory(Category category) {
 								rectPos.w = currentYOffset + textHeight + (textPadding * 2);
 								static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 								if (rgbHud->opacity) {
-									DrawUtils::fillRectangle(rectPos, moduleColor, rgbHud->opacity);
+									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), rgbHud->opacity);
 								} else {
-									DrawUtils::fillRectangle(rectPos, moduleColor, rgbHud->opacity);
+									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), rgbHud->opacity);
 								}
 								vec4_t selectableSurface = vec4_t(
 									textPos.x + textPadding,
@@ -475,7 +474,7 @@ void ClickGui::renderCategory(Category category) {
 									std::string elTexto = name;
 									rectPos.w = currentYOffset + textHeight + (textPadding * 2);
 									windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 5 /* because we add 5 to text padding*/ + crossSize);
-									DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
+									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
 									GuiUtils::drawCrossLine(vec2_t(
 																currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
@@ -527,7 +526,7 @@ void ClickGui::renderCategory(Category category) {
 											else
 												col = MC_Color(20, 35, 55);
 										}
-										DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
+										DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 										DrawUtils::fillRectangle(selectableSurface, col, ClickguiOpac->opacity);
 										DrawUtils::drawText(textPos, &elTexto, MC_Color(1.f, 1.f, 1.f));
 										// logic
@@ -556,7 +555,7 @@ void ClickGui::renderCategory(Category category) {
 									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
 									currentYOffset += textPadding + textHeight;
 									rectPos.w = currentYOffset;
-									DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
+									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 								}
 
 								if ((currentYOffset - ourWindow->pos.y) > cutoffHeight) {
@@ -578,8 +577,8 @@ void ClickGui::renderCategory(Category category) {
 										// Background
 										const bool areWeFocused = rect.contains(&mousePos);
 
-										DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);                   // Background
-										DrawUtils::drawRectangle(rect, MC_Color(1.0f, 1.0f, 1.0f), 1.f, ClickguiOpac->opacity);  // Slider background
+										DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);  // Background
+										DrawUtils::drawRectangle(rect, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);  // Slider background
 
 										const float minValue = setting->minValue->_float;
 										const float maxValue = setting->maxValue->_float - minValue;
@@ -650,7 +649,7 @@ void ClickGui::renderCategory(Category category) {
 									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
 									currentYOffset += textPadding + textHeight;
 									rectPos.w = currentYOffset;
-									DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
+									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 								}
 								if ((currentYOffset - ourWindow->pos.y) > (g_Data.getGuiData()->heightGame * 0.75)) {
 									overflowing = true;
@@ -671,8 +670,8 @@ void ClickGui::renderCategory(Category category) {
 										// Background
 										const bool areWeFocused = rect.contains(&mousePos);
 
-										DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);                   // Background
-										DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f, ClickguiOpac->opacity);  // Slider background
+										DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);  // Background
+										DrawUtils::drawRectangle(rect, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);  // Slider background
 
 										const float minValue = (float)setting->minValue->_int;
 										const float maxValue = (float)setting->maxValue->_int - minValue;
@@ -828,12 +827,13 @@ void ClickGui::renderCategory(Category category) {
 				// Draw Text
 				std::string textStr = categoryName;
 				static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
+				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 				if (rgbHud->RGB) {
 					DrawUtils::drawText(textPos, &textStr, MC_Color(rcolors2), textSize);
 				} else {
 					DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 				}
-				DrawUtils::fillRectangle(rectPos, moduleColor, 1.f);
+				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
 				DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(0, 0, 255), 1 - ourWindow->animation);
 				// Draw Dash
@@ -847,12 +847,13 @@ void ClickGui::renderCategory(Category category) {
 			// Draw Text
 			std::string textStr = categoryName;
 			static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
+			static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 			if (rgbHud->RGB) {
 				DrawUtils::drawText(textPos, &textStr, MC_Color(rcolors2), textSize);
 			} else {
 				DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
 			}
-			DrawUtils::fillRectangle(rectPos, moduleColor, 1.f);
+			DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
 			DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
 			// Draw Dash

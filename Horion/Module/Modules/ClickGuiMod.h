@@ -7,10 +7,12 @@ public:
 	ClickGuiMod();
 	~ClickGuiMod();
 
+	static float rcolor;
+	static float gcolor;
+	static float bcolor;
 	bool showTooltips = true;
 	bool RGB = false;
-	int font = 10;
-	float opacity = 0.05f;
+	float opacity = 0.20f;
 
 	// Inherited via IModule
 	virtual void onPostRender(C_MinecraftUIRenderContext* renderCtx) override;
