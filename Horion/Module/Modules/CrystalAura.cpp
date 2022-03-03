@@ -131,16 +131,6 @@ std::vector<vec3_t*> getGucciPlacement2(C_Entity* ent) {
 			} else if (blkID == 0 && (blkIDL == 7 || blkIDL == 49)) {
 				finalBlocks.push_back(new vec3_t(blocks->x, blocks->y, blocks->z));
 			}
-
-			if (blkID == 0 && blkIDL == 0 && (blkIDLL == 49 || blkIDLL == 7)) {
-				finalBlocks.push_back(new vec3_t(blocks->x, blocks->y - 1, blocks->z));
-			} else if (blkID == 0 && (blkIDL == 7 || blkIDL == 49)) {
-				finalBlocks.push_back(new vec3_t(blocks->x, blocks->y, blocks->z));
-			} else if (blkID == 0 && blkIDL == 0 && blkIDLL == 0 && (blkIDLLL == 7 || blkIDLLL == 49)) {
-				finalBlocks.push_back(new vec3_t(blocks->x, blocks->y - 2, blocks->z));
-			} else if (blkID == 0 && blkIDL == 0 && blkIDLL == 0 && & blkIDLLL == 0 && (blkIDLLLL == 7 || blkIDLLLL == 49)) {
-				finalBlocks.push_back(new vec3_t(blocks->x, blocks->y - 3, blocks->z));
-			}
 		} else {
 			for (int x = entPos.x - 2; x <= entPos.x + 2; x++) {
 				for (int z = entPos.z - 2; z <= entPos.z + 2; z++) {
@@ -243,14 +233,8 @@ void CrystalAura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		if (!placeArr.empty()) {
 			for (auto postt : placeArr) {
 				DrawUtils::setColor(1.0f, 0.0f, 0.0f, 1.f);
-				DrawUtils::drawBox(postt->floor(), vec3_t(floor(postt->x) + 1.f, floor(postt->y) + 1.f, floor(postt->z) + 1.f), 1.f, true);
+				DrawUtils::drawBox(postt->floor(), vec3_t(postt->x, postt->y, postt->z), 1.f, true);
 			}
 		}
-		if (!hitArr.empty()) {
-			for (auto postt : hitArr) {
-				DrawUtils::setColor(1.0f, 1.0f, 0.0f, 1.f);
-				DrawUtils::drawBox(postt->floor(), vec3_t(floor(postt->x) + 1.f, floor(postt->y) + 1.f, floor(postt->z) + 1.f), 1.f, true);
-			}
-		}  //*/
 	}
 }
