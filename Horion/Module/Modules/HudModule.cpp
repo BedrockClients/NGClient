@@ -31,7 +31,7 @@ const char* HudModule::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (surge)
 			return "Hud [Surge]";
-		else if (rgb || Msg || clickToggle || watermark || coordinates || keybinds || keystrokes || displayArmor || fps || cps || alwaysShow) {
+		else if (rgb || Msg || clickToggle || watermark || keybinds || keystrokes || displayArmor || alwaysShow) {
 			return "HUD [Customised]";
 		} else
 			return "HUD";
@@ -162,31 +162,34 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
 			if (Surge->surge) {
 				DrawUtils::setColor(0, 0, 255, 1);
-				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(32.f, windowSize.y - 84));
-				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(10.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->backKey, vec2_t(32.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(54.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(10.f, windowSize.y - 40));
-				DrawUtils::drawLeftMouseKeystroke(vec2_t(10.f, windowSize.y - 25));
-				DrawUtils::drawRightMouseKeystroke(vec2_t(43.f, windowSize.y - 25));
+				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 93));
+				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
+				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
+				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
+				DrawUtils::CPS(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 15));
 			}
 			if (rgb) {
 				DrawUtils::setColor(*rcolors2, *rcolors2, *rcolors2, *rcolors2);
-				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(32.f, windowSize.y - 84));
-				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(10.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->backKey, vec2_t(32.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(54.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(10.f, windowSize.y - 40));
-				DrawUtils::drawLeftMouseKeystroke(vec2_t(10.f, windowSize.y - 25));
-				DrawUtils::drawRightMouseKeystroke(vec2_t(43.f, windowSize.y - 25));
+				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 93));
+				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
+				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
+				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
+				DrawUtils::CPS(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 15));
 			} else {
-				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(32.f, windowSize.y - 84));
-				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(10.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->backKey, vec2_t(32.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(54.f, windowSize.y - 62));
-				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(10.f, windowSize.y - 40));
-				DrawUtils::drawLeftMouseKeystroke(vec2_t(10.f, windowSize.y - 25));
-				DrawUtils::drawRightMouseKeystroke(vec2_t(43.f, windowSize.y - 25));
+				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 93));
+				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
+				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
+				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
+				DrawUtils::CPS(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 15));
 			}
 		}
 	}

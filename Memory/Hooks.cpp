@@ -528,37 +528,58 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
-			//x y z w
-			vec4_t box = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 70);
-			vec4_t bar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 5);
-			vec2_t text = vec2_t(windowSize.x / windowSize.x, 7);
-			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 7.5);
-			
+			// x y z w
+			// vec4_t box = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 70);
+			//vec4_t bar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 5);
+			vec2_t text = vec2_t(windowSize.x / windowSize.x, 5);
+			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 5.5);
 
-			MC_Color black = MC_Color(0, 0, 0);
+			//MC_Color black = MC_Color(0, 0, 0);
 			MC_Color wight = MC_Color(255, 255, 255);
-			DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
-			DrawUtils::fillRectangle(bar, currColor, 1.f);
+			//DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
+			//DrawUtils::fillRectangle(bar, currColor, 1.f);
+			static auto Surge = moduleMgr->getModule<HudModule>();
 
 			std::string string;
-			string = "NG Client";
-			DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
-			DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
-			text.y += 20.f;
-			outline.y += 20.f;
-			string = "Fix The Watermark";
-			DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			text.y += 10.f;
-			outline.y += 10.f;
-			string = "Placeholder text 2";
-			DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "Placeholder text 3\nwith paragraph"; //Paragraphs > new text
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			if (Surge->surge) {
+				string = "Surge Client";
+				DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
+				DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
+				text.y += 20.f;
+				outline.y += 20.f;
+				string = "[+] Placeholder text 1";
+				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				text.y += 10.f;
+				outline.y += 10.f;
+				string = "[+] Placeholder text 2";
+				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "[+] Placeholder text 3\n[+] with paragraph";  // Paragraphs > new text
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			} else {
+				string = "NG Client";
+				DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
+				DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
+				text.y += 20.f;
+				outline.y += 20.f;
+				string = "Placeholder text 1";
+				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				text.y += 10.f;
+				outline.y += 10.f;
+				string = "Placeholder text 2";
+				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "Placeholder text 3\nwith paragraph";  // Paragraphs > new text
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			}
 		} 
 
 		//Draw Buttons
@@ -688,7 +709,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							constexpr float borderPadding = 0;
 							constexpr float margin = 0;
 
-							static std::string name = "NG Client | Dev Build";
+							static std::string name = "NG Client | Pub Build";
 #ifdef _DEBUG
 							static std::string version = "";
 #elif defined _BETA
@@ -705,17 +726,18 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								windowSize.x - margin + borderPadding,
 								windowSize.y - margin);
 							if (rgbTexthud->rgb) {
-								//x y z w
-								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 45, 4);
-								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 45, 10);
-								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / 2 - 164.f), &name, MC_Color(currColor), nameTextSize);
+								// x y z w
+								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 10);
+								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 2.5);
+								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-								DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.1f);
+								DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
 								DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
 							} else {
 								//x y z w
-								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
+								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 10);
+								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 2.5);
 								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 

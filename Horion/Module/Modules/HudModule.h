@@ -11,7 +11,6 @@ public:
 	bool notifications = false;
 	bool Hud = true;
 	bool enabled = true;
-	bool different = false;
 	bool rgb = false;
 	bool bools = false;
 	bool rgbtext = true;
@@ -21,15 +20,12 @@ public:
 	bool surge = false;
 	bool clickToggle = true;
 	bool watermark = false;
-	bool coordinates = true;
 	bool keybinds = true;
 	bool displayArmor = false;
 	bool keystrokes = true;
-	bool fps = true;
-	bool cps = true;
 	bool alwaysShow = false;
-	float opacity = true;
 	bool bottom = false;
+	float opacity = true;
 	float scale = 0.75f;
 
 	// Inherited via IModule
