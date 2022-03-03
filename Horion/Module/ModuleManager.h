@@ -21,6 +21,7 @@
 #include "Modules/AutoSneak.h"
 #include "Modules/AutoSprint.h"
 #include "Modules/AutoTotem.h"
+#include "Modules/Surround.h"
 #include "Modules/Snow.h"
 #include "Modules/FastStop.h"
 #include "Modules/Fucker.h"

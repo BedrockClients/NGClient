@@ -144,6 +144,7 @@
     <ClCompile Include="Horion\Module\Modules\Radar.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Surround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -406,6 +407,7 @@
     <ClInclude Include="Horion\Module\Modules\FastStop.h" />
     <ClInclude Include="Horion\Module\Modules\HiveConfig.h" />
     <ClInclude Include="SDK\CImageBuffer.h" />
+    <ClInclude Include="Horion\Module\Modules\Surround.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

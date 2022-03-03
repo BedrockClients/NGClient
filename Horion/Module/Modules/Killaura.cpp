@@ -66,24 +66,8 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 		std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
 		static auto killauraMod = moduleMgr->getModule<Killaura>();
 
-		if (currentEntity == nullptr)
+		if (currentEntity == nullptr || currentEntity == g_Data.getLocalPlayer() || !g_Data.getLocalPlayer()->canAttack(currentEntity, false) || !g_Data.getLocalPlayer()->isAlive() || !currentEntity->isAlive() || currentEntity->width <= 0.10f || currentEntity->height <= 0.10f)
 			return;
-
-		if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
-			return;
-
-		if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
-			return;
-
-		if (!g_Data.getLocalPlayer()->isAlive())
-			return;
-
-		if (!currentEntity->isAlive())
-			return;
-
-		if (currentEntity->width <= 0.10f || currentEntity->height <= 0.10f)  // Don't hit this pesky antibot on 2b2e.org
-			return;
-
 		if (killauraMod->isMobAura) {
 			if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
 				return;
@@ -124,8 +108,8 @@ void Killaura::findWeapon() {
 		supplies->selectedHotbarSlot = slot;
 	}
 }
-float nigr = 0;
-float nigr2 = 0;
+float nigr = 0.f;
+float nigr2 = 0.f;
 int PlayerCount = 0;
 void Killaura::onPlayerTick(C_Player* plr) {
 	static auto prevTime = std::chrono::high_resolution_clock::now();
