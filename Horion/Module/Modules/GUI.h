@@ -7,13 +7,19 @@ public:
 
 	GUI();
 	~GUI();
-
+	//
+	SettingEnum ArrayList;
+	//
+	bool rgb = true;//NG RGB
+	bool badman = false;//Badman RGB
+	bool Surge = false;//Surge RGB
+	bool Horion = false;//Horion RGB
+	bool weather = false;//weather RGB
+	//
 	bool box = false;
-	bool different = false;
 	bool bar = false;
 	bool underbar = false;
 	bool ice = false;
-	bool rgb = false;
 	bool Fluxbar = false;
 	bool bottom = false;
 	bool rgbtext = true;

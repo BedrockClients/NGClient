@@ -58,7 +58,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			rcolors2[3] = 1;
 		}
 
-		Utils::ApplyRainbow(rcolors2, 0.0015f);
+		Utils::ApplyRainbow(rcolors2, 0.00015f);
 	}
 
 	vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
