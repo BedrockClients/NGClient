@@ -3,20 +3,25 @@
 #include "../../Scripting/ScriptManager.h"
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
+	//Surge
 	registerBoolSetting("Surge", &surge, surge);
+
 	registerBoolSetting("Buttons", &Buttons, Buttons);
+
 	registerBoolSetting("HUD", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
 	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);
-	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
+	//
+	registerBoolSetting("Keystrokes RGB", &keybindsRGB, keybindsRGB);
+	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);
+	//
+	registerBoolSetting("Show Second Names", &displaySecondHalf, displaySecondHalf);
+	registerBoolSetting("Always show", &alwaysShow, alwaysShow);
 	registerBoolSetting("Watermark", &watermark, watermark);
 	registerBoolSetting("Notifications", &notifications, notifications);
 	registerBoolSetting("Bools", &bools, bools);
-	registerBoolSetting("Keybinds", &keybinds, keybinds);
-	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);
-	registerBoolSetting("Show Second Names", &displaySecondHalf, displaySecondHalf);
-	registerBoolSetting("Always show", &alwaysShow, alwaysShow);
+	//
 	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
 }
@@ -31,7 +36,7 @@ const char* HudModule::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (surge)
 			return "Hud [Surge]";
-		else if (rgb || Msg || clickToggle || watermark || keybinds || keystrokes || displayArmor || alwaysShow) {
+		else if (rgb || Msg || watermark || keybinds || keystrokes || displayArmor || alwaysShow) {
 			return "HUD [Customised]";
 		} else
 			return "HUD";
@@ -169,7 +174,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
 				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
 				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
-				DrawUtils::CPS(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 15));
+				DrawUtils::CPS(vec2_t(4.f, windowSize.y - 15));
 			}
 			if (rgb) {
 				DrawUtils::setColor(*rcolors2, *rcolors2, *rcolors2, *rcolors2);
@@ -180,7 +185,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
 				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
 				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
-				DrawUtils::CPS(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 15));
+				DrawUtils::CPS(vec2_t(4.f, windowSize.y - 15));
 			} else {
 				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 93));
 				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 71));
@@ -189,7 +194,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
 				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
 				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
-				DrawUtils::CPS(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 15));
+				DrawUtils::CPS(vec2_t(4.f, windowSize.y - 15));
 			}
 		}
 	}

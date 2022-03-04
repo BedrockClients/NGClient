@@ -5,7 +5,6 @@ class HudModule : public IModule {
 public:
 	HudModule();
 	~HudModule();
-
 	bool Buttons = false;
 	bool Msg = true;
 	bool notifications = false;
@@ -18,9 +17,9 @@ public:
 	bool tabgui = false;
 	bool arraylist = true;
 	bool surge = false;
-	bool clickToggle = true;
 	bool watermark = false;
 	bool keybinds = true;
+	bool keybindsRGB = true;
 	bool displayArmor = false;
 	bool keystrokes = true;
 	bool alwaysShow = false;

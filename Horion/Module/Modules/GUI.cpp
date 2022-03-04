@@ -6,18 +6,19 @@ float GUI::gcolor{0.f};
 float GUI::bcolor{0.f};
 
 GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
-
 	registerBoolSetting("Better RGB Colors", &different, different);
-	registerBoolSetting("Flux Bar", &Fluxbar, Fluxbar);
-	registerBoolSetting("Side Bar", &bar, bar);
 	registerBoolSetting("RGB", &rgb, rgb);
+	registerBoolSetting("Flux Bar", &Fluxbar, Fluxbar);
 	registerBoolSetting("under Bar", &underbar, underbar);
+	registerBoolSetting("Side Bar", &bar, bar);
 	registerBoolSetting("Icy", &ice, ice);
 	registerBoolSetting("Bottom Right", &bottom, bottom);
-	registerFloatSetting("ArrayList Opacity", &opacity, opacity, 0.0f, 1.f);
+	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
+	registerBoolSetting("Keybinds", &keybinds, keybinds);
 	registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
 	registerFloatSetting("Blue", &gcolor, gcolor, 0.f, 1.f);
 	registerFloatSetting("Green", &bcolor, bcolor, 0.f, 1.f);
+	registerFloatSetting("ArrayList Opacity", &opacity, opacity, 0.0f, 1.f);
 
 }
 

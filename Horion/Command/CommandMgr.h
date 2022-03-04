@@ -19,7 +19,6 @@
 #include "Commands/PanicCommand.h"
 #include "Commands/PlayerTeleportCommand.h"
 #include "Commands/RelativeTeleportCommand.h"
-#include "Commands/SayCommand.h"
 #include "Commands/ServerCommand.h"
 #include "Commands/SpammerCommand.h"
 #include "Commands/TeleportCommand.h"
@@ -39,7 +38,6 @@
 #include "Commands/TestCommand.h"
 #include "Commands/ScriptCommand.h"
 #include "Commands/PathCommand.h"
-//#include "Commands/ClientName.h"
 
 #ifdef _DEBUG
 #endif

@@ -2,7 +2,7 @@
 
 #include <array>
 
-float rcolors[4];
+float currColor[4];
 int size = 100;
 float pixelSize = 2.5f;
 float cent = size / 2.f;
@@ -10,12 +10,14 @@ float pxSize = pixelSize / 2.f;
 float topPad = -1;
 float zoom = 1;
 float pxOpacity = 1;
+bool RGB = true;
 bool grid = true;
 // didn't bother puting this onto the header file and making it non-static...
 // it's the only one that could be. since everything else is accessed at renderEntity()
 float bgOpacity = 0.2f;
 
 Radar::Radar() : IModule(0, Category::VISUAL, "Radar") {
+	//registerBoolSetting("RGB", &RGB, RGB);
 	registerBoolSetting("Show Grid", &grid, true);
 	registerIntSetting("Size", &size, size, 50, 200);
 	registerFloatSetting("Pixel Size", &pixelSize, pixelSize, 2, 4);
@@ -73,8 +75,9 @@ void renderEntity(C_Entity* currentEntity, bool isRegularEntity) {
 			cent - ((delta.x * c) - (delta.z * s)),
 			topPad - ((delta.x * s) + (delta.z * c)));
 		if (relPos.x > 0 && relPos.x < size && relPos.y > topPad - cent && relPos.y < topPad + cent) {
-			DrawUtils::fillRectangle(vec4_t(relPos.x - pxSize, relPos.y - pxSize, relPos.x + pxSize, relPos.y + pxSize), MC_Color(255, 0, 0), pxOpacity);
+			DrawUtils::drawRectangle(vec4_t(0, topPad - cent, (float)size, topPad + cent), MC_Color(currColor), bgOpacity);
 		}
+		return;
 	}
 }
 
@@ -84,15 +87,17 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 		if (player == nullptr) return;
 
-		if (rcolors[3] < 1) {
-			rcolors[0] = 0.2f;
-			rcolors[1] = 0.2f;
-			rcolors[2] = 1.f;
-			rcolors[3] = 1;
+		// rainbow colors
+		{
+			if (currColor[3] < 1) {
+				currColor[0] = 1;
+				currColor[1] = 0.2f;
+				currColor[2] = 0.2f;
+				currColor[3] = 1;
+			}
+			Utils::ApplyRainbow(currColor, 0.00025f);
 		}
 		recalculateScale();
-
-		Utils::ApplyRainbow(rcolors, 0.0015f);
 
 		DrawUtils::fillRectangle(vec4_t(0, topPad - cent, (float)size, topPad + cent), MC_Color(0, 0, 0), bgOpacity);
 

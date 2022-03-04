@@ -17,6 +17,8 @@ public:
 	bool Fluxbar = false;
 	bool bottom = false;
 	bool rgbtext = true;
+	bool clickToggle = true;
+	bool keybinds = true;
 	float opacity = true;
 	static float rcolor;
 	static float bcolor;

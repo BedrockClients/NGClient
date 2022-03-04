@@ -34,7 +34,6 @@ void CommandMgr::initCommands() {
 	commandList.push_back(new ServerCommand());
 	commandList.push_back(new setoffhandCommand());
 	commandList.push_back(new CoordsCommand());
-	commandList.push_back(new SayCommand());
 	commandList.push_back(new SpammerCommand());
 	commandList.push_back(new DupeCommand());
 	commandList.push_back(new DamageCommand());
@@ -51,7 +50,6 @@ void CommandMgr::initCommands() {
 	commandList.push_back(new ScriptCommand());
 	commandList.push_back(new PathCommand());
 	commandList.push_back(new TestCommand());
-	//commandList.push_back(new ClientName());
 #ifdef _DEBUG
 	
 #endif

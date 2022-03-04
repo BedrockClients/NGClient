@@ -135,7 +135,7 @@ public:
 	static void drawKeystroke(char key, vec2_t pos);
 	static void drawLeftMouseKeystroke(vec2_t pos);
 	static void drawRightMouseKeystroke(vec2_t pos);
-	static void CPS(char key, vec2_t pos);
+	static void CPS(vec2_t pos);
 	static void DrawOutline(vec2_t position, vec2_t size, MC_Color colour, float width);
 	static void drawTracer(const vec3_t& ent, int damageTime = 0);
 	static float getLerpTime();

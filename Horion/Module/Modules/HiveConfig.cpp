@@ -233,7 +233,6 @@ void HiveConfig::onEnable() {
 	HudMod->rgb = false;
 	HudMod->Msg = false;
 	HudMod->displayArmor = false;
-	HudMod->clickToggle = false;
 	HudMod->watermark = true;
 	HudMod->notifications = false;
 	HudMod->bools = false;

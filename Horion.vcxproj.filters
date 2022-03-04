@@ -18,7 +18,6 @@
     <ClCompile Include="Horion\Command\Commands\PathCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\PlayerTeleportCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\RelativeTeleportCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\SayCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ScriptCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\SetprefixCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\SpammerCommand.cpp" />
@@ -171,7 +170,6 @@
     <ClInclude Include="Horion\Command\Commands\PathCommand.h" />
     <ClInclude Include="Horion\Command\Commands\PlayerTeleportCommand.h" />
     <ClInclude Include="Horion\Command\Commands\RelativeTeleportCommand.h" />
-    <ClInclude Include="Horion\Command\Commands\SayCommand.h" />
     <ClInclude Include="Horion\Command\Commands\ScriptCommand.h" />
     <ClInclude Include="Horion\Command\Commands\ServerCommand.h" />
     <ClInclude Include="Horion\Command\Commands\setoffhandCommand.h" />

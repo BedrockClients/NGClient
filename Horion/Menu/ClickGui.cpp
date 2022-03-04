@@ -126,25 +126,18 @@ void ClickGui::renderTooltip(std::string* text) {
 }
 
 void ClickGui::renderCategory(Category category) {
-	static float rcolors2[4];          // Rainbow color array RGBA
-	static float disabledRcolors2[4];  // Rainbow Colors, but for disabled modules
 	static float currColor[4];        // ArrayList colors
 
-	/// Rainbow color updates
+	// rainbow colors
 	{
-		Utils::ApplyRainbow(rcolors2, 0.001f);  // Increase Hue of rainbow color array
-		disabledRcolors2[0] = std::min(1.f, rcolors2[0] * 0.4f + 0.2f);
-		disabledRcolors2[1] = std::min(1.f, rcolors2[1] * 0.4f + 0.2f);
-		disabledRcolors2[2] = std::min(1.f, rcolors2[2] * 0.4f + 0.2f);
-		disabledRcolors2[3] = 1;
+		if (currColor[3] < 1) {
+			currColor[0] = 1;
+			currColor[1] = 0.2f;
+			currColor[2] = 0.2f;
+			currColor[3] = 1;
+		}
+		Utils::ApplyRainbow(currColor, 0.00025f);
 	}
-	int a = 0;
-	int b = 0;
-	int c = 0;
-	currColor[3] = rcolors2[3];
-	Utils::ColorConvertRGBtoHSV(rcolors2[0], rcolors2[1], rcolors2[2], currColor[0], currColor[1], currColor[2]);
-	currColor[0] += 1.f / a * c;
-	Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 
 	const char* categoryName = ClickGui::catToName(category);
 
@@ -285,7 +278,7 @@ void ClickGui::renderCategory(Category category) {
 				if (!ourWindow->isInAnimation && !isDragging && rectPos.contains(&mousePos)) {  // Is the Mouse hovering above us?
 					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 					if (rgbHud->RGB) {
-						DrawUtils::fillRectangle(rectPos, rcolors2, ClickguiOpac->opacity);
+						DrawUtils::fillRectangle(rectPos, currColor, ClickguiOpac->opacity);
 					} else {
 						if (Surge->surge)
 							DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 255), ClickguiOpac->opacity);
@@ -310,7 +303,7 @@ void ClickGui::renderCategory(Category category) {
 			if (Surge->surge) {
 				if (rgbHud->RGB) {
 					if (allowRender)
-						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(rcolors2), textSize);
+						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(currColor), textSize);
 				} else {
 					if (allowRender)
 						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(255, 255, 255), textSize);
@@ -318,7 +311,7 @@ void ClickGui::renderCategory(Category category) {
 			} else {
 				if (rgbHud->RGB) {
 					if (allowRender)
-						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 246, 255) : MC_Color(rcolors2), textSize);
+						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 246, 255) : MC_Color(currColor), textSize);
 				} else {
 					if (allowRender)
 						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 246, 255) : MC_Color(255, 255, 255), textSize);
@@ -829,7 +822,7 @@ void ClickGui::renderCategory(Category category) {
 				static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 				if (rgbHud->RGB) {
-					DrawUtils::drawText(textPos, &textStr, MC_Color(rcolors2), textSize);
+					DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 				} else {
 					DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 				}
@@ -849,7 +842,7 @@ void ClickGui::renderCategory(Category category) {
 			static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 			static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 			if (rgbHud->RGB) {
-				DrawUtils::drawText(textPos, &textStr, MC_Color(rcolors2), textSize);
+				DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 			} else {
 				DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
 			}

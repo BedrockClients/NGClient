@@ -508,10 +508,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	bool shouldRenderArrayList = true;
 	bool shouldRenderWatermark = true;
 
-	static float rcolors[4];          // Rainbow color array RGBA
-	static float disabledRcolors[4];  // Rainbow Colors, but for disabled modules
-	static float currColor[4];        // ArrayList colors
-	static float SurgeColor[4];        // ArrayList colors
+	static float rcolors[4];              //Rainbow color array RGBA
+	static float disabledRcolors[4];     //Rainbow Colors, but for disabled modules
+	static float currColor[4];          //ArrayList colors
+	static float SurgeColor[4];        //ArrayList colors
 
 	// Rainbow color updates
 	{
@@ -1017,7 +1017,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								DrawUtils::fillRectangle(rightRect, MC_Color(184, 0, 255), 1.f);
 							}
 						}
-						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && hudModule->clickToggle) {
+						static auto gui = moduleMgr->getModule<GUI>();
+						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && gui->clickToggle) {
 							vec4_t selectedRect = rectPos;
 							//selectedRect.x = leftRect.z;
 							//selectedRect.x = rightRect.z;
@@ -1140,22 +1141,16 @@ float* Hooks::Dimension_getFogColor(__int64 _this, float* color, __int64 a3, flo
 
 	static auto rainbowSkyMod = moduleMgr->getModule<RainbowSky>();
 	if (rainbowSkyMod->isEnabled()) {
-		if (currColor[3] < 1) {
-			currColor[0] = 1;
-			currColor[1] = 0.2f;
-			currColor[2] = 0.2f;
-			currColor[3] = 1;
+		// rainbow colors
+		{
+			if (currColor[3] < 1) {
+				currColor[0] = 1;
+				currColor[1] = 0.2f;
+				currColor[2] = 0.2f;
+				currColor[3] = 1;
+			}
+			Utils::ApplyRainbow(currColor, 0.00025f);
 		}
-
-		Utils::ColorConvertRGBtoHSV(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);  // perfect code, dont question this
-
-		currColor[0] += 0.001f;
-		if (currColor[0] >= 1)
-			currColor[0] = 0;
-
-		Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
-
-		return currColor;
 	}
 	return oGetFogColor(_this, color, a3, a4);
 }
@@ -1443,8 +1438,8 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 			if (blinkMod->isEnabled()) {
 				if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 					C_MovePlayerPacket* meme = reinterpret_cast<C_MovePlayerPacket*>(packet);
-					meme->onGround = true;                                                            //Don't take Fall Damages when turned off
-					blinkMod->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*meme));  // Saving the packets
+					meme->onGround = true;                                                             //Don't take Fall Damages when turned off
+					blinkMod->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*meme));  //Saving the packets
 				} else {
 					if (g_Data.getRakNetInstance()->isonaServer())//if ur on a server, do this but if ur on a world dont bec it crashes
 					blinkMod->getPlayerAuthInputPacketHolder()->push_back(new PlayerAuthInputPacket(*reinterpret_cast<PlayerAuthInputPacket*>(packet)));

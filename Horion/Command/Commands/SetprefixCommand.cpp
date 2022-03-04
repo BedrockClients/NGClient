@@ -1,6 +1,6 @@
 #include "SetprefixCommand.h"
 
-SetprefixCommand::SetprefixCommand() : IMCCommand("setprefix", "Set the prefix for horion commands", "<prefix>") {
+SetprefixCommand::SetprefixCommand() : IMCCommand("setprefix", "Set the prefix for NG Client commands", "<prefix>") {
 	registerAlias("prefix");
 }
 
