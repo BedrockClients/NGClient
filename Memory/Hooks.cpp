@@ -453,7 +453,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	if (reinterpret_cast<__int64>(dat) < 0x500000000 || reinterpret_cast<__int64>(dat) > 0xFFFFFFFFFFF00000) return oText(a1, renderCtx);
 
 	DrawUtils::setCtx(renderCtx, dat);
-
+	static auto Surge = moduleMgr->getModule<HudModule>();
 	{
 		static bool wasConnectedBefore = false;
 		static LARGE_INTEGER start;
@@ -538,7 +538,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			MC_Color wight = MC_Color(255, 255, 255);
 			//DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
 			//DrawUtils::fillRectangle(bar, currColor, 1.f);
-			static auto Surge = moduleMgr->getModule<HudModule>();
+			
 
 			std::string string;
 			if (Surge->surge) {
@@ -616,7 +616,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		}
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
-			static auto Surge = moduleMgr->getModule<HudModule>();
+			
 			if (Surge->surge) {
 				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
@@ -662,7 +662,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					}
 
 				// Draw NG logo
-				static auto Surge = moduleMgr->getModule<HudModule>();
+				
 				static auto hudModule = moduleMgr->getModule<HudModule>();
 				static auto rgbTexthud = moduleMgr->getModule<HudModule>();
 				if (Surge->surge) {
@@ -1072,7 +1072,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	{
 		auto box = g_Data.getFreshInfoBox();
 		if (box) {
-			static auto Surge = moduleMgr->getModule<HudModule>();
+			
 			box->fade();
 			if (box->fadeTarget == 1 && box->closeTimer <= 0 && box->closeTimer > -1)
 				box->fadeTarget = 0;
