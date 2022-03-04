@@ -216,6 +216,7 @@ void HiveConfig::onEnable() {
 	ClickGUI->setKeybind(VK_TAB);
 	ClickGUI->showTooltips = true;
 	//Arraylist
+	ArrayList->different = true;
 	ArrayList->Fluxbar = true;
 	ArrayList->bar = false;
 	ArrayList->underbar = false;
