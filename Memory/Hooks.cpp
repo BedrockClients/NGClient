@@ -529,12 +529,12 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// x y z w
-			// vec4_t box = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 70);
+			//vec4_t box = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 70);
 			//vec4_t bar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 5);
 			vec2_t text = vec2_t(windowSize.x / windowSize.x, 5);
 			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 5.5);
 
-			//MC_Color black = MC_Color(0, 0, 0);
+			MC_Color devs = MC_Color(0, 255, 255);
 			MC_Color wight = MC_Color(255, 255, 255);
 			//DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
 			//DrawUtils::fillRectangle(bar, currColor, 1.f);
@@ -543,74 +543,134 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			std::string string;
 			if (Surge->surge) {
 				string = "Surge Client";
-				DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
+				// DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
 				DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
-				text.y += 20.f;
-				outline.y += 20.f;
-				string = "[+] Placeholder text 1";
-				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				text.y += 15.f;
+				outline.y += 15.f;
+				string = "Version: 1.18.12";
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				text.y += 5.f;
+				outline.y += 5.f;
+				string = "";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				text.y += 10.f;
 				outline.y += 10.f;
-				string = "[+] Placeholder text 2";
-				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				string = "Changelogs:";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] Placeholder text 3\n[+] with paragraph";  // Paragraphs > new text
 				text.y += 10.f;
 				outline.y += 10.f;
-				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				string = "[+] More Arraylist";
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				text.y += 10.f;
+				outline.y += 10.f;
+				string = "[+] Custom Keystrokes";
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "[+] Custom Radar";
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "[-] .say";
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				text.y += 5.f;
+				outline.y += 5.f;
+				string = "";
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				text.y += 10.f;
+				outline.y += 10.f;
+				string = "Credits:";
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "DeadtrosGaming";
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "2474";
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "Sentinel";
+				text.y += 10.f;
+				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			} else {
 				string = "NG Client";
-				DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
+				// DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
 				DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
-				text.y += 20.f;
-				outline.y += 20.f;
-				string = "Placeholder text 1";
-				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				text.y += 15.f;
+				outline.y += 15.f;
+				string = "Version: 1.18.12";
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				text.y += 15.f;
+				outline.y += 15.f;
+				string = "Changelogs:";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				text.y += 10.f;
 				outline.y += 10.f;
-				string = "Placeholder text 2";
-				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				string = "[+] More Arraylist";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "Placeholder text 3\nwith paragraph";  // Paragraphs > new text
 				text.y += 10.f;
 				outline.y += 10.f;
-				DrawUtils::drawText(outline, &string, currColor, 1.f, 1.f);
+				string = "[+] Custom Keystrokes";
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "[+] Custom Radar";
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "[-] .say";
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				text.y += 15.f;
+				outline.y += 15.f;
+				string = "Credits:";
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "DeadtrosGaming";
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "2474";
+				text.y += 10.f;
+				outline.y += 10.f;
+				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+				string = "Sentinel";
+				text.y += 10.f;
+				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			}
 		} 
 
 		//Draw Buttons
-		static auto buttonsmod = moduleMgr->getModule<HudModule>();
-		if (buttonsmod->Buttons) {
-			static auto GUI1 = moduleMgr->getModule<ClickGuiMod>();
-			if (!g_Data.canUseMoveKeys() && !GUI1->isEnabled()) {
-				if (HImGui.Button("Disable Spammer", vec2_t(wid.x / 17.86, wid.y / 45), true)) {
-					static auto spammer = moduleMgr->getModule<Spammer>();
-					if (spammer->isEnabled()) spammer->setEnabled(false);
+		if (!strcmp(screenName.c_str(), "start_screen") == 0) {
+			static auto buttonsmod = moduleMgr->getModule<HudModule>();
+			if (buttonsmod->Buttons) {
+				static auto GUI1 = moduleMgr->getModule<ClickGuiMod>();
+				if (!g_Data.canUseMoveKeys() && !GUI1->isEnabled()) {
+					if (HImGui.Button("Disable Spammer", vec2_t(wid.x / 17.86, wid.y / 45), true)) {
+						static auto spammer = moduleMgr->getModule<Spammer>();
+						if (spammer->isEnabled()) spammer->setEnabled(false);
+					}
 				}
-			}
-			static auto GUI2 = moduleMgr->getModule<ClickGuiMod>();
-			if (!g_Data.canUseMoveKeys() && !GUI2->isEnabled()) {
-				if (HImGui.Button("Disable Crasher", vec2_t(wid.x / 20, wid.y / 15), true)) {
-					static auto crasher = moduleMgr->getModule<Crasher>();
-					if (crasher->isEnabled()) crasher->setEnabled(false);
+				static auto GUI2 = moduleMgr->getModule<ClickGuiMod>();
+				if (!g_Data.canUseMoveKeys() && !GUI2->isEnabled()) {
+					if (HImGui.Button("Disable Crasher", vec2_t(wid.x / 20, wid.y / 15), true)) {
+						static auto crasher = moduleMgr->getModule<Crasher>();
+						if (crasher->isEnabled()) crasher->setEnabled(false);
+					}
 				}
-			}
-			static auto GUI3 = moduleMgr->getModule<ClickGuiMod>();
-			if (!g_Data.canUseMoveKeys() && !GUI3->isEnabled()) {
-				if (HImGui.Button("Disable Nuker", vec2_t(wid.x / 22, wid.y / 9), true)) {
-					static auto nuker = moduleMgr->getModule<Nuker>();
-					if (nuker->isEnabled()) nuker->setEnabled(false);
+				static auto GUI3 = moduleMgr->getModule<ClickGuiMod>();
+				if (!g_Data.canUseMoveKeys() && !GUI3->isEnabled()) {
+					if (HImGui.Button("Disable Nuker", vec2_t(wid.x / 22, wid.y / 9), true)) {
+						static auto nuker = moduleMgr->getModule<Nuker>();
+						if (nuker->isEnabled()) nuker->setEnabled(false);
+					}
 				}
-			}
-			static auto GUI4 = moduleMgr->getModule<ClickGuiMod>();
-			if (!g_Data.canUseMoveKeys() && !GUI4->isEnabled()) {
-				if (HImGui.Button("Disable Aura", vec2_t(wid.x / 24, wid.y / 6.37), true)) {
-					static auto aura = moduleMgr->getModule<Killaura>();
-					if (aura->isEnabled()) aura->setEnabled(false);
+				static auto GUI4 = moduleMgr->getModule<ClickGuiMod>();
+				if (!g_Data.canUseMoveKeys() && !GUI4->isEnabled()) {
+					if (HImGui.Button("Disable Aura", vec2_t(wid.x / 24, wid.y / 6.37), true)) {
+						static auto aura = moduleMgr->getModule<Killaura>();
+						if (aura->isEnabled()) aura->setEnabled(false);
+					}
 				}
 			}
 		}
@@ -953,17 +1013,62 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							a = moduleMgr->getEnabledModuleCount() * 2;
 						else
 							b = 0;
-						if (gui->different) {
-							currColor[3] = rcolors[5];
-							currColor[3] = rcolors[5];
-							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 0.5f / a * c;
-							Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+
+						if (gui->weather) {
+						currColor[3] = rcolors[3];
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
+						currColor[0] += 1.1f / a * b;
+						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
+						//weather
+						//currColor[3] = rcolors[3];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
+						//currColor[0] += 1.1f / a * b;
+						//Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
+						}
+						if (gui->Horion) {
+						currColor[3] = rcolors[3];
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+						currColor[0] += 1.f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
+						//Horion
+						//currColor[3] = rcolors[3];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+						//currColor[0] += 1.f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
+						} else
+						if (gui->Surge) {
+						currColor[3] = rcolors[5];
+						Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+						currColor[0] += 3.5f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						//Surge
+						//currColor[3] = rcolors[5];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+						//currColor[0] += 3.5f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						} else
+						if (gui->badman) {
+						currColor[3] = rcolors[3];
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
+						currColor[0] += 2.f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						//BADMAN RGB
+						//currColor[3] = rcolors[3];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
+						//currColor[0] += 2.f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);	
 						} else {
-							currColor[3] = rcolors[3];
-							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 1.f / a * c;
-							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
+						currColor[3] = rcolors[5];
+						currColor[3] = rcolors[5];
+						Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+						currColor[0] += 0.5f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						//NG RGBs
+						//currColor[3] = rcolors[5];
+						//currColor[3] = rcolors[5];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+						//currColor[0] += 0.5f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
 						}
 
 						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);//Background
