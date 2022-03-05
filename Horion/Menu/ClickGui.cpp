@@ -721,20 +721,6 @@ void ClickGui::renderCategory(Category category) {
 									currentYOffset += textHeight + (textPadding * 2);
 								}
 							} break;
-								case ValueType::SPACE_T: {
-								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-								rectPos.y = currentYOffset;
-								currentYOffset += textPadding + textHeight;
-								rectPos.w += textHeight + (textPadding * 2);
-								vec4_t rect = vec4_t(
-									currentYOffset + 0.f,
-									currentXOffset + 0.f,
-									currentYOffset + 10.f,
-									currentXOffset + 30.f
-								);
-								DrawUtils::fillRectangle(rect, moduleColor, ClickguiOpac->opacity);    
-								break;
-							}
 							default: {
 								char alc[100];
 								sprintf_s(alc, 100, "Not implemented (%s)", setting->name);
