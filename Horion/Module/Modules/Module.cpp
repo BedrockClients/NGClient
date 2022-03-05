@@ -98,6 +98,14 @@ void IModule::registerFloatSetting(std::string name, float* floatPtr, float defa
 	settings.push_back(setting);  // Add to list
 }
 
+void IModule::registerSpace(std::string name) {
+	SettingEntry* setting = new SettingEntry();
+	setting->valueType = ValueType::SPACE_T;
+	strcpy_s(setting->name, 19, name.c_str());  // Name
+
+	settings.push_back(setting);  // Add to list
+}
+
 void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue, int minValue, int maxValue) {
 #ifdef DEBUG
 	if (minValue > maxValue)
