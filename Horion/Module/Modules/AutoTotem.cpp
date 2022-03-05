@@ -29,3 +29,5 @@ void AutoTotem::onLevelRender() {
 void AutoTotem::onDisable() {
 	g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot = savedSlot; //sets ur slot back to the slot it was when u turned on
 }
+
+void AutoTotem::onTick(C_GameMode* gm) {}

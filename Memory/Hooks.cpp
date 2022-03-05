@@ -695,7 +695,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				}
 			}
 		} else {
-			shouldRenderArrayList = hudModule->arraylist && hudModule->isEnabled();
+			shouldRenderArrayList = gui && gui->isEnabled();
 			shouldRenderWatermark = hudModule->watermark && hudModule->isEnabled();
 
 			if (clickGuiModule->isEnabled()) {
@@ -937,42 +937,42 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 						static auto FluxMod = moduleMgr->getModule<GUI>();
 						if (FluxMod->Fluxbar) {
-						textPos = vec2_t(
+							textPos = vec2_t(
 								xOffset + textPadding - 4,
 								yOffset + textPadding);
-						FluxBar = vec4_t(
+							FluxBar = vec4_t(
 								windowSize.x - 2,
 								yOffset,
 								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
 								yOffset + textPadding * 2 + textHeight);
-						rectPos = vec4_t(
+							rectPos = vec4_t(
 								xOffset - 6,
 								yOffset,
 								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
 								yOffset + textPadding * 2 + textHeight);
-						leftRect = vec4_t(
-							xOffset - 6,
-							yOffset,
-							xOffset - 5,
-							yOffset + textPadding * 2 + textHeight);
-						topIce = vec4_t(
-							xOffset - 7,
-							yOffset,
-							xOffset - 14,
-							yOffset + textPadding * 2 + textHeight);
-						rightRect = vec4_t(
-							xOffset - 6,
-							yOffset,
-							xOffset - 5,
-							yOffset + textPadding * 7 + textHeight);
-						underline = vec4_t(
-							windowSize.x - (Length + 6.f + (textPadding * 2.f)),
-							leftRect.y,
-							leftRect.x,
-							leftRect.y + 1.f);
+							leftRect = vec4_t(
+								xOffset - 6,
+								yOffset,
+								xOffset - 5,
+								yOffset + textPadding * 2 + textHeight);
+							topIce = vec4_t(
+								xOffset - 7,
+								yOffset,
+								xOffset - 14,
+								yOffset + textPadding * 2 + textHeight);
+							rightRect = vec4_t(
+								xOffset - 6,
+								yOffset,
+								xOffset - 5,
+								yOffset + textPadding * 7 + textHeight);
+							underline = vec4_t(
+								windowSize.x - (Length + 6.f + (textPadding * 2.f)),
+								leftRect.y,
+								leftRect.x,
+								leftRect.y + 1.f);
 						} else {
 							textPos = vec2_t(
-								xOffset + textPadding ,
+								xOffset + textPadding,
 								yOffset + textPadding);
 							FluxBar = vec4_t(
 								windowSize.x - 3,
@@ -1012,7 +1012,15 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							a = moduleMgr->getEnabledModuleCount() * 2;
 						else
 							b = 0;
-
+						if (gui->fadeaway) {
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+						currColor[0] += 1.f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
+						//fadeaway
+						//Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+						//currColor[0] += 1.f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
+					    }
 						if (gui->weather) {
 						currColor[3] = rcolors[3];
 						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
