@@ -144,6 +144,7 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			};
 
 			std::array<vec2_t, 4> clipRectPoints = {vec2_t{0.f, topPad - cent}, vec2_t{(float)size, topPad - cent}, vec2_t{(float)size, topPad + cent}, vec2_t{0.f, topPad + cent}};
+			DrawUtils::drawRectangle(vec4_t(0, topPad - cent, (float)size, topPad + cent), MC_Color(currColor), bgOpacity);
 			std::array<FiniteLine, 4> clipRectLines;
 			auto last = clipRectPoints[3];
 

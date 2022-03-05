@@ -10,6 +10,15 @@ public:
 	static float rcolor;
 	static float gcolor;
 	static float bcolor;
+
+	static float trcolor;
+	static float tgcolor;
+	static float tbcolor;
+
+	static float tfrcolor;
+	static float tfgcolor;
+	static float tfbcolor;
+
 	bool showTooltips = true;
 	bool RGB = false;
 	float opacity = 0.20f;

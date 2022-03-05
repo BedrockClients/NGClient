@@ -306,15 +306,15 @@ void ClickGui::renderCategory(Category category) {
 						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(currColor), textSize);
 				} else {
 					if (allowRender)
-						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(255, 255, 255), textSize);
+						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
 				}
 			} else {
 				if (rgbHud->RGB) {
 					if (allowRender)
-						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 246, 255) : MC_Color(currColor), textSize);
+						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(ClickGuiMod::trcolor, ClickGuiMod::tgcolor, ClickGuiMod::tbcolor) : MC_Color(currColor), textSize);
 				} else {
 					if (allowRender)
-						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 246, 255) : MC_Color(255, 255, 255), textSize);
+						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(ClickGuiMod::trcolor, ClickGuiMod::tgcolor, ClickGuiMod::tbcolor) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
 				}
 			}
 
@@ -394,7 +394,7 @@ void ClickGui::renderCategory(Category category) {
 											textPos.x + textHeight - textPadding,
 											textPos.y + textHeight - textPadding);
 
-										DrawUtils::drawRectangle(boxPos, MC_Color(255, 255, 255), isFocused ? 1 : 0.8f, 0.5f);
+										DrawUtils::drawRectangle(boxPos, MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), isFocused ? 1 : 0.8f, 0.5f);
 
 										if (setting->value->_bool) {
 											DrawUtils::setColor(255, 255, 255, 1);
@@ -412,7 +412,7 @@ void ClickGui::renderCategory(Category category) {
 										textPos.x + textHeight - textPadding,
 										textPos.y + textHeight - textPadding);
 
-									DrawUtils::drawRectangle(boxPos, MC_Color(255, 255, 255), isFocused ? 1 : 0.8f, 0.5f);
+									DrawUtils::drawRectangle(boxPos, MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), isFocused ? 1 : 0.8f, 0.5f);
 
 									if (setting->value->_bool) {
 										DrawUtils::setColor(255, 255, 255, 1);
@@ -472,7 +472,7 @@ void ClickGui::renderCategory(Category category) {
 									GuiUtils::drawCrossLine(vec2_t(
 																currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 																currentYOffset + textPadding + (textHeight / 2)),
-															MC_Color(255, 255, 255), crossWidth, crossSize, !setting->minValue->_bool);
+															MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), crossWidth, crossSize, !setting->minValue->_bool);
 									if (rectPos.contains(&mousePos) && shouldToggleRightClick && !ourWindow->isInAnimation) {
 										shouldToggleRightClick = false;
 										setting->minValue->_bool = !setting->minValue->_bool;
@@ -592,7 +592,7 @@ void ClickGui::renderCategory(Category category) {
 											std::string text = str;
 											mid.x -= DrawUtils::getTextWidth(&text, textSize) / 2;
 
-											DrawUtils::drawText(mid, &text, MC_Color(255, 255, 255), textSize);
+											DrawUtils::drawText(mid, &text, MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
 										}
 
 										// Draw Progress
@@ -686,7 +686,7 @@ void ClickGui::renderCategory(Category category) {
 											std::string text = str;
 											mid.x -= DrawUtils::getTextWidth(&text, textSize) / 1;
 
-											DrawUtils::drawText(mid, &text, MC_Color(255, 255, 255), textSize);
+											DrawUtils::drawText(mid, &text, MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
 										}
 
 										// Draw Progress

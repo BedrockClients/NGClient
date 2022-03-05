@@ -2,17 +2,38 @@
 
 #include "../../Menu/ClickGui.h"
 
+//Backgrund color
 float ClickGuiMod::rcolor{0.f};
 float ClickGuiMod::gcolor{0.f};
 float ClickGuiMod::bcolor{0.f};
 
+//Module On color
+float ClickGuiMod::trcolor{0.f};
+float ClickGuiMod::tgcolor{1.f};
+float ClickGuiMod::tbcolor{1.f};
+
+//Module Off color 
+float ClickGuiMod::tfrcolor{1.f};
+float ClickGuiMod::tfgcolor{1.f};
+float ClickGuiMod::tfbcolor{1.f};
+
+
 ClickGuiMod::ClickGuiMod() : IModule(VK_TAB, Category::GUI, "The clickgui") {
 	registerBoolSetting("Show Tooltips", &showTooltips, showTooltips);
 	registerBoolSetting("RGB", &RGB, RGB);
-	registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
-	registerFloatSetting("Green", &gcolor, gcolor, 0.f, 1.f);
-	registerFloatSetting("Blue", &bcolor, bcolor, 0.f, 1.f);
-	registerFloatSetting("Opacity", &opacity, opacity, 0.f, 1.f);
+
+	registerFloatSetting("Module On Red", &trcolor, trcolor, 0.f, 1.f);
+	registerFloatSetting("Module On Green", &tgcolor, tgcolor, 0.f, 1.f);
+	registerFloatSetting("Module On Blue", &tbcolor, tbcolor, 0.f, 1.f);
+	registerSpace("");
+	registerFloatSetting("Module Off Red", &tfrcolor, tfrcolor, 0.f, 1.f);
+	registerFloatSetting("Module Off Green", &tfgcolor, tfgcolor, 0.f, 1.f);
+	registerFloatSetting("Module Off Blue", &tfbcolor, tfbcolor, 0.f, 1.f);
+
+	registerFloatSetting("Backgrund Red", &rcolor, rcolor, 0.f, 1.f);
+	registerFloatSetting("Backgrund Green", &gcolor, gcolor, 0.f, 1.f);
+	registerFloatSetting("Backgrund Blue", &bcolor, bcolor, 0.f, 1.f);
+	registerFloatSetting("Backgrund Opacity", &opacity, opacity, 0.f, 1.f);
 }
 
 ClickGuiMod::~ClickGuiMod() {
