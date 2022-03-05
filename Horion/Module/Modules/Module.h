@@ -58,7 +58,8 @@ enum class ValueType {
 	INT_T,
 	BOOL_T,
 	TEXT_T,
-	ENUM_T
+	ENUM_T,
+	SPACE_T
 };
 
 struct SettingValue {
@@ -107,6 +108,7 @@ protected:
 	void registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
 	void registerEnumSetting(std::string name, SettingEnum* intPtr, int defaultValue);
 	void registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue);
+	void registerSpace(std::string name);
 
 	void clientMessageF(const char* fmt, ...);
 
