@@ -732,7 +732,7 @@ void ClickGui::renderCategory(Category category) {
 									currentYOffset + 10.f,
 									currentXOffset + 30.f
 								);
-								DrawUtils::fillRectangle(rect, moduleColor, ClickguiOpac->opacity);    
+								DrawUtils::fillRectangle(rect, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 								break;
 							}
 							default: {
