@@ -537,10 +537,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			MC_Color wight = MC_Color(255, 255, 255);
 			//DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
 			//DrawUtils::fillRectangle(bar, currColor, 1.f);
-			static auto Surge = moduleMgr->getModule<HudModule>();
-
 			std::string string;
-			if (Surge->surge) {
+			if (hudModule->surge) {
 				string = "Surge Client";
 				// DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
 				DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
@@ -704,20 +702,17 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		}
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
-			static auto Surge = moduleMgr->getModule<HudModule>();
-			if (Surge->surge) {
+			if (hudModule->surge) {
 				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
 				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text,text.size() / 3.3), wid.y / 70);
 				vec4_t rectPos = vec4_t(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
-				static auto rgbborderhud = moduleMgr->getModule<HudModule>();
-				if (rgbborderhud->rgb) {
+				if (hudModule->rgb) {
 					DrawUtils::fillRectangle(rectPos, MC_Color(currColor), 0.f);
 				} else {
 					DrawUtils::fillRectangle(rectPos, MC_Color(255, 255, 255), 0.f);
 				}
-				static auto rgbHud = moduleMgr->getModule<HudModule>();
-				if (rgbHud->rgb) {
+				if (hudModule->rgb) {
 					DrawUtils::drawText(textPos, &text, MC_Color(currColor), 8.f);
 				} else {
 					DrawUtils::drawText(textPos, &text, MC_Color(0, 0, 255), 8.f);
@@ -750,12 +745,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					}
 
 				// Draw NG logo
-				static auto Surge = moduleMgr->getModule<HudModule>();
-				static auto hudModule = moduleMgr->getModule<HudModule>();
-				static auto rgbTexthud = moduleMgr->getModule<HudModule>();
-				if (Surge->surge) {
+				if (hudModule->surge) {
 					// Draw Horion logo
-					static auto hudModule = moduleMgr->getModule<HudModule>();
 					if (shouldRenderWatermark) {
 						constexpr float nameTextSize = 1.49f;
 						constexpr float versionTextSize = 0.6f;
@@ -781,7 +772,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							windowSize.y - margin);
 						DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
 						DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-						if (rgbTexthud->rgb) {
+						if (gui->rgb) {
 							DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(currColor), nameTextSize);
 						} else {
 							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), 1.5f, nameTextSize);
@@ -813,7 +804,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								windowSize.y - textHeight,
 								windowSize.x - margin + borderPadding,
 								windowSize.y - margin);
-							if (rgbTexthud->rgb) {
+							if (gui->rgb) {
 								// x y z w
 								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 10);
 								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 2.5);
@@ -912,8 +903,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								modContainerList.emplace(IModuleContainer(it));
 						}
 					}
-					static auto Bottomyees = moduleMgr->getModule<HudModule>();
-					if (Bottomyees->bottom) {
+					if (hudModule->bottom) {
 						yOffset = windowSize.y - textHeight;
 					}
 					int a = 0;
@@ -929,8 +919,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								modContainerList.emplace(IModuleContainer(it));
 						}
 					}
-					static auto Bottom = moduleMgr->getModule<GUI>();
-					if (Bottom->bottom) {
+					if (gui->bottom) {
 						yOffset = windowSize.y - textHeight;
 					}
 					//int a = 0;
@@ -963,9 +952,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							it->pos->x = 0.f;
 							it->pos->y = 0.f;
 						}
-
-						static auto FluxMod = moduleMgr->getModule<GUI>();
-						if (FluxMod->Fluxbar) {
+						if (gui->Fluxbar) {
 							textPos = vec2_t(
 								xOffset + textPadding - 4,
 								yOffset + textPadding);
@@ -1108,49 +1095,38 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						}
 
 						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);//Background
-						if (FluxMod->Fluxbar)
-							if (FluxMod->rgb) {
+						if (gui->Fluxbar)
+							if (gui->rgb) {
 								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
 							} else {
-								if (Surge->surge)
+								if (hudModule->surge)
 									DrawUtils::fillRectangle(FluxBar, MC_Color(10, 10, 255), 1.f);
 								else
 									DrawUtils::fillRectangle(FluxBar, MC_Color(184, 0, 255), 1.f);
 							}
-
-						static auto rgbmod = moduleMgr->getModule<GUI>();
-						if (rgbmod->rgb) {
-							static auto underbarmod = moduleMgr->getModule<GUI>();
-							if (underbarmod->underbar) {
+						if (gui->rgb) {
+							if (gui->underbar) {
 								DrawUtils::fillRectangle(underline, MC_Color(currColor), 1.f);
 							}
-
-							static auto barmod = moduleMgr->getModule<GUI>();
-							if (barmod->bar) {
+							if (gui->bar) {
 								DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);
 							}
 						} else {
-							static auto underbarmod = moduleMgr->getModule<GUI>();
-							if (underbarmod->underbar) {
-								if (Surge->surge)
+							if (gui->underbar) {
+								if (hudModule->surge)
 									DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
 								else
 									DrawUtils::fillRectangle(underline, MC_Color(184, 0, 255), 1.f);
 							}
-
-							static auto barmod = moduleMgr->getModule<GUI>();
-							if (barmod->bar) {
-								if (Surge->surge)
+							if (gui->bar) {
+								if (hudModule->surge)
 									DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
 								else
 									DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);
 							}
 						}
-
-						static auto icemod = moduleMgr->getModule<GUI>();
-						if (icemod->ice) {
-							static auto rgbmod = moduleMgr->getModule<GUI>();
-							if (rgbmod->rgb) {
+						if (gui->ice) {
+							if (gui->rgb) {
 								DrawUtils::fillRectangle(topIce, MC_Color(currColor), 1.f);
 								DrawUtils::fillRectangle(rightRect, MC_Color(currColor), 1.f);
 							} else {
@@ -1158,7 +1134,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								DrawUtils::fillRectangle(rightRect, MC_Color(184, 0, 255), 1.f);
 							}
 						}
-						static auto gui = moduleMgr->getModule<GUI>();
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && gui->clickToggle) {
 							vec4_t selectedRect = rectPos;
 							//selectedRect.x = leftRect.z;
@@ -1170,28 +1145,25 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							} else
 								DrawUtils::fillRectangle(selectedRect, MC_Color(0.8f, 0.8f, 0.8f, 0.8f), 0.3f);
 						}
-						static auto rgbText = moduleMgr->getModule<GUI>();
-						if (rgbText->rgb) {
+						if (gui->rgb) {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 						} else {
-							if (Surge->surge)
+							if (hudModule->surge)
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 							else
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 246, 255), textSize);
 						}
-						static auto Bottomyes = moduleMgr->getModule<GUI>();
-						if (Bottomyes->bottom) {
+						if (gui->bottom) {
 							yOffset -= textHeight + (textPadding * 2);
 						} else {
 							yOffset += textHeight + (textPadding * 2);
 						}
 					}
-					static auto rgbText = moduleMgr->getModule<GUI>();
-					if (rgbText->underbar) {
-						if (rgbText->rgb) {
+					if (gui->underbar) {
+						if (gui->rgb) {
 							DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(currColor), 1.f);
 						} else {
-							if (Surge->surge)
+							if (hudModule->surge)
 								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(0, 0, 0), 1.f);
 							else
 								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(184, 0, 255), 1.f);
@@ -1213,7 +1185,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	{
 		auto box = g_Data.getFreshInfoBox();
 		if (box) {
-			static auto Surge = moduleMgr->getModule<HudModule>();
 			box->fade();
 			if (box->fadeTarget == 1 && box->closeTimer <= 0 && box->closeTimer > -1)
 				box->fadeTarget = 0;
@@ -1250,9 +1221,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				centerPos.x + paddingHoriz + std::max(titleWidth, msgWidth) / 2,
 				centerPos.y + paddingVert * 2 + titleTextHeight + messageHeight * lines);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), box->fadeVal);
-			if (Surge->rgb)
+			if (hudModule->rgb)
 			DrawUtils::drawRectangle(rectPos, currColor, box->fadeVal, 2.f);
-			else if (Surge->surge)
+			else if (hudModule->surge)
 				DrawUtils::drawRectangle(rectPos, MC_Color(0,0,255), box->fadeVal, 2.f);
 			else
 			DrawUtils::drawRectangle(rectPos, MC_Color(184,0,255), box->fadeVal, 2.f);
