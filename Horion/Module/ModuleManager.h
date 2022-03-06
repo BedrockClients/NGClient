@@ -1,149 +1,144 @@
 #pragma once
 
-#include <typeinfo>
-#include <vector>
-#include <optional>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <shared_mutex>
+#include <typeinfo>
+#include <vector>
 
 #include "../../Memory/GameData.h"
-
 #include "Modules/Aimbot.h"
 #include "Modules/AirJump.h"
+#include "Modules/AirStuck.h"
 #include "Modules/AirSwim.h"
-#include "Modules/SoundPlayer.h"
+#include "Modules/AnchorAura.h"
+#include "Modules/AntiAnvil.h"
 #include "Modules/AntiBot.h"
-#include "Modules/FastLadder.h"
+#include "Modules/AntiImmobile.h"
+#include "Modules/Antikb.h"
+#include "Modules/AntilagBack.h"
+#include "Modules/AntiVoid.h"
 #include "Modules/AutoArmor.h"
-#include "Modules/Flyto.h"
-#include "Modules/HiveConfig.h"
+#include "Modules/AutoClick.h"
+#include "Modules/AutoJump.h"
+#include "Modules/AutoPot.h"
 #include "Modules/AutoSneak.h"
 #include "Modules/AutoSprint.h"
 #include "Modules/AutoTotem.h"
-#include "Modules/Surround.h"
-#include "Modules/Snow.h"
-#include "Modules/FastStop.h"
-#include "Modules/Fucker.h"
+#include "Modules/AutoWalk.h"
 #include "Modules/Bhop.h"
-#include "Modules/TargetStrafe.h"
 #include "Modules/Blink.h"
-#include "Modules/BowAimbot.h"
-#include "Modules/AntilagBack.h"
-#include "Modules/AutoPot.h"
-#include "Modules/AntiVoid.h"
-#include "Modules/selectionHighlight.h"
-#include "Modules/StorageESP.h"
 #include "Modules/BlockEsp.h"
-#include "Modules/SwingAnimations.h"
+#include "Modules/BowAimbot.h"
+#include "Modules/bps.h"
+#include "Modules/chestaura.h"
+#include "Modules/ChestStealer.h"
 #include "Modules/ClickGuiMod.h"
-#include "Modules/Teleport.h"
+#include "Modules/Compass.h"
+#include "Modules/cps.h"
 #include "Modules/Crasher.h"
-#include "Modules/Criticals.h"
 #include "Modules/CrystalAura.h"
+#include "Modules/CubeFly.h"
+#include "Modules/CubeGlide.h"
+#include "Modules/CubeSpeed.h"
 #include "Modules/Derp.h"
-#include "Modules/ESP.h"
+#include "Modules/Disabler.h"
 #include "Modules/EditionFaker.h"
+#include "Modules/EntityFly.h"
+#include "Modules/EntitySpeed.h"
+#include "Modules/ESP.h"
+#include "Modules/ExtendedBlockReach.h"
 #include "Modules/FastEat.h"
-#include "Modules/AnchorAura.h"
+#include "Modules/FastLadder.h"
+#include "Modules/FastStop.h"
+#include "Modules/FightBot.h"
 #include "Modules/Fly.h"
+#include "Modules/Flyto.h"
+#include "Modules/FollowPathModule.h"
+#include "Modules/fps.h"
 #include "Modules/Freecam.h"
+#include "Modules/Freelook.h"
+#include "Modules/Fucker.h"
 #include "Modules/FullBright.h"
-#include "Modules/Totem.h"
 #include "Modules/Glide.h"
+#include "Modules/GUI.h"
+#include "Modules/HackerDetect.h"
 #include "Modules/HighJump.h"
 #include "Modules/Hitbox.h"
+#include "Modules/HiveConfig.h"
+#include "Modules/HiveFly.h"
 #include "Modules/HudModule.h"
-#include "Modules/ExtendedBlockReach.h"
 #include "Modules/InfiniteAura.h"
+#include "Modules/InsideTP.h"
 #include "Modules/InstaBreak.h"
 #include "Modules/InventoryCleaner.h"
 #include "Modules/InventoryMove.h"
 #include "Modules/Jesus.h"
 #include "Modules/Jetpack.h"
 #include "Modules/Killaura.h"
+#include "Modules/LongJump.h"
+#include "Modules/MegaDupe.h"
 #include "Modules/MidClick.h"
+#include "Modules/Mineplex.h"
+#include "Modules/Miner.h"
 #include "Modules/Module.h"
 #include "Modules/NameTags.h"
+#include "Modules/NGFly.h"
+#include "Modules/NightMode.h"
+#include "Modules/NoClip.h"
 #include "Modules/NoFall.h"
 #include "Modules/NoFriends.h"
-#include "Modules/Velocity.h"
+#include "Modules/NoHurtcam.h"
 #include "Modules/NoPacket.h"
 #include "Modules/NoSlowDown.h"
+#include "Modules/NoSwing.h"
 #include "Modules/NoWeb.h"
 #include "Modules/Nuker.h"
+#include "Modules/PacketLogger.h"
 #include "Modules/Phase.h"
+#include "Modules/PotionAura.h"
+#include "Modules/Radar.h"
 #include "Modules/RainbowSky.h"
 #include "Modules/Reach.h"
 #include "Modules/Scaffold.h"
+#include "Modules/selectionHighlight.h"
+#include "Modules/ServerInfo.h"
+#include "Modules/Snow.h"
+#include "Modules/Snowball_Aimbot.h"
+#include "Modules/SoundPlayer.h"
 #include "Modules/Spammer.h"
 #include "Modules/Speed.h"
-#include "Modules/HiveFly.h"
+#include "Modules/Spider.h"
 #include "Modules/Step.h"
-#include "Modules/HackerDetect.h"
+#include "Modules/StorageESP.h"
+#include "Modules/Surround.h"
+#include "Modules/SwingAnimations.h"
+#include "Modules/TargetStrafe.h"
+#include "Modules/Teams.h"
+#include "Modules/Teleport.h"
+#include "Modules/TestModule.h"
 #include "Modules/TimeChanger.h"
 #include "Modules/Timer.h"
-#include "Modules/PotionAura.h"
-#include "Modules/Tracer.h"
-#include "Modules/TriggerBot.h"
-#include "Modules/Xray.h"
-#include "Modules/NightMode.h"
-#include "Modules/NoSwing.h"
-#include "Modules/CubeGlide.h"
-#include "Modules/AirStuck.h"
-#include "Modules/Zoom.h"
-#include "Modules/Teams.h"
-#include "Modules/Freelook.h"
-#include "Modules/NoHurtcam.h"
-#include "Modules/AntiImmobile.h"
-#include "Modules/FollowPathModule.h"
-#include "Modules/Waypoints.h"
-#include "Modules/Spider.h"
-#include "Modules/Compass.h"
-#include "Modules/Radar.h"
+#include "Modules/Totem.h"
 #include "Modules/TPAura.h"
-#include "Modules/ViewModel.h"
-#include "Modules/EntityFly.h"
-#include "Modules/ChestStealer.h"
-#include "Modules/MegaDupe.h"
-#include "Modules/Snowball_Aimbot.h"
-#include "Modules/AntiAnvil.h"
-#include "Modules/Mineplex.h"
-#include "Modules/CubeFly.h"
-#include "Modules/CubeSpeed.h"
-#include "Modules/InsideTP.h"
-#include "Modules/HiveNuker.h"
-#include "Modules/NoClip.h"
-#include "Modules/AutoWalk.h"
-#include "Modules/AutoJump.h"
-#include "Modules/Disabler.h"
-#include "Modules/Antikb.h"
-#include "Modules/XP.h"
-#include "Modules/BlockFly.h"
-#include "Modules/GUI.h"
-#include "Modules/NGFly.h"
-#include "Modules/EntitySpeed.h"
+#include "Modules/Tracer.h"
 #include "Modules/Trail.h"
-#include "Modules/FightBot.h"
-#include "Modules/AutoClick.h"
-#include "Modules/LongJump.h"
-#include "Modules/TestModule.h"
-#include "Modules/PacketLogger.h"
-#include "Modules/chestaura.h"
-#include "Modules/Miner.h"
-#include "Modules/cps.h"
-#include "Modules/fps.h"
-#include "Modules/bps.h"
-#include "Modules/ServerInfo.h"
+#include "Modules/TriggerBot.h"
+#include "Modules/Velocity.h"
+#include "Modules/ViewModel.h"
+#include "Modules/Waypoints.h"
+#include "Modules/XP.h"
+#include "Modules/Xray.h"
+#include "Modules/Zoom.h"
 #ifdef _DEBUG
 
 #endif
 
-
 class ModuleManager {
 private:
 	GameData* gameData;
-	std::vector<std::shared_ptr<IModule>> moduleList;
+	std::vector<std::shared_ptr<IModule> > moduleList;
 	bool initialized = false;
 	std::shared_mutex moduleListMutex;
 
@@ -168,19 +163,19 @@ public:
 
 	std::shared_lock<std::shared_mutex> lockModuleList() { return std::shared_lock(this->moduleListMutex); }
 	std::unique_lock<std::shared_mutex> lockModuleListExclusive() { return std::unique_lock(this->moduleListMutex); }
-	
+
 	std::shared_mutex* getModuleListLock() { return &this->moduleListMutex; }
 
 	bool isInitialized() { return initialized; };
-	std::vector<std::shared_ptr<IModule>>* getModuleList();
+	std::vector<std::shared_ptr<IModule> >* getModuleList();
 
 	int getModuleCount();
 	int getEnabledModuleCount();
 
 	/*
-	 *	Use as follows: 
-	 *		IModule* mod = moduleMgr.getModule<NoKnockBack>(); 
-	 *	Check for nullptr directly after that call, as Hooks::init is called before ModuleManager::initModules !	
+	 *	Use as follows:
+	 *		IModule* mod = moduleMgr.getModule<NoKnockBack>();
+	 *	Check for nullptr directly after that call, as Hooks::init is called before ModuleManager::initModules !
 	 */
 	template <typename TRet>
 	TRet* getModule() {
@@ -188,8 +183,7 @@ public:
 			return nullptr;
 		auto lock = this->lockModuleList();
 		for (auto pMod : moduleList) {
-			if (auto pRet = dynamic_cast<typename std::remove_pointer<TRet>::type*>(pMod.get())){
-				
+			if (auto pRet = dynamic_cast<typename std::remove_pointer<TRet>::type*>(pMod.get())) {
 				return pRet;
 			}
 		}
@@ -197,21 +191,21 @@ public:
 	};
 
 	// Dont Use this functions unless you absolutely need to. The function above this one works in 99% of cases
-	std::optional<std::shared_ptr<IModule>> getModuleByName(const std::string name) {
+	std::optional<std::shared_ptr<IModule> > getModuleByName(const std::string name) {
 		if (!isInitialized())
 			return nullptr;
 		std::string nameCopy = name;
 		std::transform(nameCopy.begin(), nameCopy.end(), nameCopy.begin(), ::tolower);
-		
+
 		auto lock = this->lockModuleList();
-		for (std::vector<std::shared_ptr<IModule>>::iterator it = this->moduleList.begin(); it != this->moduleList.end(); ++it) {
+		for (std::vector<std::shared_ptr<IModule> >::iterator it = this->moduleList.begin(); it != this->moduleList.end(); ++it) {
 			std::shared_ptr<IModule> mod = *it;
 			std::string modNameCopy = mod->getRawModuleName();
 			std::transform(modNameCopy.begin(), modNameCopy.end(), modNameCopy.begin(), ::tolower);
 			if (modNameCopy == nameCopy)
-				return std::optional<std::shared_ptr<IModule>>(mod);
+				return std::optional<std::shared_ptr<IModule> >(mod);
 		}
-		return std::optional<std::shared_ptr<IModule>>();
+		return std::optional<std::shared_ptr<IModule> >();
 	}
 };
 

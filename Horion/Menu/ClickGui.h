@@ -26,7 +26,7 @@ struct ClickWindow {
 	bool isInAnimation = false;
 	float animation = 0;
 	const char* name;
-	std::map<unsigned int, std::shared_ptr<ClickModule>> moduleMap;
+	std::map<unsigned int, std::shared_ptr<ClickModule> > moduleMap;
 
 	int yOffset = 0;
 };
@@ -40,7 +40,7 @@ private:
 	static void renderTooltip(std::string* text);
 
 	static void renderCategory(Category category);
-	inline static void getModuleListByCategory(Category category, std::vector<std::shared_ptr<IModule>>* modList);
+	inline static void getModuleListByCategory(Category category, std::vector<std::shared_ptr<IModule> >* modList);
 
 	inline static const char* catToName(Category cat) {
 		const char* categoryName;

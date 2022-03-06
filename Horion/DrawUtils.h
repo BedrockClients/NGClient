@@ -148,4 +148,3 @@ public:
 
 	static vec2_t worldToScreen(const vec3_t& world);
 };
-

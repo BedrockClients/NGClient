@@ -6,7 +6,6 @@
     <ClCompile Include="Horion\Command\Commands\KitCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\CommandBlockExploitCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ConfigCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\ExecuteCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\FriendListCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\HelpCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\HideCommand.cpp" />
@@ -18,7 +17,6 @@
     <ClCompile Include="Horion\Command\Commands\PathCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\PlayerTeleportCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\RelativeTeleportCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\ScriptCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\SetprefixCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\SpammerCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ToggleCommand.cpp" />
@@ -50,7 +48,6 @@
     <ClCompile Include="Horion\Module\Modules\InfiniteAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryCleaner.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryMove.cpp" />
-    <ClCompile Include="Horion\Module\Modules\JavascriptModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Jesus.cpp" />
     <ClCompile Include="Horion\Module\Modules\Killaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\MidClick.cpp" />
@@ -79,21 +76,6 @@
     <ClCompile Include="Horion\path\JoePath.cpp" />
     <ClCompile Include="Horion\path\JoePathFinder.cpp" />
     <ClCompile Include="Horion\path\JoeSegment.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\CommandManagerFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\DrawFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\EntityFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\GameFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\GlobalFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\HorionFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\InventoryFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\LevelFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\LocalPlayerFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\ModuleManagerFunctions.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\Vector3Functions.cpp" />
-    <ClCompile Include="Horion\Scripting\JsScriptModule.cpp" />
-    <ClCompile Include="Horion\Scripting\ScriptInstance.cpp" />
-    <ClCompile Include="Horion\Scripting\ScriptManager.cpp" />
-    <ClCompile Include="Horion\Scripting\Functions\Vector2Functions.cpp" />
     <ClCompile Include="Memory\GameData.cpp" />
     <ClCompile Include="Memory\Hooks.cpp" />
     <ClCompile Include="Memory\SlimMem.cpp" />
@@ -120,9 +102,7 @@
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
-    <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
-    <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
@@ -150,6 +130,24 @@
     <ClCompile Include="Horion\Module\Modules\Fps.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bps.cpp" />
     <ClCompile Include="Horion\Module\Modules\ServerInfo.cpp" />
+    <ClCompile Include="Horion\Command\Commands\ExecuteCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\ScriptCommand.cpp" />
+    <ClCompile Include="Horion\Module\Modules\JavascriptModule.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\CommandManagerFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\DrawFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\EntityFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\GameFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\GlobalFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\HorionFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\InventoryFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\LevelFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\LocalPlayerFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\ModuleManagerFunctions.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\Vector3Functions.cpp" />
+    <ClCompile Include="Horion\Scripting\JsScriptModule.cpp" />
+    <ClCompile Include="Horion\Scripting\ScriptInstance.cpp" />
+    <ClCompile Include="Horion\Scripting\ScriptManager.cpp" />
+    <ClCompile Include="Horion\Scripting\Functions\Vector2Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -162,7 +160,6 @@
     <ClInclude Include="Horion\Command\Commands\DupeCommand.h" />
     <ClInclude Include="Horion\Command\Commands\EjectCommand.h" />
     <ClInclude Include="Horion\Command\Commands\EnchantCommand.h" />
-    <ClInclude Include="Horion\Command\Commands\ExecuteCommand.h" />
     <ClInclude Include="Horion\Command\Commands\FriendListCommand.h" />
     <ClInclude Include="Horion\Command\Commands\CBEPCommand.h" />
     <ClInclude Include="Horion\Command\Commands\GiveCommand.h" />
@@ -176,7 +173,6 @@
     <ClInclude Include="Horion\Command\Commands\PathCommand.h" />
     <ClInclude Include="Horion\Command\Commands\PlayerTeleportCommand.h" />
     <ClInclude Include="Horion\Command\Commands\RelativeTeleportCommand.h" />
-    <ClInclude Include="Horion\Command\Commands\ScriptCommand.h" />
     <ClInclude Include="Horion\Command\Commands\ServerCommand.h" />
     <ClInclude Include="Horion\Command\Commands\setoffhandCommand.h" />
     <ClInclude Include="Horion\Command\Commands\SetprefixCommand.h" />
@@ -217,7 +213,6 @@
     <ClInclude Include="Horion\Module\Modules\ClickGuiMod.h" />
     <ClInclude Include="Horion\Module\Modules\Compass.h" />
     <ClInclude Include="Horion\Module\Modules\Crasher.h" />
-    <ClInclude Include="Horion\Module\Modules\Criticals.h" />
     <ClInclude Include="Horion\Module\Modules\CrystalAura.h" />
     <ClInclude Include="Horion\Module\Modules\CubeGlide.h" />
     <ClInclude Include="Horion\Module\Modules\Derp.h" />
@@ -241,7 +236,6 @@
     <ClInclude Include="Horion\Module\Modules\InstaBreak.h" />
     <ClInclude Include="Horion\Module\Modules\InventoryCleaner.h" />
     <ClInclude Include="Horion\Module\Modules\InventoryMove.h" />
-    <ClInclude Include="Horion\Module\Modules\JavascriptModule.h" />
     <ClInclude Include="Horion\Module\Modules\Jesus.h" />
     <ClInclude Include="Horion\Module\Modules\Jetpack.h" />
     <ClInclude Include="Horion\Module\Modules\Killaura.h" />
@@ -292,21 +286,6 @@
     <ClInclude Include="Horion\path\JoePath.h" />
     <ClInclude Include="Horion\path\JoePathFinder.h" />
     <ClInclude Include="Horion\path\JoeSegment.h" />
-    <ClInclude Include="Horion\Scripting\Functions\CommandManagerFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\DrawFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\EntityFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\GameFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\GlobalFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\HorionFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\InventoryFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\LevelFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\LocalPlayerFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\ModuleManagerFunctions.h" />
-    <ClInclude Include="Horion\Scripting\Functions\Vector3Functions.h" />
-    <ClInclude Include="Horion\Scripting\JsScriptModule.h" />
-    <ClInclude Include="Horion\Scripting\ScriptInstance.h" />
-    <ClInclude Include="Horion\Scripting\ScriptManager.h" />
-    <ClInclude Include="Horion\Scripting\Functions\Vector2Functions.h" />
     <ClInclude Include="include\atlrx.h" />
     <ClInclude Include="include\chakra\ChakraCommon.h" />
     <ClInclude Include="include\chakra\ChakraCommonWindows.h" />
@@ -377,13 +356,11 @@
     <ClInclude Include="Horion\Module\Modules\CubeFly.h" />
     <ClInclude Include="Horion\Module\Modules\CubeSpeed.h" />
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
-    <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\Antikb.h" />
     <ClInclude Include="Horion\Module\Modules\XP.h" />
-    <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
     <ClInclude Include="Horion\Module\Modules\GUI.h" />
     <ClInclude Include="Horion\Module\Modules\NGFly.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
@@ -417,6 +394,24 @@
     <ClInclude Include="Horion\Module\Modules\Fps.h" />
     <ClInclude Include="Horion\Module\Modules\Bps.h" />
     <ClInclude Include="Horion\Module\Modules\ServerInfo.h" />
+    <ClInclude Include="Horion\Command\Commands\ExecuteCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\ScriptCommand.h" />
+    <ClInclude Include="Horion\Module\Modules\JavascriptModule.h" />
+    <ClInclude Include="Horion\Scripting\Functions\CommandManagerFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\DrawFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\EntityFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\GameFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\GlobalFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\HorionFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\InventoryFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\LevelFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\LocalPlayerFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\ModuleManagerFunctions.h" />
+    <ClInclude Include="Horion\Scripting\Functions\Vector3Functions.h" />
+    <ClInclude Include="Horion\Scripting\JsScriptModule.h" />
+    <ClInclude Include="Horion\Scripting\ScriptInstance.h" />
+    <ClInclude Include="Horion\Scripting\ScriptManager.h" />
+    <ClInclude Include="Horion\Scripting\Functions\Vector2Functions.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

@@ -1,6 +1,7 @@
 #include "ModuleManager.h"
-#include "../../Utils/Logger.h"
+
 #include "../../Utils/Json.hpp"
+#include "../../Utils/Logger.h"
 
 using json = nlohmann::json;
 
@@ -19,131 +20,128 @@ void ModuleManager::initModules() {
 	{
 		auto lock = lockModuleListExclusive();
 
-		moduleList.push_back(std::shared_ptr<IModule>(new HudModule()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Killaura()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Surround()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Snow()));
-		moduleList.push_back(std::shared_ptr<IModule>(new ESP()));
-		moduleList.push_back(std::shared_ptr<IModule>(new FastStop()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoPot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Jetpack()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Aimbot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new TriggerBot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoArmor()));
-		moduleList.push_back(std::shared_ptr<IModule>(new StorageESP()));
-		moduleList.push_back(std::shared_ptr<IModule>(new EditionFaker()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Velocity()));
-		moduleList.push_back(std::shared_ptr<IModule>(new TargetStrafe));
-		moduleList.push_back(std::shared_ptr<IModule>(new RainbowSky()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AirJump()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Step()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Glide()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AntiLagBack()));
-		moduleList.push_back(std::shared_ptr<IModule>(new PotionAura()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Phase()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Freecam()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoSprint()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Tracer()));
-		moduleList.push_back(std::shared_ptr<IModule>(new BowAimbot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Scaffold()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoFall()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Blink()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Nuker()));
-		moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoPacket()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Speed()));
-		moduleList.push_back(std::shared_ptr<IModule>(new HackerDetect()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Fucker()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoTotem()));
-		moduleList.push_back(std::shared_ptr<IModule>(new SwingAnimations()));
-		moduleList.push_back(std::shared_ptr<IModule>(new InfiniteAura()));
-		moduleList.push_back(std::shared_ptr<IModule>(new ClickGuiMod()));
-		moduleList.push_back(std::shared_ptr<IModule>(new BlockEsp()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Fly()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Hitbox()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Reach()));
-		moduleList.push_back(std::shared_ptr<IModule>(new FullBright()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AirStuck()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AirSwim()));
-		moduleList.push_back(std::shared_ptr<IModule>(new InventoryMove()));
-		moduleList.push_back(std::shared_ptr<IModule>(new HighJump()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoWeb()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AnchorAura()));
-		moduleList.push_back(std::shared_ptr<IModule>(new FastEat()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Jesus()));
-		moduleList.push_back(std::shared_ptr<IModule>(new FastLadder()));
-		moduleList.push_back(std::shared_ptr<IModule>(new ExtendedBlockReach()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Flyto()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NameTags()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new Criticals()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Bhop()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AntiVoid()));
-		moduleList.push_back(std::shared_ptr<IModule>(new MidClick()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Teleport()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoFriends()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Spammer()));
-		moduleList.push_back(std::shared_ptr<IModule>(new selectionHighlight()));
-		moduleList.push_back(std::shared_ptr<IModule>(new HiveConfig()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AntiAnvil()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiBot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Derp()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AntiImmobile()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Antikb()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AntiLagBack()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AntiVoid()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoArmor()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoClick()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoJump()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoPot()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoSneak()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoSprint()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoTotem()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoWalk()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Bhop()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Blink()));
+		moduleList.push_back(std::shared_ptr<IModule>(new BlockEsp()));
+		moduleList.push_back(std::shared_ptr<IModule>(new BowAimbot()));
+		moduleList.push_back(std::shared_ptr<IModule>(new bps()));
+		moduleList.push_back(std::shared_ptr<IModule>(new ChestAura()));
+		moduleList.push_back(std::shared_ptr<IModule>(new ChestStealer()));
+		moduleList.push_back(std::shared_ptr<IModule>(new ClickGuiMod()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Compass()));
+		moduleList.push_back(std::shared_ptr<IModule>(new cps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Crasher()));
 		moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Timer()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NightMode()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoSwing()));
-		moduleList.push_back(std::shared_ptr<IModule>(new CubeGlide()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AirStuck()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Teams()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Freelook()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoSneak()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoHurtcam()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AntiImmobile()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Waypoints()));
-		moduleList.push_back(std::shared_ptr<IModule>(new TimeChanger()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Spider()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Compass()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Radar()));
-		moduleList.push_back(std::shared_ptr<IModule>(new ViewModel()));
-		moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
-		moduleList.push_back(std::shared_ptr<IModule>(new ChestStealer()));
-		moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoClick()));
-		moduleList.push_back(std::shared_ptr<IModule>(new SnowballAimbot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AntiAnvil()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Mineplex()));
 		moduleList.push_back(std::shared_ptr<IModule>(new CubeFly()));
+		moduleList.push_back(std::shared_ptr<IModule>(new CubeGlide()));
 		moduleList.push_back(std::shared_ptr<IModule>(new CubeSpeed()));
-		moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
-		moduleList.push_back(std::shared_ptr<IModule>(new HiveNuker()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoClip()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoWalk()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoJump()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Derp()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Disabler()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Antikb()));
-		moduleList.push_back(std::shared_ptr<IModule>(new TPAura()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Totem()));
+		moduleList.push_back(std::shared_ptr<IModule>(new EditionFaker()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EntityFly()));
-		moduleList.push_back(std::shared_ptr<IModule>(new XP()));
-		moduleList.push_back(std::shared_ptr<IModule>(new BlockFly()));
-		moduleList.push_back(std::shared_ptr<IModule>(new GUI()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EntitySpeed()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Trail()));
+		moduleList.push_back(std::shared_ptr<IModule>(new ESP()));
+		moduleList.push_back(std::shared_ptr<IModule>(new ExtendedBlockReach()));
+		moduleList.push_back(std::shared_ptr<IModule>(new FastEat()));
+		moduleList.push_back(std::shared_ptr<IModule>(new FastLadder()));
+		moduleList.push_back(std::shared_ptr<IModule>(new FastStop()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FightBot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new LongJump()));
-		moduleList.push_back(std::shared_ptr<IModule>(new TestModule()));
-		moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));
-		moduleList.push_back(std::shared_ptr<IModule>(new SoundPlayer()));
-		moduleList.push_back(std::shared_ptr<IModule>(new ChestAura()));
-		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Miner()));
-		moduleList.push_back(std::shared_ptr<IModule>(new cps()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Fly()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Flyto()));
+		moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
 		moduleList.push_back(std::shared_ptr<IModule>(new fps()));
-		moduleList.push_back(std::shared_ptr<IModule>(new bps()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Freecam()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Freelook()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Fucker()));
+		moduleList.push_back(std::shared_ptr<IModule>(new FullBright()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Glide()));
+		moduleList.push_back(std::shared_ptr<IModule>(new GUI()));
+		moduleList.push_back(std::shared_ptr<IModule>(new HackerDetect()));
+		moduleList.push_back(std::shared_ptr<IModule>(new HighJump()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Hitbox()));
+		moduleList.push_back(std::shared_ptr<IModule>(new HiveConfig()));
+		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
+		moduleList.push_back(std::shared_ptr<IModule>(new HudModule()));
+		moduleList.push_back(std::shared_ptr<IModule>(new InfiniteAura()));
+		moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
+		moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
+		moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
+		moduleList.push_back(std::shared_ptr<IModule>(new InventoryMove()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Jesus()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Jetpack()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Killaura()));
+		moduleList.push_back(std::shared_ptr<IModule>(new LongJump()));
+		moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
+		moduleList.push_back(std::shared_ptr<IModule>(new MidClick()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Mineplex()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Miner()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NameTags()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NightMode()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoClip()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoFall()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoFriends()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoHurtcam()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoPacket()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoSwing()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoWeb()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Nuker()));
+		moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Phase()));
+		moduleList.push_back(std::shared_ptr<IModule>(new PotionAura()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Radar()));
+		moduleList.push_back(std::shared_ptr<IModule>(new RainbowSky()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Reach()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Scaffold()));
+		moduleList.push_back(std::shared_ptr<IModule>(new selectionHighlight()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ServerInfo()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Snow()));
+		moduleList.push_back(std::shared_ptr<IModule>(new SnowballAimbot()));
+		moduleList.push_back(std::shared_ptr<IModule>(new SoundPlayer()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Spammer()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Speed()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Spider()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Step()));
+		moduleList.push_back(std::shared_ptr<IModule>(new StorageESP()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Surround()));
+		moduleList.push_back(std::shared_ptr<IModule>(new SwingAnimations()));
+		moduleList.push_back(std::shared_ptr<IModule>(new TargetStrafe));
+		moduleList.push_back(std::shared_ptr<IModule>(new Teams()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Teleport()));
+		moduleList.push_back(std::shared_ptr<IModule>(new TestModule()));
+		moduleList.push_back(std::shared_ptr<IModule>(new TimeChanger()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Timer()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Totem()));
+		moduleList.push_back(std::shared_ptr<IModule>(new TPAura()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Tracer()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Trail()));
+		moduleList.push_back(std::shared_ptr<IModule>(new TriggerBot()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Velocity()));
+		moduleList.push_back(std::shared_ptr<IModule>(new ViewModel()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Waypoints()));
+		moduleList.push_back(std::shared_ptr<IModule>(new XP()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
 
 		// Sort modules alphabetically
 		std::sort(moduleList.begin(), moduleList.end(), [](auto lhs, auto rhs) {
@@ -154,7 +152,7 @@ void ModuleManager::initModules() {
 
 		initialized = true;
 	}
-	
+
 	getModule<HudModule>()->setEnabled(true);
 	getModule<ClickGuiMod>()->setEnabled(false);
 	getModule<AntiBot>()->setEnabled(true);
@@ -275,7 +273,7 @@ void ModuleManager::onSendPacket(C_Packet* packet) {
 	}
 }
 
-std::vector<std::shared_ptr<IModule>>* ModuleManager::getModuleList() {
+std::vector<std::shared_ptr<IModule> >* ModuleManager::getModuleList() {
 	return &moduleList;
 }
 
@@ -287,7 +285,8 @@ int ModuleManager::getEnabledModuleCount() {
 	int i = 0;
 	auto lock = lockModuleList();
 	for (auto& it : moduleList) {
-		if (it->isEnabled()) i++;
+		if (it->isEnabled())
+			i++;
 	}
 	return i;
 }

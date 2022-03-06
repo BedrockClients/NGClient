@@ -33,9 +33,7 @@ public:
 	void draw(vec2_t mousePos, const char* label);
 	bool canClick() { return canClickB; };
 	void updatePos(vec2_t pos) { this->pos = pos; }
-	
 };
-
 
 struct KeyInfo {
 	bool isDown;     // Held down right now
@@ -62,7 +60,7 @@ private:
 	vec2_t mousePos;
 	KeyInfo leftMb;
 	KeyInfo rightMb;
-	std::map<unsigned int, std::shared_ptr<ComponentInfo>> components;
+	std::map<unsigned int, std::shared_ptr<ComponentInfo> > components;
 
 public:
 	void onMouseClickUpdate(int key, bool isDown);
