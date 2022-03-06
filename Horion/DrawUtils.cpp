@@ -421,13 +421,11 @@ void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageD
 
 void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, bool useUnicodeFont) {
 	static auto nametags = moduleMgr->getModule<NameTags>();
-	static auto underlinemod = moduleMgr->getModule<NameTags>();
-	static auto Surge = moduleMgr->getModule<HudModule>();
-	auto Hud = moduleMgr->getModule<HudModule>();
+	static auto hudModule = moduleMgr->getModule<HudModule>();
 	vec2_t textPos;
 	vec4_t rectPos;
 	std::string text;
-	if (Hud->displaySecondHalf) {
+	if (hudModule->displaySecondHalf) {
 		text = Utils::sanitize(ent->getNameTag()->getText());
 		Utils::replaceString(text, '\n', ' ');
 	} else {
@@ -448,21 +446,18 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 		vec4_t subRectPos = rectPos;
 		subRectPos.y = subRectPos.w - 1.f * textSize;
 		fillRectangle(rectPos, MC_Color(0, 0, 0), nametags->opacity);
-		if (Surge->surge) {
-			if (ent->isAlive() && ent->isPlayer() && underlinemod->underline) {
+		if (hudModule->surge) {
+			if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
 				fillRectangle(subRectPos, MC_Color(0, 0, 255), nametags->opacity);
 			}
 			drawText(textPos, &text, MC_Color(0, 0, 255), textSize);
 		} else {
-			if (ent->isAlive() && ent->isPlayer() && underlinemod->underline) {
+			if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
 				fillRectangle(subRectPos, MC_Color(0, 246, 255), nametags->opacity);
 			}
 			drawText(textPos, &text, MC_Color(0, 246, 255), textSize);
 		}
-
-		static auto nameTagsMod = moduleMgr->getModule<NameTags>();
-
-		if (ent->isAlive() && ent->isPlayer() && nameTagsMod->displayArmor) {  // is player, show armor
+		if (ent->isAlive() && ent->isPlayer() && nametags->displayArmor) {  // is player, show armor
 			auto* player = reinterpret_cast<C_Player*>(ent);
 			float scale = textSize * 0.6f;
 			float spacing = scale + 15.f;
@@ -481,7 +476,7 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
 			if (item->isValid())
 				DrawUtils::drawItem(item, vec2_t(rectPos.z - 1.f - 15.f * scale, y), 1.f, scale, item->isEnchanted());
-			}
+		}
 	}
 }
 
