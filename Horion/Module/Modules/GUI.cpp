@@ -19,6 +19,7 @@ GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
 	registerBoolSetting("Surge Arraylist", &Surge, Surge);
 	registerBoolSetting("Horion Arraylist", &Horion, Horion);
 	registerBoolSetting("Weather Arraylist", &weather, weather);
+	registerBoolSetting("Fadeaway Arraylist", &fadeaway, fadeaway);
 	registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
 	registerFloatSetting("Blue", &gcolor, gcolor, 0.f, 1.f);
 	registerFloatSetting("Green", &bcolor, bcolor, 0.f, 1.f);

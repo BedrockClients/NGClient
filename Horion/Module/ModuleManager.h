@@ -130,6 +130,11 @@
 #include "Modules/TestModule.h"
 #include "Modules/PacketLogger.h"
 #include "Modules/chestaura.h"
+#include "Modules/Miner.h"
+#include "Modules/cps.h"
+#include "Modules/fps.h"
+#include "Modules/bps.h"
+#include "Modules/ServerInfo.h"
 #ifdef _DEBUG
 
 #endif

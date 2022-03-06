@@ -10,7 +10,7 @@ public:
 	C_MoveInputHandler cachedInput;
 
 	Speed() : IModule(VK_NUMPAD2, Category::MOVEMENT, "Speed up!") {
-		//registerBoolSetting("Hive", &hive, hive);
+		registerBoolSetting("Hive", &hive, hive);
 		registerFloatSetting("speed", &speed, 1, 0.1f, 3.f);
 	}
 	~Speed(){};

@@ -1,12 +1,16 @@
 #pragma once
-#include "../ModuleManager.h"
 #include "Module.h"
 class RainbowSky : public IModule {
 public:
-	RainbowSky() : IModule(0x0, Category::VISUAL, "Makes your sky look rainbow!"){};
-	~RainbowSky(){};
+	float intensity = 0.01f;
 
-	virtual const char* getModuleName() override {
-		return "RainbowSky";
-	}
+	RainbowSky();
+	~RainbowSky();
+
+	// Inherited via IModule
+	virtual const char* getModuleName() override;
+	static float red;
+	static float green;
+	static float blue;
+	static bool custom;
 };

@@ -138,7 +138,6 @@ void ClickGui::renderCategory(Category category) {
 		}
 		Utils::ApplyRainbow(currColor, 0.00025f);
 	}
-
 	const char* categoryName = ClickGui::catToName(category);
 
 	const std::shared_ptr<ClickWindow> ourWindow = getWindow(categoryName);
@@ -665,6 +664,7 @@ void ClickGui::renderCategory(Category category) {
 
 										DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);  // Background
 										DrawUtils::drawRectangle(rect, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);  // Slider background
+										DrawUtils::drawRectangle(rect, ClickGui::renderCategory ? MC_Color() : MC_Color(currColor), 1.f);
 
 										const float minValue = (float)setting->minValue->_int;
 										const float maxValue = (float)setting->maxValue->_int - minValue;

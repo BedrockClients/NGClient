@@ -139,6 +139,11 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new SoundPlayer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Miner()));
+		moduleList.push_back(std::shared_ptr<IModule>(new cps()));
+		moduleList.push_back(std::shared_ptr<IModule>(new fps()));
+		moduleList.push_back(std::shared_ptr<IModule>(new bps()));
+		moduleList.push_back(std::shared_ptr<IModule>(new ServerInfo()));
 
 		// Sort modules alphabetically
 		std::sort(moduleList.begin(), moduleList.end(), [](auto lhs, auto rhs) {

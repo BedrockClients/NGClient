@@ -2,7 +2,7 @@
 #include "Trail.h"
 #include "../ModuleManager.h"
 
-Trail::Trail() : IModule(0x0, Category::GUI, "Leaves a trail behind you") {
+Trail::Trail() : IModule(0x0, Category::VISUAL, "Leaves a trail behind you") {
 	registerBoolSetting("Rainbow", &Rainbow, Rainbow);
 	registerBoolSetting("Clear On Disable", &clearondisable, clearondisable);
 	registerBoolSetting("Stop Trail", &stopTrail, stopTrail);
