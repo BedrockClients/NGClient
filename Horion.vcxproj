@@ -269,6 +269,7 @@
     <ClCompile Include="Horion\Module\ModuleManager.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
+    <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bps.cpp" />
     <ClCompile Include="Horion\Module\Modules\Cps.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
@@ -278,6 +279,7 @@
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\HackerDetect.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveConfig.cpp" />
+    <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
@@ -445,6 +447,7 @@
     <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
+    <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
     <ClInclude Include="Horion\Module\Modules\Bps.h" />
     <ClInclude Include="Horion\Module\Modules\chestaura.h" />
     <ClInclude Include="Horion\Module\Modules\Cps.h" />
@@ -460,6 +463,7 @@
     <ClInclude Include="Horion\Module\Modules\GUI.h" />
     <ClInclude Include="Horion\Module\Modules\HackerDetect.h" />
     <ClInclude Include="Horion\Module\Modules\HiveConfig.h" />
+    <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
     <ClInclude Include="Horion\Module\Modules\Miner.h" />
@@ -486,6 +490,7 @@
     <ClInclude Include="Horion\Module\Modules\ClickGuiMod.h" />
     <ClInclude Include="Horion\Module\Modules\Compass.h" />
     <ClInclude Include="Horion\Module\Modules\Crasher.h" />
+    <ClInclude Include="Horion\Module\Modules\Criticals.h" />
     <ClInclude Include="Horion\Module\Modules\CrystalAura.h" />
     <ClInclude Include="Horion\Module\Modules\CubeGlide.h" />
     <ClInclude Include="Horion\Module\Modules\Derp.h" />

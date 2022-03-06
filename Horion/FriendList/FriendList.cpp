@@ -17,10 +17,10 @@ std::vector<std::string> FriendList::getList() {
 }
 
 bool FriendList::findPlayer(std::string name) {
-	// std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+	//std::transform(name.begin(), name.end(), name.begin(), ::tolower);
 	for (std::vector<std::string>::iterator it = g_friend.List.begin(); it != g_friend.List.end(); ++it) {
-		// std::string copy = *it;
-		// std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
+		//std::string copy = *it;
+		//std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
 		if (it->find(name) != std::string::npos) {
 			return true;
 		}

@@ -6,8 +6,8 @@ public:
 	~ServerInfo();
 
 	float scale = 1.f;
-	float serverInfoX = 110.f;
-	float serverInfoY = 250.f;
+	float serverInfoX = 210.f;
+	float serverInfoY = 25.f;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

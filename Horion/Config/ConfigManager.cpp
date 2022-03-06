@@ -10,28 +10,23 @@ using namespace Microsoft::WRL::Wrappers;
 std::wstring ConfigManager::GetRoamingFolderPath() {
 	ComPtr<IApplicationDataStatics> appDataStatics;
 	auto hr = RoGetActivationFactory(HStringReference(L"Windows.Storage.ApplicationData").Get(), __uuidof(appDataStatics), &appDataStatics);
-	if (FAILED(hr))
-		throw std::runtime_error("Failed to retrieve application data statics");
+	if (FAILED(hr)) throw std::runtime_error("Failed to retrieve application data statics");
 
 	ComPtr<IApplicationData> appData;
 	hr = appDataStatics->get_Current(&appData);
-	if (FAILED(hr))
-		throw std::runtime_error("Failed to retrieve current application data");
+	if (FAILED(hr)) throw std::runtime_error("Failed to retrieve current application data");
 
 	ComPtr<IStorageFolder> roamingFolder;
 	hr = appData->get_RoamingFolder(&roamingFolder);
-	if (FAILED(hr))
-		throw std::runtime_error("Failed to retrieve roaming folder");
+	if (FAILED(hr)) throw std::runtime_error("Failed to retrieve roaming folder");
 
 	ComPtr<IStorageItem> folderItem;
 	hr = roamingFolder.As(&folderItem);
-	if (FAILED(hr))
-		throw std::runtime_error("Failed to cast roaming folder to IStorageItem");
+	if (FAILED(hr)) throw std::runtime_error("Failed to cast roaming folder to IStorageItem");
 
 	HString roamingPathHString;
 	hr = folderItem->get_Path(roamingPathHString.GetAddressOf());
-	if (FAILED(hr))
-		throw std::runtime_error("Failed to retrieve roaming folder path");
+	if (FAILED(hr)) throw std::runtime_error("Failed to retrieve roaming folder path");
 
 	uint32_t pathLength;
 	auto roamingPathCStr = roamingPathHString.GetRawBuffer(&pathLength);
@@ -47,7 +42,7 @@ ConfigManager::~ConfigManager() {
 
 void ConfigManager::loadConfig(std::string name, bool create) {
 	static auto Surge = moduleMgr->getModule<HudModule>();
-
+	
 	size_t allocSize = name.size() + roamingFolder.size() + 20;  // std::wstring::size() can be wierd so lets make sure this actually fits
 	char* fullPath = new char[allocSize];
 	sprintf_s(fullPath, allocSize, "%S\\%s.txt", roamingFolder.c_str(), name.c_str());
@@ -78,7 +73,7 @@ void ConfigManager::loadConfig(std::string name, bool create) {
 			}
 		}
 
-		if (create)
+		if (create) 
 			saveConfig();
 
 		if (g_Data.getLocalPlayer() != nullptr) {
@@ -90,17 +85,17 @@ void ConfigManager::loadConfig(std::string name, bool create) {
 			if (!helpedUser && name != "NGClient") {
 				helpedUser = true;
 				if (Surge->surge)
-					g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sEnter \"%s%cconfig load NGClient%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
+				g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sEnter \"%s%cconfig load NGClient%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
 				else
-					g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sEnter \"%s%cconfig load NGClient%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
+				g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sEnter \"%s%cconfig load NGClient%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
 			}
 		}
 	} else {
-		if (g_Data.getLocalPlayer() != nullptr)
+		if (g_Data.getLocalPlayer() != nullptr) 
 			if (Surge->surge)
-				g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sCould not load config %s%s%s!", GOLD, WHITE, RED, GRAY, name.c_str(), RED);
+			g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sCould not load config %s%s%s!", GOLD, WHITE, RED, GRAY, name.c_str(), RED);
 			else
-				g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sCould not load config %s%s%s!", GOLD, WHITE, RED, GRAY, name.c_str(), RED);
+			g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sCould not load config %s%s%s!", GOLD, WHITE, RED, GRAY, name.c_str(), RED);
 	}
 
 	delete[] fullPath;

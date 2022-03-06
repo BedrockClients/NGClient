@@ -330,11 +330,11 @@ void* Hooks::Player_tickWorld(C_Player* _this, __int64 unk) {
 
 bool Hooks::playerCallBack(C_Player* lp, __int64 cock, __int64 penis) {
 	static auto oTick = g_Hooks.playerCallBack_Hook->GetFastcall<bool, C_Player*, __int64, __int64>();
-	// om, we need this check or else is makes all entitys look the directions we are setting rotations to look lol
+//om, we need this check or else is makes all entitys look the directions we are setting rotations to look lol
 	if (lp == g_Data.getLocalPlayer())
-		moduleMgr->onPlayerTick(lp);
+	moduleMgr->onPlayerTick(lp);
 
-	// Fix I Hope
+	//Fix I Hope
 	{
 		if (g_Data.getLocalPlayer() != nullptr && lp == g_Data.getLocalPlayer()) {
 			if (!g_Data.getLocalPlayer() || !g_Data.getLocalPlayer()->pointingStruct || !*(&g_Data.getLocalPlayer()->region + 1))
@@ -348,7 +348,7 @@ bool Hooks::playerCallBack(C_Player* lp, __int64 cock, __int64 penis) {
 				if (info.State & MEM_FREE) continue;
 				if (info.State & MEM_RESERVE) continue;
 				if (entity != nullptr && (__int64)entity != 0xFFFFFFFFFFFFFCD7 && ent.ent != nullptr && entity->isAlive() && *(__int64*)ent.ent != 0xFFFFFFFFFFFFFCD7 && *(__int64*)ent.ent > 0x6FF000000000 && *(__int64*)ent.ent < 0x800000000000 && *((int64_t*)ent.ent + 1) < 0x6FF000000000 && *(__int64*)ent.ent <= Utils::getBase() + 0x10000000)
-					validEntities.push_back(ent);
+				validEntities.push_back(ent);
 			}
 			g_Hooks.entityList.clear();
 			g_Hooks.entityList = validEntities;
@@ -507,10 +507,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	bool shouldRenderArrayList = true;
 	bool shouldRenderWatermark = true;
 
-	static float rcolors[4];          // Rainbow color array RGBA
-	static float disabledRcolors[4];  // Rainbow Colors, but for disabled modules
-	static float currColor[4];        // ArrayList colors
-	static float SurgeColor[4];       // ArrayList colors
+	static float rcolors[4];              //Rainbow color array RGBA
+	static float disabledRcolors[4];     //Rainbow Colors, but for disabled modules
+	static float currColor[4];          //ArrayList colors
+	static float SurgeColor[4];        //ArrayList colors
 
 	// Rainbow color updates
 	{
@@ -523,20 +523,20 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	{
 		// Main Menu
-		std::string screenName(g_Hooks.currentScreenName);
+		std::string screenName(g_Hooks.currentScreenName);		
 		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// x y z w
-			// vec4_t box = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 70);
-			// vec4_t bar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 5);
+			//vec4_t box = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 70);
+			//vec4_t bar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 5);
 			vec2_t text = vec2_t(windowSize.x / windowSize.x, 5);
 			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 5.5);
 
 			MC_Color devs = MC_Color(0, 255, 255);
 			MC_Color wight = MC_Color(255, 255, 255);
-			// DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
-			// DrawUtils::fillRectangle(bar, currColor, 1.f);
+			//DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
+			//DrawUtils::fillRectangle(bar, currColor, 1.f);
 			std::string string;
 			if (hudModule->surge) {
 				string = "Surge Client";
@@ -547,13 +547,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				string = "Version: 1.18.12";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 
-				// Changelogs Header
+				//Changelogs Header
 				text.y += 15.f;
 				outline.y += 15.f;
 				string = "Changelogs:";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 
-				// Draw ChangeLogs
+				//Draw ChangeLogs
 				for (int i = 0; i < 10; i++) {
 					text.y += 10.f;
 					outline.y += 10.f;
@@ -579,13 +579,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				string = "[+] CustomSky";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 
-				// Credits Header
+				//Credits Header
 				text.y += 15.f;
 				outline.y += 15.f;
 				string = "Credits:";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 
-				// The Credits
+				//The Credits
 				for (int i = 0; i < 3; i++) {
 					text.y += 10.f;
 					outline.y += 10.f;
@@ -665,9 +665,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			}
-		}
+		} 
 
-		// Draw Buttons
+		//Draw Buttons
 		if (!strcmp(screenName.c_str(), "start_screen") == 0) {
 			if (hudModule->Buttons) {
 				if (!g_Data.canUseMoveKeys() && !clickGuiModule->isEnabled()) {
@@ -695,7 +695,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			if (hudModule->surge) {
 				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
-				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text, text.size() / 3.3), wid.y / 70);
+				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text,text.size() / 3.3), wid.y / 70);
 				vec4_t rectPos = vec4_t(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
 				if (hudModule->rgb) {
 					DrawUtils::fillRectangle(rectPos, MC_Color(currColor), 0.f);
@@ -727,11 +727,12 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
 				vec2_t mousePos = *g_Data.getClientInstance()->getMousePos();
 
-				// Convert mousePos to visual Pos
-				{
-					mousePos = mousePos.div(windowSizeReal);
-					mousePos = mousePos.mul(windowSize);
-				}
+					// Convert mousePos to visual Pos
+					{
+
+						mousePos = mousePos.div(windowSizeReal);
+						mousePos = mousePos.mul(windowSize);
+					}
 
 				// Draw NG logo
 				if (hudModule->surge) {
@@ -805,7 +806,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
 								}
 							} else {
-								// x y z w
+								//x y z w
 								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 10);
 								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 2.5);
 								if (g_Data.getLocalPlayer() != nullptr) {
@@ -915,9 +916,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					if (gui->bottom) {
 						yOffset = windowSize.y - textHeight;
 					}
-					// int a = 0;
-					// int b = 0;
-					// int c = 0;
+					//int a = 0;
+					//int b = 0;
+					//int c = 0;
 
 					// Loop through mods to display Labels
 					float Length = 0.f;
@@ -1022,70 +1023,72 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						else
 							b = 0;
 						if (gui->fadeaway) {
-							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 1.f / a * c;
-							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
-							// fadeaway
-							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
-							// currColor[0] += 1.f / a * c;
-							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
-						}
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+						currColor[0] += 1.f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
+						//fadeaway
+						//Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+						//currColor[0] += 1.f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
+					    }
 						if (gui->weather) {
-							currColor[3] = rcolors[3];
-							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
-							currColor[0] += 1.1f / a * b;
-							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
-							// weather
-							// currColor[3] = rcolors[3];
-							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
-							// currColor[0] += 1.1f / a * b;
-							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
+						currColor[3] = rcolors[3];
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
+						currColor[0] += 1.1f / a * b;
+						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
+						//weather
+						//currColor[3] = rcolors[3];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
+						//currColor[0] += 1.1f / a * b;
+						//Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
 						}
 						if (gui->Horion) {
-							currColor[3] = rcolors[3];
-							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 1.f / a * c;
-							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
-							// Horion
-							// currColor[3] = rcolors[3];
-							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
-							// currColor[0] += 1.f / a * c;
-							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
-						} else if (gui->Surge) {
-							currColor[3] = rcolors[5];
-							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 3.5f / a * c;
-							Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
-							// Surge
-							// currColor[3] = rcolors[5];
-							// Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
-							// currColor[0] += 3.5f / a * c;
-							// Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
-						} else if (gui->badman) {
-							currColor[3] = rcolors[3];
-							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
-							currColor[0] += 2.f / a * c;
-							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
-							// BADMAN RGB
-							// currColor[3] = rcolors[3];
-							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
-							// currColor[0] += 2.f / a * c;
-							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						currColor[3] = rcolors[3];
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+						currColor[0] += 1.f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
+						//Horion
+						//currColor[3] = rcolors[3];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+						//currColor[0] += 1.f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
+						} else
+						if (gui->Surge) {
+						currColor[3] = rcolors[5];
+						Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+						currColor[0] += 3.5f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						//Surge
+						//currColor[3] = rcolors[5];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+						//currColor[0] += 3.5f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						} else
+						if (gui->badman) {
+						currColor[3] = rcolors[3];
+						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
+						currColor[0] += 2.f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						//BADMAN RGB
+						//currColor[3] = rcolors[3];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
+						//currColor[0] += 2.f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);	
 						} else {
-							currColor[3] = rcolors[5];
-							currColor[3] = rcolors[5];
-							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 0.5f / a * c;
-							Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
-							// NG RGBs
-							// currColor[3] = rcolors[5];
-							// currColor[3] = rcolors[5];
-							// Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
-							// currColor[0] += 0.5f / a * c;
-							// Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						currColor[3] = rcolors[5];
+						currColor[3] = rcolors[5];
+						Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+						currColor[0] += 0.5f / a * c;
+						Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						//NG RGBs
+						//currColor[3] = rcolors[5];
+						//currColor[3] = rcolors[5];
+						//Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+						//currColor[0] += 0.5f / a * c;
+						//Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
 						}
 
-						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);  // Background
+						DrawUtils::fillRectangle(rectPos, MC_Color(GUI::rcolor, GUI::bcolor, GUI::gcolor), gui->opacity);//Background
 						if (gui->Fluxbar)
 							if (gui->rgb) {
 								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
@@ -1127,8 +1130,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						}
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && gui->clickToggle) {
 							vec4_t selectedRect = rectPos;
-							// selectedRect.x = leftRect.z;
-							// selectedRect.x = rightRect.z;
+							//selectedRect.x = leftRect.z;
+							//selectedRect.x = rightRect.z;
 							if (leftMouseDown) {
 								DrawUtils::fillRectangle(selectedRect, MC_Color(0.8f, 0.8f, 0.8f), 0.8f);
 								if (executeClick)
@@ -1166,6 +1169,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			}
 		}
 	}
+
 
 	if (shouldPostRender) moduleMgr->onPostRender(renderCtx);
 	HImGui.endFrame();
@@ -1212,11 +1216,11 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				centerPos.y + paddingVert * 2 + titleTextHeight + messageHeight * lines);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), box->fadeVal);
 			if (hudModule->rgb)
-				DrawUtils::drawRectangle(rectPos, currColor, box->fadeVal, 2.f);
+			DrawUtils::drawRectangle(rectPos, currColor, box->fadeVal, 2.f);
 			else if (hudModule->surge)
-				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 255), box->fadeVal, 2.f);
+				DrawUtils::drawRectangle(rectPos, MC_Color(0,0,255), box->fadeVal, 2.f);
 			else
-				DrawUtils::drawRectangle(rectPos, MC_Color(184, 0, 255), box->fadeVal, 2.f);
+			DrawUtils::drawRectangle(rectPos, MC_Color(184,0,255), box->fadeVal, 2.f);
 
 			DrawUtils::drawText(textPos, &box->title, MC_Color(), titleTextSize, box->fadeVal);
 			DrawUtils::drawText(msgPos, &box->message, MC_Color(), messageTextSize, box->fadeVal);
@@ -1494,7 +1498,7 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packet* packet) {
 	static auto oFunc = g_Hooks.LoopbackPacketSender_sendToServerHook->GetFastcall<void, C_LoopbackPacketSender*, C_Packet*>();
 
-	// static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
+	//static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
 	static auto blinkMod = moduleMgr->getModule<Blink>();
 	static auto nofall = moduleMgr->getModule<NoFall>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
@@ -1504,10 +1508,10 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto hiveFly = moduleMgr->getModule<HiveFly>();
 	static auto disabler = moduleMgr->getModule<Disabler>();
 	static auto test = moduleMgr->getModule<TestModule>();
-	// if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
-	// return;
+	//if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
+	//return;
 	//	g_Data.getLocalPlayer()->jumpFromGround();
-	// }
+	//}
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
@@ -1562,7 +1566,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
 				if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 4.f) {
 					ree->onGround = true;
-					return;  // dont send Off groung packet
+					return;  //dont send Off groung packet
 				}
 			}
 		}
@@ -1573,11 +1577,11 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 			if (blinkMod->isEnabled()) {
 				if (packet->isInstanceOf<C_MovePlayerPacket>()) {
 					C_MovePlayerPacket* meme = reinterpret_cast<C_MovePlayerPacket*>(packet);
-					meme->onGround = true;                                                            // Don't take Fall Damages when turned off
-					blinkMod->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*meme));  // Saving the packets
+					meme->onGround = true;                                                             //Don't take Fall Damages when turned off
+					blinkMod->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*meme));  //Saving the packets
 				} else {
-					if (g_Data.getRakNetInstance()->isonaServer())  // if ur on a server, do this but if ur on a world dont bec it crashes
-						blinkMod->getPlayerAuthInputPacketHolder()->push_back(new PlayerAuthInputPacket(*reinterpret_cast<PlayerAuthInputPacket*>(packet)));
+					if (g_Data.getRakNetInstance()->isonaServer())//if ur on a server, do this but if ur on a world dont bec it crashes
+					blinkMod->getPlayerAuthInputPacketHolder()->push_back(new PlayerAuthInputPacket(*reinterpret_cast<PlayerAuthInputPacket*>(packet)));
 				}
 			}
 			return;  // Dont call LoopbackPacketSender_sendToServer
@@ -1607,7 +1611,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 		auto* pp = reinterpret_cast<C_PlayerActionPacket*>(packet);
 
 		if (pp->action == 12 && pp->entityRuntimeId == g_Data.getLocalPlayer()->entityRuntimeId)
-			return;  // dont send uncrouch
+			return;  //dont send uncrouch
 	}
 
 	moduleMgr->onSendPacket(packet);
@@ -1615,11 +1619,11 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	if (disabler->isEnabled() && disabler->hive && packet->isInstanceOf<NetworkLatencyPacket>()) {
 		NetworkLatencyPacket* pkt = (NetworkLatencyPacket*)packet;
 		if (pkt->timeStamp == 69420) {
-			// g_Data.getGuiData()->displayClientMessageF("DaddyUwU");//tests
+			//g_Data.getGuiData()->displayClientMessageF("DaddyUwU");//tests
 			return;
 		}
 	}
-
+	
 	/*if (strcmp(packet->getName()->getText(), "EmotePacket") == 0) {
 		auto varInt = reinterpret_cast<__int64*>(reinterpret_cast<__int64>(packet) + 0x28);
 		auto text = reinterpret_cast<TextHolder*>(reinterpret_cast<__int64>(packet) + 0x30);
@@ -1771,12 +1775,12 @@ void Hooks::ClickFunc(__int64 a1, char mouseButton, char isDown, __int16 mouseX,
 	static auto oFunc = g_Hooks.ClickFuncHook->GetFastcall<void, __int64, char, char, __int16, __int16, __int16, __int16, char>();
 	static auto clickGuiModule = moduleMgr->getModule<ClickGuiMod>();
 
-	// MouseButtons
-	// 0 = mouse move
-	// 1 = left click
-	// 2 = right click
-	// 3 = middle click
-	// 4 = scroll   (isDown: 120 (SCROLL UP) and -120 (SCROLL DOWN))
+	//MouseButtons
+	//0 = mouse move
+	//1 = left click
+	//2 = right click
+	//3 = middle click
+	//4 = scroll   (isDown: 120 (SCROLL UP) and -120 (SCROLL DOWN))
 
 	ClickGui::onMouseClickUpdate((int)mouseButton, isDown);
 	HImGui.onMouseClickUpdate((int)mouseButton, isDown);
@@ -1884,8 +1888,8 @@ void Hooks::JumpPower(C_Entity* a1, float a2) {
 		return;
 	}
 	if (freeMod->isEnabled() && g_Data.getLocalPlayer() == a1) {
-		// a1->velocity.y = 0;
-		// return;
+		//a1->velocity.y = 0;
+		//return;
 	}
 	oFunc(a1, a2);
 }
@@ -1950,7 +1954,7 @@ __int64 Hooks::ConnectionRequest_create(__int64 _this, __int64 privateKeyManager
 	if (g_Data.allowWIPFeatures()) {
 		logF("Connection Request: InputMode: %i UiProfile: %i GuiScale: %i", inputMode, uiProfile, guiScale);
 
-		// Logger::WriteBigLogFileF(skinGeometryData->getTextLength() + 20, "Geometry: %s", skinGeometryData->getText());
+		//Logger::WriteBigLogFileF(skinGeometryData->getTextLength() + 20, "Geometry: %s", skinGeometryData->getText());
 		auto hResourceGeometry = FindResourceA((HMODULE)g_Data.getDllModule(), MAKEINTRESOURCEA(IDR_TEXT1), "TEXT");
 		auto hMemoryGeometry = LoadResource((HMODULE)g_Data.getDllModule(), hResourceGeometry);
 
@@ -1963,7 +1967,7 @@ __int64 Hooks::ConnectionRequest_create(__int64 _this, __int64 privateKeyManager
 		auto sizeSteve = SizeofResource((HMODULE)g_Data.getDllModule(), hResourceSteve);
 		auto ptrSteve = LockResource(hMemorySteve);
 
-		// std::unique_ptr<TextHolder> newGeometryData(new TextHolder(ptrGeometry, sizeGeometry));
+		//std::unique_ptr<TextHolder> newGeometryData(new TextHolder(ptrGeometry, sizeGeometry));
 		TextHolder* newGeometryData = nullptr;
 
 		if (std::get<0>(geoOverride)) {  // Is overriding geometry
@@ -1997,7 +2001,7 @@ __int64 Hooks::ConnectionRequest_create(__int64 _this, __int64 privateKeyManager
 			newSkinData->skinSize = std::get<1>(*texture.get());
 		}
 
-		// Logger::WriteBigLogFileF(newGeometryData->getTextLength() + 20, "Geometry: %s", newGeometryData->getText());
+		//Logger::WriteBigLogFileF(newGeometryData->getTextLength() + 20, "Geometry: %s", newGeometryData->getText());
 		TextHolder* newSkinResourcePatch = new TextHolder(Utils::base64_decode("ewogICAiZ2VvbWV0cnkiIDogewogICAgICAiYW5pbWF0ZWRfZmFjZSIgOiAiZ2VvbWV0cnkuYW5pbWF0ZWRfZmFjZV9wZXJzb25hXzRjZGJiZmFjYTI0YTk2OGVfMF8wIiwKICAgICAgImRlZmF1bHQiIDogImdlb21ldHJ5LnBlcnNvbmFfNGNkYmJmYWNhMjRhOTY4ZV8wXzAiCiAgIH0KfQo="));
 
 		TextHolder* fakeName = g_Data.getFakeName();
@@ -2067,8 +2071,8 @@ bool Hooks::ReturnTrue(__int64 _this) {
 __int64 Hooks::SkinRepository___loadSkinPack(__int64 _this, __int64 pack, __int64 a3) {
 	static auto func = g_Hooks.SkinRepository___loadSkinPackHook->GetFastcall<__int64, __int64, __int64, __int64>();
 
-	// auto res = (*(unsigned __int8 (**)(void))(**(__int64**)(pack + 8) + 48i64))();
-	// logF("SkinRepository___loadSkinPack: origin %i, is Trusted: %i", *(int*)((*(__int64*)pack) + 888i64), res);
+	//auto res = (*(unsigned __int8 (**)(void))(**(__int64**)(pack + 8) + 48i64))();
+	//logF("SkinRepository___loadSkinPack: origin %i, is Trusted: %i", *(int*)((*(__int64*)pack) + 888i64), res);
 	*(int*)((*(__int64*)pack) + 910i64) = 2;  // Set pack origin to "2"
 
 	return func(_this, pack, a3);
@@ -2288,7 +2292,7 @@ bool Hooks::Mob__isImmobile(C_Entity* ent) {
 	if (ent == g_Data.getLocalPlayer()) {
 		g_Hooks.shouldLocalPlayerBeImmobile = func(ent);
 		if (antiImmobileMod->isEnabled())
-			return false;
+		return false;
 	}
 
 	return func(ent);

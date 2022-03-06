@@ -30,9 +30,9 @@
 
 namespace SlimUtils {
 
-// Exclude module-names from SlimModule-structs
+//Exclude module-names from SlimModule-structs
 #define VERYSLIM_SLIMMODULE
-// Enable error-reports
+//Enable error-reports
 #define REPORT_ERRORS
 
 struct SlimModule;
@@ -148,10 +148,10 @@ public:
 	T Read(std::uintptr_t ptrAddress) const;
 
 	//		template <typename T>
-	// bool Read(std::uintptr_t ptrAddress, T& value) const;
+	//bool Read(std::uintptr_t ptrAddress, T& value) const;
 
-	// unsigned char* ReadRaw(std::uintptr_t ptrAddress, int size) const;
-	// wchar_t * ReadRawWide(std::uintptr_t ptrAddress, int size) const;
+	//unsigned char* ReadRaw(std::uintptr_t ptrAddress, int size) const;
+	//wchar_t * ReadRawWide(std::uintptr_t ptrAddress, int size) const;
 
 	template <typename T>
 	T ReadPtr(std::uintptr_t ptrAddress, std::initializer_list<std::uintptr_t> ilOffsets) const;
@@ -159,8 +159,8 @@ public:
 	template <typename T>
 	bool Write(std::uintptr_t ptrAddress, T value) const;
 
-	// inline bool WriteRaw(std::uintptr_t ptrAddress, uint8_t value[], size_t length) const;
-	// inline bool WriteRawChar(std::uintptr_t ptrAddress, char value[], size_t length) const;
+	//inline bool WriteRaw(std::uintptr_t ptrAddress, uint8_t value[], size_t length) const;
+	//inline bool WriteRawChar(std::uintptr_t ptrAddress, char value[], size_t length) const;
 
 	static bool GetPID(const wchar_t* lpwstrProcessName, unsigned long* pid);
 	void* m_hProc;
@@ -177,15 +177,15 @@ private:
 	*/
 template <typename T>
 inline T SlimMem::Read(std::uintptr_t ptrAddress) const {
-	// static_assert(std::is_trivially_copyable<T>::value, "Invalid RPM/WPM type");
+	//static_assert(std::is_trivially_copyable<T>::value, "Invalid RPM/WPM type");
 
-	// T val = T();
-	// if (!this->HasProcessHandle())
-	// return val;
+	//T val = T();
+	//if (!this->HasProcessHandle())
+	//return val;
 
 	return *reinterpret_cast<T*>(ptrAddress);
-	// ReadProcessMemory(this->m_hProc, (LPCVOID)ptrAddress, &val, sizeof(T), NULL);
-	// return val;
+	//ReadProcessMemory(this->m_hProc, (LPCVOID)ptrAddress, &val, sizeof(T), NULL);
+	//return val;
 }
 
 /*
@@ -244,12 +244,12 @@ inline T SlimMem::ReadPtr(std::uintptr_t ptrAddress, std::initializer_list<std::
 		return 0x0;
 	for (auto it = ilOffsets.begin(); it != ilOffsets.end(); it++) {
 		if ((std::uintptr_t*)(it + 1) == ilOffsets.end()) {
-			// Read value
-			// std::cout << "yee: " << std::hex << ptrAddress << ":" << std::hex << *it << std::endl;
+			//Read value
+			//std::cout << "yee: " << std::hex << ptrAddress << ":" << std::hex << *it << std::endl;
 			return this->Read<T>(ptrAddress + *it);
 		} else {
-			// Read offset
-			// std::cout << "yee: " << std::hex << ptrAddress << ":" << std::hex << *it << std::endl;
+			//Read offset
+			//std::cout << "yee: " << std::hex << ptrAddress << ":" << std::hex << *it << std::endl;
 			ptrAddress = this->Read<std::uintptr_t>(ptrAddress + *it);
 		}
 	}
@@ -262,13 +262,13 @@ inline T SlimMem::ReadPtr(std::uintptr_t ptrAddress, std::initializer_list<std::
 	*/
 template <typename T>
 inline bool SlimMem::Write(std::uintptr_t ptrAddress, T value) const {
-	// static_assert(std::is_trivially_copyable<T>::value, "Invalid RPM/WPM type");
+	//static_assert(std::is_trivially_copyable<T>::value, "Invalid RPM/WPM type");
 
-	// if (!this->HasProcessHandle())
-	// return false;
+	//if (!this->HasProcessHandle())
+	//return false;
 	*reinterpret_cast<T*>(ptrAddress) = value;
 	return true;
-	// return WriteProcessMemory(this->m_hProc, (LPVOID)ptrAddress, &value, sizeof(T), NULL);
+	//return WriteProcessMemory(this->m_hProc, (LPVOID)ptrAddress, &value, sizeof(T), NULL);
 }
 
 /*inline bool SlimMem::WriteRaw(std::uintptr_t ptrAddress, uint8_t value[], size_t size) const

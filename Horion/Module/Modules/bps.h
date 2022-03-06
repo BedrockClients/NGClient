@@ -7,8 +7,8 @@ public:
 	~bps();
 
 	float scale = 1.f;
-	float bpsX = 110.f;
-	float bpsY = 305.f;
+	float bpsX = 210.f;
+	float bpsY = 65.f;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

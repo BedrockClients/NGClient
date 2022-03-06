@@ -51,8 +51,7 @@ struct InfoBoxData {
 	std::string title;
 	std::string message;
 
-	InfoBoxData(std::string title, std::string message)
-		: title(title), message(message){};
+	InfoBoxData(std::string title, std::string message) : title(title), message(message){};
 
 	void fade() {
 		fadeVal = fadeTarget - ((fadeTarget - fadeVal) * 0.65f);
@@ -80,11 +79,11 @@ private:
 	std::mutex textPrintLock;
 	std::mutex chestListMutex;
 	std::queue<HorionDataPacket> horionToInjectorQueue;
-	std::map<int, std::function<void(std::shared_ptr<HorionDataPacket>)> > injectorToHorionResponseCallbacks;
+	std::map<int, std::function<void(std::shared_ptr<HorionDataPacket>)>> injectorToHorionResponseCallbacks;
 	int lastRequestId = 0;
 	std::shared_ptr<std::string> customGeometry;
 	bool customGeoActive = false;
-	std::shared_ptr<std::tuple<std::shared_ptr<unsigned char[]>, size_t> > customTexture;
+	std::shared_ptr<std::tuple<std::shared_ptr<unsigned char[]>, size_t>> customTexture;
 	bool customTextureActive = false;
 
 private:
@@ -100,7 +99,7 @@ private:
 
 public:
 	C_HIDController* hidController = nullptr;
-	std::queue<std::shared_ptr<InfoBoxData> > infoBoxQueue;
+	std::queue<std::shared_ptr<InfoBoxData>> infoBoxQueue;
 	NetworkedData networkedData;
 
 	static bool canUseMoveKeys();
@@ -155,10 +154,10 @@ public:
 		else
 			this->customGeometry.reset();
 	}
-	inline std::tuple<bool, std::shared_ptr<std::string> > getCustomGeoOverride() {
+	inline std::tuple<bool, std::shared_ptr<std::string>> getCustomGeoOverride() {
 		return std::make_tuple(this->customGeoActive, this->customGeometry);
 	}
-	inline void setCustomTextureOverride(bool setActive, std::shared_ptr<std::tuple<std::shared_ptr<unsigned char[]>, size_t> > customTexturePtr) {
+	inline void setCustomTextureOverride(bool setActive, std::shared_ptr<std::tuple<std::shared_ptr<unsigned char[]>, size_t>> customTexturePtr) {
 		this->customTextureActive = setActive;
 		if (setActive)
 			this->customTexture.swap(customTexturePtr);
@@ -209,7 +208,7 @@ public:
 			localPlayer = nullptr;
 		else
 			localPlayer = *reinterpret_cast<C_LocalPlayer**>(reinterpret_cast<__int64>(clientInstance) + converted);
-
+		
 		#else*/
 		localPlayer = clientInstance->getLocalPlayer();
 

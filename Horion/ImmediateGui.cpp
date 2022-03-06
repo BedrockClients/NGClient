@@ -2,12 +2,10 @@
 
 ImmediateGui HImGui;
 
-ComponentInfo::ComponentInfo(int id)
-	: id(id) {
+ComponentInfo::ComponentInfo(int id) : id(id) {
 }
 
-ButtonInfo::ButtonInfo(int id, vec2_t pos, bool centered)
-	: ComponentInfo(id), pos(pos), centered(centered) {
+ButtonInfo::ButtonInfo(int id, vec2_t pos, bool centered) : ComponentInfo(id), pos(pos), centered(centered) {
 }
 
 void ButtonInfo::calculateSize(const char* txt) {
@@ -43,17 +41,17 @@ void ButtonInfo::draw(vec2_t mousePos, const char* label) {
 		textPos.x -= DrawUtils::getTextWidth(&str) / 2;
 		textPos.y -= DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2;
 	}
-
+		
 	DrawUtils::drawText(textPos, &str, MC_Color());
 	if (isInSelectableSurface(mousePos)) {  // Mouse hovering over us
-		DrawUtils::fillRectangle(surface, MC_Color(0, 0, 0), 1);
-		DrawUtils::drawRectangle(surface, MC_Color(0, 0, 255), 1);
+		DrawUtils::fillRectangle(surface, MC_Color(0,0,0), 1);
+		DrawUtils::drawRectangle(surface, MC_Color(0,0,255), 1);
 		this->canClickB = true;
 	} else {
 		DrawUtils::fillRectangle(surface, MC_Color(10, 10, 10), 0.7);
 		DrawUtils::drawRectangle(surface, MC_Color(0, 0, 255), 0.7);
 		this->canClickB = false;
-	}
+	}		
 }
 
 void ImmediateGui::onMouseClickUpdate(int key, bool isDown) {
@@ -74,7 +72,7 @@ void ImmediateGui::startFrame() {
 	this->mousePos = this->mousePos.div(windowSizeReal);
 	this->mousePos = this->mousePos.mul(windowSize);
 
-	this->leftMb.update();
+this->leftMb.update();
 	this->rightMb.update();
 
 	if (g_Data.getClientInstance()->getMouseGrabbed()) {

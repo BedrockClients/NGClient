@@ -9,7 +9,7 @@
 
 class FriendList {
 private:
-	// GameData* gameData;
+	//GameData* gameData;
 	std::vector<std::string> List;
 
 public:
