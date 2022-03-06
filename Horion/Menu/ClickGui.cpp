@@ -36,18 +36,13 @@ static constexpr float textHeight = textSize * 8.0f;
 static constexpr float categoryMargin = 0.5f;
 static constexpr float paddingRight = 13.f;
 static constexpr float crossSize = textHeight / 2.f;
-static constexpr float crossWidth = 0.5f;
-static constexpr float backgroundAlpha = 1.f;
-static constexpr float OutlineWidth = 1.f;
+static constexpr float crossWidth = 0.3f;
 static const MC_Color selectedModuleColor = MC_Color(184, 0, 255);
 static const MC_Color selectedSettingColor1 = MC_Color(184, 0, 255);
 static const MC_Color selectedSettingColor2 = MC_Color(184, 0, 255);
 static const MC_Color moduleColor = MC_Color(0, 0, 0);
 static const MC_Color SettingColor1 = MC_Color(0, 0, 0);   //not enabled enums
 static const MC_Color SettingColor2 = MC_Color(0, 0, 0);  //enabled enums and enums when hovering over with mouse
-static const MC_Color CategoryColor = MC_Color(8, 8, 8);
-static MC_Color OutlineColor;
-//static const MC_Color OutlineColor = MC_Color(255, 255, 255);
 
 float currentYOffset = 0;
 float currentXOffset = 0;
@@ -130,12 +125,7 @@ void ClickGui::renderTooltip(std::string* text) {
 	}
 }
 
-vec4_t rectPos4EndLine;
-
 void ClickGui::renderCategory(Category category) {
-	static auto Surge = moduleMgr->getModule<HudModule>();
-	static auto clickgui = moduleMgr->getModule<ClickGuiMod>();
-
 	static float currColor[4];        // ArrayList colors
 
 	// rainbow colors
@@ -148,14 +138,6 @@ void ClickGui::renderCategory(Category category) {
 		}
 		Utils::ApplyRainbow(currColor, 0.00025f);
 	}
-
-	if (Surge->surge)
-	OutlineColor = MC_Color(0, 0, 255);
-	else if (clickgui->RGB)
-	OutlineColor = MC_Color(currColor);
-	else
-	OutlineColor = MC_Color(184, 0, 255);
-
 	const char* categoryName = ClickGui::catToName(category);
 
 	const std::shared_ptr<ClickWindow> ourWindow = getWindow(categoryName);
@@ -220,7 +202,6 @@ void ClickGui::renderCategory(Category category) {
 	}
 
 	const float xEnd = currentXOffset + windowSize->x + paddingRight;
-	const float yEnd = currentYOffset + windowSize->y + paddingRight;
 
 	vec2_t mousePos = *g_Data.getClientInstance()->getMousePos();
 
@@ -287,13 +268,6 @@ void ClickGui::renderCategory(Category category) {
 				currentYOffset,
 				xEnd,
 				currentYOffset + textHeight + (textPadding * 2));
-			vec4_t rectPos2 = vec4_t(
-				currentXOffset,
-				currentYOffset,
-				xEnd,
-				yEnd);
-
-			rectPos4EndLine = rectPos2;
 
 			bool allowRender = currentYOffset >= categoryHeaderYOffset;
 			static auto Surge = moduleMgr->getModule<HudModule>();
@@ -302,7 +276,6 @@ void ClickGui::renderCategory(Category category) {
 				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 				if (!ourWindow->isInAnimation && !isDragging && rectPos.contains(&mousePos)) {  // Is the Mouse hovering above us?
 					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
-					DrawUtils::drawBoxSides(rectPos, OutlineColor, backgroundAlpha, OutlineWidth / 2);
 					if (rgbHud->RGB) {
 						DrawUtils::fillRectangle(rectPos, currColor, ClickguiOpac->opacity);
 					} else {
@@ -321,7 +294,6 @@ void ClickGui::renderCategory(Category category) {
 					}
 				} else {
 					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-					DrawUtils::drawBoxSides(rectPos, OutlineColor, backgroundAlpha, OutlineWidth / 2);
 				}
 			}
 
@@ -817,14 +789,6 @@ void ClickGui::renderCategory(Category category) {
 			}
 		}
 	}
-
-	DrawUtils::flush();
-	// Draw Bottom Bar
-	{
-		rectPos4EndLine.y += textHeight + (textPadding * 2);
-		DrawUtils::drawBoxBottom(rectPos4EndLine, OutlineColor, backgroundAlpha, OutlineWidth / 2);
-	}
-
 	DrawUtils::flush();
 	// Draw Category Header
 	{
@@ -832,7 +796,7 @@ void ClickGui::renderCategory(Category category) {
 			currentXOffset + textPadding,
 			categoryHeaderYOffset + textPadding);
 		vec4_t rectPos = vec4_t(
-			currentXOffset,
+			currentXOffset - categoryMargin,
 			categoryHeaderYOffset - categoryMargin,
 			currentXOffset + windowSize->x + paddingRight + categoryMargin,
 			categoryHeaderYOffset + textHeight + (textPadding * 2));
@@ -902,13 +866,6 @@ void ClickGui::renderCategory(Category category) {
 			std::string textStr = categoryName;
 			static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 			static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-
-			DrawUtils::fillRectangle(rectPos, CategoryColor, 1.f);
-			if (ourWindow->isExtended)
-				DrawUtils::drawTop3(rectPos, OutlineColor, backgroundAlpha, OutlineWidth);
-			else
-				DrawUtils::drawRectangle(rectPos, OutlineColor, backgroundAlpha, OutlineWidth);
-
 			if (rgbHud->RGB) {
 				DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 			} else {
@@ -917,7 +874,6 @@ void ClickGui::renderCategory(Category category) {
 			DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
 			DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
-
 			// Draw Dash
 			GuiUtils::drawCrossLine(vec2_t(
 										currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,

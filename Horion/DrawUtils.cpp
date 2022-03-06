@@ -812,29 +812,6 @@ void DrawUtils::fillRectangle2(vec4_t pos, const _RGB col, float alpha) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
 }
-void DrawUtils::drawBoxTops(const vec4_t& pos, const MC_Color& col, float alpha, float thickness) {
-	DrawUtils::setColor(col.r, col.g, col.b, alpha);
-	DrawUtils::drawLine({pos.x, pos.w}, {pos.z, pos.w}, thickness);
-	DrawUtils::drawLine({pos.z, pos.y}, {pos.x, pos.y}, thickness);
-}
-
-void DrawUtils::drawBoxSides(const vec4_t& pos, const MC_Color& col, float alpha, float thickness) {
-	DrawUtils::setColor(col.r, col.g, col.b, alpha);
-	DrawUtils::drawLine({pos.z, pos.y}, {pos.z, pos.w}, thickness);
-	DrawUtils::drawLine({pos.x, pos.y}, {pos.x, pos.w}, thickness);
-}
-
-void DrawUtils::drawTop3(const vec4_t& pos, const MC_Color& col, float alpha, float lineWidth) {
-	lineWidth /= 2;
-	fillRectangle(vec4_t(pos.x - lineWidth, pos.y - lineWidth, pos.z + lineWidth, pos.y + lineWidth), col, alpha);  // TOP
-	fillRectangle(vec4_t(pos.x - lineWidth, pos.y, pos.x + lineWidth, pos.w), col, alpha);                          // LEFT
-	fillRectangle(vec4_t(pos.z - lineWidth, pos.y, pos.z + lineWidth, pos.w), col, alpha);                          //
-}
-
-void DrawUtils::drawBoxBottom(const vec4_t& pos, const MC_Color& col, float alpha, float thickness) {
-	DrawUtils::setColor(col.r, col.g, col.b, alpha);
-	DrawUtils::drawLine({pos.z, pos.y}, {pos.x, pos.y}, thickness);
-}
 void DrawUtils::DrawOutline(vec2_t position, vec2_t size, MC_Color colour, float width) {
 	if (renderCtx == nullptr) return;
 	renderCtx->drawRect(vec4_t(position.x, position.x + size.x, position.y, position.y + size.y), MC_Color(colour), colour.a, (int)width);
