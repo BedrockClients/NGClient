@@ -793,7 +793,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
 						DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 						if (rgbTexthud->rgb) {
-							DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(currColor), nameTextSize);
+							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(currColor), 1.5f, nameTextSize);
 						} else {
 							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), 1.5f, nameTextSize);
 						}
