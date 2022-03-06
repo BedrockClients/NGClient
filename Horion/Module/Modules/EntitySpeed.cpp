@@ -1,6 +1,7 @@
 #include "EntitySpeed.h"
 
-EntitySpeed::EntitySpeed() : IModule(0, Category::ENTITY, "Increases your speed within boats") {
+EntitySpeed::EntitySpeed()
+	: IModule(0, Category::ENTITY, "Increases your speed within boats") {
 	registerFloatSetting("Speed", &speed, speed, 1.f, 10.f);
 }
 

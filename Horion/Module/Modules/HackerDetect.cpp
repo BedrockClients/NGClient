@@ -1,7 +1,8 @@
 #include "HackerDetect.h"
 
 bool chat = false;
-HackerDetect::HackerDetect() : IModule(0, Category::SERVER, "Detects Hackers") {
+HackerDetect::HackerDetect()
+	: IModule(0, Category::SERVER, "Detects Hackers") {
 	registerBoolSetting("SendMessage", &chat, chat);
 }
 
@@ -57,11 +58,12 @@ void HackerDetect::onTick(C_GameMode* gm) {
 	targetHackerman.clear();
 	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->pointingStruct->getLevelTicks() > 50) {
 		g_Data.forEachEntity(findHackerman);
-		if (targetHackerman.size() < 1) return;
+		if (targetHackerman.size() < 1)
+			return;
 		auto target = targetHackerman[0];
 		auto speed = target->getRealSpeed();
 		auto name = target->getNameTag()->getText();
-		if ((target->getTicksPerSecond() > 0 && target->getTicksPerSecond() < 100  && target->isImmobile() && Utils::getShouldLocalPlayerBeImmobile())) {
+		if ((target->getTicksPerSecond() > 0 && target->getTicksPerSecond() < 100 && target->isImmobile() && Utils::getShouldLocalPlayerBeImmobile())) {
 			if (!chat)
 				g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s is hacking", name);
 			else {

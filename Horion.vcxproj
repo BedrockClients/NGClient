@@ -490,7 +490,6 @@
     <ClInclude Include="Horion\Module\Modules\ClickGuiMod.h" />
     <ClInclude Include="Horion\Module\Modules\Compass.h" />
     <ClInclude Include="Horion\Module\Modules\Crasher.h" />
-    <ClInclude Include="Horion\Module\Modules\Criticals.h" />
     <ClInclude Include="Horion\Module\Modules\CrystalAura.h" />
     <ClInclude Include="Horion\Module\Modules\CubeGlide.h" />
     <ClInclude Include="Horion\Module\Modules\Derp.h" />

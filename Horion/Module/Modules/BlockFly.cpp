@@ -29,7 +29,7 @@ const char* BlockFly::getModuleName() {
 void BlockFly::onEnable() {
 	if (dmg) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		//player->animateHurt();
+		// player->animateHurt();
 	}
 }
 
@@ -58,10 +58,10 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 		return;
 	}
 	auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
-	//if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == nullptr || !selectedItem->getItem()->isBlock())) {  // Block in hand?
-	//clientMessageF("U Have No Blocks In Ur Inventory :/");
-	//setEnabled(false);
-	//}
+	// if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == nullptr || !selectedItem->getItem()->isBlock())) {  // Block in hand?
+	// clientMessageF("U Have No Blocks In Ur Inventory :/");
+	// setEnabled(false);
+	// }
 	if (pressed) {
 		float calcYaw = (player->yaw + 90) * (PI / 180);
 		vec3_t moveVec;
@@ -87,14 +87,14 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 		}
 	}
 	if (pressed && counter == 4) {
-		//auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
-		//if (!selectedItem->isValid() || !(*selectedItem->item)->isBlock())  // Block in hand?
-		//return;
+		// auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
+		// if (!selectedItem->isValid() || !(*selectedItem->item)->isBlock())  // Block in hand?
+		// return;
 		player->velocity.x = 0.f;
 		player->velocity.y = 0.00f;
 		player->velocity.z = 0.f;
-		//C_LocalPlayer* player = g_Data.getLocalPlayer();
-		//player->jumpFromGround();
+		// C_LocalPlayer* player = g_Data.getLocalPlayer();
+		// player->jumpFromGround();
 	}
 	if (pressed && counter == 5) {
 		player->velocity.x = 0.f;
@@ -136,7 +136,7 @@ void BlockFly::onDisable() {
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	blinkMod->spoof = true;
 	if (safe) {
-		//hi :)
+		// hi :)
 	} else {
 		if (blinkMod->isEnabled()) {
 			blinkMod->setEnabled(false);

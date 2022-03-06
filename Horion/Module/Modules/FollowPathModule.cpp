@@ -15,7 +15,7 @@ void FollowPathModule::startSearch(vec3_ti startNode, C_BlockSource *region, flo
 	}
 	pathFinder = std::make_shared<JoePathFinder>(startNode, region, goal);
 	pathFinder->pathSearchTimeout = searchTimeout;
-	//std::thread([this, callback](){
+	// std::thread([this, callback](){
 	auto ref = pathFinder;  // so it won't get deleted when followpathmodule is disabled
 	auto tempPath = pathFinder->findPath();
 	pathFinder.reset();
@@ -60,7 +60,7 @@ void FollowPathModule::onTick(C_GameMode *mode) {
 		return;
 	shouldStartSearch = false;
 
-	C_LocalPlayer* player = g_Data.getLocalPlayer();
+	C_LocalPlayer *player = g_Data.getLocalPlayer();
 	auto pPos = player->eyePos0;
 	vec3_ti startNode((int)floorf(pPos.x), (int)roundf(pPos.y - 1.62f), (int)floorf(pPos.z));
 

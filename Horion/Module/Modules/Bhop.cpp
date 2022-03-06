@@ -4,7 +4,8 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 	cachedInput = *input;
 	yes = input;
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
-	if (player == nullptr) return;
+	if (player == nullptr)
+		return;
 
 	if (player->isInLava() == 1 || player->isInWater() == 1)
 		return;
@@ -34,13 +35,15 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 			mpp.yaw += 0.5f;
 			mpp.headYaw += 0.5f;
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
-			if (player->onGround) speedIndexThingyForHive = 0;
+			if (player->onGround)
+				speedIndexThingyForHive = 0;
 			float currentSpeed = epicHiveSpeedArrayThingy[speedIndexThingyForHive] * 0.9;
 			moveVec.x = moveVec2d.x * currentSpeed;
 			moveVec.y = player->velocity.y;
 			moveVec.z = moveVec2d.y * currentSpeed;
 			player->lerpMotion(moveVec);
-			if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
+			if (speedIndexThingyForHive < 30)
+				speedIndexThingyForHive++;
 		}
 	} else {
 		if (player->onGround && pressed && !Flight->isEnabled())

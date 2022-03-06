@@ -6,7 +6,8 @@
 
 std::vector<C_Entity*> targetList;
 
-BowAimbot::BowAimbot() : IModule(0, Category::COMBAT, "Aimbot, but for bows") {
+BowAimbot::BowAimbot()
+	: IModule(0, Category::COMBAT, "Aimbot, but for bows") {
 	registerBoolSetting("silent", &silent, silent);
 	registerBoolSetting("predict", &predict, predict);
 	registerBoolSetting("visualize", &visualize, visualize);
@@ -58,7 +59,7 @@ void BowAimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (localPlayer->getSelectedItemId() != 300)  // Bow in hand?
 		return;
 
-	if (!(GameData::isRightClickDown() && GameData::canUseMoveKeys())) // is aiming?
+	if (!(GameData::isRightClickDown() && GameData::canUseMoveKeys()))  // is aiming?
 		return;
 
 	g_Data.forEachEntity(findTargets);
@@ -74,7 +75,7 @@ void BowAimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			velocity.z *= origin.dist(pos) / 2.f;
 			pos = pos.add(velocity);
 		}
-		if(visualize)
+		if (visualize)
 			DrawUtils::drawBox(pos.sub(0.5), pos.add(0.5), 0.3f, true);
 		pos = pos.sub(origin);
 		float yaw = (atan2f(pos.z, pos.x) * DEG_RAD) - 90;

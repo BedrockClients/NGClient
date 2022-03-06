@@ -2,23 +2,23 @@
 
 #include "../../Menu/ClickGui.h"
 
-//Backgrund color
+// Backgrund color
 float ClickGuiMod::rcolor{0.f};
 float ClickGuiMod::gcolor{0.f};
 float ClickGuiMod::bcolor{0.f};
 
-//Module On color
+// Module On color
 float ClickGuiMod::trcolor{0.f};
 float ClickGuiMod::tgcolor{1.f};
 float ClickGuiMod::tbcolor{1.f};
 
-//Module Off color 
+// Module Off color
 float ClickGuiMod::tfrcolor{1.f};
 float ClickGuiMod::tfgcolor{1.f};
 float ClickGuiMod::tfbcolor{1.f};
 
-
-ClickGuiMod::ClickGuiMod() : IModule(VK_TAB, Category::GUI, "The clickgui") {
+ClickGuiMod::ClickGuiMod()
+	: IModule(VK_TAB, Category::GUI, "The clickgui") {
 	registerBoolSetting("Show Tooltips", &showTooltips, showTooltips);
 	registerBoolSetting("RGB", &RGB, RGB);
 

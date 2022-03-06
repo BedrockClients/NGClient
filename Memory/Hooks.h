@@ -65,6 +65,7 @@ struct CoolSkinData {
 class Hooks {
 private:
 	bool shouldRender = true;
+
 public:
 	char currentScreenName[100];
 	std::vector<std::shared_ptr<FuncHook>> lambdaHooks;

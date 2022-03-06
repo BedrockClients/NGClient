@@ -1,13 +1,15 @@
 #include "Disabler.h"
-#include <queue>
-#include <chrono>
 
-Disabler::Disabler() : IModule('0', Category::SERVER, "Disabler for servers") {
+#include <chrono>
+#include <queue>
+
+Disabler::Disabler()
+	: IModule('0', Category::SERVER, "Disabler for servers") {
 	registerBoolSetting("Hive", &hive, hive);
 }
 
-std::queue<std::pair<NetworkLatencyPacket, unsigned __int64>> latencyPacketQueue;
-std::queue<std::pair<NetworkLatencyPacket, unsigned __int64>> emptyPacketQueue;
+std::queue<std::pair<NetworkLatencyPacket, unsigned __int64> > latencyPacketQueue;
+std::queue<std::pair<NetworkLatencyPacket, unsigned __int64> > emptyPacketQueue;
 
 bool sendingEpicThingy = false;
 
@@ -41,9 +43,9 @@ void Disabler::onSendPacket(C_Packet* packet) {
 			if (sendingEpicThingy == false) {
 				NetworkLatencyPacket* currentPacket = (NetworkLatencyPacket*)packet;
 				unsigned __int64 now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-				latencyPacketQueue.push({ *currentPacket, now });
+				latencyPacketQueue.push({*currentPacket, now});
 				currentPacket->timeStamp = 69420;
 			}
 		}
-    }
+	}
 }

@@ -2,7 +2,8 @@
 
 #include "../../../SDK/Tag.h"
 
-AnchorAura::AnchorAura() : IModule(VK_NUMPAD0, Category::COMBAT, "Absolutly destoys kids") {
+AnchorAura::AnchorAura()
+	: IModule(VK_NUMPAD0, Category::COMBAT, "Absolutly destoys kids") {
 	registerIntSetting("Range", &range, range, 1, 7);
 	registerIntSetting("Anchor range", &cRange, cRange, 1, 7);
 	registerIntSetting("Place range", &eRange, eRange, 1, 7);
@@ -13,7 +14,7 @@ AnchorAura::AnchorAura() : IModule(VK_NUMPAD0, Category::COMBAT, "Absolutly dest
 	registerBoolSetting("Suicide", &dump, dump);
 	registerBoolSetting("Enhance place", &pEnhanced, pEnhanced);
 	registerBoolSetting("preview", &Preview, Preview);
-delay = 0;
+	delay = 0;
 }
 AnchorAura::~AnchorAura() {
 }
@@ -42,15 +43,24 @@ void AnchorAura::onEnable() {
 }
 
 bool CfindEntityy(C_Entity* curEnt, bool isRegularEntity) {
-	if (curEnt == nullptr) return false;
-	if (curEnt == g_Data.getLocalPlayer()) return false;  // Skip Local player
-	if (!curEnt->isAlive()) return false;
-	if (!g_Data.getLocalPlayer()->isAlive()) return false;
-	if (curEnt->getEntityTypeId() == 71) return false;  // endcrystal
-	if (curEnt->getEntityTypeId() == 66) return false;  // falling block
-	if (curEnt->getEntityTypeId() == 64) return false;  // item
-	if (curEnt->getEntityTypeId() == 69) return false;  // xp orb
-	if (!Target::isValidTarget(curEnt)) return false;
+	if (curEnt == nullptr)
+		return false;
+	if (curEnt == g_Data.getLocalPlayer())
+		return false;  // Skip Local player
+	if (!curEnt->isAlive())
+		return false;
+	if (!g_Data.getLocalPlayer()->isAlive())
+		return false;
+	if (curEnt->getEntityTypeId() == 71)
+		return false;  // endcrystal
+	if (curEnt->getEntityTypeId() == 66)
+		return false;  // falling block
+	if (curEnt->getEntityTypeId() == 64)
+		return false;  // item
+	if (curEnt->getEntityTypeId() == 69)
+		return false;  // xp orb
+	if (!Target::isValidTarget(curEnt))
+		return false;
 
 	float dist = (*curEnt->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 	if (dist <= moduleMgr->getModule<AnchorAura>()->pRange) {
@@ -91,7 +101,7 @@ void AnchorAura::CPlace(C_GameMode* gm, vec3_t* pos) {
 				C_Block* upperBlock = gm->player->region->getBlock(upperBlockPos);
 				if (block != nullptr) {
 					auto blockId = block->toLegacy()->blockId;
-					if (CanPlaceCC(&blockPos)) {  //Check for awailable block
+					if (CanPlaceCC(&blockPos)) {  // Check for awailable block
 						if (!ValidPos) {
 							ValidPos = true;
 							bestPos = blockPos;
@@ -172,7 +182,7 @@ void AnchorAura::onLevelRender() {
 		}
 	}
 	if (delay == 2) {
-		if (autoplace && g_Data.getLocalPlayer()->getSelectedItemId() == -272) {  //endcrystal
+		if (autoplace && g_Data.getLocalPlayer()->getSelectedItemId() == -272) {  // endcrystal
 			if (pEnhanced)
 				for (auto& i : targetList)
 					CPlace(g_Data.getCGameMode(), i->getPos());
@@ -203,17 +213,13 @@ void AnchorAura::onLevelRender() {
 }
 
 void AnchorAura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
-	if (!Preview || (!pEnhanced && autoplace) ||
-		g_Data.getClientInstance() == nullptr ||
-		g_Data.getPtrLocalPlayer() == nullptr ||
-		g_Data.getLocalPlayer() == nullptr)
+	if (!Preview || (!pEnhanced && autoplace) || g_Data.getClientInstance() == nullptr || g_Data.getPtrLocalPlayer() == nullptr || g_Data.getLocalPlayer() == nullptr)
 		return;
 
 	auto ptr = g_Data.getLocalPlayer()->pointingStruct;
 	if (ptr != nullptr)
 		if (ptr->getEntity() == nullptr && ptr->rayHitType == 0)
-			if (g_Data.getLocalPlayer()->region->getBlock(ptr->block)->blockLegacy->material->isSolid ||
-				g_Data.getLocalPlayer()->region->getBlock(ptr->block)->blockLegacy->material->isReplaceable) {
+			if (g_Data.getLocalPlayer()->region->getBlock(ptr->block)->blockLegacy->material->isSolid || g_Data.getLocalPlayer()->region->getBlock(ptr->block)->blockLegacy->material->isReplaceable) {
 				DrawUtils::setColor(.75f, 0.f, .75f, 1.f);
 				DrawUtils::drawBox(ptr->block.toVec3t().add(0.f, 1.f, 0.f),
 								   ptr->block.add(1).toVec3t().add(0.f, 1.f, 0.f), .3f);

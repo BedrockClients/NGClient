@@ -4,7 +4,8 @@
 #include "../../DrawUtils.h"
 #include "../../Scripting/ScriptManager.h"
 
-cps::cps() : IModule(0x0, Category::GUI, "Clicks Per Second") {
+cps::cps()
+	: IModule(0x0, Category::GUI, "Clicks Per Second") {
 	registerFloatSetting("cpsX", &cpsX, cpsX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
 	registerFloatSetting("cpsY", &cpsY, cpsY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);

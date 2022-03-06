@@ -112,7 +112,7 @@ void FightBot::onTick(C_GameMode* gm) {
 						float dist = (*i->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 						if (!(i->damageTime > 1 && hurttime) && dist < range) {
 							if (!noSwing)
-							g_Data.getLocalPlayer()->swing();
+								g_Data.getLocalPlayer()->swing();
 							g_Data.getCGameMode()->attack(i);
 						}
 					}
@@ -120,7 +120,7 @@ void FightBot::onTick(C_GameMode* gm) {
 					float dist = (*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 					if (!(targetList[0]->damageTime > 1 && hurttime) && dist < range) {
 						if (!noSwing)
-						g_Data.getLocalPlayer()->swing();
+							g_Data.getLocalPlayer()->swing();
 						g_Data.getCGameMode()->attack(targetList[0]);
 					}
 				}
@@ -182,7 +182,6 @@ void FightBot::onDisable() {
 	g_Data.getClientInstance()->getLocalPlayer()->setSprinting(false);
 	g_Data.getClientInstance()->getMoveTurnInput()->clearMovementState();
 }
-
 
 void FightBot::onSendPacket(C_Packet* packet) {
 	if (g_Data.isInGame()) {

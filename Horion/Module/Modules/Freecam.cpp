@@ -2,7 +2,8 @@
 
 #include <chrono>
 
-Freecam::Freecam() : IModule('V', Category::VISUAL, "Move your cam without moving the player") {
+Freecam::Freecam()
+	: IModule('V', Category::VISUAL, "Move your cam without moving the player") {
 	registerFloatSetting("Horizontal Speed", &speed, speed, 0.1f, 1.8f);
 	registerFloatSetting("Vertical Speed", &vspeed, vspeed, 0.1f, 1.8f);
 	registerBoolSetting("Freeze Rot", &freezerot, freezerot);
@@ -61,7 +62,7 @@ void Freecam::onPostRender(C_MinecraftUIRenderContext*) {
 		targetPos = targetPos.add(moveVec.mul(TimeMultiplier));
 	}
 }
-void Freecam::onLevelRender(){
+void Freecam::onLevelRender() {
 	if (!g_Data.isInGame())
 		setEnabled(false);
 	g_Data.getClientInstance()->getMoveTurnInput()->clearMovementState();

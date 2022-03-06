@@ -95,63 +95,63 @@ public:
 
 									//diamond
 									if (render0) {
-										DrawUtils::setColor(0.f, 1.f, 1.f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.f, 1.f, 1.f, 1);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//emerald
 									if (render1) {
-										DrawUtils::setColor(0.1f, 0.9f, 0.f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.1f, 0.9f, 0.f, 1);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//gold
 									if (render2) {
-										DrawUtils::setColor(0.9f, 1.f, 0.1f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.9f, 1.f, 0.1f, 1);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//redstone
 									if (render3) {
-										DrawUtils::setColor(1.f, 0.1f, 0, 1.f);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(1.f, 0.1f, 0, 1.f);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//lapis
 									if (render4) {
-										DrawUtils::setColor(0.1f, 0.2f, 0.7f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.1f, 0.2f, 0.7f, 1);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//iron
 									if (render5) {
-										DrawUtils::setColor(0.7f, 0.5f, 0.4f, 1.f);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.7f, 0.5f, 0.4f, 1.f);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//coal
 									if (render6) {
-										DrawUtils::setColor(0.f, 0.f, 0.f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.f, 0.f, 0.f, 1);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//debris
 									if (render7) {
-										DrawUtils::setColor(0.5f, 0.2f, 0.f, 1.f);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.5f, 0.2f, 0.f, 1.f);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//quartz
 									if (render8) {
-										DrawUtils::setColor(1.f, 1.f, 1.f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(1.f, 1.f, 1.f, 1);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//invisBlocks
 									if (render9) {
-										DrawUtils::setColor(0.3f, 0.1f, 0.6f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.3f, 0.1f, 0.6f, 1);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//portals
 									if (render10) {
-										DrawUtils::setColor(0.9f, 0.4f, 1.f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										// DrawUtils::setColor(0.9f, 0.4f, 1.f, 1);
+										// DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 									//copper
 									if (render11) {
-										DrawUtils::setColor(0.9f, 1.f, 0.1f, 1);
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
+										//DrawUtils::setColor(0.9f, 1.f, 0.1f, 1);
+										//DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)thick / (float)1.f, outline);
 									}
 								}
 							}

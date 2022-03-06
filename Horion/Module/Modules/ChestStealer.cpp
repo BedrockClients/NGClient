@@ -16,7 +16,7 @@ const char* ChestStealer::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (enhanced) {
 			return "ChestStealer [Enhanced]";
-		} 
+		}
 		if (dump) {
 			return "ChestStealer [dump]";
 		} else
@@ -48,7 +48,7 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 					}
 				}
 			} else
-			c->tryExit();
+				c->tryExit();
 		}
 	} else {
 		delay++;
@@ -67,10 +67,10 @@ void ChestStealer::chestScreenController_tick(C_ChestScreenController* c) {
 						c->handleAutoPlace(0x7FFFFFFF, "container_items", i);
 						delay = 0;
 					} else if (setDelay <= 0)
-					c->handleAutoPlace(0x7FFFFFFF, "container_items", i);
+						c->handleAutoPlace(0x7FFFFFFF, "container_items", i);
 				}
-			} else 
-			c->tryExit();
+			} else
+				c->tryExit();
 		}
 	}
 }

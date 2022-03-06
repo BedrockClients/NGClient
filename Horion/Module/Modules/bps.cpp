@@ -1,9 +1,11 @@
+#include "bps.h"
+
 #include "../../../Utils/Logger.h"
 #include "../../DrawUtils.h"
 #include "../../Scripting/ScriptManager.h"
-#include "bps.h"
 
-bps::bps() : IModule(0x0, Category::GUI, "Clicks Per Second") {
+bps::bps()
+	: IModule(0x0, Category::GUI, "Clicks Per Second") {
 	registerFloatSetting("bpsX", &bpsX, bpsX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
 	registerFloatSetting("bpsY", &bpsY, bpsY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);

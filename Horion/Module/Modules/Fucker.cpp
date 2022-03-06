@@ -1,7 +1,9 @@
 #include "Fucker.h"
+
 #include "../../../SDK/CAttribute.h"
 
-Fucker::Fucker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific things around you") {
+Fucker::Fucker()
+	: IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific things around you") {
 	registerBoolSetting("Rotations", &rots, rots);
 	registerBoolSetting("Hive Bypass", &bypass, bypass);
 	registerBoolSetting("NoSwing", &noSwing, noSwing);
@@ -36,14 +38,22 @@ void Fucker::onTick(C_GameMode* gm) {
 
 					static AbsorptionAttribute attribute = AbsorptionAttribute();
 
-					if (name == "bed" && beds) destroy = true;                                      // Beds
-					if (name == "dragon_egg" && eggs) destroy = true;                                    // Dragon Eggs
-					if (name == "cake" && cakes) eat = true;                                         // Cakes
-					if (name == "chest" && chests) destroy = true;                                        // Chests
-					if (name == "lit_redstone_ore" && redstone && gm->player->getAttribute(&attribute)->currentValue < 10) destroy = true;  // Lit Redstone
-					if (name == "redstone_ore" && redstone && gm->player->getAttribute(&attribute)->currentValue < 10) destroy = true;      // Redstone
-					if (name == "diamond_ore" && diamond) destroy = true;                                       // Diamond
-					if (name == "emerald_ore" && emerald) destroy = true;                                        // Emerald
+					if (name == "bed" && beds)
+						destroy = true;  // Beds
+					if (name == "dragon_egg" && eggs)
+						destroy = true;  // Dragon Eggs
+					if (name == "cake" && cakes)
+						eat = true;  // Cakes
+					if (name == "chest" && chests)
+						destroy = true;  // Chests
+					if (name == "lit_redstone_ore" && redstone && gm->player->getAttribute(&attribute)->currentValue < 10)
+						destroy = true;  // Lit Redstone
+					if (name == "redstone_ore" && redstone && gm->player->getAttribute(&attribute)->currentValue < 10)
+						destroy = true;  // Redstone
+					if (name == "diamond_ore" && diamond)
+						destroy = true;  // Diamond
+					if (name == "emerald_ore" && emerald)
+						destroy = true;  // Emerald
 
 					if (destroy) {
 						if (!bypass)
@@ -104,7 +114,7 @@ void Fucker::onLevelRender() {
 					g_Data.getCGameMode()->attack(ent);
 					auto breakMod = moduleMgr->getModule<Fucker>();
 					if (!breakMod->noSwing)
-					g_Data.getLocalPlayer()->swingArm();
+						g_Data.getLocalPlayer()->swingArm();
 				}
 			});
 		}

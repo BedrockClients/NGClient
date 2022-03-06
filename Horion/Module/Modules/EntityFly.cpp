@@ -1,5 +1,6 @@
-#include "../ModuleManager.h"
 #include "EntityFly.h"
+
+#include "../ModuleManager.h"
 
 EntityFly::EntityFly() : IModule(0, Category::ENTITY, "Fly, for entitys (Use arrow Keys for Virtical Movement!)") {
 	registerFloatSetting("Fly Speed", &speed, speed, 1.f, 10.f);
@@ -88,7 +89,7 @@ void EntityFly::onTick(C_GameMode* gm) {
 					targetList[0]->velocity.x = 0;
 					targetList[0]->velocity.z = 0;
 				}
-				//up and down
+				// up and down
 				if (g_Data.canUseMoveKeys() && !targetList.empty()) {
 					if (GameData::isKeyDown(VK_DOWN)) {
 						targetList[0]->velocity.y -= speed;

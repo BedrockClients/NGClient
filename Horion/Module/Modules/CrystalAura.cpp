@@ -28,8 +28,8 @@ void findEntity3(C_Entity* currentEntity, bool isRegularEntity) {
 	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
 		return;
 
-	//if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
-	//return;
+	// if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
+	// return;
 
 	if (!g_Data.getLocalPlayer()->isAlive())
 		return;
@@ -51,7 +51,7 @@ void findEntity3(C_Entity* currentEntity, bool isRegularEntity) {
 	if (!Target::isValidTarget(currentEntity))
 		return;
 
-	//how hard is it to play fair? add back the badman check if its hard
+	// how hard is it to play fair? add back the badman check if its hard
 
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 
@@ -124,7 +124,7 @@ std::vector<vec3_t*> getGucciPlacement2(C_Entity* ent) {
 		auto blkIDLLL = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(blocks->x, blocks->y - 3, blocks->z))->toLegacy()->blockId;
 		auto blkIDLLLL = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(blocks->x, blocks->y - 4, blocks->z))->toLegacy()->blockId;
 
-		if (!checkTargCollision(&blocks->toVec3t(), ent)) {  //very efficient coding here
+		if (!checkTargCollision(&blocks->toVec3t(), ent)) {  // very efficient coding here
 
 			if (blkID == 0 && blkIDL == 0 && (blkIDLL == 49 || blkIDLL == 7)) {
 				finalBlocks.push_back(new vec3_t(blocks->x, blocks->y - 1, blocks->z));
@@ -177,7 +177,7 @@ void CrystalAura::onTick(C_GameMode* gm) {
 				auto supplies = g_Data.getLocalPlayer()->getSupplies();
 				auto inv = supplies->inventory;
 
-				//615 = normal id for crystal || 637 = crystal id for nukkit servers
+				// 615 = normal id for crystal || 637 = crystal id for nukkit servers
 				if (!gucciPositions.empty())
 					if (g_Data.getLocalPlayer()->getSelectedItemId() == 637 || g_Data.getLocalPlayer()->getSelectedItemId() == 638) {
 						placeArr.clear();
