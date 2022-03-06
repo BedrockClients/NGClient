@@ -723,16 +723,22 @@ void ClickGui::renderCategory(Category category) {
 							} break;
 								case ValueType::SPACE_T: {
 								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-								rectPos.y = currentYOffset;
-								currentYOffset += textPadding + textHeight;
-								rectPos.w += textHeight + (textPadding * 2);
-								vec4_t rect = vec4_t(
-									currentYOffset + 0.f,
-									currentXOffset + 0.f,
-									currentYOffset + 10.f,
-									currentXOffset + 30.f
-								);
-								DrawUtils::fillRectangle(rect, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+								// Text and background
+								{
+									// Convert first letter to uppercase for more friendlieness
+									char name[0x22];
+									sprintf_s(name, "%s:", setting->name);
+									if (name[0] != 0)
+										name[0] = toupper(name[0]);
+
+									std::string elTexto = name;
+									windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 5 /* because we add 5 to text padding*/);
+									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
+									currentYOffset += textPadding + textHeight;
+									rectPos.w = currentYOffset;
+									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+								}
+
 								break;
 							}
 							default: {
