@@ -421,13 +421,11 @@ void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageD
 
 void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, bool useUnicodeFont) {
 	static auto nametags = moduleMgr->getModule<NameTags>();
-	static auto underlinemod = moduleMgr->getModule<NameTags>();
-	static auto Surge = moduleMgr->getModule<HudModule>();
-	auto Hud = moduleMgr->getModule<HudModule>();
+	static auto hudModule = moduleMgr->getModule<HudModule>();
 	vec2_t textPos;
 	vec4_t rectPos;
 	std::string text;
-	if (Hud->displaySecondHalf) {
+	if (hudModule->displaySecondHalf) {
 		text = Utils::sanitize(ent->getNameTag()->getText());
 		Utils::replaceString(text, '\n', ' ');
 	} else {
@@ -448,21 +446,18 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 		vec4_t subRectPos = rectPos;
 		subRectPos.y = subRectPos.w - 1.f * textSize;
 		fillRectangle(rectPos, MC_Color(0, 0, 0), nametags->opacity);
-		if (Surge->surge) {
-			if (ent->isAlive() && ent->isPlayer() && underlinemod->underline) {
+		if (hudModule->surge) {
+			if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
 				fillRectangle(subRectPos, MC_Color(0, 0, 255), nametags->opacity);
 			}
 			drawText(textPos, &text, MC_Color(0, 0, 255), textSize);
 		} else {
-			if (ent->isAlive() && ent->isPlayer() && underlinemod->underline) {
+			if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
 				fillRectangle(subRectPos, MC_Color(0, 246, 255), nametags->opacity);
 			}
 			drawText(textPos, &text, MC_Color(0, 246, 255), textSize);
 		}
-
-		static auto nameTagsMod = moduleMgr->getModule<NameTags>();
-
-		if (ent->isAlive() && ent->isPlayer() && nameTagsMod->displayArmor) {  // is player, show armor
+		if (ent->isAlive() && ent->isPlayer() && nametags->displayArmor) {  // is player, show armor
 			auto* player = reinterpret_cast<C_Player*>(ent);
 			float scale = textSize * 0.6f;
 			float spacing = scale + 15.f;
@@ -481,7 +476,7 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
 			if (item->isValid())
 				DrawUtils::drawItem(item, vec2_t(rectPos.z - 1.f - 15.f * scale, y), 1.f, scale, item->isEnchanted());
-			}
+		}
 	}
 }
 
@@ -583,7 +578,6 @@ static float currColor[4];
 
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 	static auto hudModule = moduleMgr->getModule<HudModule>();
-	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString = Utils::getKeybindName(key);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (key == *input->spaceBarKey) {
@@ -598,8 +592,6 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 			rectPos.y + 7.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
 		fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), hudModule->opacity);
-		static auto Hud = moduleMgr->getModule<HudModule>();
-		static auto keybindsRGB = moduleMgr->getModule<HudModule>();
 		// rainbow colors
 		{
 			if (currColor[3] < 1) {
@@ -610,12 +602,11 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 			}
 			Utils::ApplyRainbow(currColor, 0.00025f);
 		}
-		if (Hud->keybindsRGB) {
+		if (hudModule->keybindsRGB) {
 		drawRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color() : MC_Color(currColor), 1.f);
 		drawText(textPos, &keyString, MC_Color(currColor), 1.f, 1.f);
 		}
-		else
-		if (Surge->surge)
+		else if (hudModule->surge)
 		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 		else
 		drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -630,15 +621,11 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 			rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
 		fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), hudModule->opacity);
-		static auto Hud = moduleMgr->getModule<HudModule>();
-		static auto keybindsRGB = moduleMgr->getModule<HudModule>();
-
-		if (Hud->keybindsRGB) {
+		if (hudModule->keybindsRGB) {
 		drawRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color() : MC_Color(currColor), 1.f);
 		drawText(textPos, &keyString, MC_Color(currColor), 1.f, 1.f);
 		}
-		else
-		if (Surge->surge)
+		else if (hudModule->surge)
 		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 		else
 		drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -647,7 +634,6 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 
 void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 	static auto hudModule = moduleMgr->getModule<HudModule>();
-	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString;
 	keyString = "LMB";
 	vec4_t rectPos(
@@ -659,14 +645,11 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 	vec2_t textPos(
 	(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 	rectPos.y + 8.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
-	static auto Hud = moduleMgr->getModule<HudModule>();
-
-	if (Hud->keybindsRGB) {
+	if (hudModule->keybindsRGB) {
 	drawRectangle(rectPos, GameData::GameData::isLeftClickDown() ? MC_Color() : MC_Color(currColor), 1.f);
 	drawText(textPos, &keyString, MC_Color(currColor), 1.f, 1.f);
 	}
-	else
-	if (Surge->surge)
+	else if (hudModule->surge)
 	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 	else
 	drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -674,7 +657,6 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 
 void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 	static auto hudModule = moduleMgr->getModule<HudModule>();
-	static auto Surge = moduleMgr->getModule<HudModule>();
 	std::string keyString;
 	keyString = "RMB";
 	vec4_t rectPos(
@@ -686,15 +668,11 @@ void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 	vec2_t textPos(
 		(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 		rectPos.y + 8.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
-	static auto Hud = moduleMgr->getModule<HudModule>();
-
-
-	if (Hud->keybindsRGB) {
+	if (hudModule->keybindsRGB) {
 	drawRectangle(rectPos, GameData::GameData::isRightClickDown() ? MC_Color() : MC_Color(currColor), 1.f);
 	drawText(textPos, &keyString, MC_Color(currColor), 1.f, 1.f);
 	}
-	else
-	if(Surge->surge)
+	else if (hudModule->surge)
 	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 	else
 	drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -702,8 +680,6 @@ void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 
 void DrawUtils::CPS(vec2_t pos) {
 	static auto hudModule = moduleMgr->getModule<HudModule>();
-	static auto Surge = moduleMgr->getModule<HudModule>();
-	static auto keybindsRGB = moduleMgr->getModule<HudModule>();
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	{
 		std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
@@ -718,15 +694,12 @@ void DrawUtils::CPS(vec2_t pos) {
 			rectPos.y + 7.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
 		fillRectangle(rectPos, g_Data.getLeftCPS() or g_Data.getRightCPS() ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), hudModule->opacity);
-		static auto Hud = moduleMgr->getModule<HudModule>();
-		static auto keybindsRGB = moduleMgr->getModule<HudModule>();
-
-		if (Hud->keybindsRGB) {
+		if (hudModule->keybindsRGB) {
 			drawRectangle(rectPos, g_Data.getLeftCPS() or g_Data.getRightCPS() ? MC_Color() : MC_Color(currColor), 1.f);
 			drawText(textPos, &cpsText, MC_Color(currColor), 1.f, 1.f);
 		}
 		else 
-		if (Surge->surge)
+		if (hudModule->surge)
 		drawText(textPos, &cpsText, MC_Color(0, 0, 255), 1.f, 1.f);
 		else
 		drawText(textPos, &cpsText, MC_Color(0, 246, 255), 1.f, 1.f);
