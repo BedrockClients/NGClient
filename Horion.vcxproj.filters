@@ -35,7 +35,7 @@
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoTotem.cpp" />
     <ClCompile Include="Horion\Module\Modules\BowAimbot.cpp" />
-    <ClCompile Include="Horion\Module\Modules\selectionHighlight.cpp" />
+    <ClCompile Include="Horion\Module\Modules\SelectionHighlight.cpp" />
     <ClCompile Include="Horion\Module\Modules\StorageESP.cpp" />
     <ClCompile Include="Horion\Module\Modules\ClickGuiMod.cpp" />
     <ClCompile Include="Horion\Module\Modules\Compass.cpp" />
@@ -146,9 +146,9 @@
     <ClCompile Include="Horion\Module\Modules\Surround.cpp" />
     <ClCompile Include="Horion\Module\Modules\Miner.cpp" />
     <ClCompile Include="Horion\Module\Modules\RainbowSky.cpp" />
-    <ClCompile Include="Horion\Module\Modules\cps.cpp" />
-    <ClCompile Include="Horion\Module\Modules\fps.cpp" />
-    <ClCompile Include="Horion\Module\Modules\bps.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Cps.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Fps.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Bps.cpp" />
     <ClCompile Include="Horion\Module\Modules\ServerInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +211,7 @@
     <ClInclude Include="Horion\Module\Modules\Bhop.h" />
     <ClInclude Include="Horion\Module\Modules\Blink.h" />
     <ClInclude Include="Horion\Module\Modules\BowAimbot.h" />
-    <ClInclude Include="Horion\Module\Modules\selectionHighlight.h" />
+    <ClInclude Include="Horion\Module\Modules\SelectionHighlight.h" />
     <ClInclude Include="Horion\Module\Modules\StorageESP.h" />
     <ClInclude Include="Horion\Module\Modules\BlockEsp.h" />
     <ClInclude Include="Horion\Module\Modules\ClickGuiMod.h" />
@@ -413,9 +413,9 @@
     <ClInclude Include="SDK\CImageBuffer.h" />
     <ClInclude Include="Horion\Module\Modules\Surround.h" />
     <ClInclude Include="Horion\Module\Modules\Miner.h" />
-    <ClInclude Include="Horion\Module\Modules\cps.h" />
-    <ClInclude Include="Horion\Module\Modules\fps.h" />
-    <ClInclude Include="Horion\Module\Modules\bps.h" />
+    <ClInclude Include="Horion\Module\Modules\Cps.h" />
+    <ClInclude Include="Horion\Module\Modules\Fps.h" />
+    <ClInclude Include="Horion\Module\Modules\Bps.h" />
     <ClInclude Include="Horion\Module\Modules\ServerInfo.h" />
   </ItemGroup>
   <ItemGroup>

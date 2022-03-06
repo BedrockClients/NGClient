@@ -26,7 +26,7 @@ public:
 	ConfigManager();
 	~ConfigManager();
 
-	std::string currentConfig = "NG Client";
+	std::string currentConfig = "NGClient";
 
 	void loadConfig(std::string name, bool create);
 	void saveConfig();

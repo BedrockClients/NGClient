@@ -15,7 +15,7 @@ selectionHighlight::~selectionHighlight() {
 }
 
 const char* selectionHighlight::getModuleName() {
-	return ("Selection Highlight");
+	return ("SelectionHighlight");
 }
 
 void selectionHighlight::onPreRender(C_MinecraftUIRenderContext* renderCtx) {

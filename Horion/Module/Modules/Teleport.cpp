@@ -1,36 +1,27 @@
 #include "Teleport.h"
-#include "../ModuleManager.h"
 
 Teleport::Teleport() : IModule(0, Category::PLAYER, "Click a block to teleport to it") {
-	registerBoolSetting("Only Hand", &onlyHand, onlyHand);
-	registerBoolSetting("Push", &bypass, bypass);
+	registerBoolSetting("Only Hand", &this->onlyHand, this->onlyHand);
+	registerBoolSetting("Push", &this->bypass, this->bypass);
 }
 
 Teleport::~Teleport() {
 }
 
 const char* Teleport::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (onlyHand) 
-			return "Teleport [Hand]";
-		else
-			return "Teleport";
-	} else
-		return "Teleport";
+	return "Teleport";
 }
 
 void Teleport::onTick(C_GameMode* gm) {
+	if (!GameData::canUseMoveKeys())
+		return;
+	if (onlyHand && g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot)->item != nullptr)
+		return;
 
-	if (!GameData::canUseMoveKeys()) 
-		return;
-	if (onlyHand && g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot)->item != nullptr) 
-		return;
-	
 	if (GameData::isRightClickDown() && !hasClicked) {
 		hasClicked = true;
 
-		vec3_ti block = g_Data.getLocalPlayer()->pointingStruct->block;
+		vec3_ti block = g_Data.getLocalPlayer()->getPointingStruct()->block;
 		if (block == vec3_ti(0, 0, 0)) return;
 		vec3_t pos = block.toFloatVector();
 		pos.x += 0.5f;
@@ -41,28 +32,17 @@ void Teleport::onTick(C_GameMode* gm) {
 
 		g_Data.getGuiData()->displayClientMessageF("%sTeleport position set to %sX: %.1f Y: %.1f Z: %.1f%s. Sneak to teleport!", GREEN, GRAY, pos.x, pos.y, pos.z, GREEN);
 	}
-	if (!GameData::isRightClickDown()) 
+	if (!GameData::isRightClickDown())
 		hasClicked = false;
-	C_MovePlayerPacket pee(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
-	C_MovePlayerPacket p2(g_Data.getLocalPlayer(), tpPos);
+
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (shouldTP && GameData::isKeyDown(*input->sneakKey)) {
 		tpPos.y += (gm->player->getPos()->y - gm->player->getAABB()->lower.y) + 1;  // eye height + 1
 		if (bypass) {
-			/*int dist = (int)gm->player->getPos()->dist(tpPos);
-			int i = (int)dist / 5;
-			for (int n = 0; n < i; n++) {
-				vec3_t offs = tpPos.sub(*gm->player->getPos()).div(i).mul(n);
-				C_MovePlayerPacket p = C_MovePlayerPacket(g_Data.getLocalPlayer(), gm->player->getPos()->add(offs));
-				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
-			}
-			gm->player->setPos(tpPos);*/
 			float dist = gm->player->getPos()->dist(tpPos);
-			g_Data.getLocalPlayer()->tryTeleportTo(tpPos, true, true, 1, 1);  //lerpTo is gone , vec2_t(1, 1), (int)fmax((int)dist * 0.1, 1));
+			g_Data.getLocalPlayer()->lerpTo(tpPos, vec2_t(1, 1), (int)fmax((int)dist * 0.1, 1));
 		} else
-			for (int i = 0; i < 5; i++)
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p2);
-			gm->player->tryTeleportTo(tpPos, true, true, 1, 1);
+			gm->player->setPos(tpPos);
 		shouldTP = false;
 	}
 }

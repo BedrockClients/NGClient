@@ -180,6 +180,7 @@ void ModuleManager::onLoadConfig(void* confVoid) {
 	getModule<HudModule>()->setEnabled(true);
 	getModule<ClickGuiMod>()->setEnabled(false);
 	getModule<AntiBot>()->setEnabled(true);
+	getModule<GUI>()->setEnabled(true);
 }
 
 void ModuleManager::onSaveConfig(void* confVoid) {

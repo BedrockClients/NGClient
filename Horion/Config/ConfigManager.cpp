@@ -45,7 +45,7 @@ void ConfigManager::loadConfig(std::string name, bool create) {
 	
 	size_t allocSize = name.size() + roamingFolder.size() + 20;  // std::wstring::size() can be wierd so lets make sure this actually fits
 	char* fullPath = new char[allocSize];
-	sprintf_s(fullPath, allocSize, "%S\\%s.h", roamingFolder.c_str(), name.c_str());
+	sprintf_s(fullPath, allocSize, "%S\\%s.txt", roamingFolder.c_str(), name.c_str());
 
 	const bool configExists = std::filesystem::exists(fullPath);
 	if (configExists || create) {
@@ -82,12 +82,12 @@ void ConfigManager::loadConfig(std::string name, bool create) {
 				g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sSuccessfully %s config %s%s%s!", GOLD, WHITE, BLUE, !configExists ? "created" : "loaded", GRAY, name.c_str(), BLUE);
 			else
 				g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sSuccessfully %s config %s%s%s!", GOLD, WHITE, LIGHT_PURPLE, !configExists ? "created" : "loaded", GRAY, name.c_str(), LIGHT_PURPLE);
-			if (!helpedUser && name != "NG Client") {
+			if (!helpedUser && name != "NGClient") {
 				helpedUser = true;
 				if (Surge->surge)
-				g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sEnter \"%s%cconfig load NG Client%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
+				g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sEnter \"%s%cconfig load NGClient%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
 				else
-				g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sEnter \"%s%cconfig load NG Client%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
+				g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sEnter \"%s%cconfig load NGClient%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
 			}
 		}
 	} else {
@@ -105,7 +105,7 @@ void ConfigManager::saveConfig() {
 	logF("Saving config %s", currentConfig.c_str());
 	size_t allocSize = currentConfig.size() + roamingFolder.size() + 20;  // std::wstring::size() can be wierd so lets make sure this actually fits
 	char* fullPath = new char[allocSize];
-	sprintf_s(fullPath, allocSize, "%S\\%s.h", roamingFolder.c_str(), currentConfig.c_str());
+	sprintf_s(fullPath, allocSize, "%S\\%s.txt", roamingFolder.c_str(), currentConfig.c_str());
 
 	moduleMgr->onSaveConfig(&currentConfigObj);
 
