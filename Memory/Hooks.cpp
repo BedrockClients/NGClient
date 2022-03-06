@@ -2256,7 +2256,6 @@ void Hooks::setPos(C_Entity* ent, vec3_t& poo) {
 
 void Hooks::LocalPlayer__updateFromCamera(__int64 a1, C_Camera* camera) {
 	auto func = g_Hooks.LocalPlayer__updateFromCameraHook->GetFastcall<__int64, __int64, C_Camera*>();
-	auto noHurtcamMod = moduleMgr->getModule<NoHurtcam>();
 	auto freecamMod = moduleMgr->getModule<Freecam>();
 
 	/* if (freecamMod->isEnabled() && g_Data.getLocalPlayer()->isAlive()) {

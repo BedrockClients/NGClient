@@ -616,6 +616,15 @@ public:
 		static lerpTo lerp = reinterpret_cast<lerpTo>(Utils::FindSignature("48 89 5C 24 ? 57 48 83 EC ? 48 8B D9 49 8B F8 48 8B 89 ? ? ? ? 48 85 C9 74 ? 48 8B 01 48 8B 5C 24"));
 		lerp(this, pos, joe, wow);
 	}
+
+	void cancelHurtAnimation() {
+		//*(int *)((uintptr_t)(this) + 0x738) = 10; To make your animatehurt
+		//*(int *)((uintptr_t)(this) + 0x73C) = 10;
+		//*(int *)((uintptr_t)(this) + 0x740) = 0;
+		*(int *)((uintptr_t)(this) + 0x738) = 0;//To prevent you from hurt animation + red hand
+		*(int *)((uintptr_t)(this) + 0x73C) = 10;
+		*(int *)((uintptr_t)(this) + 0x740) = 0;
+	}
 };
 #pragma pack(pop)
 
