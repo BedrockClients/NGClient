@@ -610,6 +610,12 @@ public:
 	class PointingStruct *getPointingStruct() {
 		return *reinterpret_cast<class PointingStruct **>(reinterpret_cast<__int64>(this) + 0x368);
 	}
+
+	void lerpTo(vec3_t const &pos, vec2_t const &joe, int wow) {
+		using lerpTo = void(__fastcall *)(C_Entity *, vec3_t const &, vec2_t const &, int);
+		static lerpTo lerp = reinterpret_cast<lerpTo>(Utils::FindSignature("48 89 5C 24 ? 57 48 83 EC ? 48 8B D9 49 8B F8 48 8B 89 ? ? ? ? 48 85 C9 74 ? 48 8B 01 48 8B 5C 24"));
+		lerp(this, pos, joe, wow);
+	}
 };
 #pragma pack(pop)
 
