@@ -546,65 +546,55 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				outline.y += 15.f;
 				string = "Version: 1.18.12";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+
+				//Changelogs Header
 				text.y += 15.f;
 				outline.y += 15.f;
 				string = "Changelogs:";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				text.y += 10.f;
-				outline.y += 10.f;
+
+				//Draw ChangeLogs
+				for (int i = 0; i < 10; i++) {
+					text.y += 10.f;
+					outline.y += 10.f;
+				}
 				string = "[+] More Arraylist";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				text.y += 10.f;
-				outline.y += 10.f;
 				string = "[+] Custom Keystrokes";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "[+] Custom Radar";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "[-] .say";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "[+] Miner";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "[+] CPS";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "[+] BPS";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "[+] FPS";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "[+] ServerInfo";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "[+] CustomSky";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+
+				//Credits Header
 				text.y += 15.f;
 				outline.y += 15.f;
 				string = "Credits:";
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+
+				//The Credits
+				for (int i = 0; i < 3; i++) {
+					text.y += 10.f;
+					outline.y += 10.f;
+				}
 				string = "DeadtrosGaming";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "2474";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 				string = "Sentinel";
-				text.y += 10.f;
-				outline.y += 10.f;
 				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			} else {
 				string = "NG Client";
@@ -781,7 +771,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					}
 				} else {
 					if (shouldRenderWatermark) {
-						if (!(strcmp(screenName.c_str(), "start_screen") == 0)) {
+						if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
 							constexpr float nameTextSize = 0.8f;
 							constexpr float versionTextSize = 0.6f;
 							static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
@@ -808,20 +798,24 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								// x y z w
 								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 10);
 								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 2.5);
-								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+								if (g_Data.getLocalPlayer() != nullptr) {
+									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-								DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-								DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+								}
 							} else {
 								//x y z w
 								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 10);
 								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 2.5);
-								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-								DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+								if (g_Data.getLocalPlayer() != nullptr) {
+									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-								DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-								DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+								}
 							}
 						}
 					}

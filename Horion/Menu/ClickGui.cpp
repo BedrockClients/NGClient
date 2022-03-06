@@ -727,16 +727,21 @@ void ClickGui::renderCategory(Category category) {
 								{
 									// Convert first letter to uppercase for more friendlieness
 									char name[0x22];
-									sprintf_s(name, "%s:", setting->name);
+									sprintf_s(name, "%s", setting->name);
 									if (name[0] != 0)
 										name[0] = toupper(name[0]);
 
 									std::string elTexto = name;
 									windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 5 /* because we add 5 to text padding*/);
-									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
 									currentYOffset += textPadding + textHeight;
 									rectPos.w = currentYOffset;
 									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+									rectPos.z -= 1.f;
+									rectPos.x = textPos.x;
+									DrawUtils::drawTopAndBottomRectangle(rectPos, MC_Color(255, 255, 255), 1.f);
+									textPos.y -= 0.95f;
+									//to center the text, do textPos.x = the middle of textPos.x 
+									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
 								}
 
 								break;
