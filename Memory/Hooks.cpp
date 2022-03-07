@@ -688,13 +688,12 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 							constexpr float borderPadding = 0;
 							constexpr float margin = 0;
-
-							static std::string name = "Surge | Public Build";
 #ifdef _DEBUG
 							static std::string name = "Surge | Dev Build";
 #else
-							static std::string version = "";
+							static std::string name = "Surge | Public Build";
 #endif
+							static std::string version = "";
 
 							float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 							float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
