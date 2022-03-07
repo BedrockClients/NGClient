@@ -538,133 +538,75 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			// DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
 			// DrawUtils::fillRectangle(bar, currColor, 1.f);
 			std::string string;
-			if (hudModule->surge) {
+			if (hudModule->surge) 
 				string = "Surge Client";
-				// DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
-				DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
-				text.y += 15.f;
-				outline.y += 15.f;
-				string = "Version: 1.18.12";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-
-				// Changelogs Header
-				text.y += 15.f;
-				outline.y += 15.f;
-				string = "Changelogs:";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-
-				// Draw ChangeLogs
-				for (int i = 0; i < 10; i++) {
-					text.y += 10.f;
-					outline.y += 10.f;
-				}
-				string = "[+] More Arraylist";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] Custom Keystrokes";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] Custom Radar";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[-] .say";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] Miner";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] CPS";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] BPS";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] FPS";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] ServerInfo";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] CustomSky";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-
-				// Credits Header
-				text.y += 15.f;
-				outline.y += 15.f;
-				string = "Credits:";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-
-				// The Credits
-				for (int i = 0; i < 3; i++) {
-					text.y += 10.f;
-					outline.y += 10.f;
-				}
-				string = "DeadtrosGaming";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "2474";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "Sentinel";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			} else {
+			else
 				string = "NG Client";
-				// DrawUtils::drawText(outline, &string, currColor, 2.f, 1.f);
-				DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
-				text.y += 15.f;
-				outline.y += 15.f;
-				string = "Version: 1.18.12";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				text.y += 15.f;
-				outline.y += 15.f;
-				string = "Changelogs:";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				text.y += 10.f;
-				outline.y += 10.f;
-				string = "[+] More Arraylist";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				text.y += 10.f;
-				outline.y += 10.f;
-				string = "[+] Custom Keystrokes";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] Custom Radar";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[-] .say";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] Miner";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] CPS";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] BPS";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] FPS";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] ServerInfo";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "[+] CustomSky";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				text.y += 15.f;
-				outline.y += 15.f;
-				string = "Credits:";
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "DeadtrosGaming";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "2474";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-				string = "Sentinel";
-				text.y += 10.f;
-				outline.y += 10.f;
-				DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			}
+			DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
+			text.y += 15.f;
+			outline.y += 15.f;
+			string = "Version: 1.18.12";
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			text.y += 15.f;
+			outline.y += 15.f;
+			string = "Changelogs:";
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			text.y += 10.f;
+			outline.y += 10.f;
+			string = "[+] More Arraylist";
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			text.y += 10.f;
+			outline.y += 10.f;
+			string = "[+] Custom Keystrokes";
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] Custom Radar";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[-] .say";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] Miner";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] CPS";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] BPS";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] FPS";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] ServerInfo";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] CustomSky";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			text.y += 15.f;
+			outline.y += 15.f;
+			string = "Credits:";
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "DeadtrosGaming";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "2474";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "Sentinel";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 		}
 
 		// Draw Buttons
