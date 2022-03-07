@@ -142,10 +142,10 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
 			if (surge) {
 				DrawUtils::setColor(0, 0, 255, 1);
-				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 93));
-				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 71));
-				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 71));
-				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 94));
+				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 72));
+				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 72));
+				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 72));
 				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
 				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
 				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
@@ -153,19 +153,19 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 			if (rgb) {
 				DrawUtils::setColor(*currColor, *currColor, *currColor, *currColor);
-				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 93));
-				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 71));
-				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 71));
-				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 94));
+				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 72));
+				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 72));
+				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 72));
 				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
 				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
 				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
 				DrawUtils::CPS(vec2_t(4.f, windowSize.y - 15));
 			} else {
-				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 93));
-				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 71));
-				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 71));
-				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 71));
+				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 94));
+				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 72));
+				DrawUtils::drawKeystroke(*input->backKey, vec2_t(26.f, windowSize.y - 72));
+				DrawUtils::drawKeystroke(*input->rightKey, vec2_t(48.f, windowSize.y - 72));
 				DrawUtils::drawKeystroke(*input->spaceBarKey, vec2_t(4.f, windowSize.y - 50));
 				DrawUtils::drawLeftMouseKeystroke(vec2_t(4.f, windowSize.y - 37));
 				DrawUtils::drawRightMouseKeystroke(vec2_t(37.f, windowSize.y - 37));
