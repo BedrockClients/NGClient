@@ -104,6 +104,7 @@
 #include "Modules/PacketLogger.h"
 #include "Modules/Phase.h"
 #include "Modules/PotionAura.h"
+#include "Modules/Rainbow.h"
 #include "Modules/Radar.h"
 #include "Modules/RainbowSky.h"
 #include "Modules/Reach.h"

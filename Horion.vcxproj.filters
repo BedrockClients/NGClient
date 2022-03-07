@@ -424,6 +424,7 @@
     <ClInclude Include="Horion\Module\Modules\EntityLongJump.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
+    <ClInclude Include="Horion\Module\Modules\Rainbow.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

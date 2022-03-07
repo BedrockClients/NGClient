@@ -4,7 +4,7 @@
 #include "../../../Utils/Target.h"
 
 class Aimbot : public IModule {
-private:
+public:
 	float range = 4.f;
 	bool vertical = true;
 	bool sword = false;
@@ -15,7 +15,6 @@ private:
 	float horizontalrange = 60.f;
 	bool lock = false;
 
-public:
 	std::vector<C_Entity*> targetList;
 
 	Aimbot() : IModule(0, Category::COMBAT, "Automatically aims at the nearest entity") {
