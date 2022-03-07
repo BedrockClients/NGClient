@@ -46,12 +46,12 @@ void ButtonInfo::draw(vec2_t mousePos, const char* label) {
 
 	DrawUtils::drawText(textPos, &str, MC_Color());
 	if (isInSelectableSurface(mousePos)) {  // Mouse hovering over us
-		DrawUtils::fillRectangle(surface, MC_Color(0, 0, 0), 1);
-		DrawUtils::drawRectangle(surface, MC_Color(0, 0, 255), 1);
+		DrawUtils::fillRectangle(surface, MC_Color(15, 15, 15), 0.8);
+		DrawUtils::drawRectangle(surface, MC_Color(0, 0, 255), 0.8);
 		this->canClickB = true;
 	} else {
-		DrawUtils::fillRectangle(surface, MC_Color(10, 10, 10), 0.7);
-		DrawUtils::drawRectangle(surface, MC_Color(0, 0, 255), 0.7);
+		DrawUtils::fillRectangle(surface, MC_Color(0, 0, 0), 1);
+		DrawUtils::drawRectangle(surface, MC_Color(0, 0, 255), 1);
 		this->canClickB = false;
 	}
 }
@@ -80,8 +80,6 @@ void ImmediateGui::startFrame() {
 	if (g_Data.getClientInstance()->getMouseGrabbed()) {
 		this->leftMb.isClicked = false;
 		this->rightMb.isClicked = false;
-
-		this->mousePos = {-1000, 1000};
 	}
 }
 
