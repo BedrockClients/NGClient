@@ -591,6 +591,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			text.y += 10.f;
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[*] Many Fixes";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			text.y += 15.f;
 			outline.y += 15.f;
 			string = "Credits:";
