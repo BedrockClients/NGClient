@@ -6,9 +6,7 @@ float GUI::rcolor{0.f};
 float GUI::gcolor{0.f};
 float GUI::bcolor{0.f};
 
-GUI::GUI()
-	: IModule(0, Category::GUI, "ArrayList") {
-	//
+GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
 	registerBoolSetting("Flux Bar", &Fluxbar, Fluxbar);
 	registerBoolSetting("under Bar", &underbar, underbar);
 	registerBoolSetting("Side Bar", &bar, bar);
@@ -16,7 +14,7 @@ GUI::GUI()
 	registerBoolSetting("Bottom Right", &bottom, bottom);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
-	registerSpace("");
+	registerSpace("Arraylist Types");
 	registerBoolSetting("Badman Arraylist", &badman, badman);
 	registerBoolSetting("Surge Arraylist", &Surge, Surge);
 	registerBoolSetting("Horion Arraylist", &Horion, Horion);

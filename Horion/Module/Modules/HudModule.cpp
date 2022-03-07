@@ -5,30 +5,20 @@
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	//Surge
 	registerBoolSetting("Surge", &surge, surge);
-
 	registerBoolSetting("Buttons", &Buttons, Buttons);
-
 	registerBoolSetting("cords", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
 	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);
-	//
 	registerBoolSetting("Keystrokes RGB", &keybindsRGB, keybindsRGB);
 	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);
-	//
 	registerBoolSetting("Show Second Names", &displaySecondHalf, displaySecondHalf);
 	registerBoolSetting("Always show", &alwaysShow, alwaysShow);
 	registerBoolSetting("Watermark", &watermark, watermark);
-	//
 	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
-	//
 	// registerBoolSetting("Notifications", &notifications, notifications);
-	// registerBoolSetting("Bools", &bools, bools);
-	//
-	// 
-	//
-
+	//registerBoolSetting("Bools", &bools, bools);
 }
 
 HudModule::~HudModule() {
