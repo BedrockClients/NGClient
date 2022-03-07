@@ -40,11 +40,14 @@ static constexpr float crossWidth = 0.3f;
 static constexpr float OutlineWidth = 1.f;
 static constexpr float backgroundAlpha = 1.f;
 
-static const MC_Color whiteColor = MC_Color(1.f, 1.f, 1.f, 1.f);
-static const MC_Color moduleon = MC_Color(0, 246, 255);
+static const MC_Color whiteColor = MC_Color(255, 255, 255);  // white Color
 
-static const MC_Color CategoryColor = MC_Color(8, 8, 8);
-static const MC_Color OutlineColor = MC_Color(255, 255, 255);
+static const MC_Color moduleon = MC_Color(0, 246, 255);  // module on Color
+
+static const MC_Color CategoryColor = MC_Color(0, 0, 0);  // Category Color
+
+static const MC_Color OutlineColor = MC_Color(255, 255, 255);  // OutlineColor
+
 float currentYOffset = 0;
 float currentXOffset = 0;
 
@@ -166,7 +169,7 @@ void ClickGui::renderCategory(Category category) {
 			ourWindow->pos.y = 145.f;
 			break;
 		}
-	}  
+	}
 
 	const float xOffset = ourWindow->pos.x;
 	const float yOffset = ourWindow->pos.y;
@@ -284,7 +287,7 @@ void ClickGui::renderCategory(Category category) {
 
 			// Text
 			if (allowRender)
-				DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? moduleon : MC_Color(200, 200, 200), textSize);
+				DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? moduleon : MC_Color(0, 246, 255), textSize);
 
 			// Settings
 			{
@@ -495,7 +498,7 @@ void ClickGui::renderCategory(Category category) {
 										const bool areWeFocused = rect.contains(&mousePos);
 
 										DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);  // Background
-										DrawUtils::drawRectangle(rect, whiteColor, 1.f, backgroundAlpha);  // Slider background
+										DrawUtils::drawRectangle(rect, whiteColor, 1.f, backgroundAlpha);                                                                   // Slider background
 
 										const float minValue = setting->minValue->_float;
 										const float maxValue = setting->maxValue->_float - minValue;
@@ -587,7 +590,7 @@ void ClickGui::renderCategory(Category category) {
 										const bool areWeFocused = rect.contains(&mousePos);
 
 										DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);  // Background
-										DrawUtils::drawRectangle(rect, whiteColor, 1.f, backgroundAlpha);  // Slider background
+										DrawUtils::drawRectangle(rect, whiteColor, 1.f, backgroundAlpha);                                                                   // Slider background
 
 										const float minValue = (float)setting->minValue->_int;
 										const float maxValue = (float)setting->maxValue->_int - minValue;
