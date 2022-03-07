@@ -66,6 +66,7 @@ struct MC_Color {
 		this->a = a / 255.0f;
 	};
 
+	
 	MC_Color(const float r, const float g, const float b, const float a, const bool shouldDelete) {
 		this->r = r;
 		this->g = g;
@@ -73,6 +74,8 @@ struct MC_Color {
 		this->a = a;
 		this->shouldDelete = shouldDelete;
 	};
+
+	MC_Color lerp(const MC_Color& o, float t) const;
 };
 
 enum VertexFormat {
@@ -102,6 +105,10 @@ public:
 	static void drawLinestrip3d(const std::vector<vec3_t>& points);
 	static void drawLine3d(const vec3_t& start, const vec3_t& end);
 	static void drawBox3d(vec3_t lower, vec3_t upper);
+	static void drawBoxSides(const vec4_t& pos, const MC_Color& col, float alpha, float thickness);
+	static void drawBoxTops(const vec4_t& pos, const MC_Color& col, float alpha, float thickness);
+	static void drawBoxBottom(const vec4_t& pos, const MC_Color& col, float alpha, float thickness);
+	static void drawTop3(const vec4_t& pos, const MC_Color& col, float alpha, float thickness);
 	static void fillRectangle(vec4_t pos, const MC_Color col, float alpha);
 	static void fillRectangle2(vec4_t pos, const _RGB col, float alpha);
 	static inline void fillRectangle(vec2_t start, vec2_t end) {

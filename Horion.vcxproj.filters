@@ -40,7 +40,6 @@
     <ClCompile Include="Horion\Module\Modules\ClickGuiMod.cpp" />
     <ClCompile Include="Horion\Module\Modules\Compass.cpp" />
     <ClCompile Include="Horion\Module\Modules\CrystalAura.cpp" />
-    <ClCompile Include="Horion\Module\Modules\CubeGlide.cpp" />
     <ClCompile Include="Horion\Module\Modules\ESP.cpp" />
     <ClCompile Include="Horion\Module\Modules\FollowPathModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Freecam.cpp" />
@@ -67,7 +66,6 @@
     <ClCompile Include="Horion\Module\Modules\HiveFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoal.cpp" />
@@ -125,7 +123,6 @@
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
     <ClCompile Include="Horion\Command\Commands\GMCommand.cpp" />
@@ -150,6 +147,14 @@
     <ClCompile Include="Horion\Module\Modules\Fps.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bps.cpp" />
     <ClCompile Include="Horion\Module\Modules\ServerInfo.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EntityBhop.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EntityDerp.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EntityJesus.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EntityJetpack.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EntityLongJump.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EntitySpider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -218,7 +223,6 @@
     <ClInclude Include="Horion\Module\Modules\Compass.h" />
     <ClInclude Include="Horion\Module\Modules\Crasher.h" />
     <ClInclude Include="Horion\Module\Modules\CrystalAura.h" />
-    <ClInclude Include="Horion\Module\Modules\CubeGlide.h" />
     <ClInclude Include="Horion\Module\Modules\Derp.h" />
     <ClInclude Include="Horion\Module\Modules\EditionFaker.h" />
     <ClInclude Include="Horion\Module\Modules\ESP.h" />
@@ -275,7 +279,6 @@
     <ClInclude Include="Horion\Module\Modules\TimeChanger.h" />
     <ClInclude Include="Horion\Module\Modules\Tracer.h" />
     <ClInclude Include="Horion\Module\Modules\TriggerBot.h" />
-    <ClInclude Include="Horion\Module\Modules\EntityFly.h" />
     <ClInclude Include="Horion\Module\Modules\TPAura.h" />
     <ClInclude Include="Horion\Module\Modules\ViewModel.h" />
     <ClInclude Include="Horion\Module\Modules\Velocity.h" />
@@ -373,8 +376,6 @@
     <ClInclude Include="Horion\Module\Modules\Snowball_Aimbot.h" />
     <ClInclude Include="Horion\Module\Modules\AntiAnvil.h" />
     <ClInclude Include="Horion\Module\Modules\Mineplex.h" />
-    <ClInclude Include="Horion\Module\Modules\CubeFly.h" />
-    <ClInclude Include="Horion\Module\Modules\CubeSpeed.h" />
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
@@ -403,7 +404,6 @@
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Command\Commands\EmoteCommand.h" />
-    <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\Snow.h" />
     <ClInclude Include="SDK\CAttribute.h" />
     <ClInclude Include="Horion\Module\Modules\HackerDetect.h" />
@@ -416,6 +416,14 @@
     <ClInclude Include="Horion\Module\Modules\Fps.h" />
     <ClInclude Include="Horion\Module\Modules\Bps.h" />
     <ClInclude Include="Horion\Module\Modules\ServerInfo.h" />
+    <ClInclude Include="Horion\Module\Modules\EntityBhop.h" />
+    <ClInclude Include="Horion\Module\Modules\EntityDerp.h" />
+    <ClInclude Include="Horion\Module\Modules\EntityFly.h" />
+    <ClInclude Include="Horion\Module\Modules\EntityJesus.h" />
+    <ClInclude Include="Horion\Module\Modules\EntityJetpack.h" />
+    <ClInclude Include="Horion\Module\Modules\EntityLongJump.h" />
+    <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
+    <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
