@@ -693,9 +693,9 @@ void DrawUtils::CPS(vec2_t pos) {
 			(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&cpsText) / 2.f),
 			rectPos.y + 7.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
-		fillRectangle(rectPos, g_Data.getLeftCPS() or g_Data.getRightCPS() ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), hudModule->opacity);
+		fillRectangle(rectPos, g_Data.getLeftCPS() or g_Data.getRightCPS() ? MC_Color(12, 12, 12) : MC_Color(12, 12, 12), hudModule->opacity);
 		if (hudModule->keybindsRGB) {
-			drawRectangle(rectPos, g_Data.getLeftCPS() or g_Data.getRightCPS() ? MC_Color() : MC_Color(currColor), 1.f);
+			drawRectangle(rectPos, g_Data.getLeftCPS() or g_Data.getRightCPS() ? MC_Color(currColor) : MC_Color(currColor), 1.f);
 			drawText(textPos, &cpsText, MC_Color(currColor), 1.f, 1.f);
 		}
 		else 
