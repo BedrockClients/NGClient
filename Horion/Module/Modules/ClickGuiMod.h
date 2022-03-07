@@ -21,6 +21,7 @@ public:
 
 	bool showTooltips = true;
 	bool RGB = false;
+	int font = 10;
 	float opacity = 0.20f;
 
 	// Inherited via IModule

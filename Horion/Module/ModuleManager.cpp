@@ -115,6 +115,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new PotionAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Radar()));
 		moduleList.push_back(std::shared_ptr<IModule>(new RainbowSky()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Rainbow()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Reach()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Scaffold()));
 		moduleList.push_back(std::shared_ptr<IModule>(new selectionHighlight()));

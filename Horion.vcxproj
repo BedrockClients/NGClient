@@ -477,6 +477,7 @@
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
     <ClInclude Include="Horion\Module\Modules\Miner.h" />
+    <ClInclude Include="Horion\Module\Modules\Rainbow.h" />
     <ClInclude Include="Horion\Module\Modules\ServerInfo.h" />
     <ClInclude Include="Horion\Module\Modules\Snow.h" />
     <ClInclude Include="Horion\Module\Modules\MegaDupe.h" />
