@@ -595,6 +595,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			outline.y += 15.f;
 			string = "Credits:";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "NRG (The #1 Dev)";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			string = "DeadtrosGaming";
 			text.y += 10.f;
 			outline.y += 10.f;
