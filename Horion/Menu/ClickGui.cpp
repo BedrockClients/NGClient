@@ -287,7 +287,7 @@ void ClickGui::renderCategory(Category category) {
 
 			// Text
 			if (allowRender)
-				DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? moduleon : MC_Color(0, 246, 255), textSize);
+				DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? moduleon : MC_Color(255, 255, 255), textSize);
 
 			// Settings
 			{
