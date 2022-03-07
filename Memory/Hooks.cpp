@@ -617,19 +617,19 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		if (!strcmp(screenName.c_str(), "start_screen") == 0) {
 			if (hudModule->Buttons) {
 				if (!g_Data.canUseMoveKeys() && !clickGuiModule->isEnabled()) {
-					if (HImGui.Button("Disable Spammer", vec2_t(wid.x / 17.86, wid.y / 45), true)) {
+					if (HImGui.Button("Disable Spammer", vec2_t(wid.x / 13, wid.y / 15), true)) {
 						static auto spammer = moduleMgr->getModule<Spammer>();
 						if (spammer->isEnabled()) spammer->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Crasher", vec2_t(wid.x / 20, wid.y / 15), true)) {
+					if (HImGui.Button("Disable Crasher", vec2_t(wid.x / 13, wid.y / 9), true)) {
 						static auto crasher = moduleMgr->getModule<Crasher>();
 						if (crasher->isEnabled()) crasher->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Nuker", vec2_t(wid.x / 22, wid.y / 9), true)) {
+					if (HImGui.Button("Disable Nuker", vec2_t(wid.x / 13, wid.y / 6.37), true)) {
 						static auto nuker = moduleMgr->getModule<Nuker>();
 						if (nuker->isEnabled()) nuker->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Aura", vec2_t(wid.x / 24, wid.y / 6.37), true)) {
+					if (HImGui.Button("Disable Aura", vec2_t(wid.x / 13, wid.y / 5.0), true)) {
 						static auto aura = moduleMgr->getModule<Killaura>();
 						if (aura->isEnabled()) aura->setEnabled(false);
 					}
@@ -681,38 +681,52 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 				// Draw NG logo
 				if (hudModule->surge) {
-					// Draw Horion logo
 					if (shouldRenderWatermark) {
-						constexpr float nameTextSize = 1.49f;
-						constexpr float versionTextSize = 0.6f;
-						static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-						constexpr float borderPadding = 1;
-						constexpr float margin = 5;
+						if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
+							constexpr float nameTextSize = 0.8f;
+							constexpr float versionTextSize = 0.6f;
+							static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+							constexpr float borderPadding = 0;
+							constexpr float margin = 0;
 
-						static std::string name = "Surge Client";
+							static std::string name = "Surge | Public Build";
 #ifdef _DEBUG
-						static std::string version = "";
-#elif defined _BETA
-						static std::string version = "";
+							static std::string name = "Surge | Dev Build";
 #else
-						static std::string version = "";
+							static std::string version = "";
 #endif
 
-						float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
-						float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-						vec4_t rect = vec4_t(
-							windowSize.x - margin - fullTextLength - borderPadding * 2,
-							windowSize.y - margin - textHeight,
-							windowSize.x - margin + borderPadding,
-							windowSize.y - margin);
-						DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
-						DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-						if (gui->rgb) {
-							DrawUtils::drawText(vec2_t(rect.x - 605, rect.y - 325), &name, MC_Color(currColor), nameTextSize);
-						} else {
-							DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), 1.5f, nameTextSize);
+							float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+							float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+							vec4_t rect = vec4_t(
+								windowSize.x - fullTextLength,
+								windowSize.y - textHeight,
+								windowSize.x - margin + borderPadding,
+								windowSize.y - margin);
+							if (gui->rgb) {
+								// x y z w
+								vec4_t Watermarbox = vec4_t(windowSize.x / 99.8, windowSize.y / windowSize.y, 69, 10);
+								vec4_t Watermarkbar = vec4_t(windowSize.x / 99.8, windowSize.y / windowSize.y, 69, 2.5);
+								if (g_Data.getLocalPlayer() != nullptr) {
+									DrawUtils::drawText(vec2_t(windowSize.x / 99, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+									DrawUtils::drawText(vec2_t(windowSize.x / 99, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+
+									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+								}
+							} else {
+								// x y z w
+								vec4_t Watermarbox = vec4_t(windowSize.x / 99.8, windowSize.y / windowSize.y, 69, 10);
+								vec4_t Watermarkbar = vec4_t(windowSize.x / 99.8, windowSize.y / windowSize.y, 69, 2.5);
+								if (g_Data.getLocalPlayer() != nullptr) {
+									DrawUtils::drawText(vec2_t(windowSize.x / 99, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+									DrawUtils::drawText(vec2_t(windowSize.x / 99, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+
+									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+								}
+							}
 						}
-						DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(0, 0, 0), versionTextSize);
 					}
 				} else {
 					if (shouldRenderWatermark) {
