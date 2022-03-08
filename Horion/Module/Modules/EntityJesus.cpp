@@ -139,7 +139,7 @@ void EntityJesus::onTick(C_GameMode* gm) {
 				vec3_t pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
-				pos.y += 0.01;
+				pos.y += 0.01f;
 				targetBo[0]->setPos(pos);
 				targetBo[0]->onGround = true;
 				targetBo[0]->velocity.y = 0.f;
@@ -294,7 +294,7 @@ void EntityJesus::onLevelRender() {
 				vec3_t pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
-				pos.y += 0.01;
+				pos.y += 0.01f;
 				targetBo[0]->setPos(pos);
 				targetBo[0]->onGround = true;
 				targetBo[0]->velocity.y = 0.f;

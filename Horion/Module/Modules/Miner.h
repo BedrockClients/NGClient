@@ -6,9 +6,9 @@ class Miner : public IModule {
 private:
 	bool radius = false;
 	bool ores = false;
-	int customR = 1.f;
-	int customG = 1.f;
-	int customB = 1.f;
+	int customR = 1;
+	int customG = 1;
+	int customB = 1;
 	int range = 3;
 	int up = 1;
 	int down = 1;

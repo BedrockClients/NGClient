@@ -89,10 +89,10 @@ bool checkSurrounded2(C_Entity* ent) {
 	blockChecks.clear();
 
 	if (blockChecks.empty()) {
-		blockChecks.push_back(new vec3_ti(entPos.x, entPos.y, entPos.z + 1));
-		blockChecks.push_back(new vec3_ti(entPos.x, entPos.y, entPos.z - 1));
-		blockChecks.push_back(new vec3_ti(entPos.x + 1, entPos.y, entPos.z));
-		blockChecks.push_back(new vec3_ti(entPos.x - 1, entPos.y, entPos.z));
+		blockChecks.push_back(new vec3_ti(entPos.x, entPos.y, entPos.z + 1.f));
+		blockChecks.push_back(new vec3_ti(entPos.x, entPos.y, entPos.z - 1.f));
+		blockChecks.push_back(new vec3_ti(entPos.x + 1.f, entPos.y, entPos.z));
+		blockChecks.push_back(new vec3_ti(entPos.x - 1.f, entPos.y, entPos.z));
 	}
 
 	for (auto blocks : blockChecks) {
@@ -111,10 +111,10 @@ std::vector<vec3_t*> getGucciPlacement2(C_Entity* ent) {
 	blockChecks.clear();
 	finalBlocks.clear();
 	if (blockChecks.empty()) {
-		blockChecks.push_back(new vec3_ti(entPos.x, entPos.y, entPos.z + 1));
-		blockChecks.push_back(new vec3_ti(entPos.x, entPos.y, entPos.z - 1));
-		blockChecks.push_back(new vec3_ti(entPos.x + 1, entPos.y, entPos.z));
-		blockChecks.push_back(new vec3_ti(entPos.x - 1, entPos.y, entPos.z));
+		blockChecks.push_back(new vec3_ti(entPos.x, entPos.y, entPos.z + 1.f));
+		blockChecks.push_back(new vec3_ti(entPos.x, entPos.y, entPos.z - 1.f));
+		blockChecks.push_back(new vec3_ti(entPos.x + 1.f, entPos.y, entPos.z));
+		blockChecks.push_back(new vec3_ti(entPos.x - 1.f, entPos.y, entPos.z));
 	}
 
 	for (auto blocks : blockChecks) {
@@ -184,7 +184,7 @@ void CrystalAura::onTick(C_GameMode* gm) {
 						for (auto place : gucciPositions) {
 							if (hasPlaced && !doMultiple) break;
 							if (targetList7.empty()) return;
-							g_Data.getCGameMode()->buildBlock(&vec3_ti(place->x, place->y - 1, place->z), 1);
+							g_Data.getCGameMode()->buildBlock(&vec3_ti(place->x, place->y - 1.f, place->z), 1.f);
 							placeArr.push_back(new vec3_t(place->x, place->y - 1, place->z));
 							hasPlaced = true;
 						}
