@@ -7,7 +7,7 @@ class Rainbow : public IModule {
 public:
 	float opacity = 0.2f;
 
- Rainbow() : IModule(0x0, Category::VISUAL, "For testing purposes") {
+ Rainbow() : IModule(0x0, Category::VISUAL, "Rainbow module from Ghost Client") {
 	registerFloatSetting("Opacity", &opacity, 0.2f, 0.f, 1);
     }
  ~Rainbow(){};
