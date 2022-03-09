@@ -62,12 +62,12 @@ void AntiVoid::onTick(C_GameMode* gm) {
 			player->setPos(orgipos);
 			static auto hopMod = moduleMgr->getModule<Bhop>();
 			static auto speedMod = moduleMgr->getModule<Speed>();
-			static auto Surge = moduleMgr->getModule<HudModule>();
+			static auto partner = moduleMgr->getModule<Partner>();
 			static auto Fight = moduleMgr->getModule<FightBot>();
 			hopMod->setEnabled(false);
 			Fight->setEnabled(false);
 			speedMod->setEnabled(false);
-			if (Surge->surge)
+			if (partner->surge)
 				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Fightbot, Bhop, and disabled move keys%s", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
 			else
 				g_Data.getGuiData()->displayClientMessageF("[%sAntiVoid%s] %sDisabled Speed, Fightbot, Bhop, and disabled move keys%s", LIGHT_PURPLE, WHITE, LIGHT_PURPLE, WHITE, configMgr, WHITE);

@@ -41,7 +41,7 @@ ConfigManager::~ConfigManager() {
 }
 
 void ConfigManager::loadConfig(std::string name, bool create) {
-	static auto Surge = moduleMgr->getModule<HudModule>();
+	static auto partner = moduleMgr->getModule<Partner>();
 
 	size_t allocSize = name.size() + roamingFolder.size() + 20;  // std::wstring::size() can be wierd so lets make sure this actually fits
 	char* fullPath = new char[allocSize];
@@ -78,13 +78,13 @@ void ConfigManager::loadConfig(std::string name, bool create) {
 
 		if (g_Data.getLocalPlayer() != nullptr) {
 			static bool helpedUser = false;
-			if (Surge->surge)
+			if (partner->surge)
 				g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sSuccessfully %s config %s%s%s!", GOLD, WHITE, BLUE, !configExists ? "created" : "loaded", GRAY, name.c_str(), BLUE);
 			else
 				g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sSuccessfully %s config %s%s%s!", GOLD, WHITE, LIGHT_PURPLE, !configExists ? "created" : "loaded", GRAY, name.c_str(), LIGHT_PURPLE);
 			if (!helpedUser && name != "NGClient") {
 				helpedUser = true;
-				if (Surge->surge)
+				if (partner->surge)
 					g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sEnter \"%s%cconfig load NGClient%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
 				else
 					g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sEnter \"%s%cconfig load NGClient%s\" to load your old config!", GOLD, WHITE, YELLOW, WHITE, cmdMgr->prefix, YELLOW);
@@ -92,7 +92,7 @@ void ConfigManager::loadConfig(std::string name, bool create) {
 		}
 	} else {
 		if (g_Data.getLocalPlayer() != nullptr)
-			if (Surge->surge)
+			if (partner->surge)
 				g_Data.getGuiData()->displayClientMessageF("[%sSurge%s] %sCould not load config %s%s%s!", GOLD, WHITE, RED, GRAY, name.c_str(), RED);
 			else
 				g_Data.getGuiData()->displayClientMessageF("[%sNG%s] %sCould not load config %s%s%s!", GOLD, WHITE, RED, GRAY, name.c_str(), RED);

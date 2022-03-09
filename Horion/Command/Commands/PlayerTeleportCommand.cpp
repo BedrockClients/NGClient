@@ -37,16 +37,16 @@ bool PlayerTeleportCommand::execute(std::vector<std::string>* args) {
 		playerName = currentEntity->getNameTag()->getText();
 		gotEntity = true;
 	});
-	static auto Surge = moduleMgr->getModule<HudModule>();
+	static auto partner = moduleMgr->getModule<Partner>();
 	if (!gotEntity) {
-		if (Surge->surge)
+		if (partner->surge)
 		clientMessageF("[%sSurge%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, nameOfPlayer.c_str());
 		else
 			clientMessageF("[%sNG%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, nameOfPlayer.c_str());
 		return true;
 	}
 	g_Data.getLocalPlayer()->setPos(pos);
-	if (Surge->surge)
+	if (partner->surge)
 	clientMessageF("[%sSurge%s] %sTeleported to %s", GOLD, WHITE, BLUE, playerName.c_str());
 	else
 		clientMessageF("[%sNG%s] %sTeleported to %s", GOLD, WHITE, LIGHT_PURPLE, playerName.c_str());

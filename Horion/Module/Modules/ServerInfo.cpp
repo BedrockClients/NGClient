@@ -49,10 +49,10 @@ void ServerInfo::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 			std::string ServerText = "IP: " + IP + " \nPort: " + Port;
 
-			static auto hud = moduleMgr->getModule<HudModule>();
-			if (hud->rgb) {
+				static auto partner = moduleMgr->getModule<Partner>();
+			if (partner->surge) {
 				DrawUtils::drawText(vec2_t{textPos}, &ServerText, MC_Color(currColor), scale);
-			} else if (hud->surge) {
+			} else if (partner->surge) {
 				DrawUtils::drawText(vec2_t{textPos}, &ServerText, MC_Color(0, 0, 255), scale);
 			} else {
 				DrawUtils::drawText(vec2_t{textPos}, &ServerText, MC_Color(184, 0, 255), scale);

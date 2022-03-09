@@ -16,7 +16,6 @@ public:
 	bool displaySecondHalf = true;
 	bool tabgui = false;
 	bool arraylist = true;
-	bool surge = false;
 	bool watermark = false;
 	bool keybinds = true;
 	bool keybindsRGB = true;

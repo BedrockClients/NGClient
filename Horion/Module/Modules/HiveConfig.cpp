@@ -59,6 +59,7 @@ void HiveConfig::onEnable() {
 	static auto SwingAnimation = moduleMgr->getModule<SwingAnimations>();
 	static auto ArrayList = moduleMgr->getModule<GUI>();
 	static auto Long = moduleMgr->getModule<LongJump>();
+	static auto partner = moduleMgr->getModule<Partner>();
 
 	//Toggle All Needed Mods
 	HudMod->setEnabled(true);
@@ -105,6 +106,9 @@ void HiveConfig::onEnable() {
 #else
 	KillMod->targ.selected = 0;
 #endif
+	// Breaker
+	partner->surge = true;
+	// Killaura
 	KillMod->info = true;
 	KillMod->hurttime = false;
 	KillMod->isMobAura = false;
@@ -227,7 +231,6 @@ void HiveConfig::onEnable() {
 	ArrayList->gcolor = 0.f;
 	ArrayList->bcolor = 0.f;
 	//HUDModule
-	HudMod->surge = true;
 	HudMod->Hud = true;
 	HudMod->rgb = false;
 	HudMod->Msg = false;
@@ -257,7 +260,7 @@ void HiveConfig::onEnable() {
 		auto mod = *it;
 		auto modOpt = mod;
 		if (Utils::getKeybindName(mod->getKeybind()) != "Unknown") {
-			if (HudMod->surge)
+			if (partner->surge)
 				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, BLUE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
 			else
 				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, LIGHT_PURPLE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
@@ -265,7 +268,7 @@ void HiveConfig::onEnable() {
 	}
 
 	//Success
-	if (HudMod->surge) {
+	if (partner->surge) {
 		g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Successfully Made Config!", WHITE, BLUE, WHITE, BLUE);
 	} else {
 		g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Successfully Made Config!", WHITE, LIGHT_PURPLE, WHITE, LIGHT_PURPLE);

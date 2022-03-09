@@ -9,7 +9,7 @@ FriendListCommand::~FriendListCommand() {
 }
 
 bool FriendListCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<HudModule>();
+	static auto partner = moduleMgr->getModule<Partner>();
 	assertTrue(args->size() >= 3);
 	std::string subcommand = args->at(1);
 	std::transform(subcommand.begin(), subcommand.end(), subcommand.begin(), ::tolower);
@@ -45,7 +45,7 @@ bool FriendListCommand::execute(std::vector<std::string>* args) {
 		break;
 	}
 	if (playerName.size() <= 1) {
-		if (Surge->surge)
+		if (partner->surge)
 		clientMessageF("[%sSurge%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, searchedName.c_str());
 		else
 		clientMessageF("[%sNG%s] %sCouldn't find player: %s!", GOLD, WHITE, RED, searchedName.c_str());
@@ -53,7 +53,7 @@ bool FriendListCommand::execute(std::vector<std::string>* args) {
 	}
 	if (subcommand == "add") {
 		FriendList::addPlayerToList(playerName);
-		if (Surge->surge)
+		if (partner->surge)
 		clientMessageF("[%sSurge%s] %s%s is now your friend!", GOLD, WHITE, BLUE, playerName.c_str());
 		else
 		clientMessageF("[%sNG%s] %s%s is now your friend!", GOLD, WHITE, LIGHT_PURPLE, playerName.c_str());
@@ -61,13 +61,13 @@ bool FriendListCommand::execute(std::vector<std::string>* args) {
 
 	} else if (subcommand == "remove") {
 		if (FriendList::removePlayer(searchedName)) {
-			if (Surge->surge)
+			if (partner->surge)
 			clientMessageF("[%sSurge%s] %s%s has been removed from your friendlist!", GOLD, WHITE, BLUE, searchedName.c_str());
 			else
 			clientMessageF("[%sNG%s] %s%s has been removed from your friendlist!", GOLD, WHITE, LIGHT_PURPLE, searchedName.c_str());
 			return true;
 		} else {
-			if (Surge->surge)
+			if (partner->surge)
 			clientMessageF("[%sSurge%s] %s%s was not in your friendlist!", GOLD, WHITE, BLUE, searchedName.c_str());
 			else
 			clientMessageF("[%sNG%s] %s%s was not in your friendlist!", GOLD, WHITE, LIGHT_PURPLE, searchedName.c_str());

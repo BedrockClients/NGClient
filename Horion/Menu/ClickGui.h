@@ -78,6 +78,9 @@ private:
 			case Category::ENTITY:
 				categoryName = "Entity";
 				break;
+			case Category::PARTNER:
+				categoryName = "Partner";
+				break;
 			}
 		}
 		return categoryName;

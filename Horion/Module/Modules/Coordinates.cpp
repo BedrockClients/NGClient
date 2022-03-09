@@ -40,7 +40,7 @@ void Coordinates::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	float yVal = CoordinatesY;
 	float xVal = CoordinatesX;
 
-	static auto hud = moduleMgr->getModule<HudModule>();
+	static auto partner = moduleMgr->getModule<Partner>();
 	vec3_t* pos = g_Data.getLocalPlayer()->getPos();
 	if (!(g_Data.getLocalPlayer() == nullptr)) {
 		std::string Overworld = "Overworld X: " + std::to_string((int)floorf(pos->x)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z));
@@ -48,10 +48,10 @@ void Coordinates::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		vec4_t rectPos = vec4_t(0.5f, yVal + 20.5f * scale, len - 1.5f, yVal + 30.5f * scale);
 		vec2_t textPos = vec2_t(xVal, yVal);
 
-		if (hud->rgb) {
+		if (partner->surge) {
 			DrawUtils::drawText(vec2_t{textPos}, &Overworld, MC_Color(currColor), scale);
 			DrawUtils::drawText(vec2_t{textPos}, &Nether, MC_Color(currColor), scale);
-		} else if (hud->surge) {
+		} else if (partner->surge) {
 			DrawUtils::drawText(vec2_t{textPos}, &Overworld, MC_Color(0, 0, 255), scale);
 			DrawUtils::drawText(vec2_t{textPos}, &Nether, MC_Color(0, 0, 255), scale);
 		} else {

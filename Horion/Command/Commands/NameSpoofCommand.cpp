@@ -10,7 +10,7 @@ NameSpoofCommand::~NameSpoofCommand() {
 }
 
 bool NameSpoofCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<HudModule>();
+	static auto partner = moduleMgr->getModule<Partner>();
 	if (args->at(1) == "name" && args->size() > 2) {
 		std::ostringstream os;
 		for (int i = 2; i < args->size(); i++) {
@@ -20,14 +20,14 @@ bool NameSpoofCommand::execute(std::vector<std::string>* args) {
 		}
 		TextHolder* name = new TextHolder(os.str());
 		g_Data.setFakeName(name);
-		if (Surge->surge)
+		if (partner->surge)
 		clientMessageF("[%sSurge%s] %sSet fakename to %s%s%s, please reconnect!", GOLD, WHITE, BLUE, GRAY, name->getText(), BLUE);
 		else
 			clientMessageF("[%sNG%s] %sSet fakename to %s%s%s, please reconnect!", GOLD, WHITE, BLUE, GRAY, name->getText(), BLUE);
 		return true;
 	} else if (args->at(1) == "reset") {
 		g_Data.setFakeName(NULL);
-		if (Surge->surge)
+		if (partner->surge)
 		clientMessageF("[%sSurge%s] %sReset fakename!", GOLD, WHITE, BLUE);
 		else
 			clientMessageF("[%sNG%s] %sReset fakename!", GOLD, WHITE, BLUE);

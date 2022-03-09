@@ -523,22 +523,18 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	{
 		// Main Menu
+		static auto partner = moduleMgr->getModule<Partner>();
 		std::string screenName(g_Hooks.currentScreenName);
 		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
-			// x y z w
-			// vec4_t box = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 70);
-			// vec4_t bar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 75, 5);
 			vec2_t text = vec2_t(windowSize.x / windowSize.x, 5);
 			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 5.5);
 
 			MC_Color devs = MC_Color(0, 255, 255);
 			MC_Color wight = MC_Color(255, 255, 255);
-			// DrawUtils::fillRectangle(box, MC_Color(20, 20, 20), 1.f);
-			// DrawUtils::fillRectangle(bar, currColor, 1.f);
 			std::string string;
-			if (hudModule->surge) 
+			if (partner->surge)
 				string = "Surge Client";
 			else
 				string = "NG Client";
@@ -591,6 +587,18 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			text.y += 10.f;
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] ArmourHud";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] partnered with Fadeaway";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] Fonts";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			string = "[*] Many Fixes";
 			text.y += 10.f;
 			outline.y += 10.f;
@@ -599,11 +607,11 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			outline.y += 15.f;
 			string = "Credits:";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "NRG (Actually semi intelligent)";
+			string = "NRG";
 			text.y += 10.f;
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "Intop (Actually semi intelligent)";
+			string = "Intop";
 			text.y += 10.f;
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
@@ -646,7 +654,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		}
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
-			if (hudModule->surge) {
+			if (partner->surge) {
 				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
 				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text, text.size() / 3.3), wid.y / 70);
@@ -688,7 +696,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				}
 
 				// Draw NG logo
-				if (hudModule->surge) {
+				if (partner->surge) {
 					if (shouldRenderWatermark) {
 						if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
 							constexpr float nameTextSize = 0.8f;
@@ -1057,7 +1065,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							if (gui->rgb) {
 								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
 							} else {
-								if (hudModule->surge)
+								if (partner->surge)
 									DrawUtils::fillRectangle(FluxBar, MC_Color(10, 10, 255), 1.f);
 								else
 									DrawUtils::fillRectangle(FluxBar, MC_Color(184, 0, 255), 1.f);
@@ -1071,13 +1079,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							}
 						} else {
 							if (gui->underbar) {
-								if (hudModule->surge)
+								if (partner->surge)
 									DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
 								else
 									DrawUtils::fillRectangle(underline, MC_Color(184, 0, 255), 1.f);
 							}
 							if (gui->bar) {
-								if (hudModule->surge)
+								if (partner->surge)
 									DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
 								else
 									DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);
@@ -1106,7 +1114,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						if (gui->rgb) {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 						} else {
-							if (hudModule->surge)
+							if (partner->surge)
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 							else
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 246, 255), textSize);
@@ -1121,7 +1129,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						if (gui->rgb) {
 							DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(currColor), 1.f);
 						} else {
-							if (hudModule->surge)
+							if (partner->surge)
 								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(0, 0, 0), 1.f);
 							else
 								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(184, 0, 255), 1.f);
@@ -1166,7 +1174,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				lines = 0;
 
 			const float messageHeight = DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() * messageTextSize * lines;
-
+			static auto partner = moduleMgr->getModule<Partner>();
 			float titleWidth = DrawUtils::getTextWidth(&box->title, titleTextSize);
 			float msgWidth = DrawUtils::getTextWidth(&box->message, messageTextSize);
 			vec2_t centerPos(wid.x / 2.f, wid.y / 9.f);
@@ -1180,7 +1188,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), box->fadeVal);
 			if (hudModule->rgb)
 				DrawUtils::drawRectangle(rectPos, currColor, box->fadeVal, 2.f);
-			else if (hudModule->surge)
+			else if (partner->surge)
 				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 255), box->fadeVal, 2.f);
 			else
 				DrawUtils::drawRectangle(rectPos, MC_Color(184, 0, 255), box->fadeVal, 2.f);

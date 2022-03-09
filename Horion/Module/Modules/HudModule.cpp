@@ -3,8 +3,6 @@
 #include "../../Scripting/ScriptManager.h"
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
-	//Surge
-	registerBoolSetting("Surge", &surge, surge);
 	registerBoolSetting("Buttons", &Buttons, Buttons);
 	registerBoolSetting("cords", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
@@ -28,9 +26,7 @@ static float currColor[4];
 const char* HudModule::getModuleName() {
 	auto HUD = moduleMgr->getModule<HudModule>();
 	if (isEnabled() && HUD->bools) {
-		if (surge)
-			return "Hud [Surge]";
-		else if (rgb || Msg || watermark || keybinds || keystrokes || alwaysShow) {
+	if (rgb || Msg || watermark || keybinds || keystrokes || alwaysShow) {
 			return "HUD [Customised]";
 		} else
 			return "HUD";
@@ -62,14 +58,15 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		startY += f;
 
 	{  // Hello thing
+		static auto partner = moduleMgr->getModule<Partner>();
 		if (!(g_Data.getLocalPlayer() == nullptr || !Msg || !GameData::canUseMoveKeys())) {
-			if (surge) {
+			if (partner->surge) {
 				std::string fpsText = "sup bitch";
-					if (surge)
+				if (partner->surge)
 						DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(0, 0, 255), scale);
 			} else {
 				std::string fpsText = "NG Client on Top!";
-					if (!surge)
+				if (!partner->surge)
 						DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(184, 0, 255), scale);
 			}
 		}
@@ -77,9 +74,10 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 	{  // Keystrokes
 		if (!(g_Data.getLocalPlayer() == nullptr || !keystrokes || !GameData::canUseMoveKeys())) {
+			static auto partner = moduleMgr->getModule<Partner>();
 			C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
-			if (surge) {
+			if (partner->surge) {
 				DrawUtils::setColor(0, 0, 255, 1);
 				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 94));
 				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 72));

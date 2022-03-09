@@ -13,7 +13,7 @@ KitCommand::~KitCommand() {
 }
 
 bool KitCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<HudModule>();
+	static auto partner = moduleMgr->getModule<Partner>();
 	C_ItemStack* yot = new C_ItemStack(***ItemRegistry::lookUpByName(std::make_unique<uintptr_t>().get(), std::make_unique<uintptr_t>().get(), TextHolder("shulker_box")), 1, 0);
 	int slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getFirstEmptySlot();
 	std::transform(args->at(1).begin(), args->at(1).end(), args->at(1).begin(), ::tolower);
@@ -23,7 +23,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 		clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -35,7 +35,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -48,7 +48,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -61,7 +61,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -73,7 +73,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -85,7 +85,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -97,7 +97,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -109,7 +109,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -122,7 +122,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag + tag1));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
@@ -135,7 +135,7 @@ bool KitCommand::execute(std::vector<std::string>* args) {
 		yot->fromTag(*Mojangson::parseTag(tag));
 		g_Data.getLocalPlayer()->getTransactionManager()->addInventoryAction(C_InventoryAction(0, nullptr, nullptr, yot, nullptr, 1, 507, 99999));
 		g_Data.getLocalPlayer()->getSupplies()->inventory->addItemToFirstEmptySlot(yot);
-		if (Surge->surge)
+		if (partner->surge)
 			clientMessageF("%sDADDY%s%s%s[%sSurge%s] %sHere is your kit!%s%sDADDY", OBFUSCATED, RESET, ITALIC, BOLD, BLUE, WHITE, BLUE, RESET, OBFUSCATED);
 		else
 			clientMessageF("[%sNG%s] %sHere is Your Kit!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);

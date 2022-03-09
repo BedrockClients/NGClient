@@ -140,6 +140,8 @@
 #include "Modules/XP.h"
 #include "Modules/Xray.h"
 #include "Modules/Zoom.h"
+//
+#include "Modules/Partner.h"
 #ifdef _DEBUG
 
 #endif

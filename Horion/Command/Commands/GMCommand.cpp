@@ -9,19 +9,19 @@ GMCommand::~GMCommand() {
 }
 
 bool GMCommand::execute(std::vector<std::string>* args) {
-	static auto Surge = moduleMgr->getModule<HudModule>();
+	static auto partner = moduleMgr->getModule<Partner>();
 	assertTrue(g_Data.getLocalPlayer() != nullptr);
 	assertTrue(args->size() > 1);
 	int gamemode = assertInt(args->at(1));
 	if (gamemode >= 0 && gamemode <= 2) {
 		g_Data.getLocalPlayer()->setGameModeType(gamemode);
-		if (Surge->surge)
+		if (partner->surge)
 		clientMessageF("[%sSurge%s] %sGamemode Changed!", BLUE, WHITE, BLUE);
 		else
 			clientMessageF("[%sNG%s] %sGamemode Changed!", LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 		return true;
 	}
-	if (Surge->surge)
+	if (partner->surge)
 	clientMessageF("[%sSurge%s] %sInvalid GameMode!", BLUE, WHITE, RED);
 	else
 		clientMessageF("[%sNG%s] %sInvalid GameMode!", LIGHT_PURPLE, WHITE, RED);
