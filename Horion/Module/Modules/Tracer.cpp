@@ -3,7 +3,7 @@
 #include "../../DrawUtils.h"
 #include "../ModuleManager.h"
 
-Tracer::Tracer() : IModule('R', Category::VISUAL, "Draws lines to ESP highlighted entities") {
+Tracer::Tracer() : IModule(0, Category::VISUAL, "Draws lines to ESP highlighted entities") {
 	registerEnumSetting("Tracer Type", &type, 0);
 	type = SettingEnum(this)
 			   .addEntry(EnumEntry("Normal Tracers", 0))
