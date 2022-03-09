@@ -9,7 +9,6 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("cords", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
-	registerBoolSetting("Show ArmorHUD", &displayArmor, displayArmor);
 	registerBoolSetting("Keystrokes RGB", &keybindsRGB, keybindsRGB);
 	registerBoolSetting("Keystrokes", &keystrokes, keystrokes);
 	registerBoolSetting("Show Second Names", &displaySecondHalf, displaySecondHalf);
@@ -31,7 +30,7 @@ const char* HudModule::getModuleName() {
 	if (isEnabled() && HUD->bools) {
 		if (surge)
 			return "Hud [Surge]";
-		else if (rgb || Msg || watermark || keybinds || keystrokes || displayArmor || alwaysShow) {
+		else if (rgb || Msg || watermark || keybinds || keystrokes || alwaysShow) {
 			return "HUD [Customised]";
 		} else
 			return "HUD";
@@ -72,66 +71,6 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				std::string fpsText = "NG Client on Top!";
 					if (!surge)
 						DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(184, 0, 255), scale);
-			}
-		}
-	}
-
-	// ArmorHUD
-	if (!(g_Data.getLocalPlayer() == nullptr || !displayArmor || !GameData::canUseMoveKeys())) {
-		static float constexpr scale = 1.f;
-		static float constexpr spacingy = scale + 15.f;
-		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		float x = windowSize.x - windowSize.x;
-		float y = windowSize.y / 2 - 20.f;
-		for (int i = 0; i < 4; i++) {
-			C_ItemStack* stack = player->getArmor(i);
-			if (stack->isValid()) {
-				DrawUtils::drawItem(stack, vec2_t(x, y), opacity, scale, stack->isEnchanted());
-				y += scale * spacingy;
-			}
-		}
-		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-		C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
-		if (item->isValid())
-			DrawUtils::drawItem(item, vec2_t(x, y), opacity, scale, item->isEnchanted());
-	}
-
-	{  // Hud
-		if (!(g_Data.getLocalPlayer() == nullptr || !Hud || !GameData::canUseMoveKeys())) {
-			vec3_t* pos = g_Data.getLocalPlayer()->getPos();
-			std::string coordsall = "Overworld X: " + std::to_string((int)floorf(pos->x)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z));
-			std::string Ncoordsall = "Nether X: " + std::to_string((int)floorf(pos->x/8)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z/8));
-			auto Nx = windowSize.x / 2.f - 210.f;
-			auto Ny = windowSize.y - 55.f;
-			auto x = windowSize.x / 2.f - 210.f;
-			auto y = windowSize.y - 45.f;
-
-			static float constexpr scale = 1.f;
-			static float constexpr spacing = scale + 15.f;
-			C_LocalPlayer* player = g_Data.getLocalPlayer();
-			float xArmor = windowSize.x / 2.f - 210.f;
-			float yArmor = windowSize.y - 17.f;
-			for (int i = 0; i < 4; i++) {
-				C_ItemStack* stack = player->getArmor(i);
-				if (stack->isValid()) {
-					DrawUtils::drawItem(stack, vec2_t(xArmor, yArmor), opacity, scale, stack->isEnchanted());
-					xArmor += scale * spacing;
-				}
-			}
-			C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
-			if (item->isValid())
-				DrawUtils::drawItem(item, vec2_t(xArmor, yArmor), opacity, scale, item->isEnchanted());
-			if (rgb) {
-				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(currColor), scale);
-				DrawUtils::drawText(vec2_t{Nx, Ny}, &Ncoordsall, MC_Color(currColor), scale);
-			}else
-			if (surge) {
-				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(0, 0, 255), scale);
-				DrawUtils::drawText(vec2_t{Nx, Ny}, &Ncoordsall, MC_Color(0, 0, 255), scale);
-			} else {
-				DrawUtils::drawText(vec2_t{x, y}, &coordsall, MC_Color(184, 0, 255), scale);
-				DrawUtils::drawText(vec2_t{Nx, Ny}, &Ncoordsall, MC_Color(184, 0, 255), scale);
 			}
 		}
 	}

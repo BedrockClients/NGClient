@@ -20,7 +20,6 @@ public:
 	bool watermark = false;
 	bool keybinds = true;
 	bool keybindsRGB = true;
-	bool displayArmor = false;
 	bool keystrokes = true;
 	bool alwaysShow = false;
 	bool bottom = false;

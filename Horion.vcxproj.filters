@@ -155,6 +155,8 @@
     <ClCompile Include="Horion\Module\Modules\EntityLongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpider.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Coordinates.cpp" />
+    <ClCompile Include="Horion\Module\Modules\ArmourHud.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -425,6 +427,8 @@
     <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
     <ClInclude Include="Horion\Module\Modules\Rainbow.h" />
+    <ClInclude Include="Horion\Module\Modules\Coordinates.h" />
+    <ClInclude Include="Horion\Module\Modules\ArmourHud.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
