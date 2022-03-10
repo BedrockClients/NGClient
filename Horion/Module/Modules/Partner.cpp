@@ -3,7 +3,7 @@
 
 Partner::Partner() : IModule(0, Category::PARTNER, "Partnered Clients") {
 	registerBoolSetting("Surge", &surge, surge);
-	registerBoolSetting("Fadeaway (clickgui)", &fadeaway, fadeaway);
+	registerBoolSetting("Fadeaway", &fadeaway, fadeaway);
 }
 Partner::~Partner() {
 }
