@@ -1077,8 +1077,8 @@ void ClickGui::onLoadConfig(void* confVoid) {
 	savedWindowSettings.clear();
 	windowMap.clear();
 	json* conf = reinterpret_cast<json*>(confVoid);
-	if (conf->contains("ClickGui")) {
-		auto obj = conf->at("ClickGui");
+	if (conf->contains("ClickGuiMenu")) {
+		auto obj = conf->at("ClickGuiMenu");
 		if (obj.is_null())
 			return;
 		for (int i = 0; i <= (int)Category::SERVER /*last category*/; i++) {
@@ -1124,8 +1124,8 @@ void ClickGui::onSaveConfig(void* confVoid) {
 	}
 
 	// Save to json
-	if (conf->contains("ClickGui"))
-		conf->erase("ClickGui");
+	if (conf->contains("ClickGuiMenu"))
+		conf->erase("ClickGuiMenu");
 
 	json obj = {};
 
@@ -1137,5 +1137,5 @@ void ClickGui::onSaveConfig(void* confVoid) {
 		obj[wind.second.name] = subObj;
 	}
 
-	conf->emplace("ClickGui", obj);
+	conf->emplace("ClickGuiMenu", obj);
 }
