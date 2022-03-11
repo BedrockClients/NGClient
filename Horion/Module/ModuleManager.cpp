@@ -149,6 +149,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new XP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
+		moduleList.push_back(std::shared_ptr<IModule>(new NoRender()));
 		//
 		moduleList.push_back(std::shared_ptr<IModule>(new Partner()));
 		// Sort modules alphabetically

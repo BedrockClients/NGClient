@@ -1795,6 +1795,7 @@ float Hooks::GetGamma(uintptr_t* a1) {
 	static auto xrayMod = moduleMgr->getModule<Xray>();
 	static auto nametagmod = moduleMgr->getModule<NameTags>();
 	static auto zoomMod = moduleMgr->getModule<Zoom>();
+	static auto noRenderMod = moduleMgr->getModule<NoRender>();
 
 	uintptr_t** list = (uintptr_t**)a1;
 
@@ -1814,6 +1815,28 @@ float Hooks::GetGamma(uintptr_t* a1) {
 			xrayMod->smoothLightningSetting = smoothlightning;
 			obtainedSettings++;
 			hadIt = true;
+		}
+		if (noRenderMod->isEnabled()) {
+		 if (!strcmp(translateName->getText(), "options.dev_disableRenderEntities")) {
+				bool* disableRenderEnts = (bool*)((uintptr_t)list[i] + 16);
+			*disableRenderEnts = noRenderMod->entities;
+				obtainedSettings++;
+				}
+		else if (!strcmp(translateName->getText(), "options.dev_disableRenderBlockEntities")) {
+			bool* disableRenderBlockEnts = (bool*)((uintptr_t)list[i] + 16);
+			*disableRenderBlockEnts = noRenderMod->blockEntities;
+			obtainedSettings++;
+			}
+			else if (!strcmp(translateName->getText(), "options.dev_disableRenderParticles")) {
+				bool* disableRenderParticles = (bool*)((uintptr_t)list[i] + 16);
+				*disableRenderParticles = noRenderMod->particles;
+				obtainedSettings++;
+				}
+			else if (!strcmp(translateName->getText(), "options.dev_disableRenderWeather")) {
+				bool* disableRenderParticles = (bool*)((uintptr_t)list[i] + 16);
+				*disableRenderParticles = noRenderMod->weather;
+				obtainedSettings++;
+			}
 		} else if (!strcmp(settingname->getText(), "gfx_ingame_player_names")) {
 			bool* ingamePlayerName = (bool*)((uintptr_t)list[i] + 16);
 			nametagmod->ingameNametagSetting = ingamePlayerName;
@@ -1824,7 +1847,7 @@ float Hooks::GetGamma(uintptr_t* a1) {
 				zoomMod->OGFov = *FieldOfView;
 			obtainedSettings++;
 		}
-		if (obtainedSettings == 3) break;
+		if (obtainedSettings == 7) break;
 	}
 
 	if (xrayMod->isEnabled())
