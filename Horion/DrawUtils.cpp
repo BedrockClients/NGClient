@@ -105,14 +105,6 @@ void DrawUtils::setColor(float r, float g, float b, float a) {
 C_Font* DrawUtils::getFont(Fonts font) {
 	auto clickguiMod = moduleMgr->getModule<ClickGuiMod>();
 	// font
-	if (clickguiMod->font == 8) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[8].font;
-	}
-	if (clickguiMod->font == 7) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[7].font;
-	}
 	if (clickguiMod->font == 6) {
 		if (true)
 			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[6].font;
@@ -133,14 +125,13 @@ C_Font* DrawUtils::getFont(Fonts font) {
 		if (true)
 			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[2].font;
 	}
+	//default
 	if (clickguiMod->font == 1) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[1].font;
-	}
-	if (clickguiMod->font == 0) {
 		if (true)
 			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[0].font;
 	}
+
+
 	switch (font) {
 	case Fonts::SMOOTH:
 		return g_Data.getClientInstance()->minecraftGame->getTheGoodFontThankYou();

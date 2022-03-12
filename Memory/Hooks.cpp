@@ -534,10 +534,12 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			MC_Color devs = MC_Color(0, 255, 255);
 			MC_Color wight = MC_Color(255, 255, 255);
 			std::string string;
-			if (partner->surge)
-				string = "Surge Client";
+			if (partner->fadeaway)
+			string = "Fadeaway Client";
+			else if (partner->surge)
+			string = "Surge Client";
 			else
-				string = "NG Client";
+			string = "NG Client";
 			DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
 			text.y += 15.f;
 			outline.y += 15.f;
@@ -695,8 +697,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					mousePos = mousePos.mul(windowSize);
 				}
 
-				// Draw NG logo
-				if (partner->surge) {
+				if (partner->fadeaway) {
 					if (shouldRenderWatermark) {
 						if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
 							constexpr float nameTextSize = 0.8f;
@@ -705,9 +706,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							constexpr float borderPadding = 0;
 							constexpr float margin = 0;
 #ifdef _DEBUG
-							static std::string name = "Surge | Dev Build";
+							static std::string name = "Fadeaway | Dev Build";
 #else
-							static std::string name = "Surge | Public Build";
+							static std::string name = "Fadeaway | Public Build";
 #endif
 							static std::string version = "";
 
@@ -720,58 +721,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								windowSize.y - margin);
 							if (gui->rgb) {
 								// x y z w
-								vec4_t Watermarbox = vec4_t(windowSize.x / 99.8, windowSize.y / windowSize.y, 69, 10);
-								vec4_t Watermarkbar = vec4_t(windowSize.x / 99.8, windowSize.y / windowSize.y, 69, 2.5);
-								if (g_Data.getLocalPlayer() != nullptr) {
-									DrawUtils::drawText(vec2_t(windowSize.x / 99, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-									DrawUtils::drawText(vec2_t(windowSize.x / 99, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
-
-									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-								}
-							} else {
-								// x y z w
-								vec4_t Watermarbox = vec4_t(windowSize.x / 99.8, windowSize.y / windowSize.y, 69, 10);
-								vec4_t Watermarkbar = vec4_t(windowSize.x / 99.8, windowSize.y / windowSize.y, 69, 2.5);
-								if (g_Data.getLocalPlayer() != nullptr) {
-									DrawUtils::drawText(vec2_t(windowSize.x / 99, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-									DrawUtils::drawText(vec2_t(windowSize.x / 99, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
-
-									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-								}
-							}
-						}
-					}
-				} else {
-					if (shouldRenderWatermark) {
-						if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
-							constexpr float nameTextSize = 0.8f;
-							constexpr float versionTextSize = 0.6f;
-							static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-							constexpr float borderPadding = 0;
-							constexpr float margin = 0;
-
-							static std::string name = "NG Client | Pub Build";
-#ifdef _DEBUG
-							static std::string version = "";
-#elif defined _BETA
-							static std::string version = "";
-#else
-							static std::string version = "";
-#endif
-
-							float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
-							float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-							vec4_t rect = vec4_t(
-								windowSize.x - fullTextLength,
-								windowSize.y - textHeight,
-								windowSize.x - margin + borderPadding,
-								windowSize.y - margin);
-							if (gui->rgb) {
-								// x y z w
-								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 10);
-								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 2.5);
+								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
+								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
 								if (g_Data.getLocalPlayer() != nullptr) {
 									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
@@ -781,14 +732,111 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								}
 							} else {
 								// x y z w
-								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 10);
-								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 64, 2.5);
+								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
+								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
 								if (g_Data.getLocalPlayer() != nullptr) {
 									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
 									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
 									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+								}
+							}
+						}
+					}
+				} else {
+					if (partner->surge) {
+						if (shouldRenderWatermark) {
+							if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
+								constexpr float nameTextSize = 0.8f;
+								constexpr float versionTextSize = 0.6f;
+								static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+								constexpr float borderPadding = 0;
+								constexpr float margin = 0;
+#ifdef _DEBUG
+								static std::string name = "Surge | Dev Build";
+#else
+								static std::string name = "Surge | Public Build";
+#endif
+								static std::string version = "";
+
+								float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+								float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+								vec4_t rect = vec4_t(
+									windowSize.x - fullTextLength,
+									windowSize.y - textHeight,
+									windowSize.x - margin + borderPadding,
+									windowSize.y - margin);
+								if (gui->rgb) {
+									// x y z w
+									vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
+									vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
+									if (g_Data.getLocalPlayer() != nullptr) {
+										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+
+										DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+										DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+									}
+								} else {
+									// x y z w
+									vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
+									vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
+									if (g_Data.getLocalPlayer() != nullptr) {
+										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+
+										DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+										DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+									}
+								}
+							}
+						}
+					} else {
+						if (shouldRenderWatermark) {
+							if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
+								constexpr float nameTextSize = 0.8f;
+								constexpr float versionTextSize = 0.6f;
+								static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+								constexpr float borderPadding = 0;
+								constexpr float margin = 0;
+
+#ifdef _DEBUG
+								static std::string name = "NG Client | Dev Build";
+#else
+								static std::string name = "NG Client | Public Build";
+#endif
+								static std::string version = "";
+
+								float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+								float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+								vec4_t rect = vec4_t(
+									windowSize.x - fullTextLength,
+									windowSize.y - textHeight,
+									windowSize.x - margin + borderPadding,
+									windowSize.y - margin);
+								if (gui->rgb) {
+									// x y z w
+									vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
+									vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
+									if (g_Data.getLocalPlayer() != nullptr) {
+										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+
+										DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+										DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+									}
+								} else {
+									// x y z w
+									vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
+									vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
+									if (g_Data.getLocalPlayer() != nullptr) {
+										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+
+										DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
+										DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
+									}
 								}
 							}
 						}
@@ -1004,8 +1052,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							// currColor[0] += 1.f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
-						}
-						if (gui->weather) {
+						} else if (gui->weather) {
 							currColor[3] = rcolors[3];
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
 							currColor[0] += 1.1f / a * b;
@@ -1015,8 +1062,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
 							// currColor[0] += 1.1f / a * b;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
-						}
-						if (gui->Horion) {
+					} else if (gui->Horion) {
 							currColor[3] = rcolors[3];
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							currColor[0] += 1.f / a * c;
