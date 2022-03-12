@@ -52,7 +52,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new cps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Crasher()));
 		moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new Coordinates())); dont worck plz fix
+		moduleList.push_back(std::shared_ptr<IModule>(new Coordinates()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Derp()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Disabler()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EditionFaker()));

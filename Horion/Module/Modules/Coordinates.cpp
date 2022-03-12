@@ -1,13 +1,12 @@
+#include "Coordinates.h"
+
 #include "../../../Utils/Logger.h"
 #include "../../DrawUtils.h"
 #include "../../Scripting/ScriptManager.h"
-#include "Coordinates.h"
 
-Coordinates::Coordinates(): IModule(0x0, Category::GUI, "Coordinates") {
-	registerFloatSetting("Overworld CoordinatesX", &CoordinatesX, CoordinatesX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
-	registerFloatSetting("Overworld CoordinatesY", &CoordinatesY, CoordinatesY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
-	registerFloatSetting("Nether CoordinatesX", &NetherX, NetherX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
-	registerFloatSetting("Nether CoordinatesY", &NetherY, NetherY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
+Coordinates::Coordinates() : IModule(0x0, Category::GUI, "Tells the player their coords") {
+	registerFloatSetting("CoordsX", &coordsX, coordsX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
+	registerFloatSetting("CoordsY", &coordsY, coordsY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
 }
 
@@ -18,46 +17,68 @@ const char* Coordinates::getModuleName() {
 	return ("Coordinates");
 }
 
-static float currColor[4];
-
 void Coordinates::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
-	// rainbow colors
-	{
-		if (currColor[3] < 1) {
-			currColor[0] = 1;
-			currColor[1] = 0.2f;
-			currColor[2] = 0.2f;
-			currColor[3] = 1;
+	if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
+		std::string tempStr("Movement");
+		float len = DrawUtils::getTextWidth(&tempStr, scale) + 7.f;
+		float f = 10.f * this->scale;
+
+		if (!(g_Data.getLocalPlayer() == nullptr)) {
+			vec3_t* pos = g_Data.getLocalPlayer()->getPos();
+			float yVal = coordsY;
+			float xVal = coordsX;
+			int curDim = 0;
+			C_LocalPlayer* player = g_Data.getLocalPlayer();
+			player->getDimensionId(&curDim);
+
+			if (curDim == 0 || curDim == 2) {
+				std::string coordsX = "X: " + std::to_string((int)floorf(pos->x));
+				std::string coordsY = "Y: " + std::to_string((int)floorf(pos->y - 1.f));
+				std::string coordsZ = "Z: " + std::to_string((int)floorf(pos->z));
+
+				vec4_t rectPos = vec4_t(2.5f, yVal + 15.f * scale - 0.001f, len, yVal + 35.f * scale - 0.001f);
+				vec2_t textPos = vec2_t(xVal, yVal);
+				vec2_t outLinePos = vec2_t(textPos.x + 0.6f * scale - 0.001f, textPos.y - 0.6f * scale - 0.001f);
+				// DrawUtils::fillRectangle(rectPos, MC_Color(20, 20, 20), 1.f);
+				if (curDim == 0) {
+					std::string coordsText = "XYZ: " + coordsX + " " + coordsY + " " + coordsZ;
+					DrawUtils::drawText(textPos, &coordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+					yVal += f;
+				} else if (curDim == 2) {
+					std::string coordsText = "End: " + coordsX + " " + coordsY + " " + coordsZ;
+					DrawUtils::drawText(textPos, &coordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+					yVal += f;
+				}
+				std::string NcoordsX = "X: " + std::to_string((int)floorf(pos->x + 0.001) / 8);
+				std::string NcoordsZ = "Z: " + std::to_string((int)floorf(pos->z + 0.001) / 8);
+				vec4_t NrectPos = vec4_t(2.5f, yVal + 15.f * scale - 0.001f, len, yVal + 45.f * scale - 0.001f);
+				vec2_t NtextPos = vec2_t(xVal, yVal);
+				vec2_t NoutLinePos = vec2_t(NtextPos.x + 0.6f * scale - 0.001f, NtextPos.y - 0.6f * scale - 0.001f);
+				std::string NcoordsText = "Nether: " + NcoordsX + " " + coordsY + " " + NcoordsZ;
+				DrawUtils::drawText(NtextPos, &NcoordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+			}
+
+			else if (curDim == 1) {
+				std::string coordsY = "Y: " + std::to_string((int)floorf(pos->y - 1.f));
+				std::string NcoordsX = "X: " + std::to_string((int)floorf(pos->x));
+				std::string NcoordsZ = "Z: " + std::to_string((int)floorf(pos->z));
+				vec4_t NrectPos = vec4_t(2.5f, yVal + 15.f * 1, len, yVal + 35.f * scale - 0.001f);
+				vec2_t NtextPos = vec2_t(xVal, yVal);
+				vec2_t NoutLinePos = vec2_t(NtextPos.x + 0.6f * 1, NtextPos.y - 0.6f * scale - 0.001f);
+				std::string NcoordsText = "Nether: " + NcoordsX + " " + coordsY + " " + NcoordsZ;
+				DrawUtils::drawText(NtextPos, &NcoordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+				yVal += f;
+
+				std::string coordsX = "X: " + std::to_string((int)floorf(pos->x + 0.001) * 8);
+				std::string coordsZ = "Z: " + std::to_string((int)floorf(pos->z + 0.001) * 8);
+
+				vec4_t rectPos = vec4_t(2.5f, yVal + 15.f * scale - 0.001f, len, yVal + 45.f * scale - 0.001f);
+				vec2_t textPos = vec2_t(xVal, yVal);
+				vec2_t outLinePos = vec2_t(textPos.x + 0.6f * scale - 0.001f, textPos.y - 0.6f * scale - 0.001f);
+				// DrawUtils::fillRectangle(rectPos, MC_Color(20, 20, 20), 1.f);
+				std::string coordsText = "XYZ: " + coordsX + " " + coordsY + " " + coordsZ;
+				DrawUtils::drawText(textPos, &coordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+			}
 		}
-		Utils::ApplyRainbow(currColor, 0.00025f);
-	}
-
-	// Coordinates
-	float f = 10.f * this->scale;
-	std::string tempStr("Movement");
-	float len = DrawUtils::getTextWidth(&tempStr, scale) + 7.f;
-
-	float yVal = CoordinatesY;
-	float xVal = CoordinatesX;
-
-	static auto partner = moduleMgr->getModule<Partner>();
-	vec3_t* pos = g_Data.getLocalPlayer()->getPos();
-	if (!(g_Data.getLocalPlayer() == nullptr)) {
-		std::string Overworld = "Overworld X: " + std::to_string((int)floorf(pos->x)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z));
-		std::string Nether = "Nether X: " + std::to_string((int)floorf(pos->x / 8)) + " Y: " + std::to_string((int)floorf(pos->y)) + " Z: " + std::to_string((int)floorf(pos->z / 8));
-		vec4_t rectPos = vec4_t(0.5f, yVal + 20.5f * scale, len - 1.5f, yVal + 30.5f * scale);
-		vec2_t textPos = vec2_t(xVal, yVal);
-
-		if (partner->Partnered.selected == 0) {
-			DrawUtils::drawText(vec2_t{textPos}, &Overworld, MC_Color(currColor), scale);
-			DrawUtils::drawText(vec2_t{textPos}, &Nether, MC_Color(currColor), scale);
-		} else if (partner->Partnered.selected == 0) {
-			DrawUtils::drawText(vec2_t{textPos}, &Overworld, MC_Color(0, 0, 255), scale);
-			DrawUtils::drawText(vec2_t{textPos}, &Nether, MC_Color(0, 0, 255), scale);
-		} else {
-			DrawUtils::drawText(vec2_t{textPos}, &Overworld, MC_Color(184, 0, 255), scale);
-			DrawUtils::drawText(vec2_t{textPos}, &Nether, MC_Color(0, 0, 255), scale);
-		}
-		yVal += f;
 	}
 }
