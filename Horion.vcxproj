@@ -305,7 +305,6 @@
     <ClCompile Include="Horion\Module\Modules\ESP.cpp" />
     <ClCompile Include="Horion\Module\Modules\AnchorAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\FollowPathModule.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Freecam.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fucker.cpp" />
     <ClCompile Include="Horion\Module\Modules\ChestStealer.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityBhop.cpp" />
