@@ -13,7 +13,10 @@ public:
 	Speed() : IModule(VK_NUMPAD2, Category::MOVEMENT, "Speed up!") {
 		registerFloatSetting("speed", &speed, 1, 0.1f, 3.f);
 		registerEnumSetting("Mode", &speedMode, 0);
-		speedMode = (*new SettingEnum(this)).addEntry(EnumEntry("Strafe", 0)).addEntry(EnumEntry("Hive", 1)).addEntry(EnumEntry("Ability", 2));
+		speedMode = (*new SettingEnum(this))
+			.addEntry(EnumEntry("Strafe", 0))
+			.addEntry(EnumEntry("Hive", 1))
+			.addEntry(EnumEntry("Ability", 2));
 	}
 	~Speed(){};
 

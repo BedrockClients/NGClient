@@ -1044,7 +1044,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							a = moduleMgr->getEnabledModuleCount() * 2;
 						else
 							b = 0;
-						if (gui->fadeaway) {
+						if (gui->ArrayList.selected == 4) {
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							currColor[0] += 1.f / a * c;
 							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
@@ -1052,7 +1052,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							// currColor[0] += 1.f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
-						} else if (gui->weather) {
+						} else if (gui->ArrayList.selected == 3) {
 							currColor[3] = rcolors[3];
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
 							currColor[0] += 1.1f / a * b;
@@ -1062,7 +1062,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
 							// currColor[0] += 1.1f / a * b;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
-					} else if (gui->Horion) {
+						} else if (gui->ArrayList.selected == 2) {
 							currColor[3] = rcolors[3];
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							currColor[0] += 1.f / a * c;
@@ -1072,7 +1072,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							// currColor[0] += 1.f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
-						} else if (gui->Surge) {
+					    } else if (gui->ArrayList.selected == 1) {
 							currColor[3] = rcolors[5];
 							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
 							currColor[0] += 3.5f / a * c;
@@ -1082,7 +1082,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
 							// currColor[0] += 3.5f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
-						} else if (gui->badman) {
+						} else if (gui->ArrayList.selected == 0) {
 							currColor[3] = rcolors[3];
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
 							currColor[0] += 2.f / a * c;
@@ -1092,7 +1092,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
 							// currColor[0] += 2.f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
-						} else {
+						} else if (gui->ArrayList.selected == 5) {
 							currColor[3] = rcolors[5];
 							currColor[3] = rcolors[5];
 							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
