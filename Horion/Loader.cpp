@@ -340,21 +340,16 @@ DWORD WINAPI start(LPVOID lpParam) {
 	logF("Injector found");*/
 
 	cmdMgr->initCommands();
-	logF("Initialized command manager (1/3)");
 	moduleMgr->initModules();
-	logF("Initialized module manager (2/3)");
 	configMgr->init();
-	logF("Initialized config manager (3/3)");
 
 	Hooks::Enable();
 	ClickGui::init();
 
-	logF("Hooks enabled");
-
 	std::thread countThread([] {
 		while (isRunning) {
 			Sleep(1000);
-			g_Data.fps = g_Data.frameCount;
+			g_Data.fps = g_Data.frameCount/2;
 			g_Data.frameCount = 0;
 			g_Data.cpsLeft = g_Data.leftclickCount;
 			g_Data.leftclickCount = 0;
@@ -363,8 +358,6 @@ DWORD WINAPI start(LPVOID lpParam) {
 		}
 	});
 	countThread.detach();
-
-	logF("Count thread started");
 
 	ExitThread(0);
 }
