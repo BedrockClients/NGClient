@@ -8,14 +8,15 @@ public:
 	bool hive = false;
 	C_MoveInputHandler* yes;
 	C_MoveInputHandler cachedInput;
+	SettingEnum speedMode;
 
 	Speed() : IModule(VK_NUMPAD2, Category::MOVEMENT, "Speed up!") {
-		registerBoolSetting("Hive", &hive, hive);
 		registerFloatSetting("speed", &speed, 1, 0.1f, 3.f);
+		registerEnumSetting("Mode", &speedMode, 0);
+		speedMode = (*new SettingEnum(this)).addEntry(EnumEntry("Strafe", 0)).addEntry(EnumEntry("Hive", 1)).addEntry(EnumEntry("Ability", 2));
 	}
 	~Speed(){};
 
-	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("Speed"); }
 
 	int speedIndexThingyForHive = 30;
@@ -55,7 +56,7 @@ public:
 	};
 
 	virtual void onTick(C_GameMode* gm) override {
-		if (!hive) {
+		if (speedMode.selected == 2) {//Ability
 			C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 			float* speedAdr = reinterpret_cast<float*>(g_Data.getLocalPlayer()->getSpeed() + 0x84);
 			*speedAdr = speed;
@@ -63,7 +64,7 @@ public:
 	}
 	virtual void onEnable() override {
 		speedIndexThingyForHive = 30;
-		if (!hive) {
+		if (speedMode.selected == 2) {//Ability
 			if (g_Data.getLocalPlayer() == nullptr) {
 				setEnabled(false);
 				return;
@@ -73,20 +74,26 @@ public:
 		}
 	}
 	virtual void onMove(C_MoveInputHandler* input) {
-		if (hive) {
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
+		if (player == nullptr) return;
+		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		bool pressed = moveVec2d.magnitude() > 0.01f;
+
+		if (speedMode.selected == 0) {//Strafe
+			float calcYaw = (player->yaw + 90) * (PI / 180);
+			vec3_t moveVec;
+			float c = cos(calcYaw);
+			float s = sin(calcYaw);
+			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+			moveVec.x = moveVec2d.x * speed;
+			moveVec.y = player->velocity.y;
+			moveVec.z = moveVec2d.y * speed;
+			if (pressed)
+				player->lerpMotion(moveVec);
+		}
+		if (speedMode.selected == 1) {  //Hive
 			cachedInput = *input;
 			yes = input;
-			C_LocalPlayer* player = g_Data.getLocalPlayer();
-			if (player == nullptr) return;
-
-			if (player->isInLava() == 1 || player->isInWater() == 1)
-				return;
-
-			if (player->isSneaking())
-				return;
-
-			vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
-			bool pressed = moveVec2d.magnitude() > 0.01f;
 
 			if (pressed) {
 				player->setSprinting(true);
@@ -121,7 +128,7 @@ public:
 	}
 
 	virtual void onDisable() override {
-		if (g_Data.getLocalPlayer() != nullptr && !hive)
+		if (g_Data.getLocalPlayer() != nullptr && speedMode.selected == 2)
 			*reinterpret_cast<float*>(g_Data.getLocalPlayer()->getSpeed() + 0x84) = origSpeed;
 	}
 };
