@@ -4,7 +4,6 @@
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Buttons", &Buttons, Buttons);
-	registerBoolSetting("cords", &Hud, Hud);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
 	registerBoolSetting("Keystrokes RGB", &keybindsRGB, keybindsRGB);
@@ -14,7 +13,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Watermark", &watermark, watermark);
 	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
-	// registerBoolSetting("Notifications", &notifications, notifications);
+	//registerBoolSetting("Notifications", &notifications, notifications);
 	//registerBoolSetting("Bools", &bools, bools);
 }
 
