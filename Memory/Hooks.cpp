@@ -534,9 +534,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			MC_Color devs = MC_Color(0, 255, 255);
 			MC_Color wight = MC_Color(255, 255, 255);
 			std::string string;
-			if (partner->fadeaway)
+			if (partner->Partnered.selected == 1)
 			string = "Fadeaway Client";
-			else if (partner->surge)
+			else if (partner->Partnered.selected == 0)
 			string = "Surge Client";
 			else
 			string = "NG Client";
@@ -656,7 +656,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		}
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
-			if (partner->surge) {
+			if (partner->Partnered.selected == 0) {
 				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
 				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text, text.size() / 3.3), wid.y / 70);
@@ -697,7 +697,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					mousePos = mousePos.mul(windowSize);
 				}
 
-				if (partner->fadeaway) {
+				if (partner->Partnered.selected == 1) {
 					if (shouldRenderWatermark) {
 						if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
 							constexpr float nameTextSize = 0.8f;
@@ -745,7 +745,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						}
 					}
 				} else {
-					if (partner->surge) {
+					if (partner->Partnered.selected == 0) {
 						if (shouldRenderWatermark) {
 							if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
 								constexpr float nameTextSize = 0.8f;
@@ -1111,7 +1111,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							if (gui->rgb) {
 								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
 							} else {
-								if (partner->surge)
+								if (partner->Partnered.selected == 0)
 									DrawUtils::fillRectangle(FluxBar, MC_Color(10, 10, 255), 1.f);
 								else
 									DrawUtils::fillRectangle(FluxBar, MC_Color(184, 0, 255), 1.f);
@@ -1125,13 +1125,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							}
 						} else {
 							if (gui->underbar) {
-								if (partner->surge)
+								if (partner->Partnered.selected == 0)
 									DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
 								else
 									DrawUtils::fillRectangle(underline, MC_Color(184, 0, 255), 1.f);
 							}
 							if (gui->bar) {
-								if (partner->surge)
+								if (partner->Partnered.selected == 0)
 									DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
 								else
 									DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);
@@ -1160,7 +1160,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						if (gui->rgb) {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 						} else {
-							if (partner->surge)
+							if (partner->Partnered.selected == 0)
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 							else
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 246, 255), textSize);
@@ -1175,7 +1175,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						if (gui->rgb) {
 							DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(currColor), 1.f);
 						} else {
-							if (partner->surge)
+							if (partner->Partnered.selected == 0)
 								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(0, 0, 0), 1.f);
 							else
 								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(184, 0, 255), 1.f);
@@ -1234,7 +1234,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), box->fadeVal);
 			if (hudModule->rgb)
 				DrawUtils::drawRectangle(rectPos, currColor, box->fadeVal, 2.f);
-			else if (partner->surge)
+			else if (partner->Partnered.selected == 0)
 				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 255), box->fadeVal, 2.f);
 			else
 				DrawUtils::drawRectangle(rectPos, MC_Color(184, 0, 255), box->fadeVal, 2.f);

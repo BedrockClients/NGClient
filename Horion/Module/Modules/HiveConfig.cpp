@@ -107,7 +107,7 @@ void HiveConfig::onEnable() {
 	KillMod->targ.selected = 0;
 #endif
 	// Breaker
-	partner->surge = true;
+	partner->Partnered.selected == 0;
 	// Killaura
 	KillMod->info = true;
 	KillMod->hurttime = false;
@@ -260,7 +260,7 @@ void HiveConfig::onEnable() {
 		auto mod = *it;
 		auto modOpt = mod;
 		if (Utils::getKeybindName(mod->getKeybind()) != "Unknown") {
-			if (partner->surge)
+			if (partner->Partnered.selected == 0)
 				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, BLUE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
 			else
 				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, LIGHT_PURPLE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
@@ -268,7 +268,7 @@ void HiveConfig::onEnable() {
 	}
 
 	//Success
-	if (partner->surge) {
+	if (partner->Partnered.selected == 0) {
 		g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Successfully Made Config!", WHITE, BLUE, WHITE, BLUE);
 	} else {
 		g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Successfully Made Config!", WHITE, LIGHT_PURPLE, WHITE, LIGHT_PURPLE);

@@ -13,7 +13,7 @@ bool SetprefixCommand::execute(std::vector<std::string>* args) {
 	char prefix = args->at(1).at(0);
 	cmdMgr->prefix = prefix;
 	static auto partner = moduleMgr->getModule<Partner>();
-	if (partner->surge)
+	if (partner->Partnered.selected == 0)
 	clientMessageF("[%sSurge%s] %sSet prefix to %s%c", GOLD, WHITE, BLUE, GRAY, prefix);
 	else
 		clientMessageF("[%sNG%s] %sSet prefix to %s%c", GOLD, WHITE, LIGHT_PURPLE, GRAY, prefix);

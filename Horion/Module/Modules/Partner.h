@@ -5,9 +5,7 @@
 
 class Partner : public IModule {
 public:
-
-	bool surge = false;
-	bool fadeaway = false;
+	SettingEnum Partnered;
 
 	Partner();
 	~Partner();

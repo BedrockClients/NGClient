@@ -60,13 +60,13 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	{  // Hello thing
 		static auto partner = moduleMgr->getModule<Partner>();
 		if (!(g_Data.getLocalPlayer() == nullptr || !Msg || !GameData::canUseMoveKeys())) {
-			if (partner->surge) {
+			if (partner->Partnered.selected == 0) {
 				std::string fpsText = "sup bitch";
-				if (partner->surge)
+				if (partner->Partnered.selected == 0)
 						DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(0, 0, 255), scale);
 			} else {
 				std::string fpsText = "NG Client on Top!";
-				if (!partner->surge)
+				if (!partner->Partnered.selected == 0)
 						DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(184, 0, 255), scale);
 			}
 		}
@@ -77,7 +77,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			static auto partner = moduleMgr->getModule<Partner>();
 			C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
-			if (partner->surge) {
+			if (partner->Partnered.selected == 0) {
 				DrawUtils::setColor(0, 0, 255, 1);
 				DrawUtils::drawKeystroke(*input->forwardKey, vec2_t(26.f, windowSize.y - 94));
 				DrawUtils::drawKeystroke(*input->leftKey, vec2_t(4.f, windowSize.y - 72));

@@ -10,13 +10,7 @@ public:
 	//
 	SettingEnum ArrayList;
 	//
-	bool rgb = true;//NG RGB
-	bool badman = false;//Badman RGB
-	bool Surge = false;//Surge RGB
-	bool Horion = false;//Horion RGB
-	bool weather = false;//weather RGB
-	bool fadeaway = false;//fadeaway RGB
-	//
+	bool rgb = true;
 	bool box = false;
 	bool bar = false;
 	bool underbar = false;

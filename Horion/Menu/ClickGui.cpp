@@ -114,12 +114,12 @@ void ClickGui::renderTooltip(std::string* text) {
 		currentTooltipPos.y - 2.f,
 		currentTooltipPos.x + (textPadding * 2) + textWidth + 2.f,
 		currentTooltipPos.y + textHeight + 2.f);
-	if (partner->fadeaway) {
+	if (partner->Partnered.selected == 1) {
 		DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 		DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 		DrawUtils::drawText(textPos, text, MC_Color(150, 30, 255), textSize);
 	} else {
-	if (partner->surge) {
+	if (partner->Partnered.selected == 0) {
 		DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 		DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 		DrawUtils::drawText(textPos, text, MC_Color(0, 0, 255), textSize);
@@ -289,10 +289,10 @@ void ClickGui::renderCategory(Category category) {
 					if (rgbHud->RGB) {
 						DrawUtils::fillRectangle(rectPos, currColor, ClickguiOpac->opacity);
 					} else {
-						if (partner->fadeaway)
+						if (partner->Partnered.selected == 1)
 							DrawUtils::fillRectangle(rectPos, MC_Color(150, 30, 255), ClickguiOpac->opacity);
 						else
-						if (partner->surge)
+						if (partner->Partnered.selected == 0)
 							DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 255), ClickguiOpac->opacity);
 						else 
 							DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
@@ -312,7 +312,7 @@ void ClickGui::renderCategory(Category category) {
 
 			// Text
 			static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
-			if (partner->fadeaway) {
+			if (partner->Partnered.selected == 1) {
 				if (rgbHud->RGB) {
 					if (allowRender)
 						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(150, 30, 255) : MC_Color(currColor), textSize);
@@ -321,7 +321,7 @@ void ClickGui::renderCategory(Category category) {
 						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(150, 30, 255) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
 				}
 			} else {
-			if (partner->surge) {
+			if (partner->Partnered.selected == 0) {
 				if (rgbHud->RGB) {
 					if (allowRender)
 						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(currColor), textSize);
@@ -349,13 +349,13 @@ void ClickGui::renderCategory(Category category) {
 						shouldToggleRightClick = false;
 						clickMod->isExtended = !clickMod->isExtended;
 					}
-					if (partner->fadeaway) {
+					if (partner->Partnered.selected == 1) {
 						GuiUtils::drawCrossLine(vec2_t(
 													currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 													currentYOffset + textPadding + (textHeight / 2)),
 												MC_Color(150, 30, 255), crossWidth, crossSize, !clickMod->isExtended);
 					} else {
-					if (partner->surge) {
+					if (partner->Partnered.selected == 0) {
 						GuiUtils::drawCrossLine(vec2_t(
 													currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 													currentYOffset + textPadding + (textHeight / 2)),
@@ -416,7 +416,7 @@ void ClickGui::renderCategory(Category category) {
 									}
 								}
 								// Checkbox
-								if (partner->fadeaway) {
+								if (partner->Partnered.selected == 1) {
 									vec4_t boxPos = vec4_t(
 										textPos.x + textPadding,
 										textPos.y + textPadding,
@@ -435,7 +435,7 @@ void ClickGui::renderCategory(Category category) {
 										DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
 									}
 								} else {
-								if (partner->surge) {
+								if (partner->Partnered.selected == 0) {
 									vec4_t boxPos = vec4_t(
 										textPos.x + textPadding,
 										textPos.y + textPadding,
@@ -475,7 +475,7 @@ void ClickGui::renderCategory(Category category) {
 								}
 								textPos.x += textHeight + (textPadding * 2);
 								// Text
-								if (partner->fadeaway) {
+								if (partner->Partnered.selected == 1) {
 									// Convert first letter to uppercase for more friendlieness
 									char name[0x21];
 									sprintf_s(name, 0x21, "%s", setting->name);
@@ -488,7 +488,7 @@ void ClickGui::renderCategory(Category category) {
 									currentYOffset += textHeight + (textPadding * 2);
 
 								} else {
-								if (partner->surge) {
+								if (partner->Partnered.selected == 0) {
 									// Convert first letter to uppercase for more friendlieness
 									char name[0x21];
 									sprintf_s(name, 0x21, "%s", setting->name);
@@ -900,7 +900,7 @@ void ClickGui::renderCategory(Category category) {
 		}
 		static auto partner = moduleMgr->getModule<Partner>();
 		// Draw component
-		if (partner->fadeaway) {
+		if (partner->Partnered.selected == 1) {
 			{
 				// Draw Text
 				std::string textStr = categoryName;
@@ -921,7 +921,7 @@ void ClickGui::renderCategory(Category category) {
 										MC_Color(150, 30, 255), crossWidth, crossSize, !ourWindow->isExtended);
 			}
 		} else {
-		if (partner->surge) {
+		if (partner->Partnered.selected == 0) {
 			{
 				// Draw Text
 				std::string textStr = categoryName;
