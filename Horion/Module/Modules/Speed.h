@@ -13,7 +13,8 @@ public:
 	Speed() : IModule(VK_NUMPAD2, Category::MOVEMENT, "Speed up!") {
 		registerFloatSetting("speed", &speed, 1, 0.1f, 3.f);
 		registerEnumSetting("Mode", &speedMode, 0);
-		speedMode = (*new SettingEnum(this)).addEntry(EnumEntry("Strafe", 0)).addEntry(EnumEntry("Hive", 1)).addEntry(EnumEntry("Ability", 2));
+		speedMode = (*new SettingEnum(this)).addEntry(EnumEntry("Strafe", 0)).addEntry(EnumEntry("HiveOld", 1)).addEntry(EnumEntry("Ability", 2))
+			.addEntry(EnumEntry("Test", 3));
 	}
 	~Speed(){};
 
@@ -64,13 +65,12 @@ public:
 	}
 	virtual void onEnable() override {
 		speedIndexThingyForHive = 30;
-		if (speedMode.selected == 2) {//Ability
-			if (g_Data.getLocalPlayer() == nullptr) {
-				setEnabled(false);
-				return;
-			} else {
+		if (g_Data.getLocalPlayer() == nullptr) {
+			setEnabled(false);
+			return;
+		} else {
+			if (speedMode.selected == 2)  // Ability
 				origSpeed = *reinterpret_cast<float*>(g_Data.getLocalPlayer()->getSpeed() + 0x84);
-			}
 		}
 	}
 	virtual void onMove(C_MoveInputHandler* input) {
@@ -97,9 +97,8 @@ public:
 
 			if (pressed) {
 				player->setSprinting(true);
-				if (player->onGround) {
+				if (player->onGround)
 					player->jumpFromGround();
-				}
 				C_MovePlayerPacket mpp(player, *player->getPos());
 				mpp.onGround = player->onGround;
 				mpp.pitch += 0.5f;
