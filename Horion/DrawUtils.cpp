@@ -105,31 +105,31 @@ void DrawUtils::setColor(float r, float g, float b, float a) {
 C_Font* DrawUtils::getFont(Fonts font) {
 	auto clickguiMod = moduleMgr->getModule<ClickGuiMod>();
 	if (clickguiMod->font == 8) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[8].font;
+		return g_Data.getClientInstance()->minecraftGame->font8();
 	}
 	if (clickguiMod->font == 7) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[7].font;
+		return g_Data.getClientInstance()->minecraftGame->font7();
 	}
 	if (clickguiMod->font == 6) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[6].font;
+		return g_Data.getClientInstance()->minecraftGame->font6();
 	}
 	if (clickguiMod->font == 5) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[5].font;
+		return g_Data.getClientInstance()->minecraftGame->font5();
 	}
 	if (clickguiMod->font == 4) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[4].font;
+		return g_Data.getClientInstance()->minecraftGame->font4();
 	}
 	if (clickguiMod->font == 3) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[3].font;
+		return g_Data.getClientInstance()->minecraftGame->font3();
 	}
 	if (clickguiMod->font == 2) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[2].font;
+		return g_Data.getClientInstance()->minecraftGame->font2();
 	}
 	if (clickguiMod->font == 1) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[1].font;
+		return g_Data.getClientInstance()->minecraftGame->font1();
 	}
 	if (clickguiMod->font == 0) {
-		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[0].font;
+		return g_Data.getClientInstance()->minecraftGame->font0();
 	}
 
 
