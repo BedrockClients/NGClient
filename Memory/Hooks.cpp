@@ -596,6 +596,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			text.y += 10.f;
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[*] Speed Tweaks";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			string = "[+] partnered with Fadeaway";
 			text.y += 10.f;
 			outline.y += 10.f;
@@ -629,6 +633,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			string = "Sentinel";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "Founder";
 			text.y += 10.f;
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);

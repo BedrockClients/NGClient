@@ -1,5 +1,6 @@
 #pragma once
 #include "Module.h"
+#include "../ModuleManager.h"
 
 class Speed : public IModule {
 public:
@@ -17,7 +18,7 @@ public:
 			.addEntry(EnumEntry("Strafe", 0))
 			.addEntry(EnumEntry("HiveOld", 1))
 			.addEntry(EnumEntry("Ability", 2))
-			.addEntry(EnumEntry("Test", 3));
+			.addEntry(EnumEntry("HiveGround", 3));
 	}
 	~Speed(){};
 
@@ -94,6 +95,7 @@ public:
 			if (pressed)
 				player->lerpMotion(moveVec);
 		}
+
 		if (speedMode.selected == 1) {  //Hive
 			cachedInput = *input;
 			yes = input;
@@ -125,6 +127,72 @@ public:
 				else moveVec.y = player->velocity.y;
 				player->lerpMotion(moveVec);
 				if (speedIndexThingyForHive < 30) speedIndexThingyForHive++;
+			}
+		}
+
+		if (speedMode.selected == 3) {  // Test
+			float calcYaw = (player->yaw + 90) * (PI / 180);
+			vec3_t moveVec;
+			float c = cos(calcYaw);
+			float s = sin(calcYaw);
+			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+			moveVec.x = moveVec2d.x * speed;
+			moveVec.y = player->velocity.y;
+			moveVec.z = moveVec2d.y * speed;
+			if (pressed)
+				player->lerpMotion(moveVec);
+			if (pressed && player->onGround) {
+				if (g_Data.getLocalPlayer()->velocity.squaredxzlen() > 0.01) {
+					C_MovePlayerPacket p2 = C_MovePlayerPacket(g_Data.getLocalPlayer(), player->getPos()->add(vec3_t(player->velocity.x / 1.3f, 0.f, player->velocity.z / 2.3f)));
+					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p2);
+					//Made by Founder, don't take or skid you nigger monkey
+				}
+			}
+		}
+	}
+
+	virtual void onSendPacket(C_Packet* packet) override {
+		//static auto SF = moduleMgr->getModule<Scaffold>();
+		C_LocalPlayer* player = g_Data.getLocalPlayer();
+		if (player == nullptr) return;
+
+		if (speedMode.selected == 3 /* && ((!SF->isEnabled() && SF->SukinMyBigJuicyAss) || (SF->isEnabled() && !SF->SukinMyBigJuicyAss))*/) {
+			if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && g_Data.isInGame()) {
+				auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+				float myPitchq = player->pitch;
+				float myYawq = player->yaw;
+				float bodyYawq = player->bodyYaw;
+
+				C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
+
+				if (input == nullptr)
+					return;
+
+				float yaw = player->yaw;
+
+				if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->backKey))
+					return;
+				else if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->rightKey) && !GameData::isKeyDown(*input->leftKey)) {
+					yaw += 45.f;
+				} else if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->leftKey) && !GameData::isKeyDown(*input->rightKey)) {
+					yaw -= 45.f;
+				} else if (GameData::isKeyDown(*input->backKey) && GameData::isKeyDown(*input->rightKey) && !GameData::isKeyDown(*input->leftKey)) {
+					yaw += 135.f;
+				} else if (GameData::isKeyDown(*input->backKey) && GameData::isKeyDown(*input->leftKey) && !GameData::isKeyDown(*input->rightKey)) {
+					yaw -= 135.f;
+				} else if (GameData::isKeyDown(*input->forwardKey)) {
+				} else if (GameData::isKeyDown(*input->backKey)) {
+					yaw += 180.f;
+				} else if (GameData::isKeyDown(*input->rightKey) && !GameData::isKeyDown(*input->leftKey)) {
+					yaw += 90.f;
+				} else if (GameData::isKeyDown(*input->leftKey) && !GameData::isKeyDown(*input->rightKey)) {
+					yaw -= 90.f;
+				}
+				if (yaw >= 180)
+					yaw -= 360.f;
+				float calcYaw = (yaw + 90) * (PI / 180);
+
+				movePacket->headYaw = yaw;
 			}
 		}
 	}
