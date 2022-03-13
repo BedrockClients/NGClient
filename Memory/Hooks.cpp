@@ -1985,7 +1985,7 @@ void Hooks::Actor_startSwimming(C_Entity* _this) {
 
 void Hooks::RakNetInstance_tick(C_RakNetInstance* _this, __int64 a2, __int64 a3) {
 	static auto oTick = g_Hooks.RakNetInstance_tickHook->GetFastcall<void, C_RakNetInstance*, __int64, __int64>();
-	GameData::setRakNetInstance(_this);
+	if (a3 == 0) GameData::setRakNetInstance(_this);
 	oTick(_this, a2, a3);
 }
 
