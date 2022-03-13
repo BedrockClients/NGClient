@@ -531,7 +531,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			vec2_t text = vec2_t(windowSize.x / windowSize.x, 5);
 			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 5.5);
 
-			MC_Color devs = MC_Color(0, 255, 255);
 			MC_Color wight = MC_Color(255, 255, 255);
 			std::string string;
 			if (partner->Partnered.selected == 1)
