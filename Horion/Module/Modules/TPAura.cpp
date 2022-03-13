@@ -16,17 +16,6 @@ TPAura::~TPAura() {
 }
 
 const char* TPAura::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (unlim) {
-			return "TPAura [Infinite]";
-		} else if (isMobAura) {
-			return "TPAura [Mob]";
-		} else if (silent) {
-			return "TPAura [Silent]";
-		} else
-			return "TPAura";
-	} else
 		return "TPAura";
 }
 

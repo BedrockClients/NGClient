@@ -10,13 +10,6 @@ Mineplex::~Mineplex() {
 }
 
 const char* Mineplex::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (delayMode) {
-			return "MineplexBypass [Delay]";
-		} else
-			return "MineplexBypass";
-	} else
 		return "MineplexBypass";
 }
 

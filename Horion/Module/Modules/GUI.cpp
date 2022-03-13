@@ -32,16 +32,5 @@ GUI::~GUI() {
 }
 
 const char* GUI::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (bar || bottom) {
-			return "Arraylist [Bar]";
-		} else if (ice) {
-			return "Arraylist [Icy]";
-		} else if (bottom) {
-			return "Arraylist [Bottom]";
-		} else
-			return "Arraylist";
-	} else
 		return "Arraylist";
 }

@@ -28,20 +28,6 @@ Scaffold::~Scaffold() {
 }
 
 const char* Scaffold::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (airplace) {
-			return "Scaffold [Air]";
-		} else if (spoof) {
-			return "Scaffold [Spoof]";
-		} else if (predict) {
-			return "Scaffold [Predict]";
-		} else if (staircaseMode)
-			return "Scaffold [Stairs]";
-		else if (autoselect)
-			return "Scaffold [AutoSelect]";
-		else return "Scaffold";
-	} else
 		return "Scaffold";
 }
 

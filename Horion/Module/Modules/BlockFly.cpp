@@ -12,17 +12,6 @@ BlockFly::~BlockFly() {
 }
 
 const char* BlockFly::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (safe) {
-			return "BlockFly [Safe]";
-		} else if (dmg) {
-			return "BlockFly [Damage]";
-		} else if (time) {
-			return "BlockFly [Timer]";
-		} else
-			return "BlockFly";
-	} else
 		return "BlockFly";
 }
 

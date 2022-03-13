@@ -40,9 +40,6 @@ static constexpr float crossWidth = 0.3f;
 static const MC_Color selectedModuleColor = MC_Color(184, 0, 255);
 static const MC_Color selectedSettingColor1 = MC_Color(184, 0, 255);
 static const MC_Color selectedSettingColor2 = MC_Color(184, 0, 255);
-static const MC_Color moduleColor = MC_Color(0, 0, 0);
-static const MC_Color SettingColor1 = MC_Color(0, 0, 0);  // not enabled enums
-static const MC_Color SettingColor2 = MC_Color(0, 0, 0);  // enabled enums and enums when hovering over with mouse
 
 float currentYOffset = 0;
 float currentXOffset = 0;

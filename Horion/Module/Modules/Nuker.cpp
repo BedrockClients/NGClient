@@ -11,16 +11,7 @@ Nuker::~Nuker() {
 }
 
 const char* Nuker::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (autodestroy) {
-			return "Nuker [Auto]";
-		} else if (veinMiner) {
-			return "Nuker [Veins]";
-		} else
-			return "Nuker";
-	} else
-		return "Nuker";
+return "Nuker";
 }
 
 void Nuker::onTick(C_GameMode* gm) {

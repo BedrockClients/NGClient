@@ -40,15 +40,6 @@ ClickGuiMod::~ClickGuiMod() {
 }
 
 const char* ClickGuiMod::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (RGB) {
-			return "ClickGui [RGB]";
-		} else if (showTooltips) {
-			return "ClickGui [Tooltips]";
-		} else
-			return "ClickGui";
-	} else
 		return "ClickGui";
 }
 

@@ -24,17 +24,6 @@ struct CompareTargetEnArray {
 };
 
 const char* BowAimbot::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (silent) {
-			return "BowAimbot [Silent]";
-		} else if (predict) {
-			return "BowAimbot [Predict]";
-		} else if (visualize) {
-			return "BowAimbot [Visualize]";
-		} else
-			return "BowAimbot";
-	} else
 		return "BowAimbot";
 }
 

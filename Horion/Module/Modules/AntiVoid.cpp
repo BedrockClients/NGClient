@@ -14,17 +14,6 @@ AntiVoid::~AntiVoid() {
 }
 
 const char* AntiVoid::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (voidcheck) {
-			return "AntiVoid [VoidCheck]";
-		} else if (mode.selected == 0) {
-			return "AntiVoid [Teleport]";
-		} else if (mode.selected == 1) {
-			return "AntiVoid [Bounce]";
-		} else
-			return "AntiVoid";
-	} else
 		return "AntiVoid";
 }
 

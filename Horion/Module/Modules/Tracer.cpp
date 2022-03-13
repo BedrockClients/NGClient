@@ -23,17 +23,6 @@ Tracer::~Tracer() {
 static float rcolors[4];
 
 const char* Tracer::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (chest) {
-			return "Tracers [Chest]";
-		} else if (isMob) {
-			return "Tracers [Mob]";
-		} else if (RGB) {
-			return "Tracers [RGB]";
-		} else
-			return "Tracers";
-	} else
 		return "Tracers";
 }
 

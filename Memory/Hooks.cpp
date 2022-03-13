@@ -883,7 +883,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								moduleName = moduleNameChr;
 							else {
 								char text[50];
-								sprintf_s(text, 50, "%s%s", moduleNameChr, hudModule->keybinds ? std::string(" [" + std::string(Utils::getKeybindName(keybind)) + "]").c_str() : "");
+								sprintf_s(text, 50, "%s%s", moduleNameChr, gui->keybinds ? std::string(" [" + std::string(Utils::getKeybindName(keybind)) + "]").c_str() : "");
 								moduleName = text;
 							}
 

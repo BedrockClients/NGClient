@@ -34,17 +34,6 @@ Killaura::~Killaura() {
 }
 
 const char* Killaura::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (rots.selected == 0) {
-			return "Killaura [Strafe]";
-		} else if (rots.selected == 1) {
-			return "Killaura [Client]";
-		} else if (rots.selected == 2) {
-			return "Killaura [Silent]";
-		} else
-			return "Killaura";
-	} else
 		return "Killaura";
 }
 

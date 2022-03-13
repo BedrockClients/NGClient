@@ -18,19 +18,6 @@ AnchorAura::AnchorAura(): IModule(VK_NUMPAD0, Category::COMBAT, "Absolutly desto
 AnchorAura::~AnchorAura() {
 }
 const char* AnchorAura::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (dump) {
-			return "AnchorAura [Suicide]";
-		} else if (autoplace || AutoSelect || pEnhanced) {
-			return "AnchorAura [Auto]";
-		} else if (Give) {
-			return "AnchorAura [Give]";
-		} else if (Preview) {
-			return "AnchorAura [Preview]";
-		} else
-			return "AnchorAura";
-	} else
 		return "AnchorAura";
 }
 

@@ -14,17 +14,6 @@ PotionAura::~PotionAura() {
 }
 
 const char* PotionAura::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (rotations) {
-			return "PotionAura [Rotations]";
-		} else if (sexy) {
-			return "PotionAura [Sexy]";
-		} else if (silent) {
-			return "PotionAura [Silent]";
-		} else
-			return "PotionAura";
-	} else
 		return "PotionAura";
 }
 

@@ -14,7 +14,6 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
 	//registerBoolSetting("Notifications", &notifications, notifications);
-	//registerBoolSetting("Bools", &bools, bools);
 }
 
 HudModule::~HudModule() {
@@ -23,13 +22,6 @@ HudModule::~HudModule() {
 static float currColor[4];
 
 const char* HudModule::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-	if (rgb || Msg || watermark || keybinds || keystrokes || alwaysShow) {
-			return "HUD [Customised]";
-		} else
-			return "HUD";
-	} else
 		return "HUD";
 }
 

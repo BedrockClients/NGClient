@@ -12,16 +12,6 @@ ChestStealer::~ChestStealer() {
 }
 
 const char* ChestStealer::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (enhanced) {
-			return "ChestStealer [Enhanced]";
-		}
-		if (dump) {
-			return "ChestStealer [dump]";
-		} else
-			return "ChestStealer";
-	} else
 		return "ChestStealer";
 }
 

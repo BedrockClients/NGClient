@@ -14,13 +14,6 @@ Trail::~Trail() {
 static float rcolors[4];
 
 const char* Trail::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (Rainbow) 
-			return "Trail [RGB]";
-		else
-			return "Trail";
-	} else
 		return "Trail";
 }
 

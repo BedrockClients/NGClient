@@ -16,13 +16,6 @@ FightBot::~FightBot() {
 }
 
 const char* FightBot::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (silent) {
-			return "FightBot [Silent]";
-		} else
-			return "FightBot";
-	} else
 		return "FightBot";
 }
 

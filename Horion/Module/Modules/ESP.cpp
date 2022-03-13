@@ -15,23 +15,6 @@ ESP::~ESP() {
 }
 
 const char* ESP::getModuleName() {
-	auto HUD = moduleMgr->getModule<HudModule>();
-	if (isEnabled() && HUD->bools) {
-		if (isMobEsp) {
-			return "ESP [Mob]";
-		} else if (circle) {
-			return "ESP [Circle]";
-		} else if (betterESP) {
-			return "ESP [3D]";
-		} else if (is2d) {
-			return "ESP [2D]";
-		} else if (iszephyr) {
-			return "ESP [Zephyr]";
-		} else if (doRainbow) {
-			return "ESP [RGB]";
-		} else
-			return "ESP";
-	} else
 		return "ESP";
 }
 
