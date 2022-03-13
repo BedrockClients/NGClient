@@ -531,12 +531,11 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			vec2_t text = vec2_t(windowSize.x / windowSize.x, 5);
 			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 5.5);
 
-			MC_Color devs = MC_Color(0, 255, 255);
 			MC_Color wight = MC_Color(255, 255, 255);
 			std::string string;
-			if (partner->fadeaway)
+			if (partner->Partnered.selected == 1)
 			string = "Fadeaway Client";
-			else if (partner->surge)
+			else if (partner->Partnered.selected == 0)
 			string = "Surge Client";
 			else
 			string = "NG Client";
@@ -582,6 +581,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			string = "[+] ServerInfo";
+			text.y += 10.f;
+			outline.y += 10.f;
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string = "[+] Coordinates";
 			text.y += 10.f;
 			outline.y += 10.f;
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
@@ -664,7 +667,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		}
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
 			// Draw BIG epic Surge watermark
-			if (partner->surge) {
+			if (partner->Partnered.selected == 0) {
 				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
 				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text, text.size() / 3.3), wid.y / 70);
@@ -705,7 +708,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					mousePos = mousePos.mul(windowSize);
 				}
 
-				if (partner->fadeaway) {
+				if (partner->Partnered.selected == 1) {
 					if (shouldRenderWatermark) {
 						if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
 							constexpr float nameTextSize = 0.8f;
@@ -753,7 +756,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						}
 					}
 				} else {
-					if (partner->surge) {
+					if (partner->Partnered.selected == 0) {
 						if (shouldRenderWatermark) {
 							if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
 								constexpr float nameTextSize = 0.8f;
@@ -1052,7 +1055,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							a = moduleMgr->getEnabledModuleCount() * 2;
 						else
 							b = 0;
-						if (gui->fadeaway) {
+						if (gui->ArrayList.selected == 4) {
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							currColor[0] += 1.f / a * c;
 							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
@@ -1060,7 +1063,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							// currColor[0] += 1.f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[3], currColor[3]);
-						} else if (gui->weather) {
+						} else if (gui->ArrayList.selected == 3) {
 							currColor[3] = rcolors[3];
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
 							currColor[0] += 1.1f / a * b;
@@ -1070,7 +1073,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[2], currColor[2]);
 							// currColor[0] += 1.1f / a * b;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
-					} else if (gui->Horion) {
+						} else if (gui->ArrayList.selected == 2) {
 							currColor[3] = rcolors[3];
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							currColor[0] += 1.f / a * c;
@@ -1080,7 +1083,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
 							// currColor[0] += 1.f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
-						} else if (gui->Surge) {
+					    } else if (gui->ArrayList.selected == 1) {
 							currColor[3] = rcolors[5];
 							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
 							currColor[0] += 3.5f / a * c;
@@ -1090,7 +1093,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
 							// currColor[0] += 3.5f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
-						} else if (gui->badman) {
+						} else if (gui->ArrayList.selected == 0) {
 							currColor[3] = rcolors[3];
 							Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
 							currColor[0] += 2.f / a * c;
@@ -1100,11 +1103,23 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							// Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[3], currColor[2]);
 							// currColor[0] += 2.f / a * c;
 							// Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						} else if (gui->ArrayList.selected == 5) {
+							currColor[3] = rcolors[5];
+							currColor[3] = rcolors[5];
+							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+							currColor[0] += .5f / a * c;
+							Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+							// NG RGBs
+							// currColor[3] = rcolors[5];
+							// currColor[3] = rcolors[5];
+							// Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+							// currColor[0] += 0.5f / a * c;
+							// Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
 						} else {
 							currColor[3] = rcolors[5];
 							currColor[3] = rcolors[5];
 							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 0.5f / a * c;
+							currColor[0] += .5f / a * c;
 							Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
 							// NG RGBs
 							// currColor[3] = rcolors[5];
@@ -1119,7 +1134,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							if (gui->rgb) {
 								DrawUtils::fillRectangle(FluxBar, MC_Color(currColor), 1.f);
 							} else {
-								if (partner->surge)
+								if (partner->Partnered.selected == 0)
 									DrawUtils::fillRectangle(FluxBar, MC_Color(10, 10, 255), 1.f);
 								else
 									DrawUtils::fillRectangle(FluxBar, MC_Color(184, 0, 255), 1.f);
@@ -1133,13 +1148,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							}
 						} else {
 							if (gui->underbar) {
-								if (partner->surge)
+								if (partner->Partnered.selected == 0)
 									DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
 								else
 									DrawUtils::fillRectangle(underline, MC_Color(184, 0, 255), 1.f);
 							}
 							if (gui->bar) {
-								if (partner->surge)
+								if (partner->Partnered.selected == 0)
 									DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
 								else
 									DrawUtils::fillRectangle(leftRect, MC_Color(184, 0, 255), 1.f);
@@ -1168,7 +1183,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						if (gui->rgb) {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 						} else {
-							if (partner->surge)
+							if (partner->Partnered.selected == 0)
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 							else
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 246, 255), textSize);
@@ -1183,7 +1198,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						if (gui->rgb) {
 							DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(currColor), 1.f);
 						} else {
-							if (partner->surge)
+							if (partner->Partnered.selected == 0)
 								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(0, 0, 0), 1.f);
 							else
 								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(184, 0, 255), 1.f);
@@ -1242,7 +1257,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), box->fadeVal);
 			if (hudModule->rgb)
 				DrawUtils::drawRectangle(rectPos, currColor, box->fadeVal, 2.f);
-			else if (partner->surge)
+			else if (partner->Partnered.selected == 0)
 				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 255), box->fadeVal, 2.f);
 			else
 				DrawUtils::drawRectangle(rectPos, MC_Color(184, 0, 255), box->fadeVal, 2.f);
@@ -1492,15 +1507,11 @@ void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
 	static auto freelookMod = moduleMgr->getModule<Freelook>();
 	static auto botMod = moduleMgr->getModule<FightBot>();
 	static auto targetMod = moduleMgr->getModule<TargetStrafe>();
-	static auto freeMod = moduleMgr->getModule<Freecam>();
 #ifdef _DEBUG
 	static auto test = moduleMgr->getModule<TestModule>();
 #endif
 	if (botMod->isEnabled() && g_Data.getLocalPlayer() == _this && !botMod->targetListA && botMod->sexy) {
 		sexyAngle = {botMod->joe};
-	}
-	if (freeMod->isEnabled() && freeMod->freezerot && g_Data.getLocalPlayer() == _this) {
-		sexyAngle = {freeMod->lastPos.x, freeMod->lastPos.y};
 	}
 	if (killauraMod->isEnabled() && g_Data.getLocalPlayer() == _this && !killauraMod->targetListA && killauraMod->rots.selected == 0) {
 		sexyAngle = {killauraMod->joe};

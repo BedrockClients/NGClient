@@ -112,6 +112,10 @@ public:
 	vec3_t& getOrigin() {
 		return *(vec3_t*)((char*)this + (0x798));
 	}
+	
+	vec3_t& getLoader() {
+		return *(vec3_t*)((char*)this + (0xB74));
+	}
 
 	__int64 getLevelRendererPlayer() {
 		return reinterpret_cast<__int64>(this) + 0x310;

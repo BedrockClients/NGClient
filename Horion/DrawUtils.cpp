@@ -104,31 +104,32 @@ void DrawUtils::setColor(float r, float g, float b, float a) {
 
 C_Font* DrawUtils::getFont(Fonts font) {
 	auto clickguiMod = moduleMgr->getModule<ClickGuiMod>();
-	// font
+	if (clickguiMod->font == 8) {
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[8].font;
+	}
+	if (clickguiMod->font == 7) {
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[7].font;
+	}
 	if (clickguiMod->font == 6) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[6].font;
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[6].font;
 	}
 	if (clickguiMod->font == 5) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[5].font;
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[5].font;
 	}
 	if (clickguiMod->font == 4) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[4].font;
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[4].font;
 	}
 	if (clickguiMod->font == 3) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[3].font;
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[3].font;
 	}
 	if (clickguiMod->font == 2) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[2].font;
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[2].font;
 	}
-	//default
 	if (clickguiMod->font == 1) {
-		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[0].font;
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[1].font;
+	}
+	if (clickguiMod->font == 0) {
+		return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[0].font;
 	}
 
 
@@ -434,7 +435,7 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 		vec4_t subRectPos = rectPos;
 		subRectPos.y = subRectPos.w - 1.f * textSize;
 		fillRectangle(rectPos, MC_Color(0, 0, 0), nametags->opacity);
-		if (partner->surge) {
+		if (partner->Partnered.selected == 0) {
 			if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
 				fillRectangle(subRectPos, MC_Color(0, 0, 255), nametags->opacity);
 			}
@@ -594,7 +595,7 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 		if (hudModule->keybindsRGB) {
 		drawRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color() : MC_Color(currColor), 1.f);
 		drawText(textPos, &keyString, MC_Color(currColor), 1.f, 1.f);
-		} else if (partner->surge)
+		} else if (partner->Partnered.selected == 0)
 		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 		else
 		drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -612,7 +613,7 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 		if (hudModule->keybindsRGB) {
 		drawRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color() : MC_Color(currColor), 1.f);
 		drawText(textPos, &keyString, MC_Color(currColor), 1.f, 1.f);
-		} else if (partner->surge)
+		} else if (partner->Partnered.selected == 0)
 		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 		else
 		drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -636,7 +637,7 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 	if (hudModule->keybindsRGB) {
 	drawRectangle(rectPos, GameData::GameData::isLeftClickDown() ? MC_Color() : MC_Color(currColor), 1.f);
 	drawText(textPos, &keyString, MC_Color(currColor), 1.f, 1.f);
-	} else if (partner->surge)
+	} else if (partner->Partnered.selected == 0)
 	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 	else
 	drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -659,7 +660,7 @@ void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 	if (hudModule->keybindsRGB) {
 	drawRectangle(rectPos, GameData::GameData::isRightClickDown() ? MC_Color() : MC_Color(currColor), 1.f);
 	drawText(textPos, &keyString, MC_Color(currColor), 1.f, 1.f);
-	} else if (partner->surge)
+	} else if (partner->Partnered.selected == 0)
 	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 	else
 	drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -687,7 +688,7 @@ void DrawUtils::CPS(vec2_t pos) {
 			drawText(textPos, &cpsText, MC_Color(currColor), 1.f, 1.f);
 		}
 		else 
-		if (partner->surge)
+		if (partner->Partnered.selected == 0)
 		drawText(textPos, &cpsText, MC_Color(0, 0, 255), 1.f, 1.f);
 		else
 		drawText(textPos, &cpsText, MC_Color(0, 246, 255), 1.f, 1.f);
@@ -911,7 +912,7 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 	refdef->OWorldToScreen(origin, ent, target, fov, screenSize);
 	//vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
 	static auto partner = moduleMgr->getModule<Partner>();
-	if (partner->surge) {
+	if (partner->Partnered.selected == 0) {
 		if (target != vec2_t(0, 0)) {
 
 			if (tracerMod->type.selected == 1) {

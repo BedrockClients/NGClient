@@ -19,7 +19,7 @@ float ClickGuiMod::tfbcolor{1.f};
 
 ClickGuiMod::ClickGuiMod() : IModule(VK_TAB, Category::GUI, "The clickgui") {
 	registerBoolSetting("Show Tooltips", &showTooltips, showTooltips);
-	registerIntSetting("Font", &font, font, 1, 6);
+	registerIntSetting("Font", &font, font, 1, 9);
 	registerBoolSetting("RGB", &RGB, RGB);
 	registerSpace("Enabled Colors");
 	registerFloatSetting("Module On Red", &trcolor, trcolor, 0.f, 1.f);

@@ -45,9 +45,9 @@ void bps::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		std::string bpsText = "BPS: " + std::to_string((int)g_Data.getLocalPlayer()->getBlocksPerSecond());
 		vec4_t rectPos = vec4_t(0.5f, yVal + 20.5f * scale, len - 1.5f, yVal + 30.5f * scale);
 		vec2_t textPos = vec2_t(xVal, yVal);
-		if (partner->surge) {
+		if (partner->Partnered.selected == 0) {
 			DrawUtils::drawText(vec2_t{textPos}, &bpsText, MC_Color(currColor), scale);
-		} else if (partner->surge) {
+		} else if (partner->Partnered.selected == 0) {
 			DrawUtils::drawText(vec2_t{textPos}, &bpsText, MC_Color(0, 0, 255), scale);
 		} else {
 			DrawUtils::drawText(vec2_t{textPos}, &bpsText, MC_Color(184, 0, 255), scale);
