@@ -18,7 +18,7 @@ public:
 			.addEntry(EnumEntry("Strafe", 0))
 			.addEntry(EnumEntry("HiveOld", 1))
 			.addEntry(EnumEntry("Ability", 2))
-			.addEntry(EnumEntry("Test", 3));
+			.addEntry(EnumEntry("HiveGround", 3));
 	}
 	~Speed(){};
 
