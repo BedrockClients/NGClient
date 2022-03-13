@@ -162,7 +162,7 @@ void TPAura::onSendPacket(C_Packet* packet) {
 }
 
 void TPAura::onPostRender(C_MinecraftUIRenderContext* ctx) {
-	if (!targetList.empty() && TPAuratargetHUD && g_Data.isInGame()) {
+	/* if (!targetList.empty() && TPAuratargetHUD && g_Data.isInGame()) {
 		vec4_t tempPos = vec4_t(120.f, 5.f, 90.f, 40.f);           //temp pos for the text pos, so we can create a pos that doesn't have player names overlapping from the box to the screen
 		vec2_t textPos = vec2_t(tempPos.y, tempPos.x);             //text pos
 		vec4_t pos = vec4_t(3.f, 118.f, 75.f + textPos.x, 223.f);  //pos for using
@@ -181,7 +181,7 @@ void TPAura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 		currColor[3] = rcolors2[3];
 		Utils::ColorConvertRGBtoHSV(rcolors2[0], rcolors2[1], rcolors2[2], currColor[0], currColor[2], currColor[2]);
 		Utils::ColorConvertHSVtoRGB(currColor[0], currColor[2], currColor[3], currColor[0], currColor[0], currColor[1]);
-		std::string name = targetList[0]->getNameTag()->getText();
+//		std::string name = targetList[0]->getNameTag()->getText();
 		std::string distance = "Distance: " + std::to_string((*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
 		std::string X = "X: " + std::to_string((targetList[0]->getPos()->x));
 		std::string Y = "Y: " + std::to_string((targetList[0]->getPos()->y));
@@ -192,7 +192,7 @@ void TPAura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 		std::string height = "height: " + std::to_string((targetList[0]->height));
 		std::string entityid = "EntityID: " + std::to_string((targetList[0]->getEntityTypeId()));
 		DrawUtils::drawRectangle(pos, currColor, 1.f);
-		DrawUtils::drawText(textPos, &name, currColor, 1.f);
+		//DrawUtils::drawText(textPos, &name, currColor, 1.f);
 		textPos.y += 10.f;
 		DrawUtils::drawText(textPos, &distance, currColor, 1.f);
 		textPos.y += 10.f;
@@ -211,5 +211,5 @@ void TPAura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 		DrawUtils::drawText(textPos, &height, currColor, 1.f);
 		textPos.y += 10.f;
 		DrawUtils::drawText(textPos, &entityid, currColor, 1.f);
-	}
+	}*/
 }

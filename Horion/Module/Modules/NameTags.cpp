@@ -68,6 +68,6 @@ void NameTags::onDisable() {
 			*ingameNametagSetting = lastSetting;
 			gotPrevSetting = false;
 		}
-		*ingameNametagSetting = true;
+		//*ingameNametagSetting = true; //fix crash
 	}
 }
