@@ -1100,7 +1100,19 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							currColor[3] = rcolors[5];
 							currColor[3] = rcolors[5];
 							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
-							currColor[0] += 0.5f / a * c;
+							currColor[0] += .5f / a * c;
+							Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+							// NG RGBs
+							// currColor[3] = rcolors[5];
+							// currColor[3] = rcolors[5];
+							// Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+							// currColor[0] += 0.5f / a * c;
+							// Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
+						} else {
+							currColor[3] = rcolors[5];
+							currColor[3] = rcolors[5];
+							Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
+							currColor[0] += .5f / a * c;
 							Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
 							// NG RGBs
 							// currColor[3] = rcolors[5];

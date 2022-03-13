@@ -119,19 +119,24 @@ void ClickGui::renderTooltip(std::string* text) {
 		DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 		DrawUtils::drawText(textPos, text, MC_Color(150, 30, 255), textSize);
 	} else {
-	if (partner->Partnered.selected == 0) {
-		DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-		DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
-		DrawUtils::drawText(textPos, text, MC_Color(0, 0, 255), textSize);
-	} else {
+		if (partner->Partnered.selected == 0) {
 			DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 			DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
-			DrawUtils::drawText(textPos, text, MC_Color(184, 0, 255), textSize);
+			DrawUtils::drawText(textPos, text, MC_Color(0, 0, 255), textSize);
+		} else {
+			if (partner->Partnered.selected == 2) {
+				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
+				DrawUtils::drawText(textPos, text, MC_Color(184, 0, 255), textSize);
+			} else {
+				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
+				DrawUtils::drawText(textPos, text, MC_Color(184, 0, 255), textSize);
+			}
 		}
 	}
 }
-
-void ClickGui::renderCategory(Category category) {
+	void ClickGui::renderCategory(Category category) {
 	static float currColor[4];  // ArrayList colors
 
 	// rainbow colors
@@ -295,6 +300,9 @@ void ClickGui::renderCategory(Category category) {
 						if (partner->Partnered.selected == 0)
 							DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 255), ClickguiOpac->opacity);
 						else 
+							if (partner->Partnered.selected == 2)
+							DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+						else 
 							DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 					}
 					std::string tooltip = mod->getTooltip();
@@ -321,21 +329,26 @@ void ClickGui::renderCategory(Category category) {
 						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(150, 30, 255) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
 				}
 			} else {
-			if (partner->Partnered.selected == 0) {
-				if (rgbHud->RGB) {
-					if (allowRender)
-						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(currColor), textSize);
+				if (partner->Partnered.selected == 0) {
+					if (rgbHud->RGB) {
+						if (allowRender)
+							DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(currColor), textSize);
+					} else {
+						if (allowRender)
+							DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
+					}
 				} else {
-					if (allowRender)
-						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
-				}
-			} else {
 					if (rgbHud->RGB) {
 						if (allowRender)
 							DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(ClickGuiMod::trcolor, ClickGuiMod::tgcolor, ClickGuiMod::tbcolor) : MC_Color(currColor), textSize);
 					} else {
-						if (allowRender)
+						if (partner->Partnered.selected == 2) {
+							if (allowRender)
+								DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(ClickGuiMod::trcolor, ClickGuiMod::tgcolor, ClickGuiMod::tbcolor) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
+						} else {
+							if (allowRender)
 							DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(ClickGuiMod::trcolor, ClickGuiMod::tgcolor, ClickGuiMod::tbcolor) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
+						}
 					}
 				}
 			}
@@ -355,16 +368,23 @@ void ClickGui::renderCategory(Category category) {
 													currentYOffset + textPadding + (textHeight / 2)),
 												MC_Color(150, 30, 255), crossWidth, crossSize, !clickMod->isExtended);
 					} else {
-					if (partner->Partnered.selected == 0) {
-						GuiUtils::drawCrossLine(vec2_t(
-													currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
-													currentYOffset + textPadding + (textHeight / 2)),
-												MC_Color(0, 0, 255), crossWidth, crossSize, !clickMod->isExtended);
-					} else {
+						if (partner->Partnered.selected == 0) {
 							GuiUtils::drawCrossLine(vec2_t(
 														currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 														currentYOffset + textPadding + (textHeight / 2)),
-													MC_Color(184, 0, 255), crossWidth, crossSize, !clickMod->isExtended);
+													MC_Color(0, 0, 255), crossWidth, crossSize, !clickMod->isExtended);
+						} else {
+							if (partner->Partnered.selected == 2) {
+								GuiUtils::drawCrossLine(vec2_t(
+															currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
+															currentYOffset + textPadding + (textHeight / 2)),
+														MC_Color(184, 0, 255), crossWidth, crossSize, !clickMod->isExtended);
+							} else {
+									GuiUtils::drawCrossLine(vec2_t(
+															currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
+															currentYOffset + textPadding + (textHeight / 2)),
+															MC_Color(184, 0, 255), crossWidth, crossSize, !clickMod->isExtended);
+							}
 						}
 					}
 
@@ -435,25 +455,7 @@ void ClickGui::renderCategory(Category category) {
 										DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
 									}
 								} else {
-								if (partner->Partnered.selected == 0) {
-									vec4_t boxPos = vec4_t(
-										textPos.x + textPadding,
-										textPos.y + textPadding,
-										textPos.x + textHeight - textPadding,
-										textPos.y + textHeight - textPadding);
-
-									DrawUtils::drawRectangle(boxPos, MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), isFocused ? 1 : 0.8f, 0.5f);
-
-									if (setting->value->_bool) {
-										DrawUtils::setColor(255, 255, 255, 1);
-										boxPos.x += textPadding;
-										boxPos.y += textPadding;
-										boxPos.z -= textPadding;
-										boxPos.w -= textPadding;
-										DrawUtils::drawLine(vec2_t(boxPos.x, boxPos.y), vec2_t(boxPos.z, boxPos.w), 0.5f);
-										DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
-									}
-								} else {
+									if (partner->Partnered.selected == 0) {
 										vec4_t boxPos = vec4_t(
 											textPos.x + textPadding,
 											textPos.y + textPadding,
@@ -470,6 +472,44 @@ void ClickGui::renderCategory(Category category) {
 											boxPos.w -= textPadding;
 											DrawUtils::drawLine(vec2_t(boxPos.x, boxPos.y), vec2_t(boxPos.z, boxPos.w), 0.5f);
 											DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
+										}
+									} else {
+										if (partner->Partnered.selected == 2) {
+											vec4_t boxPos = vec4_t(
+												textPos.x + textPadding,
+												textPos.y + textPadding,
+												textPos.x + textHeight - textPadding,
+												textPos.y + textHeight - textPadding);
+
+											DrawUtils::drawRectangle(boxPos, MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), isFocused ? 1 : 0.8f, 0.5f);
+
+											if (setting->value->_bool) {
+												DrawUtils::setColor(255, 255, 255, 1);
+												boxPos.x += textPadding;
+												boxPos.y += textPadding;
+												boxPos.z -= textPadding;
+												boxPos.w -= textPadding;
+												DrawUtils::drawLine(vec2_t(boxPos.x, boxPos.y), vec2_t(boxPos.z, boxPos.w), 0.5f);
+												DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
+											}
+										} else {
+											vec4_t boxPos = vec4_t(
+												textPos.x + textPadding,
+												textPos.y + textPadding,
+												textPos.x + textHeight - textPadding,
+												textPos.y + textHeight - textPadding);
+
+											DrawUtils::drawRectangle(boxPos, MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), isFocused ? 1 : 0.8f, 0.5f);
+
+											if (setting->value->_bool) {
+												DrawUtils::setColor(255, 255, 255, 1);
+												boxPos.x += textPadding;
+												boxPos.y += textPadding;
+												boxPos.z -= textPadding;
+												boxPos.w -= textPadding;
+												DrawUtils::drawLine(vec2_t(boxPos.x, boxPos.y), vec2_t(boxPos.z, boxPos.w), 0.5f);
+												DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
+											}
 										}
 									}
 								}
@@ -488,18 +528,7 @@ void ClickGui::renderCategory(Category category) {
 									currentYOffset += textHeight + (textPadding * 2);
 
 								} else {
-								if (partner->Partnered.selected == 0) {
-									// Convert first letter to uppercase for more friendlieness
-									char name[0x21];
-									sprintf_s(name, 0x21, "%s", setting->name);
-									if (name[0] != 0)
-										name[0] = toupper(name[0]);
-
-									std::string elTexto = name;
-									windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 10 /* because we add 10 to text padding + checkbox*/);
-									DrawUtils::drawText(textPos, &elTexto, isFocused ? MC_Color(1.0f, 1.0f, 1.0f) : MC_Color(0.8f, 0.8f, 0.8f), textSize);
-									currentYOffset += textHeight + (textPadding * 2);
-								} else {
+									if (partner->Partnered.selected == 0) {
 										// Convert first letter to uppercase for more friendlieness
 										char name[0x21];
 										sprintf_s(name, 0x21, "%s", setting->name);
@@ -510,6 +539,30 @@ void ClickGui::renderCategory(Category category) {
 										windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 10 /* because we add 10 to text padding + checkbox*/);
 										DrawUtils::drawText(textPos, &elTexto, isFocused ? MC_Color(1.0f, 1.0f, 1.0f) : MC_Color(0.8f, 0.8f, 0.8f), textSize);
 										currentYOffset += textHeight + (textPadding * 2);
+									} else {
+										if (partner->Partnered.selected == 2) {
+											// Convert first letter to uppercase for more friendlieness
+											char name[0x21];
+											sprintf_s(name, 0x21, "%s", setting->name);
+											if (name[0] != 0)
+												name[0] = toupper(name[0]);
+
+											std::string elTexto = name;
+											windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 10 /* because we add 10 to text padding + checkbox*/);
+											DrawUtils::drawText(textPos, &elTexto, isFocused ? MC_Color(1.0f, 1.0f, 1.0f) : MC_Color(0.8f, 0.8f, 0.8f), textSize);
+											currentYOffset += textHeight + (textPadding * 2);
+										} else {
+											// Convert first letter to uppercase for more friendlieness
+											char name[0x21];
+											sprintf_s(name, 0x21, "%s", setting->name);
+											if (name[0] != 0)
+												name[0] = toupper(name[0]);
+
+											std::string elTexto = name;
+											windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 10 /* because we add 10 to text padding + checkbox*/);
+											DrawUtils::drawText(textPos, &elTexto, isFocused ? MC_Color(1.0f, 1.0f, 1.0f) : MC_Color(0.8f, 0.8f, 0.8f), textSize);
+											currentYOffset += textHeight + (textPadding * 2);
+										}
 									}
 								}
 								break;
@@ -921,44 +974,64 @@ void ClickGui::renderCategory(Category category) {
 										MC_Color(150, 30, 255), crossWidth, crossSize, !ourWindow->isExtended);
 			}
 		} else {
-		if (partner->Partnered.selected == 0) {
-			{
-				// Draw Text
-				std::string textStr = categoryName;
-				static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
-				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-				if (rgbHud->RGB) {
-					DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
-				} else {
-					DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
-				}
-				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+			if (partner->Partnered.selected == 0) {
+				{
+					// Draw Text
+					std::string textStr = categoryName;
+					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
+					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
+					if (rgbHud->RGB) {
+						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
+					} else {
+						DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
+					}
+					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
-				DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(0, 0, 255), 1 - ourWindow->animation);
-				// Draw Dash
-				GuiUtils::drawCrossLine(vec2_t(
-											currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
-											categoryHeaderYOffset + textPadding + (textHeight / 2)),
-										MC_Color(0, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
-			}
-		} else {
-				// Draw Text
-				std::string textStr = categoryName;
-				static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
-				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-				if (rgbHud->RGB) {
-					DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
-				} else {
-					DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
+					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(0, 0, 255), 1 - ourWindow->animation);
+					// Draw Dash
+					GuiUtils::drawCrossLine(vec2_t(
+												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
+												categoryHeaderYOffset + textPadding + (textHeight / 2)),
+											MC_Color(0, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
 				}
-				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+			} else {
+				if (partner->Partnered.selected == 2) {
+					// Draw Text
+					std::string textStr = categoryName;
+					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
+					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
+					if (rgbHud->RGB) {
+						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
+					} else {
+						DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
+					}
+					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
-				DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
-				// Draw Dash
-				GuiUtils::drawCrossLine(vec2_t(
-											currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
-											categoryHeaderYOffset + textPadding + (textHeight / 2)),
-										MC_Color(184, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
+					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
+					// Draw Dash
+					GuiUtils::drawCrossLine(vec2_t(
+												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
+												categoryHeaderYOffset + textPadding + (textHeight / 2)),
+											MC_Color(184, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
+				} else {
+					// Draw Text
+					std::string textStr = categoryName;
+					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
+					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
+					if (rgbHud->RGB) {
+						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
+					} else {
+						DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
+					}
+					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+
+					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
+					// Draw Dash
+					GuiUtils::drawCrossLine(vec2_t(
+												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
+												categoryHeaderYOffset + textPadding + (textHeight / 2)),
+											MC_Color(184, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
+				}
 			}
 		}
 	}

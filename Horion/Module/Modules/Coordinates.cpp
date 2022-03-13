@@ -1,12 +1,11 @@
 #include "Coordinates.h"
-
 #include "../../../Utils/Logger.h"
 #include "../../DrawUtils.h"
 #include "../../Scripting/ScriptManager.h"
 
 Coordinates::Coordinates() : IModule(0x0, Category::GUI, "Tells the player their coords") {
-	registerFloatSetting("CoordsX", &coordsX, coordsX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
-	registerFloatSetting("CoordsY", &coordsY, coordsY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
+	registerFloatSetting("CoordinatesX", &coordsX, coordsX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);
+	registerFloatSetting("CoordinatesY", &coordsY, coordsY, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.y);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
 }
 
@@ -16,7 +15,6 @@ Coordinates::~Coordinates() {
 const char* Coordinates::getModuleName() {
 	return ("Coordinates");
 }
-
 void Coordinates::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
 		std::string tempStr("Movement");
@@ -42,11 +40,12 @@ void Coordinates::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				// DrawUtils::fillRectangle(rectPos, MC_Color(20, 20, 20), 1.f);
 				if (curDim == 0) {
 					std::string coordsText = "XYZ: " + coordsX + " " + coordsY + " " + coordsZ;
-					DrawUtils::drawText(textPos, &coordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+
+						DrawUtils::drawText(textPos, &coordsText, MC_Color(184, 0, 255), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
 					yVal += f;
 				} else if (curDim == 2) {
 					std::string coordsText = "End: " + coordsX + " " + coordsY + " " + coordsZ;
-					DrawUtils::drawText(textPos, &coordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+					DrawUtils::drawText(textPos, &coordsText, MC_Color(255, 255, 555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
 					yVal += f;
 				}
 				std::string NcoordsX = "X: " + std::to_string((int)floorf(pos->x + 0.001) / 8);
@@ -55,7 +54,8 @@ void Coordinates::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t NtextPos = vec2_t(xVal, yVal);
 				vec2_t NoutLinePos = vec2_t(NtextPos.x + 0.6f * scale - 0.001f, NtextPos.y - 0.6f * scale - 0.001f);
 				std::string NcoordsText = "Nether: " + NcoordsX + " " + coordsY + " " + NcoordsZ;
-				DrawUtils::drawText(NtextPos, &NcoordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+
+					DrawUtils::drawText(NtextPos, &NcoordsText, MC_Color(184, 0, 255), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
 			}
 
 			else if (curDim == 1) {
@@ -66,7 +66,8 @@ void Coordinates::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t NtextPos = vec2_t(xVal, yVal);
 				vec2_t NoutLinePos = vec2_t(NtextPos.x + 0.6f * 1, NtextPos.y - 0.6f * scale - 0.001f);
 				std::string NcoordsText = "Nether: " + NcoordsX + " " + coordsY + " " + NcoordsZ;
-				DrawUtils::drawText(NtextPos, &NcoordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+
+					DrawUtils::drawText(NtextPos, &NcoordsText, MC_Color(184, 0, 255), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
 				yVal += f;
 
 				std::string coordsX = "X: " + std::to_string((int)floorf(pos->x + 0.001) * 8);
@@ -77,7 +78,8 @@ void Coordinates::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				vec2_t outLinePos = vec2_t(textPos.x + 0.6f * scale - 0.001f, textPos.y - 0.6f * scale - 0.001f);
 				// DrawUtils::fillRectangle(rectPos, MC_Color(20, 20, 20), 1.f);
 				std::string coordsText = "XYZ: " + coordsX + " " + coordsY + " " + coordsZ;
-				DrawUtils::drawText(textPos, &coordsText, MC_Color(255 ,255 ,555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
+
+					DrawUtils::drawText(textPos, &coordsText, MC_Color(184, 0, 255), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
 			}
 		}
 	}

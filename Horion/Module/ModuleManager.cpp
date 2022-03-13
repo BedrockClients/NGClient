@@ -165,6 +165,7 @@ void ModuleManager::initModules() {
 	getModule<HudModule>()->setEnabled(true);
 	getModule<ClickGuiMod>()->setEnabled(false);
 	getModule<AntiBot>()->setEnabled(true);
+	getModule<GUI>()->setEnabled(true);
 }
 
 void ModuleManager::disable() {

@@ -6,7 +6,6 @@
 class Partner : public IModule {
 public:
 	SettingEnum Partnered;
-
 	Partner();
 	~Partner();
 
