@@ -1,10 +1,11 @@
 #pragma once
 
 class C_RakNetInstance {
-	char pad_0000[1008];  //0x0000
+	char pad_0000[0x3C8];  //0x0008
 public:
-	TextHolder serverIp;        //0x0380
-	uint32_t serverPort;   //0x03A0
+	TextHolder numericalIp;  //0x03D0
+	TextHolder serverIp;        //0x03F0
+	uint32_t serverPort;   //0x0400
 
 	private:
 	virtual ~C_RakNetInstance();
