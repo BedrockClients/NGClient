@@ -47,6 +47,8 @@ void ServerInfo::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			if (Server->serverIp.getTextLength() < 1) {
 				serverIp = "Local World";
+				numericalIp = "Local World";
+				Port = "Local World";
 			}
 			std::string ServerText = "IP: " + serverIp + "\nIP: " + numericalIp + " \nPort: " + Port;
 				//"IP: " + serverIp + " \nPort: " + Port;
