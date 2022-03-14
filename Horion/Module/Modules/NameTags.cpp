@@ -23,6 +23,8 @@ void drawNameTags(C_Entity* ent, bool) {
 	if (freeMod->isEnabled()) {
 			if (ent->timeSinceDeath > 0)
 				return;
+			if (ent == nullptr)
+				return;
 			if (ent->getNameTag()->getTextLength() < 1)
 				return;
 			if (Target::isValidTarget(ent) && nameTagsMod != nullptr) {
@@ -34,6 +36,8 @@ void drawNameTags(C_Entity* ent, bool) {
 	} else {
 		if (ent != localPlayer) {
 			if (ent->timeSinceDeath > 0)
+				return;
+			if (ent == nullptr)
 				return;
 			if (ent->getNameTag()->getTextLength() < 1)
 				return;
