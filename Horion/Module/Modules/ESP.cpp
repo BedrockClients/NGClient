@@ -6,6 +6,7 @@ ESP::ESP() : IModule('O', Category::VISUAL, "Makes it easier to find entities ar
 	registerBoolSetting("rainbow", &doRainbow, doRainbow);
 	registerBoolSetting("MobEsp", &isMobEsp, isMobEsp);
 	registerBoolSetting("2d", &is2d, is2d);
+	registerBoolSetting("ItemEsp", &item, item);
 	registerBoolSetting("Zephyr ESP", &iszephyr, iszephyr);
 	registerBoolSetting("Better ESP", &betterESP, betterESP);
 	registerBoolSetting("GodsEye ESP", &circle, circle);
@@ -28,6 +29,16 @@ void doRenderStuff(C_Entity* ent, bool isRegularEntitie) {
 	static auto freeMod = moduleMgr->getModule<Freecam>();
 
 	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
+	if (espMod->item) {
+		if (ent->getEntityTypeId() == 64) {
+			DrawUtils::drawNameTags(ent, 1.f, false, false);
+			if (espMod->doRainbow)
+				DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
+			else
+				DrawUtils::setColor(0.9f, 0.9f, 0.9f, (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
+			DrawUtils::drawBetterESP(ent, (float)fmax(0.2f, 1 / (float)fmax(1, (*localPlayer->getPos()).dist(*ent->getPos()))));
+		}
+	} else
 	if (!freeMod->isEnabled() && ent == localPlayer)
 		return;
 	if (ent->timeSinceDeath > 0)

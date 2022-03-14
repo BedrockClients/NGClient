@@ -60,15 +60,17 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 		if (killauraMod->isMobAura) {
 			if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
 				return;
-			if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
-				return;
-			if (currentEntity->getEntityTypeId() == 64)  // item
-				return;
-			if (currentEntity->getEntityTypeId() == 69)  // xp
-				return;
+			if (currentEntity == nullptr) return;
+			if (currentEntity == g_Data.getLocalPlayer()) return;  // Skip Local player
+			if (!currentEntity->isAlive()) return;
+			if (!g_Data.getLocalPlayer()->isAlive()) return;
+			if (currentEntity->getEntityTypeId() == 71) return;        // endcrystal
+			if (currentEntity->getEntityTypeId() == 66) return;        // falling block
+			if (currentEntity->getEntityTypeId() == 64) return;        // item
+			if (currentEntity->getEntityTypeId() == 69) return;        // xp orb
+			if (!Target::isValidTarget(currentEntity)) return;
 		} else {
-			if (!Target::isValidTarget(currentEntity) /* || *(__int64*)currentEntity != actualPlayerVTable*/)
-				return;
+			if (!Target::isValidTarget(currentEntity)) return;
 		}
 
 		float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());

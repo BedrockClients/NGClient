@@ -11,6 +11,7 @@ public:
 	bool iszephyr = false;
 	bool betterESP = true;
 	bool circle = true;
+	bool item = true;
 
 	ESP();
 	~ESP();
