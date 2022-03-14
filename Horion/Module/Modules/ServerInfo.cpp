@@ -51,7 +51,6 @@ void ServerInfo::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				Port = "Local World";
 			}
 			std::string ServerText = "IP: " + serverIp + "\nIP: " + numericalIp + " \nPort: " + Port;
-				//"IP: " + serverIp + " \nPort: " + Port;
 
 				static auto partner = moduleMgr->getModule<Partner>();
 			if (partner->Partnered.selected == 0) {
