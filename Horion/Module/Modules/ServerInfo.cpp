@@ -39,15 +39,17 @@ void ServerInfo::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			float yVal = serverInfoY;
 			float xVal = serverInfoX;
 
-			std::string IP = Server->serverIp.getText();
+			std::string serverIp = Server->serverIp.getText();
+			std::string numericalIp = Server->numericalIp.getText();
 			std::string Port = std::to_string(Server->serverPort).c_str();
 
 			vec2_t textPos = vec2_t(xVal, yVal);
 
 			if (Server->serverIp.getTextLength() < 1) {
-				IP = "Local World";
+				serverIp = "Local World";
 			}
-			std::string ServerText = "IP: " + IP + " \nPort: " + Port;
+			std::string ServerText = "IP: " + serverIp + "\nIP: " + numericalIp + " \nPort: " + Port;
+				//"IP: " + serverIp + " \nPort: " + Port;
 
 				static auto partner = moduleMgr->getModule<Partner>();
 			if (partner->Partnered.selected == 0) {
