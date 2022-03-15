@@ -139,8 +139,8 @@ void Hooks::Init() {
 		//void* InGamePlayScreen___renderLevel = reinterpret_cast<void*>(FindSignature("48 89 5C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ?? ?? ?? ?? 48 81 EC ?? ?? ?? ?? 0F 29 B4 24 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 85 ?? ?? ?? ?? 49 8B D8 4C"));
 		//g_Hooks.InGamePlayScreen___renderLevelHook = std::make_unique<FuncHook>(InGamePlayScreen___renderLevel, Hooks::InGamePlayScreen___renderLevel);
 
-		/*void* testy = reinterpret_cast<void*>(FindSignature("48 8B 05 61 DF CD 02 48 85 C0 75 07"));
-		g_Hooks.testyHook = std::make_unique<FuncHook>(testy, Hooks::testy);*/
+		//void* testy = reinterpret_cast<void*>(FindSignature("48 8B 05 61 DF CD 02 48 85 C0 75 07"));
+		//g_Hooks.testyHook = std::make_unique<FuncHook>(testy, Hooks::testy);
 		
 		//void* ascendLadder = reinterpret_cast<void*>(FindSignature("C7 81 ? ? ? ? ? ? ? ? C3 CC CC CC CC CC C7 81 ? ? ? ? ? ? ? ? C3 CC CC CC CC CC C7 81"));
 		//g_Hooks.Actor_ascendLadderHook = std::make_unique<FuncHook>(ascendLadder, Hooks::Actor_ascendLadder);
@@ -1744,23 +1744,194 @@ int Hooks::BlockLegacy_getRenderLayer(C_BlockLegacy* a1) {
 	static auto oFunc = g_Hooks.BlockLegacy_getRenderLayerHook->GetFastcall<int, C_BlockLegacy*>();
 
 	static auto xrayMod = moduleMgr->getModule<Xray>();
+
+	bool shouldRender = false;
+
 	if (xrayMod->isEnabled()) {
-		char* text = a1->name.getText();
-		if (strstr(text, "ore") == NULL)
+		if (xrayMod->emeralds) {
+			shouldRender = true;
+			char* text = a1->name.getText();
+			if (strstr(text, "emerald_ore") == 0)
+				if (strstr(text, "emerald_block") == 0)
+					if (strcmp(text, "lava") != NULL)
+						if (strcmp(text, "water") != NULL)
+							if (strcmp(text, "barrel") != NULL)
+								if (strcmp(text, "portal") != NULL)
+									if (strcmp(text, "deny") != NULL)
+										if (strcmp(text, "end_portal") != NULL)
+											if (strcmp(text, "end_portal_frame") != NULL)
+												if (strcmp(text, "command_block") != NULL)
+													if (strcmp(text, "chain_command_block") != NULL)
+														if (strcmp(text, "repeating_command_block") != NULL)
+															return 10;
+		}
+
+		if (xrayMod->diamonds) {
+			shouldRender = true;
+			char* text = a1->name.getText();
+			if (strstr(text, "diamond_ore") == NULL)
+				if (strstr(text, "diamond_block") == NULL)
+					if (strcmp(text, "lava") != NULL)
+						if (strcmp(text, "water") != NULL)
+							if (strcmp(text, "barrel") != NULL)
+								if (strcmp(text, "portal") != NULL)
+									if (strcmp(text, "deny") != NULL)
+										if (strcmp(text, "end_portal") != NULL)
+											if (strcmp(text, "end_portal_frame") != NULL)
+												if (strcmp(text, "command_block") != NULL)
+													if (strcmp(text, "chain_command_block") != NULL)
+														if (strcmp(text, "repeating_command_block") != NULL)
+															return 10;
+		}
+
+		if (xrayMod->iron) {
+			shouldRender = true;
+			char* text = a1->name.getText();
+			if (strstr(text, "iron_ore") == NULL)
+				if (strstr(text, "iron_block") == NULL)
+					if (strcmp(text, "lava") != NULL)
+						if (strcmp(text, "water") != NULL)
+							if (strcmp(text, "barrel") != NULL)
+								if (strcmp(text, "portal") != NULL)
+									if (strcmp(text, "deny") != NULL)
+										if (strcmp(text, "end_portal") != NULL)
+											if (strcmp(text, "end_portal_frame") != NULL)
+												if (strcmp(text, "command_block") != NULL)
+													if (strcmp(text, "chain_command_block") != NULL)
+														if (strcmp(text, "repeating_command_block") != NULL)
+															return 10;
+		}
+
+		if (xrayMod->gold) {
+			shouldRender = true;
+			char* text = a1->name.getText();
+			if (strstr(text, "gold_ore") == NULL)
+				if (strstr(text, "gold_block") == NULL)
+					if (strcmp(text, "gilded_blackstone") != NULL)
+						if (strcmp(text, "lava") != NULL)
+							if (strcmp(text, "water") != NULL)
+								if (strcmp(text, "barrel") != NULL)
+									if (strcmp(text, "portal") != NULL)
+										if (strcmp(text, "deny") != NULL)
+											if (strcmp(text, "end_portal") != NULL)
+												if (strcmp(text, "end_portal_frame") != NULL)
+													if (strcmp(text, "command_block") != NULL)
+														if (strcmp(text, "chain_command_block") != NULL)
+															if (strcmp(text, "repeating_command_block") != NULL)
+																return 10;
+		}
+
+		if (xrayMod->debris) {
+			shouldRender = true;
+			char* text = a1->name.getText();
+			if (strstr(text, "ancient_debris") == NULL)
+				if (strstr(text, "netherite_block") == NULL)
+					if (strcmp(text, "lava") != NULL)
+						if (strcmp(text, "water") != NULL)
+							if (strcmp(text, "barrel") != NULL)
+								if (strcmp(text, "portal") != NULL)
+									if (strcmp(text, "deny") != NULL)
+										if (strcmp(text, "end_portal") != NULL)
+											if (strcmp(text, "end_portal_frame") != NULL)
+												if (strcmp(text, "command_block") != NULL)
+													if (strcmp(text, "chain_command_block") != NULL)
+														if (strcmp(text, "repeating_command_block") != NULL)
+															return 10;
+		}
+
+		if (xrayMod->coal) {
+			shouldRender = true;
+			char* text = a1->name.getText();
+			if (strstr(text, "coal_ore") == NULL)
+				if (strstr(text, "coal_block") == NULL)
+					if (strcmp(text, "lava") != NULL)
+						if (strcmp(text, "water") != NULL)
+							if (strcmp(text, "barrel") != NULL)
+								if (strcmp(text, "portal") != NULL)
+									if (strcmp(text, "deny") != NULL)
+										if (strcmp(text, "end_portal") != NULL)
+											if (strcmp(text, "end_portal_frame") != NULL)
+												if (strcmp(text, "command_block") != NULL)
+													if (strcmp(text, "chain_command_block") != NULL)
+														if (strcmp(text, "repeating_command_block") != NULL)
+															return 10;
+		}
+
+		if (xrayMod->redstone) {
+			shouldRender = true;
+			char* text = a1->name.getText();
+			if (strstr(text, "redstone_ore") == NULL)
+				if (strstr(text, "redstone_block") == NULL)
+					if (strcmp(text, "lava") != NULL)
+						if (strcmp(text, "water") != NULL)
+							if (strcmp(text, "barrel") != NULL)
+								if (strcmp(text, "portal") != NULL)
+									if (strcmp(text, "deny") != NULL)
+										if (strcmp(text, "end_portal") != NULL)
+											if (strcmp(text, "end_portal_frame") != NULL)
+												if (strcmp(text, "command_block") != NULL)
+													if (strcmp(text, "chain_command_block") != NULL)
+														if (strcmp(text, "repeating_command_block") != NULL)
+															return 10;
+		}
+
+		if (xrayMod->lapis) {
+			shouldRender = true;
+			char* text = a1->name.getText();
+			if (strstr(text, "lapis_ore") == NULL)
+				if (strstr(text, "lapis_block") == NULL)
+					if (strcmp(text, "lava") != NULL)
+						if (strcmp(text, "water") != NULL)
+							if (strcmp(text, "barrel") != NULL)
+								if (strcmp(text, "portal") != NULL)
+									if (strcmp(text, "deny") != NULL)
+										if (strcmp(text, "end_portal") != NULL)
+											if (strcmp(text, "end_portal_frame") != NULL)
+												if (strcmp(text, "command_block") != NULL)
+													if (strcmp(text, "chain_command_block") != NULL)
+														if (strcmp(text, "repeating_command_block") != NULL)
+															return 10;
+		}
+
+		if (xrayMod->other) {
+			shouldRender = true;
+			char* text = a1->name.getText();
 			if (strcmp(text, "lava") != NULL)
 				if (strcmp(text, "water") != NULL)
-					if (strcmp(text, "portal") != NULL)
-						if (strcmp(text, "amethyst_block") != NULL)
-							if (strcmp(text, "ancient_debris") != NULL)
-								if (strcmp(text, "command_block") != NULL)
-									if (strcmp(text, "repeating_command_block") != NULL)
-										if (strcmp(text, "chain_command_block") != NULL)
-											if (strcmp(text, "structure_block") != NULL)
-												if (strcmp(text, "deny") != NULL)
-													if (strcmp(text, "allow") != NULL)
-														if (strcmp(text, "bedrock") != NULL)
-															if (strcmp(text, "border_block") != NULL)
-																return 10;
+					if (strcmp(text, "barrel") != NULL)
+						if (strcmp(text, "portal") != NULL)
+							if (strcmp(text, "deny") != NULL)
+								if (strcmp(text, "end_portal") != NULL)
+									if (strcmp(text, "end_portal_frame") != NULL)
+										if (strcmp(text, "command_block") != NULL)
+											if (strcmp(text, "chain_command_block") != NULL)
+												if (strcmp(text, "repeating_command_block") != NULL)
+													return 10;
+		}
+
+		char* text = a1->name.getText();
+		if (strstr(text, "ore") == NULL)
+			if (strstr(text, "ancient_debris") == NULL)
+				if (strstr(text, "netherite_block") == NULL)
+					if (strstr(text, "diamond_block") == NULL)
+						if (strstr(text, "emerald_block") == NULL)
+							if (strstr(text, "gold_block") == NULL)
+								if (strstr(text, "iron_block") == NULL)
+									if (strstr(text, "coal_block") == NULL)
+										if (strstr(text, "redstone_block") == NULL)
+											if (strstr(text, "lapis_block") == NULL)
+												if (strcmp(text, "gilded_blackstone") != NULL)
+													if (strcmp(text, "lava") != NULL)
+														if (strcmp(text, "water") != NULL)
+															if (strcmp(text, "barrel") != NULL)
+																if (strcmp(text, "portal") != NULL)
+																	if (strcmp(text, "deny") != NULL)
+																		if (strcmp(text, "end_portal") != NULL)
+																			if (strcmp(text, "end_portal_frame") != NULL)
+																				if (strcmp(text, "command_block") != NULL)
+																					if (strcmp(text, "chain_command_block") != NULL)
+																						if (strcmp(text, "repeating_command_block") != NULL)
+																							return 10;
 	}
 	return oFunc(a1);
 }
