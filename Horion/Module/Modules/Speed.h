@@ -18,7 +18,8 @@ public:
 			.addEntry(EnumEntry("Strafe", 0))
 			.addEntry(EnumEntry("HiveOld", 1))
 			.addEntry(EnumEntry("Ability", 2))
-			.addEntry(EnumEntry("HiveGround", 3));
+			.addEntry(EnumEntry("HiveGround", 3))
+			.addEntry(EnumEntry("Teleport", 4));
 	}
 	~Speed(){};
 
@@ -82,9 +83,9 @@ public:
 		if (player == nullptr) return;
 		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
+		float calcYaw = (player->yaw + 90) * (PI / 180);
 
 		if (speedMode.selected == 0) {//Strafe
-			float calcYaw = (player->yaw + 90) * (PI / 180);
 			vec3_t moveVec;
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
@@ -112,7 +113,6 @@ public:
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 			}
 
-			float calcYaw = (player->yaw + 90) * (PI / 180);
 			vec3_t moveVec;
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
@@ -130,8 +130,7 @@ public:
 			}
 		}
 
-		if (speedMode.selected == 3) {  // Test
-			float calcYaw = (player->yaw + 90) * (PI / 180);
+		if (speedMode.selected == 3) {  // HiveGround
 			vec3_t moveVec;
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
@@ -148,6 +147,17 @@ public:
 					//Made by Founder, don't take or skid you nigger monkey
 				}
 			}
+		}
+
+		if (speedMode.selected == 4 && pressed) { // Teleport
+			auto pos = *g_Data.getLocalPlayer()->getPos();
+			float length = speed;
+			vec3_t moveVec;
+
+			float x = cos(calcYaw) * length;
+			float z = sin(calcYaw) * length;
+
+			player->setPos(pos.add(vec3_t(x, 0.f, z)));
 		}
 	}
 
