@@ -7,18 +7,21 @@ public:
 	float origSpeed = 0;
 	float speed = 1.6f;
 	bool hive = false;
+	bool cc = false;
 	C_MoveInputHandler* yes;
 	C_MoveInputHandler cachedInput;
 	SettingEnum speedMode;
 
 	Speed() : IModule(VK_NUMPAD2, Category::MOVEMENT, "Speed up!") {
 		registerFloatSetting("speed", &speed, 1, 0.1f, 3.f);
+		registerBoolSetting("OldCubeBP", &cc, cc);
 		registerEnumSetting("Mode", &speedMode, 0);
 		speedMode = (*new SettingEnum(this))
 			.addEntry(EnumEntry("Strafe", 0))
 			.addEntry(EnumEntry("HiveOld", 1))
 			.addEntry(EnumEntry("Ability", 2))
-			.addEntry(EnumEntry("HiveGround", 3));
+			.addEntry(EnumEntry("HiveGround", 3))
+			.addEntry(EnumEntry("Teleport", 4));
 	}
 	~Speed(){};
 
@@ -75,17 +78,29 @@ public:
 		} else {
 			if (speedMode.selected == 2)  // Ability
 				origSpeed = *reinterpret_cast<float*>(g_Data.getLocalPlayer()->getSpeed() + 0x84);
+			if (speedMode.selected == 3 && speed >= 0.6f)
+				speed = .6f;//suggested to stay below 0.5
 		}
 	}
 	virtual void onMove(C_MoveInputHandler* input) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
+		vec3_t moveVec;
 		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
+		float calcYaw = (player->yaw + 90) * (PI / 180);
+
+		if (cc && pressed) {
+			moveVec.x = cos(calcYaw) * speed;
+			moveVec.y = player->velocity.y;
+			moveVec.z = sin(calcYaw) * speed;
+			float posDistance = .5f; //Increasing value = higher speeds but higher chance to rubberband due to pos being in a nearby block
+			C_MovePlayerPacket p2 = C_MovePlayerPacket(g_Data.getLocalPlayer(), player->getPos()->add(vec3_t(moveVec.x * posDistance, 0.f, moveVec.z * posDistance)));
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p2);
+			// Made by Founder, don't take, skid, re-purpose, or claim
+		}
 
 		if (speedMode.selected == 0) {//Strafe
-			float calcYaw = (player->yaw + 90) * (PI / 180);
-			vec3_t moveVec;
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
 			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
@@ -112,8 +127,6 @@ public:
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&mpp);
 			}
 
-			float calcYaw = (player->yaw + 90) * (PI / 180);
-			vec3_t moveVec;
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
 			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
@@ -130,9 +143,7 @@ public:
 			}
 		}
 
-		if (speedMode.selected == 3) {  // Test
-			float calcYaw = (player->yaw + 90) * (PI / 180);
-			vec3_t moveVec;
+		if (speedMode.selected == 3) {  // HiveGround
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
 			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
@@ -145,14 +156,24 @@ public:
 				if (g_Data.getLocalPlayer()->velocity.squaredxzlen() > 0.01) {
 					C_MovePlayerPacket p2 = C_MovePlayerPacket(g_Data.getLocalPlayer(), player->getPos()->add(vec3_t(player->velocity.x / 1.3f, 0.f, player->velocity.z / 2.3f)));
 					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p2);
-					//Made by Founder, don't take or skid you nigger monkey
+					//Made by Founder, don't take, skid, re-purpose, or claim
 				}
 			}
+		}
+
+		if (speedMode.selected == 4 && pressed) { // Teleport
+			auto pos = *g_Data.getLocalPlayer()->getPos();
+			float length = speed;
+
+			float x = cos(calcYaw) * length;
+			float z = sin(calcYaw) * length;
+
+			player->setPos(pos.add(vec3_t(x, 0.f, z)));
 		}
 	}
 
 	virtual void onSendPacket(C_Packet* packet) override {
-		//static auto SF = moduleMgr->getModule<Scaffold>();
+		//static auto SF = moduleMgr->getModule<Scaffold>(); errors
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
 
