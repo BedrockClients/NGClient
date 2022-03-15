@@ -78,6 +78,8 @@ public:
 		} else {
 			if (speedMode.selected == 2)  // Ability
 				origSpeed = *reinterpret_cast<float*>(g_Data.getLocalPlayer()->getSpeed() + 0x84);
+			if (speedMode.selected == 3 && speed >= 0.6f)
+				speed = .6f;//suggested to stay below 0.5
 		}
 	}
 	virtual void onMove(C_MoveInputHandler* input) {
