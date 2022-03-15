@@ -151,6 +151,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoRender()));
 		//
+		moduleList.push_back(std::shared_ptr<IModule>(new KeyStrokes()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Partner()));
 		// Sort modules alphabetically
 		std::sort(moduleList.begin(), moduleList.end(), [](auto lhs, auto rhs) {

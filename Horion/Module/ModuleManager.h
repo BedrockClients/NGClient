@@ -142,6 +142,7 @@
 #include "Modules/Zoom.h"
 #include "Modules/NoRender.h"
 //
+#include "Modules/KeyStrokes.h"
 #include "Modules/Partner.h"
 #ifdef _DEBUG
 

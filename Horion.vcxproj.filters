@@ -157,6 +157,7 @@
     <ClCompile Include="Horion\Module\Modules\Coordinates.cpp" />
     <ClCompile Include="Horion\Module\Modules\ArmourHud.cpp" />
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -431,6 +432,7 @@
     <ClInclude Include="Horion\Module\Modules\ArmourHud.h" />
     <ClInclude Include="Horion\Module\Modules\Partner.h" />
     <ClInclude Include="Horion\Module\Modules\NoRender.h" />
+    <ClInclude Include="Horion\Module\Modules\Keystrokes.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
