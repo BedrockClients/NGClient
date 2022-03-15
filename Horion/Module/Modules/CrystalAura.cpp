@@ -19,39 +19,18 @@ static std::vector<C_Entity*> targetList7;
 void findEntity3(C_Entity* currentEntity, bool isRegularEntity) {
 	static auto CrystalAuraMod = moduleMgr->getModule<CrystalAura>();
 
-	if (currentEntity == nullptr)
-		return;
-
-	if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 71)  // crystal
-		return;
-
-	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
-		return;
-
-	// if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
-	// return;
-
-	if (!g_Data.getLocalPlayer()->isAlive())
-		return;
-
-	if (!currentEntity->isAlive())
-		return;
-
-	if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
-		return;
-	if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
-		return;
-	if (currentEntity->getEntityTypeId() == 64)  // item
-		return;
-	if (currentEntity->getEntityTypeId() == 69)  // xp_orb
-		return;
-	if (currentEntity->getEntityTypeId() == 80)  // arrow
-		return;
-
-	if (!Target::isValidTarget(currentEntity))
-		return;
-
-	// how hard is it to play fair? add back the badman check if its hard
+	if (currentEntity == nullptr) return;
+	if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 71) return; // crystal
+	if (currentEntity == g_Data.getLocalPlayer()) return;  // Skip Local player
+	if (!g_Data.getLocalPlayer()->isAlive()) return;
+	if (!currentEntity->isAlive()) return;
+	if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63) return;
+	if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f) return;  // Don't hit this pesky antibot on 2b2e.org
+	if (currentEntity->getEntityTypeId() == 64) return; // item
+	if (currentEntity->getEntityTypeId() == 69) return; // xp_orb
+	if (currentEntity->getEntityTypeId() == 80) return; // arrow
+	if (!Target::isValidTarget(currentEntity)) return;
+	//if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false)) return;
 
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 

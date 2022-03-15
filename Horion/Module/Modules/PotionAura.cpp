@@ -29,36 +29,19 @@ void finnddEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	std::sort(targetLissst.begin(), targetLissst.end(), CompareTargetEnArray());
 	static auto PotionAuraMod = moduleMgr->getModule<PotionAura>();
 
-	if (currentEntity == nullptr)
-		return;
-
-	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
-		return;
-
-	if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
-		return;
-
-	if (!g_Data.getLocalPlayer()->isAlive())
-		return;
-
-	if (!currentEntity->isAlive())
-		return;
-
-	if (currentEntity->width <= 0.10f || currentEntity->height <= 0.10f)  // Don't hit this pesky antibot on 2b2e.org
-		return;
-
+	if (currentEntity == nullptr) return;
+	if (currentEntity == g_Data.getLocalPlayer()) return; // Skip Local player
+	if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false)) return;
+	if (!g_Data.getLocalPlayer()->isAlive()) return;
+	if (!currentEntity->isAlive()) return;
+	if (currentEntity->width <= 0.10f || currentEntity->height <= 0.10f) return; // Don't hit this pesky antibot on 2b2e.org
 	if (PotionAuraMod->isMobAura) {
-		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
-			return;
-		if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
-			return;
-		if (currentEntity->getEntityTypeId() == 64)  // item
-			return;
-		if (currentEntity->getEntityTypeId() == 69)  // xp
-			return;
+		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63) return;
+		if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f) return; // Don't hit this pesky antibot on 2b2e.org
+		if (currentEntity->getEntityTypeId() == 64) return;  // item
+		if (currentEntity->getEntityTypeId() == 69) return; // xp
 	} else {
-		if (!Target::isValidTarget(currentEntity))
-			return;
+		if (!Target::isValidTarget(currentEntity)) return;
 	}
 
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());

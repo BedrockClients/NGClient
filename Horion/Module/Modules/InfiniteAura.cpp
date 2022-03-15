@@ -31,28 +31,17 @@ static std::vector<C_Entity*> targetList0;
 void findEntities(C_Entity* currentEntity, bool isRegularEntitie) {
 	static auto InfiniteAuraMod = moduleMgr->getModule<InfiniteAura>();
 
-	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
-		return;
-
-	if (currentEntity == 0)
-		return;
-
-	if (currentEntity->timeSinceDeath > 0 || currentEntity->damageTime >= 7)
-		return;
-
-	if (FriendList::findPlayer(currentEntity->getNameTag()->getText()))  // Skip Friend
-		return;
+	if (currentEntity == g_Data.getLocalPlayer()) return;  // Skip Local player
+	if (currentEntity == 0) return;
+	if (currentEntity->timeSinceDeath > 0 || currentEntity->damageTime >= 7) return;
+	if (FriendList::findPlayer(currentEntity->getNameTag()->getText())) return;//Skip Friend
 	if (InfiniteAuraMod->isMobAura) {
-		std::sort(targetList0.begin(), targetList0.end(), CompareTargetEnArray());
-		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
-			return;
-		if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
-			return;
-		if (currentEntity->getEntityTypeId() == 64)  // item
-			return;
+	std::sort(targetList0.begin(), targetList0.end(), CompareTargetEnArray());
+	if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63) return;
+	if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f) return;//Don't hit this pesky antibot on 2b2e.org
+	if (currentEntity->getEntityTypeId() == 64) return;//item
 	} else {
-		if (!Target::isValidTarget(currentEntity))
-			return;
+	if (!Target::isValidTarget(currentEntity)) return;
 	}
 
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());

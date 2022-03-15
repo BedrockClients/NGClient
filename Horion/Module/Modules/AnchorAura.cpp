@@ -29,24 +29,15 @@ void AnchorAura::onEnable() {
 }
 
 bool CfindEntityy(C_Entity* curEnt, bool isRegularEntity) {
-	if (curEnt == nullptr)
-		return false;
-	if (curEnt == g_Data.getLocalPlayer())
-		return false;  // Skip Local player
-	if (!curEnt->isAlive())
-		return false;
-	if (!g_Data.getLocalPlayer()->isAlive())
-		return false;
-	if (curEnt->getEntityTypeId() == 71)
-		return false;  // endcrystal
-	if (curEnt->getEntityTypeId() == 66)
-		return false;  // falling block
-	if (curEnt->getEntityTypeId() == 64)
-		return false;  // item
-	if (curEnt->getEntityTypeId() == 69)
-		return false;  // xp orb
-	if (!Target::isValidTarget(curEnt))
-		return false;
+	if (curEnt == nullptr) return false;
+	if (curEnt == g_Data.getLocalPlayer()) return false;  // Skip Local player
+	if (!curEnt->isAlive()) return false;
+	if (!g_Data.getLocalPlayer()->isAlive()) return false;
+	if (curEnt->getEntityTypeId() == 71) return false;  // endcrystal
+	if (curEnt->getEntityTypeId() == 66) return false;  // falling block
+	if (curEnt->getEntityTypeId() == 64) return false;  // item
+	if (curEnt->getEntityTypeId() == 69) return false;  // xp orb
+	if (!Target::isValidTarget(curEnt)) return false;
 
 	float dist = (*curEnt->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
 	if (dist <= moduleMgr->getModule<AnchorAura>()->pRange) {

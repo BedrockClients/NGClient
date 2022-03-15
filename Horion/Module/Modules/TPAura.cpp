@@ -24,31 +24,25 @@ static std::vector<C_Entity*> targetList;
 void findEntity0(C_Entity* currentEntity, bool isRegularEntity) {
 	static auto TPMod = moduleMgr->getModule<TPAura>();
 
-	if (currentEntity == nullptr)
-		return;
-
-	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
-		return;
-
-	if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false))
-		return;
-
-	if (!g_Data.getLocalPlayer()->isAlive())
-		return;
-
-	if (!currentEntity->isAlive())
-		return;
-
+	if (currentEntity == nullptr) return;
+	if (currentEntity == g_Data.getLocalPlayer()) return;  // Skip Local player
+	if (!g_Data.getLocalPlayer()->canAttack(currentEntity, false)) return;
+	if (!g_Data.getLocalPlayer()->isAlive()) return;
+	if (!currentEntity->isAlive()) return;
+	if (currentEntity->width <= 0.10f || currentEntity->height <= 0.10f) return;  // Don't hit this pesky antibot on 2b2e.org
 	if (TPMod->isMobAura) {
-		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
-			return;
-		if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
-			return;
-		if (currentEntity->getEntityTypeId() == 64)  // item
-			return;
+		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63) return;
+		if (currentEntity == nullptr) return;
+		if (currentEntity == g_Data.getLocalPlayer()) return;  // Skip Local player
+		if (!currentEntity->isAlive()) return;
+		if (!g_Data.getLocalPlayer()->isAlive()) return;
+		if (currentEntity->getEntityTypeId() == 71) return;  // endcrystal
+		if (currentEntity->getEntityTypeId() == 66) return;  // falling block
+		if (currentEntity->getEntityTypeId() == 64) return;  // item
+		if (currentEntity->getEntityTypeId() == 69) return;  // xp orb
+		if (!Target::isValidTarget(currentEntity)) return;
 	} else {
-		if (!Target::isValidTarget(currentEntity))
-			return;
+		if (!Target::isValidTarget(currentEntity)) return;
 	}
 
 	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());

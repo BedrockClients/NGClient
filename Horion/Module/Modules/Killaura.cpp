@@ -58,16 +58,15 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 		if (currentEntity == nullptr || currentEntity == g_Data.getLocalPlayer() || !g_Data.getLocalPlayer()->canAttack(currentEntity, false) || !g_Data.getLocalPlayer()->isAlive() || !currentEntity->isAlive() || currentEntity->width <= 0.10f || currentEntity->height <= 0.10f)
 			return;
 		if (killauraMod->isMobAura) {
-			if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
-				return;
+			if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63) return;
 			if (currentEntity == nullptr) return;
-			if (currentEntity == g_Data.getLocalPlayer()) return;  // Skip Local player
+			if (currentEntity == g_Data.getLocalPlayer()) return;// Skip Local player
 			if (!currentEntity->isAlive()) return;
 			if (!g_Data.getLocalPlayer()->isAlive()) return;
-			if (currentEntity->getEntityTypeId() == 71) return;        // endcrystal
-			if (currentEntity->getEntityTypeId() == 66) return;        // falling block
-			if (currentEntity->getEntityTypeId() == 64) return;        // item
-			if (currentEntity->getEntityTypeId() == 69) return;        // xp orb
+			if (currentEntity->getEntityTypeId() == 71) return;// endcrystal
+			if (currentEntity->getEntityTypeId() == 66) return;// falling block
+			if (currentEntity->getEntityTypeId() == 64) return;// item
+			if (currentEntity->getEntityTypeId() == 69) return;// xp orb
 			if (!Target::isValidTarget(currentEntity)) return;
 		} else {
 			if (!Target::isValidTarget(currentEntity)) return;
