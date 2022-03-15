@@ -358,8 +358,9 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 
 			std::string healthString = std::to_string(((int)Health));
+			std::string hurt = std::to_string((targetList[0]->damageTime));
 			std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-			std::string healthDisplay = "Health: " + healthString;
+			std::string healthDisplay = "Health: " + healthString + "/20 | Hurt Time: " + hurt;
 			std::string absorptionDisplay;
 
 			//Absorbtion Bar
@@ -376,10 +377,16 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			//The text
 			{
-				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + (res.y / 550.f)), &targetName, MC_Color(255, 255, 255), 1.f, counter / 100.f);                 // name
-				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), 0.7f, counter / 100.f);              // health
-				DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 210.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, counter / 100.f);  // absorbtion
-				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 210.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, counter / 100.f);               // distance
+				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 350.f), rectPos.y + (res.y / 600.f)), &targetName, MC_Color(255, 255, 255), 1.f, counter / 100.f);                  // name
+				DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, counter / 100.f);  // absorbtion
+				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 350.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, counter / 100.f);              // distance
+
+				if (!(targetList[0]->damageTime > 1)) {
+					DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), 0.7f, counter / 100.f);// health
+				} else {
+					DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(255, 0, 0), 0.7f, counter / 100.f);// health
+				}
+
 			}
 			DrawUtils::flush();
 
