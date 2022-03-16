@@ -11,7 +11,6 @@
 #include "TextHolder.h"
 
 class C_GameMode;
-struct AutomaticID;
 
 class PointingStruct {
 private:
