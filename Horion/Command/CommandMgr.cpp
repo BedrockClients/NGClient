@@ -50,6 +50,7 @@ commandList.push_back(new BindCommand());
 	commandList.push_back(new TopCommand());
 	commandList.push_back(new UnbindCommand());
 	commandList.push_back(new WaypointCommand());
+	commandList.push_back(new SeedCommand());
 
 #ifdef _DEBUG
 	

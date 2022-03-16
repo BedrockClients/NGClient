@@ -433,6 +433,7 @@
     <ClInclude Include="Horion\Module\Modules\Partner.h" />
     <ClInclude Include="Horion\Module\Modules\NoRender.h" />
     <ClInclude Include="Horion\Module\Modules\Keystrokes.h" />
+    <ClInclude Include="Horion\Command\Commands\SeedCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

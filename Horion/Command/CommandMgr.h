@@ -38,6 +38,7 @@
 #include "Commands/TopCommand.h"
 #include "Commands/UnbindCommand.h"
 #include "Commands/WaypointCommand.h"
+#include "Commands/SeedCommand.h"
 
 #ifdef _DEBUG
 #endif

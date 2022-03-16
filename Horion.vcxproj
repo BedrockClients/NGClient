@@ -420,6 +420,7 @@
     <ClInclude Include="Horion\Command\Commands\PlayerTeleportCommand.h" />
     <ClInclude Include="Horion\Command\Commands\RelativeTeleportCommand.h" />
     <ClInclude Include="Horion\Command\Commands\ScriptCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\SeedCommand.h" />
     <ClInclude Include="Horion\Command\Commands\ServerCommand.h" />
     <ClInclude Include="Horion\Command\Commands\setoffhandCommand.h" />
     <ClInclude Include="Horion\Command\Commands\SetprefixCommand.h" />
