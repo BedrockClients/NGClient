@@ -270,7 +270,6 @@
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\ArmourHud.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
-    <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bps.cpp" />
     <ClCompile Include="Horion\Module\Modules\Coordinates.cpp" />
     <ClCompile Include="Horion\Module\Modules\Cps.cpp" />
@@ -286,7 +285,6 @@
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Miner.cpp" />
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
@@ -457,7 +455,6 @@
     <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
-    <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
     <ClInclude Include="Horion\Module\Modules\Bps.h" />
     <ClInclude Include="Horion\Module\Modules\chestaura.h" />
     <ClInclude Include="Horion\Module\Modules\Coordinates.h" />
@@ -483,7 +480,6 @@
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\Keystrokes.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
-    <ClInclude Include="Horion\Module\Modules\Miner.h" />
     <ClInclude Include="Horion\Module\Modules\NoRender.h" />
     <ClInclude Include="Horion\Module\Modules\Partner.h" />
     <ClInclude Include="Horion\Module\Modules\Rainbow.h" />

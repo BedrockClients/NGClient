@@ -8,6 +8,7 @@ Partner::Partner() : IModule(0, Category::PARTNER, "Partnered Clients") {
 					.addEntry(EnumEntry("Surge", 0))
 					.addEntry(EnumEntry("Fadeaway", 1))
 					.addEntry(EnumEntry("NG", 2));
+				    //.addEntry(EnumEntry("Weather", 3));
 }
 Partner::~Partner() {
 }
