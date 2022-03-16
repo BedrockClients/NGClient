@@ -570,8 +570,8 @@ private:
 	virtual Minecraft* getServerData(void) const;
 
 public:
-	virtual PointingStruct* getLevel(void);
-	virtual PointingStruct* getLevel(void) const;
+	virtual Level* getLevel(void);
+	virtual Level* getLevel(void) const;
 	virtual bool isPreGame(void) const;
 	virtual bool isInMultiplayerGame(void) const;
 	virtual bool isMultiC_PlayerClient(void) const;
@@ -876,7 +876,7 @@ private:
 	virtual __int64 updateScreens(void);
 
 public:
-	PointingStruct* getPointerStruct() {
+	Level* getPointerStruct() {
 		return this->getLevel();
 	}
 

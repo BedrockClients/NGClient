@@ -25,7 +25,7 @@ void HiveNuker::onTick(C_GameMode* gm) {
 				if (destroy) {
 					bool isDestroyed = false;
 					if (GameData::isLeftClickDown() && g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getLocalPlayer()->canOpenContainerScreen()) {
-						PointingStruct* pointing = g_Data.getLocalPlayer()->pointingStruct;
+						Level* pointing = g_Data.getLocalPlayer()->pointingStruct;
 						gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
 						gm->destroyBlock(new vec3_ti(pointing->block), pointing->blockSide);
 						gm->stopDestroyBlock(pointing->block);

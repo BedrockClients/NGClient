@@ -12,7 +12,7 @@
 
 class C_GameMode;
 
-class PointingStruct {
+class Level {
 private:
 	char firstpad[0x688];  //0x8 (Too lazy to fix comments)
 public:
@@ -418,7 +418,7 @@ public:
 	}
 
 	void playSound(std::string sound, vec3_t const &position, float volume, float pitch) {
-		using playSound_t = void(__fastcall *)(PointingStruct *, TextHolder *, vec3_t const &, float, float);
+		using playSound_t = void(__fastcall *)(Level *, TextHolder *, vec3_t const &, float, float);
 		// Using getBase so there's a much smaller and barely noticeable delay when we call this function for the first time
 		static playSound_t func = reinterpret_cast<playSound_t>(Utils::getBase() + 0x2447650);  // 48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 83 EC 50 48 ?? ?? ?? ?? 00 00 33 FF 48 2B ?? ?? ?? 00 00 49 8B F0 48 C1 F8 03 48 8B EA
 		if (func != 0) {
@@ -429,7 +429,7 @@ public:
 
 	//Credits to hacker hansen for this
 	std::vector<C_Entity *> getMiscEntityList() {
-		using entityList_t = __int64 *(__fastcall *)(PointingStruct *, void *);
+		using entityList_t = __int64 *(__fastcall *)(Level *, void *);
 		// Using getBase so there's a much smaller and barely noticeable delay when we call this function for the first time
 		static entityList_t func = reinterpret_cast<entityList_t>(Utils::getBase() + 0x2451510);  // 48 89 5C 24 ?? 56 57 41 56 48 83 EC 40 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 44 24 ?? 48 8B F2 4C 8B F1 48 89 54 24 ?? 33 C9
 		if (func != 0) {
@@ -513,7 +513,7 @@ private:
 public:
 	class C_BlockSource *region;     //0x358
 	class Dimension *dimension;      //0x360
-	PointingStruct *pointingStruct;  //0x368
+	Level *pointingStruct;  //0x368
 private:
 	char pad_0x370[0x148];  //0x370
 public:
@@ -980,8 +980,8 @@ public:
 		return *reinterpret_cast<float *>(this + 0x1040);
 	}
 
-	class PointingStruct *getPointingStruct() {
-		return *reinterpret_cast<class PointingStruct **>(reinterpret_cast<__int64>(this) + 0x368);
+	class Level *getPointingStruct() {
+		return *reinterpret_cast<class Level **>(reinterpret_cast<__int64>(this) + 0x368);
 	}
 
 	void lerpTo(vec3_t const &pos, vec2_t const &joe, int wow) {
