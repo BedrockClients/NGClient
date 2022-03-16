@@ -22,7 +22,7 @@ public:
 	virtual void onTick(C_GameMode* gm) {
 		if ((GameData::isLeftClickDown() || !hold)) {
 			C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
-			Level* pointing = g_Data.getLocalPlayer()->pointingStruct;
+			PointingStruct* pointing = g_Data.getLocalPlayer()->pointingStruct;
 			Odelay++;
 
 			if (Odelay >= delay) {
@@ -52,7 +52,7 @@ public:
 	virtual void onLevelRender() {
 		if (rightclick) {
 			if ((GameData::isRightClickDown() || !hold) && g_Data.isInGame()) {
-				Level* pstruct = g_Data.getLocalPlayer()->pointingStruct;
+				PointingStruct* pstruct = g_Data.getLocalPlayer()->pointingStruct;
 				auto gm = g_Data.getCGameMode();
 				Odelay++;
 				if (Odelay >= delay) {

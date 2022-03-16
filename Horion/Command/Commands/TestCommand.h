@@ -4,7 +4,7 @@
 class TestCommand : public IMCCommand {
 public:
 	void listEnts() {
-		Level* pointingStruct = g_Data.getLocalPlayer()->pointingStruct;
+		PointingStruct* pointingStruct = g_Data.getLocalPlayer()->pointingStruct;
 		auto entity = pointingStruct->getEntity();
 		if (entity != nullptr) {
 			auto id = entity->getUniqueId();
@@ -34,7 +34,7 @@ public:
 
 	void showAimedBlockInfo() {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		Level* pointingStruct = g_Data.getLocalPlayer()->pointingStruct;
+		PointingStruct* pointingStruct = g_Data.getLocalPlayer()->pointingStruct;
 		C_Block* block = g_Data.getLocalPlayer()->region->getBlock(pointingStruct->block);
 		auto entity = pointingStruct->getEntity();
 		if (block != nullptr && pointingStruct != nullptr && entity == nullptr && block->blockLegacy->blockId != 7) {

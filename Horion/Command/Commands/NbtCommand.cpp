@@ -19,7 +19,7 @@ bool NbtCommand::execute(std::vector<std::string>* args) {
 		assertTrue(args->size() > 2);
 	}
 	static auto Packetz = moduleMgr->getModule<NoPacket>();
-	Level* pointingStruct = g_Data.getLocalPlayer()->pointingStruct;
+	PointingStruct* pointingStruct = g_Data.getLocalPlayer()->pointingStruct;
 	C_BlockActor* blockActor = g_Data.getLocalPlayer()->region->getBlockEntity(pointingStruct->block);
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	C_Inventory* inv = supplies->inventory;
