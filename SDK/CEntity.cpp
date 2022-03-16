@@ -36,7 +36,7 @@ void C_LocalPlayer::setGameModeType(int gma) {
 	this->setC_PlayerGameType(gma);
 }
 
-bool PointingStruct::hasEntity() {
+bool Level::hasEntity() {
 	return rayHitType == 1;
 }
 
@@ -44,7 +44,7 @@ float C_Entity::getBlocksPerSecond() {
 	return getTicksPerSecond() * *g_Data.getClientInstance()->minecraft->timer;
 }
 
-C_Entity *PointingStruct::getEntity() {
+C_Entity *Level::getEntity() {
 	if (rayHitType != 1) return nullptr;
 	C_Entity *retval = nullptr;
 	g_Data.forEachEntity([this, &retval](C_Entity *ent, bool b) {
