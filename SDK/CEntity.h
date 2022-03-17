@@ -30,8 +30,8 @@ private:
 	C_Entity *entityPtr2;         //0x0A50
 	uint64_t GamingEntityFinder;  //0x0A58
 
-	virtual void Constructor1();
-	virtual void Constructor2();
+	//virtual void Constructor1();
+	//virtual void Constructor2();
 
 public:
 	virtual void initialize(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const &, class LevelSettings const &, class LevelData *, class Experiments const &, std::basic_string<char, std::char_traits<char>, std::allocator<char>> const *);
@@ -127,7 +127,7 @@ public:
 	virtual void tickEntitySystems(void);
 	virtual int getPauseManager(void);
 	virtual int getPauseManager2(void);
-	virtual void onPlayerDeath(C_Entity &, class ActorDamageSource const &);
+	virtual void onPlayerDeath(C_Entity & a1, class ActorDamageSource const & a2);
 	virtual void tick(void);
 	virtual void directTickEntities(C_BlockSource &);
 	virtual void animateTick(C_Entity &);
@@ -147,7 +147,7 @@ public:
 	virtual __int64 getSeed(void);
 	virtual int getSharedSpawnPos(void);
 	virtual void setDefaultSpawn(vec3_ti const &);
-	virtual int getDefaultSpawn(void);
+	virtual vec3_ti* getDefaultSpawn(void);
 	virtual void setDefaultGameType(class GameType);
 	virtual int getDefaultGameType(void);
 	virtual void setDifficulty(class Difficulty);
