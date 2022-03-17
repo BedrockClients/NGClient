@@ -203,7 +203,7 @@ public:
 	virtual void playSound(class LevelSoundEvent, vec3_t const &, int, class ActorDefinitionIdentifier const &, bool, bool);
 	virtual void playSound(LevelSoundEvent, vec3_t const &, float, float);
 	virtual void playSound(C_BlockSource &, LevelSoundEvent, vec3_t const &, int, ActorDefinitionIdentifier const &, bool, bool);
-	virtual void playSynchronizedSound(C_BlockSource &, LevelSoundEvent, vec3_t const &, class Block const &, ActorDefinitionIdentifier const &, bool, bool);
+	virtual void playSynchronizedSound(C_BlockSource &, LevelSoundEvent, vec3_t const &, class C_Block const &, ActorDefinitionIdentifier const &, bool, bool);
 	virtual void playSynchronizedSound(C_BlockSource &, LevelSoundEvent, vec3_t const &, int, ActorDefinitionIdentifier const &, bool, bool);
 	virtual void setRemotePlayerEventCoordinator(std::unique_ptr<class PlayerEventCoordinator, std::default_delete<PlayerEventCoordinator>> &&);
 	virtual int getRemotePlayerEventCoordinator(void);
@@ -229,8 +229,8 @@ public:
 	virtual void broadcastLevelEvent(LevelEvent, vec3_t const &, int, class UserEntityIdentifierComponent const *);
 	virtual void broadcastLevelEvent(LevelEvent, CompoundTag const &, UserEntityIdentifierComponent const *);
 	virtual void broadcastLocalEvent(C_BlockSource &, LevelEvent, vec3_t const &, int);
-	virtual void broadcastLocalEvent(C_BlockSource &, LevelEvent, vec3_t const &, Block const &);
-	virtual void broadcastSoundEvent(C_BlockSource &, LevelSoundEvent, vec3_t const &, Block const &, ActorDefinitionIdentifier const &, bool, bool);
+	virtual void broadcastLocalEvent(C_BlockSource &, LevelEvent, vec3_t const &, C_Block const &);
+	virtual void broadcastSoundEvent(C_BlockSource &, LevelSoundEvent, vec3_t const &, C_Block const &, ActorDefinitionIdentifier const &, bool, bool);
 	virtual void broadcastSoundEvent(C_BlockSource &, LevelSoundEvent, vec3_t const &, int, ActorDefinitionIdentifier const &, bool, bool);
 	virtual void broadcastActorEvent(C_Entity &, class ActorEvent, int);
 	virtual void addBossEventListener(class BossEventListener *);
@@ -277,11 +277,11 @@ public:
 	virtual void upgradeStorageVersion(class StorageVersion);
 	virtual void suspendAndSave(void);
 	virtual void waitAsyncSuspendWork(void);
-	virtual void _destroyEffect(vec3_ti const &, Block const &, int);
+	virtual void _destroyEffect(vec3_ti const &, C_Block const &, int);
 	virtual void addParticleEffect(class HashedString const &, vec3_t const &, class MolangVariableMap const &);
 	virtual void addParticleEffect(HashedString const &, C_Entity const &, HashedString const &, vec3_t const &, MolangVariableMap const &);
-	virtual void addTerrainParticleEffect(vec3_ti const &, Block const &, vec3_t const &, float, float, float);
-	virtual void addTerrainSlideEffect(vec3_ti const &, Block const &, vec3_t const &, float, float, float);
+	virtual void addTerrainParticleEffect(vec3_ti const &, C_Block const &, vec3_t const &, float, float, float);
+	virtual void addTerrainSlideEffect(vec3_ti const &, C_Block const &, vec3_t const &, float, float, float);
 	virtual void addBreakingItemParticleEffect(vec3_t const &, ParticleType, class TextureUVCoordinateSet const &, bool);
 	virtual int getNewUniqueID(void);
 	virtual int getNextRuntimeID(void);
@@ -361,7 +361,7 @@ public:
 	virtual void removeAutonomousEntity(C_Entity &, LevelChunk *);
 	virtual void notifySubChunkRequestManager(class SubChunkPacket const &);
 	virtual int getSubChunkRequestManager(void);
-	virtual C_LoopbackPacketSender* getPacketSender(void);
+	virtual void* getPacketSender(void);
 	virtual void setPacketSender(class PacketSender *);
 	virtual int getNetEventCallback(void);
 	virtual void setNetEventCallback(class NetEventCallback *);
