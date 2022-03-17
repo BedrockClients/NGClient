@@ -99,7 +99,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MidClick()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Mineplex()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Miner()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NameTags()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NightMode()));

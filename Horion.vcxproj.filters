@@ -140,7 +140,6 @@
     <ClCompile Include="Horion\Module\Modules\HiveConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
     <ClCompile Include="Horion\Module\Modules\Surround.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Miner.cpp" />
     <ClCompile Include="Horion\Module\Modules\RainbowSky.cpp" />
     <ClCompile Include="Horion\Module\Modules\Cps.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fps.cpp" />
@@ -414,7 +413,6 @@
     <ClInclude Include="Horion\Module\Modules\HiveConfig.h" />
     <ClInclude Include="SDK\CImageBuffer.h" />
     <ClInclude Include="Horion\Module\Modules\Surround.h" />
-    <ClInclude Include="Horion\Module\Modules\Miner.h" />
     <ClInclude Include="Horion\Module\Modules\Cps.h" />
     <ClInclude Include="Horion\Module\Modules\Fps.h" />
     <ClInclude Include="Horion\Module\Modules\Bps.h" />

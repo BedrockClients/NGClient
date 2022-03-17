@@ -16,12 +16,16 @@ GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
 	registerEnumSetting("Arraylist Types", &ArrayList, 0);
 	ArrayList = (*new SettingEnum(this))
-	.addEntry(EnumEntry("Badman", 0))
+	.addEntry(EnumEntry("Badman RGB", 0))
 	.addEntry(EnumEntry("Surge", 1))
 	.addEntry(EnumEntry("Horion", 2))
 	.addEntry(EnumEntry("Weather", 3))
 	.addEntry(EnumEntry("Fadeaway", 4))
-	.addEntry(EnumEntry("NG", 5));
+	.addEntry(EnumEntry("NG", 5))
+    .addEntry(EnumEntry("Weather V2", 6))
+	.addEntry(EnumEntry("Cool RGB", 7))
+	.addEntry(EnumEntry("Badman", 8));
+
 	registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
 	registerFloatSetting("Blue", &gcolor, gcolor, 0.f, 1.f);
 	registerFloatSetting("Green", &bcolor, bcolor, 0.f, 1.f);

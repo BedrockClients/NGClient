@@ -89,7 +89,6 @@
 #include "Modules/MegaDupe.h"
 #include "Modules/MidClick.h"
 #include "Modules/Mineplex.h"
-#include "Modules/Miner.h"
 #include "Modules/Module.h"
 #include "Modules/NameTags.h"
 #include "Modules/NGFly.h"
