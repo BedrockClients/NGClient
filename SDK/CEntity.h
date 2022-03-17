@@ -361,7 +361,7 @@ public:
 	virtual void removeAutonomousEntity(C_Entity &, LevelChunk *);
 	virtual void notifySubChunkRequestManager(class SubChunkPacket const &);
 	virtual int getSubChunkRequestManager(void);
-	virtual int getPacketSender(void);
+	virtual C_LoopbackPacketSender* getPacketSender(void);
 	virtual void setPacketSender(class PacketSender *);
 	virtual int getNetEventCallback(void);
 	virtual void setNetEventCallback(class NetEventCallback *);
