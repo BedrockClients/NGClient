@@ -10,7 +10,7 @@ public:
 
 	bool execute(std::vector<std::string>* args) {
 		std::string txt = "Seed: " + std::to_string(g_Data.getLocalPlayer()->getPointingStruct()->getSeed());
-		g_Data.getClientInstance()->getGuiData()->displayClientMessageF("%s", txt);
+		g_Data.getLocalPlayer()->displayClientMessage(&TextHolder(txt));
 		return true;
 	}
 };
