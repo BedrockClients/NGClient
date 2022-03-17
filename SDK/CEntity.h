@@ -247,18 +247,18 @@ private:
 	virtual void TryroFunc210();
 
 public:
-	virtual int getActivePlayerCount(void);
-	virtual int getActiveUsersCount(void);
+	virtual __int64 getActivePlayerCount(void);
+	virtual __int64 getActiveUsersCount(void);
 	virtual void forEachPlayer(uintptr_t);   //(std::function<bool()(Actor&)>);
 	virtual void forEachPlayer2(uintptr_t);  //(std::function<bool()(Actor const&)>);
 	virtual void forEachUser(uintptr_t);     //(std::function<bool()(Actor&)>);
 	virtual void findPlayer(uintptr_t);      //(std::function<bool()(Actor const&)>);
 	virtual void findPlayer2(uintptr_t);     //(std::function<bool()(Actor const&)>);
-	virtual int getUserCount(void);
+	virtual __int64 getUserCount(void);
 	virtual void countUsersWithMatchingNetworkId(class NetworkIdentifier const &);
 	virtual int getUsers(void);
 	virtual int getUsers2(void);
-	virtual int getEntities(void);
+	virtual __int64 getEntities(void);
 	virtual void onSubChunkLoaded(ChunkSource &, LevelChunk &, short);
 	virtual void onChunkLoaded(ChunkSource &, LevelChunk &);
 	virtual void onChunkDiscarded(LevelChunk &);
