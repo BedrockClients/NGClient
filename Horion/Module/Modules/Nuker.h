@@ -5,8 +5,6 @@ class Nuker : public IModule {
 private:
 	int delay = 0;
 	int nukerRadius = 50;
-	int up = 1;
-	int down = 1;
 	bool veinMiner = false;
 	bool autodestroy = true;
 

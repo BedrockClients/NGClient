@@ -119,6 +119,7 @@
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
+    <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="Horion\Module\Modules\HiveConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
     <ClCompile Include="Horion\Module\Modules\Surround.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Miner.cpp" />
     <ClCompile Include="Horion\Module\Modules\RainbowSky.cpp" />
     <ClCompile Include="Horion\Module\Modules\Cps.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fps.cpp" />
@@ -384,6 +386,7 @@
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\Antikb.h" />
     <ClInclude Include="Horion\Module\Modules\XP.h" />
+    <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
     <ClInclude Include="Horion\Module\Modules\GUI.h" />
     <ClInclude Include="Horion\Module\Modules\NGFly.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
@@ -411,6 +414,7 @@
     <ClInclude Include="Horion\Module\Modules\HiveConfig.h" />
     <ClInclude Include="SDK\CImageBuffer.h" />
     <ClInclude Include="Horion\Module\Modules\Surround.h" />
+    <ClInclude Include="Horion\Module\Modules\Miner.h" />
     <ClInclude Include="Horion\Module\Modules\Cps.h" />
     <ClInclude Include="Horion\Module\Modules\Fps.h" />
     <ClInclude Include="Horion\Module\Modules\Bps.h" />

@@ -42,6 +42,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Bhop()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Blink()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockEsp()));
+		moduleList.push_back(std::shared_ptr<IModule>(new BlockFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BowAimbot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new bps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestAura()));
@@ -98,6 +99,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MidClick()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Mineplex()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Miner()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NameTags()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NightMode()));
