@@ -1257,8 +1257,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				box->fadeTarget = 0;
 			else if (box->closeTimer > 0 && box->fadeVal > 0.9f)
 				box->closeTimer -= 1.f / 60;
-			const float paddingHoriz = 40 * box->fadeVal;
-			const float paddingVert = 10 * box->fadeVal;
+			const float paddingHoriz = 20 * box->fadeVal;
+			const float paddingVert = 5 * box->fadeVal;
 			const float titleTextSize = box->fadeVal * 2;
 			const float messageTextSize = box->fadeVal * 1;
 			const float titleTextHeight = DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() * titleTextSize;

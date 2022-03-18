@@ -19,6 +19,7 @@ commandList.push_back(new BindCommand());
 	commandList.push_back(new CommandBlockExploitCommand());
 	commandList.push_back(new ConfigCommand());
 	commandList.push_back(new CoordsCommand());
+	commandList.push_back(new Credits());
 	commandList.push_back(new DamageCommand());
 	commandList.push_back(new DupeCommand());
 	commandList.push_back(new EjectCommand());

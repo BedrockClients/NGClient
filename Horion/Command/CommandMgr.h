@@ -6,6 +6,7 @@
 #include "Commands/CommandBlockExploitCommand.h"
 #include "Commands/ConfigCommand.h"
 #include "Commands/CoordsCommand.h"
+#include "Commands/Credits.h"
 #include "Commands/DamageCommand.h"
 #include "Commands/DupeCommand.h"
 #include "Commands/EjectCommand.h"

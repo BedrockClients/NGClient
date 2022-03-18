@@ -11,7 +11,7 @@ HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Watermark", &watermark, watermark);
 	registerFloatSetting("Opacity", &opacity, opacity, 0.0f, 1.f);
 	registerFloatSetting("Scale", &scale, scale, 0.5f, 1.5f);
-	//registerBoolSetting("Notifications", &notifications, notifications);
+	registerBoolSetting("Notifications", &notifications, notifications);
 }
 
 HudModule::~HudModule() {
