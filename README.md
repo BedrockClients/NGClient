@@ -1,2 +1,2 @@
 **NG Client**
-is a client that bamboozles popular server anticheats 😳
+is a client that has a mix of every open src in existance!!!!!!!!!!!
