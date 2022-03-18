@@ -1,4 +1,4 @@
-#include "TestModule.h"
+ï»¿#include "TestModule.h"
 #include "../../../Memory/Hooks.h"
 
 TestModule::TestModule() : IModule(0, Category::WORLD, "For testing purposes") {
@@ -62,6 +62,13 @@ void TestModule::onPlayerTick(C_Player* plr) {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
+	if (bool1) {
+		C_TextPacket textPacket;
+		textPacket.message.setText("test + ");
+		textPacket.sourceName.setText(g_Data.getLocalPlayer()->getNameTag()->getText());
+		textPacket.xboxUserId = std::to_string(g_Data.getLocalPlayer()->getUserId());
+		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
+	}
 }
 
 void TestModule::onWorldTick(C_GameMode* gm) {
@@ -86,7 +93,7 @@ void TestModule::onLevelRender() {
 
 void TestModule::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	//std::string screenName(g_Hooks.currentScreenName);
-	//if (screenName != "toast_screen" && screenName != "start_screen" && screenName != "debug_screen" && screenName != "pause_screen" && screenName != "À$0a-" && screenName != "ÀA&w-")
+	//if (screenName != "toast_screen" && screenName != "start_screen" && screenName != "debug_screen" && screenName != "pause_screen" && screenName != "Ã€$0a-" && screenName != "Ã€A&w-")
 	//DrawUtils::drawText(vec2_t{100, 100}, &screenName, MC_Color(0, 0, 255));
 
 	//C_TexturePtr texture;
