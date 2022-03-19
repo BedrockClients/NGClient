@@ -19,10 +19,10 @@ GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
 	.addEntry(EnumEntry("Badman RGB", 0))
 	.addEntry(EnumEntry("Surge", 1))
 	.addEntry(EnumEntry("Horion", 2))
-	.addEntry(EnumEntry("Weather", 3))
+	.addEntry(EnumEntry("Surge V2", 3))
 	.addEntry(EnumEntry("Fadeaway", 4))
 	.addEntry(EnumEntry("NG", 5))
-    .addEntry(EnumEntry("Weather V2", 6))
+    .addEntry(EnumEntry("Weather", 6))
 	.addEntry(EnumEntry("Cool RGB", 7))
 	.addEntry(EnumEntry("Badman", 8));
 

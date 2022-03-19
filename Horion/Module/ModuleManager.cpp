@@ -82,9 +82,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Hitbox()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveConfig()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
-		moduleList.push_back(std::shared_ptr<IModule>(new HiveNuker()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HudModule()));
-		moduleList.push_back(std::shared_ptr<IModule>(new InfiniteAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
