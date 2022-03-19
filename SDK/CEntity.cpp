@@ -21,7 +21,7 @@ C_PlayerInventoryProxy *C_Player::getSupplies() {
 void C_LocalPlayer::unlockAchievments() {  // MinecraftEventing::fireEventAwardAchievement
 	using fireEventAward = void(__fastcall *)(void *, int);
 	static fireEventAward fireEventAwardFunc = reinterpret_cast<fireEventAward>(FindSignature("48 85 C9 0F 84 ? ? ? ? 48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B 01"));
-	for (int i = 1; i < 118; i++)
+	for (int i = 0; i < 118; i++)
 		fireEventAwardFunc(this, i);
 }
 void C_LocalPlayer::applyTurnDelta(vec2_t *viewAngleDelta) {
