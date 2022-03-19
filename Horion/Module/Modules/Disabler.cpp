@@ -3,11 +3,11 @@
 #include <chrono>
 #include <queue>
 
-Disabler::Disabler()
-	: IModule('0', Category::SERVER, "Disabler for servers") {
+Disabler::Disabler(): IModule(0x0, Category::SERVER, "Disabler for servers") {
+	registerEnumSetting("disabler Types", &disablerMode, 0);
 	disablerMode = (*new SettingEnum(this))
-	.addEntry(EnumEntry("Hive", 0))
-	.addEntry(EnumEntry("CubeCraft", 1))
+	 .addEntry(EnumEntry("Hive", 0))
+	 .addEntry(EnumEntry("CubeCraft", 1));
 }
 
 std::queue<std::pair<NetworkLatencyPacket, unsigned __int64> > latencyPacketQueue;

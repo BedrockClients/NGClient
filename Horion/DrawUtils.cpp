@@ -435,16 +435,23 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 		vec4_t subRectPos = rectPos;
 		subRectPos.y = subRectPos.w - 1.f * textSize;
 		fillRectangle(rectPos, MC_Color(0, 0, 0), nametags->opacity);
-		if (partner->Partnered.selected == 0) {
+		if (partner->Partnered.selected == 1) {
 			if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
-				fillRectangle(subRectPos, MC_Color(0, 0, 255), nametags->opacity);
+				fillRectangle(subRectPos, MC_Color(150, 30, 255), nametags->opacity);
 			}
-			drawText(textPos, &text, MC_Color(0, 0, 255), textSize);
+			drawText(textPos, &text, MC_Color(150, 30, 255), textSize);
 		} else {
-			if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
-				fillRectangle(subRectPos, MC_Color(0, 246, 255), nametags->opacity);
+			if (partner->Partnered.selected == 0) {
+				if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
+					fillRectangle(subRectPos, MC_Color(0, 0, 255), nametags->opacity);
+				}
+				drawText(textPos, &text, MC_Color(0, 0, 255), textSize);
+			} else {
+				if (ent->isAlive() && ent->isPlayer() && nametags->underline) {
+					fillRectangle(subRectPos, MC_Color(0, 246, 255), nametags->opacity);
+				}
+				drawText(textPos, &text, MC_Color(0, 246, 255), textSize);
 			}
-			drawText(textPos, &text, MC_Color(0, 246, 255), textSize);
 		}
 		if (ent->isAlive() && ent->isPlayer() && nametags->displayArmor) {  // is player, show armor
 			auto* player = reinterpret_cast<C_Player*>(ent);

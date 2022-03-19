@@ -154,7 +154,6 @@
     <ClCompile Include="Horion\Module\Modules\EntitySpeed.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntitySpider.cpp" />
     <ClCompile Include="Horion\Module\Modules\Coordinates.cpp" />
-    <ClCompile Include="Horion\Module\Modules\ArmourHud.cpp" />
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />

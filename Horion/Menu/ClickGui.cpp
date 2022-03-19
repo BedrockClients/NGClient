@@ -287,8 +287,7 @@ void ClickGui::renderTooltip(std::string* text) {
 			if (allowRender) {
 				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 				if (!ourWindow->isInAnimation && !isDragging && rectPos.contains(&mousePos)) {  // Is the Mouse hovering above us?
-					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
-					if (rgbHud->RGB) {
+					if (ClickguiOpac->RGB) {
 						DrawUtils::fillRectangle(rectPos, currColor, ClickguiOpac->opacity);
 					} else {
 						if (partner->Partnered.selected == 1)
@@ -316,9 +315,9 @@ void ClickGui::renderTooltip(std::string* text) {
 			}
 
 			// Text
-			static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
+			static auto clickGuiMod = moduleMgr->getModule<ClickGuiMod>();
 			if (partner->Partnered.selected == 1) {
-				if (rgbHud->RGB) {
+				if (clickGuiMod->RGB) {
 					if (allowRender)
 						DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(150, 30, 255) : MC_Color(currColor), textSize);
 				} else {
@@ -327,7 +326,7 @@ void ClickGui::renderTooltip(std::string* text) {
 				}
 			} else {
 				if (partner->Partnered.selected == 0) {
-					if (rgbHud->RGB) {
+					if (clickGuiMod->RGB) {
 						if (allowRender)
 							DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(currColor), textSize);
 					} else {
@@ -335,7 +334,7 @@ void ClickGui::renderTooltip(std::string* text) {
 							DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(0, 0, 255) : MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), textSize);
 					}
 				} else {
-					if (rgbHud->RGB) {
+					if (clickGuiMod->RGB) {
 						if (allowRender)
 							DrawUtils::drawText(textPos, &textStr, mod->isEnabled() ? MC_Color(ClickGuiMod::trcolor, ClickGuiMod::tgcolor, ClickGuiMod::tbcolor) : MC_Color(currColor), textSize);
 					} else {
@@ -412,11 +411,11 @@ void ClickGui::renderTooltip(std::string* text) {
 							switch (setting->valueType) {
 							case ValueType::BOOL_T: {
 								rectPos.w = currentYOffset + textHeight + (textPadding * 2);
-								static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
-								if (rgbHud->opacity) {
-									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), rgbHud->opacity);
+								static auto clickGuiMod = moduleMgr->getModule<ClickGuiMod>();
+								if (clickGuiMod->opacity) {
+									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), clickGuiMod->opacity);
 								} else {
-									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), rgbHud->opacity);
+									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), clickGuiMod->opacity);
 								}
 								vec4_t selectableSurface = vec4_t(
 									textPos.x + textPadding,
@@ -954,9 +953,8 @@ void ClickGui::renderTooltip(std::string* text) {
 			{
 				// Draw Text
 				std::string textStr = categoryName;
-				static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-				if (rgbHud->RGB) {
+				if (ClickguiOpac->RGB) {
 					DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 				} else {
 					DrawUtils::drawText(textPos, &textStr, MC_Color(150, 30, 255), textSize);
@@ -975,9 +973,8 @@ void ClickGui::renderTooltip(std::string* text) {
 				{
 					// Draw Text
 					std::string textStr = categoryName;
-					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-					if (rgbHud->RGB) {
+					if (ClickguiOpac->RGB) {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 					} else {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
@@ -995,9 +992,8 @@ void ClickGui::renderTooltip(std::string* text) {
 				if (partner->Partnered.selected == 2) {
 					// Draw Text
 					std::string textStr = categoryName;
-					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-					if (rgbHud->RGB) {
+					if (ClickguiOpac->RGB) {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 					} else {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
@@ -1013,9 +1009,8 @@ void ClickGui::renderTooltip(std::string* text) {
 				} else {
 					// Draw Text
 					std::string textStr = categoryName;
-					static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
 					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-					if (rgbHud->RGB) {
+					if (ClickguiOpac->RGB) {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 					} else {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
