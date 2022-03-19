@@ -334,6 +334,10 @@ void Scaffold::onTick(C_GameMode* gm) {
 			}
 		}
 	}
+	if (spoof) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		supplies->selectedHotbarSlot = slot;
+	}
 }
 
 void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
