@@ -5,7 +5,9 @@
 
 Disabler::Disabler()
 	: IModule('0', Category::SERVER, "Disabler for servers") {
-	registerBoolSetting("Hive", &hive, hive);
+	disablerMode = (*new SettingEnum(this))
+	.addEntry(EnumEntry("Hive", 0))
+	.addEntry(EnumEntry("CubeCraft", 1))
 }
 
 std::queue<std::pair<NetworkLatencyPacket, unsigned __int64> > latencyPacketQueue;
@@ -39,13 +41,11 @@ void Disabler::onMove(C_MoveInputHandler* input) {
 
 void Disabler::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<NetworkLatencyPacket>()) {
-		if (hive) {
-			if (sendingEpicThingy == false) {
+		if (sendingEpicThingy == false) {
 				NetworkLatencyPacket* currentPacket = (NetworkLatencyPacket*)packet;
 				unsigned __int64 now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-				latencyPacketQueue.push({*currentPacket, now});
+				if (disablerMode.selected == 0) latencyPacketQueue.push({*currentPacket, now}); // Only push to vector if it's Hive mode 
 				currentPacket->timeStamp = 69420;
 			}
-		}
 	}
 }
