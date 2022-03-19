@@ -15,6 +15,7 @@ ModuleManager::~ModuleManager() {
 }
 
 void ModuleManager::initModules() {
+	logF("Initializing modules");
 	{
 		auto lock = lockModuleListExclusive();
 
