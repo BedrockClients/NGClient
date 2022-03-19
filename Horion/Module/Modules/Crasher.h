@@ -44,7 +44,7 @@ public:
 		NetworkPacket.timeStamp = 6;
 		C_SubChunkRequestPacket ChunkRequestPacket;
 		//C_PlayerActionPacket PlayerActionPacket;
-		//C_AnimatePacket AnimatePacket;
+		C_AnimatePacket AnimatePacket;
 		//CommandRequestPacket CommandRequestPacket("FADEAWAY ON TOP");
 		if (CrasherMode.selected == 1) {
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&ChunkRequestPacket);
