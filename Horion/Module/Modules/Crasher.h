@@ -10,7 +10,9 @@ public:
 	registerEnumSetting("Method", &CrasherMode, 0);
 	CrasherMode = (*new SettingEnum(this)) //Crashers by Founder don't touch, skid, steal, or else you watch gay furry porn and r into little boys
 			.addEntry(EnumEntry("Realm", 0))
-			.addEntry(EnumEntry("PacketStorm", 1));
+			.addEntry(EnumEntry("PacketStorm", 1))
+		    .addEntry(EnumEntry("VoteSpam", 2));
+	//Someone add 
 	}
 	~Crasher(){};
 
@@ -55,6 +57,15 @@ public:
 				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&PlayerActionPacket);
 				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&AnimatePacket);
 				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&CommandRequestPacket);
+			}
+		}
+		if (CrasherMode.selected == 2) {
+			for (int VoteSpam = 0; VoteSpam < CrasherPPS; VoteSpam++) {
+				C_TextPacket textPacket;
+				textPacket.message.setText("./vote");
+				textPacket.sourceName.setText(g_Data.getLocalPlayer()->getNameTag()->getText());
+				textPacket.xboxUserId = std::to_string(g_Data.getLocalPlayer()->getUserId());
+				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
 			}
 		}
 	}
