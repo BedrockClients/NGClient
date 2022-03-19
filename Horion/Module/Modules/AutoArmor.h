@@ -33,9 +33,11 @@ public:
 class AutoArmor : public IModule {
 public:
 	bool openInv = false;
+	bool AutoClose = false;
 	C_CraftingScreenController* inventoryScreen = nullptr;
 	AutoArmor() : IModule(0, Category::PLAYER, "Automatically equips the best armor") {
 		registerBoolSetting("OpenInv", &openInv, openInv);
+		registerBoolSetting("AutoClose", &AutoClose, AutoClose);
 	}
 	~AutoArmor(){}
 
@@ -73,14 +75,14 @@ public:
 			if (gm->player->getArmor(i)->item != nullptr)
 				armorList.push_back(ArmorStruct(gm->player->getArmor(i), reinterpret_cast<C_ArmorItem*>(*gm->player->getArmor(i)->item), i));
 
-			if (armorList.size() > 0 && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr) {
+			if (armorList.size() > 0) {
 				std::sort(armorList.begin(), armorList.end(), CompareArmorStruct());
 				C_ItemStack* armorItem = gm->player->getArmor(i);
 				if (armorItem->item != nullptr&&(ArmorStruct(armorItem, reinterpret_cast<C_ArmorItem*>(*armorItem->item), 0).isEqual(armorList[0])) == false) {
-					if (openInv) {
+					if (openInv && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr) {
 						inventoryScreen->handleAutoPlace(0x7FFFFFFF, "armor_items", i);
 						inventoryScreen->handleAutoPlace(0x7FFFFFFF, armorList[0].type.c_str(), armorList[0].m_slot);
-					} else {
+					} else if (!openInv) {
 						int slot = inv->getFirstEmptySlot();
 
 						first = new C_InventoryAction(i, armorItem, nullptr, 632);
@@ -109,9 +111,9 @@ public:
 					}
 				}
 				if (armorItem->item == nullptr) {
-					if (openInv)
+					if (openInv && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr)
 						inventoryScreen->handleAutoPlace(0x7FFFFFFF, armorList[0].type.c_str(), armorList[0].m_slot);
-					else {
+					else if(!openInv) {
 						*g_Data.getLocalPlayer()->getArmor(i) = *inv->getItemStack(armorList[0].m_slot);
 
 						first = new C_InventoryAction(armorList[0].m_slot, armorList[0].m_item, nullptr);
@@ -127,11 +129,13 @@ public:
 					}
 
 				}
-				if (openInv)
+				if (openInv && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr)
 				armorList.clear();
 			}
 			armorList.clear();
 		}
+		if (AutoClose && openInv && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr)
+			inventoryScreen->tryExit();
 		inventoryScreen = nullptr;
 		armorList.clear();
 	}
