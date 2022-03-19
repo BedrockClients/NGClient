@@ -1,19 +1,18 @@
-#include "HiveConfig.h"
-
 #include "../../Module/ModuleManager.h"
+#include "MinplexConfig.h"
 
-HiveConfig::HiveConfig() : IModule(0x0, Category::CONFIG, "Auto Loads Best Config For Hive") {
+MinplexConfig::MinplexConfig() : IModule(0x0, Category::CONFIG, "Auto Loads Best Config For Minplex") {
 }
 
-HiveConfig::~HiveConfig() {
+MinplexConfig::~MinplexConfig() {
 }
 
-const char* HiveConfig::getModuleName() {
-	return ("Hive");
+const char* MinplexConfig::getModuleName() {
+	return ("Minplex");
 }
 
-void HiveConfig::onEnable() {
-	//Disable All and Unbind All
+void MinplexConfig::onEnable() {
+	// Disable All and Unbind All
 	auto lock = moduleMgr->lockModuleList();
 	std::vector<std::shared_ptr<IModule>>* modules = moduleMgr->getModuleList();
 	for (auto it = modules->begin(); it != modules->end(); ++it) {
@@ -22,99 +21,103 @@ void HiveConfig::onEnable() {
 		mod->setKeybind(0x0);
 	}
 
-	//Modules
+	// Modules
+	static auto zoom = moduleMgr->getModule<Zoom>();
 	static auto HudMod = moduleMgr->getModule<HudModule>();
+	static auto gui = moduleMgr->getModule<GUI>();
 	static auto KillMod = moduleMgr->getModule<Killaura>();
 	static auto ESPMod = moduleMgr->getModule<ESP>();
 	static auto Stop = moduleMgr->getModule<FastStop>();
 	static auto AutoArm = moduleMgr->getModule<AutoArmor>();
-	static auto StepBro = moduleMgr->getModule<Step>();
 	static auto Sprint = moduleMgr->getModule<AutoSprint>();
 	static auto BowBot = moduleMgr->getModule<BowAimbot>();
 	static auto Scaff = moduleMgr->getModule<Scaffold>();
-	static auto Break = moduleMgr->getModule<InstaBreak>();
-	static auto HackerDetector = moduleMgr->getModule<HackerDetect>();
-	static auto Fuck = moduleMgr->getModule<Fucker>();
 	static auto NoSlow = moduleMgr->getModule<NoSlowDown>();
 	static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
 	static auto ReachMod = moduleMgr->getModule<Reach>();
 	static auto Bright = moduleMgr->getModule<FullBright>();
 	static auto Web = moduleMgr->getModule<NoWeb>();
-	static auto HiveFli = moduleMgr->getModule<HiveFly>();
 	static auto JesusSUS = moduleMgr->getModule<Jesus>();
-	static auto FastLAd = moduleMgr->getModule<FastLadder>();
 	static auto Tags = moduleMgr->getModule<NameTags>();
 	static auto Hop = moduleMgr->getModule<Bhop>();
 	static auto Mid = moduleMgr->getModule<MidClick>();
 	static auto Select = moduleMgr->getModule<selectionHighlight>();
 	static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 	static auto Cleaner = moduleMgr->getModule<InventoryCleaner>();
-	static auto Team = moduleMgr->getModule<Teams>();
 	static auto NoHurt = moduleMgr->getModule<NoHurtcam>();
-	static auto AntiImmo = moduleMgr->getModule<AntiImmobile>();
 	static auto ViewMod = moduleMgr->getModule<ViewModel>();
-	static auto ChestSteal = moduleMgr->getModule<ChestStealer>();
-	static auto Disable = moduleMgr->getModule<Disabler>();
 	static auto AntiKBMod = moduleMgr->getModule<Antikb>();
-	static auto SwingAnimation = moduleMgr->getModule<SwingAnimations>();
 	static auto ArrayList = moduleMgr->getModule<GUI>();
-	static auto Long = moduleMgr->getModule<LongJump>();
 	static auto partner = moduleMgr->getModule<Partner>();
+	static auto xpmod = moduleMgr->getModule<XP>();
+	static auto serverinfo = moduleMgr->getModule<ServerInfo>();
+	static auto cpsmod = moduleMgr->getModule<cps>();
+	static auto fpsmod = moduleMgr->getModule<fps>();
+	static auto bpsmod = moduleMgr->getModule<bps>();
+	static auto coordinates = moduleMgr->getModule<Coordinates>();
+	static auto mineplex = moduleMgr->getModule<Mineplex>();
 
-	//Toggle All Needed Mods
+	// Toggle All Needed Mods
+	gui->setEnabled(true);
 	HudMod->setEnabled(true);
 	ClickGUI->setEnabled(false);
 	AntiBotMod->setEnabled(true);
 	Select->setEnabled(true);
 	AntiKBMod->setEnabled(true);
-	AntiImmo->setEnabled(true);
-	HackerDetector->setEnabled(true);
 	NoSlow->setEnabled(true);
-	ChestSteal->setEnabled(true);
 	BowBot->setEnabled(true);
 	NoHurt->setEnabled(true);
 	AutoArm->setEnabled(true);
-	FastLAd->setEnabled(true);
 	ViewMod->setEnabled(true);
 	Sprint->setEnabled(true);
-	Break->setEnabled(true);
-	Cleaner->setEnabled(true);
+	Cleaner->setEnabled(false);
 	Tags->setEnabled(true);
 	Bright->setEnabled(true);
 	Stop->setEnabled(true);
 	Mid->setEnabled(true);
-	Disable->setEnabled(true);
-	Fuck->setEnabled(true);
 	Web->setEnabled(true);
 	ReachMod->setEnabled(true);
 	JesusSUS->setEnabled(true);
-	StepBro->setEnabled(true);
 	ESPMod->setEnabled(true);
-	Team->setEnabled(true);
-	//SwingAnimation->setEnabled(true);
+	xpmod->setEnabled(true);
+	serverinfo->setEnabled(true);
+	fpsmod->setEnabled(true);
+	cpsmod->setEnabled(true);
+	bpsmod->setEnabled(true);
+	coordinates->setEnabled(true);
+	mineplex->setEnabled(true);
 
-	//Set All Settings
-
-	//Killaura
-	KillMod->setKeybind('F');
+	// Set All Settings
+	
+	// partner
+	partner->Partnered.selected = 2;
+	// Bps
+	bpsmod->bpsX = 0.f;
+	bpsmod->bpsY = 270.5f;
+	// Fps
+	fpsmod->fpsX = 0.f;
+	fpsmod->fpsY = 280.5f;
+	// Cps
+	cpsmod->cpsX = 0.f;
+	cpsmod->cpsY = 290.5f;
+	//Serverinfo
+	serverinfo->serverInfoX = 0.f;
+	serverinfo->serverInfoY = 300.5f;
+	// Zoom
+	zoom->setKeybind('R');
+	zoom->strength = 0.5f;
+	// Killaura
+	KillMod->setKeybind('C');
 	KillMod->range = 4.50f;
-	KillMod->delay = 2.f;
+	KillMod->delay = 2;
 	KillMod->rots.selected = 1;
 	KillMod->mode.selected = 1;
-#ifdef _DEBUG
-	KillMod->targ.selected = 1;
-#else
-	KillMod->targ.selected = 0;
-#endif
-	// Breaker
-	partner->Partnered.selected == 0;
-	// Killaura
 	KillMod->info = true;
 	KillMod->hurttime = false;
 	KillMod->isMobAura = false;
 	KillMod->noSwing = false;
-	//Scaffold
-	Scaff->setKeybind('G');
+	// Scaffold
+	Scaff->setKeybind('V');
 	Scaff->staircaseMode = true;
 	Scaff->fagNigas = true;
 	Scaff->UpwardsFlyinNigas = 0.50f;
@@ -124,29 +127,16 @@ void HiveConfig::onEnable() {
 	Scaff->spam = false;
 	Scaff->rot = true;
 	Scaff->SukinMyBigJuicyAss = true;
-	Scaff->noSwing = true;
+	Scaff->noSwing = false;
 	Scaff->yLock = false;
 	Scaff->predict = true;
 	Scaff->GayNigaFags = true;
 	Scaff->THICCC = false;
-	//Bhop
-	Hop->setKeybind('C');
-	Hop->speed = 0.90;
+	// Bhop
+	Hop->setKeybind('F');
+	Hop->speed = 0.90f;
 	Hop->hive = true;
-	//Breaker
-	Fuck->setKeybind('V');
-	Fuck->noSwing = true;
-	Fuck->redstone = true;
-	Fuck->bypass = true;
-	Fuck->rots = false;
-	Fuck->treasures = true;
-	Fuck->chests = false;
-	Fuck->range = 3;
-	//Teams
-	Team->colorCheck = true;
-	//Disabler
-	Disable->hive = true;
-	//Selection Highlight
+	// Selection Highlight
 	Select->thickness = 0.40f;
 	Select->opacityVal = 1.f;
 	Select->selectRainbow = false;
@@ -154,35 +144,23 @@ void HiveConfig::onEnable() {
 	Select->rSelect = 1.f;
 	Select->bSelect = 1.f;
 	Select->gSelect = 1.f;
-	//HiveFly
-	//HiveFli->setKeybind('R');
-	//HiveFli->clip = false;
-	//HiveFli->clipHeight = 5.f;
-	//LongJump
-	Long->setKeybind('X');
-	Long->slow = true;
-	Long->hit = true;
-	Long->speed = 1.63f;
-	Long->height = 0.52f;
-	//BowAimbot
+	// BowAimbot
 	BowBot->predict = true;
 	BowBot->visualize = true;
-	//Step
-	StepBro->height = 2.f;
-	//ESP
+	// ESP
 	ESPMod->betterESP = false;
 	ESPMod->circle = false;
 	ESPMod->doRainbow = false;
 	ESPMod->is2d = false;
 	ESPMod->iszephyr = true;
 	ESPMod->isMobEsp = false;
-	//FullBright
+	// FullBright
 	Bright->intensity = 25.f;
-	//NameTags
+	// NameTags
 	Tags->displayArmor = true;
 	Tags->underline = true;
 	Tags->opacity = .12f;
-	//Viewmodel
+	// Viewmodel
 	ViewMod->xTrans = 0.35f;
 	ViewMod->yTrans = 0.06f;
 	ViewMod->zTrans = -0.74f;
@@ -190,22 +168,16 @@ void HiveConfig::onEnable() {
 	ViewMod->doScale = false;
 	ViewMod->doRotation = false;
 	ViewMod->spin = false;
-	//AutoSprint
+	// AutoSprint
 	Sprint->alldirections = true;
-	//FastLadder
-	FastLAd->speed = 0.60f;
-	//AntiBot
+	// AntiBot
 	AntiBotMod->hitboxCheck = true;
 	AntiBotMod->extraCheck = false;
 	AntiBotMod->entityIdCheck = true;
 	AntiBotMod->nameCheck = true;
 	AntiBotMod->otherCheck = false;
 	AntiBotMod->invisibleCheck = false;
-	//ChestStealer
-	ChestSteal->delay = 0;
-	ChestSteal->enhanced = true;
-	ChestSteal->dump = false;
-	//InvCleaner
+	// InvCleaner
 	Cleaner->setKeybind('N');
 	Cleaner->autoSort = true;
 	Cleaner->keepArmor = true;
@@ -216,64 +188,46 @@ void HiveConfig::onEnable() {
 	Cleaner->keepShovel = false;
 	Cleaner->keepTools = true;
 	Cleaner->openInv = false;
-	//ClickGUI
+	// ClickGUI
 	ClickGUI->setKeybind(VK_TAB);
 	ClickGUI->showTooltips = true;
-	//Arraylist
+	// Arraylist
 	ArrayList->Fluxbar = true;
 	ArrayList->bar = false;
 	ArrayList->underbar = false;
 	ArrayList->rgb = true;
 	ArrayList->ice = false;
 	ArrayList->bottom = false;
-	ArrayList->opacity = 0.26f;
+	ArrayList->opacity = 0.20f;
 	ArrayList->rcolor = 0.f;
 	ArrayList->gcolor = 0.f;
 	ArrayList->bcolor = 0.f;
-	//HUDModule
+	// HUDModule
 	HudMod->Hud = true;
 	HudMod->rgb = false;
 	HudMod->Msg = false;
 	HudMod->watermark = true;
 	HudMod->notifications = false;
 	HudMod->bools = false;
-	HudMod->keybinds = true;
-	HudMod->keystrokes = false;
 	HudMod->displaySecondHalf = false;
 	HudMod->alwaysShow = false;
 	HudMod->opacity = 0.28f;
 	HudMod->scale = 0.75f;
-	//InstaBreak
-	Break->mode.selected = 1;
-	//Reach
+	// Reach
 	ReachMod->reachValue = 7.f;
-	//Swing Animations
-	SwingAnimation->fluxSwing = false;
-	SwingAnimation->fakeJavaSwing = false;
-	SwingAnimation->floppySwing = false;
-	SwingAnimation->noObstructSwing = false;
-	SwingAnimation->pushSwing = false;
 
-	//Tell User Binds
+	// Tell User Binds
 	g_Data.getGuiData()->displayClientMessageF("=======================================");
-	for (auto it = modules->begin(); it != modules->end(); ++it) {
-		auto mod = *it;
-		auto modOpt = mod;
-		if (Utils::getKeybindName(mod->getKeybind()) != "Unknown") {
-			if (partner->Partnered.selected == 0)
-				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, BLUE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
-			else
-				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, LIGHT_PURPLE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
-		}
-	}
+	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] InvCleaner is bound to N", WHITE, LIGHT_PURPLE, WHITE);
+	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] ClickGUI is bound to TAB", WHITE, LIGHT_PURPLE, WHITE);
+	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] Bhop is bound to F", WHITE, LIGHT_PURPLE, WHITE);
+	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] Scaffold is bound to V", WHITE, LIGHT_PURPLE, WHITE);
+	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] Killaura is bound to C", WHITE, LIGHT_PURPLE, WHITE);
+	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] Zoom is bound to R", WHITE, LIGHT_PURPLE, WHITE);
+	g_Data.getGuiData()->displayClientMessageF("=======================================");
+	// Success
+	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Successfully Made Config!", WHITE, LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
 
-	//Success
-	if (partner->Partnered.selected == 0) {
-		g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Successfully Made Config!", WHITE, BLUE, WHITE, BLUE);
-	} else {
-		g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Successfully Made Config!", WHITE, LIGHT_PURPLE, WHITE, LIGHT_PURPLE);
-	}
-
-	//Tell Dumbass To Save Config
+	// Tell Dumbass To Save Config
 	g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s]%s Type %s.config save%s to save your config!", WHITE, GREEN, WHITE, GREEN, WHITE, GREEN);
 }
