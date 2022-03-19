@@ -1676,13 +1676,6 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 		}
 	}
 
-	if (autoSneakMod->isEnabled() && g_Data.getLocalPlayer() != nullptr && autoSneakMod->doSilent && packet->isInstanceOf<C_PlayerActionPacket>() && g_Data.getRakNetInstance()->isonaServer()) {
-		auto* pp = reinterpret_cast<C_PlayerActionPacket*>(packet);
-
-		if (pp->action == 12 && pp->entityRuntimeId == g_Data.getLocalPlayer()->entityRuntimeId)
-			return;  // dont send uncrouch
-	}
-
 	moduleMgr->onSendPacket(packet);
 
 	if (disabler->isEnabled() && disabler->hive && packet->isInstanceOf<NetworkLatencyPacket>()) {
@@ -1962,6 +1955,8 @@ int Hooks::BlockLegacy_getRenderLayer(C_BlockLegacy* a1) {
 																					if (strcmp(text, "chain_command_block") != NULL)
 																						if (strcmp(text, "repeating_command_block") != NULL)
 																							return 10;
+
+		//WHAT THE FUCK IS THIS SHIT
 	}
 	return oFunc(a1);
 }

@@ -157,6 +157,7 @@
     <ClCompile Include="Horion\Module\Modules\ArmourHud.cpp" />
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
+    <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -433,6 +434,7 @@
     <ClInclude Include="Horion\Module\Modules\Keystrokes.h" />
     <ClInclude Include="Horion\Command\Commands\SeedCommand.h" />
     <ClInclude Include="Horion\Command\Commands\Credits.h" />
+    <ClInclude Include="Horion\Module\Modules\MinplexConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

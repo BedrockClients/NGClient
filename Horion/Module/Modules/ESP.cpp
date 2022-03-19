@@ -31,7 +31,7 @@ void doRenderStuff(C_Entity* ent, bool isRegularEntitie) {
 	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 	if (espMod->item) {
 		if (ent->getEntityTypeId() == 64) {
-			DrawUtils::drawNameTags(ent, 1.f, false, false);
+			//DrawUtils::drawNameTags(ent, 1.f, false, false);
 			if (espMod->doRainbow)
 				DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], (float)fmax(0.1f, (float)fmin(1.f, 15 / (ent->damageTime + 1))));
 			else
