@@ -47,5 +47,9 @@ void Disabler::onSendPacket(C_Packet* packet) {
 				if (disablerMode.selected == 0) latencyPacketQueue.push({*currentPacket, now}); // Only push to vector if it's Hive mode 
 				currentPacket->timeStamp = 69420;
 			}
+	} 
+	else if (disablerMode.selected == 1 && packet->isInstanceOf<PlayerAuthInputPacket>) {
+		PlayerAuthInputPacket* pkt = (PlayerAuthInputPacket*)packet;
+		pkt->velocity = vec3_t(0, 0, 0);
 	}
 }
