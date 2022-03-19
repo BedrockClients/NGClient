@@ -123,10 +123,6 @@
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
     <ClCompile Include="Horion\Module\Modules\Surround.cpp" />
     <ClCompile Include="Horion\Module\Modules\RainbowSky.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Cps.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Fps.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Bps.cpp" />
-    <ClCompile Include="Horion\Module\Modules\ServerInfo.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityBhop.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityDerp.cpp" />
     <ClCompile Include="Horion\Module\Modules\EntityFly.cpp" />

@@ -48,7 +48,7 @@ void Disabler::onSendPacket(C_Packet* packet) {
 				currentPacket->timeStamp = 69420;
 			}
 	} 
-	else if (disablerMode.selected == 1 && packet->isInstanceOf<PlayerAuthInputPacket>) {
+	else if (disablerMode.selected == 1 && packet->isInstanceOf<PlayerAuthInputPacket>()) {
 		PlayerAuthInputPacket* pkt = (PlayerAuthInputPacket*)packet;
 		pkt->velocity = vec3_t(0, 0, 0);
 	}
