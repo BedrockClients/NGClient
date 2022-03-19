@@ -24,6 +24,7 @@
 #include "../resource.h"
 #include "GameData.h"
 #include "MinHook.h"
+#include "../Utils/Logger.h"
 //#include "../Horion/Game/Game.h"
 
 #include <d3d11.h>
@@ -141,6 +142,8 @@ private:
 	static void InventoryTransactionManager__addAction(C_InventoryTransactionManager*, C_InventoryAction&);
 	static void LevelRendererPlayer__renderNameTags(__int64 a1, __int64 a2, TextHolder* name, __int64 a4);
 	static void onActorDie(C_Entity*, __int64);
+	static __int64 inventoryScreen__tick(C_CraftingScreenController* a1);
+
 
 	std::unique_ptr<FuncHook> Actor_rotationHook;
 	std::unique_ptr<FuncHook> setPosHook;
@@ -150,6 +153,7 @@ private:
 	std::unique_ptr<FuncHook> UIScene_setupAndRenderHook;
 	std::unique_ptr<FuncHook> UIScene_renderHook;
 	std::unique_ptr<FuncHook> RenderTextHook;
+	std::unique_ptr<FuncHook> inventoryScreen__tickHook;
 	std::unique_ptr<FuncHook> Dimension_getFogColorHook;
 	std::unique_ptr<FuncHook> Dimension_getTimeOfDayHook;
 	std::unique_ptr<FuncHook> Dimension_getSunIntensityHook;

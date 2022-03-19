@@ -230,6 +230,9 @@ void Hooks::Init() {
 		void* actorDie = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 57 48 83 EC ? C6 81 ? ? ? ? ? 48 8B F9"));
 		g_Hooks.actorDieHook = std::make_unique<FuncHook>(actorDie, Hooks::onActorDie);
 
+		void* inventoryScreen = reinterpret_cast<void*>(FindSignature("48 89 5c 24 ? 48 89 74 24 ? 48 89 7c 24 ? 55 41 54 41 55 41 56 41 57 48 8d 6c 24 ? 48 81 ec ? ? ? ? 48 8b 05 ? ? ? ? 48 33 c4 48 89 45 ? 48 8b f9 33 f6 89 74 24"));
+		g_Hooks.inventoryScreen__tickHook = std::make_unique<FuncHook>(inventoryScreen, Hooks::inventoryScreen__tick);
+
 #ifdef TEST_DEBUG
 		void* addAction = reinterpret_cast<void*>(FindSignature("48 89 5C 24 ? 55 56 57 41 56 41 57 48 83 EC 30 45 0F B6 F8 4C 8B F2 48 8B F1 48 8B 01 48 8B 88 ? ? ? ? 48 85 C9"));
 		g_Hooks.InventoryTransactionManager__addActionHook = std::make_unique<FuncHook>(addAction, Hooks::InventoryTransactionManager__addAction);
@@ -2050,6 +2053,16 @@ __int64 Hooks::ChestScreenController_tick(C_ChestScreenController* a1) {
 
 	static auto chestStealerMod = moduleMgr->getModule<ChestStealer>();
 	if (chestStealerMod->isEnabled()) chestStealerMod->chestScreenController_tick(a1);
+
+	return oFunc(a1);
+}
+
+__int64 Hooks::inventoryScreen__tick(C_CraftingScreenController* a1) {
+	static auto oFunc = g_Hooks.inventoryScreen__tickHook->GetFastcall<__int64, C_CraftingScreenController*>();
+	std::string screenName(g_Hooks.currentScreenName);
+
+	static auto AutoArmorMod = moduleMgr->getModule<AutoArmor>();
+	if (AutoArmorMod->isEnabled() && AutoArmorMod->) AutoArmorMod->inventoryScreen = a1;
 
 	return oFunc(a1);
 }

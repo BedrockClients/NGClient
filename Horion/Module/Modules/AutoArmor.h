@@ -1,7 +1,5 @@
 #pragma once
 #include "Module.h"
-//#include "../../../Utils/Logger.h"
-//#include "../../../Utils/Utils.h"
 
 class ArmorStruct {
 public:
@@ -9,6 +7,12 @@ public:
 		armor = yot;
 		m_slot = slot;
 		m_item = item;
+		if (slot < 9)
+			type = "hotbar_items";
+		else {
+			type = "inventory_items";
+			m_slot -= 9;
+		}
 	}
 	bool isEqual(ArmorStruct& src) {
 		if (this->m_item->getArmorValueWithEnchants() == src.m_item->getArmorValueWithEnchants())
@@ -22,13 +26,17 @@ public:
 	}
 	C_ArmorItem* armor = nullptr;
 	C_ItemStack* m_item = nullptr;
+	std::string type;
 	int m_slot = 0;
 };
 
 class AutoArmor : public IModule {
 public:
+	bool openInv = false;
 	C_CraftingScreenController* inventoryScreen = nullptr;
-	AutoArmor() : IModule(0, Category::PLAYER, "Automatically equips the best armor") {}
+	AutoArmor() : IModule(0, Category::PLAYER, "Automatically equips the best armor") {
+		registerBoolSetting("OpenInv", &openInv, openInv);
+	}
 	~AutoArmor(){}
 
 	virtual void onWorldTick(C_GameMode* gm) override {
@@ -65,54 +73,65 @@ public:
 			if (gm->player->getArmor(i)->item != nullptr)
 				armorList.push_back(ArmorStruct(gm->player->getArmor(i), reinterpret_cast<C_ArmorItem*>(*gm->player->getArmor(i)->item), i));
 
-			if (armorList.size() > 0) {
+			if (armorList.size() > 0 && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr) {
 				std::sort(armorList.begin(), armorList.end(), CompareArmorStruct());
 				C_ItemStack* armorItem = gm->player->getArmor(i);
+				if (armorItem->item != nullptr&&(ArmorStruct(armorItem, reinterpret_cast<C_ArmorItem*>(*armorItem->item), 0).isEqual(armorList[0])) == false) {
+					if (openInv) {
+						inventoryScreen->handleAutoPlace(0x7FFFFFFF, "armor_items", i);
+						inventoryScreen->handleAutoPlace(0x7FFFFFFF, armorList[0].type.c_str(), armorList[0].m_slot);
+					} else {
+						int slot = inv->getFirstEmptySlot();
 
-				if (armorItem->item != nullptr && (ArmorStruct(armorItem, reinterpret_cast<C_ArmorItem*>(*armorItem->item), 0).isEqual(armorList[0])) == false) {
-					int slot = inv->getFirstEmptySlot();
+						first = new C_InventoryAction(i, armorItem, nullptr, 632);
+						second = new C_InventoryAction(slot, nullptr, armorItem);
 
-					first = new C_InventoryAction(i, armorItem, nullptr, 632);
-					second = new C_InventoryAction(slot, nullptr, armorItem);
+						*g_Data.getLocalPlayer()->getArmor(i) = *emptyItemStack;
+						*inv->getItemStack(slot) = *armorItem;
 
-					*g_Data.getLocalPlayer()->getArmor(i) = *emptyItemStack;
-					*inv->getItemStack(slot) = *armorItem;
+						manager->addInventoryAction(*first);
+						manager->addInventoryAction(*second);
 
-					manager->addInventoryAction(*first);
-					manager->addInventoryAction(*second);
+						delete first;
+						delete second;
 
-					delete first;
-					delete second;
+						first = new C_InventoryAction(armorList[0].m_slot, armorList[0].m_item, nullptr);
+						second = new C_InventoryAction(i, nullptr, armorList[0].m_item, 632);
 
-					first = new C_InventoryAction(armorList[0].m_slot, armorList[0].m_item, nullptr);
-					second = new C_InventoryAction(i, nullptr, armorList[0].m_item, 632);
+						*g_Data.getLocalPlayer()->getArmor(i) = *inv->getItemStack(armorList[0].m_slot);
+						*inv->getItemStack(armorList[0].m_slot) = *emptyItemStack;
 
-					*g_Data.getLocalPlayer()->getArmor(i) = *inv->getItemStack(armorList[0].m_slot);
-					*inv->getItemStack(armorList[0].m_slot) = *emptyItemStack;
+						manager->addInventoryAction(*first);
+						manager->addInventoryAction(*second);
 
-					manager->addInventoryAction(*first);
-					manager->addInventoryAction(*second);
-
-					delete first;
-					delete second;
+						delete first;
+						delete second;
+					}
 				}
 				if (armorItem->item == nullptr) {
-					*g_Data.getLocalPlayer()->getArmor(i) = *inv->getItemStack(armorList[0].m_slot);
+					if (openInv)
+						inventoryScreen->handleAutoPlace(0x7FFFFFFF, armorList[0].type.c_str(), armorList[0].m_slot);
+					else {
+						*g_Data.getLocalPlayer()->getArmor(i) = *inv->getItemStack(armorList[0].m_slot);
 
-					first = new C_InventoryAction(armorList[0].m_slot, armorList[0].m_item, nullptr);
-					second = new C_InventoryAction(i, nullptr, armorList[0].m_item, 632);
+						first = new C_InventoryAction(armorList[0].m_slot, armorList[0].m_item, nullptr);
+						second = new C_InventoryAction(i, nullptr, armorList[0].m_item, 632);
 
-					*inv->getItemStack(armorList[0].m_slot) = *emptyItemStack;
+						*inv->getItemStack(armorList[0].m_slot) = *emptyItemStack;
 
-					manager->addInventoryAction(*first);
-					manager->addInventoryAction(*second);
+						manager->addInventoryAction(*first);
+						manager->addInventoryAction(*second);
 
-					delete first;
-					delete second;
+						delete first;
+						delete second;
+					}
+
 				}
+				armorList.clear();
 			}
 			armorList.clear();
 		}
+		inventoryScreen = nullptr;
 		armorList.clear();
 	}
 	virtual const char* getModuleName() override { return ("AutoArmor"); }
