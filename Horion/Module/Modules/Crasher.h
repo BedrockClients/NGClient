@@ -12,7 +12,8 @@ public:
 			.addEntry(EnumEntry("Realm", 0))
 			.addEntry(EnumEntry("PacketStorm", 1))
 		    .addEntry(EnumEntry("VoteSpam", 2));
-	//Someone add 
+	//Someone add selhit
+	//will add mixall
 	}
 	~Crasher(){};
 
