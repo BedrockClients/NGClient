@@ -19,7 +19,7 @@ void ModuleManager::initModules() {
 	{
 		auto lock = lockModuleListExclusive();
 
-	moduleList.push_back(std::shared_ptr<IModule>(new Aimbot()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Aimbot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AirJump()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AirStuck()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AirSwim()));
