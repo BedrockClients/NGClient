@@ -242,33 +242,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		supplies->selectedHotbarSlot = slot;
 	}
-}
-
-void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
-	if (GayNigaFags) {
-		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-		C_Inventory* inv = supplies->inventory;
-		int totalCount = 0;
-		for (int n = 0; n < 36; n++) {
-			C_ItemStack* stack = inv->getItemStack(n);
-			if (stack->item != nullptr && stack->getItem()->isBlock() && isUsefulBlock(stack)) {
-				totalCount += stack->count;
-			}
-		}
-		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-		MC_Color Color = MC_Color();
-		if (totalCount >= 64)
-			Color = MC_Color(0, 255, 0);
-		else if (totalCount <= 63 && totalCount >= 33)
-			Color = MC_Color(255, 255, 0);
-		else if (totalCount <= 32)
-			Color = MC_Color(255, 0, 0);
-		DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(totalCount), Color, 1.3f);
-	}
-}
-
-void Scaffold::onLevelRender() {
-	//float Pitch = (gm->player->pitch) * -(PI / 180); Correct Pitch
+	// float Pitch = (gm->player->pitch) * -(PI / 180); Correct Pitch
 	if (rot) {
 		g_Data.getLocalPlayer()->pointingStruct->rayHitType = 0;
 		Utils::nopBytes((BYTE*)HiveBypass1, 3);
@@ -360,7 +334,32 @@ void Scaffold::onLevelRender() {
 			}
 		}
 	}
-	
+}
+
+void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
+	if (GayNigaFags) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		C_Inventory* inv = supplies->inventory;
+		int totalCount = 0;
+		for (int n = 0; n < 36; n++) {
+			C_ItemStack* stack = inv->getItemStack(n);
+			if (stack->item != nullptr && stack->getItem()->isBlock() && isUsefulBlock(stack)) {
+				totalCount += stack->count;
+			}
+		}
+		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+		MC_Color Color = MC_Color();
+		if (totalCount >= 64)
+			Color = MC_Color(0, 255, 0);
+		else if (totalCount <= 63 && totalCount >= 33)
+			Color = MC_Color(255, 255, 0);
+		else if (totalCount <= 32)
+			Color = MC_Color(255, 0, 0);
+		DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(totalCount), Color, 1.3f);
+	}
+}
+
+void Scaffold::onLevelRender() {
 	if (spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		supplies->selectedHotbarSlot = slot;
