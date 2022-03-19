@@ -127,6 +127,7 @@ public:
 					}
 
 				}
+				if (openInv)
 				armorList.clear();
 			}
 			armorList.clear();
