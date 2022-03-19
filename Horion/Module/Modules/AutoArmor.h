@@ -33,9 +33,11 @@ public:
 class AutoArmor : public IModule {
 public:
 	bool openInv = false;
+	bool AutoClose = false;
 	C_CraftingScreenController* inventoryScreen = nullptr;
 	AutoArmor() : IModule(0, Category::PLAYER, "Automatically equips the best armor") {
 		registerBoolSetting("OpenInv", &openInv, openInv);
+		registerBoolSetting("AutoClose", &AutoClose, AutoClose);
 	}
 	~AutoArmor(){}
 
@@ -132,6 +134,8 @@ public:
 			}
 			armorList.clear();
 		}
+		if (AutoClose && openInv && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr)
+			inventoryScreen->tryExit();
 		inventoryScreen = nullptr;
 		armorList.clear();
 	}
