@@ -141,6 +141,7 @@
 #include "Modules/chestaura.h"
 #include "Modules/cps.h"
 #include "Modules/fps.h"
+#include "Modules/PacketMultiplier.h"
 #include "Modules/selectionHighlight.h"
 
 class ModuleManager {

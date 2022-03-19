@@ -151,6 +151,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new bps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new cps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new fps()));
+		moduleList.push_back(std::shared_ptr<IModule>(new PacketMultiplier()));
 		moduleList.push_back(std::shared_ptr<IModule>(new selectionHighlight()));
 
 		// Sort modules alphabetically
