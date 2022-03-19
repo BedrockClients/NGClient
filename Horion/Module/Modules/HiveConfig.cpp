@@ -107,7 +107,8 @@ void HiveConfig::onEnable() {
 	KillMod->targ.selected = 0;
 #endif
 	// Breaker
-	partner->Partnered.selected == 0;
+	partner->Partnered.selected = 0;
+	partner->Partnered.selected = 0;
 	// Killaura
 	KillMod->info = true;
 	KillMod->hurttime = false;
