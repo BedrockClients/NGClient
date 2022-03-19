@@ -288,6 +288,7 @@
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
+    <ClCompile Include="Horion\Module\Modules\PacketMultiplier.cpp" />
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Radar.cpp" />
@@ -486,6 +487,7 @@
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
     <ClInclude Include="Horion\Module\Modules\MinplexConfig.h" />
     <ClInclude Include="Horion\Module\Modules\NoRender.h" />
+    <ClInclude Include="Horion\Module\Modules\PacketMultiplier.h" />
     <ClInclude Include="Horion\Module\Modules\Partner.h" />
     <ClInclude Include="Horion\Module\Modules\Rainbow.h" />
     <ClInclude Include="Horion\Module\Modules\ServerInfo.h" />

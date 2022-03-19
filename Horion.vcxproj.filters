@@ -158,6 +158,7 @@
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
+    <ClCompile Include="Horion\Module\Modules\PacketMultiplier.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -435,6 +436,7 @@
     <ClInclude Include="Horion\Command\Commands\SeedCommand.h" />
     <ClInclude Include="Horion\Command\Commands\Credits.h" />
     <ClInclude Include="Horion\Module\Modules\MinplexConfig.h" />
+    <ClInclude Include="Horion\Module\Modules\PacketMultiplier.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
