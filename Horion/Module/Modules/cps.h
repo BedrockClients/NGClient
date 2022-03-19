@@ -14,7 +14,7 @@ public:
 	};
 	~cps(){};
 
-	void cps::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
+	void onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		// CPS
 		float f = 10.f * this->scale;
 		std::string tempStr("Movement");

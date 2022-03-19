@@ -268,7 +268,6 @@
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Coordinates.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
