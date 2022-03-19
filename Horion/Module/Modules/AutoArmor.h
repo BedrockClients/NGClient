@@ -80,7 +80,7 @@ public:
 					if (openInv && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr) {
 						inventoryScreen->handleAutoPlace(0x7FFFFFFF, "armor_items", i);
 						inventoryScreen->handleAutoPlace(0x7FFFFFFF, armorList[0].type.c_str(), armorList[0].m_slot);
-					} else {
+					} else if (!openInv) {
 						int slot = inv->getFirstEmptySlot();
 
 						first = new C_InventoryAction(i, armorItem, nullptr, 632);
@@ -111,7 +111,7 @@ public:
 				if (armorItem->item == nullptr) {
 					if (openInv && !g_Data.getLocalPlayer()->canOpenContainerScreen() && inventoryScreen != nullptr)
 						inventoryScreen->handleAutoPlace(0x7FFFFFFF, armorList[0].type.c_str(), armorList[0].m_slot);
-					else {
+					else if(!openInv) {
 						*g_Data.getLocalPlayer()->getArmor(i) = *inv->getItemStack(armorList[0].m_slot);
 
 						first = new C_InventoryAction(armorList[0].m_slot, armorList[0].m_item, nullptr);
