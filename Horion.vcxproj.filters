@@ -158,7 +158,6 @@
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
-    <ClCompile Include="Horion\Module\Modules\PacketMultiplier.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />

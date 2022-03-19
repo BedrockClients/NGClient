@@ -1,13 +1,16 @@
 #pragma once
+#include "../ModuleManager.h"
 #include "Module.h"
-
 class PacketMultiplier : public IModule {
 public:
 	int multiplier = 1;
 
-	PacketMultiplier();
-	~PacketMultiplier();
+	PacketMultiplier::PacketMultiplier() : IModule(0, Category::SERVER, "funni packet exploit") {
+		registerIntSetting("Multiplier", &multiplier, multiplier, 1, 10);
+	};
+	~PacketMultiplier(){};
 
-	// Inherited via IModule
-	virtual const char* getModuleName() override;
+	virtual const char* getModuleName() override {
+		return "PacketMultiplier";
+	}
 };
