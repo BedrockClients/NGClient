@@ -378,7 +378,6 @@ BOOL __stdcall DllMain(HMODULE hModule,
 	case DLL_PROCESS_DETACH:
 		isRunning = false;
 
-		scriptMgr.unloadAllScripts();
 		configMgr->saveConfig();
 		moduleMgr->disable();
 		cmdMgr->disable();

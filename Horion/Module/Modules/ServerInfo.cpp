@@ -2,7 +2,7 @@
 
 #include "../../../Utils/Logger.h"
 #include "../../DrawUtils.h"
-#include "../../Scripting/ScriptManager.h"
+#include "../ModuleManager.h"
 
 ServerInfo::ServerInfo() : IModule(0x0, Category::GUI, "shows the server ip and port of the current server") {
 	registerFloatSetting("ServerX", &serverInfoX, serverInfoX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);

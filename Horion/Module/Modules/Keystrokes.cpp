@@ -1,7 +1,7 @@
 #include "KeyStrokes.h"
 #include "../../../Utils/Logger.h"
 #include "../../DrawUtils.h"
-#include "../../Scripting/ScriptManager.h"
+#include "../ModuleManager.h"
 
 
 KeyStrokes::KeyStrokes() : IModule(0x0, Category::GUI, "Renders Keystrokes on your screen") {

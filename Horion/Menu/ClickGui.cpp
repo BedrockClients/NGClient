@@ -4,7 +4,6 @@
 
 #include "../../Utils/Json.hpp"
 #include "../../Utils/Logger.h"
-#include "../Scripting/ScriptManager.h"
 
 bool isLeftClickDown = false;
 bool isRightClickDown = false;

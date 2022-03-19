@@ -2068,7 +2068,7 @@ __int64 Hooks::inventoryScreen__tick(C_CraftingScreenController* a1) {
 	std::string screenName(g_Hooks.currentScreenName);
 
 	static auto AutoArmorMod = moduleMgr->getModule<AutoArmor>();
-	if (AutoArmorMod->isEnabled() && AutoArmorMod->) AutoArmorMod->inventoryScreen = a1;
+	if (AutoArmorMod->isEnabled() && AutoArmorMod->openInv) AutoArmorMod->inventoryScreen = a1;
 
 	return oFunc(a1);
 }

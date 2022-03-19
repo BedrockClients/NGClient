@@ -1,6 +1,6 @@
 #include "HudModule.h"
 #include "../../DrawUtils.h"
-#include "../../Scripting/ScriptManager.h"
+#include "../ModuleManager.h"
 
 HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Buttons", &Buttons, Buttons);
@@ -43,7 +43,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	std::string tempStr("Movement");
 	float len = DrawUtils::getTextWidth(&tempStr, scale) + 7.f;
 	float startY = tabgui ? 6 * f : 0.f;
-	if (tabgui && scriptMgr.getNumEnabledScripts() > 0)
+	if (tabgui)
 		startY += f;
 
 	{  // Hello thing

@@ -2,7 +2,7 @@
 
 #include "../../../Utils/Logger.h"
 #include "../../DrawUtils.h"
-#include "../../Scripting/ScriptManager.h"
+#include "../ModuleManager.h"
 
 bps::bps()
 	: IModule(0x0, Category::GUI, "Clicks Per Second") {

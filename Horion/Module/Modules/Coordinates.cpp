@@ -1,7 +1,6 @@
 #include "Coordinates.h"
 #include "../../../Utils/Logger.h"
 #include "../../DrawUtils.h"
-#include "../../Scripting/ScriptManager.h"
 
 Coordinates::Coordinates() : IModule(0x0, Category::GUI, "Tells the player their coords") {
 	registerFloatSetting("CoordinatesX", &coordsX, coordsX, 0.f, g_Data.getClientInstance()->getGuiData()->windowSize.x);

@@ -2,7 +2,7 @@
 
 #include "../../../Utils/Logger.h"
 #include "../../DrawUtils.h"
-#include "../../Scripting/ScriptManager.h"
+#include "../ModuleManager.h"
 
 fps::fps()
 	: IModule(0x0, Category::GUI, "Frames Per Second") {
