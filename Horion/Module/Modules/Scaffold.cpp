@@ -238,13 +238,13 @@ bool Scaffold::isUsefulBlock(C_ItemStack* itemStack) {
 }
 
 void Scaffold::onTick(C_GameMode* gm) {
-}
-
-void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (spoof) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		supplies->selectedHotbarSlot = slot;
 	}
+}
+
+void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (GayNigaFags) {
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_Inventory* inv = supplies->inventory;

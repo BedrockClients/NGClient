@@ -4,7 +4,7 @@ class AutoSneak : public IModule {
 public:
 	bool doSilent = false;
 	AutoSneak() : IModule(0, Category::MOVEMENT, "Automatically sneak without holding the key") {
-		registerBoolSetting("silent", &doSilent, doSilent);
+		registerBoolSetting("Silent", &doSilent, doSilent);
 	}
 	~AutoSneak(){};
 
@@ -13,29 +13,22 @@ public:
 		if (!doSilent)
 			g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown = true;
 	}
+	virtual void onMove(C_MoveInputHandler* input) {
+		if (input->isSneakDown && doSilent) {
+			input->sideMovement *= 8;
+			input->forwardMovement *= 8;
+		}
+	}
 	virtual void onDisable() override {
 		if (g_Data.getLocalPlayer() == nullptr)
 			return;
-
 		if (!doSilent) {
 			g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown = false;
 			return;
 		}
-
-		C_PlayerActionPacket p;
-		p.action = 12;  //stop crouch packet
-		p.entityRuntimeId = g_Data.getLocalPlayer()->entityRuntimeId;
-		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
 	}
 	virtual void onEnable() override {
 		if (g_Data.getLocalPlayer() == nullptr)
-			return;  //fixed crash
-
-		if (doSilent) {
-			C_PlayerActionPacket p;
-			p.action = 11;  //start crouch packet
-			p.entityRuntimeId = g_Data.getLocalPlayer()->entityRuntimeId;
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
-		}
+			return;
 	}
 };
