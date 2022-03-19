@@ -221,7 +221,7 @@ bool Scaffold::findBlock() {
 }
 
 bool Scaffold::isUsefulBlock(C_ItemStack* itemStack) {
-	std::vector<std::string> uselessSubstrings = {"_button", "chest", "vine", "pressure_plate", "fence", "_wall", "_stairs", "_table", "furnace", "trapdoor", "command_block", "torch", "carpet"};
+	std::vector<std::string> uselessSubstrings = {"_button", "chest", "boom", "vine", "pressure_plate", "fence", "_wall", "_stairs", "_table", "furnace", "trapdoor", "command_block", "torch", "carpet"};
 	std::vector<std::string> uselessNames = {"cake", "ladder", "tnt", "lever", "loom", "scaffolding", "web", "sand", "gravel", "dragon_egg", "anvil"};
 	std::string itemName = itemStack->getItem()->name.getText();
 	for (auto substring : uselessSubstrings) {
