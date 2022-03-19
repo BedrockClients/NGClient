@@ -46,7 +46,6 @@
     <ClCompile Include="Horion\Module\Modules\InfiniteAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryCleaner.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryMove.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Jesus.cpp" />
     <ClCompile Include="Horion\Module\Modules\Killaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\MidClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\Module.cpp" />
@@ -99,7 +98,6 @@
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
-    <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
@@ -338,7 +336,6 @@
     <ClInclude Include="Horion\Module\Modules\AntiAnvil.h" />
     <ClInclude Include="Horion\Module\Modules\Mineplex.h" />
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
-    <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
