@@ -268,7 +268,6 @@
     <ClCompile Include="Horion\Menu\ClickGui.cpp" />
     <ClCompile Include="Horion\Module\ModuleManager.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
-    <ClCompile Include="Horion\Module\Modules\ArmourHud.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
     <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bps.cpp" />
@@ -286,6 +285,7 @@
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
     <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
+    <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
@@ -483,7 +483,9 @@
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\Keystrokes.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
+    <ClInclude Include="Horion\Module\Modules\MinplexConfig.h" />
     <ClInclude Include="Horion\Module\Modules\NoRender.h" />
+    <ClInclude Include="Horion\Module\Modules\PacketMultiplier.h" />
     <ClInclude Include="Horion\Module\Modules\Partner.h" />
     <ClInclude Include="Horion\Module\Modules\Rainbow.h" />
     <ClInclude Include="Horion\Module\Modules\ServerInfo.h" />

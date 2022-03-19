@@ -11,6 +11,7 @@ public:
 	float glideMod = 0.f;
 	float glideModEffective = 0;
 	int counter = 1;
+	SettingEnum disablerMode;
 	Disabler();
 	virtual const char* getModuleName();
 	virtual void onMove(C_MoveInputHandler* input) override;

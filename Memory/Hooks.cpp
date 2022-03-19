@@ -1580,6 +1580,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	static auto hiveFly = moduleMgr->getModule<HiveFly>();
 	static auto disabler = moduleMgr->getModule<Disabler>();
 	static auto test = moduleMgr->getModule<TestModule>();
+	static auto pm = moduleMgr->getModule<PacketMultiplier>();
 	// if (test->isEnabled() && packet->isInstanceOf<C_NPCRequestPacket>()) {  //Good for testing packet sigs
 	// return;
 	//	g_Data.getLocalPlayer()->jumpFromGround();
@@ -1696,7 +1697,12 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 		logF("emote %llX %s %i", *varInt, text->getText(), *bet);
 	} fix emote crashing*/
 
-	oFunc(a, packet);
+	if (!pm->isEnabled()) {
+		oFunc(a, packet);
+	} else {
+		for (int PacketMult = 0; PacketMult < pm->multiplier; PacketMult++)
+		oFunc(a, packet);
+	}
 }
 
 float Hooks::LevelRendererPlayer_getFov(__int64 _this, float a2, bool a3) {
