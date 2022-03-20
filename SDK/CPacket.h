@@ -257,8 +257,8 @@ public:
 	uint8_t mode;             //0x48
 	bool onGround;
 	__int64 ridingEid;
-	int int1;
-	int int2;
+	__int64 tpCause;
+	unsigned char entType;
 	/*
 	Modes:
 	0 - Normal
