@@ -100,7 +100,6 @@ void HiveConfig::onEnable() {
 	KillMod->range = 4.50f;
 	KillMod->delay = 2.f;
 	KillMod->rots.selected = 1;
-	KillMod->mode.selected = 1;
 #ifdef _DEBUG
 	KillMod->targ.selected = 1;
 #else
@@ -248,11 +247,7 @@ void HiveConfig::onEnable() {
 	//Reach
 	ReachMod->reachValue = 7.f;
 	//Swing Animations
-	SwingAnimation->fluxSwing = false;
-	SwingAnimation->fakeJavaSwing = false;
-	SwingAnimation->floppySwing = false;
-	SwingAnimation->noObstructSwing = false;
-	SwingAnimation->pushSwing = false;
+	SwingAnimation->swing.selected = 2;
 
 	//Tell User Binds
 	g_Data.getGuiData()->displayClientMessageF("=======================================");

@@ -5,7 +5,6 @@
 
 class Killaura : public IModule {
 public:
-	SettingEnum mode;
 	SettingEnum rots;
 	SettingEnum targ;
 	bool info = false;
@@ -17,7 +16,6 @@ public:
 	int targethud = 0;
 	bool noSwing = false;
 	bool isMobAura = false;
-	bool gayFags = false;
 	bool hurttime = true;
 	float range = 6;
 	bool targetListA = false;

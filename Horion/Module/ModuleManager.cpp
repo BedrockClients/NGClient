@@ -28,6 +28,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiAnvil()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiBot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiImmobile()));
+		moduleList.push_back(std::shared_ptr<IModule>(new ToggleSounds()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiLagBack()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiVoid()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Antikb()));

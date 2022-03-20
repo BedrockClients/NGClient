@@ -348,6 +348,7 @@ void IModule::setEnabled(bool enabled) {
 		static auto HUD = moduleMgr->getModule<HudModule>();
 		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
 		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
+		static auto ToggleSound = moduleMgr->getModule<ToggleSounds>();
 		bool shouldShow = true;
 		std::string screenName(g_Hooks.currentScreenName);
 		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications || strcmp(screenName.c_str(), "start_screen") == 0)
@@ -362,10 +363,15 @@ void IModule::setEnabled(bool enabled) {
 			g_Data.infoBoxQueue.push(box);
 		}
 
-		if (enabled)
+		if (enabled) {
 			this->onEnable();
-		else
+			if (ToggleSound->isEnabled() && !((GameData::isKeyDown('L') && GameData::isKeyDown(VK_CONTROL)) || GameData::shouldTerminate()) && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && !isFlashMode())
+				Utils::systemPlay("CustomEnable.wav");
+		} else {
 			this->onDisable();
+			if (ToggleSound->isEnabled() && !((GameData::isKeyDown('L') && GameData::isKeyDown(VK_CONTROL)) || GameData::shouldTerminate()) && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && !isFlashMode())
+				Utils::systemPlay("CustomDisable.wav");
+		}
 	}
 }
 

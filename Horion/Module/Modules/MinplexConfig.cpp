@@ -111,7 +111,6 @@ void MinplexConfig::onEnable() {
 	KillMod->range = 4.50f;
 	KillMod->delay = 2;
 	KillMod->rots.selected = 1;
-	KillMod->mode.selected = 1;
 	KillMod->info = true;
 	KillMod->hurttime = false;
 	KillMod->isMobAura = false;

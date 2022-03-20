@@ -8,7 +8,33 @@
 #include <Windows.h>
 #include <Psapi.h>
 #include "HMath.h"
+#include <sys\stat.h>
+#include <iostream>
+#include <direct.h>
+#include <conio.h>
+#include <sstream>
+#include <windows.h>
+#include <string.h>
+#include <stdio.h>
+#include <string>
+#include<TlHelp32.h>
+#include <tchar.h> 
+#include <vector>
+#include <thread>
+#include <wtsapi32.h>
+#include <psapi.h>
+#include <math.h>
+#include <algorithm> 
+#include <playsoundapi.h>
+#include "../../../Utils/Logger.h"
+#pragma comment(lib, "winmm.lib")
 #include "../Memory/Hooks.h"
+#include<windows.h>
+#include <tchar.h>
+#include <urlmon.h>
+#pragma comment(lib, "urlmon.lib")
+#pragma comment(lib, "wininet.lib")
+using namespace std;
 
 void Utils::ApplySystemTime(std::stringstream* ss) {
 	using namespace std::chrono;
@@ -26,6 +52,29 @@ uintptr_t cachedBase = 0;
 uintptr_t Utils::getBase() {
 	if (cachedBase == 0) cachedBase = (uintptr_t)GetModuleHandleA("Minecraft.Windows.exe");
 	return cachedBase;
+}
+
+void Utils::systemPlay(std::string name) {
+	std::string path = getenv("APPDATA") + std::string("\\..\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\RoamingState\\NGClient\\CustomSounds\\") + std::string(name);
+	PlaySoundA((LPCSTR)path.c_str(), NULL, SND_FILENAME | SND_ASYNC);
+}
+
+void Utils::makeRoamingFoldr(std::string file) {
+	std::string path = getenv("APPDATA") + std::string("\\..\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\RoamingState\\") + std::string(file);
+	// Creating File
+	if (mkdir(path.c_str()) == -1)
+		return;
+	else
+		return;
+}
+
+void Utils::makeNGFoldr(std::string file) {
+	std::string path = getenv("APPDATA") + std::string("\\..\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\RoamingState\\NGClient\\") + std::string(file);
+	// Creating File
+	if (mkdir(path.c_str()) == -1)
+		return;
+	else
+		return;
 }
 
 void Utils::GetCurrentSystemTime(tm& timeInfo) {

@@ -20,6 +20,7 @@
 #include "Modules/AutoBuild.h"
 #include "Modules/Antikb.h"
 #include "Modules/AntilagBack.h"
+#include "Modules/ToggleSounds.h"
 #include "Modules/ArmourHud.h "
 #include "Modules/AutoArmor.h"
 #include "Modules/AutoClick.h"

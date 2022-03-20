@@ -1,11 +1,13 @@
 #include "SwingAnimations.h"
-
-SwingAnimations::SwingAnimations() : IModule(0, Category::VISUAL, "SwingAnimations. Simple As That") {
-	registerBoolSetting("FloppySwing", &floppySwing, floppySwing);
-	registerBoolSetting("FluxSwing", &fluxSwing, fluxSwing);
-	registerBoolSetting("NoObstructSwing", &noObstructSwing, noObstructSwing);
-	registerBoolSetting("PushSwing", &pushSwing, pushSwing);
-	registerBoolSetting("BrushSwing", &brushSwing, brushSwing);
+void* FluxAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 56 ? 48 85 D2 74 ? 48 8B 02");
+void* TapAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
+SwingAnimations::SwingAnimations() : IModule(0, Category::VISUAL, "SwingAnimations for killaura") {
+	registerEnumSetting("BlockHit", &swing, 2);
+	swing = SettingEnum(this)
+				.addEntry(EnumEntry("SlideBlock", 0))
+				.addEntry(EnumEntry("SmoothBlock", 1))
+				.addEntry(EnumEntry("Tap", 2))
+				.addEntry(EnumEntry("Normal", 3));
 }
 
 SwingAnimations::~SwingAnimations() {
@@ -15,68 +17,55 @@ const char* SwingAnimations::getModuleName() {
 	return "SwingAnimations";
 }
 
-//f3 0f 11 54 24 ? 41 0f 28 d8 f3 0f 10 0d ? ? ? ? e8
-//41 0f 28 d8 f3 0f 10 0d ? ? ? ? e8 ? ? ? ? c6 47
-//nop these 2 and get real blochhit
 void SwingAnimations::onEnable() {
-	//Floppy
-	if (floppySwing) {
-		targetAddress2 = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 56 ? 48 85 D2 74 ? 48 8B 02");
-		targetAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
-		Utils::nopBytes((BYTE*)targetAddress2, 6);
-		Utils::nopBytes((BYTE*)targetAddress, 4);
-	}
+}
 
-	//Flux
-	if (fluxSwing) {
-		targetAddress = (void*)FindSignature("E8 ? ? ? ? F3 0F 10 0D ? ? ? ? 41 0F 28 C0");
-		Utils::nopBytes((BYTE*)targetAddress, 5);
-	}
+float nigr = 0.f;
+float nigr2 = 0.f;
+void SwingAnimations::onPlayerTick(C_Player* plr) {
+	if (g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr) {
+		auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
 
-	//NoObstruct
-	if (noObstructSwing) {
-		targetAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
-		Utils::nopBytes((BYTE*)targetAddress, 4);
-	}
+		if (nigr >= 505)
+			nigr = 340;
+		else
+			nigr += 2.f;
 
-	//PushSwing
-	if (pushSwing) {
-		targetAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
-		targetAddress2 = (void*)FindSignature("F3 ? 2C C1 ? B7 ? 48 8D 15");
-		Utils::nopBytes((BYTE*)targetAddress, 4);
-		Utils::nopBytes((BYTE*)targetAddress2, 4);
-	}
+		if (nigr <= 339)
+			nigr = 340;
 
-	//BrushSwing
-	if (brushSwing) {
-		targetAddress = (void*)FindSignature("0F 28 C6 F3 0F 59 05 ? ? ? ? F3 0F 2C C0 0F B7 C8");
-		Utils::nopBytes((BYTE*)targetAddress, 3);
-	}
+		if (nigr2 >= 369)
+			nigr2 = 340;
+		else
+			nigr2 += 1.5f;
 
+		if (nigr2 <= 339)
+			nigr2 = 340;
+
+		if (!moduleMgr->getModule<Killaura>()->targetListA && swing.selected == 0 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon() && !moduleMgr->getModule<Killaura>()->noSwing) {
+			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x79C);
+			*speedAdr = nigr;
+		} else if (!moduleMgr->getModule<Killaura>()->targetListA && swing.selected == 1 && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon() && !moduleMgr->getModule<Killaura>()->noSwing) {
+			float* speedAdr = reinterpret_cast<float*>(reinterpret_cast<__int64>(g_Data.getLocalPlayer()) + 0x79C);
+			*speedAdr = nigr2;
+		}
+	}
+}
+
+void SwingAnimations::onTick(C_GameMode* gm) {
+	auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
+	if (moduleMgr->getModule<Killaura>()->isEnabled() && !moduleMgr->getModule<Killaura>()->targetListA && slot->getItem()->isWeapon() && swing.selected == 2)
+		Utils::nopBytes((BYTE*)TapAddress, 4); 
+	else 
+		Utils::patchBytes((BYTE*)((uintptr_t)TapAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
+
+	if (moduleMgr->getModule<Killaura>()->isEnabled() && !moduleMgr->getModule<Killaura>()->targetListA && slot->getItem()->isWeapon())
+		Utils::nopBytes((BYTE*)FluxAddress, 6);
+	else
+		Utils::patchBytes((BYTE*)((uintptr_t)FluxAddress), (BYTE*)"\x0F\x84\x95\x02\x00\x00", 6);
 }
 
 void SwingAnimations::onDisable() {
-	//Floppy
-	if (floppySwing) {
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\x0F\x84\x95\x02\x00\x00", 6);
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0\x0F\x28\xC8", 4);
-	}
-	
-	//Flux
-	if (fluxSwing)
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xE8\x34\x52\x37\xFF", 5);
-
-	//NoObstruct
-	if (noObstructSwing)
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0\x0F\x28\xC8", 4);
-
-	//PushSwing
-	if (pushSwing) {
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress2), (BYTE*)"\xF3\x0F\x2C\xC1\x0F\xB7\xC8\x48\x8D\x15", 4);
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\xF3\x0F\x51\xF0\x0F\x28\xC8", 4);
-	}
-
-	//BrushSwing
-	if (brushSwing)
-		Utils::patchBytes((BYTE*)((uintptr_t)targetAddress), (BYTE*)"\x0F\x28\xC6\xF3\x0F\x59\x05", 3);
+	Utils::patchBytes((BYTE*)((uintptr_t)TapAddress), (BYTE*)"\xF3\x0F\x51\xF0", 4);
+	Utils::patchBytes((BYTE*)((uintptr_t)FluxAddress), (BYTE*)"\x0F\x84\x95\x02\x00\x00", 6);
 }

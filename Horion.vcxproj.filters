@@ -392,6 +392,8 @@
     <ClInclude Include="Horion\Module\Modules\MinplexConfig.h" />
     <ClInclude Include="Horion\Module\Modules\PacketMultiplier.h" />
     <ClInclude Include="Horion\Module\Modules\AutoBuild.h" />
+    <ClInclude Include="Horion\Module\Modules\ToggleSounds.h" />
+    <ClInclude Include="Utils\Base64.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

@@ -253,7 +253,7 @@ void Hooks::Init() {
 			static auto origFunc = g_Hooks.lambdaHooks.at(lambda_counter)->GetFastcall<void, __int64, glm::mat4&, float>();
 			
 			static auto ViewMod = moduleMgr->getModule<ViewModel>();
-			static auto KillMod = moduleMgr->getModule<Killaura>();
+			static auto KillMod = moduleMgr->getModule<Killaura>();			
 			auto p = g_Data.getLocalPlayer();
 			float degrees = fmodf(p->getPosOld()->lerp(p->getPos(), lerpT).x, 5) - 2.5f;
 			degrees *= 180 / 2.5f;
@@ -264,7 +264,7 @@ void Hooks::Init() {
 			
 			matrix = View;
 			auto slot = g_Data.getLocalPlayer()->getSupplies()->inventory->getItemStack(g_Data.getLocalPlayer()->getSupplies()->selectedHotbarSlot);
-		if (KillMod->isEnabled() && !KillMod->targetListA && KillMod->mode.selected != 3 && KillMod->gayFags && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon()) {
+		if (KillMod->isEnabled() && !KillMod->targetListA && slot != nullptr && slot->item != nullptr && slot->getItem()->isWeapon() && moduleMgr->getModule<SwingAnimations>()->isEnabled()) {
 			 lerpT = 0.f;
 				// translate for bedrock
 				matrix = glm::translate<float>(matrix, glm::vec3(0.42222223281, 0.0, -0.16666666269302368));

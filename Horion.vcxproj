@@ -514,6 +514,7 @@
     <ClInclude Include="Horion\Module\Modules\Module.h" />
     <ClInclude Include="Horion\Module\Modules\NameTags.h" />
     <ClInclude Include="Horion\Module\Modules\TargetStrafe.h" />
+    <ClInclude Include="Horion\Module\Modules\ToggleSounds.h" />
     <ClInclude Include="Horion\Module\Modules\Totem.h" />
     <ClInclude Include="Horion\Module\Modules\NightMode.h" />
     <ClInclude Include="Horion\Module\Modules\NoFall.h" />
@@ -613,6 +614,7 @@
     <ClInclude Include="SDK\Tag.h" />
     <ClInclude Include="SDK\Tessellator.h" />
     <ClInclude Include="SDK\TextHolder.h" />
+    <ClInclude Include="Utils\Base64.h" />
     <ClInclude Include="Utils\ChakraHelper.h" />
     <ClInclude Include="Utils\DllHelper.h" />
     <ClInclude Include="Utils\HMath.h" />

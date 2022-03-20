@@ -3,16 +3,7 @@
 #include "Module.h"
 class SwingAnimations : public IModule {
 public:
-	bool floppySwing = false;
-	bool brushSwing = false;
-	bool fluxSwing = true;
-	bool noObstructSwing = false;
-	bool pushSwing = false;
-	bool fakeJavaSwing = false;
-	void* targetAddress;
-	void* targetAddress2;
-	SettingEnum enum1;
-
+	SettingEnum swing;
 	SwingAnimations();
 	~SwingAnimations();
 
@@ -20,4 +11,6 @@ public:
 	virtual const char* getModuleName() override;
 	virtual void onEnable() override;
 	virtual void onDisable() override;
+	virtual void onTick(C_GameMode* gm) override;
+	virtual void onPlayerTick(C_Player* plr) override;
 };
