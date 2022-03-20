@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-
+#include "../Memory/GameData.h"
 #include "../Utils/HMath.h"
 #include "CClientInstance.h"
 #include "CEntity.h"
@@ -42,6 +42,4 @@ private:
 
 public:
 	C_Player *player;
-
-	void survivalDestroyBlockHack(vec3_ti const &block, int face, bool &isDestroyedOut, bool isFirst);
 };
