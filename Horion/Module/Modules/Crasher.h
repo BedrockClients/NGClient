@@ -40,13 +40,18 @@ public:
 	}
 	// Crashers by Founder don't touch, skid, steal, or else you watch gay furry porn and r into little boys
 	virtual void onTick(C_GameMode* gm) override {
-		if (g_Data.getLocalPlayer() == nullptr)
-			setEnabled(false);
+		if (g_Data.getLocalPlayer() == nullptr) {
+			//setEnabled(false);
+			return;
+		}
 		C_MovePlayerPacket MovePlayerPacket(g_Data.getLocalPlayer(), g_Data.getLocalPlayer()->getPos()->add(vec3_t(static_cast<float>(0xFFFFFFFF), static_cast<float>(0xFFFFFFFF), static_cast<float>(0xFFFFFFFF))));
 		NetworkLatencyPacket NetworkPacket;
 		NetworkPacket.timeStamp = 6;
 		C_SubChunkRequestPacket ChunkRequestPacket;
-		//C_PlayerActionPacket PlayerActionPacket;
+		C_PlayerActionPacket PlayerActionPacket;
+		PlayerActionPacket.blockPosition = g_Data.getLocalPlayer()->getPos()->add(vec3_t(NAN, NAN, NAN));
+		PlayerActionPacket.action = -1;
+		PlayerActionPacket.entityRuntimeId = g_Data.getLocalPlayer()->entityRuntimeId;
 		//C_AnimatePacket AnimatePacket;
 		//CommandRequestPacket CommandRequestPacket;
 		//CommandRequestPacket.payload = std::string("FADEAWAY ON TOP");
