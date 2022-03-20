@@ -52,6 +52,7 @@ void findjeoe(C_Entity* currentEntity, bool isRegularEntitie) {
 }
 
 void TestModule::onEnable() {
+	g_Data.getLocalPlayer()->unlockAchievements();
 }
 
 void TestModule::onPlayerTick(C_Player* plr) {
@@ -62,6 +63,7 @@ void TestModule::onPlayerTick(C_Player* plr) {
 }
 
 void TestModule::onTick(C_GameMode* gm) {
+	//g_Data.getLocalPlayer()->unlockAchievments();
 	if (bool1) {
 		C_TextPacket textPacket;
 		textPacket.message.setText("test + ");
