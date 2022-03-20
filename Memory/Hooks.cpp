@@ -1282,8 +1282,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			static auto partner = moduleMgr->getModule<Partner>();
 			float titleWidth = DrawUtils::getTextWidth(&box->title, titleTextSize);
 			float msgWidth = DrawUtils::getTextWidth(&box->message, messageTextSize);
-			vec2_t centerPos(wid.x / 2.f, wid.y / 9.f);
-			vec2_t textPos = vec2_t(wid.x / 2.f - titleWidth / 2.f, wid.y / 9.f);
+			vec2_t centerPos(wid.x / 2.f, wid.y / 50.f);
+			vec2_t textPos = vec2_t(wid.x / 2.f - titleWidth / 2.f, wid.y / 50.f);
 			vec2_t msgPos = vec2_t(wid.x / 2.f - msgWidth / 2.f, textPos.y + titleTextHeight + paddingVert);
 			vec4_t rectPos = vec4_t(
 				centerPos.x - paddingHoriz - std::max(titleWidth, msgWidth) / 2,
