@@ -24,6 +24,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new AirStuck()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AirSwim()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AnchorAura()));
+		moduleList.push_back(std::shared_ptr<IModule>(new AutoBuild()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiAnvil()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiBot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiImmobile()));

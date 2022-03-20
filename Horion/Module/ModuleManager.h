@@ -17,6 +17,7 @@
 #include "Modules/AntiBot.h"
 #include "Modules/AntiImmobile.h"
 #include "Modules/AntiVoid.h"
+#include "Modules/AutoBuild.h"
 #include "Modules/Antikb.h"
 #include "Modules/AntilagBack.h"
 #include "Modules/ArmourHud.h "

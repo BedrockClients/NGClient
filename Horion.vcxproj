@@ -426,6 +426,7 @@
     <ClInclude Include="Horion\Module\Modules\ArmourHud.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
     <ClInclude Include="Horion\Module\Modules\AutoArmor.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoBuild.h" />
     <ClInclude Include="Horion\Module\Modules\AutoClick.h" />
     <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
