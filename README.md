@@ -1,4 +1,3 @@
-# Social
 [![Youtube](https://img.shields.io/badge/%20youtube-1567da.svg)](https://www.youtube.com/channel/UCkIaXJkuRGKSEYnlEvxKMiw)
 
 
