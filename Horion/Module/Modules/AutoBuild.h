@@ -13,6 +13,7 @@ public:
 	int ogAutoBuildSlot = 0;
 	bool setAutoBuildSlot = false;
 	int noMultiRenderSoLessLag = 0;
+	int Odelay = 0;
 
 	AutoBuild() : IModule(0x0, Category::WORLD, "Automaticly builds a shlong"){
 		registerBoolSetting("AirPlace", &autoBuildAirPlace, autoBuildAirPlace);
@@ -185,18 +186,22 @@ public:
 		}
 		C_LocalPlayer* Player = g_Data.getLocalPlayer();
 		if (Player != nullptr) {
-			vec2_t res = g_Data.getGuiData()->windowSizeReal;
-			vec3_t camPos = g_Data.getClientInstance()->levelRenderer->getOrigin();
-			vec3_t myPos = *Player->getPos();
-			for (vec3_ti p : currentSchematic) {
-				vec3_t bp(p.x, p.y, p.z);
-				if (myPos.dist(bp.add(0.5f, 0.5f, 0.5f)) <= 4.5f)
-					DrawUtils::setColor(10.f / 255.f, 255.f / 255.f, 10.f / 255.f, 1.f);
-				else
-					DrawUtils::setColor(85.f / 255.f, 150.f/255.f, 85.f/255.f, 1.f);
-				DrawUtils::drawBox(bp, bp.add(1.f, 1.f, 1.f), 0.35f, true);
+			Odelay++;
+			if (Odelay < 180) {  // to stop lag
+				vec2_t res = g_Data.getGuiData()->windowSizeReal;
+				vec3_t camPos = g_Data.getClientInstance()->levelRenderer->getOrigin();
+				vec3_t myPos = *Player->getPos();
+				for (vec3_ti p : currentSchematic) {
+					vec3_t bp(p.x, p.y, p.z);
+					if (myPos.dist(bp.add(0.5f, 0.5f, 0.5f)) <= 4.5f)
+						DrawUtils::setColor(10.f / 255.f, 255.f / 255.f, 10.f / 255.f, 1.f);
+					else
+						DrawUtils::setColor(85.f / 255.f, 150.f / 255.f, 85.f / 255.f, 1.f);
+					DrawUtils::drawBox(bp, bp.add(1.f, 1.f, 1.f), 0.35f, true);
+				}
+				DrawUtils::setColor(0.f, 1.f, 0.f, 1.f);
+				Odelay = 0;
 			}
-			DrawUtils::setColor(0.f, 1.f, 0.f, 1.f);
 		}
 	}
 
