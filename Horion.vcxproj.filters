@@ -87,7 +87,6 @@
     <ClCompile Include="SDK\CMinecraftUIRenderContext.cpp" />
     <ClCompile Include="SDK\CPacket.cpp" />
     <ClCompile Include="SDK\Tag.cpp" />
-    <ClCompile Include="SDK\Tessellator.cpp" />
     <ClCompile Include="Utils\Logger.cpp" />
     <ClCompile Include="Utils\SkinUtil.cpp" />
     <ClCompile Include="Utils\Target.cpp" />
