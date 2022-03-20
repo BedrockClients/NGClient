@@ -12,7 +12,7 @@ private:
 
 public:
 	MatrixStackRef(MatrixStack* st, glm::mat4x4& top) : stack(st), myPtr(top){};
-	~MatrixStackRef();
+	~MatrixStackRef() { this->stack->pop(); }
 
 	auto& operator->() {
 		return myPtr;

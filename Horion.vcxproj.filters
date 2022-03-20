@@ -88,7 +88,6 @@
     <ClCompile Include="SDK\CPacket.cpp" />
     <ClCompile Include="SDK\Tag.cpp" />
     <ClCompile Include="SDK\Tessellator.cpp" />
-    <ClCompile Include="SDK\TextHolder.cpp" />
     <ClCompile Include="Utils\Logger.cpp" />
     <ClCompile Include="Utils\SkinUtil.cpp" />
     <ClCompile Include="Utils\Target.cpp" />
@@ -111,7 +110,6 @@
     <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
     <ClCompile Include="Horion\Command\Commands\CBEPCommand.cpp" />
     <ClCompile Include="Horion\Module\Modules\Hitbox.cpp" />
-    <ClCompile Include="SDK\MatrixStack.cpp" />
     <ClCompile Include="Utils\TextFormat.cpp" />
     <ClCompile Include="Horion\Module\Modules\TestModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\HackerDetect.cpp" />
