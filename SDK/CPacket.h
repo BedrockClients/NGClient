@@ -166,6 +166,18 @@ public:
 	long target;
 };
 
+class RespawnPacket : public C_Packet {
+public:
+	RespawnPacket();
+
+private:
+	char padding[0x28];
+public:
+	vec3_t pos;
+	unsigned char state;
+	__int64 entityRuntimeId;
+};
+
 class ActorEventPacket : public C_Packet {
 public:
 	uint64_t VTable;           //0x0000

@@ -310,6 +310,21 @@ C_InteractPacket::C_InteractPacket(/*enum InteractPacket::Action, class ActorRun
 	vTable = interactPacketVtable;
 }
 
+RespawnPacket::RespawnPacket() {
+	static uintptr_t** respawnPacketVtable = 0x0;
+	if (respawnPacketVtable == 0x0) {
+		uintptr_t sigOffset = FindSignature("48 8D 0D ? ? ? ? 48 89 4C 24 ? 0F 57 C0 0F 14 C1");
+		int offset = *reinterpret_cast<int*>(sigOffset + 3);
+		respawnPacketVtable = reinterpret_cast<uintptr_t**>(sigOffset + offset + /*length of instruction*/ 7);
+#ifdef _DEBUG
+		if (respawnPacketVtable == 0x0 || sigOffset == 0x0)
+			__debugbreak();
+#endif
+	}
+	memset(this, 0, sizeof(RespawnPacket));  // Avoid overwriting vtable
+	vTable = respawnPacketVtable;
+}
+
 ActorEventPacket::ActorEventPacket(uint64_t entityRuntimeId, char eventId, int16_t itemId) {
 	static uintptr_t** actorEvenPacketVtable = 0x0;
 	if (actorEvenPacketVtable == 0x0) {
