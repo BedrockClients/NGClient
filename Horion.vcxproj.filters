@@ -127,7 +127,6 @@
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
-    <ClCompile Include="Horion\Module\Modules\InventoryView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -390,7 +389,6 @@
     <ClInclude Include="Horion\Module\Modules\AutoBuild.h" />
     <ClInclude Include="Horion\Module\Modules\ToggleSounds.h" />
     <ClInclude Include="Utils\Base64.h" />
-    <ClInclude Include="Horion\Module\Modules\InventoryView.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

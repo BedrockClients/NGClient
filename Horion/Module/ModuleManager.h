@@ -143,7 +143,6 @@
 #include "Modules/fps.h"
 #include "Modules/PacketMultiplier.h"
 #include "Modules/selectionHighlight.h"
-#include "Modules/InventoryView.h"
 
 class ModuleManager {
 private:

@@ -2,7 +2,7 @@
 
 #include "../../../SDK/CAttribute.h"
 
-Killaura::Killaura() : IModule(0x0, Category::COMBAT, "Attacks entities around you automatically") {
+Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
 	registerFloatSetting("range", &range, range, 2.f, 10.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);
 	registerEnumSetting("Targeting", &targ, 2);

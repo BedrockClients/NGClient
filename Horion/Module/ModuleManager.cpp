@@ -153,7 +153,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new fps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new PacketMultiplier()));
 		moduleList.push_back(std::shared_ptr<IModule>(new selectionHighlight()));
-		moduleList.push_back(std::shared_ptr<IModule>(new InventoryView()));
 
 		// Sort modules alphabetically
 		std::sort(moduleList.begin(), moduleList.end(), [](auto lhs, auto rhs) {
