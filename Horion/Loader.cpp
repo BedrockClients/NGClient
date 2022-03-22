@@ -375,6 +375,7 @@ BOOL __stdcall DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID) {
 		DisableThreadLibraryCalls(hModule);
 		Utils::makeRoamingFoldr("NGClient");
 		Utils::makeNGFoldr("CustomSounds");
+		Utils::makeNGFoldr("Configs");
 		std::string SoundFolder = (getenv("AppData") + (std::string) "\\..\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\RoamingState\\NGClient\\CustomSounds\\");
 		std::ofstream audioFile2(SoundFolder + "CustomEnable.wav", std::ios_base::out | std::ios_base::binary);
 		std::ofstream audioFile3(SoundFolder + "CustomDisable.wav", std::ios_base::out | std::ios_base::binary);
