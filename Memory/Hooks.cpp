@@ -255,7 +255,7 @@ void Hooks::Init() {
 			static auto ViewMod = moduleMgr->getModule<ViewModel>();
 			static auto KillMod = moduleMgr->getModule<Killaura>();			
 			auto player = g_Data.getLocalPlayer();
-			float degrees = fmodf(player->getPosOld()->lerp(player->getPos(), lerpT).x, 5) - 2.5f;//
+			float degrees = fmodf(player->getPosOld()->lerp(player->getPos(), lerpT).x, 5) - 2.5f;
 			degrees *= 180 / 2.5f;
 
 			auto pos = g_Data.getClientInstance()->levelRenderer->getOrigin();
