@@ -8,10 +8,18 @@
 
 class Minecraft {
 private:
-	char pad_0x0000[0xD8];  //0x0000
+	char pad_0x8[0xD0];  //0x8
 public:
-	float* timer;       //0x00D8
-	float* otherTimer;  //0x00E0
+	float* timer;       //0xD8
+	float* otherTimer;  //0xE0
+
+	virtual void Destructor();
+	virtual int getEntityRegistry(void);
+	virtual int getEntityRegistry2(void);
+	virtual void setSimTimePause(bool);
+	virtual void setSimTimeScale(float);
+	virtual bool getSimPaused(void);
+	virtual bool isOnlineClient(void);
 
 	void setTimerSpeed(float tps) {
 		*this->timer = tps;
