@@ -652,19 +652,19 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		if (!strcmp(screenName.c_str(), "start_screen") == 0) {
 			if (hudModule->Buttons) {
 				if (!g_Data.canUseMoveKeys() && !clickGuiModule->isEnabled()) {
-					if (HImGui.Button("Disable Spammer", vec2_t(wid.x / 13, wid.y / 15), true)) {
+					if (HImGui.Button("Disable Spammer", vec2_t(wid.x / 13.f, wid.y / 15.f), true)) {
 						static auto spammer = moduleMgr->getModule<Spammer>();
 						if (spammer->isEnabled()) spammer->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Crasher", vec2_t(wid.x / 13, wid.y / 9), true)) {
+					if (HImGui.Button("Disable Crasher", vec2_t(wid.x / 13.f, wid.y / 9.f), true)) {
 						static auto crasher = moduleMgr->getModule<Crasher>();
 						if (crasher->isEnabled()) crasher->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Nuker", vec2_t(wid.x / 13, wid.y / 6.37), true)) {
+					if (HImGui.Button("Disable Nuker", vec2_t(wid.x / 13.f, wid.y / 6.37f), true)) {
 						static auto nuker = moduleMgr->getModule<Nuker>();
 						if (nuker->isEnabled()) nuker->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Aura", vec2_t(wid.x / 13, wid.y / 5.0), true)) {
+					if (HImGui.Button("Disable Aura", vec2_t(wid.x / 13.f, wid.y / 5.0f), true)) {
 						static auto aura = moduleMgr->getModule<Killaura>();
 						if (aura->isEnabled()) aura->setEnabled(false);
 					}
