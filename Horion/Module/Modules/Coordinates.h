@@ -46,8 +46,8 @@ public:
 						DrawUtils::drawText(textPos, &coordsText, MC_Color(255, 255, 555), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
 						yVal += f;
 					}
-					std::string NcoordsX = "X: " + std::to_string((int)floorf(pos->x + 0.001) / 8);
-					std::string NcoordsZ = "Z: " + std::to_string((int)floorf(pos->z + 0.001) / 8);
+					std::string NcoordsX = "X: " + std::to_string((int)floorf(pos->x + 0.001f) / 8);
+					std::string NcoordsZ = "Z: " + std::to_string((int)floorf(pos->z + 0.001f) / 8);
 					vec4_t NrectPos = vec4_t(2.5f, yVal + 15.f * scale - 0.001f, len, yVal + 45.f * scale - 0.001f);
 					vec2_t NtextPos = vec2_t(xVal, yVal);
 					vec2_t NoutLinePos = vec2_t(NtextPos.x + 0.6f * scale - 0.001f, NtextPos.y - 0.6f * scale - 0.001f);
@@ -68,8 +68,8 @@ public:
 					DrawUtils::drawText(NtextPos, &NcoordsText, MC_Color(184, 0, 255), scale - 0.001f * 1.3f, 1.f, Fonts::SMOOTH);
 					yVal += f;
 
-					std::string coordsX = "X: " + std::to_string((int)floorf(pos->x + 0.001) * 8);
-					std::string coordsZ = "Z: " + std::to_string((int)floorf(pos->z + 0.001) * 8);
+					std::string coordsX = "X: " + std::to_string((int)floorf(pos->x + 0.001f) * 8);
+					std::string coordsZ = "Z: " + std::to_string((int)floorf(pos->z + 0.001f) * 8);
 
 					vec4_t rectPos = vec4_t(2.5f, yVal + 15.f * scale - 0.001f, len, yVal + 45.f * scale - 0.001f);
 					vec2_t textPos = vec2_t(xVal, yVal);
