@@ -35,6 +35,6 @@ public:
 	}
 
 	virtual const char* getModuleName() override {
-		return "fps";
+		return "Fps";
 	}
 };
