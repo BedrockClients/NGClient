@@ -676,7 +676,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			if (partner->Partnered.selected == 0) {
 				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
-				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text, text.size() / 3.3), wid.y / 70);
+				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text, text.size() / 3.3f), wid.y / 70.f);
 				vec4_t rectPos = vec4_t(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
 				if (hudModule->rgb) {
 					DrawUtils::fillRectangle(rectPos, MC_Color(currColor), 0.f);
