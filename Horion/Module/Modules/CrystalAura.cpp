@@ -397,7 +397,7 @@ bool CrystalAura::doPlace(std::vector<C_Entity*> targetList, std::vector<C_Entit
 	for (int x = posFloored.x - rangeInt; x < posFloored.x + rangeInt; x++) {
 		for (int y = posFloored.y - rangeInt; y < posFloored.y + rangeInt; y++) {
 			for (int z = posFloored.z - rangeInt; z < posFloored.z + rangeInt; z++) {
-				if (y < 0 || y >= 256)
+				if (y < -64 || y >= 319)
 					continue;
 
 				vec3_ti blockPos(x, y, z);
@@ -685,6 +685,6 @@ bool CrystalAura::tryRaytrace(vec3_t vec31, vec3_t vec32, C_BlockSource* region)
 	auto result = new HitResult();
 
 	using BlockSource_ClipT = HitResult*(__fastcall*)(C_BlockSource*, HitResult*, vec3_t&, vec3_t&, bool, bool, int, bool, bool);
-	static auto clip = reinterpret_cast<BlockSource_ClipT>(FindSignature("40 55 56 57 41 56 48 8D AC 24 ?? ?? ?? ??"));
+	static auto clip = reinterpret_cast<BlockSource_ClipT>(FindSignature("48 8B C4 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 ?? ?? ?? ?? 48 81 EC ?? ?? ?? ?? 0F 29 70 ?? 0F 29 78 ?? 44 0F 29 40 ?? 44 0F 29 88 ?? ?? ?? ?? 44 0F 29 90 ?? ?? ?? ?? 44 0F 29 98 ?? ?? ?? ?? 44 0F 29 A0 ?? ?? ?? ?? 44 0F 29 A8 ?? ?? ?? ?? 44 0F 29 B0 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 85 ?? ?? ?? ?? 4D 8B D9"));
 	return false;
 }
