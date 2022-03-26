@@ -94,9 +94,12 @@ struct SettingEntry {
 class IModule {
 private:
 	bool enabled = false;
+	bool disable = false;
 	int keybind = 0x0;
 	bool extended = false;
+	bool visible = true;
 	vec2_t ModulePos;
+
 private:
 	Category category;
 	const char* tooltip;
@@ -106,12 +109,14 @@ private:
 protected:
 	IModule(int key, Category c, const char* tooltip);
 
+	SettingEntry* registerKeybindSetting(std::string name, int* intPtr, int defaultValue);
+	void registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue);
+	void registerSpace(std::string name);
 	void registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue);
 	void registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
 	void registerEnumSetting(std::string name, SettingEnum* intPtr, int defaultValue);
-	void registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue);
-	void registerSpace(std::string name);
-
+	SettingEntry* registerEnumSettingGroup(std::string name, SettingEnum* enumPtr, int defaultValue);
+	
 	void clientMessageF(const char* fmt, ...);
 
 public:
@@ -125,6 +130,7 @@ public:
 
 	virtual const char* getModuleName() = 0;
 	virtual const char* getRawModuleName();
+	virtual const char* getModName();
 	virtual int getKeybind();
 	virtual void setKeybind(int key);
 	virtual bool allowAutoStart();

@@ -62,9 +62,26 @@ IModule::IModule(int key, Category c, const char* tooltip) {
 	this->keybind = key;
 	this->category = c;
 	this->tooltip = tooltip;
-	this->registerIntSetting(std::string("keybind"), &this->keybind, this->keybind, 0, 0xFF);
+	//this->registerKeybindSetting(std::string("Keybind"), &this->keybind, this->keybind);
 	this->registerBoolSetting(std::string("enabled"), &this->enabled, false);
+	this->registerBoolSetting(std::string("Visible"), &this->visible, true);
+
 	this->ModulePos = vec2_t(0.f, 0.f);
+}
+
+void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue) {
+	SettingEntry* setting = new SettingEntry();
+	setting->valueType = ValueType::BOOL_T;
+
+	setting->value = reinterpret_cast<SettingValue*>(boolPtr);  // Actual value
+
+	SettingValue* defaultVal = new SettingValue();  // Default Value
+	defaultVal->_bool = defaultValue;
+	setting->defaultValue = defaultVal;
+
+	strcpy_s(setting->name, 19, name.c_str());  // Name
+
+	settings.push_back(setting);  // Add to list
 }
 
 void IModule::registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue) {
@@ -164,21 +181,6 @@ void IModule::registerEnumSetting(std::string name, SettingEnum* ptr, int defaul
 	settings.push_back(setting);
 }
 
-void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue) {
-	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::BOOL_T;
-
-	setting->value = reinterpret_cast<SettingValue*>(boolPtr);  // Actual value
-
-	SettingValue* defaultVal = new SettingValue();  // Default Value
-	defaultVal->_bool = defaultValue;
-	setting->defaultValue = defaultVal;
-
-	strcpy_s(setting->name, 19, name.c_str());  // Name
-
-	settings.push_back(setting);  // Add to list
-}
-
 IModule::~IModule() {
 	for (auto it = this->settings.begin(); it != this->settings.end(); it++) {
 		delete *it;
@@ -188,6 +190,10 @@ IModule::~IModule() {
 
 const char* IModule::getModuleName() {
 	return "Module";
+}
+
+const char* IModule::getModName() {
+	return "";
 }
 
 const char* IModule::getRawModuleName() {
