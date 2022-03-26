@@ -375,6 +375,7 @@ void DrawUtils::drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWi
 	vertices[1] = vec3_t(lower.x + (upper.x - lower.x), lower.y, lower.z);
 	vertices[2] = vec3_t(lower.x, lower.y, lower.z + (upper.z - lower.z));
 	vertices[3] = vec3_t(lower.x + (upper.x - lower.x), lower.y, lower.z + (upper.z - lower.z));
+
 	// Convert to screen coord
 	std::vector<std::tuple<int, vec2_t>> screenCords;
 	for (int i = 0; i < 4; i++) {
