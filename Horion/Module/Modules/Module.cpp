@@ -14,6 +14,15 @@ EnumEntry::EnumEntry(const std::string _name, const unsigned char value) {
 	name = _name;
 	val = value;
 }
+EnumEntry::EnumEntry(std::tuple<int, std::string> value) {
+	val = std::get<0>(value);
+	name = std::get<1>(value);
+}
+EnumEntry::EnumEntry(std::tuple<int, std::string, void*> value) {
+	val = std::get<0>(value);
+	name = std::get<1>(value);
+	ptr = std::get<2>(value);
+}
 std::string EnumEntry::GetName() {
 	return name;
 }
@@ -29,14 +38,21 @@ SettingEnum::SettingEnum(std::vector<EnumEntry> entr, IModule* mod) {
 		return rhs.GetValue() < lhs.GetValue();
 	});
 }
+SettingEnum::SettingEnum(IModule* mod, std::vector<EnumEntry> entr) {
+	owner = mod;
+	Entrys = entr;
+}
 SettingEnum::SettingEnum(IModule* mod) {
 	owner = mod;
 }
+
 SettingEnum& SettingEnum::addEntry(EnumEntry entr) {
 	auto etr = EnumEntry(entr);
 	bool SameVal = false;
 	for (auto it = this->Entrys.begin(); it != this->Entrys.end(); it++) {
 		SameVal |= it->GetValue() == etr.GetValue();
+		if (SameVal)
+			break;
 	}
 	if (!SameVal) {
 		Entrys.push_back(etr);
@@ -55,6 +71,7 @@ EnumEntry& SettingEnum::GetSelectedEntry() {
 int SettingEnum::GetCount() {
 	return (int)Entrys.size();
 }
+#pragma endregion
 #pragma endregion
 
 IModule::IModule(int key, Category c, const char* tooltip) {
@@ -162,6 +179,43 @@ void IModule::registerEnumSetting(std::string name, SettingEnum* ptr, int defaul
 	settings.push_back(setting);
 }
 
+SettingEntry* IModule::registerEnumSettingGroup(std::string name, SettingEnum* ptr, int defaultValue) {
+	SettingEntry* setting = new SettingEntry();
+	setting->valueType = ValueType::ENUM_SETTING_GROUP_T;
+	if (defaultValue < 0 || defaultValue >= ptr->GetCount())
+		defaultValue = 0;
+
+	// Actual Value
+	setting->value = reinterpret_cast<SettingValue*>(&ptr->selected);
+	setting->value->_int = defaultValue;
+
+	// Default Value
+	SettingValue* defaultVal = new SettingValue();
+	defaultVal->_int = defaultValue;
+	setting->defaultValue = defaultVal;
+
+	// Min Value (is Extended)
+	SettingValue* minVal = new SettingValue();
+	minVal->_bool = false;
+	setting->minValue = minVal;
+
+	// Enum data
+	setting->extraData = ptr;
+
+	strcpy_s(setting->name, 19, name.c_str());
+
+	int numToAdd = ptr->Entrys.size();
+
+	while (numToAdd > 0) {
+		setting->groups.push_back(nullptr);
+		numToAdd--;
+	}
+
+	settings.push_back(setting);
+
+	return setting;
+}
+
 void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue) {
 	SettingEntry* setting = new SettingEntry();
 	setting->valueType = ValueType::BOOL_T;
@@ -175,6 +229,75 @@ void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultV
 	strcpy_s(setting->name, 19, name.c_str());  // Name
 
 	settings.push_back(setting);  // Add to list
+}
+SettingEntry* SettingGroup::registerEnumSetting(std::string name, SettingEnum* ptr, int defaultValue) {
+	SettingEntry* setting = new SettingEntry();
+	setting->valueType = ValueType::ENUM_T;
+	if (defaultValue < 0 || defaultValue >= ptr->GetCount())
+		defaultValue = 0;
+
+	// Actual Value
+	setting->value = reinterpret_cast<SettingValue*>(&ptr->selected);
+	setting->value->_int = defaultValue;
+
+	// Default Value
+	SettingValue* defaultVal = new SettingValue();
+	defaultVal->_int = defaultValue;
+	setting->defaultValue = defaultVal;
+
+	// Min Value (is Extended)
+	SettingValue* minVal = new SettingValue();
+	minVal->_bool = false;
+	setting->minValue = minVal;
+
+	// Enum data
+	setting->extraData = ptr;
+
+	setting->nestValue = parent->nestValue + 1;
+
+	strcpy_s(setting->name, 19, name.c_str());
+	entries.push_back(setting);
+
+	return setting;
+}
+
+SettingEntry* SettingGroup::registerEnumSettingGroup(std::string name, SettingEnum* ptr, int defaultValue) {
+	SettingEntry* setting = new SettingEntry();
+	setting->valueType = ValueType::ENUM_SETTING_GROUP_T;
+	if (defaultValue < 0 || defaultValue >= ptr->GetCount())
+		defaultValue = 0;
+
+	// Actual Value
+	setting->value = reinterpret_cast<SettingValue*>(&ptr->selected);
+	setting->value->_int = defaultValue;
+
+	// Default Value
+	SettingValue* defaultVal = new SettingValue();
+	defaultVal->_int = defaultValue;
+	setting->defaultValue = defaultVal;
+
+	// Min Value (is Extended)
+	SettingValue* minVal = new SettingValue();
+	minVal->_bool = false;
+	setting->minValue = minVal;
+
+	// Enum data
+	setting->extraData = ptr;
+
+	strcpy_s(setting->name, 19, name.c_str());
+
+	int numToAdd = ptr->Entrys.size();
+
+	while (numToAdd > 0) {
+		setting->groups.push_back(nullptr);
+		numToAdd--;
+	}
+
+	setting->nestValue = parent->nestValue + 1;
+
+	entries.push_back(setting);
+
+	return setting;
 }
 IModule::~IModule() {
 	for (auto it = this->settings.begin(); it != this->settings.end(); it++) {
@@ -435,4 +558,32 @@ void SettingEntry::makeSureTheValueIsAGoodBoiAndTheUserHasntScrewedWithIt() {
 		logF("unrecognized value %i", valueType);
 		break;
 	}
+}
+SettingEntry* SettingEntry::addSettingGroup(int _enum, SettingGroup* group) {
+	int enumReal = -1;
+
+	SettingEnum* dat = (SettingEnum*)extraData;
+
+	int i = 0;
+	for (auto it = dat->Entrys.begin(); it < dat->Entrys.end(); it++, i++) {
+		if (it->GetValue() == _enum)
+			enumReal = i;
+	}
+
+	if (enumReal < 0 || enumReal >= groups.size())
+		return this;
+
+	groups[enumReal] = group;
+
+	group->parent = this;
+
+	return this;
+}
+
+SettingEntry* SettingEntry::addSettingGroup(SettingGroup* group) {
+	groups[0] = group;
+
+	group->parent = this;
+
+	return this;
 }
