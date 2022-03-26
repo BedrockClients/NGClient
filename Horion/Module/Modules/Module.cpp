@@ -32,7 +32,6 @@ SettingEnum::SettingEnum(std::vector<EnumEntry> entr, IModule* mod) {
 SettingEnum::SettingEnum(IModule* mod) {
 	owner = mod;
 }
-
 SettingEnum& SettingEnum::addEntry(EnumEntry entr) {
 	auto etr = EnumEntry(entr);
 	bool SameVal = false;
@@ -66,7 +65,12 @@ IModule::IModule(int key, Category c, const char* tooltip) {
 	this->registerBoolSetting(std::string("enabled"), &this->enabled, false);
 	this->ModulePos = vec2_t(0.f, 0.f);
 }
+SettingEntry* IModule::registerKeybindSetting(std::string name, int* intPtr, int defaultValue) {
+	SettingEntry* newSetting = registerIntSetting(name, intPtr, defaultValue, 0, 0xFF);
+	newSetting->valueType = ValueType::KEYBIND_T;
 
+	return newSetting;
+}
 void IModule::registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue) {
 #ifdef DEBUG
 	if (minValue > maxValue)
@@ -106,7 +110,7 @@ void IModule::registerSpace(std::string name) {
 	settings.push_back(setting);  // Add to list
 }
 
-void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue, int minValue, int maxValue) {
+SettingEntry* IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue, int minValue, int maxValue) {
 #ifdef DEBUG
 	if (minValue > maxValue)
 		__debugbreak();  // Minimum value is bigger than maximum value
@@ -135,8 +139,9 @@ void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue
 	strcpy_s(setting->name, 19, name.c_str());
 
 	settings.push_back(setting);  // Add to list
+	return setting;
 }
-
+ 
 void IModule::registerEnumSetting(std::string name, SettingEnum* ptr, int defaultValue) {
 	SettingEntry* setting = new SettingEntry();
 	setting->valueType = ValueType::ENUM_T;
@@ -178,7 +183,12 @@ void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultV
 
 	settings.push_back(setting);  // Add to list
 }
+SettingEntry* SettingGroup::registerKeybindSetting(std::string name, int* intPtr, int defaultValue) {
+	SettingEntry* newSetting = registerIntSetting(name, intPtr, defaultValue, 0, 0xFF);
+	newSetting->valueType = ValueType::KEYBIND_T;
 
+	return newSetting;
+}
 IModule::~IModule() {
 	for (auto it = this->settings.begin(); it != this->settings.end(); it++) {
 		delete *it;
@@ -262,6 +272,7 @@ void IModule::onLoadConfig(void* confVoid) {
 					case ValueType::INT64_T:
 						sett->value->int64 = value.get<__int64>();
 						break;
+					case ValueType::KEYBIND_T:
 					case ValueType::INT_T:
 						sett->value->_int = value.get<int>();
 						break;
@@ -312,6 +323,7 @@ void IModule::onSaveConfig(void* confVoid) {
 		case ValueType::INT64_T:
 			obj.emplace(sett->name, sett->value->int64);
 			break;
+		case ValueType::KEYBIND_T:
 		case ValueType::INT_T:
 			obj.emplace(sett->name, sett->value->_int);
 			break;
@@ -427,7 +439,8 @@ void SettingEntry::makeSureTheValueIsAGoodBoiAndTheUserHasntScrewedWithIt() {
 		value->_int = std::max(minValue->_int, std::min(maxValue->_int, value->_int));
 		break;
 	case ValueType::TEXT_T:
-		//break;
+	case ValueType::KEYBIND_T:
+		// break;
 	default:
 		logF("unrecognized value %i", valueType);
 		break;

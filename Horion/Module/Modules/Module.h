@@ -61,6 +61,7 @@ enum class ValueType {
 	BOOL_T,
 	TEXT_T,
 	ENUM_T,
+	KEYBIND_T,
 	SPACE_T
 };
 
@@ -75,7 +76,6 @@ struct SettingValue {
 		SettingEnum* Enum;
 	};
 };
-
 struct SettingEntry {
 	char name[0x20] = "";
 	ValueType valueType;
@@ -90,7 +90,29 @@ struct SettingEntry {
 
 	void makeSureTheValueIsAGoodBoiAndTheUserHasntScrewedWithIt();
 };
+class SettingGroup {
+private:
+	bool isExpanded = false;
 
+	std::vector<SettingEntry*> entries;
+	SettingEntry* parent;
+
+	SettingEntry* registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue);
+
+	SettingEntry* registerKeybindSetting(std::string name, int* intPtr, int defaultValue);
+
+	SettingEntry* registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue);
+	SettingEntry* registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
+
+	SettingEntry* registerEnumSetting(std::string name, SettingEnum* intPtr, int defaultValue);
+	SettingEntry* registerEnumSettingGroup(std::string name, SettingEnum* enumPtr, int defaultValue);
+
+	void onSaveConfig(void* json);
+	void onLoadConfig(void* json);
+
+	SettingGroup(SettingEntry* _parent) : entries(), parent(_parent) {}
+	SettingGroup() : entries(), parent(nullptr) {}
+};
 class IModule {
 private:
 	bool enabled = false;
@@ -105,11 +127,12 @@ private:
 
 protected:
 	IModule(int key, Category c, const char* tooltip);
-
-	void registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue);
-	void registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
-	void registerEnumSetting(std::string name, SettingEnum* intPtr, int defaultValue);
+	SettingEntry* registerKeybindSetting(std::string name, int* intPtr, int defaultValue);
 	void registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue);
+	void registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue);
+	SettingEntry* registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
+	void registerEnumSetting(std::string name, SettingEnum* intPtr, int defaultValue);
+	SettingEntry* registerEnumSettingGroup(std::string name, SettingEnum* enumPtr, int defaultValue);
 	void registerSpace(std::string name);
 
 	void clientMessageF(const char* fmt, ...);
