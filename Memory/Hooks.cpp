@@ -1613,9 +1613,14 @@ float Hooks::LevelRendererPlayer_getFov(__int64 _this, float a2, bool a3) {
 void Hooks::MultiLevelPlayer_tick(C_EntityList* _this) {
 	static auto oTick = g_Hooks.MultiLevelPlayer_tickHook->GetFastcall<void, C_EntityList*>();
 	C_GameMode* gm = g_Data.getCGameMode();
-	if (gm != nullptr) moduleMgr->onTick(gm);
-	oTick(_this);
+	if (gm != nullptr) {
+		moduleMgr->onTick(gm);
+		oTick(_this);
+	}
 	GameData::EntityList_tick(_this);
+	if (gm != nullptr) {
+		moduleMgr->onPreTick(gm);
+	}
 }
 
 void Hooks::GameMode_startDestroyBlock(C_GameMode* _this, vec3_ti* a2, uint8_t face, void* a4, void* a5) {

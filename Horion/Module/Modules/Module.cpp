@@ -206,6 +206,9 @@ bool IModule::allowAutoStart() {
 void IModule::onTick(C_GameMode*) {
 }
 
+void IModule::onPreTick(C_GameMode*) {
+}
+
 void IModule::onPlayerTick(C_Player*) {
 }
 
@@ -341,11 +344,12 @@ void IModule::setEnabled(bool enabled) {
 #endif
 
 		//Toggle Notifications
-		static auto HUD = moduleMgr->getModule<HudModule>();
-		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
+
 		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 		static auto ToggleSound = moduleMgr->getModule<ToggleSounds>();
 		static auto Logmsg = moduleMgr->getModule<Notifications>();
+		static auto HUD = moduleMgr->getModule<HudModule>();
+		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
 		bool shouldShow = true;
 		std::string screenName(g_Hooks.currentScreenName);
 		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications || strcmp(screenName.c_str(), "start_screen") == 0)

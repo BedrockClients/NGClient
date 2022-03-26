@@ -215,6 +215,16 @@ void ModuleManager::onTick(C_GameMode* gameMode) {
 	}
 }
 
+void ModuleManager::onPreTick(C_GameMode* gameMode) {
+	if (!isInitialized())
+		return;
+	auto lock = lockModuleList();
+	for (auto& mod : moduleList) {
+		if (mod->isEnabled() || mod->callWhenDisabled())
+			mod->onPreTick(gameMode);
+	}
+}
+
 void ModuleManager::onWorldTick(C_GameMode* gameMode) {
 	if (!isInitialized())
 		return;
