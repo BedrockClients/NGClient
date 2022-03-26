@@ -520,6 +520,7 @@
     <ClInclude Include="Horion\Module\Modules\NoPacket.h" />
     <ClInclude Include="Horion\Module\Modules\NoSlowDown.h" />
     <ClInclude Include="Horion\Module\Modules\NoSwing.h" />
+	<ClInclude Include="Horion\Module\Modules\Notifications.h" />
     <ClInclude Include="Horion\Module\Modules\NoWeb.h" />
     <ClInclude Include="Horion\Module\Modules\Nuker.h" />
     <ClInclude Include="Horion\Module\Modules\PacketLogger.h" />
