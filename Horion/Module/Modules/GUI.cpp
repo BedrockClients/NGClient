@@ -12,6 +12,7 @@ GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
 	registerBoolSetting("Side Bar", &bar, bar);
 	registerBoolSetting("Icy", &ice, ice);
 	registerBoolSetting("Bottom Right", &bottom, bottom);
+	registerBoolSetting("Mode", &mode, mode);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
 	registerEnumSetting("Arraylist Types", &ArrayList, 0);

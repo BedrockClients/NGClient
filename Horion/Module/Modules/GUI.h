@@ -15,6 +15,7 @@ public:
 	bool bar = false;
 	bool underbar = false;
 	bool ice = false;
+	bool mode = true;
 	bool Fluxbar = false;
 	bool bottom = false;
 	bool rgbtext = true;

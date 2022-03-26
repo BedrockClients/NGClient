@@ -274,6 +274,7 @@
     <ClCompile Include="Horion\Module\Modules\HackerDetect.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
+    <ClCompile Include="Horion\Module\Modules\InventoryView.cpp" />
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
@@ -449,6 +450,7 @@
     <ClInclude Include="Horion\Module\Modules\HackerDetect.h" />
     <ClInclude Include="Horion\Module\Modules\HiveConfig.h" />
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
+    <ClInclude Include="Horion\Module\Modules\InventoryView.h" />
     <ClInclude Include="Horion\Module\Modules\Keystrokes.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
     <ClInclude Include="Horion\Module\Modules\MinplexConfig.h" />
