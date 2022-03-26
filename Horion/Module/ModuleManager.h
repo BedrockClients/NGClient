@@ -102,6 +102,7 @@
 #include "Modules/NoRender.h"
 #include "Modules/NoSlowDown.h"
 #include "Modules/NoSwing.h"
+#include "Modules/Notifications.h"
 #include "Modules/NoWeb.h"
 #include "Modules/Nuker.h"
 #include "Modules/PacketLogger.h"

@@ -112,6 +112,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new NoRender()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoSwing()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Notifications()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoWeb()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Nuker()));
 		moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));

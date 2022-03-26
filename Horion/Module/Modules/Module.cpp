@@ -2,10 +2,10 @@
 
 #include <cstdarg>
 
-#include "../../../Memory/Hooks.h"
 #include "../../../Utils/Json.hpp"
 #include "../../../Utils/Logger.h"
 #include "../ModuleManager.h"
+#include "../../../Memory/Hooks.h"
 
 using json = nlohmann::json;
 
@@ -32,7 +32,6 @@ SettingEnum::SettingEnum(std::vector<EnumEntry> entr, IModule* mod) {
 SettingEnum::SettingEnum(IModule* mod) {
 	owner = mod;
 }
-
 SettingEnum& SettingEnum::addEntry(EnumEntry entr) {
 	auto etr = EnumEntry(entr);
 	bool SameVal = false;
@@ -66,7 +65,6 @@ IModule::IModule(int key, Category c, const char* tooltip) {
 	this->registerBoolSetting(std::string("enabled"), &this->enabled, false);
 	this->ModulePos = vec2_t(0.f, 0.f);
 }
-
 void IModule::registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue) {
 #ifdef DEBUG
 	if (minValue > maxValue)
@@ -136,7 +134,7 @@ void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue
 
 	settings.push_back(setting);  // Add to list
 }
-
+ 
 void IModule::registerEnumSetting(std::string name, SettingEnum* ptr, int defaultValue) {
 	SettingEntry* setting = new SettingEntry();
 	setting->valueType = ValueType::ENUM_T;
@@ -178,7 +176,6 @@ void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultV
 
 	settings.push_back(setting);  // Add to list
 }
-
 IModule::~IModule() {
 	for (auto it = this->settings.begin(); it != this->settings.end(); it++) {
 		delete *it;
@@ -300,7 +297,7 @@ void IModule::onSaveConfig(void* confVoid) {
 		conf->erase(modName.c_str());
 
 	json obj = {};
-	// auto obj = conf->at(modName);
+	//auto obj = conf->at(modName);
 	for (auto sett : this->settings) {
 		switch (sett->valueType) {
 		case ValueType::FLOAT_T:
@@ -342,18 +339,20 @@ void IModule::setEnabled(bool enabled) {
 #ifndef _DEBUG
 		if (!isFlashMode())  // Only print jetpack stuff in debug mode
 #endif
-			logF("%s %s", enabled ? "Enabled" : "Disabled", this->getModuleName());
 
-		// Toggle Notifications
+		//Toggle Notifications
 		static auto HUD = moduleMgr->getModule<HudModule>();
 		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
 		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 		static auto ToggleSound = moduleMgr->getModule<ToggleSounds>();
+		static auto Logmsg = moduleMgr->getModule<Notifications>();
 		bool shouldShow = true;
 		std::string screenName(g_Hooks.currentScreenName);
 		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications || strcmp(screenName.c_str(), "start_screen") == 0)
 			shouldShow = false;
-
+		if (Logmsg->isEnabled()) {
+			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sNG+%s] %s%s %s%s%s", DARK_PURPLE, WHITE, GRAY, enabled ? "Enabled" : "Disabled", BOLD, WHITE, this->getModuleName());
+		}
 		if (shouldShow) {
 			auto CheckEnabled = enabled ? "Enabled" : "Disabled";
 			auto box = std::make_shared<InfoBoxData>(this->getModuleName(), CheckEnabled);
