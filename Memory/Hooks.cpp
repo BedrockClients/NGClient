@@ -546,21 +546,19 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			else
 			string = "NG Client";
 			DrawUtils::drawText(text, &string, wight, 2.f, 1.f);
-			text.y += 15.f;
-			outline.y += 15.f;
-			string = "Version: 1.18.12";
+
+			text.y += 18.f;
+			string = "Version: 1.18.12.2";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			text.y += 15.f;
-			outline.y += 15.f;
-			string = "Changelogs:";
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			text.y += 10.f;
+
 			string =
+				"Changelogs: \n"
 				"[+] More Arraylist \n"
 				"[+] Custom Keystrokes \n"
 				"[+] Custom Radar \n"
 				"[-] .say \n"
-				"[+] Miner"
+				"[+] Miner \n"
 				"[+] CPS \n"
 				"[+] BPS \n"
 				"[+] FPS \n"
@@ -572,19 +570,18 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				"[+] partnered with Fadeaway \n"
 				"[+] Fonts \n"
 				"[*] Many Fixes \n";
-
-			text.y += 15.f;
-			outline.y += 15.f;
-			string = "Credits:";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 
+			text.y += 180.f;
 			string =
+				"Credits: \n"
 				"NRG \n"
 				"Intop \n"
 				"DeadtrosGaming \n"
 				"2474 \n"
 				"Sentinel \n"
 				"Founder \n";
+			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 		}
 
 		// Draw Buttons
