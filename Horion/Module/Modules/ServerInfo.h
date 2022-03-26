@@ -30,9 +30,7 @@ public:
 				vec2_t textPos = vec2_t(xVal, yVal);
 
 				if (Server->serverIp.getTextLength() < 1) {
-					serverIp = "Local World";
-					numericalIp = "Local World";
-					Port = "Local World";
+					serverIp = "Local World",numericalIp = "",Port = "";
 				}
 				std::string ServerText = "IP: " + serverIp + "\nIP: " + numericalIp + " \nPort: " + Port;
 

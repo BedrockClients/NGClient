@@ -1,11 +1,10 @@
 #pragma once
 #include "Module.h"
 class EntitySpider : public IModule {
-private:
+public:
 	float speed = 0.6f;
 	bool dontOvershoot = true;
 
-public:
 	EntitySpider();
 	~EntitySpider();
 

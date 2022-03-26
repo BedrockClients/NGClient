@@ -4,6 +4,7 @@
 class ClickGuiMod : public IModule {
 public:
 	SettingEnum type;
+	SettingEnum Fonts;
 	ClickGuiMod();
 	~ClickGuiMod();
 

@@ -304,9 +304,8 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 
 			std::string healthString = std::to_string(((int)Health));
-			std::string hurt = std::to_string((targetList[0]->damageTime));
 			std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-			std::string healthDisplay = "Health: " + healthString + "/20 | Hurt Time: " + hurt;
+			std::string healthDisplay = "Health: " + healthString;
 			std::string absorptionDisplay;
 
 			//Absorbtion Bar

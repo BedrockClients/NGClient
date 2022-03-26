@@ -103,35 +103,12 @@ void DrawUtils::setColor(float r, float g, float b, float a) {
 }
 
 C_Font* DrawUtils::getFont(Fonts font) {
-	auto clickguiMod = moduleMgr->getModule<ClickGuiMod>();
-	if (clickguiMod->font == 8) {
-		return g_Data.getClientInstance()->minecraftGame->font8();
-	}
-	if (clickguiMod->font == 7) {
-		return g_Data.getClientInstance()->minecraftGame->font7();
-	}
-	if (clickguiMod->font == 6) {
-		return g_Data.getClientInstance()->minecraftGame->font6();
-	}
-	if (clickguiMod->font == 5) {
-		return g_Data.getClientInstance()->minecraftGame->font5();
-	}
-	if (clickguiMod->font == 4) {
-		return g_Data.getClientInstance()->minecraftGame->font4();
-	}
-	if (clickguiMod->font == 3) {
-		return g_Data.getClientInstance()->minecraftGame->font3();
-	}
-	if (clickguiMod->font == 2) {
-		return g_Data.getClientInstance()->minecraftGame->font2();
-	}
-	if (clickguiMod->font == 1) {
-		return g_Data.getClientInstance()->minecraftGame->font1();
-	}
-	if (clickguiMod->font == 0) {
-		return g_Data.getClientInstance()->minecraftGame->font0();
-	}
+	static auto TestFont = moduleMgr->getModule<ClickGuiMod>();
 
+	if (TestFont->Fonts.selected == 1)
+		return g_Data.getClientInstance()->minecraftGame->mcFont;
+	else
+		return g_Data.getClientInstance()->minecraftGame->getOldFont();
 
 	switch (font) {
 	case Fonts::SMOOTH:
@@ -142,6 +119,9 @@ C_Font* DrawUtils::getFont(Fonts font) {
 		break;
 	case Fonts::RUNE:
 		return g_Data.getClientInstance()->_getRuneFont();
+		break;
+	case Fonts::MCFONT:
+		return g_Data.getClientInstance()->minecraftGame->mcFont;
 		break;
 	default:
 		return g_Data.getClientInstance()->_getFont();
