@@ -138,6 +138,7 @@ public:
 	static void drawText(vec2_t pos, std::string* text, MC_Color color, float textSize = 1, float alpha = 1, Fonts font = Fonts::SMOOTH);
 	static void drawText2(vec2_t pos, std::string* text, float textSize = 1, float alpha = 1, Fonts font = Fonts::SMOOTH);
 	static void drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outline = false);
+	static void drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWidth, bool outline = false);
 	static void drawEntityBox(C_Entity* ent, float lineWidth);
 	static void drawBetterESP(C_Entity* ent, float lineWidth);
 	static void draw2D(C_Entity* ent, float lineWidth);

@@ -178,35 +178,6 @@ public:
 	TextHolder xuid;  //0x0638
 
 	// 0x2F0
-
-		C_Font* font8() {
-		return fontRepository->fontList->fontEntries[8].font;
-	};
-	C_Font* font7() {
-		return fontRepository->fontList->fontEntries[7].font;
-	};
-	C_Font* font6() {
-		return fontRepository->fontList->fontEntries[6].font;
-	}
-	C_Font* font5() {
-		return fontRepository->fontList->fontEntries[5].font;
-	}
-	C_Font* font4() {
-		return fontRepository->fontList->fontEntries[4].font;
-	}
-	C_Font* font3() {
-		return fontRepository->fontList->fontEntries[3].font;
-	}
-	C_Font* font2() {
-		return fontRepository->fontList->fontEntries[2].font;
-	}
-	C_Font* font1() {
-		return fontRepository->fontList->fontEntries[1].font;
-	}
-	C_Font* font0() {
-		return fontRepository->fontList->fontEntries[0].font;
-	}
-
 	C_Font* getTheGoodFontThankYou() {
 		return fontRepository->fontList->fontEntries[7].font;
 	};

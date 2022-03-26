@@ -1976,7 +1976,7 @@ __int64 Hooks::inventoryScreen__tick(C_CraftingScreenController* a1) {
 }
 
 float Hooks::GetGamma(uintptr_t* a1) {
-	static auto fullbright = moduleMgr->getModule<FullBright>();
+	static auto fullbright = moduleMgr->getModule<Camera>();
 	static auto xrayMod = moduleMgr->getModule<Xray>();
 	static auto nametagmod = moduleMgr->getModule<NameTags>();
 	static auto zoomMod = moduleMgr->getModule<Zoom>();

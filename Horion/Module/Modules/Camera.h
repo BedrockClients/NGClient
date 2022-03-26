@@ -1,17 +1,25 @@
 #pragma once
 #include "../ModuleManager.h"
 #include "Module.h"
-class FullBright : public IModule {
+class Camera : public IModule {
 public:
 	float intensity = 25.f;
 	float* gammaPtr = nullptr;
+	bool nohurtcam = false;
 
-	FullBright() : IModule(0x0, Category::VISUAL, "Puts your gamma to max") {
+	Camera() : IModule(0x0, Category::VISUAL, "Puts your gamma to max") {
 		registerFloatSetting("Intensity", &intensity, intensity, -25.f, 25.f);
+		registerBoolSetting("NoHurtcam", &nohurtcam, nohurtcam);
 	};
-	~FullBright(){};
+	~Camera(){};
 
 	float originalGamma = -1;
+
+	void onWorldTick(C_GameMode* gm) {
+		if (nohurtcam) {
+		g_Data.getLocalPlayer()->cancelHurtAnimation();
+		}
+	}
 
 	void onTick(C_GameMode* gm) {
 		if (gammaPtr != nullptr && *gammaPtr != 10)
@@ -35,6 +43,6 @@ public:
 	}
 
 	virtual const char* getModuleName() override {
-		return "FullBright";
+		return "Camera";
 	}
 };

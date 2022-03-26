@@ -43,7 +43,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Bhop()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Blink()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BlockEsp()));
-		moduleList.push_back(std::shared_ptr<IModule>(new BlockFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new BowAimbot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new bps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ChestAura()));
@@ -72,13 +71,12 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new FastStop()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FightBot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Fly()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Flyto()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
 		moduleList.push_back(std::shared_ptr<IModule>(new fps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Freecam()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Freelook()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Fucker()));
-		moduleList.push_back(std::shared_ptr<IModule>(new FullBright()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Camera()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Glide()));
 		moduleList.push_back(std::shared_ptr<IModule>(new GUI()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HackerDetect()));
@@ -87,6 +85,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveConfig()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HudModule()));
+		moduleList.push_back(std::shared_ptr<IModule>(new HoleESP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
@@ -99,15 +98,12 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new LongJump()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MegaDupe()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MidClick()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Mineplex()));
 		moduleList.push_back(std::shared_ptr<IModule>(new MinplexConfig()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NameTags()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NGFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NightMode()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoClip()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoFall()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoFriends()));
-		moduleList.push_back(std::shared_ptr<IModule>(new NoHurtcam()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoPacket()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoRender()));
 		moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));

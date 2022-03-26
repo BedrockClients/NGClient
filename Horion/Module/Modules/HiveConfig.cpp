@@ -38,7 +38,7 @@ void HiveConfig::onEnable() {
 	static auto NoSlow = moduleMgr->getModule<NoSlowDown>();
 	static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
 	static auto ReachMod = moduleMgr->getModule<Reach>();
-	static auto Bright = moduleMgr->getModule<FullBright>();
+	static auto Bright = moduleMgr->getModule<Camera>();
 	static auto Web = moduleMgr->getModule<NoWeb>();
 	static auto HiveFli = moduleMgr->getModule<HiveFly>();
 	static auto JesusSUS = moduleMgr->getModule<Jesus>();
@@ -50,7 +50,6 @@ void HiveConfig::onEnable() {
 	static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 	static auto Cleaner = moduleMgr->getModule<InventoryCleaner>();
 	static auto Team = moduleMgr->getModule<Teams>();
-	static auto NoHurt = moduleMgr->getModule<NoHurtcam>();
 	static auto AntiImmo = moduleMgr->getModule<AntiImmobile>();
 	static auto ViewMod = moduleMgr->getModule<ViewModel>();
 	static auto ChestSteal = moduleMgr->getModule<ChestStealer>();
@@ -72,7 +71,6 @@ void HiveConfig::onEnable() {
 	NoSlow->setEnabled(true);
 	ChestSteal->setEnabled(true);
 	BowBot->setEnabled(true);
-	NoHurt->setEnabled(true);
 	AutoArm->setEnabled(true);
 	FastLAd->setEnabled(true);
 	ViewMod->setEnabled(true);

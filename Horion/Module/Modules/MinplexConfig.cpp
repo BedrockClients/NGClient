@@ -35,7 +35,7 @@ void MinplexConfig::onEnable() {
 	static auto NoSlow = moduleMgr->getModule<NoSlowDown>();
 	static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
 	static auto ReachMod = moduleMgr->getModule<Reach>();
-	static auto Bright = moduleMgr->getModule<FullBright>();
+	static auto Bright = moduleMgr->getModule<Camera>();
 	static auto Web = moduleMgr->getModule<NoWeb>();
 	static auto JesusSUS = moduleMgr->getModule<Jesus>();
 	static auto Tags = moduleMgr->getModule<NameTags>();
@@ -44,7 +44,6 @@ void MinplexConfig::onEnable() {
 	static auto Select = moduleMgr->getModule<selectionHighlight>();
 	static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 	static auto Cleaner = moduleMgr->getModule<InventoryCleaner>();
-	static auto NoHurt = moduleMgr->getModule<NoHurtcam>();
 	static auto ViewMod = moduleMgr->getModule<ViewModel>();
 	static auto AntiKBMod = moduleMgr->getModule<Antikb>();
 	static auto ArrayList = moduleMgr->getModule<GUI>();
@@ -55,7 +54,6 @@ void MinplexConfig::onEnable() {
 	static auto fpsmod = moduleMgr->getModule<fps>();
 	static auto bpsmod = moduleMgr->getModule<bps>();
 	static auto coordinates = moduleMgr->getModule<Coordinates>();
-	static auto mineplex = moduleMgr->getModule<Mineplex>();
 
 	// Toggle All Needed Mods
 	gui->setEnabled(true);
@@ -66,7 +64,6 @@ void MinplexConfig::onEnable() {
 	AntiKBMod->setEnabled(true);
 	NoSlow->setEnabled(true);
 	BowBot->setEnabled(true);
-	NoHurt->setEnabled(true);
 	AutoArm->setEnabled(true);
 	ViewMod->setEnabled(true);
 	Sprint->setEnabled(true);
@@ -85,7 +82,6 @@ void MinplexConfig::onEnable() {
 	cpsmod->setEnabled(true);
 	bpsmod->setEnabled(true);
 	coordinates->setEnabled(true);
-	mineplex->setEnabled(true);
 
 	// Set All Settings
 	

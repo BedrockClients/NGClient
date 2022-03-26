@@ -10,12 +10,14 @@ public:
 	SettingEnum mode;
 
 	Fly() : IModule(0x0, Category::FLYS, "become birb") {
+		registerFloatSetting("Speed", &speed, speed, 0.1f, 3.f);
+		registerEnumSetting("Mode", &mode, 0);
 		mode = (*new SettingEnum(this))
 				   .addEntry(EnumEntry("Fly", 1))
 				   .addEntry(EnumEntry("CubeFly", 2))
-				   .addEntry(EnumEntry("Vanilla", 3));
-		registerEnumSetting("Mode", &mode, 0);
-		registerFloatSetting("Speed", &speed, speed, 0.1f, 3.f);
+				   .addEntry(EnumEntry("Vanilla", 3))
+				   .addEntry(EnumEntry("CubeGlide", 4))
+				   .addEntry(EnumEntry("Mineplex", 5));
 	};
 	~Fly(){};
 
@@ -44,57 +46,87 @@ public:
 			g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown = false;
 		float calcYaw = (gm->player->yaw + 90) * (PI / 180);
 
-		switch (mode.selected) {
-		case 0:
+		if (mode.selected == 3)
 			gm->player->canFly = true;
-			break;
-		case 1:
-			if (mode.selected == 1) {
-				gameTick++;
 
-				vec3_t pos = *g_Data.getLocalPlayer()->getPos();
-				pos.y += 1.3f;
-				C_MovePlayerPacket a(g_Data.getLocalPlayer(), pos);
-				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
-				pos.y -= 1.3f;
-				C_MovePlayerPacket a2(g_Data.getLocalPlayer(), pos);
-				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a2);
+		if (mode.selected == 1) {
+			gameTick++;
 
-				vec3_t moveVec;
-				moveVec.x = cos(calcYaw) * speed;
-				moveVec.z = sin(calcYaw) * speed;
+			vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+			pos.y += 1.3f;
+			C_MovePlayerPacket a(g_Data.getLocalPlayer(), pos);
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
+			pos.y -= 1.3f;
+			C_MovePlayerPacket a2(g_Data.getLocalPlayer(), pos);
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a2);
 
-				gm->player->lerpMotion(moveVec);
+			vec3_t moveVec;
+			moveVec.x = cos(calcYaw) * speed;
+			moveVec.z = sin(calcYaw) * speed;
 
-				if (gameTick >= 5) {
-					gameTick = 0;
-					float yaw = gm->player->yaw * (PI / 180);
-					float length = 4.f;
+			gm->player->lerpMotion(moveVec);
 
-					float x = -sin(yaw) * length;
-					float z = cos(yaw) * length;
+			if (gameTick >= 5) {
+				gameTick = 0;
+				float yaw = gm->player->yaw * (PI / 180);
+				float length = 4.f;
 
-					//gm->player->setPos(pos.add(vec3_t(x, 0.5f, z)));
-				}
+				float x = -sin(yaw) * length;
+				float z = cos(yaw) * length;
+
+				// gm->player->setPos(pos.add(vec3_t(x, 0.5f, z)));
 			}
-			break;
-		case 2:
-			if (mode.selected == 2) {
-				if (g_Data.canUseMoveKeys()) {
-					if (GameData::isKeyDown(*input->spaceBarKey))
-						glideModEffective += speed;
-					if (GameData::isKeyDown(*input->sneakKey))
-						glideModEffective -= speed;
-				}
-				float yaw = gm->player->yaw;
-				if (input->forwardKey && input->backKey && input->rightKey && input->leftKey)
-					gm->player->velocity = vec3_t(0, 0, 0);
-				gm->player->velocity.y = glideModEffective;
-				glideModEffective = glideMod;
+		}
+		if (mode.selected == 5) {  // by Kow
+			vec3_t moveVec;
+			moveVec.x = cos(calcYaw) * speed;
+			moveVec.y = -0.0f;
+			moveVec.z = sin(calcYaw) * speed;
+
+			gm->player->lerpMotion(moveVec);
+		}
+		if (mode.selected == 4) {
+			if (g_Data.canUseMoveKeys()) {
+				if (GameData::isKeyDown(*input->spaceBarKey))
+					glideModEffective += speed;
+				if (GameData::isKeyDown(*input->sneakKey))
+					glideModEffective -= speed;
+			}
+			float yaw = gm->player->yaw;
+			if (input->forwardKey && input->backKey && input->rightKey && input->leftKey)
+				gm->player->velocity = vec3_t(0, 0, 0);
+			gm->player->velocity.y = glideModEffective;
+			glideModEffective = glideMod;
+		}
+		if (mode.selected == 2) {
+			gameTick++;
+
+			vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+			pos.y += 1.3f;
+			C_MovePlayerPacket a(g_Data.getLocalPlayer(), pos);
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
+			pos.y -= 1.3f;
+			C_MovePlayerPacket a2(g_Data.getLocalPlayer(), pos);
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a2);
+
+			vec3_t moveVec;
+			moveVec.x = cos(calcYaw) * speed;
+			moveVec.z = sin(calcYaw) * speed;
+
+			gm->player->lerpMotion(moveVec);
+
+			if (gameTick >= 5) {
+				gameTick = 0;
+				float yaw = gm->player->yaw * (PI / 180);
+				float length = 4.f;
+
+				float x = -sin(yaw) * length;
+				float z = cos(yaw) * length;
+
+				gm->player->setPos(pos.add(vec3_t(x, 0.5f, z)));
 			}
 		}
 	}
-
 	void onDisable() {
 		switch (mode.selected) {
 		case 0:

@@ -106,10 +106,10 @@ C_Font* DrawUtils::getFont(Fonts font) {
 	static auto TestFont = moduleMgr->getModule<ClickGuiMod>();
 
 	if (TestFont->Fonts.selected == 1)
-		return g_Data.getClientInstance()->minecraftGame->mcFont;
+	return g_Data.getClientInstance()->minecraftGame->mcFont;
 	else
-		return g_Data.getClientInstance()->minecraftGame->getOldFont();
-
+	return g_Data.getClientInstance()->minecraftGame->getOldFont();
+	
 	switch (font) {
 	case Fonts::SMOOTH:
 		return g_Data.getClientInstance()->minecraftGame->getTheGoodFontThankYou();
@@ -364,6 +364,84 @@ void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outlin
 			continue;
 		}
 		
+		drawLine(lastVertex, curVertex, lineWidth);
+		lastVertex = curVertex;
+	}
+}
+
+void DrawUtils::drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWidth, bool outline) {
+	vec3_t vertices[4];
+	vertices[0] = vec3_t(lower.x, lower.y, lower.z);
+	vertices[1] = vec3_t(lower.x + (upper.x - lower.x), lower.y, lower.z);
+	vertices[2] = vec3_t(lower.x, lower.y, lower.z + (upper.z - lower.z));
+	vertices[3] = vec3_t(lower.x + (upper.x - lower.x), lower.y, lower.z + (upper.z - lower.z));
+	// Convert to screen coord
+	std::vector<std::tuple<int, vec2_t>> screenCords;
+	for (int i = 0; i < 4; i++) {
+		vec2_t screen;
+		if (refdef->OWorldToScreen(origin, vertices[i], screen, fov, screenSize)) {
+			screenCords.emplace_back((int)screenCords.size(), screen);
+		}
+	}
+	if (screenCords.size() < 2)
+		return;  // No lines possible
+
+	// Find start vertex
+	auto it = screenCords.begin();
+	std::tuple<int, vec2_t> start = *it;
+	it++;
+	for (; it != screenCords.end(); it++) {
+		auto cur = *it;
+		if (std::get<1>(cur).x < std::get<1>(start).x) {
+			start = cur;
+		}
+	}
+
+	// Follow outer line
+	std::vector<int> indices;
+
+	auto current = start;
+	indices.push_back(std::get<0>(current));
+	vec2_t lastDir(0, -1);
+	do {
+		float smallestAngle = PI * 2;
+		vec2_t smallestDir;
+		std::tuple<int, vec2_t> smallestE;
+		auto lastDirAtan2 = atan2(lastDir.y, lastDir.x);
+		for (auto cur : screenCords) {
+			if (std::get<0>(current) == std::get<0>(cur))
+				continue;
+
+			// angle between vecs
+			vec2_t dir = vec2_t(std::get<1>(cur)).sub(std::get<1>(current));
+			float angle = atan2(dir.y, dir.x) - lastDirAtan2;
+			if (angle > PI) {
+				angle -= 2 * PI;
+			} else if (angle <= -PI) {
+				angle += 2 * PI;
+			}
+			if (angle >= 0 && angle < smallestAngle) {
+				smallestAngle = angle;
+				smallestDir = dir;
+				smallestE = cur;
+			}
+		}
+		indices.push_back(std::get<0>(smallestE));
+		lastDir = smallestDir;
+		current = smallestE;
+	} while (std::get<0>(current) != std::get<0>(start) && indices.size() < 8);
+
+	// draw
+
+	vec2_t lastVertex;
+	bool hasLastVertex = false;
+	for (auto& indice : indices) {
+		vec2_t curVertex = std::get<1>(screenCords[indice]);
+		if (!hasLastVertex) {
+			hasLastVertex = true;
+			lastVertex = curVertex;
+			continue;
+		}
 		drawLine(lastVertex, curVertex, lineWidth);
 		lastVertex = curVertex;
 	}

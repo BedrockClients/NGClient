@@ -92,12 +92,9 @@
     <ClCompile Include="Utils\VoxelIntersector.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball_Aimbot.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Mineplex.cpp" />
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
-    <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NGFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
     <ClCompile Include="Horion\Command\Commands\GMCommand.cpp" />
@@ -128,6 +125,7 @@
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryView.cpp" />
+    <ClCompile Include="Horion\Module\Modules\HoleEsp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -180,7 +178,6 @@
     <ClInclude Include="Horion\Module\Modules\AntiImmobile.h" />
     <ClInclude Include="Horion\Module\Modules\AntiVoid.h" />
     <ClInclude Include="Horion\Module\Modules\FastLadder.h" />
-    <ClInclude Include="Horion\Module\Modules\Flyto.h" />
     <ClInclude Include="Horion\Module\Modules\AutoSneak.h" />
     <ClInclude Include="Horion\Module\Modules\AutoSprint.h" />
     <ClInclude Include="Horion\Module\Modules\AutoTotem.h" />
@@ -204,7 +201,7 @@
     <ClInclude Include="Horion\Module\Modules\Freecam.h" />
     <ClInclude Include="Horion\Module\Modules\Freelook.h" />
     <ClInclude Include="Horion\Module\Modules\Fucker.h" />
-    <ClInclude Include="Horion\Module\Modules\FullBright.h" />
+    <ClInclude Include="Horion\Module\Modules\Camera.h" />
     <ClInclude Include="Horion\Module\Modules\Glide.h" />
     <ClInclude Include="Horion\Module\Modules\ChestStealer.h" />
     <ClInclude Include="Horion\Module\Modules\HighJump.h" />
@@ -225,7 +222,6 @@
     <ClInclude Include="Horion\Module\Modules\NightMode.h" />
     <ClInclude Include="Horion\Module\Modules\NoFall.h" />
     <ClInclude Include="Horion\Module\Modules\NoFriends.h" />
-    <ClInclude Include="Horion\Module\Modules\NoHurtcam.h" />
     <ClInclude Include="Horion\Module\Modules\NoPacket.h" />
     <ClInclude Include="Horion\Module\Modules\NoSlowDown.h" />
     <ClInclude Include="Horion\Module\Modules\NoSwing.h" />
@@ -330,16 +326,13 @@
     <ClInclude Include="Horion\Module\Modules\MegaDupe.h" />
     <ClInclude Include="Horion\Module\Modules\Snowball_Aimbot.h" />
     <ClInclude Include="Horion\Module\Modules\AntiAnvil.h" />
-    <ClInclude Include="Horion\Module\Modules\Mineplex.h" />
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\Antikb.h" />
     <ClInclude Include="Horion\Module\Modules\XP.h" />
-    <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
     <ClInclude Include="Horion\Module\Modules\GUI.h" />
-    <ClInclude Include="Horion\Module\Modules\NGFly.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
     <ClInclude Include="Horion\Module\Modules\Trail.h" />
     <ClInclude Include="Horion\Module\Modules\FightBot.h" />
@@ -391,6 +384,8 @@
     <ClInclude Include="Horion\Module\Modules\ToggleSounds.h" />
     <ClInclude Include="Utils\Base64.h" />
     <ClInclude Include="Horion\Module\Modules\InventoryView.h" />
+    <ClInclude Include="Horion\Module\Modules\Notifications.h" />
+    <ClInclude Include="Horion\Module\Modules\HoleEsp.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />
