@@ -24,9 +24,6 @@ InventoryView::~InventoryView() {
 const char* InventoryView::getModuleName() {
 	return ("InvView");
 }
-const char* InventoryView::getModName() {
-	return " [Solid]";
-}
 
 static float currColor[4];
 

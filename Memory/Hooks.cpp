@@ -555,97 +555,36 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			string = "Changelogs:";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			text.y += 10.f;
-			outline.y += 10.f;
-			string = "[+] More Arraylist";
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			text.y += 10.f;
-			outline.y += 10.f;
-			string = "[+] Custom Keystrokes";
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] Custom Radar";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[-] .say";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] Miner";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] CPS";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] BPS";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] FPS";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] ServerInfo";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] Coordinates";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] CustomSky";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] ArmourHud";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[*] Speed Tweaks";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] partnered with Fadeaway";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[+] Fonts";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "[*] Many Fixes";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+			string =
+				"[+] More Arraylist \n"
+				"[+] Custom Keystrokes \n"
+				"[+] Custom Radar \n"
+				"[-] .say \n"
+				"[+] Miner"
+				"[+] CPS \n"
+				"[+] BPS \n"
+				"[+] FPS \n"
+				"[+] ServerInfo \n"
+				"[+] Coordinates \n"
+				"[+] CustomSky \n"
+				"[+] ArmourHud \n"
+				"[*] Speed Tweaks \n"
+				"[+] partnered with Fadeaway \n"
+				"[+] Fonts \n"
+				"[*] Many Fixes \n";
+
 			text.y += 15.f;
 			outline.y += 15.f;
 			string = "Credits:";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "NRG";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "Intop";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "DeadtrosGaming";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "2474";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "Sentinel";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-			string = "Founder";
-			text.y += 10.f;
-			outline.y += 10.f;
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
+
+			string =
+				"NRG \n"
+				"Intop \n"
+				"DeadtrosGaming \n"
+				"2474 \n"
+				"Sentinel \n"
+				"Founder \n";
 		}
 
 		// Draw Buttons

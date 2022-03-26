@@ -1,7 +1,7 @@
 #pragma once
 #include "../../../Memory/GameData.h"
-#include "../../FriendList/FriendList.h"
 #include "../../../Utils/keys.h"
+#include "../../FriendList/FriendList.h"
 //#include "../../DrawUtils.h"
 
 class IModule;
@@ -46,7 +46,7 @@ public:
 
 	SettingEnum(std::vector<EnumEntry> entr, IModule* mod = nullptr);
 	SettingEnum(IModule* mod = nullptr);
-	//SettingEnum();
+	// SettingEnum();
 	SettingEnum& addEntry(EnumEntry entr);
 	EnumEntry& GetEntry(int ind);
 	EnumEntry& GetSelectedEntry();
@@ -61,7 +61,6 @@ enum class ValueType {
 	BOOL_T,
 	TEXT_T,
 	ENUM_T,
-	KEYBIND_T,
 	SPACE_T
 };
 
@@ -76,6 +75,7 @@ struct SettingValue {
 		SettingEnum* Enum;
 	};
 };
+
 struct SettingEntry {
 	char name[0x20] = "";
 	ValueType valueType;
@@ -83,42 +83,21 @@ struct SettingEntry {
 	SettingValue* defaultValue = nullptr;
 	SettingValue* minValue = nullptr;
 	SettingValue* maxValue = nullptr;
-	void* extraData; // Only used by enum for now
+	void* extraData;  // Only used by enum for now
 
 	// ClickGui Data
 	bool isDragging = false;  // This is incredibly hacky and i wanted to avoid this as much as possible but i want to get this clickgui done
 
 	void makeSureTheValueIsAGoodBoiAndTheUserHasntScrewedWithIt();
 };
-class SettingGroup {
-private:
-	bool isExpanded = false;
 
-	std::vector<SettingEntry*> entries;
-	SettingEntry* parent;
-
-	SettingEntry* registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue);
-
-	SettingEntry* registerKeybindSetting(std::string name, int* intPtr, int defaultValue);
-
-	SettingEntry* registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue);
-	SettingEntry* registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
-
-	SettingEntry* registerEnumSetting(std::string name, SettingEnum* intPtr, int defaultValue);
-	SettingEntry* registerEnumSettingGroup(std::string name, SettingEnum* enumPtr, int defaultValue);
-
-	void onSaveConfig(void* json);
-	void onLoadConfig(void* json);
-
-	SettingGroup(SettingEntry* _parent) : entries(), parent(_parent) {}
-	SettingGroup() : entries(), parent(nullptr) {}
-};
 class IModule {
 private:
 	bool enabled = false;
 	int keybind = 0x0;
 	bool extended = false;
 	vec2_t ModulePos;
+
 private:
 	Category category;
 	const char* tooltip;
@@ -127,12 +106,11 @@ private:
 
 protected:
 	IModule(int key, Category c, const char* tooltip);
-	SettingEntry* registerKeybindSetting(std::string name, int* intPtr, int defaultValue);
-	void registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue);
+
 	void registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue);
-	SettingEntry* registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
+	void registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
 	void registerEnumSetting(std::string name, SettingEnum* intPtr, int defaultValue);
-	SettingEntry* registerEnumSettingGroup(std::string name, SettingEnum* enumPtr, int defaultValue);
+	void registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue);
 	void registerSpace(std::string name);
 
 	void clientMessageF(const char* fmt, ...);
