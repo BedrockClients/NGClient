@@ -27,6 +27,7 @@
 #include "Commands/PathCommand.h"
 #include "Commands/PlayerTeleportCommand.h"
 #include "Commands/RelativeTeleportCommand.h"
+#include "Commands/SeedCommand.h"
 #include "Commands/ServerCommand.h"
 #include "Commands/setoffhandCommand.h"
 #include "Commands/SetprefixCommand.h"
@@ -37,7 +38,6 @@
 #include "Commands/TopCommand.h"
 #include "Commands/UnbindCommand.h"
 #include "Commands/WaypointCommand.h"
-#include "Commands/SeedCommand.h"
 
 #ifdef _DEBUG
 #endif

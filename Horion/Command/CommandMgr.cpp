@@ -39,6 +39,7 @@ void CommandMgr::initCommands() {
 	commandList.push_back(new PathCommand());
 	commandList.push_back(new PlayerTeleportCommand());
 	commandList.push_back(new RelativeTeleportCommand());
+	commandList.push_back(new SeedCommand());
 	commandList.push_back(new ServerCommand());
 	commandList.push_back(new setoffhandCommand());
 	commandList.push_back(new SetprefixCommand());
@@ -49,7 +50,6 @@ void CommandMgr::initCommands() {
 	commandList.push_back(new TopCommand());
 	commandList.push_back(new UnbindCommand());
 	commandList.push_back(new WaypointCommand());
-	commandList.push_back(new SeedCommand());
 
 #ifdef _DEBUG
 	
