@@ -42,11 +42,11 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		vec2_t windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
 		static auto partner = moduleMgr->getModule<Partner>();
 		static auto hud = moduleMgr->getModule<HudModule>();
-
+		//
 		constexpr float nameTextSize = 0.8f;
 		constexpr float versionTextSize = 0.6f;
 		static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-
+		//
 		if (watermark.selected == 0) {
 			if (partner->Partnered.selected == 1) {
 
