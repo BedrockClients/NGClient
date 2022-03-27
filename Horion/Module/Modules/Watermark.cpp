@@ -48,129 +48,75 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				constexpr float nameTextSize = 0.8f;
 				constexpr float versionTextSize = 0.6f;
 				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-				constexpr float borderPadding = 0;
-				constexpr float margin = 0;
 
 				static std::string name = "Fadeaway | Public Build";
 				static std::string version = "";
 
 				float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 				float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-				vec4_t rect = vec4_t(
-					windowSize.x - fullTextLength,
-					windowSize.y - textHeight,
-					windowSize.x - margin + borderPadding,
-					windowSize.y - margin);
+				
 				if (hud->rgb) {
-					// x y z w
-					float lPos = DrawUtils::getTextWidth(&name, 1);
-					vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
-					vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
-					if (g_Data.getLocalPlayer() != nullptr) {
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-					}
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 				} else {
-					// x y z w
-					float lPos = DrawUtils::getTextWidth(&name, 1);
-					vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
-					vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
-					if (g_Data.getLocalPlayer() != nullptr) {
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-					}
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 				}
 			} else {
 				if (partner->Partnered.selected == 0) {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 0;
-					constexpr float margin = 0;
-
+					
 					static std::string name = "Surge | Public Build";
 					static std::string version = "";
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					vec4_t rect = vec4_t(
-						windowSize.x - fullTextLength,
-						windowSize.y - textHeight,
-						windowSize.x - margin + borderPadding,
-						windowSize.y - margin);
+					
 					if (hud->rgb) {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 0;
-					constexpr float margin = 0;
-
+					
 					static std::string name = "NG Client | Public Build";
 
 					static std::string version = "";
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					vec4_t rect = vec4_t(
-						windowSize.x - fullTextLength,
-						windowSize.y - textHeight,
-						windowSize.x - margin + borderPadding,
-						windowSize.y - margin);
+					
 					if (hud->rgb) {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				}
 			}
@@ -179,9 +125,7 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				constexpr float nameTextSize = 0.8f;
 				constexpr float versionTextSize = 0.6f;
 				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-				constexpr float borderPadding = 0;
-				constexpr float margin = 0;
-
+				
 				auto player = g_Data.getLocalPlayer();
 				std::string playername = player->getNameTag()->getText();
 				playername = Utils::sanitize(playername);
@@ -191,44 +135,26 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 				float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-				vec4_t rect = vec4_t(
-					windowSize.x - fullTextLength,
-					windowSize.y - textHeight,
-					windowSize.x - margin + borderPadding,
-					windowSize.y - margin);
+				
 				if (hud->rgb) {
-					// x y z w
-					float lPos = DrawUtils::getTextWidth(&name, 1);
-					vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
-					vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
-					if (g_Data.getLocalPlayer() != nullptr) {
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-					}
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 				} else {
-					// x y z w
-					float lPos = DrawUtils::getTextWidth(&name, 1);
-					vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
-					vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
-					if (g_Data.getLocalPlayer() != nullptr) {
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-					}
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 				}
 			} else {
 				if (partner->Partnered.selected == 0) {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 0;
-					constexpr float margin = 0;
-
+					
 					auto player = g_Data.getLocalPlayer();
 					std::string playername = player->getNameTag()->getText();
 					playername = Utils::sanitize(playername);
@@ -238,42 +164,24 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					vec4_t rect = vec4_t(
-						windowSize.x - fullTextLength,
-						windowSize.y - textHeight,
-						windowSize.x - margin + borderPadding,
-						windowSize.y - margin);
+					
 					if (hud->rgb) {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 0;
-					constexpr float margin = 0;
 
 					auto player = g_Data.getLocalPlayer();
 					std::string playername = player->getNameTag()->getText();
@@ -285,35 +193,19 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					vec4_t rect = vec4_t(
-						windowSize.x - fullTextLength,
-						windowSize.y - textHeight,
-						windowSize.x - margin + borderPadding,
-						windowSize.y - margin);
+					
 					if (hud->rgb) {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				}
 			}
@@ -322,9 +214,7 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				constexpr float nameTextSize = 0.8f;
 				constexpr float versionTextSize = 0.6f;
 				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-				constexpr float borderPadding = 0;
-				constexpr float margin = 0;
-
+				
 				auto player = g_Data.getLocalPlayer();
 				std::string playername = player->getNameTag()->getText();
 				playername = Utils::sanitize(playername);
@@ -334,44 +224,26 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 				float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-				vec4_t rect = vec4_t(
-					windowSize.x - fullTextLength,
-					windowSize.y - textHeight,
-					windowSize.x - margin + borderPadding,
-					windowSize.y - margin);
+				
 				if (hud->rgb) {
-					// x y z w
-					float lPos = DrawUtils::getTextWidth(&name, 1);
-					vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
-					vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
-					if (g_Data.getLocalPlayer() != nullptr) {
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-					}
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 				} else {
-					// x y z w
-					float lPos = DrawUtils::getTextWidth(&name, 1);
-					vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
-					vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
-					if (g_Data.getLocalPlayer() != nullptr) {
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
-				}
 			} else {
 				if (partner->Partnered.selected == 0) {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 0;
-					constexpr float margin = 0;
-
+				
 					auto player = g_Data.getLocalPlayer();
 					std::string playername = player->getNameTag()->getText();
 					playername = Utils::sanitize(playername);
@@ -381,42 +253,23 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					vec4_t rect = vec4_t(
-						windowSize.x - fullTextLength,
-						windowSize.y - textHeight,
-						windowSize.x - margin + borderPadding,
-						windowSize.y - margin);
 					if (hud->rgb) {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 0;
-					constexpr float margin = 0;
 
 					auto player = g_Data.getLocalPlayer();
 					std::string playername = player->getNameTag()->getText();
@@ -428,35 +281,18 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					vec4_t rect = vec4_t(
-						windowSize.x - fullTextLength,
-						windowSize.y - textHeight,
-						windowSize.x - margin + borderPadding,
-						windowSize.y - margin);
 					if (hud->rgb) {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-						// x y z w
-						float lPos = DrawUtils::getTextWidth(&name, 1);
-						vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
-						vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
-						if (g_Data.getLocalPlayer() != nullptr) {
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
 							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, lPos, 2), MC_Color(currColor), 1.f);
-						}
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				}
 			}
