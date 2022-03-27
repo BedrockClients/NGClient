@@ -127,6 +127,11 @@
     <ClCompile Include="Horion\Module\Modules\InventoryView.cpp" />
     <ClCompile Include="Horion\Module\Modules\HoleEsp.cpp" />
     <ClCompile Include="Horion\Module\Modules\Watermark.cpp" />
+    <ClCompile Include="Horion\Module\Modules\AutoEZ.cpp" />
+    <ClCompile Include="Horion\Module\Modules\AutoEZv2.cpp" />
+    <ClCompile Include="Horion\Module\Modules\AutoEZv3.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EZspam.cpp" />
+    <ClCompile Include="Horion\Module\Modules\NoJumpDelay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -388,6 +393,11 @@
     <ClInclude Include="Horion\Module\Modules\Notifications.h" />
     <ClInclude Include="Horion\Module\Modules\HoleEsp.h" />
     <ClInclude Include="Horion\Module\Modules\Watermark.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoEZ.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoEZv2.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoEZv3.h" />
+    <ClInclude Include="Horion\Module\Modules\EZspam.h" />
+    <ClInclude Include="Horion\Module\Modules\NoJumpDelay.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

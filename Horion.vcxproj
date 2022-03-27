@@ -266,8 +266,12 @@
     <ClCompile Include="Horion\Menu\ClickGui.cpp" />
     <ClCompile Include="Horion\Module\ModuleManager.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
+    <ClCompile Include="Horion\Module\Modules\AutoEZ.cpp" />
+    <ClCompile Include="Horion\Module\Modules\AutoEZv2.cpp" />
+    <ClCompile Include="Horion\Module\Modules\AutoEZv3.cpp" />
     <ClCompile Include="Horion\Module\Modules\Bhop.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
+    <ClCompile Include="Horion\Module\Modules\EZspam.cpp" />
     <ClCompile Include="Horion\Module\Modules\FightBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\GUI.cpp" />
     <ClCompile Include="Horion\Module\Modules\HackerDetect.cpp" />
@@ -279,6 +283,7 @@
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
+    <ClCompile Include="Horion\Module\Modules\NoJumpDelay.cpp" />
     <ClCompile Include="Horion\Module\Modules\Partner.cpp" />
     <ClCompile Include="Horion\Module\Modules\PotionAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Radar.cpp" />
@@ -423,6 +428,9 @@
     <ClInclude Include="Horion\Module\Modules\AutoArmor.h" />
     <ClInclude Include="Horion\Module\Modules\AutoBuild.h" />
     <ClInclude Include="Horion\Module\Modules\AutoClick.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoEZ.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoEZv2.h" />
+    <ClInclude Include="Horion\Module\Modules\AutoEZv3.h" />
     <ClInclude Include="Horion\Module\Modules\AutoJump.h" />
     <ClInclude Include="Horion\Module\Modules\AutoPot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoWalk.h" />
@@ -439,6 +447,7 @@
     <ClInclude Include="Horion\Module\Modules\EntityLongJump.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpeed.h" />
     <ClInclude Include="Horion\Module\Modules\EntitySpider.h" />
+    <ClInclude Include="Horion\Module\Modules\EZspam.h" />
     <ClInclude Include="Horion\Module\Modules\FastLadder.h" />
     <ClInclude Include="Horion\Module\Modules\FastStop.h" />
     <ClInclude Include="Horion\Module\Modules\FightBot.h" />
@@ -452,6 +461,7 @@
     <ClInclude Include="Horion\Module\Modules\Keystrokes.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />
     <ClInclude Include="Horion\Module\Modules\MinplexConfig.h" />
+    <ClInclude Include="Horion\Module\Modules\NoJumpDelay.h" />
     <ClInclude Include="Horion\Module\Modules\NoRender.h" />
     <ClInclude Include="Horion\Module\Modules\PacketMultiplier.h" />
     <ClInclude Include="Horion\Module\Modules\Partner.h" />
