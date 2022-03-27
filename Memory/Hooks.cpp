@@ -476,7 +476,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			float elapsedFlot = (float)elapsed.QuadPart / frequency.QuadPart;
 			if (elapsedFlot > 0.5f && !hasSentWarning) {
 				hasSentWarning = true;
-               // ("C:\\Downloads\\start.mp3", NULL, "start.mp3");
 				auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
 				box->closeTimer = 5;
 				vec2_t windowSize = dat->windowSize;
