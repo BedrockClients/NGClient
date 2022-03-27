@@ -477,6 +477,7 @@ void IModule::setEnabled(bool enabled) {
 		std::string screenName(g_Hooks.currentScreenName);
 		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications || strcmp(screenName.c_str(), "start_screen") == 0)
 			shouldShow = false;
+
 		if (Logmsg->isEnabled()) {
 			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sNG+%s] %s%s %s%s%s", DARK_PURPLE, WHITE, GRAY, enabled ? "Enabled" : "Disabled", BOLD, WHITE, this->getModuleName());
 		}

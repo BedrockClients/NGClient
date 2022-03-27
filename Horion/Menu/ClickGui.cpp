@@ -111,24 +111,18 @@ void ClickGui::renderTooltip(std::string* text) {
 		currentTooltipPos.x + (textPadding * 2) + textWidth + 2.f,
 		currentTooltipPos.y + textHeight + 2.f);
 	if (partner->Partnered.selected == 1) {
-		DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-		DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 		DrawUtils::drawText(textPos, text, MC_Color(150, 30, 255), textSize);
 	} else {
 		if (partner->Partnered.selected == 0) {
-			DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-			DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 			DrawUtils::drawText(textPos, text, MC_Color(0, 0, 255), textSize);
 		} else {
 			if (partner->Partnered.selected == 2) {
-				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 				DrawUtils::drawText(textPos, text, MC_Color(184, 0, 255), textSize);
 			} else {
-				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 				DrawUtils::drawText(textPos, text, MC_Color(184, 0, 255), textSize);
 			}
+			DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+			DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 		}
 	}
 }
@@ -947,6 +941,7 @@ void ClickGui::renderTooltip(std::string* text) {
 			}
 		}
 		static auto partner = moduleMgr->getModule<Partner>();
+		static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 		// Draw component
 		if (partner->Partnered.selected == 1) {
 			{
@@ -958,9 +953,6 @@ void ClickGui::renderTooltip(std::string* text) {
 				} else {
 					DrawUtils::drawText(textPos, &textStr, MC_Color(150, 30, 255), textSize);
 				}
-				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-
-				DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(150, 30, 255), 1 - ourWindow->animation);
 				// Draw Dash
 				GuiUtils::drawCrossLine(vec2_t(
 											currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
@@ -972,15 +964,11 @@ void ClickGui::renderTooltip(std::string* text) {
 				{
 					// Draw Text
 					std::string textStr = categoryName;
-					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 					if (ClickguiOpac->RGB) {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 					} else {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 					}
-					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-
-					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(0, 0, 255), 1 - ourWindow->animation);
 					// Draw Dash
 					GuiUtils::drawCrossLine(vec2_t(
 												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
@@ -991,15 +979,11 @@ void ClickGui::renderTooltip(std::string* text) {
 				if (partner->Partnered.selected == 2) {
 					// Draw Text
 					std::string textStr = categoryName;
-					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 					if (ClickguiOpac->RGB) {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 					} else {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
 					}
-					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-
-					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
 					// Draw Dash
 					GuiUtils::drawCrossLine(vec2_t(
 												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
@@ -1008,21 +992,20 @@ void ClickGui::renderTooltip(std::string* text) {
 				} else {
 					// Draw Text
 					std::string textStr = categoryName;
-					static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 					if (ClickguiOpac->RGB) {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 					} else {
 						DrawUtils::drawText(textPos, &textStr, MC_Color(184, 0, 255), textSize);
 					}
-					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-
-					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
 					// Draw Dash
 					GuiUtils::drawCrossLine(vec2_t(
 												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 												categoryHeaderYOffset + textPadding + (textHeight / 2)),
 											MC_Color(184, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
 				}
+				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+
+				DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
 			}
 		}
 	}
