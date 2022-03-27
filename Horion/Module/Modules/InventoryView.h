@@ -11,6 +11,7 @@ public:
 	float invX = 0.f;
 	float invY = 100.f;
 	float opacity = 1.f;
+	float scale = 0.75f;
 	bool RGB = false;
 
 	InventoryView();
