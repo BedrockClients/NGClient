@@ -43,11 +43,12 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		static auto partner = moduleMgr->getModule<Partner>();
 		static auto hud = moduleMgr->getModule<HudModule>();
 
+		constexpr float nameTextSize = 0.8f;
+		constexpr float versionTextSize = 0.6f;
+		static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+
 		if (watermark.selected == 0) {
 			if (partner->Partnered.selected == 1) {
-				constexpr float nameTextSize = 0.8f;
-				constexpr float versionTextSize = 0.6f;
-				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 				static std::string name = "Fadeaway | Public Build";
 				static std::string version = "";
@@ -70,9 +71,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				}
 			} else {
 				if (partner->Partnered.selected == 0) {
-					constexpr float nameTextSize = 0.8f;
-					constexpr float versionTextSize = 0.6f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 					static std::string name = "Surge | Public Build";
 					static std::string version = "";
@@ -94,12 +92,8 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
-					constexpr float nameTextSize = 0.8f;
-					constexpr float versionTextSize = 0.6f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 					static std::string name = "NG Client | Public Build";
-
 					static std::string version = "";
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
@@ -122,9 +116,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 		} else if (watermark.selected == 1) {
 			if (partner->Partnered.selected == 1) {
-				constexpr float nameTextSize = 0.8f;
-				constexpr float versionTextSize = 0.6f;
-				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 				auto player = g_Data.getLocalPlayer();
 				std::string playername = player->getNameTag()->getText();
@@ -150,9 +141,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				}
 			} else {
 				if (partner->Partnered.selected == 0) {
-					constexpr float nameTextSize = 0.8f;
-					constexpr float versionTextSize = 0.6f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 					auto player = g_Data.getLocalPlayer();
 					std::string playername = player->getNameTag()->getText();
@@ -177,9 +165,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
-					constexpr float nameTextSize = 0.8f;
-					constexpr float versionTextSize = 0.6f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 					auto player = g_Data.getLocalPlayer();
 					std::string playername = player->getNameTag()->getText();
@@ -208,9 +193,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 		} else if (watermark.selected == 2) {
 			if (partner->Partnered.selected == 1) {
-				constexpr float nameTextSize = 0.8f;
-				constexpr float versionTextSize = 0.6f;
-				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 				static std::string name = "Fadeaway | 1.18.12.2";
 				static std::string version = "";
@@ -233,9 +215,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				}
 			} else {
 				if (partner->Partnered.selected == 0) {
-					constexpr float nameTextSize = 0.8f;
-					constexpr float versionTextSize = 0.6f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 					static std::string name = "Surge | 1.18.12.2";
 					static std::string version = "";
@@ -256,9 +235,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
-					constexpr float nameTextSize = 0.8f;
-					constexpr float versionTextSize = 0.6f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
 					static std::string name = "NG Client | 1.18.12.2";
 					static std::string version = "";
@@ -281,13 +257,10 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				}
 			}
 		} else if (watermark.selected == 3) {
-			if (partner->Partnered.selected == 1) {
-				constexpr float nameTextSize = 1.5f;
-				constexpr float versionTextSize = 0.7f;
-				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-				constexpr float borderPadding = 1;
-				constexpr float margin = 5;
+			constexpr float borderPadding = 1;
+			constexpr float margin = 5;
 
+			if (partner->Partnered.selected == 1) {
 				static std::string name = "Fadeaway";
 				static std::string version = "";
 
@@ -306,11 +279,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			} else {
 				if (partner->Partnered.selected == 0) {
-					constexpr float nameTextSize = 1.5f;
-					constexpr float versionTextSize = 0.7f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 1;
-					constexpr float margin = 5;
 
 					static std::string name = "Surge";
 					static std::string version = "";
@@ -328,12 +296,6 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(rcolors), nameTextSize);
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(rcolors), versionTextSize);
 				} else {
-					constexpr float nameTextSize = 1.5f;
-					constexpr float versionTextSize = 0.7f;
-					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					constexpr float borderPadding = 1;
-					constexpr float margin = 5;
-
 					static std::string name = "NG";
 					static std::string version = "";
 
