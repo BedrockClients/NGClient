@@ -7,7 +7,8 @@ Watermark::Watermark() : IModule(0x0, Category::GUI, "Show Watermark") {
 	watermark = (*new SettingEnum(this))
 					.addEntry(EnumEntry("CSGO", 0))
 					.addEntry(EnumEntry("CSGO Player", 1))
-					.addEntry(EnumEntry("CSGO Version", 2));
+					.addEntry(EnumEntry("CSGO Version", 2))
+					.addEntry(EnumEntry("Old Version", 3));
 	registerFloatSetting("Opacity", &opacity, opacity, 0.f, 1.f);
 }
 
@@ -21,7 +22,6 @@ const char* Watermark::getModuleName() {
 	static float currColor[4];
 
 void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
-		//
 		static float rcolors[4];          // Rainbow color array RGBA
 		static float disabledRcolors[4];  // Rainbow Colors, but for disabled modules
 		static float currColor[4];        // ArrayList colors
@@ -37,7 +37,7 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		Utils::ColorConvertRGBtoHSV(rcolors[0 & 1], rcolors[2], rcolors[01], currColor[0], currColor[1], currColor[2]);
 		currColor[0] += 0.5f;
 		Utils::ColorConvertHSVtoRGB(currColor[0 & 1], currColor[2], currColor[2], currColor[0], currColor[1], currColor[2]);
-		//
+
 		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 		vec2_t windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
 		static auto partner = moduleMgr->getModule<Partner>();
@@ -54,69 +54,69 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 				float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-				
+
 				if (hud->rgb) {
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 				} else {
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 				}
 			} else {
 				if (partner->Partnered.selected == 0) {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					
+
 					static std::string name = "Surge | Public Build";
 					static std::string version = "";
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					
+
 					if (hud->rgb) {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					
+
 					static std::string name = "NG Client | Public Build";
 
 					static std::string version = "";
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					
+
 					if (hud->rgb) {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				}
 			}
@@ -125,58 +125,56 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				constexpr float nameTextSize = 0.8f;
 				constexpr float versionTextSize = 0.6f;
 				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-				
+
 				auto player = g_Data.getLocalPlayer();
 				std::string playername = player->getNameTag()->getText();
-				playername = Utils::sanitize(playername);
-
+				
 				static std::string name = "Fadeaway | " + playername;
 				static std::string version = "";
 
 				float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 				float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-				
+
 				if (hud->rgb) {
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 				} else {
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 				}
 			} else {
 				if (partner->Partnered.selected == 0) {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-					
+
 					auto player = g_Data.getLocalPlayer();
 					std::string playername = player->getNameTag()->getText();
-					playername = Utils::sanitize(playername);
-
+					
 					static std::string name = "Surge | " + playername;
 					static std::string version = "";
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					
+
 					if (hud->rgb) {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
 					constexpr float nameTextSize = 0.8f;
@@ -185,27 +183,26 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 					auto player = g_Data.getLocalPlayer();
 					std::string playername = player->getNameTag()->getText();
-					playername = Utils::sanitize(playername);
+					
 
 					static std::string name = "NG Client | " + playername;
-
 					static std::string version = "";
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-					
+
 					if (hud->rgb) {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				}
 			}
@@ -214,39 +211,31 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				constexpr float nameTextSize = 0.8f;
 				constexpr float versionTextSize = 0.6f;
 				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-				
-				auto player = g_Data.getLocalPlayer();
-				std::string playername = player->getNameTag()->getText();
-				playername = Utils::sanitize(playername);
 
 				static std::string name = "Fadeaway | 1.18.12.2";
 				static std::string version = "";
 
 				float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 				float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-				
+
 				if (hud->rgb) {
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 				} else {
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+					DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
-					}
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+					DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
+				}
 			} else {
 				if (partner->Partnered.selected == 0) {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-				
-					auto player = g_Data.getLocalPlayer();
-					std::string playername = player->getNameTag()->getText();
-					playername = Utils::sanitize(playername);
 
 					static std::string name = "Surge | 1.18.12.2";
 					static std::string version = "";
@@ -254,46 +243,112 @@ void Watermark::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
 					if (hud->rgb) {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
 				} else {
 					constexpr float nameTextSize = 0.8f;
 					constexpr float versionTextSize = 0.6f;
 					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
 
-					auto player = g_Data.getLocalPlayer();
-					std::string playername = player->getNameTag()->getText();
-					playername = Utils::sanitize(playername);
-
 					static std::string name = "NG Client | 1.18.12.2";
-
 					static std::string version = "";
 
 					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
 					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
 					if (hud->rgb) {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					} else {
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-							DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
+						DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
 
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
-							DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, + nameLength + 2, 2), MC_Color(currColor), 1.f);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 10), MC_Color(0, 0, 0), opacity);
+						DrawUtils::fillRectangle(vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, +nameLength + 2, 2), MC_Color(currColor), 1.f);
 					}
+				}
+			}
+		} else if (watermark.selected == 3) {
+			if (partner->Partnered.selected == 1) {
+				constexpr float nameTextSize = 1.5f;
+				constexpr float versionTextSize = 0.7f;
+				static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+				constexpr float borderPadding = 1;
+				constexpr float margin = 5;
+
+				static std::string name = "Fadeaway";
+				static std::string version = "";
+
+				float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+				float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+				vec4_t rect = vec4_t(
+					windowSize.x - margin - fullTextLength - borderPadding * 2,
+					windowSize.y - margin - textHeight,
+					windowSize.x - margin + borderPadding,
+					windowSize.y - margin);
+
+				DrawUtils::drawRectangle(rect, MC_Color(rcolors), 1.f, 2.f);
+				DrawUtils::fillRectangle(rect, MC_Color(12, 12, 12), 1.f);
+				DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(rcolors), nameTextSize);
+				DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(rcolors), versionTextSize);
+
+			} else {
+				if (partner->Partnered.selected == 0) {
+					constexpr float nameTextSize = 1.5f;
+					constexpr float versionTextSize = 0.7f;
+					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+					constexpr float borderPadding = 1;
+					constexpr float margin = 5;
+
+					static std::string name = "Surge";
+					static std::string version = "";
+
+					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+					vec4_t rect = vec4_t(
+						windowSize.x - margin - fullTextLength - borderPadding * 2,
+						windowSize.y - margin - textHeight,
+						windowSize.x - margin + borderPadding,
+						windowSize.y - margin);
+
+					DrawUtils::drawRectangle(rect, MC_Color(rcolors), 1.f, 2.f);
+					DrawUtils::fillRectangle(rect, MC_Color(12, 12, 12), 1.f);
+					DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(rcolors), nameTextSize);
+					DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(rcolors), versionTextSize);
+				} else {
+					constexpr float nameTextSize = 1.5f;
+					constexpr float versionTextSize = 0.7f;
+					static const float textHeight = (nameTextSize + versionTextSize * 0.7f) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
+					constexpr float borderPadding = 1;
+					constexpr float margin = 5;
+
+					static std::string name = "NG";
+					static std::string version = "";
+
+					float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
+					float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
+					vec4_t rect = vec4_t(
+						windowSize.x - margin - fullTextLength - borderPadding * 2,
+						windowSize.y - margin - textHeight,
+						windowSize.x - margin + borderPadding,
+						windowSize.y - margin);
+
+					DrawUtils::drawRectangle(rect, MC_Color(rcolors), 1.f, 2.f);
+					DrawUtils::fillRectangle(rect, MC_Color(12, 12, 12), 1.f);
+					DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(rcolors), nameTextSize);
+					DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(rcolors), versionTextSize);
 				}
 			}
 		}
