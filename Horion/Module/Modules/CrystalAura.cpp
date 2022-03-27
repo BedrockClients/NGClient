@@ -267,15 +267,6 @@ void CrystalAura::onPreRender(C_MinecraftUIRenderContext* ctx) {
 		if (renderCrystal) {
 			DrawUtils::setColor(1.f, 0.f, 0.f, 1.f);
 			DrawUtils::drawBox(latestCrystal.pos.toVec3t(), latestCrystal.pos.add(1, 1, 1).toVec3t(), 1.f, true);
-
-			//Draws Damage ammout that it will do based on placed position.
-			// 
-			//vec2_t textPos = DrawUtils::worldToScreen(latestCrystal.pos.toVec3t().add(0.5f, 0.5f, 0.5f));
-			//std::string text = std::to_string((int)latestCrystal.enemyDmg);
-			//textPos.x -= DrawUtils::getTextWidth(&text, 0.8f) / 2.f;
-			//textPos.y -= DrawUtils::getFontHeight(0.8f) / 2.f;
-
-			//DrawUtils::drawText(textPos, &text, MC_Color(1.f, 1.f, 1.f), 0.8f);
 		}
 	}
 }
@@ -652,14 +643,12 @@ float CrystalAura::calculateBlockDensity(vec3_t vec, AABB bb, C_BlockSource* reg
 	}
 }
 
-/*bool __forceinline collisionRayTrace(C_Block* block, vec3_t vec31, vec3_t vec32) {
-
-
-	Vec3d vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-	Vec3d vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-	bool raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
-	return !raytraceresult ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), raytraceresult.sideHit, pos);
-}*/
+//bool __forceinline collisionRayTrace(C_Block* block, vec3_t vec31, vec3_t vec32) {
+//	vec3_t vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
+//	vec3_t vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
+//	bool raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
+//	return !raytraceresult ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), raytraceresult.sideHit, pos);
+//}
 
 bool CrystalAura::tryRaytrace(vec3_t vec31, vec3_t vec32, C_BlockSource* region) {
 	struct HitResult {
