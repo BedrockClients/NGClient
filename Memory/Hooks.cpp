@@ -1007,6 +1007,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						} else {
 							if (partner->Partnered.selected == 0)
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
+							else if (partner->Partnered.selected == 1)
+								DrawUtils::drawText(textPos, &textStr, MC_Color(150, 30, 255), textSize);
 							else
 								DrawUtils::drawText(textPos, &textStr, MC_Color(0, 246, 255), textSize);
 						}
