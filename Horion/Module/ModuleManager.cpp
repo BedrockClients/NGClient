@@ -148,6 +148,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Velocity()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ViewModel()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Waypoints()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Watermark()));
 		moduleList.push_back(std::shared_ptr<IModule>(new XP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));

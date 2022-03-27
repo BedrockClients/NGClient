@@ -511,7 +511,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 	bool shouldPostRender = true;
 	bool shouldRenderArrayList = true;
-	bool shouldRenderWatermark = true;
 
 	static float rcolors[4];          // Rainbow color array RGBA
 	static float disabledRcolors[4];  // Rainbow Colors, but for disabled modules
@@ -627,13 +626,11 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			}
 		} else {
 			shouldRenderArrayList = gui && gui->isEnabled();
-			shouldRenderWatermark = hudModule->watermark && hudModule->isEnabled();
 
 			if (clickGuiModule->isEnabled()) {
 				ClickGui::render();
 				shouldPostRender = false;
 				shouldRenderArrayList = false;
-				shouldRenderWatermark = false;
 			}
 			{
 				// Display ArrayList on the Right?
@@ -648,152 +645,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				{
 					mousePos = mousePos.div(windowSizeReal);
 					mousePos = mousePos.mul(windowSize);
-				}
-
-				if (partner->Partnered.selected == 1) {
-					if (shouldRenderWatermark) {
-						if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
-							constexpr float nameTextSize = 0.8f;
-							constexpr float versionTextSize = 0.6f;
-							static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-							constexpr float borderPadding = 0;
-							constexpr float margin = 0;
-#ifdef _DEBUG
-							static std::string name = "Fadeaway | Dev Build";
-#else
-							static std::string name = "Fadeaway | Public Build";
-#endif
-							static std::string version = "";
-
-							float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
-							float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-							vec4_t rect = vec4_t(
-								windowSize.x - fullTextLength,
-								windowSize.y - textHeight,
-								windowSize.x - margin + borderPadding,
-								windowSize.y - margin);
-							if (gui->rgb) {
-								// x y z w
-								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
-								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
-								if (g_Data.getLocalPlayer() != nullptr) {
-									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
-
-									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-								}
-							} else {
-								// x y z w
-								vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 10);
-								vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 72, 2.5);
-								if (g_Data.getLocalPlayer() != nullptr) {
-									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-									DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
-
-									DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-									DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-								}
-							}
-						}
-					}
-				} else {
-					if (partner->Partnered.selected == 0) {
-						if (shouldRenderWatermark) {
-							if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
-								constexpr float nameTextSize = 0.8f;
-								constexpr float versionTextSize = 0.6f;
-								static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-								constexpr float borderPadding = 0;
-								constexpr float margin = 0;
-#ifdef _DEBUG
-								static std::string name = "Surge | Dev Build";
-#else
-								static std::string name = "Surge | Public Build";
-#endif
-								static std::string version = "";
-
-								float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
-								float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-								vec4_t rect = vec4_t(
-									windowSize.x - fullTextLength,
-									windowSize.y - textHeight,
-									windowSize.x - margin + borderPadding,
-									windowSize.y - margin);
-								if (gui->rgb) {
-									// x y z w
-									vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-									vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
-									if (g_Data.getLocalPlayer() != nullptr) {
-										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
-
-										DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-										DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-									}
-								} else {
-									// x y z w
-									vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 10);
-									vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 60, 2.5);
-									if (g_Data.getLocalPlayer() != nullptr) {
-										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
-
-										DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-										DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-									}
-								}
-							}
-						}
-					} else {
-						if (shouldRenderWatermark) {
-							if ((strcmp(screenName.c_str(), "start_screen") == 1)) {
-								constexpr float nameTextSize = 0.8f;
-								constexpr float versionTextSize = 0.6f;
-								static const float textHeight = (nameTextSize + versionTextSize * 0.7f /* We don't quite want the version string in its own line, just a bit below the name */) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-								constexpr float borderPadding = 0;
-								constexpr float margin = 0;
-
-#ifdef _DEBUG
-								static std::string name = "NG Client | Dev Build";
-#else
-								static std::string name = "NG Client | Public Build";
-#endif
-								static std::string version = "";
-
-								float nameLength = DrawUtils::getTextWidth(&name, nameTextSize);
-								float fullTextLength = nameLength + DrawUtils::getTextWidth(&version, versionTextSize);
-								vec4_t rect = vec4_t(
-									windowSize.x - fullTextLength,
-									windowSize.y - textHeight,
-									windowSize.x - margin + borderPadding,
-									windowSize.y - margin);
-								if (gui->rgb) {
-									// x y z w
-									vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
-									vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
-									if (g_Data.getLocalPlayer() != nullptr) {
-										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(currColor), nameTextSize);
-
-										DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-										DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-									}
-								} else {
-									// x y z w
-									vec4_t Watermarbox = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 10);
-									vec4_t Watermarkbar = vec4_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y, 70, 2.5);
-									if (g_Data.getLocalPlayer() != nullptr) {
-										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 2.0f), &name, MC_Color(currColor), nameTextSize);
-										DrawUtils::drawText(vec2_t(windowSize.x / windowSize.x, windowSize.y / windowSize.y + 1.5f), &name, MC_Color(255, 255, 255), nameTextSize);
-
-										DrawUtils::fillRectangle(Watermarbox, MC_Color(0, 0, 0), 0.2f);
-										DrawUtils::fillRectangle(Watermarkbar, currColor, 1.f);
-									}
-								}
-							}
-						}
-					}
 				}
 
 				// Draw ArrayList
