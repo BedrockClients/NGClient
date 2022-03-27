@@ -126,6 +126,7 @@
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryView.cpp" />
     <ClCompile Include="Horion\Module\Modules\HoleEsp.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Watermark.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -386,6 +387,7 @@
     <ClInclude Include="Horion\Module\Modules\InventoryView.h" />
     <ClInclude Include="Horion\Module\Modules\Notifications.h" />
     <ClInclude Include="Horion\Module\Modules\HoleEsp.h" />
+    <ClInclude Include="Horion\Module\Modules\Watermark.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

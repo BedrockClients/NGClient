@@ -138,6 +138,7 @@
 #include "Modules/Velocity.h"
 #include "Modules/ViewModel.h"
 #include "Modules/Waypoints.h"
+#include "Modules/Watermark.h"
 #include "Modules/XP.h"
 #include "Modules/Xray.h"
 #include "Modules/Zoom.h"

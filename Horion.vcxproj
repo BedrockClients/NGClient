@@ -329,6 +329,7 @@
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
     <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Watermark.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoal.cpp" />
     <ClCompile Include="Horion\path\goals\JoeGoalXYZ.cpp" />
@@ -539,6 +540,7 @@
     <ClInclude Include="Horion\Module\Modules\TPAura.h" />
     <ClInclude Include="Horion\Module\Modules\ViewModel.h" />
     <ClInclude Include="Horion\Module\Modules\Velocity.h" />
+    <ClInclude Include="Horion\Module\Modules\Watermark.h" />
     <ClInclude Include="Horion\Module\Modules\Waypoints.h" />
     <ClInclude Include="Horion\Module\Modules\XP.h" />
     <ClInclude Include="Horion\Module\Modules\Xray.h" />
