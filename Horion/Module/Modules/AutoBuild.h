@@ -102,9 +102,9 @@ public:
 		}
 	}
 
-	void onTick(C_GameMode* GM) {
+	void onLevelRender() {
 		C_LocalPlayer* Player = g_Data.getLocalPlayer();
-		if (Player != nullptr && GM != nullptr) {
+		if (Player != nullptr) {
 			vec3_t myPos = *Player->getPos();
 			C_PlayerInventoryProxy* supplies = Player->getSupplies();
 			C_Inventory* inv = supplies->inventory;
@@ -162,7 +162,7 @@ public:
 						if (foundCandidate) {
 							vec3_ti beforethingy = vec3_ti(blok.x, blok.y, blok.z);
 							vec3_ti* thingy = &beforethingy;
-							GM->buildBlock(thingy, i);
+							g_Data.getCGameMode()->buildBlock(thingy, i);
 							break;
 						}
 					} else {
