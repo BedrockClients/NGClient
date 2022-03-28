@@ -567,6 +567,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				"[*] Speed Tweaks \n"
 				"[+] partnered with Fadeaway \n"
 				"[+] Fonts \n"
+				"[+] Jesus \n"
 				"[*] Many Fixes \n";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 
@@ -578,6 +579,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				"DeadtrosGaming \n"
 				"2474 \n"
 				"Sentinel \n"
+				"Xello12121 \n"
 				"Founder \n";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 		}
