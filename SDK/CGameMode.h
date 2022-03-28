@@ -42,4 +42,8 @@ private:
 
 public:
 	C_Player *player;
+
+	__int64 getDestroyBlockFace() {
+		return *reinterpret_cast<__int64 *>(this + 0x1C);
+	}
 };
