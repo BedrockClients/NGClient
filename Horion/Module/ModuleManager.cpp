@@ -32,9 +32,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new ArmourHud()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoArmor()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoBuild()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoEZ()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv2()));
-		moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv3()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoClick()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoJump()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AutoPot()));
@@ -67,7 +64,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new EntitySpeed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EntitySpider()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ESP()));
-		moduleList.push_back(std::shared_ptr<IModule>(new EZspam()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ExtendedBlockReach()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FastEat()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FastLadder()));
@@ -152,7 +148,13 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
 
-		// Sort modules alphabetically
+		//
+		//moduleList.push_back(std::shared_ptr<IModule>(new EZspam()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new AutoEZ()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv2()));
+		//moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv3()));
+		//
+
 		std::sort(moduleList.begin(), moduleList.end(), [](auto lhs, auto rhs) {
 			auto current = lhs;
 			auto other = rhs;

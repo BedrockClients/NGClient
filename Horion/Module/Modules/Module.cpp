@@ -471,25 +471,11 @@ void IModule::setEnabled(bool enabled) {
 		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 		static auto ToggleSound = moduleMgr->getModule<ToggleSounds>();
 		static auto Logmsg = moduleMgr->getModule<Notifications>();
-		static auto HUD = moduleMgr->getModule<HudModule>();
-		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
 		bool shouldShow = true;
-		std::string screenName(g_Hooks.currentScreenName);
-		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !HUD->notifications || strcmp(screenName.c_str(), "start_screen") == 0)
-			shouldShow = false;
 
 		if (Logmsg->isEnabled()) {
 			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sNG+%s] %s%s %s%s%s", DARK_PURPLE, WHITE, GRAY, enabled ? "Enabled" : "Disabled", BOLD, WHITE, this->getModuleName());
 		}
-		if (shouldShow) {
-			auto CheckEnabled = enabled ? "Enabled" : "Disabled";
-			auto box = std::make_shared<InfoBoxData>(this->getModuleName(), CheckEnabled);
-			box.get()->fade();
-			box.get()->fadeVal = -100;
-			box.get()->closeTimer = 1.5;
-			g_Data.infoBoxQueue.push(box);
-		}
-
 		if (enabled) {
 			this->onEnable();
 			if (ToggleSound->isEnabled() && !((GameData::isKeyDown('L') && GameData::isKeyDown(VK_CONTROL)) || GameData::shouldTerminate()) && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && !isFlashMode())

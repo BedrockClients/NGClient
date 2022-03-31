@@ -553,6 +553,14 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				//Changelogs
 				"Changelogs: \n"
 				"[+] Jesus \n"
+				"[-] ExtendedBlockReach \n"
+				"[-] InsideTP \n"
+				"[-] Trail \n"
+				"[-] Phase \n"
+				"[-] Snow \n"
+				"[-] SoundPlayer \n"
+				"[*] Code Clean Up \n"
+				"[*] getKeybind - getKey \n"
 				"[*] Many Fixes \n\n"
 				//partner
 				"partner: \n"
