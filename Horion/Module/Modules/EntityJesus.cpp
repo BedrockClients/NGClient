@@ -4,7 +4,7 @@
 
 int EntityJesusChrist = 0;
 
-EntityJesus::EntityJesus() : IModule(0, Category::ENTITY, "Allows entities to walk on water and lava!") {
+EntityJesus::EntityJesus() : IModule(0x0, Category::ENTITY, "Allows entities to walk on water and lava!") {
 	registerFloatSetting("Up-ness", &upness, upness, 0.01f, 1.00f);  //allows you to ajust your speed.
 }
 

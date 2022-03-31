@@ -1,8 +1,7 @@
 #include "HackerDetect.h"
 
 bool chat = false;
-HackerDetect::HackerDetect()
-	: IModule(0, Category::SERVER, "Detects Hackers") {
+HackerDetect::HackerDetect() : IModule(0x0, Category::SERVER, "Detects Hackers") {
 	registerBoolSetting("SendMessage", &chat, chat);
 }
 

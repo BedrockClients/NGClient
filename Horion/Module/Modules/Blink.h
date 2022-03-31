@@ -6,7 +6,7 @@ private:
 	std::vector<PlayerAuthInputPacket*> PlayerAuthInputPacketHolder;
 
 public:
-	Blink() : IModule(0, Category::PLAYER, "Stops you from sending packets and then sends them in a bunch") {}
+	Blink() : IModule(0x0, Category::PLAYER, "Stops you from sending packets and then sends them in a bunch") {}
 	~Blink() {
 		getMovePlayerPacketHolder()->clear();
 		getPlayerAuthInputPacketHolder()->clear();

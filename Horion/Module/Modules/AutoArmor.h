@@ -35,7 +35,7 @@ public:
 	bool openInv = false;
 	bool AutoClose = false;
 	C_CraftingScreenController* inventoryScreen = nullptr;
-	AutoArmor() : IModule(0, Category::PLAYER, "Automatically equips the best armor") {
+	AutoArmor() : IModule(0x0, Category::PLAYER, "Automatically equips the best armor") {
 		registerBoolSetting("OpenInv", &openInv, openInv);
 		registerBoolSetting("AutoClose", &AutoClose, AutoClose);
 	}

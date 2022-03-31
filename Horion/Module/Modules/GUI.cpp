@@ -6,7 +6,7 @@ float GUI::rcolor{0.f};
 float GUI::gcolor{0.f};
 float GUI::bcolor{0.f};
 
-GUI::GUI() : IModule(0, Category::GUI, "ArrayList") {
+GUI::GUI() : IModule(0x0, Category::GUI, "ArrayList") {
 	registerBoolSetting("Arraylist RGB", &rgb, rgb);
 	registerBoolSetting("Flux Bar", &Fluxbar, Fluxbar);
 	registerBoolSetting("under Bar", &underbar, underbar);

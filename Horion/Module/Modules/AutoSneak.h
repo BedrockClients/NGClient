@@ -3,7 +3,7 @@
 class AutoSneak : public IModule {
 public:
 	bool doSilent = false;
-	AutoSneak() : IModule(0, Category::MOVEMENT, "Automatically sneak without holding the key") {
+	AutoSneak() : IModule(0x0, Category::MOVEMENT, "Automatically sneak without holding the key") {
 		registerBoolSetting("Silent", &doSilent, doSilent);
 	}
 	~AutoSneak(){};

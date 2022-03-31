@@ -17,7 +17,7 @@ public:
 
 	std::vector<C_Entity*> targetList;
 
-	Aimbot() : IModule(0, Category::COMBAT, "Automatically aims at the nearest entity") {
+	Aimbot() : IModule(0x0, Category::COMBAT, "Automatically aims at the nearest entity") {
 		registerFloatSetting("range", &range, range, 3.f, 8.f);
 		registerBoolSetting("Require click", &click, click);
 		registerBoolSetting("only swords/axes", &sword, sword);

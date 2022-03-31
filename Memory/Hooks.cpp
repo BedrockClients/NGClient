@@ -549,37 +549,23 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			string = "Version: 1.18.12.2";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 			text.y += 15.f;
-
 			string =
+				//Changelogs
 				"Changelogs: \n"
-				"[+] More Arraylist \n"
-				"[+] Custom Keystrokes \n"
-				"[+] Custom Radar \n"
-				"[-] .say \n"
-				"[+] Miner \n"
-				"[+] CPS \n"
-				"[+] BPS \n"
-				"[+] FPS \n"
-				"[+] ServerInfo \n"
-				"[+] Coordinates \n"
-				"[+] CustomSky \n"
-				"[+] ArmourHud \n"
-				"[*] Speed Tweaks \n"
-				"[+] partnered with Fadeaway \n"
-				"[+] Fonts \n"
 				"[+] Jesus \n"
-				"[*] Many Fixes \n";
-			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
-
-			text.y += 180.f;
-			string =
+				"[*] Many Fixes \n\n"
+				//partner
+				"partner: \n"
+				"Fadeaway \n"
+				"Surge \n"
+				"ghost \n\n"
+				//Credits
 				"Credits: \n"
 				"NRG \n"
 				"Intop \n"
 				"DeadtrosGaming \n"
 				"2474 \n"
 				"Sentinel \n"
-				"Xello12121 \n"
 				"Founder \n";
 			DrawUtils::drawText(text, &string, wight, 1.f, 1.f);
 		}
@@ -1197,18 +1183,14 @@ void Hooks::Actor_lerpMotion(C_Entity* _this, vec3_t motVec) {
 		return oLerp(_this, motVec);
 
 	static auto noKnockbackmod = moduleMgr->getModule<Velocity>();
-	static auto antikbmod = moduleMgr->getModule<Antikb>();
-	if (noKnockbackmod->isEnabled() || antikbmod->isEnabled()) {
+	if (noKnockbackmod->isEnabled()) {
 		static void* networkSender = nullptr;
 
 		if (!networkSender)
 			networkSender = reinterpret_cast<void*>(9 + FindSignature("48 8B CB FF ?? ?? ?? ?? 00 C6 47 ?? 01 48 8B 5C 24"));
 
 		if (networkSender == _ReturnAddress()) {
-			if (antikbmod->isEnabled())
-				motVec = _this->velocity.lerp(motVec, antikbmod->xMod, antikbmod->yMod, antikbmod->xMod);
-			else
-				motVec = _this->velocity.lerp(motVec, noKnockbackmod->xModifier, noKnockbackmod->yModifier, noKnockbackmod->xModifier);
+			motVec = _this->velocity.lerp(motVec, noKnockbackmod->xModifier, noKnockbackmod->yModifier, noKnockbackmod->xModifier);
 		}
 	}
 

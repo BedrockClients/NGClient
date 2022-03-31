@@ -280,6 +280,7 @@
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryView.cpp" />
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Killaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\LongJump.cpp" />
     <ClCompile Include="Horion\Module\Modules\MegaDupe.cpp" />
     <ClCompile Include="Horion\Module\Modules\MinplexConfig.cpp" />
@@ -315,7 +316,6 @@
     <ClCompile Include="Horion\Module\Modules\InfiniteAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryCleaner.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryMove.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Killaura.cpp" />
     <ClCompile Include="Horion\Module\Modules\MidClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\Module.cpp" />
     <ClCompile Include="Horion\Module\Modules\NameTags.cpp" />
@@ -332,7 +332,6 @@
     <ClCompile Include="Horion\Module\Modules\Teleport.cpp" />
     <ClCompile Include="Horion\Module\Modules\TestModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Tracer.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Trail.cpp" />
     <ClCompile Include="Horion\Module\Modules\TPAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\Watermark.cpp" />
     <ClCompile Include="Horion\Module\Modules\Waypoints.cpp" />
@@ -420,7 +419,6 @@
     <ClInclude Include="Horion\Module\Modules\AntiAnvil.h" />
     <ClInclude Include="Horion\Module\Modules\AntiBot.h" />
     <ClInclude Include="Horion\Module\Modules\AntiImmobile.h" />
-    <ClInclude Include="Horion\Module\Modules\Antikb.h" />
     <ClInclude Include="Horion\Module\Modules\AntiLagBack.h" />
     <ClInclude Include="Horion\Module\Modules\AntiVoid.h" />
     <ClInclude Include="Horion\Module\Modules\ArmourHud.h" />
@@ -545,7 +543,6 @@
     <ClInclude Include="Horion\Module\Modules\Timer.h" />
     <ClInclude Include="Horion\Module\Modules\TimeChanger.h" />
     <ClInclude Include="Horion\Module\Modules\Tracer.h" />
-    <ClInclude Include="Horion\Module\Modules\Trail.h" />
     <ClInclude Include="Horion\Module\Modules\TriggerBot.h" />
     <ClInclude Include="Horion\Module\Modules\TPAura.h" />
     <ClInclude Include="Horion\Module\Modules\ViewModel.h" />

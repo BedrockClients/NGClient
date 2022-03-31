@@ -4,7 +4,7 @@
 #include<time.h>
 
 //Private this; Made by eKowz
-AutoEZv2::AutoEZv2() : IModule(0, Category::SERVER, "troll enemies by saying ur lagging") {
+AutoEZv2::AutoEZv2() : IModule(0x0, Category::SERVER, "troll enemies by saying ur lagging") {
 }
 
 AutoEZv2::~AutoEZv2() {}

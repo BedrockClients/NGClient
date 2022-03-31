@@ -2,7 +2,7 @@
 
 #include "../../../SDK/Tag.h"
 
-AnchorAura::AnchorAura(): IModule(0, Category::COMBAT, "Absolutly destoys kids") {
+AnchorAura::AnchorAura() : IModule(0x0, Category::COMBAT, "Absolutly destoys kids") {
 	registerIntSetting("Range", &range, range, 1, 7);
 	registerIntSetting("Anchor range", &cRange, cRange, 1, 7);
 	registerIntSetting("Place range", &eRange, eRange, 1, 7);

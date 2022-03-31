@@ -7,7 +7,7 @@
 std::vector<C_Entity*> targetList;
 
 BowAimbot::BowAimbot()
-	: IModule(0, Category::COMBAT, "Aimbot, but for bows") {
+	: IModule(0x0, Category::COMBAT, "Aimbot, but for bows") {
 	registerBoolSetting("silent", &silent, silent);
 	registerBoolSetting("predict", &predict, predict);
 	registerBoolSetting("visualize", &visualize, visualize);

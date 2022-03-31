@@ -3,7 +3,7 @@
 
 class AutoJump : public IModule {
 public:
-	AutoJump() : IModule(0, Category::MOVEMENT, "Automatically jump") {}
+	AutoJump() : IModule(0x0, Category::MOVEMENT, "Automatically jump") {}
 	~AutoJump(){};
 
 	// Inherited via IModule

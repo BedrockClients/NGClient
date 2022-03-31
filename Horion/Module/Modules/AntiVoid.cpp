@@ -1,7 +1,6 @@
 #include "AntiVoid.h"
 bool voidcheck = false;
-AntiVoid::AntiVoid()
-	: IModule(0, Category::MOVEMENT, "Automatically teleports you back up if you fall down more than X blocks") {
+AntiVoid::AntiVoid() : IModule(0x0, Category::MOVEMENT, "Automatically teleports you back up if you fall down more than X blocks") {
 	registerBoolSetting("VoidCheck", &voidcheck, voidcheck);
 	registerEnumSetting("Mode", &mode, 0);
 	mode = SettingEnum(this)

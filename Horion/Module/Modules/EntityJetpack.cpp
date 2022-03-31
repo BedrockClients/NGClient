@@ -2,7 +2,7 @@
 
 #include "../../../Utils/Logger.h"
 
-EntityJetpack::EntityJetpack() : IModule(0, Category::ENTITY, "Use the jetpack module while on entities") {
+EntityJetpack::EntityJetpack() : IModule(0x0, Category::ENTITY, "Use the jetpack module while on entities") {
 	registerFloatSetting("speed", &speedMod, 1, 0.2f, 3.f);
 	registerBoolSetting("Bypass", &isBypass, isBypass);
 }

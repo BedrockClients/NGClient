@@ -4,7 +4,7 @@
 #include<time.h>
 
 //Private this; Made by eKowz
-AutoEZv3::AutoEZv3() : IModule(0, Category::SERVER, "troll enemies by spamming random paragraphs") {
+AutoEZv3::AutoEZv3() : IModule(0x0, Category::SERVER, "troll enemies by spamming random paragraphs") {
 }
 
 AutoEZv3::~AutoEZv3() {}

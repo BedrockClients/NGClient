@@ -3,7 +3,7 @@
 #include "../../../SDK/Tag.h"
 
 AutoTotem::AutoTotem()
-	: IModule(0, Category::COMBAT, "Automatically puts totems into your hand") {
+	: IModule(0x0, Category::COMBAT, "Automatically puts totems into your hand") {
 }
 
 AutoTotem::~AutoTotem() {

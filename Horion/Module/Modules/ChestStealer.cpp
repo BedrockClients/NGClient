@@ -2,7 +2,7 @@
 
 #include "../ModuleManager.h"
 
-ChestStealer::ChestStealer() : IModule(0, Category::PLAYER, "Automatically takes or dumps all items out of a chest or into a chest") {
+ChestStealer::ChestStealer() : IModule(0x0, Category::PLAYER, "Automatically takes or dumps all items out of a chest or into a chest") {
 	registerIntSetting("Delay", &setDelay, setDelay, 0, 10);
 	registerBoolSetting("Enhanced", &enhanced, enhanced);
 	registerBoolSetting("Dump", &dump, dump);

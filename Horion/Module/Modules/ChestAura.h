@@ -9,7 +9,7 @@ private:
 
 public:
 	C_MoveInputHandler* inputHandler = nullptr;
-	ChestAura() : IModule(0, Category::PLAYER, "Aura for opening chests") {
+	ChestAura() : IModule(0x0, Category::PLAYER, "Aura for opening chests") {
 		registerIntSetting("Range", &this->range, this->range, 1, 10);
 		registerBoolSetting("EnderChests", &this->enderchests, this->enderchests);
 	}

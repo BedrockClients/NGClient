@@ -2,7 +2,7 @@
 #include "EZspam.h"
 
 //Private this; Made by eKowz
-EZspam::EZspam() : IModule(0, Category::SERVER, "Spams with no silent mute: use both sliders at 10") {
+EZspam::EZspam() : IModule(0x0, Category::SERVER, "Spams with no silent mute: use both sliders at 10") {
 
 			registerEnumSetting("Mode", &mode, 0);
 			mode = SettingEnum(this)

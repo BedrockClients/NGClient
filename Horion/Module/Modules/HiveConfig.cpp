@@ -54,7 +54,7 @@ void HiveConfig::onEnable() {
 	static auto ViewMod = moduleMgr->getModule<ViewModel>();
 	static auto ChestSteal = moduleMgr->getModule<ChestStealer>();
 	static auto Disable = moduleMgr->getModule<Disabler>();
-	static auto AntiKBMod = moduleMgr->getModule<Antikb>();
+	static auto AntiKBMod = moduleMgr->getModule < Velocity> ();
 	static auto SwingAnimation = moduleMgr->getModule<SwingAnimations>();
 	static auto ArrayList = moduleMgr->getModule<GUI>();
 	static auto Long = moduleMgr->getModule<LongJump>();

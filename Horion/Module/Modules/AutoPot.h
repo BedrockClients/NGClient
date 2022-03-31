@@ -28,7 +28,7 @@ private:
 	bool isPot(C_ItemStack* itemStack) { return itemStack->getItem()->name.getText() == (std::string) "splash_potion"; }
 
 public:
-	AutoPot() : IModule(0, Category::COMBAT, "Auto throws potions at the selected health") {
+	AutoPot() : IModule(0x0, Category::COMBAT, "Auto throws potions at the selected health") {
 		registerIntSetting("Health", &health, health, 1, 20);
 	}
 	~AutoPot(){}

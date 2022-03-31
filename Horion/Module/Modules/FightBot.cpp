@@ -1,6 +1,6 @@
 #include "FightBot.h"
 
-FightBot::FightBot() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
+FightBot::FightBot() : IModule(0x0, Category::COMBAT, "Attacks entities around you automatically") {
 	registerIntSetting("TargetRange", &targ, targ, 50, 500);
 	registerFloatSetting("HitRange", &range, range, 2.f, 20.f);
 	registerIntSetting("delay", &delay, delay, 0, 20);

@@ -27,7 +27,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiAnvil()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiBot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiImmobile()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Antikb()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiLagBack()));
 		moduleList.push_back(std::shared_ptr<IModule>(new AntiVoid()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ArmourHud()));
@@ -147,7 +146,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Totem()));
 		moduleList.push_back(std::shared_ptr<IModule>(new TPAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Tracer()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Trail()));
 		moduleList.push_back(std::shared_ptr<IModule>(new TriggerBot()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Velocity()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ViewModel()));

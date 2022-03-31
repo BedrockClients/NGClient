@@ -1,6 +1,6 @@
 #include "EntityBhop.h"
 
-EntityBhop::EntityBhop() : IModule(0, Category::ENTITY, "so funny") {
+EntityBhop::EntityBhop() : IModule(0x0, Category::ENTITY, "so funny") {
 	registerFloatSetting("Speed", &speed, speed, 0.1f, 1.5f);
 	registerBoolSetting("Lowhop", &lowhop, lowhop);
 	registerFloatSetting("Lowhop UpValue", &upVal, upVal, 0.05f, 0.50f);

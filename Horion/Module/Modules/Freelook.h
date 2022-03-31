@@ -5,7 +5,7 @@ public:
 	vec2_t oldPos;
 	vec2_t Pos;
 
-	Freelook() : IModule(0, Category::VISUAL, "Move straight while moving your camera around") {}
+	Freelook() : IModule(0x0, Category::VISUAL, "Move straight while moving your camera around") {}
 	~Freelook(){};
 
 	virtual const char* getModuleName() override { return "Freelook"; }

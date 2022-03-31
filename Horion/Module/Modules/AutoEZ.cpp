@@ -4,7 +4,7 @@
 #include<time.h>
 
 //Private this; Made by eKowz
-AutoEZ::AutoEZ() : IModule(0, Category::SERVER, "troll enemies and angr them") {
+AutoEZ::AutoEZ() : IModule(0x0, Category::SERVER, "troll enemies and angr them") {
 }
 
 AutoEZ::~AutoEZ() {}

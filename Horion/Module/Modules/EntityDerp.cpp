@@ -1,6 +1,6 @@
 #include "EntityDerp.h"
 
-EntityDerp::EntityDerp() : IModule(0, Category::ENTITY, "Make plays have a seizure irl") {
+EntityDerp::EntityDerp() : IModule(0x0, Category::ENTITY, "Make plays have a seizure irl") {
 	registerBoolSetting("theyhaveastroke", &epicStroke, epicStroke);
 }
 

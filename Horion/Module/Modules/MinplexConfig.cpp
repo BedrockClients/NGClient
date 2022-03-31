@@ -45,7 +45,7 @@ void MinplexConfig::onEnable() {
 	static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 	static auto Cleaner = moduleMgr->getModule<InventoryCleaner>();
 	static auto ViewMod = moduleMgr->getModule<ViewModel>();
-	static auto AntiKBMod = moduleMgr->getModule<Antikb>();
+	static auto AntiKBMod = moduleMgr->getModule<Velocity>();
 	static auto ArrayList = moduleMgr->getModule<GUI>();
 	static auto partner = moduleMgr->getModule<Partner>();
 	static auto xpmod = moduleMgr->getModule<XP>();
