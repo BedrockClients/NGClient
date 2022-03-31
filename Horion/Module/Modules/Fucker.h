@@ -19,7 +19,7 @@ public:
 	bool emerald = false;
 	bool bypass = false;
 	bool rots = true;
-	vec3_ti blockPos;
+	vec3i blockPos;
 	bool noSwing = false;
 	bool destroy;
 

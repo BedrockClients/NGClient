@@ -3,7 +3,7 @@
 #include "Module.h"
 class NoClip : public IModule {
 public:
-	vec3_t oldPos;
+	vec3 oldPos;
 	float speed = 0.325f;
 	float upanddown = 0.6f;
 	float glideMod = -0.00f;
@@ -19,7 +19,7 @@ public:
 
 	void onTick(C_GameMode* gm) {
 		gm->player->aabb.upper.y = gm->player->aabb.lower.y - (float)1.8f;
-		gm->player->velocity = vec3_t(0, 0, 0);
+		gm->player->velocity = vec3(0, 0, 0);
 		glideModEffective = glideMod;
 		C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 
@@ -62,7 +62,7 @@ public:
 			yaw += 180.f;
 
 		float calcYaw = (yaw + 90) * (PI / 180);
-		vec3_t moveVec;
+		vec3 moveVec;
 		moveVec.x = cos(calcYaw) * speed;
 		moveVec.y = player->velocity.y;
 		moveVec.z = sin(calcYaw) * speed;

@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <basetsd.h>
 
-PacketLogger::PacketLogger() : IModule(0, Category::WORLD, "Logging Packets! (PlayerAuthInput & SubChunkRequest don't display for spam reasons)") {
+PacketLogger::PacketLogger() : IModule(0x0, Category::WORLD, "Logging Packets! (PlayerAuthInput & SubChunkRequest don't display for spam reasons)") {
 	registerBoolSetting("Packet Addr", &packetadd, &packetadd);
 	registerEnumSetting("Mode", &addressType, 0);
 	addressType = SettingEnum(this)

@@ -14,7 +14,7 @@ public:
 	float Srange = 5;
 	float speed = 0.325f;
 	bool targetListB = false;
-	vec2_t hoe;
+	vec2 hoe;
 
 	TargetStrafe();
 	~TargetStrafe();

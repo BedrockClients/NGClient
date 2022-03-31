@@ -27,14 +27,14 @@ public:
 			for (int i = 0; i < 4; i++) {
 				C_ItemStack* stack = player->getArmor(i);
 				if (stack->item != nullptr) {
-					DrawUtils::drawItem(stack, vec2_t(xVal, yVal), opacity, scale, stack->isEnchanted());
+					DrawUtils::drawItem(stack, vec2(xVal, yVal), opacity, scale, stack->isEnchanted());
 					xVal += scale * spacing;
 				}
 			}
 			C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
 			if (item->item != nullptr)
-				DrawUtils::drawItem(item, vec2_t(xVal, yVal), opacity, scale, item->isEnchanted());
+				DrawUtils::drawItem(item, vec2(xVal, yVal), opacity, scale, item->isEnchanted());
 		}
 	}
 

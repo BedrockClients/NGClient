@@ -85,8 +85,8 @@ public:
 	virtual void onMove(C_MoveInputHandler* input) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
-		vec3_t moveVec;
-		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		vec3 moveVec;
+		vec2 moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
 		float calcYaw = (player->yaw + 90) * (PI / 180);
 
@@ -95,7 +95,7 @@ public:
 			moveVec.y = player->velocity.y;
 			moveVec.z = sin(calcYaw) * speed;
 			float posDistance = .5f; //Increasing value = higher speeds but higher chance to rubberband due to pos being in a nearby block
-			C_MovePlayerPacket p2 = C_MovePlayerPacket(g_Data.getLocalPlayer(), player->getPos()->add(vec3_t(moveVec.x * posDistance, 0.f, moveVec.z * posDistance)));
+			C_MovePlayerPacket p2 = C_MovePlayerPacket(g_Data.getLocalPlayer(), player->getPos()->add(vec3(moveVec.x * posDistance, 0.f, moveVec.z * posDistance)));
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p2);
 			// Made by Founder, don't take, skid, re-purpose, or claim
 		}
@@ -154,7 +154,7 @@ public:
 				player->lerpMotion(moveVec);
 			if (pressed && player->onGround) {
 				if (g_Data.getLocalPlayer()->velocity.squaredxzlen() > 0.01) {
-					C_MovePlayerPacket p2 = C_MovePlayerPacket(g_Data.getLocalPlayer(), player->getPos()->add(vec3_t(player->velocity.x / 1.3f, 0.f, player->velocity.z / 2.3f)));
+					C_MovePlayerPacket p2 = C_MovePlayerPacket(g_Data.getLocalPlayer(), player->getPos()->add(vec3(player->velocity.x / 1.3f, 0.f, player->velocity.z / 2.3f)));
 					g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p2);
 					//Made by Founder, don't take, skid, re-purpose, or claim
 				}
@@ -168,7 +168,7 @@ public:
 			float x = cos(calcYaw) * length;
 			float z = sin(calcYaw) * length;
 
-			player->setPos(pos.add(vec3_t(x, 0.f, z)));
+			player->setPos(pos.add(vec3(x, 0.f, z)));
 		}
 	}
 

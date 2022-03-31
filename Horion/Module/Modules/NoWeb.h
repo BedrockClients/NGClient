@@ -2,7 +2,7 @@
 #include "Module.h"
 class NoWeb : public IModule {
 public:
-	NoWeb() : IModule(0, Category::MOVEMENT, "Ignore cobwebs slowdown") {}
+	NoWeb() : IModule(0x0, Category::MOVEMENT, "Ignore cobwebs slowdown") {}
 	~NoWeb(){};
 
 	// Inherited via IModule

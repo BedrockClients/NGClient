@@ -478,7 +478,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				hasSentWarning = true;
 				auto box = g_Data.addInfoBox("Thanks For Choosing The NG Client!", "We Are 22");
 				box->closeTimer = 5;
-				vec2_t windowSize = dat->windowSize;
+				vec2 windowSize = dat->windowSize;
 
 				DrawUtils::flush();
 			}
@@ -529,11 +529,11 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		// Main Menu
 		static auto partner = moduleMgr->getModule<Partner>();
 		std::string screenName(g_Hooks.currentScreenName);
-		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+		vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 
 		if (strcmp(screenName.c_str(), "start_screen") == 0) {
-			vec2_t text = vec2_t(windowSize.x / windowSize.x, 5);
-			vec2_t outline = vec2_t(windowSize.x / windowSize.x, 5.5);
+			vec2 text = vec2(windowSize.x / windowSize.x, 5);
+			vec2 outline = vec2(windowSize.x / windowSize.x, 5.5);
 
 			MC_Color wight = MC_Color(255, 255, 255);
 			std::string string;
@@ -574,19 +574,19 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		if (!strcmp(screenName.c_str(), "start_screen") == 0) {
 			if (hudModule->Buttons) {
 				if (!g_Data.canUseMoveKeys() && !clickGuiModule->isEnabled()) {
-					if (HImGui.Button("Disable Spammer", vec2_t(wid.x / 13.f, wid.y / 15.f), true)) {
+					if (HImGui.Button("Disable Spammer", vec2(wid.x / 13.f, wid.y / 15.f), true)) {
 						static auto spammer = moduleMgr->getModule<Spammer>();
 						if (spammer->isEnabled()) spammer->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Crasher", vec2_t(wid.x / 13.f, wid.y / 9.f), true)) {
+					if (HImGui.Button("Disable Crasher", vec2(wid.x / 13.f, wid.y / 9.f), true)) {
 						static auto crasher = moduleMgr->getModule<Crasher>();
 						if (crasher->isEnabled()) crasher->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Nuker", vec2_t(wid.x / 13.f, wid.y / 6.37f), true)) {
+					if (HImGui.Button("Disable Nuker", vec2(wid.x / 13.f, wid.y / 6.37f), true)) {
 						static auto nuker = moduleMgr->getModule<Nuker>();
 						if (nuker->isEnabled()) nuker->setEnabled(false);
 					}
-					if (HImGui.Button("Disable Aura", vec2_t(wid.x / 13.f, wid.y / 5.0f), true)) {
+					if (HImGui.Button("Disable Aura", vec2(wid.x / 13.f, wid.y / 5.0f), true)) {
 						static auto aura = moduleMgr->getModule<Killaura>();
 						if (aura->isEnabled()) aura->setEnabled(false);
 					}
@@ -598,8 +598,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			if (partner->Partnered.selected == 0) {
 				std::string text = "Surge Client";
 				auto gay = wid.x / 2;
-				vec2_t textPos = vec2_t(gay - DrawUtils::getTextWidth(&text, text.size() / 3.3f), wid.y / 70.f);
-				vec4_t rectPos = vec4_t(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
+				vec2 textPos = vec2(gay - DrawUtils::getTextWidth(&text, text.size() / 3.3f), wid.y / 70.f);
+				vec4 rectPos = vec4(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
 				if (hudModule->rgb) {
 					DrawUtils::fillRectangle(rectPos, MC_Color(currColor), 0.f);
 				} else {
@@ -624,9 +624,9 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				static constexpr bool isOnRightSide = true;
 
 				float yOffset = 0;  // Offset of next Text
-				vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-				vec2_t windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
-				vec2_t mousePos = *g_Data.getClientInstance()->getMousePos();
+				vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+				vec2 windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
+				vec2 mousePos = *g_Data.getClientInstance()->getMousePos();
 
 				// Convert mousePos to visual Pos
 				{
@@ -636,14 +636,14 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 				// Draw ArrayList
 				if (moduleMgr->isInitialized() && shouldRenderArrayList) {
-					vec2_t textPos;
-					vec4_t FluxBar;
-					vec4_t rectPos;
-					vec4_t leftRect;
-					vec4_t underline;
-					vec4_t topIce;
-					vec4_t rightRect;
-					vec4_t lastPos;
+					vec2 textPos;
+					vec4 FluxBar;
+					vec4 rectPos;
+					vec4 leftRect;
+					vec4 underline;
+					vec4 topIce;
+					vec4 rightRect;
+					vec4 lastPos;
 					// Parameters
 					float textSize = hudModule->scale;
 					float textPadding = 1.0f * textSize;
@@ -657,13 +657,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						bool enabled;
 						int keybind;
 						float textWidth;
-						vec2_t* pos;
+						vec2* pos;
 						bool shouldRender = true;
 
 						IModuleContainer(std::shared_ptr<IModule> mod) {
 							const char* moduleNameChr = mod->getModuleName();
 							this->enabled = mod->isEnabled();
-							this->keybind = mod->getKeybind();
+							this->keybind = mod->getKey();
 							this->backingModule = mod;
 							this->pos = mod->getPos();
 
@@ -671,11 +671,11 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								moduleName = moduleNameChr;
 							else {
 								char text[50];
-								sprintf_s(text, 50, "%s%s", moduleNameChr, gui->keybinds ? std::string(" [" + std::string(Utils::getKeybindName(keybind)) + "]").c_str() : "");
+								sprintf_s(text, 50, "%s%s", moduleNameChr, gui->keybinds ? std::string(" [" + std::string(Utils::getKeyName(keybind)) + "]").c_str() : "");
 								moduleName = text;
 							}
 
-							if (!this->enabled && *this->pos == vec2_t(0.f, 0.f))
+							if (!this->enabled && *this->pos == vec2(0.f, 0.f))
 								this->shouldRender = false;
 							this->textWidth = DrawUtils::getTextWidth(&moduleName, hudModule->scale);
 						}
@@ -760,69 +760,69 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							it->pos->y = 0.f;
 						}
 						if (gui->Fluxbar) {
-							textPos = vec2_t(
+							textPos = vec2(
 								xOffset + textPadding - 4,
 								yOffset + textPadding);
-							FluxBar = vec4_t(
+							FluxBar = vec4(
 								windowSize.x - 2,
 								yOffset,
 								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
 								yOffset + textPadding * 2 + textHeight);
-							rectPos = vec4_t(
+							rectPos = vec4(
 								xOffset - 6,
 								yOffset,
 								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
 								yOffset + textPadding * 2 + textHeight);
-							leftRect = vec4_t(
+							leftRect = vec4(
 								xOffset - 6,
 								yOffset,
 								xOffset - 5,
 								yOffset + textPadding * 2 + textHeight);
-							topIce = vec4_t(
+							topIce = vec4(
 								xOffset - 7,
 								yOffset,
 								xOffset - 14,
 								yOffset + textPadding * 2 + textHeight);
-							rightRect = vec4_t(
+							rightRect = vec4(
 								xOffset - 6,
 								yOffset,
 								xOffset - 5,
 								yOffset + textPadding * 7 + textHeight);
-							underline = vec4_t(
+							underline = vec4(
 								windowSize.x - (Length + 6.f + (textPadding * 2.f)),
 								leftRect.y,
 								leftRect.x,
 								leftRect.y + 1.f);
 						} else {
-							textPos = vec2_t(
+							textPos = vec2(
 								xOffset + textPadding,
 								yOffset + textPadding);
-							FluxBar = vec4_t(
+							FluxBar = vec4(
 								windowSize.x - 3,
 								yOffset,
 								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
 								yOffset + textPadding * 2 + textHeight);
-							rectPos = vec4_t(
+							rectPos = vec4(
 								xOffset - 2,
 								yOffset,
 								isOnRightSide ? windowSize.x : textWidth + (textPadding * 2),
 								yOffset + textPadding * 2 + textHeight);
-							leftRect = vec4_t(
+							leftRect = vec4(
 								xOffset - 2,
 								yOffset,
 								xOffset - 1,
 								yOffset + textPadding * 2 + textHeight);
-							topIce = vec4_t(
+							topIce = vec4(
 								xOffset - 3,
 								yOffset,
 								xOffset - 10,
 								yOffset + textPadding * 2 + textHeight);
-							rightRect = vec4_t(
+							rightRect = vec4(
 								xOffset - 6,
 								yOffset,
 								xOffset - 5,
 								yOffset + textPadding * 7 + textHeight);
-							underline = vec4_t(
+							underline = vec4(
 								windowSize.x - (Length + 2.f + (textPadding * 2.f)),
 								leftRect.y,
 								leftRect.x,
@@ -980,7 +980,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							}
 						}
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && gui->clickToggle) {
-							vec4_t selectedRect = rectPos;
+							vec4 selectedRect = rectPos;
 							// selectedRect.x = leftRect.z;
 							// selectedRect.x = rightRect.z;
 							if (leftMouseDown) {
@@ -1008,12 +1008,12 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					}
 					if (gui->underbar) {
 						if (gui->rgb) {
-							DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(currColor), 1.f);
+							DrawUtils::fillRectangle(vec4{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(currColor), 1.f);
 						} else {
 							if (partner->Partnered.selected == 0)
-								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(0, 0, 0), 1.f);
+								DrawUtils::fillRectangle(vec4{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(0, 0, 0), 1.f);
 							else
-								DrawUtils::fillRectangle(vec4_t{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(184, 0, 255), 1.f);
+								DrawUtils::fillRectangle(vec4{rectPos.x, rectPos.w, rectPos.z, rectPos.w + 1.f}, MC_Color(184, 0, 255), 1.f);
 						}
 					}
 					c = 0;
@@ -1058,10 +1058,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			static auto partner = moduleMgr->getModule<Partner>();
 			float titleWidth = DrawUtils::getTextWidth(&box->title, titleTextSize);
 			float msgWidth = DrawUtils::getTextWidth(&box->message, messageTextSize);
-			vec2_t centerPos(wid.x / 2.f, wid.y / 50.f);
-			vec2_t textPos = vec2_t(wid.x / 2.f - titleWidth / 2.f, wid.y / 50.f);
-			vec2_t msgPos = vec2_t(wid.x / 2.f - msgWidth / 2.f, textPos.y + titleTextHeight + paddingVert);
-			vec4_t rectPos = vec4_t(
+			vec2 centerPos(wid.x / 2.f, wid.y / 50.f);
+			vec2 textPos = vec2(wid.x / 2.f - titleWidth / 2.f, wid.y / 50.f);
+			vec2 msgPos = vec2(wid.x / 2.f - msgWidth / 2.f, textPos.y + titleTextHeight + paddingVert);
+			vec4 rectPos = vec4(
 				centerPos.x - paddingHoriz - std::max(titleWidth, msgWidth) / 2,
 				centerPos.y - paddingVert,
 				centerPos.x + paddingHoriz + std::max(titleWidth, msgWidth) / 2,
@@ -1157,8 +1157,8 @@ float Hooks::Dimension_getTimeOfDay(__int64 _this, int a2, float a3) {
 	return oGetTimeOfDay(_this, a2, a3);
 }
 
-float Hooks::Dimension_getSunIntensity(__int64 a1, float a2, vec3_t* a3, float a4) {
-	static auto oGetSunIntensity = g_Hooks.Dimension_getSunIntensityHook->GetFastcall<float, __int64, float, vec3_t*, float>();
+float Hooks::Dimension_getSunIntensity(__int64 a1, float a2, vec3* a3, float a4) {
+	static auto oGetSunIntensity = g_Hooks.Dimension_getSunIntensityHook->GetFastcall<float, __int64, float, vec3*, float>();
 
 	static auto nightMod = moduleMgr->getModule<NightMode>();
 	if (nightMod->isEnabled()) {
@@ -1176,8 +1176,8 @@ void Hooks::ChestBlockActor_tick(C_ChestBlockActor* _this, void* a) {
 		GameData::addChestToList(_this);
 }
 
-void Hooks::Actor_lerpMotion(C_Entity* _this, vec3_t motVec) {
-	static auto oLerp = g_Hooks.Actor_lerpMotionHook->GetFastcall<void, C_Entity*, vec3_t>();
+void Hooks::Actor_lerpMotion(C_Entity* _this, vec3 motVec) {
+	static auto oLerp = g_Hooks.Actor_lerpMotionHook->GetFastcall<void, C_Entity*, vec3>();
 
 	if (g_Data.getLocalPlayer() != _this)
 		return oLerp(_this, motVec);
@@ -1307,8 +1307,8 @@ void Hooks::PleaseAutoComplete(__int64 a1, __int64 a2, TextHolder* text, int a4)
 	oAutoComplete(a1, a2, text, a4);
 }
 
-void Hooks::Actor_rotation(C_Entity* _this, vec2_t& sexyAngle) {
-	static auto oFunc = g_Hooks.Actor_rotationHook->GetFastcall<void, C_Entity*, vec2_t&>();
+void Hooks::Actor_rotation(C_Entity* _this, vec2& sexyAngle) {
+	static auto oFunc = g_Hooks.Actor_rotationHook->GetFastcall<void, C_Entity*, vec2&>();
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
 	static auto potionAuramod = moduleMgr->getModule<PotionAura>();
 	static auto freelookMod = moduleMgr->getModule<Freelook>();
@@ -1456,15 +1456,15 @@ void Hooks::MultiLevelPlayer_tick(C_EntityList* _this) {
 	}
 }
 
-void Hooks::GameMode_startDestroyBlock(C_GameMode* _this, vec3_ti* a2, uint8_t face, void* a4, void* a5) {
-	static auto oFunc = g_Hooks.GameMode_startDestroyBlockHook->GetFastcall<void, C_GameMode*, vec3_ti*, uint8_t, void*, void*>();
+void Hooks::GameMode_startDestroyBlock(C_GameMode* _this, vec3i* a2, uint8_t face, void* a4, void* a5) {
+	static auto oFunc = g_Hooks.GameMode_startDestroyBlockHook->GetFastcall<void, C_GameMode*, vec3i*, uint8_t, void*, void*>();
 
 	static auto nukerModule = moduleMgr->getModule<Nuker>();
 	static auto instaBreakModule = moduleMgr->getModule<InstaBreak>();
 	static auto fucker = moduleMgr->getModule<Fucker>();
 
 	if (nukerModule->isEnabled()) {
-		vec3_ti tempPos;
+		vec3i tempPos;
 
 		int range = nukerModule->getNukerRadius();
 		const bool isVeinMiner = nukerModule->isVeinMiner();
@@ -2265,8 +2265,8 @@ __int64 Hooks::GameMode_attack(C_GameMode* _this, C_Entity* ent) {
 	return func(_this, ent);
 }
 
-void Hooks::setPos(C_Entity* ent, vec3_t& poo) {
-	auto func = g_Hooks.setPosHook->GetFastcall<void, C_Entity*, vec3_t&>();
+void Hooks::setPos(C_Entity* ent, vec3& poo) {
+	auto func = g_Hooks.setPosHook->GetFastcall<void, C_Entity*, vec3&>();
 	static auto lag = moduleMgr->getModule<AntiLagBack>();
 	if (lag->isEnabled() && ent == g_Data.getLocalPlayer())  // Cancel setPos
 		return;
@@ -2278,14 +2278,14 @@ void Hooks::LocalPlayer__updateFromCamera(__int64 a1, C_Camera* camera) {
 	auto freecamMod = moduleMgr->getModule<Freecam>();
 
 	/* if (freecamMod->isEnabled() && g_Data.getLocalPlayer()->isAlive()) {
-		memcpy((void*)((uintptr_t)camera + 0xB8), &freecamMod->targetPos, sizeof(vec3_t));
+		memcpy((void*)((uintptr_t)camera + 0xB8), &freecamMod->targetPos, sizeof(vec3));
 		camera->renderPlayerModel = true;
 		camera->renderFirstPersonObjects = false;
 		camera->getPlayerRotation(&freecamMod->cameraRot);
 	}
 
 	if (noHurtcamMod->isEnabled() && g_Data.isInGame() && g_Data.getLocalPlayer()->isAlive()) {
-		vec2_t rot;
+		vec2 rot;
 		camera->getPlayerRotation(&rot);
 		if (camera->facesPlayerFront) {
 			rot.x *= -1;  // rotate back

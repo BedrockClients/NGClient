@@ -14,7 +14,7 @@ bool initialised = false;
 int scrollingDirection = 0;
 
 struct SavedWindowSettings {
-	vec2_t pos = {-1, -1};
+	vec2 pos = {-1, -1};
 	bool isExtended = true;
 	const char* name = "";
 };
@@ -24,7 +24,7 @@ std::map<unsigned int, SavedWindowSettings> savedWindowSettings;
 
 bool isDragging = false;
 unsigned int draggedWindow = -1;
-vec2_t dragStart = vec2_t();
+vec2 dragStart = vec2();
 
 unsigned int focusedElement = -1;
 bool isFocused = false;
@@ -99,13 +99,13 @@ void ClickGui::renderLabel(const char* text) {
 void ClickGui::renderTooltip(std::string* text) {
 	static auto partner = moduleMgr->getModule<Partner>();
 	static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
-	vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-	vec2_t currentTooltipPos = vec2_t(5.f, windowSize.y - 15.f);
+	vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+	vec2 currentTooltipPos = vec2(5.f, windowSize.y - 15.f);
 	float textWidth = DrawUtils::getTextWidth(text, textSize);
-	vec2_t textPos = vec2_t(
+	vec2 textPos = vec2(
 		currentTooltipPos.x + textPadding,
 		currentTooltipPos.y);
-	vec4_t rectPos = vec4_t(
+	vec4 rectPos = vec4(
 		currentTooltipPos.x - 2.f,
 		currentTooltipPos.y - 2.f,
 		currentTooltipPos.x + (textPadding * 2) + textWidth + 2.f,
@@ -190,7 +190,7 @@ void ClickGui::renderTooltip(std::string* text) {
 
 	const float xOffset = ourWindow->pos.x;
 	const float yOffset = ourWindow->pos.y;
-	vec2_t* windowSize = &ourWindow->size;
+	vec2* windowSize = &ourWindow->size;
 	currentXOffset = xOffset;
 	currentYOffset = yOffset;
 
@@ -208,12 +208,12 @@ void ClickGui::renderTooltip(std::string* text) {
 
 	const float xEnd = currentXOffset + windowSize->x + paddingRight;
 
-	vec2_t mousePos = *g_Data.getClientInstance()->getMousePos();
+	vec2 mousePos = *g_Data.getClientInstance()->getMousePos();
 
 	// Convert mousePos to visual Pos
 	{
-		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-		vec2_t windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
+		vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+		vec2 windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
 
 		mousePos = mousePos.div(windowSizeReal);
 		mousePos = mousePos.mul(windowSize);
@@ -265,10 +265,10 @@ void ClickGui::renderTooltip(std::string* text) {
 
 			std::string textStr = mod->getModuleName();
 
-			vec2_t textPos = vec2_t(
+			vec2 textPos = vec2(
 				currentXOffset + textPadding,
 				currentYOffset + textPadding);
-			vec4_t rectPos = vec4_t(
+			vec4 rectPos = vec4(
 				currentXOffset,
 				currentYOffset,
 				xEnd,
@@ -352,24 +352,24 @@ void ClickGui::renderTooltip(std::string* text) {
 						clickMod->isExtended = !clickMod->isExtended;
 					}
 					if (partner->Partnered.selected == 1) {
-						GuiUtils::drawCrossLine(vec2_t(
+						GuiUtils::drawCrossLine(vec2(
 													currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 													currentYOffset + textPadding + (textHeight / 2)),
 												MC_Color(150, 30, 255), crossWidth, crossSize, !clickMod->isExtended);
 					} else {
 						if (partner->Partnered.selected == 0) {
-							GuiUtils::drawCrossLine(vec2_t(
+							GuiUtils::drawCrossLine(vec2(
 														currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 														currentYOffset + textPadding + (textHeight / 2)),
 													MC_Color(0, 0, 255), crossWidth, crossSize, !clickMod->isExtended);
 						} else {
 							if (partner->Partnered.selected == 2) {
-								GuiUtils::drawCrossLine(vec2_t(
+								GuiUtils::drawCrossLine(vec2(
 															currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 															currentYOffset + textPadding + (textHeight / 2)),
 														MC_Color(184, 0, 255), crossWidth, crossSize, !clickMod->isExtended);
 							} else {
-									GuiUtils::drawCrossLine(vec2_t(
+									GuiUtils::drawCrossLine(vec2(
 															currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 															currentYOffset + textPadding + (textHeight / 2)),
 															MC_Color(184, 0, 255), crossWidth, crossSize, !clickMod->isExtended);
@@ -385,12 +385,12 @@ void ClickGui::renderTooltip(std::string* text) {
 							if (strcmp(setting->name, "enabled") == 0 || strcmp(setting->name, "keybind") == 0)
 								continue;
 
-							vec2_t textPos = vec2_t(
+							vec2 textPos = vec2(
 								currentXOffset + textPadding + 5,
 								currentYOffset + textPadding);
 
 							// Incomplete, because we dont know the endY yet
-							vec4_t rectPos = vec4_t(
+							vec4 rectPos = vec4(
 								currentXOffset,
 								currentYOffset,
 								xEnd,
@@ -410,7 +410,7 @@ void ClickGui::renderTooltip(std::string* text) {
 								} else {
 									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), clickGuiMod->opacity);
 								}
-								vec4_t selectableSurface = vec4_t(
+								vec4 selectableSurface = vec4(
 									textPos.x + textPadding,
 									textPos.y + textPadding,
 									xEnd - textPadding,
@@ -426,7 +426,7 @@ void ClickGui::renderTooltip(std::string* text) {
 								}
 								// Checkbox
 								if (partner->Partnered.selected == 1) {
-									vec4_t boxPos = vec4_t(
+									vec4 boxPos = vec4(
 										textPos.x + textPadding,
 										textPos.y + textPadding,
 										textPos.x + textHeight - textPadding,
@@ -440,12 +440,12 @@ void ClickGui::renderTooltip(std::string* text) {
 										boxPos.y += textPadding;
 										boxPos.z -= textPadding;
 										boxPos.w -= textPadding;
-										DrawUtils::drawLine(vec2_t(boxPos.x, boxPos.y), vec2_t(boxPos.z, boxPos.w), 0.5f);
-										DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
+										DrawUtils::drawLine(vec2(boxPos.x, boxPos.y), vec2(boxPos.z, boxPos.w), 0.5f);
+										DrawUtils::drawLine(vec2(boxPos.z, boxPos.y), vec2(boxPos.x, boxPos.w), 0.5f);
 									}
 								} else {
 									if (partner->Partnered.selected == 0) {
-										vec4_t boxPos = vec4_t(
+										vec4 boxPos = vec4(
 											textPos.x + textPadding,
 											textPos.y + textPadding,
 											textPos.x + textHeight - textPadding,
@@ -459,12 +459,12 @@ void ClickGui::renderTooltip(std::string* text) {
 											boxPos.y += textPadding;
 											boxPos.z -= textPadding;
 											boxPos.w -= textPadding;
-											DrawUtils::drawLine(vec2_t(boxPos.x, boxPos.y), vec2_t(boxPos.z, boxPos.w), 0.5f);
-											DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
+											DrawUtils::drawLine(vec2(boxPos.x, boxPos.y), vec2(boxPos.z, boxPos.w), 0.5f);
+											DrawUtils::drawLine(vec2(boxPos.z, boxPos.y), vec2(boxPos.x, boxPos.w), 0.5f);
 										}
 									} else {
 										if (partner->Partnered.selected == 2) {
-											vec4_t boxPos = vec4_t(
+											vec4 boxPos = vec4(
 												textPos.x + textPadding,
 												textPos.y + textPadding,
 												textPos.x + textHeight - textPadding,
@@ -478,11 +478,11 @@ void ClickGui::renderTooltip(std::string* text) {
 												boxPos.y += textPadding;
 												boxPos.z -= textPadding;
 												boxPos.w -= textPadding;
-												DrawUtils::drawLine(vec2_t(boxPos.x, boxPos.y), vec2_t(boxPos.z, boxPos.w), 0.5f);
-												DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
+												DrawUtils::drawLine(vec2(boxPos.x, boxPos.y), vec2(boxPos.z, boxPos.w), 0.5f);
+												DrawUtils::drawLine(vec2(boxPos.z, boxPos.y), vec2(boxPos.x, boxPos.w), 0.5f);
 											}
 										} else {
-											vec4_t boxPos = vec4_t(
+											vec4 boxPos = vec4(
 												textPos.x + textPadding,
 												textPos.y + textPadding,
 												textPos.x + textHeight - textPadding,
@@ -496,8 +496,8 @@ void ClickGui::renderTooltip(std::string* text) {
 												boxPos.y += textPadding;
 												boxPos.z -= textPadding;
 												boxPos.w -= textPadding;
-												DrawUtils::drawLine(vec2_t(boxPos.x, boxPos.y), vec2_t(boxPos.z, boxPos.w), 0.5f);
-												DrawUtils::drawLine(vec2_t(boxPos.z, boxPos.y), vec2_t(boxPos.x, boxPos.w), 0.5f);
+												DrawUtils::drawLine(vec2(boxPos.x, boxPos.y), vec2(boxPos.z, boxPos.w), 0.5f);
+												DrawUtils::drawLine(vec2(boxPos.z, boxPos.y), vec2(boxPos.x, boxPos.w), 0.5f);
 											}
 										}
 									}
@@ -571,7 +571,7 @@ void ClickGui::renderTooltip(std::string* text) {
 									windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 5 /* because we add 5 to text padding*/ + crossSize);
 									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
-									GuiUtils::drawCrossLine(vec2_t(
+									GuiUtils::drawCrossLine(vec2(
 																currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 																currentYOffset + textPadding + (textHeight / 2)),
 															MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), crossWidth, crossSize, !setting->minValue->_bool);
@@ -604,7 +604,7 @@ void ClickGui::renderTooltip(std::string* text) {
 																				&elTexto, textSize) +
 																				5);  // because we add 5 to text padding
 										textPos.y = currentYOffset + textPadding;
-										vec4_t selectableSurface = vec4_t(
+										vec4 selectableSurface = vec4(
 											textPos.x,
 											rectPos.y,
 											xEnd,
@@ -659,7 +659,7 @@ void ClickGui::renderTooltip(std::string* text) {
 								}
 								// Slider
 								{
-									vec4_t rect = vec4_t(
+									vec4 rect = vec4(
 										currentXOffset + textPadding + 5,
 										currentYOffset + textPadding,
 										xEnd - textPadding,
@@ -686,7 +686,7 @@ void ClickGui::renderTooltip(std::string* text) {
 
 										// Draw Int
 										{
-											vec2_t mid = vec2_t(
+											vec2 mid = vec2(
 												rect.x + ((rect.z - rect.x) / 2),
 												rect.y - 0.2f);
 											char str[10];
@@ -752,7 +752,7 @@ void ClickGui::renderTooltip(std::string* text) {
 								}
 								// Slider
 								{
-									vec4_t rect = vec4_t(
+									vec4 rect = vec4(
 										currentXOffset + textPadding + 5,
 										currentYOffset + textPadding,
 										xEnd - textPadding,
@@ -780,7 +780,7 @@ void ClickGui::renderTooltip(std::string* text) {
 
 										// Draw Int
 										{
-											vec2_t mid = vec2_t(
+											vec2 mid = vec2(
 												rect.x + ((rect.z - rect.x) / 2),
 												rect.y - 0.2f  // Hardcoded ghetto
 											);
@@ -866,7 +866,7 @@ void ClickGui::renderTooltip(std::string* text) {
 							startYOffset += textPadding;
 							endYOffset -= textPadding;
 							DrawUtils::setColor(1, 1, 1, 1);
-							DrawUtils::drawLine(vec2_t(currentXOffset + 2, startYOffset), vec2_t(currentXOffset + 2, endYOffset), 0.5f);
+							DrawUtils::drawLine(vec2(currentXOffset + 2, startYOffset), vec2(currentXOffset + 2, endYOffset), 0.5f);
 						}
 					}
 				} else
@@ -874,7 +874,7 @@ void ClickGui::renderTooltip(std::string* text) {
 			}
 		}
 
-		vec4_t winRectPos = vec4_t(
+		vec4 winRectPos = vec4(
 			xOffset,
 			yOffset,
 			xEnd,
@@ -895,10 +895,10 @@ void ClickGui::renderTooltip(std::string* text) {
 	DrawUtils::flush();
 	// Draw Category Header
 	{
-		vec2_t textPos = vec2_t(
+		vec2 textPos = vec2(
 			currentXOffset + textPadding,
 			categoryHeaderYOffset + textPadding);
-		vec4_t rectPos = vec4_t(
+		vec4 rectPos = vec4(
 			currentXOffset - categoryMargin,
 			categoryHeaderYOffset - categoryMargin,
 			currentXOffset + windowSize->x + paddingRight + categoryMargin,
@@ -927,7 +927,7 @@ void ClickGui::renderTooltip(std::string* text) {
 		{
 			if (isDragging && Utils::getCrcHash(categoryName) == draggedWindow) {  // WE are being dragged
 				if (isLeftClickDown) {                                             // Still dragging
-					vec2_t diff = vec2_t(mousePos).sub(dragStart);
+					vec2 diff = vec2(mousePos).sub(dragStart);
 					ourWindow->pos = ourWindow->pos.add(diff);
 					dragStart = mousePos;
 				} else {  // Stopped dragging
@@ -954,9 +954,9 @@ void ClickGui::renderTooltip(std::string* text) {
 				}
 				DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
-				DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(150, 30, 255), 1 - ourWindow->animation);
+				DrawUtils::fillRectangle(vec4(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(150, 30, 255), 1 - ourWindow->animation);
 				// Draw Dash
-				GuiUtils::drawCrossLine(vec2_t(
+				GuiUtils::drawCrossLine(vec2(
 											currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 											categoryHeaderYOffset + textPadding + (textHeight / 2)),
 										MC_Color(150, 30, 255), crossWidth, crossSize, !ourWindow->isExtended);
@@ -974,9 +974,9 @@ void ClickGui::renderTooltip(std::string* text) {
 					}
 					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
-					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(0, 0, 255), 1 - ourWindow->animation);
+					DrawUtils::fillRectangle(vec4(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), MC_Color(0, 0, 255), 1 - ourWindow->animation);
 					// Draw Dash
-					GuiUtils::drawCrossLine(vec2_t(
+					GuiUtils::drawCrossLine(vec2(
 												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 												categoryHeaderYOffset + textPadding + (textHeight / 2)),
 											MC_Color(0, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
@@ -993,9 +993,9 @@ void ClickGui::renderTooltip(std::string* text) {
 					}
 					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
-					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
+					DrawUtils::fillRectangle(vec4(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
 					// Draw Dash
-					GuiUtils::drawCrossLine(vec2_t(
+					GuiUtils::drawCrossLine(vec2(
 												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 												categoryHeaderYOffset + textPadding + (textHeight / 2)),
 											MC_Color(184, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
@@ -1010,9 +1010,9 @@ void ClickGui::renderTooltip(std::string* text) {
 					}
 					DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
 
-					DrawUtils::fillRectangle(vec4_t(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
+					DrawUtils::fillRectangle(vec4(rectPos.x, rectPos.w - 1, rectPos.z, rectPos.w), selectedModuleColor, 1 - ourWindow->animation);
 					// Draw Dash
-					GuiUtils::drawCrossLine(vec2_t(
+					GuiUtils::drawCrossLine(vec2(
 												currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
 												categoryHeaderYOffset + textPadding + (textHeight / 2)),
 											MC_Color(184, 0, 255), crossWidth, crossSize, !ourWindow->isExtended);
@@ -1023,7 +1023,7 @@ void ClickGui::renderTooltip(std::string* text) {
 
 	// anti idiot
 	{
-		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+		vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 
 		if (ourWindow->pos.x + ourWindow->size.x > windowSize.x) {
 			ourWindow->pos.x = windowSize.x - ourWindow->size.x;
@@ -1050,7 +1050,7 @@ void ClickGui::render() {
 
 	// Fill Background
 	{
-		DrawUtils::fillRectangle(vec4_t(
+		DrawUtils::fillRectangle(vec4(
 									 0,
 									 0,
 									 g_Data.getClientInstance()->getGuiData()->widthGame,
@@ -1126,7 +1126,7 @@ void ClickGui::onKeyUpdate(int key, bool isDown) {
 		clickGuiMod->setEnabled(false);
 		return;
 	default:
-		if (key == clickGuiMod->getKeybind())
+		if (key == clickGuiMod->getKey())
 			clickGuiMod->setEnabled(false);
 	}
 }

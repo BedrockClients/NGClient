@@ -1,6 +1,6 @@
 #include "InfiniteAura.h"
 
-InfiniteAura::InfiniteAura() : IModule(0, Category::COMBAT, "Killaura with infinite reach") {
+InfiniteAura::InfiniteAura() : IModule(0x0, Category::COMBAT, "Killaura with infinite reach") {
 	registerBoolSetting("Multiaura", &isMulti, isMulti);
 	registerBoolSetting("Hive", &hivee, hivee);  //funni bypaz
 	registerBoolSetting("MobAura", &isMobAura, isMobAura);
@@ -79,20 +79,20 @@ void InfiniteAura::onTick(C_GameMode* gm) {
 				if (hivee) {
 					if (isMulti) {
 						for (int i = 0; i < targetList0.size(); i++) {
-							vec3_t pos = *targetList0[i]->getPos();
-							teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3_t(pos.x - teleportX, pos.y, pos.z - teleportZ));
+							vec3 pos = *targetList0[i]->getPos();
+							teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3(pos.x - teleportX, pos.y, pos.z - teleportZ));
 							g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&teleportPacket);
 							g_Data.getCGameMode()->attack(targetList0[i]);
 						}
 					} else {
-						vec3_t pos = *targetList0[0]->getPos();
-						teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3_t(pos.x, pos.y, pos.z));
+						vec3 pos = *targetList0[0]->getPos();
+						teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3(pos.x, pos.y, pos.z));
 						g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&teleportPacket);
 						g_Data.getCGameMode()->attack(targetList0[0]);
 					}
 				} else {
 					if (strcmp(g_Data.getRakNetInstance()->serverIp.getText(), "mco.cubecraft.net") == 0) {
-						vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+						vec3 pos = *g_Data.getLocalPlayer()->getPos();
 
 						C_MovePlayerPacket movePlayerPacket(g_Data.getLocalPlayer(), pos);
 						g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&movePlayerPacket);
@@ -104,16 +104,16 @@ void InfiniteAura::onTick(C_GameMode* gm) {
 					}
 					if (isMulti) {
 						for (int i = 0; i < targetList0.size(); i++) {
-							vec3_t pos = *targetList0[i]->getPos();
-							teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3_t(pos.x - teleportX, pos.y, pos.z - teleportZ));
+							vec3 pos = *targetList0[i]->getPos();
+							teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3(pos.x - teleportX, pos.y, pos.z - teleportZ));
 							g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&teleportPacket);
 							g_Data.getCGameMode()->attack(targetList0[i]);
 							teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
 							g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&teleportPacket);
 						}
 					} else {
-						vec3_t pos = *targetList0[0]->getPos();
-						teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3_t(pos.x - teleportX, pos.y, pos.z - teleportZ));
+						vec3 pos = *targetList0[0]->getPos();
+						teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), vec3(pos.x - teleportX, pos.y, pos.z - teleportZ));
 						g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&teleportPacket);
 						g_Data.getCGameMode()->attack(targetList0[0]);
 						teleportPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
@@ -141,7 +141,7 @@ void InfiniteAura::onSendPacket(C_Packet* packet) {  //this is big brain time
 
 		if (!targetList0.empty()) {
 			if (Odelay >= delay) {
-				vec3_t la = *targetList0[0]->getPos();
+				vec3 la = *targetList0[0]->getPos();
 				if (packet->isInstanceOf<PlayerAuthInputPacket>()) {
 					PlayerAuthInputPacket* InputPacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
 					InputPacket->pos = la;

@@ -83,7 +83,7 @@ void TPAura::onTick(C_GameMode* gm) {
 
 	Odelay++;
 	if (!targetList.empty() && Odelay >= delay) {
-		vec3_t pos = *targetList[0]->getPos();
+		vec3 pos = *targetList[0]->getPos();
 		if (turn == 3) {
 			pos.y += 2;
 			pos.x += -1.f;
@@ -116,7 +116,7 @@ void TPAura::onTick(C_GameMode* gm) {
 		} else {
 			float dist2 = gm->player->getPos()->dist(pos);
 			//player->lerpMotion(pos);
-			player->setPos(pos);   //lerpTo is gone , vec2_t(1, 1), (int)fmax((int)dist2 * 0.1, 1));
+			player->setPos(pos);   //lerpTo is gone , vec2(1, 1), (int)fmax((int)dist2 * 0.1, 1));
 			player->lerpMotion(pos);
 		}
 		Odelay = 0;
@@ -147,7 +147,7 @@ void TPAura::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
 		if (!targetList.empty()) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			vec2 angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			movePacket->pitch = angle.x;
 			movePacket->headYaw = angle.y;
 			movePacket->yaw = angle.y;
@@ -157,9 +157,9 @@ void TPAura::onSendPacket(C_Packet* packet) {
 
 void TPAura::onPostRender(C_MinecraftUIRenderContext* ctx) {
 	/* if (!targetList.empty() && TPAuratargetHUD && g_Data.isInGame()) {
-		vec4_t tempPos = vec4_t(120.f, 5.f, 90.f, 40.f);           //temp pos for the text pos, so we can create a pos that doesn't have player names overlapping from the box to the screen
-		vec2_t textPos = vec2_t(tempPos.y, tempPos.x);             //text pos
-		vec4_t pos = vec4_t(3.f, 118.f, 75.f + textPos.x, 223.f);  //pos for using
+		vec4 tempPos = vec4(120.f, 5.f, 90.f, 40.f);           //temp pos for the text pos, so we can create a pos that doesn't have player names overlapping from the box to the screen
+		vec2 textPos = vec2(tempPos.y, tempPos.x);             //text pos
+		vec4 pos = vec4(3.f, 118.f, 75.f + textPos.x, 223.f);  //pos for using
 		static float rcolors2[4];                                  // Rainbow color array RGBA
 		static float disabledRcolors2[4];                          // Rainbow Colors, but for disabled modules
 		static float currColor[4];                                 // ArrayList colors

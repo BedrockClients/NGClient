@@ -11,21 +11,21 @@ private:
 	virtual __int64 destructorGameMode();
 	// Duplicate destructor
 public:
-	virtual __int64 startDestroyBlock(vec3_ti const & pos, unsigned char blockSide, bool & isDestroyedOut);
-	virtual __int64 destroyBlock(vec3_ti *, unsigned char);
-	virtual __int64 continueDestroyBlock(vec3_ti const &, unsigned char blockSide, bool & isDestroyedOut);
-	virtual __int64 stopDestroyBlock(vec3_ti const &);
-	virtual __int64 startBuildBlock(vec3_ti const &, unsigned char);
-	virtual __int64 buildBlock(vec3_ti *, unsigned char);
-	virtual __int64 continueBuildBlock(vec3_ti const &, unsigned char);
+	virtual __int64 startDestroyBlock(vec3i const & pos, unsigned char blockSide, bool & isDestroyedOut);
+	virtual __int64 destroyBlock(vec3i *, unsigned char);
+	virtual __int64 continueDestroyBlock(vec3i const &, unsigned char blockSide, bool & isDestroyedOut);
+	virtual __int64 stopDestroyBlock(vec3i const &);
+	virtual __int64 startBuildBlock(vec3i const &, unsigned char);
+	virtual __int64 buildBlock(vec3i *, unsigned char);
+	virtual __int64 continueBuildBlock(vec3i const &, unsigned char);
 	virtual __int64 stopBuildBlock(void);
 	virtual __int64 tick(void);
 
 private:
 	virtual __int64 getPickRange(__int64 const &, bool);
 	virtual __int64 useItem(C_ItemStack &);
-	virtual __int64 useItemOn(C_ItemStack &, vec3_ti const &, unsigned char, vec3_t const &, C_Block const *);
-	virtual __int64 interact(C_Entity &, vec3_t const &);
+	virtual __int64 useItemOn(C_ItemStack &, vec3i const &, unsigned char, vec3 const &, C_Block const *);
+	virtual __int64 interact(C_Entity &, vec3 const &);
 
 public:
 	virtual __int64 attack(C_Entity *);

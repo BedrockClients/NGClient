@@ -15,7 +15,7 @@ private:
 public:
 	bool targetListC = false;
 	bool sex = false;
-	vec2_t amogus;
+	vec2 amogus;
 	bool packetfukery;
 	bool isMobAura = false;
 	bool hivee = false;

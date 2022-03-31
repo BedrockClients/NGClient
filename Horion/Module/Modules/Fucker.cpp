@@ -27,11 +27,11 @@ const char* Fucker::getModuleName() {
 
 void Fucker::onTick(C_GameMode* gm) {
 	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->getLocalPlayer()->isAlive()) {
-		vec3_t* pos = gm->player->getPos();
+		vec3* pos = gm->player->getPos();
 		for (int x = (int)pos->x - range; x < pos->x + range; x++) {
 			for (int z = (int)pos->z - range; z < pos->z + range; z++) {
 				for (int y = (int)pos->y - range; y < pos->y + range; y++) {
-					blockPos = vec3_ti(x, y, z);
+					blockPos = vec3i(x, y, z);
 					destroy = false;
 					bool eat = false;
 					std::string name = gm->player->region->getBlock(blockPos)->toLegacy()->name.getText();
@@ -81,7 +81,7 @@ void Fucker::onTick(C_GameMode* gm) {
 void Fucker::onPlayerTick(C_Player* plr) {
 	if (g_Data.isInGame() && g_Data.canUseMoveKeys() && g_Data.getClientInstance()->getLocalPlayer()->isAlive()) {
 		if (destroy && rots) {
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(vec3_t(blockPos.x, blockPos.y, blockPos.z));
+			vec2 angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(vec3(blockPos.x, blockPos.y, blockPos.z));
 			plr->bodyYaw = angle.y;
 			plr->yawUnused1 = angle.y;
 			plr->pitch = angle.x;
@@ -95,7 +95,7 @@ void Fucker::onSendPacket(C_Packet* packet) {
 		if (destroy && g_Data.isInGame() && packet != nullptr) {
 			instaBreakModule->mode.selected = 1;
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(vec3_t(blockPos.x, blockPos.y, blockPos.z));
+			vec2 angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(vec3(blockPos.x, blockPos.y, blockPos.z));
 			movePacket->pitch = angle.x;
 			movePacket->yaw = angle.y;
 			movePacket->headYaw = angle.y;

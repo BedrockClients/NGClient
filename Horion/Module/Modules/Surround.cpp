@@ -3,7 +3,7 @@
 #include "../../DrawUtils.h"
 #include "../ModuleManager.h"
 
-Surround::Surround() : IModule(0, Category::WORLD, "Surrounds you in obsidian for less damage") {
+Surround::Surround() : IModule(0x0, Category::WORLD, "Surrounds you in obsidian for less damage") {
 	enum1 = SettingEnum(this)
 				.addEntry(EnumEntry("AntiCity", 1))
 				.addEntry(EnumEntry("Normal", 2));
@@ -58,31 +58,31 @@ bool isInInv(int Itemid) {
 	return false;
 }
 
-bool SurroundCheck(vec3_t blockBelow) {
+bool SurroundCheck(vec3 blockBelow) {
 	blockBelow = blockBelow.floor();
 
-	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(blockBelow));
+	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3i(blockBelow));
 	C_BlockLegacy* blockLegacy = (block->blockLegacy);
 	if (blockLegacy->material->isReplaceable) {
-		vec3_ti blok(blockBelow);
+		vec3i blok(blockBelow);
 
 		// Find neighbour
-		static std::vector<vec3_ti*> checklist;
+		static std::vector<vec3i*> checklist;
 		if (checklist.empty()) {
-			checklist.push_back(new vec3_ti(0, -1, 0));
-			checklist.push_back(new vec3_ti(0, 1, 0));
+			checklist.push_back(new vec3i(0, -1, 0));
+			checklist.push_back(new vec3i(0, 1, 0));
 
-			checklist.push_back(new vec3_ti(0, 0, -1));
-			checklist.push_back(new vec3_ti(0, 0, 1));
+			checklist.push_back(new vec3i(0, 0, -1));
+			checklist.push_back(new vec3i(0, 0, 1));
 
-			checklist.push_back(new vec3_ti(-1, 0, 0));
-			checklist.push_back(new vec3_ti(1, 0, 0));
+			checklist.push_back(new vec3i(-1, 0, 0));
+			checklist.push_back(new vec3i(1, 0, 0));
 		}
 
 		bool foundCandidate = false;
 		int i = 0;
 		for (auto current : checklist) {
-			vec3_ti calc = blok.sub(*current);
+			vec3i calc = blok.sub(*current);
 			bool Y = ((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable;
 			if (!((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable) {
 				// Found a solid block to click
@@ -140,7 +140,7 @@ void Surround::onTick(C_GameMode* gm) {
 			}
 	}
 
-	vec3_t yR = vec3_t(floor(g_Data.getLocalPlayer()->getPos()->x), g_Data.getLocalPlayer()->getPos()->y, floor(g_Data.getLocalPlayer()->getPos()->z));
+	vec3 yR = vec3(floor(g_Data.getLocalPlayer()->getPos()->x), g_Data.getLocalPlayer()->getPos()->y, floor(g_Data.getLocalPlayer()->getPos()->z));
 	yR.x += 0.5f;
 	yR.z += 0.5f;
 	g_Data.getLocalPlayer()->setPos(yR);
@@ -173,7 +173,7 @@ void Surround::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				auto mathsBlockPos = flooredPos.add(surroundBlock);
 
-				auto vec1 = vec3_t(1.f, 0.2f, 1.f);
+				auto vec1 = vec3(1.f, 0.2f, 1.f);
 
 				if (g_Data.getLocalPlayer()->region->getBlock(mathsBlockPos)->toLegacy()->blockId == 0)
 					DrawUtils::drawBox(mathsBlockPos, mathsBlockPos.add(vec1), 1.f, true);
@@ -190,7 +190,7 @@ void Surround::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				auto mathsBlockPos = flooredPos.add(surroundBlock);
 
-				auto vec1 = vec3_t(1.f, 0.2f, 1.f);
+				auto vec1 = vec3(1.f, 0.2f, 1.f);
 
 				if (g_Data.getLocalPlayer()->region->getBlock(mathsBlockPos)->toLegacy()->blockId == 0)
 					DrawUtils::drawBox(mathsBlockPos, mathsBlockPos.add(vec1), 1.f, true);
@@ -207,7 +207,7 @@ void Surround::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 				auto mathsBlockPos = flooredPos.add(surroundBlock);
 
-				auto vec1 = vec3_t(1.f, 0.2f, 1.f);
+				auto vec1 = vec3(1.f, 0.2f, 1.f);
 
 				if (g_Data.getLocalPlayer()->region->getBlock(mathsBlockPos)->toLegacy()->blockId == 0)
 					DrawUtils::drawBox(mathsBlockPos, mathsBlockPos.add(vec1), 1.f, true);

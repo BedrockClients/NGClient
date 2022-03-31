@@ -30,16 +30,16 @@ const char* HoleESP::getModuleName() {
 void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 	if (!(g_Data.getLocalPlayer() == nullptr || !GameData::canUseMoveKeys())) {
 		if (g_Data.isInGame()) {
-			vec3_t* pos = g_Data.getLocalPlayer()->getPos();
+			vec3* pos = g_Data.getLocalPlayer()->getPos();
 			for (int x = (int)pos->x - range; x < pos->x + range; x++) {
 				for (int z = (int)pos->z - range; z < pos->z + range; z++) {
 					for (int y = (int)pos->y - range; y < pos->y + range; y++) {
-						vec3_t blockPos = vec3_t(x, y, z);
-						vec3_t blockPos2 = vec3_t(x + 1, y, z);
-						vec3_t blockPos3 = vec3_t(x, y, z + 1);
-						vec3_t blockPos4 = vec3_t(x, y - 1, z);
-						vec3_t blockPos5 = vec3_t(x - 1, y, z);
-						vec3_t blockPos6 = vec3_t(x, y, z - 1);
+						vec3 blockPos = vec3(x, y, z);
+						vec3 blockPos2 = vec3(x + 1, y, z);
+						vec3 blockPos3 = vec3(x, y, z + 1);
+						vec3 blockPos4 = vec3(x, y - 1, z);
+						vec3 blockPos5 = vec3(x - 1, y, z);
+						vec3 blockPos6 = vec3(x, y, z - 1);
 
 						C_Block* block = g_Data.getLocalPlayer()->region->getBlock(blockPos);
 						C_Block* block2 = g_Data.getLocalPlayer()->region->getBlock(blockPos2);
@@ -62,7 +62,7 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 							// Draw Obsidian Hole
 							if (obsidian) {
-								auto vec1 = vec3_t(1.f, 0.1f, 1.f);
+								auto vec1 = vec3(1.f, 0.1f, 1.f);
 								if ((blockId2 == 49 && blockId3 == 49 && blockId4 == 49 && blockId5 == 49 && blockId6 == 49 && blockId == 0)) {
 									if (g_Data.getLocalPlayer()->region->getBlock(blockPos.add(0, 1, 0))->blockLegacy->blockId != 0)
 										continue;
@@ -70,7 +70,7 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 									if (g_Data.getLocalPlayer()->region->getBlock(blockPos.add(0, 2, 0))->blockLegacy->blockId)
 										continue;
 									if (enum1.selected == 2) {
-										DrawUtils::drawBoxv2(blockPos, vec3_t(blockPos).add(1), (float)0.4f);
+										DrawUtils::drawBoxv2(blockPos, vec3(blockPos).add(1), (float)0.4f);
 										DrawUtils::setColor(rSelect1, gSelect1, bSelect1, 1);
 									}
 									if (enum1.selected == 1) {
@@ -78,14 +78,14 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 										DrawUtils::setColor(rSelect1, gSelect1, bSelect1, 1);
 									}
 									if (enum1.selected == 0) {
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)0.4f);
+										DrawUtils::drawBox(blockPos, vec3(blockPos).add(1), (float)0.4f);
 										DrawUtils::setColor(rSelect1, gSelect1, bSelect1, 1);
 									}
 								}
 							}
 
 							if (mix) {
-								auto vec1 = vec3_t(1.f, 0.1f, 1.f);
+								auto vec1 = vec3(1.f, 0.1f, 1.f);
 								if ((blockId2 == 49 || blockId2 == 7) && (blockId3 == 49 || blockId3 == 7) && (blockId4 == 49) && (blockId5 == 49 || blockId5 == 7) && (blockId6 == 49 || blockId6 == 7) && (blockId == 0)) {
 									if (g_Data.getLocalPlayer()->region->getBlock(blockPos.add(0, 1, 0))->blockLegacy->blockId != 0)
 										continue;
@@ -93,7 +93,7 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 									if (g_Data.getLocalPlayer()->region->getBlock(blockPos.add(0, 2, 0))->blockLegacy->blockId)
 										continue;
 									if (enum1.selected == 2) {
-										DrawUtils::drawBoxv2(blockPos, vec3_t(blockPos).add(1), (float)0.4f);
+										DrawUtils::drawBoxv2(blockPos, vec3(blockPos).add(1), (float)0.4f);
 										DrawUtils::setColor(rSelect2, gSelect2, bSelect2, 1);
 									}
 									if (enum1.selected == 1) {
@@ -101,13 +101,13 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 										DrawUtils::setColor(rSelect2, gSelect2, bSelect2, 1);
 									}
 									if (enum1.selected == 0) {
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)0.4f);
+										DrawUtils::drawBox(blockPos, vec3(blockPos).add(1), (float)0.4f);
 										DrawUtils::setColor(rSelect2, gSelect2, bSelect2, 1);
 									}
 								}
 							}
 							if (mix) {
-								auto vec1 = vec3_t(1.f, 0.1f, 1.f);
+								auto vec1 = vec3(1.f, 0.1f, 1.f);
 								if ((blockId2 == 49 || blockId2 == 7) && (blockId3 == 49 || blockId3 == 7) && (blockId4 == 7) && (blockId5 == 49 || blockId5 == 7) && (blockId6 == 49 || blockId6 == 7) && (blockId == 0)) {
 									if (g_Data.getLocalPlayer()->region->getBlock(blockPos.add(0, 1, 0))->blockLegacy->blockId != 0)
 										continue;
@@ -116,7 +116,7 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 										continue;
 									DrawUtils::setColor(rSelect2, gSelect2, bSelect2, 1);
 									if (enum1.selected == 2) {
-										DrawUtils::drawBoxv2(blockPos, vec3_t(blockPos).add(1), (float)0.4f);
+										DrawUtils::drawBoxv2(blockPos, vec3(blockPos).add(1), (float)0.4f);
 										DrawUtils::setColor(rSelect, gSelect, bSelect, 1);
 									}
 									if (enum1.selected == 1) {
@@ -124,7 +124,7 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 										DrawUtils::setColor(rSelect, gSelect, bSelect, 1);
 									}
 									if (enum1.selected == 0) {
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)0.4f);
+										DrawUtils::drawBox(blockPos, vec3(blockPos).add(1), (float)0.4f);
 										DrawUtils::setColor(rSelect, gSelect, bSelect, 1);
 									}
 								}
@@ -132,7 +132,7 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 							// Draw Bedrock Hole
 							if (bedrock) {
-								auto vec1 = vec3_t(1.f, 0.1f, 1.f);
+								auto vec1 = vec3(1.f, 0.1f, 1.f);
 								if ((blockId2 == 7 && blockId3 == 7 && blockId4 == 7 && blockId5 == 7 && blockId6 == 7 && blockId == 0)) {
 									if (g_Data.getLocalPlayer()->region->getBlock(blockPos.add(0, 1, 0))->blockLegacy->blockId != 0)
 										continue;
@@ -140,7 +140,7 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 									if (g_Data.getLocalPlayer()->region->getBlock(blockPos.add(0, 2, 0))->blockLegacy->blockId)
 										continue;
 									if (enum1.selected == 2) {
-										DrawUtils::drawBoxv2(blockPos, vec3_t(blockPos).add(1), (float)0.4f);
+										DrawUtils::drawBoxv2(blockPos, vec3(blockPos).add(1), (float)0.4f);
 										DrawUtils::setColor(rSelect, gSelect, bSelect, 1);
 									}
 									if (enum1.selected == 1) {
@@ -148,7 +148,7 @@ void HoleESP::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 										DrawUtils::setColor(rSelect, gSelect, bSelect, 1);
 									}
 									if (enum1.selected == 0) {
-										DrawUtils::drawBox(blockPos, vec3_t(blockPos).add(1), (float)0.4f);
+										DrawUtils::drawBox(blockPos, vec3(blockPos).add(1), (float)0.4f);
 										DrawUtils::setColor(rSelect, gSelect, bSelect, 1);
 									}
 								}

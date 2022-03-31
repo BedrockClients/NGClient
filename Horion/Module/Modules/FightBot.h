@@ -20,7 +20,7 @@ public:
 	float range = 6;
 	bool targetListA = false;
 	bool sexy = true;
-	vec2_t joe;
+	vec2 joe;
 
 	FightBot();
 	~FightBot();

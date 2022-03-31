@@ -15,7 +15,7 @@ public:
 	}
 	~ChestAura(){};
 
-	std::vector<vec3_ti> chestlist;
+	std::vector<vec3i> chestlist;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override { return ("ChestAura"); }
@@ -25,11 +25,11 @@ public:
 		if (!g_Data.getLocalPlayer()->canOpenContainerScreen())
 			return;
 
-		vec3_t* pos = gm->player->getPos();
+		vec3* pos = gm->player->getPos();
 		for (int x = (int)pos->x - range; x < pos->x + range; x++) {
 			for (int z = (int)pos->z - range; z < pos->z + range; z++) {
 				for (int y = (int)pos->y - range; y < pos->y + range; y++) {
-					vec3_ti pos = vec3_ti(x, y, z);
+					vec3i pos = vec3i(x, y, z);
 					C_Block* block = gm->player->region->getBlock(pos);
 					if (block != nullptr && g_Data.canUseMoveKeys()) {
 						auto id = gm->player->region->getBlock(pos)->toLegacy()->blockId;

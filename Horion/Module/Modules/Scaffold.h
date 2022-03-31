@@ -10,7 +10,7 @@ public:
 	bool SukinMyBigJuicyAss = true;
 	bool fagNigas = false;
 	float UpwardsFlyinNigas = 0.5f;
-	vec3_t blockBelowUrMom;
+	vec3 blockBelowUrMom;
 	int slot;
 	bool airplace = false;
 	bool autoselect = true;
@@ -19,14 +19,14 @@ public:
 	bool yLock = false;
 	bool staircaseMode = false;
 	bool spam = false;
-	bool canPlaceHere(vec3_t blockPos);
-	bool tryScaffold(vec3_t blockBelow);
-	bool tryActuallySomewhatDecentScaffold(vec3_t blockBelow);
+	bool canPlaceHere(vec3 blockPos);
+	bool tryScaffold(vec3 blockBelow);
+	bool tryActuallySomewhatDecentScaffold(vec3 blockBelow);
 	bool findBlock();
 	bool isUsefulBlock(C_ItemStack* itemStack);
 	bool rot = false;
-	vec3_t blockBelowtest;
-	vec3_t blockBelowtest2;
+	vec3 blockBelowtest;
+	vec3 blockBelowtest2;
 	bool spoof = false;
 	bool noSwing = false;
 	// Inherited via IModule

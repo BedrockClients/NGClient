@@ -98,7 +98,7 @@ void Killaura::onPlayerTick(C_Player* plr) {
 		targetList.clear();
 		g_Data.forEachEntity(findEntity);
 		if (!targetList.empty() && g_Data.isInGame() && g_Data.getLocalPlayer() != nullptr && rots.selected == 1) {
-			vec2_t angle;
+			vec2 angle;
 			if (targ.selected == 0)
 				angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos());
 			else
@@ -205,16 +205,16 @@ void Killaura::onLevelRender() {
 				static auto noFriendsModule = moduleMgr->getModule<NoFriends>();
 				if (!noFriendsModule->isEnabled() && !FriendList::findPlayer(targetList[0]->getNameTag()->getText())) {
 					if (targetList[0] != g_Data.getLocalPlayer() && Target::isValidTarget(targetList[0])) {
-						vec3_t Lines[36];
+						vec3 Lines[36];
 						for (int i = 0; i < 36; i++) {
 							Lines[i] = {sinf((i * 9) / (120 / PI)), 0.f, cosf((i * 9) / (120 / PI))};
 						}
-						std::vector<vec3_t> posList;
-						vec3_t pos = targetList[0]->getPosOld()->lerp(targetList[0]->getPos(), DrawUtils::getLerpTime());
+						std::vector<vec3> posList;
+						vec3 pos = targetList[0]->getPosOld()->lerp(targetList[0]->getPos(), DrawUtils::getLerpTime());
 						pos.y -= 1.62f;
 						pos.y += sin((Outline / 60) * PI) + 1;
 						for (auto& Booty : Lines) {
-							vec3_t curPos(pos.x, pos.y, pos.z);
+							vec3 curPos(pos.x, pos.y, pos.z);
 							posList.push_back(curPos.add(Booty));
 						}
 						DrawUtils::drawLinestrip3d(posList);
@@ -255,10 +255,10 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		float Health = ((int)targetList[0]->getAttribute(&attribute2)->currentValue);
 		float HealthMax = ((int)targetList[0]->getAttribute(&attribute2)->maximumValue);
 
-		vec2_t res = g_Data.getClientInstance()->getGuiData()->windowSize;
+		vec2 res = g_Data.getClientInstance()->getGuiData()->windowSize;
 		C_LocalPlayer* Player = g_Data.getClientInstance()->getLocalPlayer();
 		if (Player != nullptr) {
-			vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) + (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 8.f));  // vec4_t rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) - (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 24.f));
+			vec4 rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) + (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 8.f));  // vec4 rectPos((res.x / 2.f) + (res.x / 20.f), (res.y / 2.f) - (res.y / 24.f), (res.x / 2.f) + (res.x / 6.f), (res.y / 2.f) + (res.y / 24.f));
 			float rectWidth = rectPos.z - rectPos.x;
 
 			//counter for fade
@@ -268,25 +268,25 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			//The actual box
 			{
-				DrawUtils::fillRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
+				DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
 
 				// Gives the rounded corners effect
 				if (partner->Partnered.selected == 0) {
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 0, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 0, 255), counter / 340.33333f);
 				} else if (partner->Partnered.selected == 1) {
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(150, 30, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(150, 30, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(150, 30, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(150, 30, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(150, 30, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(150, 30, 255), counter / 340.33333f);
 				} else if (partner->Partnered.selected == 2) {
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 255, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 255, 255), counter / 340.33333f);
 				} else {
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4_t{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 255, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 255, 255), counter / 340.33333f);
 				}
 			}
 
@@ -310,26 +310,26 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			//Absorbtion Bar
 			if (Absorbtion > 0) {
-				DrawUtils::drawRectangle(vec4_t(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
+				DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
 				std::string absorptionString = std::to_string((int)(Absorbtion));
 				absorptionDisplay = "Absorption: " + absorptionString;
 				float absorptionBarWidth = (Absorbtion / HealthMax) * rectWidth;
 				if (!(targetList[0]->damageTime > 1))
-					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
+					DrawUtils::fillRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
 				else
-					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 0), counter / 100.f);
+					DrawUtils::fillRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 0), counter / 100.f);
 			}
 
 			//The text
 			{
-				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 350.f), rectPos.y + (res.y / 600.f)), &targetName, MC_Color(255, 255, 255), 1.f, counter / 100.f);                  // name
-				DrawUtils::drawText(vec2_t(rectPos.x + 35 + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, counter / 100.f);  // absorbtion
-				DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 350.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, counter / 100.f);              // distance
+				DrawUtils::drawText(vec2(rectPos.x + (res.x / 350.f), rectPos.y + (res.y / 600.f)), &targetName, MC_Color(255, 255, 255), 1.f, counter / 100.f);                  // name
+				DrawUtils::drawText(vec2(rectPos.x + 35 + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, counter / 100.f);  // absorbtion
+				DrawUtils::drawText(vec2(rectPos.x + (res.x / 350.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, counter / 100.f);              // distance
 
 				if (!(targetList[0]->damageTime > 1)) {
-					DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), 0.7f, counter / 100.f);// health
+					DrawUtils::drawText(vec2(rectPos.x + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), 0.7f, counter / 100.f);// health
 				} else {
-					DrawUtils::drawText(vec2_t(rectPos.x + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(255, 0, 0), 0.7f, counter / 100.f);// health
+					DrawUtils::drawText(vec2(rectPos.x + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(255, 0, 0), 0.7f, counter / 100.f);// health
 				}
 
 			}
@@ -339,11 +339,11 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			{
 				float healthBarWidth = (Health / HealthMax) * rectWidth;
 				if (!(targetList[0]->damageTime > 1)) {
-					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
-					DrawUtils::drawRectangle(vec4_t(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
+					DrawUtils::fillRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
+					DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
 				} else {
-					DrawUtils::fillRectangle(vec4_t(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
-					DrawUtils::drawRectangle(vec4_t(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
+					DrawUtils::fillRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
+					DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
 				}
 			}
 			rectPos.y += res.y / 12.f;
@@ -362,7 +362,7 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	static auto BreakerMod = moduleMgr->getModule<Fucker>();
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && rots.selected == 1 || rots.selected == 2 && g_Data.isInGame() && !BreakerMod->destroy) {
 		if (!targetList.empty()) {
-			vec2_t angle;
+			vec2 angle;
 			if (targ.selected == 0)
 				angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[PlayerCount]->getPos());
 			else

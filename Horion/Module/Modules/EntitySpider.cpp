@@ -40,17 +40,17 @@ void EntitySpider::onMove(C_MoveInputHandler* input) {
 		if (player->isSneaking())
 			return;
 
-		std::vector<vec3_ti> sideBlocks;
+		std::vector<vec3i> sideBlocks;
 		sideBlocks.reserve(8);
 
-		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		vec2 moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
 		if (!pressed)
 			return;
 		moveVec2d = moveVec2d.normalized();
 
 		float calcYaw = (player->yaw + 90) * (PI / 180);
-		vec3_t moveVec;
+		vec3 moveVec;
 		float c = cos(calcYaw);
 		float s = sin(calcYaw);
 		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
@@ -60,19 +60,19 @@ void EntitySpider::onMove(C_MoveInputHandler* input) {
 				if (x == 0 && z == 0)
 					continue;
 
-				if (moveVec2d.dot(vec2_t(x, z).normalized()) < 0.6f)
+				if (moveVec2d.dot(vec2(x, z).normalized()) < 0.6f)
 					continue;
-				sideBlocks.push_back(vec3_ti(x, 0, z));
+				sideBlocks.push_back(vec3i(x, 0, z));
 			}
 		}
 
 		auto pPos = *player->getPos();
 		pPos.y = player->aabb.lower.y;
-		auto pPosI = vec3_ti(pPos.floor());
+		auto pPosI = vec3i(pPos.floor());
 
 		auto isObstructed = [&](int yOff, AABB* obstructingBlock = nullptr, bool ignoreYcoll = false) {
 			for (const auto& current : sideBlocks) {
-				vec3_ti side = pPosI.add(0, yOff, 0).add(current);
+				vec3i side = pPosI.add(0, yOff, 0).add(current);
 				if (side.y < 0 || side.y >= 256)
 					break;
 				auto block = player->region->getBlock(side);

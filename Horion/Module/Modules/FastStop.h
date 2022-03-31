@@ -12,7 +12,7 @@ public:
 	}
 	virtual void onMove(C_MoveInputHandler* input) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		vec2 moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
 		if (!pressed) {
 			player->velocity.x = 0;

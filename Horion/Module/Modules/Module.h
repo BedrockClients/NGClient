@@ -172,7 +172,7 @@ private:
 	bool enabled = false;
 	int keybind = 0x0;
 	bool extended = false;
-	vec2_t ModulePos;
+	vec2 ModulePos;
 
 private:
 	Category category;
@@ -197,14 +197,14 @@ public:
 
 	const Category getCategory() { return category; };
 
-	inline vec2_t* getPos() { return &ModulePos; };
+	inline vec2* getPos() { return &ModulePos; };
 
 	inline std::vector<SettingEntry*>* getSettings() { return &settings; };
 
 	virtual const char* getModuleName() = 0;
 	virtual const char* getRawModuleName();
-	virtual int getKeybind();
-	virtual void setKeybind(int key);
+	virtual int getKey();
+	virtual void setKey(int key);
 	virtual bool allowAutoStart();
 
 	virtual void onTick(C_GameMode*);

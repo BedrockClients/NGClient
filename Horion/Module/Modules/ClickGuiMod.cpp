@@ -23,7 +23,6 @@ ClickGuiMod::ClickGuiMod() : IModule(VK_TAB, Category::GUI, "The clickgui") {
 	Fonts = SettingEnum(this)
 				.addEntry(EnumEntry("Notosans", 0))
 				.addEntry(EnumEntry("Mojangles", 1));
-				//.addEntry(EnumEntry("Unicod", 2));
 
 	registerBoolSetting("RGB", &RGB, RGB);
 	registerSpace("Enabled Colors");

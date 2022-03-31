@@ -15,19 +15,19 @@ public:
 	}
 
 	virtual void onTick(C_GameMode* gm) override {
-		std::vector<vec3_ti> checklist;
+		std::vector<vec3i> checklist;
 
 		AABB aabb = gm->player->aabb.expandedXZ(-0.01f);
 		if (oldY > -1000.f && noclipTick > 0)
 			aabb.upper.y = aabb.lower.y + oldY;
 
-		vec3_ti lower(aabb.lower.floor());
-		vec3_ti upper(aabb.upper.floor());
+		vec3i lower(aabb.lower.floor());
+		vec3i upper(aabb.upper.floor());
 		upper.y = lower.y;
 
 		for (int x = lower.x; x <= upper.x; x++) {
 			for (int z = lower.z; z <= upper.z; z++) {
-				checklist.push_back(vec3_ti(x, 0, z));
+				checklist.push_back(vec3i(x, 0, z));
 			}
 		}
 
@@ -39,7 +39,7 @@ public:
 				if (ent->getEntityTypeId() != 66)
 					return;
 
-				vec3_ti block = ent->getPos()->floor();
+				vec3i block = ent->getPos()->floor();
 
 				bool valid = false;
 				for (auto& i : checklist) {
@@ -71,7 +71,7 @@ public:
 		bool isThereBlock = false;
 		for (auto& i : checklist) {
 			for (int y = (int)floorf(aabb.lower.y); y < (int)ceilf(aabb.upper.y); y++) {
-				vec3_ti block(i.x, y, i.z);
+				vec3i block(i.x, y, i.z);
 
 				C_Material* mat = gm->player->region->getBlock(block)->blockLegacy->material;
 

@@ -1,6 +1,6 @@
 #include "EntitySpeed.h"
 
-EntitySpeed::EntitySpeed() : IModule(0, Category::ENTITY, "Makes rideable entities faster when riding them") {
+EntitySpeed::EntitySpeed() : IModule(0x0, Category::ENTITY, "Makes rideable entities faster when riding them") {
 	registerFloatSetting("Horizontal Speed", &speed2, speed2, 0.01f, 10.00f);       //allows you to ajust your speed.
 }
 
@@ -72,7 +72,7 @@ void EntitySpeed::onTick(C_GameMode* gm) {
 
 		float calcYaw = (yaw + 90) * (PI / 180);
 		//float calcPitch = (gm->player->pitch) * -(PI / 180);
-		vec3_t moveVec;
+		vec3 moveVec;
 		moveVec.x = cos(calcYaw) * speed;
 		moveVec.y = targetDeez[0]->velocity.y;
 		moveVec.z = sin(calcYaw) * speed;

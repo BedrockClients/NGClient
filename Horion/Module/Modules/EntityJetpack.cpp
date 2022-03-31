@@ -41,7 +41,7 @@ void EntityJetpack::onTick(C_GameMode* gm) {
 		float calcPitch = (player->pitch) * -(PI / 180);
 
 		if (!isBypass) {
-			vec3_t moveVec;
+			vec3 moveVec;
 			moveVec.x = cos(calcYaw) * cos(calcPitch) * speedMod;
 			moveVec.y = sin(calcPitch) * speedMod;
 			moveVec.z = sin(calcYaw) * cos(calcPitch) * speedMod;
@@ -51,7 +51,7 @@ void EntityJetpack::onTick(C_GameMode* gm) {
 			delay++;
 
 			if (delay >= 5) {
-				vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+				vec3 pos = *g_Data.getLocalPlayer()->getPos();
 				C_MovePlayerPacket a(g_Data.getLocalPlayer(), pos);
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
 				pos.y += 0.35f;
@@ -59,7 +59,7 @@ void EntityJetpack::onTick(C_GameMode* gm) {
 				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
 
 				player->velocity.y = 0.465f;
-				vec3_t moveVec;
+				vec3 moveVec;
 				moveVec.x = cos(calcYaw) * cos(calcPitch) * speedMod;
 				moveVec.z = sin(calcYaw) * cos(calcPitch) * speedMod;
 
@@ -70,7 +70,7 @@ void EntityJetpack::onTick(C_GameMode* gm) {
 				float teleportZ = sin(calcYaw) * cos(calcPitch) * 0.00000005f;
 
 				pos = *player->getPos();
-				g_Data.getLocalPlayer()->setPos(vec3_t(pos.x + teleportX, pos.y - 0.15f, pos.z + teleportZ));
+				g_Data.getLocalPlayer()->setPos(vec3(pos.x + teleportX, pos.y - 0.15f, pos.z + teleportZ));
 
 				player->velocity.y -= 0.15f;
 				delay = 0;

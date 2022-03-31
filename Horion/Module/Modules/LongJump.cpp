@@ -2,7 +2,7 @@
 
 #include "../../Module/ModuleManager.h"
 
-LongJump::LongJump() : IModule(0, Category::MOVEMENT, "Jump, but Long") {
+LongJump::LongJump() : IModule(0x0, Category::MOVEMENT, "Jump, but Long") {
 	registerBoolSetting("Slow", &slow, slow);
 	registerBoolSetting("Hit", &hit, hit);
 	registerFloatSetting("Height", &height, height, 0.2f, 5.f);
@@ -36,12 +36,12 @@ void LongJump::onMove(C_MoveInputHandler* input) {
 	}
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
-	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+	vec2 moveVec2d = {input->forwardMovement, -input->sideMovement};
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 	if (player->onGround && pressed)
 		player->jumpFromGround();
 	float calcYaw = (player->yaw + 90) * (PI / 180);
-	vec3_t moveVec;
+	vec3 moveVec;
 	float c = cos(calcYaw);
 	float s = sin(calcYaw);
 	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};

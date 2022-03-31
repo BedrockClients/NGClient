@@ -137,7 +137,7 @@ public:
 		0.257634};
 	C_MoveInputHandler* yes;
 	C_MoveInputHandler cachedInput;
-	Bhop() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
+	Bhop() : IModule(0x0, Category::MOVEMENT, "Hop around like a bunny!") {
 		registerBoolSetting("Hive", &hive, hive);
 		registerFloatSetting("Speed", &speed, speed, 0.10f, 1.50f);
 		registerIntSetting("Timer", &timer, timer, 20, 50);

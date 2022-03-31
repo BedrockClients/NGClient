@@ -3,7 +3,7 @@
 
 class Totem : public IModule {
 public:
-	Totem() : IModule(0, Category::COMBAT, "Automatically puts totems from your inventory into your offhand") {}
+	Totem() : IModule(0x0, Category::COMBAT, "Automatically puts totems from your inventory into your offhand") {}
 	~Totem(){}
 
 	virtual const char* getModuleName() override { return ("AutoTotem"); }

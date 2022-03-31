@@ -54,7 +54,7 @@ public:
 		if (constructor != 0)
 			constructor(this);
 	}
-	C_ItemUseInventoryTransaction(int slot, C_ItemStack const* item, vec3_t const pos, int blockSide = 255, int runtimeBlockId = 0) {
+	C_ItemUseInventoryTransaction(int slot, C_ItemStack const* item, vec3 const pos, int blockSide = 255, int runtimeBlockId = 0) {
 		memset(this, 0x0, sizeof(C_ItemUseInventoryTransaction));
 		using ItemUseInventoryTransactionContructor = void(__fastcall*)(C_ItemUseInventoryTransaction*);
 		static ItemUseInventoryTransactionContructor constructor = reinterpret_cast<ItemUseInventoryTransactionContructor>(FindSignature("48 89 4C 24 08 57 48 83 EC 30 48 ?? ?? ?? ?? ?? ?? ?? ?? 48 89 5C 24 50 48 89 74 24 58 48 8B F9 48 8D 05 ?? ?? ?? ?? 48 89 01 C7 41 ?? ?? ?? ?? ?? 48 8D 59 ?? 48 89 5C 24 ?? 48 8B CB E8 ?? ?? ?? ?? 33 F6 48 89 73 ?? 48 89 73 ?? 48 89 73 ?? 48 8D 05 ?? ?? ?? ?? 48 89 07 48 89 77 ?? 48 89 77 ?? 89 77 ?? 40 88 77 ?? 89"));
@@ -70,7 +70,7 @@ public:
 private:
 	char pad_0x68[0x4];  //0x68
 public:
-	vec3_ti blockPos;    //0x6C
+	vec3i blockPos;    //0x6C
 	int runtimeBlockId;  //0x78
 	int blockSide;       //0x7C
 	int slot;            //0x80
@@ -78,8 +78,8 @@ private:
 	char pad_0x84[0x4];  //0x84
 public:
 	C_ItemStack item;  //0x88
-	vec3_t pos;        //0x110
-	vec3_t clickPos;   //0x11C
+	vec3 pos;        //0x110
+	vec3 clickPos;   //0x11C
 };
 
 class C_ItemReleaseInventoryTransaction : public C_ComplexInventoryTransaction {
@@ -91,7 +91,7 @@ public:
 		if (constructor != 0)
 			constructor(this);
 	}
-	C_ItemReleaseInventoryTransaction(int slot, C_ItemStack const* item, vec3_t const pos) {
+	C_ItemReleaseInventoryTransaction(int slot, C_ItemStack const* item, vec3 const pos) {
 		memset(this, 0x0, sizeof(C_ItemReleaseInventoryTransaction));
 		using ItemReleaseInventoryTransactionContructor = void(__fastcall*)(C_ItemReleaseInventoryTransaction*);
 		static ItemReleaseInventoryTransactionContructor constructor = reinterpret_cast<ItemReleaseInventoryTransactionContructor>(FindSignature("48 89 4C 24 ?? 57 48 83 EC 30 48 ?? ?? ?? ?? ?? ?? ?? ?? 48 89 5C 24 ?? 48 89 74 24 ?? 48 8B F9 48 8D 05 ?? ?? ?? ?? 48 89 01 C7 41 ?? ?? ?? ?? ?? 48 8D 59 ?? 48 89 5C 24 ?? 48 8B CB"));
@@ -107,6 +107,6 @@ private:
 public:
 	int slot;          //0x6C
 	C_ItemStack item;  //0x70
-	vec3_t pos;        //0xF8
+	vec3 pos;        //0xF8
 	int unknown;       //0x104
 };

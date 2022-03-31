@@ -7,7 +7,7 @@ bool shouldPlace = false;
 bool shouldDestroy = false;
 bool disableAutoplace = false;
 bool rotate = false;
-vec2_t rotateTarget = {0.f, 0.f};
+vec2 rotateTarget = {0.f, 0.f};
 bool packetSent = false;
 bool isPlayerAuthInput = false;
 int switchCooldown = 0;
@@ -48,7 +48,7 @@ void CrystalAura::onPreTick(C_GameMode* gm) {
 
 	bool placed = false;
 
-	vec3_t playerPos = *gm->player->getPos();
+	vec3 playerPos = *gm->player->getPos();
 
 	std::vector<C_Entity*> targetList;
 	std::vector<C_Entity*> allEnts;
@@ -189,7 +189,7 @@ void CrystalAura::onTick(C_GameMode* gm) {
 		if (rotationMode == rotations_normal) {
 			C_MovePlayerPacket pkt(g_Data.getLocalPlayer(), *gm->player->getPos());
 
-			vec2_t calcAngle = gm->player->getPos()->CalcAngle((*it).toVec3t().add(0.5f, 0.5f, 0.5f));
+			vec2 calcAngle = gm->player->getPos()->CalcAngle((*it).toVec3t().add(0.5f, 0.5f, 0.5f));
 
 			pkt.pitch = calcAngle.x;
 			pkt.yaw = calcAngle.y;
@@ -219,7 +219,7 @@ void CrystalAura::onTick(C_GameMode* gm) {
 		if (rotationMode == rotations_antikick) {
 			C_MovePlayerPacket pkt(g_Data.getLocalPlayer(), *gm->player->getPos());
 
-			vec2_t calcAngle = gm->player->getPos()->CalcAngle(*i->getPos());
+			vec2 calcAngle = gm->player->getPos()->CalcAngle(*i->getPos());
 
 			pkt.pitch = calcAngle.x;
 			pkt.yaw = calcAngle.y;
@@ -284,7 +284,7 @@ void CrystalAura::onDisable() {
 	previousSlot = -1;
 }
 
-bool CrystalAura::isTooFar(vec2_t left, vec2_t right) {
+bool CrystalAura::isTooFar(vec2 left, vec2 right) {
 	return right.sub(left).magnitude() > 10.f;
 }
 
@@ -292,8 +292,8 @@ void CrystalAura::doDestroy(std::vector<C_Entity*> crystalList, C_GameMode* gm, 
 	if (crystalList.empty())
 		return;
 
-	vec3_t playerPos = *gm->player->getPos();
-	vec2_t playerRot = gm->player->viewAngles;
+	vec3 playerPos = *gm->player->getPos();
+	vec2 playerRot = gm->player->viewAngles;
 
 	switch (rotations.GetSelectedEntry().GetValue()) {
 	case rotations_off:
@@ -303,7 +303,7 @@ void CrystalAura::doDestroy(std::vector<C_Entity*> crystalList, C_GameMode* gm, 
 	case rotations_antikick: {
 		if (rotate) {
 			for (auto i : crystalList) {
-				vec2_t targetAngle = playerPos.CalcAngle(*i->getPos());
+				vec2 targetAngle = playerPos.CalcAngle(*i->getPos());
 				if (!isTooFar(rotateTarget, targetAngle)) {
 					toBreak.push_back(i);
 				}
@@ -312,7 +312,7 @@ void CrystalAura::doDestroy(std::vector<C_Entity*> crystalList, C_GameMode* gm, 
 		}
 		if (didPlace) {
 			for (auto i : crystalList) {
-				vec2_t targetAngle = playerPos.CalcAngle(*i->getPos());
+				vec2 targetAngle = playerPos.CalcAngle(*i->getPos());
 				if (!isTooFar(playerRot, targetAngle)) {
 					toBreak.push_back(i);
 				}
@@ -322,21 +322,21 @@ void CrystalAura::doDestroy(std::vector<C_Entity*> crystalList, C_GameMode* gm, 
 
 		// Find the best crystal
 		struct CrystalCompareStruct {
-			vec3_t playerPos;
-			vec2_t playerRot;
+			vec3 playerPos;
+			vec2 playerRot;
 			std::vector<C_Entity*>* vec;
 
-			CrystalCompareStruct(vec3_t pPos, vec2_t pRot, std::vector<C_Entity*>* v) : playerPos(pPos), playerRot(pRot), vec(v) {}
+			CrystalCompareStruct(vec3 pPos, vec2 pRot, std::vector<C_Entity*>* v) : playerPos(pPos), playerRot(pRot), vec(v) {}
 
 			bool operator()(C_Entity* left, C_Entity* right) {
-				vec2_t leftAngle = playerPos.CalcAngle(*left->getPos());
-				vec2_t rightAngle = playerPos.CalcAngle(*right->getPos());
+				vec2 leftAngle = playerPos.CalcAngle(*left->getPos());
+				vec2 rightAngle = playerPos.CalcAngle(*right->getPos());
 
 				std::vector<C_Entity*> leftEnts;  // Crystals we can hit if we rotate to left
 				std::vector<C_Entity*> rightEnts;
 
 				for (auto i : *vec) {
-					vec2_t tgtRot = playerPos.CalcAngle(*i->getPos());
+					vec2 tgtRot = playerPos.CalcAngle(*i->getPos());
 
 					if (!CrystalAura::isTooFar(leftAngle, tgtRot))
 						leftEnts.push_back(i);
@@ -352,10 +352,10 @@ void CrystalAura::doDestroy(std::vector<C_Entity*> crystalList, C_GameMode* gm, 
 		std::sort(crystalList.begin(), crystalList.end(), CrystalCompareStruct(playerPos, playerRot, &crystalList));
 
 		C_Entity* gamerCrystal = crystalList[0];
-		vec2_t angle = playerPos.CalcAngle(*gamerCrystal->getPos());
+		vec2 angle = playerPos.CalcAngle(*gamerCrystal->getPos());
 
 		for (auto i : crystalList) {
-			vec2_t ang = playerPos.CalcAngle(*i->getPos());
+			vec2 ang = playerPos.CalcAngle(*i->getPos());
 
 			if (!isTooFar(ang, angle))
 				toBreak.push_back(i);
@@ -369,8 +369,8 @@ void CrystalAura::doDestroy(std::vector<C_Entity*> crystalList, C_GameMode* gm, 
 
 bool CrystalAura::doPlace(std::vector<C_Entity*> targetList, std::vector<C_Entity*> allEnts, C_GameMode* gm) {
 	struct CrystalStruct {
-		vec3_ti blockPos;
-		vec3_t entPos;
+		vec3i blockPos;
+		vec3 entPos;
 		float selfDamage;
 		float enemyDmgAvg;
 		float maxDamage;
@@ -378,8 +378,8 @@ bool CrystalAura::doPlace(std::vector<C_Entity*> targetList, std::vector<C_Entit
 
 	std::vector<CrystalStruct> candidates;
 
-	vec3_t playerPos = *gm->player->getPos();
-	vec3_ti posFloored = playerPos.floor();
+	vec3 playerPos = *gm->player->getPos();
+	vec3i posFloored = playerPos.floor();
 
 	int rangeInt = (int)ceilf(maxDistance);
 
@@ -391,8 +391,8 @@ bool CrystalAura::doPlace(std::vector<C_Entity*> targetList, std::vector<C_Entit
 				if (y < -64 || y >= 319)
 					continue;
 
-				vec3_ti blockPos(x, y, z);
-				vec3_t center = blockPos.toVec3t().add(0.5f, 0.5f, 0.5f);
+				vec3i blockPos(x, y, z);
+				vec3 center = blockPos.toVec3t().add(0.5f, 0.5f, 0.5f);
 
 				if (center.dist(playerPos) > maxDistance || center.add(0.f, 1.f, 0.f).dist(playerPos) > maxDistance)  // Make sure we can place AND destroy
 					continue;
@@ -486,8 +486,8 @@ bool CrystalAura::doPlace(std::vector<C_Entity*> targetList, std::vector<C_Entit
 
 	std::sort(candidates.begin(), candidates.end(), CrystalCompareStruct());
 
-	vec3_ti bestPos = candidates[0].blockPos;
-	vec2_t targetRot = playerPos.CalcAngle(bestPos.toVec3t().add(0.5f, 0.5f, 0.5f));
+	vec3i bestPos = candidates[0].blockPos;
+	vec2 targetRot = playerPos.CalcAngle(bestPos.toVec3t().add(0.5f, 0.5f, 0.5f));
 
 	if (isTooFar(gm->player->viewAngles, targetRot) && rotations.GetSelectedEntry().GetValue() == rotations_antikick) {
 		rotate = true;
@@ -538,10 +538,10 @@ bool CrystalAura::findCrystal(C_GameMode* gm) {
 	return false;
 }
 
-float CrystalAura::computeExplosionDamage(vec3_t crystalPos, C_Entity* target, C_BlockSource* reg, int mode) {
+float CrystalAura::computeExplosionDamage(vec3 crystalPos, C_Entity* target, C_BlockSource* reg, int mode) {
 	float explosionRadius = 12.f;  // 6 * 2
 
-	vec3_t pos = *target->getPos();
+	vec3 pos = *target->getPos();
 
 	float dist = pos.dist(crystalPos) / explosionRadius;
 
@@ -552,12 +552,12 @@ float CrystalAura::computeExplosionDamage(vec3_t crystalPos, C_Entity* target, C
 		if (mode != dmg_vanilla) {
 			exposure = 1;
 			if (mode == dmg_java) {
-				exposure = calculateBlockDensity(crystalPos, AABB(target->aabb.lower, vec3_t(target->aabb.upper.x, fminf(target->aabb.lower.y + 1, target->aabb.upper.y), target->aabb.upper.z)), reg);
+				exposure = calculateBlockDensity(crystalPos, AABB(target->aabb.lower, vec3(target->aabb.upper.x, fminf(target->aabb.lower.y + 1, target->aabb.upper.y), target->aabb.upper.z)), reg);
 			}
 			impact = (1 - dist) * exposure;
 			damage = (int)(((impact * impact + impact) / 2) * 8 * explosionRadius + 1);
 		} else {
-			using getSeenPercent_t = float(__fastcall*)(C_BlockSource*, vec3_t const&, AABB const&);
+			using getSeenPercent_t = float(__fastcall*)(C_BlockSource*, vec3 const&, AABB const&);
 			static getSeenPercent_t getSeenPercent = reinterpret_cast<getSeenPercent_t>(FindSignature("40 53 55 41 56 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4"));
 
 			exposure = getSeenPercent(reg, crystalPos, target->aabb);
@@ -611,7 +611,7 @@ float CrystalAura::getBlastDamageEnchantReduction(C_ItemStack* armor) {
 	return epf;
 }
 
-float CrystalAura::calculateBlockDensity(vec3_t vec, AABB bb, C_BlockSource* region) {
+float CrystalAura::calculateBlockDensity(vec3 vec, AABB bb, C_BlockSource* region) {
 	double d0 = 1.0 / (((double)bb.upper.x - (double)bb.lower.x) * 2.0 + 1.0);
 	double d1 = 1.0 / (((double)bb.upper.y - (double)bb.lower.y) * 2.0 + 1.0);
 	double d2 = 1.0 / (((double)bb.upper.z - (double)bb.lower.z) * 2.0 + 1.0);
@@ -629,7 +629,7 @@ float CrystalAura::calculateBlockDensity(vec3_t vec, AABB bb, C_BlockSource* reg
 					double d6 = bb.lower.y + ((double)bb.upper.y - (double)bb.lower.y) * (double)f1;
 					double d7 = bb.lower.z + ((double)bb.upper.z - (double)bb.lower.z) * (double)f2;
 
-					if (tryRaytrace(vec3_t(d5 + d3, d6, d7 + d4), vec, region)) {
+					if (tryRaytrace(vec3(d5 + d3, d6, d7 + d4), vec, region)) {
 						++i;
 					}
 					++j;
@@ -643,21 +643,21 @@ float CrystalAura::calculateBlockDensity(vec3_t vec, AABB bb, C_BlockSource* reg
 	}
 }
 
-//bool __forceinline collisionRayTrace(C_Block* block, vec3_t vec31, vec3_t vec32) {
-//	vec3_t vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-//	vec3_t vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
+//bool __forceinline collisionRayTrace(C_Block* block, vec3 vec31, vec3 vec32) {
+//	vec3 vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
+//	vec3 vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
 //	bool raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
 //	return !raytraceresult ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), raytraceresult.sideHit, pos);
 //}
 
-bool CrystalAura::tryRaytrace(vec3_t vec31, vec3_t vec32, C_BlockSource* region) {
+bool CrystalAura::tryRaytrace(vec3 vec31, vec3 vec32, C_BlockSource* region) {
 	struct HitResult {
-		vec3_t startPos;
-		vec3_t relativeEndPos;
+		vec3 startPos;
+		vec3 relativeEndPos;
 		int hitType;  // 0 is block, 1 is actor, 3 is air
 		uint32_t blockFace;
-		vec3_ti blockPos;
-		vec3_t blockHitPos;  // If no block is found it just extends to the max ray position
+		vec3i blockPos;
+		vec3 blockHitPos;  // If no block is found it just extends to the max ray position
 		uintptr_t someActorHitPointer;
 		uintptr_t someOtherActorHitPointer;
 		uint32_t actorThingy;  // Could contain ids or something, 0xFFFFFFFF when not facing an actor
@@ -665,15 +665,15 @@ bool CrystalAura::tryRaytrace(vec3_t vec31, vec3_t vec32, C_BlockSource* region)
 		bool isHittingLiquid;
 		uint8_t liquidBlockFace;  // If the liquid were a solid block, what block face would it be
 		char nothing[0x2];
-		vec3_ti liquidBlockPos;
-		vec3_t liquidBlockHitPos;  // Full of zeroes if there is no liquid block
+		vec3i liquidBlockPos;
+		vec3 liquidBlockHitPos;  // Full of zeroes if there is no liquid block
 		bool isExtendedBlockHit;  // Is the bedrock bridge mechanic thingy focusing a block
 		char pad[0x3];
 	};
 
 	auto result = new HitResult();
 
-	using BlockSource_ClipT = HitResult*(__fastcall*)(C_BlockSource*, HitResult*, vec3_t&, vec3_t&, bool, bool, int, bool, bool);
+	using BlockSource_ClipT = HitResult*(__fastcall*)(C_BlockSource*, HitResult*, vec3&, vec3&, bool, bool, int, bool, bool);
 	static auto clip = reinterpret_cast<BlockSource_ClipT>(FindSignature("48 8B C4 55 53 56 57 41 54 41 55 41 56 41 57 48 8D A8 ?? ?? ?? ?? 48 81 EC ?? ?? ?? ?? 0F 29 70 ?? 0F 29 78 ?? 44 0F 29 40 ?? 44 0F 29 88 ?? ?? ?? ?? 44 0F 29 90 ?? ?? ?? ?? 44 0F 29 98 ?? ?? ?? ?? 44 0F 29 A0 ?? ?? ?? ?? 44 0F 29 A8 ?? ?? ?? ?? 44 0F 29 B0 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 85 ?? ?? ?? ?? 4D 8B D9"));
 	return false;
 }

@@ -7,7 +7,7 @@ public:
 	int delay = 0;
 	void* targetAddress;  //Yes
 	int counter = 0;
-	vec3_ti block;
+	vec3i block;
 	float float1 = 0;
 	int int1 = 0;
 	bool bool1 = true;

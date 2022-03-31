@@ -1,7 +1,7 @@
 #include "../../../SDK/Tag.h"
 #include "Partner.h"
 
-Partner::Partner() : IModule(0, Category::PARTNER, "Partnered Clients") {
+Partner::Partner() : IModule(0x0, Category::PARTNER, "Partnered Clients") {
 
 	registerEnumSetting("Partnered Types", &Partnered, 0);
 	Partnered = (*new SettingEnum(this))

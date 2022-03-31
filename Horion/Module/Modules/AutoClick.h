@@ -59,9 +59,9 @@ public:
 					g_Data.rightclickCount++;
 					C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 					localPlayer->swingArm();
-					gm->startBuildBlock(vec3_ti(pstruct->block), pstruct->blockSide);
+					gm->startBuildBlock(vec3i(pstruct->block), pstruct->blockSide);
 					gm->stopBuildBlock();
-					gm->buildBlock(new vec3_ti(pstruct->block), pstruct->blockSide);
+					gm->buildBlock(new vec3i(pstruct->block), pstruct->blockSide);
 					Odelay = 0;
 				}
 			}

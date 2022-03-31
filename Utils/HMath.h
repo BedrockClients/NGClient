@@ -59,7 +59,7 @@ struct _RGB {
 };
 
 
-struct vec2_t {
+struct vec2 {
 
 	union {
 		struct {
@@ -67,68 +67,68 @@ struct vec2_t {
 		};
 		float floatArr[2];
 	};
-	vec2_t() { x = y = 0; }
-	vec2_t(float a, float b) : x(a), y(b) {}
-	//vec2_t(int a, int b) : x((float)a), y((float)b) {}
-	vec2_t &operator=(const vec2_t &copy) {
+	vec2() { x = y = 0; }
+	vec2(float a, float b) : x(a), y(b) {}
+	//vec2(int a, int b) : x((float)a), y((float)b) {}
+	vec2 &operator=(const vec2 &copy) {
 		x = copy.x;
 		y = copy.y;
 		return *this;
 	}
 
-	static vec2_t fromAngle(float angle){
-		return vec2_t((float)-sin(angle), (float)cos(angle));
+	static vec2 fromAngle(float angle){
+		return vec2((float)-sin(angle), (float)cos(angle));
 	}
 
-	bool operator==(const vec2_t &o) const { return x == o.x && y == o.y; }
-	bool operator!=(const vec2_t &o) const { return x != o.x || y != o.y; }
+	bool operator==(const vec2 &o) const { return x == o.x && y == o.y; }
+	bool operator!=(const vec2 &o) const { return x != o.x || y != o.y; }
 
-	vec2_t sub(float f) {
-		return vec2_t(x - f, y - f);
+	vec2 sub(float f) {
+		return vec2(x - f, y - f);
 	}
-	vec2_t sub(float ox, float oy) {
-		return vec2_t(x - ox, y - oy);
+	vec2 sub(float ox, float oy) {
+		return vec2(x - ox, y - oy);
 	}
-	vec2_t div(float f) {
-		return vec2_t(x / f, y / f);
-	}
-
-	vec2_t div(const vec2_t &o) {
-		return vec2_t(x / o.x, y / o.y);
-	}
-	vec2_t mul(const vec2_t &o) {
-		return vec2_t(x * o.x, y * o.y);
-	}
-	vec2_t mul(float f) {
-		return vec2_t(x * f, y * f);
-	}
-	vec2_t sub(const vec2_t &o) {
-		return vec2_t(x - o.x, y - o.y);
-	}
-	vec2_t add(const vec2_t &o) {
-		return vec2_t(x + o.x, y + o.y);
-	}
-	vec2_t add(float o) {
-		return vec2_t(x + o, y + o);
-	}
-	vec2_t add(float ox, float oy) {
-		return vec2_t(x + ox, y + oy);
+	vec2 div(float f) {
+		return vec2(x / f, y / f);
 	}
 
-	vec2_t normalized() {
+	vec2 div(const vec2 &o) {
+		return vec2(x / o.x, y / o.y);
+	}
+	vec2 mul(const vec2 &o) {
+		return vec2(x * o.x, y * o.y);
+	}
+	vec2 mul(float f) {
+		return vec2(x * f, y * f);
+	}
+	vec2 sub(const vec2 &o) {
+		return vec2(x - o.x, y - o.y);
+	}
+	vec2 add(const vec2 &o) {
+		return vec2(x + o.x, y + o.y);
+	}
+	vec2 add(float o) {
+		return vec2(x + o, y + o);
+	}
+	vec2 add(float ox, float oy) {
+		return vec2(x + ox, y + oy);
+	}
+
+	vec2 normalized() {
 		return div(magnitude());
 	}
 
-	vec2_t cross(){
-		return vec2_t(-y, x);
+	vec2 cross(){
+		return vec2(-y, x);
 	}
 
 	float dot(float ox, float oy) const { return x * ox + y * oy; }
 
 
-	float dot(const vec2_t &o) const { return x * o.x + y * o.y; }
+	float dot(const vec2 &o) const { return x * o.x + y * o.y; }
 
-	vec2_t normAngles() {
+	vec2 normAngles() {
 		float x = this->x;
 		float y = this->y;
 		while (x > 90.f)
@@ -140,14 +140,14 @@ struct vec2_t {
 			y -= 360.0f;
 		while (y < -180.0f)
 			y += 360.0f;
-		return vec2_t(x, y);
+		return vec2(x, y);
 	}
 
 	float squaredlen() const { return x * x + y * y; }
 	float magnitude() const { return sqrtf(squaredlen()); }
 };
 
-struct vec3_t {
+struct vec3 {
 	union {
 		struct {
 			float x, y, z;
@@ -155,23 +155,23 @@ struct vec3_t {
 		float floatArr[3];
 	};
 
-	vec3_t() { x = y = z = 0; }
-	vec3_t(int a, int b, int c) : x((float)a), y((float)b), z((float)c) {}
-	vec3_t(double a, double b, double c) : x((float)a), y((float)b), z((float)c) {}
-	vec3_t(float a, float b, float c) : x(a), y(b), z(c) {}
-	vec3_t(float a, float b) : x(a), y(b), z(0) {}
-	vec3_t(const vec2_t &copy, float zP) {
+	vec3() { x = y = z = 0; }
+	vec3(int a, int b, int c) : x((float)a), y((float)b), z((float)c) {}
+	vec3(double a, double b, double c) : x((float)a), y((float)b), z((float)c) {}
+	vec3(float a, float b, float c) : x(a), y(b), z(c) {}
+	vec3(float a, float b) : x(a), y(b), z(0) {}
+	vec3(const vec2 &copy, float zP) {
 		x = copy.x;
 		y = copy.y;
 		z = zP;
 	}
-	vec3_t(const vec3_t &copy) {
+	vec3(const vec3 &copy) {
 		x = copy.x;
 		y = copy.y;
 		z = copy.z;
 	}
 
-	vec3_t &operator=(const vec3_t &copy) {
+	vec3 &operator=(const vec3 &copy) {
 		x = copy.x;
 		y = copy.y;
 		z = copy.z;
@@ -179,104 +179,104 @@ struct vec3_t {
 		return *this;
 	}
 
-	vec3_t(float *v) : x(v[0]), y(v[1]), z(v[2]) {}
+	vec3(float *v) : x(v[0]), y(v[1]), z(v[2]) {}
 
 	bool iszero() const { return x == 0 && y == 0 && z == 0; }
 
-	bool operator==(const vec3_t &o) const { return x == o.x && y == o.y && z == o.z; };
-	bool operator!=(const vec3_t &o) const { return x != o.x || y != o.y || z != o.z; };
-	vec3_t operator-() const { return vec3_t(-x, -y, -z); };
+	bool operator==(const vec3 &o) const { return x == o.x && y == o.y && z == o.z; };
+	bool operator!=(const vec3 &o) const { return x != o.x || y != o.y || z != o.z; };
+	vec3 operator-() const { return vec3(-x, -y, -z); };
 
-	vec3_t mul(const vec3_t& o) {
-		return vec3_t(x * o.x, y * o.y, z * o.z);
+	vec3 mul(const vec3& o) {
+		return vec3(x * o.x, y * o.y, z * o.z);
 	};
-	vec3_t mul(float f) {
-		return vec3_t(x * f, y * f, z * f);
+	vec3 mul(float f) {
+		return vec3(x * f, y * f, z * f);
 	};
-	vec3_t mul(float x1, float y1, float z1) {
-		return vec3_t(x * x1, y * y1, z * z1);
+	vec3 mul(float x1, float y1, float z1) {
+		return vec3(x * x1, y * y1, z * z1);
 	};
-	vec3_t div(float f) {
-		return vec3_t(x / f, y / f, z / f);
+	vec3 div(float f) {
+		return vec3(x / f, y / f, z / f);
 	};
-	vec3_t div(float x1, float y1, float z1) {
-		return vec3_t(x / x1, y / y1, z / z1);
+	vec3 div(float x1, float y1, float z1) {
+		return vec3(x / x1, y / y1, z / z1);
 	};
-	vec3_t div(const vec3_t& o) {
-		return vec3_t(x / o.x, y / o.y, z / o.z);
+	vec3 div(const vec3& o) {
+		return vec3(x / o.x, y / o.y, z / o.z);
 	};
-	vec3_t add(float f) {
-		return vec3_t(x + f, y + f, z + f);
+	vec3 add(float f) {
+		return vec3(x + f, y + f, z + f);
 	};
-	vec3_t add(float x1, float y1, float z1) {
-		return vec3_t(x + x1, y + y1, z + z1);
+	vec3 add(float x1, float y1, float z1) {
+		return vec3(x + x1, y + y1, z + z1);
 	};
-	vec3_t sub(float f) {
-		return vec3_t(x - f, y - f, z - f);
-	};
-
-	vec3_t sub(float x1, float y1, float z1) {
-		return vec3_t(x - x1, y - y1, z - z1);
+	vec3 sub(float f) {
+		return vec3(x - f, y - f, z - f);
 	};
 
-	vec3_t floor() {
-		return vec3_t(floorf(x), floorf(y), floorf(z));
+	vec3 sub(float x1, float y1, float z1) {
+		return vec3(x - x1, y - y1, z - z1);
 	};
 
-	vec3_t add(const vec3_t &o) const {
-		return vec3_t(x + o.x, y + o.y, z + o.z);
+	vec3 floor() {
+		return vec3(floorf(x), floorf(y), floorf(z));
+	};
+
+	vec3 add(const vec3 &o) const {
+		return vec3(x + o.x, y + o.y, z + o.z);
 	}
-	vec3_t sub(const vec3_t &o) const {
-		return vec3_t(x - o.x, y - o.y, z - o.z);
+	vec3 sub(const vec3 &o) const {
+		return vec3(x - o.x, y - o.y, z - o.z);
 	}
 
 	float squaredlen() const { return x * x + y * y + z * z; }
 	float squaredxzlen() const { return x * x + z * z; }
 
-	vec3_t lerp(const vec3_t& other, float tx, float ty, float tz) const {
-		vec3_t ne;
+	vec3 lerp(const vec3& other, float tx, float ty, float tz) const {
+		vec3 ne;
 		ne.x = x + tx * (other.x - x);
 		ne.y = y + ty * (other.y - y);
 		ne.z = z + tz * (other.z - z);
 		return ne;
 	}
 
-	vec3_t lerp(const vec3_t other, float val) const {
-		vec3_t ne;
+	vec3 lerp(const vec3 other, float val) const {
+		vec3 ne;
 		ne.x = x + val * (other.x - x);
 		ne.y = y + val * (other.y - y);
 		ne.z = z + val * (other.z - z);
 		return ne;
 	}
 
-	vec3_t lerp(const vec3_t *other, float val) const {
-		vec3_t ne;
+	vec3 lerp(const vec3 *other, float val) const {
+		vec3 ne;
 		ne.x = x + val * (other->x - x);
 		ne.y = y + val * (other->y - y);
 		ne.z = z + val * (other->z - z);
 		return ne;
 	}
 
-	vec2_t flatten() const {
-		return vec2_t(x, y);
+	vec2 flatten() const {
+		return vec2(x, y);
 	}
 
 	float sqrxy() const { return x * x + y * y; }
 
-	float dot(const vec3_t &o) const { return x * o.x + y * o.y + z * o.z; }
-	float dotxy(const vec3_t &o) const { return x * o.x + y * o.y; }
+	float dot(const vec3 &o) const { return x * o.x + y * o.y + z * o.z; }
+	float dotxy(const vec3 &o) const { return x * o.x + y * o.y; }
 
 	float magnitude() const { return sqrtf(squaredlen()); }
 
-	vec3_t normalize() {
+	vec3 normalize() {
 		return div(magnitude());
 	}
 
-	float dist(const vec3_t &e) const {
+	float dist(const vec3 &e) const {
 		return sub(e).magnitude();
 	}
 
-	float Get2DDist(const vec3_t &e) const {
+	float Get2DDist(const vec3 &e) const {
 		float dx = e.x - x, dy = e.y - y;
 		return sqrtf(dx * dx + dy * dy);
 	}
@@ -284,16 +284,16 @@ struct vec3_t {
 	float magnitudexy() const { return sqrtf(x * x + y * y); }
 	float magnitudexz() const { return sqrtf(x * x + z * z); }
 
-	vec3_t cross(const vec3_t &b) {
-		return vec3_t(y * b.z - z * b.y, z * b.x - x * b.z, x * b.y - y * b.x);
+	vec3 cross(const vec3 &b) {
+		return vec3(y * b.z - z * b.y, z * b.x - x * b.z, x * b.y - y * b.x);
 	}
-	float cxy(const vec3_t &a) { return x * a.y - y * a.x; }
+	float cxy(const vec3 &a) { return x * a.y - y * a.x; }
 
-	vec2_t CalcAngle(vec3_t dst) {
-		vec3_t diff = dst.sub(*this);
+	vec2 CalcAngle(vec3 dst) {
+		vec3 diff = dst.sub(*this);
 
 		diff.y = diff.y / diff.magnitude();
-		vec2_t angles;
+		vec2 angles;
 		angles.x = asinf(diff.y) * -DEG_RAD;
 		angles.y = (float)-atan2f(diff.x, diff.z) * DEG_RAD;
 
@@ -301,25 +301,25 @@ struct vec3_t {
 	}
 };
 
-struct vec3_ti {
+struct vec3i {
 	int x, y, z;
 
-	vec3_ti() { x = y = z = 0; }
-	vec3_ti(int a, int b, int c) : x(a), y(b), z(c) {}
-	vec3_ti(int a, int b) : x(a), y(b), z(0) {}
-	vec3_ti(const vec3_ti &copy) {
+	vec3i() { x = y = z = 0; }
+	vec3i(int a, int b, int c) : x(a), y(b), z(c) {}
+	vec3i(int a, int b) : x(a), y(b), z(0) {}
+	vec3i(const vec3i &copy) {
 		x = copy.x;
 		y = copy.y;
 		z = copy.z;
 	}
 
-	vec3_ti(const vec3_t &copy) {
+	vec3i(const vec3 &copy) {
 		x = (int)copy.x;
 		y = (int)copy.y;
 		z = (int)copy.z;
 	}
 
-	vec3_ti &operator=(const vec3_ti &copy) {
+	vec3i &operator=(const vec3i &copy) {
 		x = copy.x;
 		y = copy.y;
 		z = copy.z;
@@ -327,7 +327,7 @@ struct vec3_ti {
 		return *this;
 	}
 
-	vec3_ti *operator=(const vec3_ti *copy) {
+	vec3i *operator=(const vec3i *copy) {
 		x = copy->x;
 		y = copy->y;
 		z = copy->z;
@@ -335,65 +335,65 @@ struct vec3_ti {
 		return this;
 	}
 
-	vec3_ti(int *v) : x(v[0]), y(v[1]), z(v[2]) {}
+	vec3i(int *v) : x(v[0]), y(v[1]), z(v[2]) {}
 	
-	vec3_t toVec3t() const {
-		return vec3_t(x, y, z);
+	vec3 toVec3t() const {
+		return vec3(x, y, z);
 	}
 
 	bool iszero() const { return x == 0 && y == 0 && z == 0; }
 
-	bool operator==(const vec3_ti &o) const { return x == o.x && y == o.y && z == o.z; }
-	bool operator!=(const vec3_ti &o) const { return x != o.x || y != o.y || z != o.z; }
+	bool operator==(const vec3i &o) const { return x == o.x && y == o.y && z == o.z; }
+	bool operator!=(const vec3i &o) const { return x != o.x || y != o.y || z != o.z; }
 
-	vec3_ti add(vec3_ti o) const {
-		return vec3_ti(x + o.x, y + o.y, z + o.z);
+	vec3i add(vec3i o) const {
+		return vec3i(x + o.x, y + o.y, z + o.z);
 	}
 
-	vec3_ti add(int f) const {
-		return vec3_ti(x + f, y + f, z + f);
+	vec3i add(int f) const {
+		return vec3i(x + f, y + f, z + f);
 	}
 
-	vec3_ti add(int a, int b, int c) const {
-		return vec3_ti(x + a, y + b, z + c);
+	vec3i add(int a, int b, int c) const {
+		return vec3i(x + a, y + b, z + c);
 	};
 
-	vec3_ti sub(int ox, int oy, int oz) const {
-		return vec3_ti(x - ox, y - oy, z - oz);
+	vec3i sub(int ox, int oy, int oz) const {
+		return vec3i(x - ox, y - oy, z - oz);
 	}
 
-	vec3_ti sub(const vec3_ti& o) const {
-		return vec3_ti(x - o.x, y - o.y, z - o.z);
+	vec3i sub(const vec3i& o) const {
+		return vec3i(x - o.x, y - o.y, z - o.z);
 	}
 
-	void set(vec3_ti *o) {
+	void set(vec3i *o) {
 		x = o->x;
 		y = o->y;
 		z = o->z;
 	};
 
-	vec3_t toFloatVector() const {
-		vec3_t vec;
+	vec3 toFloatVector() const {
+		vec3 vec;
 		vec.x = (float)x;
 		vec.y = (float)y;
 		vec.z = (float)z;
 		return vec;
 	}
 };
-struct vec4_t {
+struct vec4 {
 	union {
 		struct {
 			float x, y, z, w;
 		};
 		float v[4];
 	};
-	vec4_t() { x = 0, y = 0, z = 0, w = 0; }
-	explicit vec4_t(const vec3_t &p, float w = 0) : x(p.x), y(p.y), z(p.z), w(w){};
-	vec4_t(float x, float y, float z, float w) : x(x), y(y), z(z), w(w){};
+	vec4() { x = 0, y = 0, z = 0, w = 0; }
+	explicit vec4(const vec3 &p, float w = 0) : x(p.x), y(p.y), z(p.z), w(w){};
+	vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w){};
 	float &operator[](int i) { return v[i]; };
 	float operator[](int i) const { return v[i]; };
 
-	__forceinline bool contains(vec2_t *point) {
+	__forceinline bool contains(vec2 *point) {
 		if (point->x <= x || point->y <= y)
 			return false;
 
@@ -448,7 +448,7 @@ struct glmatrixf {
 		return newMatPtr;
 	};
 
-	inline bool OWorldToScreen(vec3_t origin, vec3_t pos, vec2_t &screen, vec2_t fov, vec2_t displaySize) {
+	inline bool OWorldToScreen(vec3 origin, vec3 pos, vec2 &screen, vec2 fov, vec2 displaySize) {
 		pos = pos.sub(origin);
 
 		float x = transformx(pos);
@@ -477,7 +477,7 @@ struct glmatrixf {
 		v[14] += z;
 	}
 
-	inline void translate(const vec3_t &o) {
+	inline void translate(const vec3 &o) {
 		translate(o.x, o.y, o.z);
 	}
 
@@ -496,15 +496,15 @@ struct glmatrixf {
 		v[11] *= z;
 	}
 
-	inline void invertnormal(vec3_t &dir) const {
-		vec3_t n(dir);
+	inline void invertnormal(vec3 &dir) const {
+		vec3 n(dir);
 		dir.x = n.x * v[0] + n.y * v[1] + n.z * v[2];
 		dir.y = n.x * v[4] + n.y * v[5] + n.z * v[6];
 		dir.z = n.x * v[8] + n.y * v[9] + n.z * v[10];
 	}
 
-	inline void invertvertex(vec3_t &pos) const {
-		vec3_t p(pos);
+	inline void invertvertex(vec3 &pos) const {
+		vec3 p(pos);
 		p.x -= v[12];
 		p.y -= v[13];
 		p.z -= v[14];
@@ -513,59 +513,59 @@ struct glmatrixf {
 		pos.z = p.x * v[8] + p.y * v[9] + p.z * v[10];
 	}
 
-	inline void transform(const vec3_t &in, vec4_t &out) const {
+	inline void transform(const vec3 &in, vec4 &out) const {
 		out.x = transformx(in);
 		out.y = transformy(in);
 		out.z = transformz(in);
 		out.w = transformw(in);
 	}
 
-	__forceinline float transformx(const vec3_t &p) const {
+	__forceinline float transformx(const vec3 &p) const {
 		return p.x * v[0] + p.y * v[4] + p.z * v[8] + v[12];
 	}
 
-	__forceinline float transformy(const vec3_t &p) const {
+	__forceinline float transformy(const vec3 &p) const {
 		return p.x * v[1] + p.y * v[5] + p.z * v[9] + v[13];
 	}
 
-	__forceinline float transformz(const vec3_t &p) const {
+	__forceinline float transformz(const vec3 &p) const {
 		return p.x * v[2] + p.y * v[6] + p.z * v[10] + v[14];
 	}
 
-	__forceinline float transformw(const vec3_t &p) const {
+	__forceinline float transformw(const vec3 &p) const {
 		return p.x * v[3] + p.y * v[7] + p.z * v[11] + v[15];
 	}
 
-	__forceinline vec3_t gettranslation() const {
-		return vec3_t(v[12], v[13], v[14]);
+	__forceinline vec3 gettranslation() const {
+		return vec3(v[12], v[13], v[14]);
 	}
 
 	//assault cube world2screen
-	vec3_t transform(glmatrixf *matrix, vec3_t &totransform) {
-		return vec3_t(matrix->transformx(totransform),
+	vec3 transform(glmatrixf *matrix, vec3 &totransform) {
+		return vec3(matrix->transformx(totransform),
 					  matrix->transformy(totransform),
 					  matrix->transformz(totransform))
 			.div(matrix->transformw(totransform));
 	}
 
 	///pos should be the exact center of the enemy model for scaling to work properly
-	vec3_t WorldToScreen(vec3_t pos, int width, int height) {
+	vec3 WorldToScreen(vec3 pos, int width, int height) {
 		//Matrix-vector Product, multiplying world(eye) coordinates by projection matrix = clipCoords
-		vec4_t clipCoords;
+		vec4 clipCoords;
 		clipCoords.x = pos.x * v[0] + pos.y * v[4] + pos.z * v[8] + v[12];
 		clipCoords.y = pos.x * v[1] + pos.y * v[5] + pos.z * v[9] + v[13];
 		clipCoords.z = pos.x * v[2] + pos.y * v[6] + pos.z * v[10] + v[14];
 		clipCoords.w = pos.x * v[3] + pos.y * v[7] + pos.z * v[11] + v[15];
 
 		//perspective division, dividing by clip.W = Normalized Device Coordinates
-		vec3_t NDC;
+		vec3 NDC;
 		NDC.x = clipCoords.x / clipCoords.w;
 		NDC.y = clipCoords.y / clipCoords.w;
 		NDC.z = clipCoords.z / clipCoords.w;
 
 		//viewport tranform to screenCooords
 
-		vec3_t playerscreen;
+		vec3 playerscreen;
 		playerscreen.x = (width / 2 * NDC.x) + (NDC.x + width / 2);
 		playerscreen.y = -(height / 2 * NDC.y) + (NDC.y + height / 2);
 
@@ -574,18 +574,18 @@ struct glmatrixf {
 };
 
 struct AABB {
-	vec3_t lower;
-	vec3_t upper;
+	vec3 lower;
+	vec3 upper;
 	//bool isZero = false;
 	//char padding[3];
 	AABB() {}
-	AABB(vec3_t l, vec3_t h) : lower(l), upper(h){};
+	AABB(vec3 l, vec3 h) : lower(l), upper(h){};
 	AABB(const AABB &aabb) {
-		lower = vec3_t(aabb.lower);
-		upper = vec3_t(aabb.upper);
+		lower = vec3(aabb.lower);
+		upper = vec3(aabb.upper);
 	}
-	AABB(vec3_t lower, float width, float height, float eyeHeight) {
-		lower = lower.sub(vec3_t(width, eyeHeight * 2, width).div(2));
+	AABB(vec3 lower, float width, float height, float eyeHeight) {
+		lower = lower.sub(vec3(width, eyeHeight * 2, width).div(2));
 		this->lower = lower;
 		this->upper = {lower.x + width, lower.y + height, lower.z + width};
 	}
@@ -607,8 +607,8 @@ struct AABB {
 		return AABB(lower.sub(amount, 0.f, amount), upper.add(amount, 0.f, amount));
 	}
 
-	vec3_t centerPoint() {
-		vec3_t diff = upper.sub(lower);
+	vec3 centerPoint() {
+		vec3 diff = upper.sub(lower);
 		return lower.add(diff.mul(0.5f));
 	}
 

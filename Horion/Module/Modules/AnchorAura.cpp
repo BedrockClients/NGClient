@@ -48,32 +48,32 @@ bool CfindEntityy(C_Entity* curEnt, bool isRegularEntity) {
 }
 
 bool spacee = true;
-vec3_t _poss;
-bool CanPlaceCC(vec3_ti* pos) {
+vec3 _poss;
+bool CanPlaceCC(vec3i* pos) {
 	spacee = true;
 	return spacee;
 }
 
-void AnchorAura::CPlace(C_GameMode* gm, vec3_t* pos) {
+void AnchorAura::CPlace(C_GameMode* gm, vec3* pos) {
 	int i = 0;
 	if (!pEnhanced) {
 #pragma warning(push)
 #pragma warning(disable : 4244)
-		vec3_ti blockPos = vec3_ti(pos->x, pos->y, pos->z);
-		vec3_ti upperBlockPos = vec3_ti(pos->x, pos->y + 1, pos->z);
+		vec3i blockPos = vec3i(pos->x, pos->y, pos->z);
+		vec3i upperBlockPos = vec3i(pos->x, pos->y + 1, pos->z);
 #pragma warning(pop)
 		C_Block* block = gm->player->region->getBlock(blockPos);
 		C_Block* upperBlock = gm->player->region->getBlock(upperBlockPos);
 		gm->buildBlock(&blockPos, g_Data.getLocalPlayer()->pointingStruct->blockSide);
 		return;
 	}
-	vec3_ti bestPos;
+	vec3i bestPos;
 	bool ValidPos = false;
 	for (int x = (int)pos->x - eRange; x < pos->x + eRange; x++) {
 		for (int z = (int)pos->z - eRange; z < pos->z + eRange; z++) {
 			for (int y = (int)pos->y - eRange; y < pos->y + eRange; y++) {
-				vec3_ti blockPos = vec3_ti(x, y, z);
-				vec3_ti upperBlockPos = vec3_ti(x, y + 1, z);
+				vec3i blockPos = vec3i(x, y, z);
+				vec3i upperBlockPos = vec3i(x, y + 1, z);
 				C_Block* block = gm->player->region->getBlock(blockPos);
 				C_Block* upperBlock = gm->player->region->getBlock(upperBlockPos);
 				if (block != nullptr) {
@@ -94,18 +94,18 @@ void AnchorAura::CPlace(C_GameMode* gm, vec3_t* pos) {
 			}
 		}
 	}
-	C_Block* blocck = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(bestPos));
-	vec3_ti blok(bestPos);
+	C_Block* blocck = g_Data.getLocalPlayer()->region->getBlock(vec3i(bestPos));
+	vec3i blok(bestPos);
 	if (ValidPos) {
 		g_Data.getCGameMode()->buildBlock(&blok, i);
 	} else {
-		static std::vector<vec3_ti*> checklist;
+		static std::vector<vec3i*> checklist;
 		bool foundCandidate = false;
 		if (checklist.empty()) {
 		}
 
 		for (auto current : checklist) {
-			vec3_ti calc = blok.sub(*current);
+			vec3i calc = blok.sub(*current);
 			bool Y = ((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable;
 			if (!((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable) {
 				// Found a solid block to click

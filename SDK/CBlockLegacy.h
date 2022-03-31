@@ -45,10 +45,10 @@ private:
 public:
 	short blockId;  //0x014C
 
-	int liquidGetDepth(C_BlockSource*, const vec3_ti* pos);
-	void liquidGetFlow(vec3_t* flowOut, C_BlockSource*, const vec3_ti* pos);
-	bool getCollisionShape(AABB* collShapeOut, C_Block* block, C_BlockSource* blockSource, const vec3_ti* pos, C_Entity* actor);
-	bool hasWater(C_BlockSource*, const vec3_ti& pos);
+	int liquidGetDepth(C_BlockSource*, const vec3i* pos);
+	void liquidGetFlow(vec3* flowOut, C_BlockSource*, const vec3i* pos);
+	bool getCollisionShape(AABB* collShapeOut, C_Block* block, C_BlockSource* blockSource, const vec3i* pos, C_Entity* actor);
+	bool hasWater(C_BlockSource*, const vec3i& pos);
 	void setExplodeable(float a2) {
 		using setExplodeable = void(__fastcall*)(C_BlockLegacy*, float);
 		static setExplodeable explode = reinterpret_cast<setExplodeable>(Utils::FindSignature("F3 0F 59 0D ? ? ? ? 48 8B C1"));
@@ -85,10 +85,10 @@ public:
 
 class C_BlockSource {
 public:
-	C_Block* getBlock(const vec3_ti& block);
+	C_Block* getBlock(const vec3i& block);
 	;
 
-	C_BlockActor* getBlockEntity(const vec3_ti& block);
+	C_BlockActor* getBlockEntity(const vec3i& block);
 
-	C_Block* getLiquidBlock(const vec3_ti& block);
+	C_Block* getLiquidBlock(const vec3i& block);
 };

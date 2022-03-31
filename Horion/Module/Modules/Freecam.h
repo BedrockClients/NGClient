@@ -10,13 +10,13 @@ public:
 		this->lvlRenderWrite = nullptr;
 		this->lvlLoaderWrite = nullptr;
 	};
-	vec2_t cameraRot = {0.f, 0.f};
+	vec2 cameraRot = {0.f, 0.f};
 	bool wasDisabled = false;
-	vec3_t targetPos;
+	vec3 targetPos;
 	void* lvlRenderWrite;
 	void* lvlLoaderWrite;
 	float speed = 0.5f;
-	vec2_t oldCamRot;
+	vec2 oldCamRot;
 
 	virtual const char* getModuleName() override {
 		return "Freecam";
@@ -105,7 +105,7 @@ public:
 		bool pressed = GameData::isKeyDown(*input->forwardKey) || GameData::isKeyDown(*input->backKey) || GameData::isKeyDown(*input->rightKey) || GameData::isKeyDown(*input->leftKey);
 		if (pressed) {
 			float calcYaw = (yaw + 90) * (PI / 180);
-			vec3_t moveVec;
+			vec3 moveVec;
 			moveVec.x = cos(calcYaw) * speed;
 			moveVec.y = 0;
 			moveVec.z = sin(calcYaw) * speed;

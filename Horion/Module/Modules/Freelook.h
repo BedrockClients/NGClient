@@ -2,8 +2,8 @@
 #include "Module.h"
 class Freelook : public IModule {
 public:
-	vec2_t oldPos;
-	vec2_t Pos;
+	vec2 oldPos;
+	vec2 Pos;
 
 	Freelook() : IModule(0x0, Category::VISUAL, "Move straight while moving your camera around") {}
 	~Freelook(){};

@@ -1,7 +1,7 @@
 ﻿#include "TestModule.h"
 #include "../../../Memory/Hooks.h"
 
-TestModule::TestModule() : IModule(0, Category::WORLD, "For testing purposes") {
+TestModule::TestModule() : IModule(0x0, Category::WORLD, "For testing purposes") {
 	enum1 = SettingEnum(this)
 				.addEntry(EnumEntry("1", 1))
 				.addEntry(EnumEntry("2", 2))
@@ -96,11 +96,11 @@ void TestModule::onLevelRender() {
 void TestModule::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 	//std::string screenName(g_Hooks.currentScreenName);
 	//if (screenName != "toast_screen" && screenName != "start_screen" && screenName != "debug_screen" && screenName != "pause_screen" && screenName != "À$0a-" && screenName != "ÀA&w-")
-	//DrawUtils::drawText(vec2_t{100, 100}, &screenName, MC_Color(0, 0, 255));
+	//DrawUtils::drawText(vec2{100, 100}, &screenName, MC_Color(0, 0, 255));
 
 	//C_TexturePtr texture;
 	//texture.filePath = TextHolder("texture/ui/hotbar_2");
 	//__int64 yot = 0;
-	//DrawUtils::drawImage("texture/ui/hotbar_2", vec2_t(100, 100), vec2_t(100, 300), vec2_t(1, 1));
-	//renderCtx->drawImage(&texture, vec2_t(100, 100), vec2_t(500, 100), yot, vec2_t(1, 1));
+	//DrawUtils::drawImage("texture/ui/hotbar_2", vec2(100, 100), vec2(100, 300), vec2(1, 1));
+	//renderCtx->drawImage(&texture, vec2(100, 100), vec2(500, 100), yot, vec2(1, 1));
 }

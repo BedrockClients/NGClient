@@ -36,13 +36,13 @@ private:
 	bool botCheck = false;
 	static float constexpr maxdot = 0.f;  // dot
 	std::vector<C_Entity*> toBreak;
-	std::vector<vec3_ti> toPlace;
+	std::vector<vec3i> toPlace;
 	int previousSlot = -1;
 
 	struct CrystalRenderHolder {
 		float enemyDmg;
 		float playerDmg;
-		vec3_ti pos;
+		vec3i pos;
 	} latestCrystal;
 	bool renderCrystal;
 
@@ -92,10 +92,10 @@ public:
 	void doDestroy(std::vector<C_Entity*> crystals, C_GameMode* gm, bool placed);
 	bool doPlace(std::vector<C_Entity*> targets, std::vector<C_Entity*> allEnts, C_GameMode* gm);
 	bool findCrystal(C_GameMode* gm);
-	static bool isTooFar(vec2_t from, vec2_t to);
-	float computeExplosionDamage(vec3_t loc, C_Entity* target, C_BlockSource* reg, int mode);
+	static bool isTooFar(vec2 from, vec2 to);
+	float computeExplosionDamage(vec3 loc, C_Entity* target, C_BlockSource* reg, int mode);
 	float computeExplosionDamage(C_Entity* crystal, C_Entity* target, C_BlockSource* reg, int mode) { return computeExplosionDamage(*crystal->getPos(), target, reg, mode); };
 	float getBlastDamageEnchantReduction(C_ItemStack* item);
-	float calculateBlockDensity(vec3_t pos, AABB aabb, C_BlockSource* region);
-	bool tryRaytrace(vec3_t pos, vec3_t end, C_BlockSource* region);
+	float calculateBlockDensity(vec3 pos, AABB aabb, C_BlockSource* region);
+	bool tryRaytrace(vec3 pos, vec3 end, C_BlockSource* region);
 };

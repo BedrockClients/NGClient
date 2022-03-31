@@ -192,7 +192,7 @@ std::string Utils::getClipboardText() {
 		return std::string(pszText);
 	}
 }
-size_t Utils::posToHash(const vec3_ti& pos) {
+size_t Utils::posToHash(const vec3i& pos) {
 	return rotBy(pos.x, 0) | rotBy(pos.z, 24) | (static_cast<unsigned __int64>(pos.y) << 48u);
 }
 void Utils::setClipboardText(std::string& text) {

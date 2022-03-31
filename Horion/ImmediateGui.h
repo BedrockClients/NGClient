@@ -17,22 +17,22 @@ protected:
 
 class ButtonInfo : public ComponentInfo {
 private:
-	vec2_t pos;
-	vec2_t size;
+	vec2 pos;
+	vec2 size;
 	bool centered;
 	float padding = 3.f;
 	bool canClickB = false;
 
 public:
-	ButtonInfo(int id, vec2_t pos, bool centered = false);
+	ButtonInfo(int id, vec2 pos, bool centered = false);
 	virtual ~ButtonInfo(){};
 
 	void calculateSize(const char*);
-	bool isInSelectableSurface(vec2_t mouse);
-	vec4_t getSelectableSurface();
-	void draw(vec2_t mousePos, const char* label);
+	bool isInSelectableSurface(vec2 mouse);
+	vec4 getSelectableSurface();
+	void draw(vec2 mousePos, const char* label);
 	bool canClick() { return canClickB; };
-	void updatePos(vec2_t pos) { this->pos = pos; }
+	void updatePos(vec2 pos) { this->pos = pos; }
 	
 };
 
@@ -59,7 +59,7 @@ struct KeyInfo {
 
 class ImmediateGui {
 private:
-	vec2_t mousePos;
+	vec2 mousePos;
 	KeyInfo leftMb;
 	KeyInfo rightMb;
 	std::map<unsigned int, std::shared_ptr<ComponentInfo>> components;
@@ -68,7 +68,7 @@ public:
 	void onMouseClickUpdate(int key, bool isDown);
 	void startFrame();
 	void endFrame();
-	bool Button(const char* label, vec2_t pos, bool centered = false);
+	bool Button(const char* label, vec2 pos, bool centered = false);
 };
 
 extern ImmediateGui HImGui;

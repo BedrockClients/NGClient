@@ -80,7 +80,7 @@ IModule::IModule(int key, Category c, const char* tooltip) {
 	this->tooltip = tooltip;
 	this->registerIntSetting(std::string("keybind"), &this->keybind, this->keybind, 0, 0xFF);
 	this->registerBoolSetting(std::string("enabled"), &this->enabled, false);
-	this->ModulePos = vec2_t(0.f, 0.f);
+	this->ModulePos = vec2(0.f, 0.f);
 }
 void IModule::registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue) {
 #ifdef DEBUG
@@ -314,11 +314,11 @@ const char* IModule::getRawModuleName() {
 	return getModuleName();
 }
 
-int IModule::getKeybind() {
+int IModule::getKey() {
 	return this->keybind;
 }
 
-void IModule::setKeybind(int key) {
+void IModule::setKey(int key) {
 	this->keybind = key;
 }
 
@@ -339,7 +339,7 @@ void IModule::onWorldTick(C_GameMode*) {
 }
 
 void IModule::onKeyUpdate(int key, bool isDown) {
-	if (key == getKeybind()) {
+	if (key == getKey()) {
 		if (isFlashMode())
 			setEnabled(isDown);
 		else if (isDown)

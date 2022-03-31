@@ -43,9 +43,9 @@ void selectionHighlight::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			float mC = thickness / 2;
 			auto pStruct = g_Data.getLocalPlayer()->pointingStruct;
 
-			vec3_t hLower = pStruct->block.toVec3t();
+			vec3 hLower = pStruct->block.toVec3t();
 			hLower = hLower.floor();
-			vec3_t hUpper = pStruct->block.toVec3t();
+			vec3 hUpper = pStruct->block.toVec3t();
 			hUpper = hUpper.floor();
 			hUpper.x += 1.f;
 			hUpper.y += 1.f;
@@ -64,16 +64,16 @@ void selectionHighlight::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 						DrawUtils::setColor(rainbowColors[0], rainbowColors[1], rainbowColors[2], fOpacity);
 
 						//top
-						vec2_t a1 = DrawUtils::worldToScreen(vec3_t(hUpper.x, hUpper.y, hUpper.z));
-						vec2_t a2 = DrawUtils::worldToScreen(vec3_t(hUpper.x, hUpper.y, hUpper.z - 1.f));
+						vec2 a1 = DrawUtils::worldToScreen(vec3(hUpper.x, hUpper.y, hUpper.z));
+						vec2 a2 = DrawUtils::worldToScreen(vec3(hUpper.x, hUpper.y, hUpper.z - 1.f));
 						//bottom
-						vec2_t a3 = DrawUtils::worldToScreen(vec3_t(hUpper.x, hUpper.y - 1.f, hUpper.z));
-						vec2_t a4 = DrawUtils::worldToScreen(vec3_t(hUpper.x, hUpper.y - 1.f, hUpper.z - 1.f));
+						vec2 a3 = DrawUtils::worldToScreen(vec3(hUpper.x, hUpper.y - 1.f, hUpper.z));
+						vec2 a4 = DrawUtils::worldToScreen(vec3(hUpper.x, hUpper.y - 1.f, hUpper.z - 1.f));
 
 						//DrawUtils::drawQuad(a1, a2, a3, a4);
 					}
 
-					//DrawUtils::drawText(vec2_t(100.f, 100.f), &std::string(std::to_string(face) + " " + std::to_string(rayType)), MC_Color(255, 0, 0));
+					//DrawUtils::drawText(vec2(100.f, 100.f), &std::string(std::to_string(face) + " " + std::to_string(rayType)), MC_Color(255, 0, 0));
 				}
 
 			} else {

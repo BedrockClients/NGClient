@@ -2,7 +2,7 @@
 
 #include "../ModuleManager.h"
 
-MegaDupe::MegaDupe() : IModule(0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
+MegaDupe::MegaDupe() : IModule(0x0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
 	registerFloatSetting("Dupe Amount", &amount, 1, 1.f, 128.f);
 }
 

@@ -4,7 +4,7 @@
 
 class AntiVoid : public IModule {
 private:
-	vec3_t orgipos;
+	vec3 orgipos;
 
 public:
 	bool jump = false;

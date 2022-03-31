@@ -20,7 +20,7 @@ bool UnbindCommand::execute(std::vector<std::string>* args) {
 			std::vector<std::shared_ptr<IModule>>* modules = moduleMgr->getModuleList();
 			for (auto it = modules->begin(); it != modules->end(); ++it) {
 				auto mod = *it;
-				mod->setKeybind(0x0);
+				mod->setKey(0x0);
 			}
 			clientMessageF("%sUnbound all modules!", YELLOW);
 		} else {
@@ -37,7 +37,7 @@ bool UnbindCommand::execute(std::vector<std::string>* args) {
 	} 
 
 	auto mod = modOpt.value();
-	mod->setKeybind(0x0);
+	mod->setKey(0x0);
 	clientMessageF("%sSuccessfully unbound %s!", GREEN, mod->getModuleName());
 	return true;
 }

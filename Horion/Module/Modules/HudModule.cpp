@@ -2,7 +2,7 @@
 #include "../../DrawUtils.h"
 #include "../ModuleManager.h"
 
-HudModule::HudModule() : IModule(0, Category::GUI, "Displays Hud") {
+HudModule::HudModule() : IModule(0x0, Category::GUI, "Displays Hud") {
 	registerBoolSetting("Buttons", &Buttons, Buttons);
 	registerBoolSetting("RGB", &rgb, rgb);
 	registerBoolSetting("MSG", &Msg, Msg);
@@ -35,7 +35,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		Utils::ApplyRainbow(currColor, 0.00025f);
 	}
 
-	vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+	vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 	float f = 10.f * scale;
 	std::string tempStr("Movement");
 	float len = DrawUtils::getTextWidth(&tempStr, scale) + 7.f;
@@ -49,11 +49,11 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			if (partner->Partnered.selected == 0) {
 				std::string fpsText = "sup bitch";
 				if (partner->Partnered.selected == 0)
-					DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(0, 0, 255), scale);
+					DrawUtils::drawText(vec2(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(0, 0, 255), scale);
 			} else {
 				std::string fpsText = "NG Client on Top!";
 				if (!partner->Partnered.selected == 0)
-					DrawUtils::drawText(vec2_t(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(184, 0, 255), scale);
+					DrawUtils::drawText(vec2(windowSize.x / 2 - 20, windowSize.y - windowSize.y + 10), &fpsText, MC_Color(184, 0, 255), scale);
 			}
 		}
 	}

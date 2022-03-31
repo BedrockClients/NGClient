@@ -88,7 +88,7 @@ void InsideTP::onTick(C_GameMode* gm) {
 	g_Data.forEachEntity(findEntity1);
 
 	Odelay++;
-	vec3_t pos = *targetList[0]->getPos();
+	vec3 pos = *targetList[0]->getPos();
 	float cy = (targetList[0]->yaw + 90) * (PI / 180);
 
 	if (!targetList.empty()) {
@@ -113,7 +113,7 @@ void InsideTP::onSendPacket(C_Packet* packet) {
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
 		if (!targetList.empty()) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			vec2 angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			movePacket->pitch = angle.x;
 			movePacket->headYaw = angle.y;
 			movePacket->yaw = angle.y;

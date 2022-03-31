@@ -5,7 +5,7 @@ public:
 	SettingEnum CrasherMode;
 	int CrasherPPS = 1;
 
-	Crasher() : IModule(0, Category::WORLD, "Crash Servers n stuff") {
+	Crasher() : IModule(0x0, Category::WORLD, "Crash Servers n stuff") {
 	registerIntSetting("PPS", &CrasherPPS, 1, 1, 2474);
 	registerEnumSetting("Method", &CrasherMode, 0);
 	CrasherMode = (*new SettingEnum(this)) //Crashers by Founder don't touch, skid, steal, or else you watch gay furry porn and r into little boys
@@ -59,7 +59,7 @@ public:
 			return;
 		}
 		C_TextPacket textPacket;
-		C_MovePlayerPacket MovePlayerPacket(g_Data.getLocalPlayer(), g_Data.getLocalPlayer()->getPos()->add(vec3_t(1000.5f, 1000.5f, 1000.5f)));
+		C_MovePlayerPacket MovePlayerPacket(g_Data.getLocalPlayer(), g_Data.getLocalPlayer()->getPos()->add(vec3(1000.5f, 1000.5f, 1000.5f)));
 		NetworkLatencyPacket NetworkPacket;
 		NetworkPacket.timeStamp = 6;
 		//C_SubChunkRequestPacket ChunkRequestPacket;

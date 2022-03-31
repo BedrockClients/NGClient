@@ -5,7 +5,7 @@
 
 static std::vector<C_Entity*> targetList;
 
-SnowballAimbot::SnowballAimbot() : IModule(0, Category::COMBAT, "Aimbot, but for snowballs") {
+SnowballAimbot::SnowballAimbot() : IModule(0x0, Category::COMBAT, "Aimbot, but for snowballs") {
 	registerBoolSetting("silent", &silent, silent);
 	registerBoolSetting("predict", &predict, predict);
 	registerBoolSetting("visualize", &visualize, visualize);
@@ -53,11 +53,11 @@ void SnowballAimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 
 	if (!targetList.empty()) {
 		std::sort(targetList.begin(), targetList.end(), CompareTargetEnArray());
-		vec3_t origin = g_Data.getLocalPlayer()->eyePos0;  // TODO: sort list
+		vec3 origin = g_Data.getLocalPlayer()->eyePos0;  // TODO: sort list
 		C_Entity* entity = targetList[0];
-		vec3_t pos = entity->aabb.centerPoint();
+		vec3 pos = entity->aabb.centerPoint();
 		if (predict) {
-			vec3_t velocity = entity->getPos()->sub(*entity->getPosOld());
+			vec3 velocity = entity->getPos()->sub(*entity->getPosOld());
 			velocity.x *= origin.dist(pos) / 2.f;
 			velocity.z *= origin.dist(pos) / 2.f;
 			pos = pos.add(velocity);
@@ -72,7 +72,7 @@ void SnowballAimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 		float pitch = DEG_RAD * -atanf((1 - sqrtf(tmp)) / (g * len));
 
 		if (silent) {
-			angle = vec2_t(pitch, yaw);
+			angle = vec2(pitch, yaw);
 			C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
 			p.pitch = angle.x;
 			p.yaw = angle.y;
@@ -80,9 +80,9 @@ void SnowballAimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
 		} else {
 			if (pitch < 120 && pitch > -120) {
-				vec2_t angles = vec2_t(pitch, yaw);
+				vec2 angles = vec2(pitch, yaw);
 
-				vec2_t appl = angles.sub(localPlayer->viewAngles).normAngles();
+				vec2 appl = angles.sub(localPlayer->viewAngles).normAngles();
 				appl.x = -appl.x;
 				appl = appl.div(7);  // Smooth dat boi
 

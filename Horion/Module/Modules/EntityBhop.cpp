@@ -40,14 +40,14 @@ void EntityBhop::onMove(C_MoveInputHandler* input) {
 		if (player->isSneaking())
 			return;
 
-		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		vec2 moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
 
 		if (player->onGround && pressed)
 			player->jumpFromGround();
 
 		float calcYaw = (player->yaw + 90) * (PI / 180);
-		vec3_t moveVec;
+		vec3 moveVec;
 		float c = cos(calcYaw);
 		float s = sin(calcYaw);
 		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};

@@ -2,7 +2,7 @@
 
 #include "../ModuleManager.h"
 bool isUsefulExtraCheck(C_ItemStack* itemStack);
-InventoryCleaner::InventoryCleaner() : IModule(0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
+InventoryCleaner::InventoryCleaner() : IModule(0x0, Category::PLAYER, "Automatically throws not needed stuff out of your inventory") {
 	registerIntSetting("Delay", &setDelay, setDelay, 0, 10);
 	registerBoolSetting("Armor", &keepArmor, keepArmor);
 	registerBoolSetting("Pickaxe", &keepPick, keepPick);

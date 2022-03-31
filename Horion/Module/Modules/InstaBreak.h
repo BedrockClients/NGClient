@@ -20,7 +20,7 @@ public:
 			bool isDestroyed = false;
 			gm->stopDestroyBlock(pointing->block);
 			gm->startDestroyBlock(pointing->block, pointing->blockSide, isDestroyed);
-			vec3_ti* thingy = new vec3_ti(pointing->block);
+			vec3i* thingy = new vec3i(pointing->block);
 			gm->destroyBlock(thingy, pointing->blockSide);
 			gm->stopDestroyBlock(pointing->block);
 			delete thingy;

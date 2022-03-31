@@ -1,7 +1,7 @@
 #include "SwingAnimations.h"
 void* FluxAddress = (void*)FindSignature("0F 84 ? ? ? ? 48 8B 56 ? 48 85 D2 74 ? 48 8B 02");
 void* TapAddress = (void*)FindSignature("F3 0F 51 F0 0F 28 C8");
-SwingAnimations::SwingAnimations() : IModule(0, Category::VISUAL, "SwingAnimations for killaura") {
+SwingAnimations::SwingAnimations() : IModule(0x0, Category::VISUAL, "SwingAnimations for killaura") {
 	registerEnumSetting("BlockHit", &swing, 2);
 	swing = SettingEnum(this)
 				.addEntry(EnumEntry("SlideBlock", 0))

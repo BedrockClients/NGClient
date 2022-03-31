@@ -1,7 +1,7 @@
 #include "NoJumpDelay.h"
 #include "../ModuleManager.h"
 
-NoJumpDelay::NoJumpDelay() : IModule(0, Category::PLAYER, "No delay between jumps") {
+NoJumpDelay::NoJumpDelay() : IModule(0x0, Category::PLAYER, "No delay between jumps") {
 	registerIntSetting("Delay", &tickTimer, tickTimer, 0, 10);
 	registerIntSetting("Timer", &speedTimer, speedTimer, 1, 30);
 	registerBoolSetting("Use Timer", &usetimer, usetimer);

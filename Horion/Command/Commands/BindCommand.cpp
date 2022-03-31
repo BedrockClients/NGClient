@@ -31,7 +31,7 @@ bool BindCommand::execute(std::vector<std::string>* args) {
 			const char* needle = key.c_str();
 
 			if (key == "none") {
-				mod->setKeybind(0x0);
+				mod->setKey(0x0);
 				clientMessageF("%sSuccessfully unbound %s!", GREEN, mod->getModuleName());
 				return true;
 			}
@@ -44,7 +44,7 @@ bool BindCommand::execute(std::vector<std::string>* args) {
 					haystackLowercase[i] = tolower(haystack[i]);
 
 				if (strcmp(needle, haystackLowercase) == 0) {
-					mod->setKeybind(i);
+					mod->setKey(i);
 					clientMessageF("%sThe keybind of %s is now '%s'", GREEN, mod->getModuleName(), haystack);
 					delete[] haystackLowercase;
 					return true;
@@ -64,7 +64,7 @@ bool BindCommand::execute(std::vector<std::string>* args) {
 			if (!modOpt.has_value()) {
 				clientMessageF("%sCould not find module with name: %s", RED, moduleName.c_str());
 			} else {
-				modOpt.value()->setKeybind(keyCode);
+				modOpt.value()->setKey(keyCode);
 				clientMessageF("%sThe Keybind of %s is now '%c'", GREEN, mod->getModuleName(), keyCode);
 			}
 		} else {
@@ -72,7 +72,7 @@ bool BindCommand::execute(std::vector<std::string>* args) {
 		}
 		return true;
 	} else {
-		clientMessageF("%s%s is currently bound to %s", RED, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
+		clientMessageF("%s%s is currently bound to %s", RED, mod->getModuleName(), Utils::getKeyName(mod->getKey()));
 		return true;
 	}
 	

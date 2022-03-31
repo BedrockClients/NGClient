@@ -20,10 +20,10 @@ bool checkVoid() {
 	auto Avoid = moduleMgr->getModule<AntiVoid>();
 	if (voidcheck) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		vec3_t blockBelow = player->eyePos0;
+		vec3 blockBelow = player->eyePos0;
 		blockBelow.y -= player->height;
 		blockBelow.y -= Avoid->distance;
-		vec3_t bb = vec3_t(blockBelow.x, blockBelow.y, blockBelow.z);
+		vec3 bb = vec3(blockBelow.x, blockBelow.y, blockBelow.z);
 		for (int i = (int)(blockBelow.y); i > -62; i--) {
 			if (player->region->getBlock(bb)->blockLegacy->material->isSolid || player->region->getBlock(bb)->blockLegacy->material->isLiquid) {
 				return false;
@@ -37,7 +37,7 @@ bool checkVoid() {
 
 void AntiVoid::onTick(C_GameMode* gm) {
 	C_LocalPlayer* player = g_Data.getLocalPlayer();
-	vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
+	vec3 blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 	blockBelow.y -= g_Data.getLocalPlayer()->height;
 	blockBelow.y -= 0.5f;
 
@@ -62,7 +62,7 @@ void AntiVoid::onTick(C_GameMode* gm) {
 		}
 		if (mode.selected == 1) {
 			float dist = gm->player->getPos()->dist(orgipos);
-			g_Data.getLocalPlayer()->lerpMotion(vec3_t(0, 1, 0));
+			g_Data.getLocalPlayer()->lerpMotion(vec3(0, 1, 0));
 		}
 	}
 }

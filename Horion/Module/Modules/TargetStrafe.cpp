@@ -1,6 +1,6 @@
 #include "TargetStrafe.h"
 
-TargetStrafe::TargetStrafe() : IModule(0, Category::COMBAT, "Hop around like a bunny!") {
+TargetStrafe::TargetStrafe() : IModule(0x0, Category::COMBAT, "Hop around like a bunny!") {
 	registerBoolSetting("Mobs", &isMobAura, isMobAura);
 	registerBoolSetting("Jump", &jump, jump);
 	registerBoolSetting("Hive", &hive, hive);
@@ -84,7 +84,7 @@ void TargetStrafe::onMove(C_MoveInputHandler* input) {
 		if (player->isSneaking())
 			return;
 
-		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		vec2 moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
 
 		if (player->onGround && pressed && jump)
@@ -92,7 +92,7 @@ void TargetStrafe::onMove(C_MoveInputHandler* input) {
 
 		if (player->onGround && hive) {
 			float calcYaw = (player->yaw + 90) * (PI / 180);
-			vec3_t moveVec;
+			vec3 moveVec;
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
 			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
@@ -102,7 +102,7 @@ void TargetStrafe::onMove(C_MoveInputHandler* input) {
 			if (pressed) player->lerpMotion(moveVec);
 		} else if (!hive) {
 			float calcYaw = (player->yaw + 90) * (PI / 180);
-			vec3_t moveVec;
+			vec3 moveVec;
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
 			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
@@ -135,7 +135,7 @@ void TargetStrafe::onTick(C_GameMode* gm) {
 		g_Data.forEachEntity(findGist);
 		if (!targetGist.empty()) {
 			C_LocalPlayer* player = g_Data.getLocalPlayer();
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetGist[0]->getPos()).normAngles();
+			vec2 angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetGist[0]->getPos()).normAngles();
 			player->yawUnused2 = angle.x;
 			player->yawUnused2 = angle.y;
 			player->bodyYaw = angle.x;

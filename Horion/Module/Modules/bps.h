@@ -25,9 +25,9 @@ public:
 
 		if (!(g_Data.getLocalPlayer() == nullptr)) {
 			std::string bpsText = "BPS: " + std::to_string((int)g_Data.getLocalPlayer()->getBlocksPerSecond());
-			vec4_t rectPos = vec4_t(0.5f, yVal + 20.5f * scale, len - 1.5f, yVal + 30.5f * scale);
-			vec2_t textPos = vec2_t(xVal, yVal);
-				DrawUtils::drawText(vec2_t{textPos}, &bpsText, MC_Color(184, 0, 255), scale);
+			vec4 rectPos = vec4(0.5f, yVal + 20.5f * scale, len - 1.5f, yVal + 30.5f * scale);
+			vec2 textPos = vec2(xVal, yVal);
+				DrawUtils::drawText(vec2{textPos}, &bpsText, MC_Color(184, 0, 255), scale);
 			}
 			yVal += f;
 		}

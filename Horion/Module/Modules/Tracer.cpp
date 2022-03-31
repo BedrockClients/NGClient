@@ -3,7 +3,7 @@
 #include "../../DrawUtils.h"
 #include "../ModuleManager.h"
 
-Tracer::Tracer() : IModule(0, Category::VISUAL, "Draws lines to ESP highlighted entities") {
+Tracer::Tracer() : IModule(0x0, Category::VISUAL, "Draws lines to ESP highlighted entities") {
 	registerEnumSetting("Tracer Type", &type, 0);
 	type = SettingEnum(this)
 			   .addEntry(EnumEntry("Normal Tracers", 0))
@@ -32,8 +32,8 @@ void doRenderStuff3(C_Entity* ent, bool isRegularEntitie) {
 	static auto freecamMod = moduleMgr->getModule<Freecam>();
 	if (ent == nullptr) return;
 
-	vec3_t forwardVec = tracerMod->cameraPos;
-	vec2_t facing = tracerMod->cameraRot;
+	vec3 forwardVec = tracerMod->cameraPos;
+	vec2 facing = tracerMod->cameraRot;
 
 	float calcYaw = (facing.y + 90) * (PI / 180);
 	float calcPitch = (facing.x) * -(PI / 180);

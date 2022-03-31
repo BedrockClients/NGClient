@@ -324,7 +324,6 @@
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
     <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
     <ClCompile Include="Horion\Module\Modules\Reach.cpp" />
     <ClCompile Include="Horion\Module\Modules\Scaffold.cpp" />
     <ClCompile Include="Horion\Module\Modules\Spider.cpp" />
@@ -465,12 +464,10 @@
     <ClInclude Include="Horion\Module\Modules\Partner.h" />
     <ClInclude Include="Horion\Module\Modules\Rainbow.h" />
     <ClInclude Include="Horion\Module\Modules\ServerInfo.h" />
-    <ClInclude Include="Horion\Module\Modules\Snow.h" />
     <ClInclude Include="Horion\Module\Modules\MegaDupe.h" />
     <ClInclude Include="Horion\Module\Modules\NoClip.h" />
     <ClInclude Include="Horion\Module\Modules\PotionAura.h" />
     <ClInclude Include="Horion\Module\Modules\Snowball_Aimbot.h" />
-    <ClInclude Include="Horion\Module\Modules\SoundPlayer.h" />
     <ClInclude Include="Horion\Module\Modules\Surround.h" />
     <ClInclude Include="Horion\Module\Modules\SwingAnimations.h" />
     <ClInclude Include="Horion\Module\Modules\AutoSneak.h" />
@@ -527,7 +524,6 @@
     <ClInclude Include="Horion\Module\Modules\NoWeb.h" />
     <ClInclude Include="Horion\Module\Modules\Nuker.h" />
     <ClInclude Include="Horion\Module\Modules\PacketLogger.h" />
-    <ClInclude Include="Horion\Module\Modules\Phase.h" />
     <ClInclude Include="Horion\Module\Modules\Radar.h" />
     <ClInclude Include="Horion\Module\Modules\RainbowSky.h" />
     <ClInclude Include="Horion\Module\Modules\Reach.h" />

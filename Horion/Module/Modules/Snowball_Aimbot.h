@@ -5,7 +5,7 @@ private:
 	bool silent = true;
 	bool predict = false;
 	bool visualize = false;
-	vec2_t angle;
+	vec2 angle;
 
 public:
 	SnowballAimbot();

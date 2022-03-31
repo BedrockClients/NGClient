@@ -37,17 +37,17 @@ void EntityJesus::onTick(C_GameMode* gm) {
 		if (targetBo[0]->isSneaking()) return;
 		if (targetBo[0]->isOnFire()) return;
 
-		vec3_t pos = *targetBo[0]->getPos();
+		vec3 pos = *targetBo[0]->getPos();
 		pos.y -= upness;
 
 		pos.z = targetBo[0]->aabb.upper.z;
 		pos.x = targetBo[0]->aabb.upper.x;  // upper upper
 
-		C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+		C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 		C_BlockLegacy* blockLegacy = (block->blockLegacy);
 
 		if (blockLegacy->material->isLiquid && targetBo[0]->velocity.y <= 0) {
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 			pos.y = ceilf(pos.y);
 			pos.y += upness;
@@ -59,11 +59,11 @@ void EntityJesus::onTick(C_GameMode* gm) {
 		pos.x = targetBo[0]->aabb.lower.x;
 		pos.z = targetBo[0]->aabb.lower.z;  // lower lower
 
-		block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+		block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 		blockLegacy = (block->blockLegacy);
 
 		if (blockLegacy->material->isLiquid && targetBo[0]->velocity.y <= 0) {
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 			pos.y = ceilf(pos.y);
 			pos.y += upness;
@@ -74,11 +74,11 @@ void EntityJesus::onTick(C_GameMode* gm) {
 
 		pos.x = targetBo[0]->aabb.upper.x;  // upper x and lower z
 
-		block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+		block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 		blockLegacy = (block->blockLegacy);
 
 		if (blockLegacy->material->isLiquid && targetBo[0]->velocity.y <= 0) {
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 			pos.y = ceilf(pos.y);
 			pos.y += upness;
@@ -90,11 +90,11 @@ void EntityJesus::onTick(C_GameMode* gm) {
 		pos.x = targetBo[0]->aabb.lower.x;
 		pos.z = targetBo[0]->aabb.upper.z;  // lower x and upper z
 
-		block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+		block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 		blockLegacy = (block->blockLegacy);
 
 		if (blockLegacy->material->isLiquid && targetBo[0]->velocity.y <= 0) {
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 			pos.y = ceilf(pos.y);
 			pos.y += upness;
@@ -110,17 +110,17 @@ void EntityJesus::onTick(C_GameMode* gm) {
 			if (targetBo[0]->isSneaking()) return;
 			if (targetBo[0]->isOnFire()) return;
 
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 
 			pos.z = targetBo[0]->aabb.upper.z;
 			pos.x = targetBo[0]->aabb.upper.x;  // upper upper
 
-			C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+			C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 			C_BlockLegacy* blockLegacy = (block->blockLegacy);
 
 			if (blockLegacy->material->isSuperHot && targetBo[0]->velocity.y <= 0) {
-				vec3_t pos = *targetBo[0]->getPos();
+				vec3 pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
 				pos.y += upness;
@@ -132,11 +132,11 @@ void EntityJesus::onTick(C_GameMode* gm) {
 			pos.x = targetBo[0]->aabb.lower.x;
 			pos.z = targetBo[0]->aabb.lower.z;  // lower lower
 
-			block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+			block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 			blockLegacy = (block->blockLegacy);
 
 			if (blockLegacy->material->isSuperHot && targetBo[0]->velocity.y <= 0) {
-				vec3_t pos = *targetBo[0]->getPos();
+				vec3 pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
 				pos.y += 0.01f;
@@ -147,11 +147,11 @@ void EntityJesus::onTick(C_GameMode* gm) {
 
 			pos.x = targetBo[0]->aabb.upper.x;  // upper x and lower z
 
-			block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+			block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 			blockLegacy = (block->blockLegacy);
 
 			if (blockLegacy->material->isSuperHot && targetBo[0]->velocity.y <= 0) {
-				vec3_t pos = *targetBo[0]->getPos();
+				vec3 pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
 				pos.y += upness;
@@ -163,11 +163,11 @@ void EntityJesus::onTick(C_GameMode* gm) {
 			pos.x = targetBo[0]->aabb.lower.x;
 			pos.z = targetBo[0]->aabb.upper.z;  // lower x and upper z
 
-			block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+			block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 			blockLegacy = (block->blockLegacy);
 
 			if (blockLegacy->material->isSuperHot && targetBo[0]->velocity.y <= 0) {
-				vec3_t pos = *targetBo[0]->getPos();
+				vec3 pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
 				pos.y += upness;
@@ -192,17 +192,17 @@ void EntityJesus::onLevelRender() {
 		if (targetBo[0]->isSneaking()) return;
 		if (targetBo[0]->isOnFire()) return;
 
-		vec3_t pos = *targetBo[0]->getPos();
+		vec3 pos = *targetBo[0]->getPos();
 		pos.y -= upness;
 
 		pos.z = targetBo[0]->aabb.upper.z;
 		pos.x = targetBo[0]->aabb.upper.x;  // upper upper
 
-		C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+		C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 		C_BlockLegacy* blockLegacy = (block->blockLegacy);
 
 		if (blockLegacy->material->isLiquid && targetBo[0]->velocity.y <= 0) {
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 			pos.y = ceilf(pos.y);
 			pos.y += upness;
@@ -214,11 +214,11 @@ void EntityJesus::onLevelRender() {
 		pos.x = targetBo[0]->aabb.lower.x;
 		pos.z = targetBo[0]->aabb.lower.z;  // lower lower
 
-		block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+		block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 		blockLegacy = (block->blockLegacy);
 
 		if (blockLegacy->material->isLiquid && targetBo[0]->velocity.y <= 0) {
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 			pos.y = ceilf(pos.y);
 			pos.y += upness;
@@ -229,11 +229,11 @@ void EntityJesus::onLevelRender() {
 
 		pos.x = targetBo[0]->aabb.upper.x;  // upper x and lower z
 
-		block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+		block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 		blockLegacy = (block->blockLegacy);
 
 		if (blockLegacy->material->isLiquid && targetBo[0]->velocity.y <= 0) {
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 			pos.y = ceilf(pos.y);
 			pos.y += upness;
@@ -245,11 +245,11 @@ void EntityJesus::onLevelRender() {
 		pos.x = targetBo[0]->aabb.lower.x;
 		pos.z = targetBo[0]->aabb.upper.z;  // lower x and upper z
 
-		block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+		block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 		blockLegacy = (block->blockLegacy);
 
 		if (blockLegacy->material->isLiquid && targetBo[0]->velocity.y <= 0) {
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 			pos.y = ceilf(pos.y);
 			pos.y += upness;
@@ -265,17 +265,17 @@ void EntityJesus::onLevelRender() {
 			if (targetBo[0]->isSneaking()) return;
 			if (targetBo[0]->isOnFire()) return;
 
-			vec3_t pos = *targetBo[0]->getPos();
+			vec3 pos = *targetBo[0]->getPos();
 			pos.y -= upness;
 
 			pos.z = targetBo[0]->aabb.upper.z;
 			pos.x = targetBo[0]->aabb.upper.x;  // upper upper
 
-			C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+			C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 			C_BlockLegacy* blockLegacy = (block->blockLegacy);
 
 			if (blockLegacy->material->isSuperHot && targetBo[0]->velocity.y <= 0) {
-				vec3_t pos = *targetBo[0]->getPos();
+				vec3 pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
 				pos.y += upness;
@@ -287,11 +287,11 @@ void EntityJesus::onLevelRender() {
 			pos.x = targetBo[0]->aabb.lower.x;
 			pos.z = targetBo[0]->aabb.lower.z;  // lower lower
 
-			block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+			block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 			blockLegacy = (block->blockLegacy);
 
 			if (blockLegacy->material->isSuperHot && targetBo[0]->velocity.y <= 0) {
-				vec3_t pos = *targetBo[0]->getPos();
+				vec3 pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
 				pos.y += 0.01f;
@@ -302,11 +302,11 @@ void EntityJesus::onLevelRender() {
 
 			pos.x = targetBo[0]->aabb.upper.x;  // upper x and lower z
 
-			block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+			block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 			blockLegacy = (block->blockLegacy);
 
 			if (blockLegacy->material->isSuperHot && targetBo[0]->velocity.y <= 0) {
-				vec3_t pos = *targetBo[0]->getPos();
+				vec3 pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
 				pos.y += upness;
@@ -318,11 +318,11 @@ void EntityJesus::onLevelRender() {
 			pos.x = targetBo[0]->aabb.lower.x;
 			pos.z = targetBo[0]->aabb.upper.z;  // lower x and upper z
 
-			block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(pos));
+			block = g_Data.getLocalPlayer()->region->getBlock(vec3i(pos));
 			blockLegacy = (block->blockLegacy);
 
 			if (blockLegacy->material->isSuperHot && targetBo[0]->velocity.y <= 0) {
-				vec3_t pos = *targetBo[0]->getPos();
+				vec3 pos = *targetBo[0]->getPos();
 				pos.y -= upness;
 				pos.y = ceilf(pos.y);
 				pos.y += upness;

@@ -2,14 +2,14 @@
 
 #include "../JoeConstants.h"
 
-bool JoeGoalXZ::isInGoal(vec3_ti pos) {
+bool JoeGoalXZ::isInGoal(vec3i pos) {
 	return pos.x == targetPos.x && pos.z == targetPos.z;
 }
-float JoeGoalXZ::getHeuristicEstimation(vec3_ti pos) {
+float JoeGoalXZ::getHeuristicEstimation(vec3i pos) {
 	return JoeGoalXZ::heuristicEstimation(targetPos, pos);
 }
-float JoeGoalXZ::heuristicEstimation(vec3_ti node, vec3_ti target) {
-	vec3_ti diff = node.sub(target);
+float JoeGoalXZ::heuristicEstimation(vec3i node, vec3i target) {
+	vec3i diff = node.sub(target);
 	int x = abs(diff.x);
 	int z = abs(diff.z);
 	float straight;
@@ -25,4 +25,4 @@ float JoeGoalXZ::heuristicEstimation(vec3_ti node, vec3_ti target) {
 	diagonal *= SQRT_2;
 	return (straight + diagonal) / SPRINT_SPEED;
 }
-JoeGoalXZ::JoeGoalXZ(const vec3_ti& targetPos) : targetPos(targetPos) {}
+JoeGoalXZ::JoeGoalXZ(const vec3i& targetPos) : targetPos(targetPos) {}

@@ -17,11 +17,11 @@ const char* Nuker::getModuleName() {
 }
 
 void Nuker::onTick(C_GameMode* gm) {
-	vec3_t* pos = gm->player->getPos();
+	vec3* pos = gm->player->getPos();
 	for (int x = (int)pos->x - nukerRadius; x < pos->x + nukerRadius; x++) {
 		for (int z = (int)pos->z - nukerRadius; z < pos->z + nukerRadius; z++) {
 			for (int y = (int)pos->y - down; y < pos->y + up; y++) {
-				vec3_ti blockPos = vec3_ti(x, y, z);
+				vec3i blockPos = vec3i(x, y, z);
 				bool destroy = true;
 				int id = gm->player->region->getBlock(blockPos)->toLegacy()->blockId;
 				if (destroy) {

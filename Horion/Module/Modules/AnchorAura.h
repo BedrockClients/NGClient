@@ -32,6 +32,6 @@ public:
 	virtual void onPreRender(C_MinecraftUIRenderContext* renderCtx) override;
 	virtual void onEnable() override;
 	virtual void onDisable() override;
-	void CPlace(C_GameMode* gm, vec3_t* pos);
+	void CPlace(C_GameMode* gm, vec3* pos);
 	void DestroyC(C_Entity* ent, int range);
 };

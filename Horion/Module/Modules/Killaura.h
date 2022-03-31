@@ -20,7 +20,7 @@ public:
 	float range = 6;
 	bool targetListA = false;
 	bool outline = true;
-	vec2_t joe;
+	vec2 joe;
 
 	Killaura();
 	~Killaura();

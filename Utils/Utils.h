@@ -227,7 +227,7 @@ static inline void ImSwap(T& a, T& b) {
 #define FindSignature(szSignature) Utils::FindSignatureModule("Minecraft.Windows.exe", szSignature)
 #endif
 
-struct vec3_ti;
+struct vec3i;
 
 class Utils {
 public:
@@ -236,7 +236,7 @@ public:
 		return ((mut & 0x7FFFFFui64) | ((static_cast<unsigned int>(in) >> 8u) & 0x800000u) /*copy sign bit*/) << by;
 	}
 
-	static size_t posToHash(const vec3_ti& pos);
+	static size_t posToHash(const vec3i& pos);
 
 	template <typename type>
 	static inline auto lerp(type a, type b, float t) -> type {
@@ -273,7 +273,7 @@ public:
 		return ~crc;
 	}
 
-	static inline const char* getKeybindName(int keybind) {
+	static inline const char* getKeyName(int keybind) {
 		return KeyNames[keybind];
 	};
 	// Convert rgb floats ([0-1],[0-1],[0-1]) to hsv floats ([0-1],[0-1],[0-1]), from Foley & van Dam p592

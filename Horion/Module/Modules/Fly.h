@@ -35,7 +35,7 @@ public:
 
 	void onEnable() {
 		if (mode.selected == 1) {
-			g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(vec3_t(0, 1, 0)));
+			g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(vec3(0, 1, 0)));
 		}
 	}
 
@@ -52,7 +52,7 @@ public:
 		if (mode.selected == 1) {
 			gameTick++;
 
-			vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+			vec3 pos = *g_Data.getLocalPlayer()->getPos();
 			pos.y += 1.3f;
 			C_MovePlayerPacket a(g_Data.getLocalPlayer(), pos);
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
@@ -60,7 +60,7 @@ public:
 			C_MovePlayerPacket a2(g_Data.getLocalPlayer(), pos);
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a2);
 
-			vec3_t moveVec;
+			vec3 moveVec;
 			moveVec.x = cos(calcYaw) * speed;
 			moveVec.z = sin(calcYaw) * speed;
 
@@ -74,11 +74,11 @@ public:
 				float x = -sin(yaw) * length;
 				float z = cos(yaw) * length;
 
-				// gm->player->setPos(pos.add(vec3_t(x, 0.5f, z)));
+				// gm->player->setPos(pos.add(vec3(x, 0.5f, z)));
 			}
 		}
 		if (mode.selected == 5) {  // by Kow
-			vec3_t moveVec;
+			vec3 moveVec;
 			moveVec.x = cos(calcYaw) * speed;
 			moveVec.y = -0.0f;
 			moveVec.z = sin(calcYaw) * speed;
@@ -94,14 +94,14 @@ public:
 			}
 			float yaw = gm->player->yaw;
 			if (input->forwardKey && input->backKey && input->rightKey && input->leftKey)
-				gm->player->velocity = vec3_t(0, 0, 0);
+				gm->player->velocity = vec3(0, 0, 0);
 			gm->player->velocity.y = glideModEffective;
 			glideModEffective = glideMod;
 		}
 		if (mode.selected == 2) {
 			gameTick++;
 
-			vec3_t pos = *g_Data.getLocalPlayer()->getPos();
+			vec3 pos = *g_Data.getLocalPlayer()->getPos();
 			pos.y += 1.3f;
 			C_MovePlayerPacket a(g_Data.getLocalPlayer(), pos);
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
@@ -109,7 +109,7 @@ public:
 			C_MovePlayerPacket a2(g_Data.getLocalPlayer(), pos);
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a2);
 
-			vec3_t moveVec;
+			vec3 moveVec;
 			moveVec.x = cos(calcYaw) * speed;
 			moveVec.z = sin(calcYaw) * speed;
 
@@ -123,7 +123,7 @@ public:
 				float x = -sin(yaw) * length;
 				float z = cos(yaw) * length;
 
-				gm->player->setPos(pos.add(vec3_t(x, 0.5f, z)));
+				gm->player->setPos(pos.add(vec3(x, 0.5f, z)));
 			}
 		}
 	}
@@ -135,22 +135,22 @@ public:
 					g_Data.getLocalPlayer()->canFly = false;
 			break;
 		case 1:
-			g_Data.getLocalPlayer()->velocity = vec3_t(0, 0, 0);
+			g_Data.getLocalPlayer()->velocity = vec3(0, 0, 0);
 			break;
 		case 2:
-			g_Data.getLocalPlayer()->velocity = vec3_t(0, 0, 0);
+			g_Data.getLocalPlayer()->velocity = vec3(0, 0, 0);
 		}
 	}
 
 	void onMove(C_MoveInputHandler* input) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
-		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		vec2 moveVec2d = {input->forwardMovement, -input->sideMovement};
 		if (mode.selected == 2) {
 			if (player == nullptr) return;
 			bool pressed = moveVec2d.magnitude() > 0.01f;
 
 			float calcYaw = (player->yaw + 90) * (PI / 180);
-			vec3_t moveVec;
+			vec3 moveVec;
 			float c = cos(calcYaw);
 			float s = sin(calcYaw);
 			moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};

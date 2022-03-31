@@ -19,7 +19,7 @@ void HiveConfig::onEnable() {
 	for (auto it = modules->begin(); it != modules->end(); ++it) {
 		auto mod = *it;
 		mod->setEnabled(false);
-		mod->setKeybind(0x0);
+		mod->setKey(0x0);
 	}
 
 	//Modules
@@ -94,7 +94,7 @@ void HiveConfig::onEnable() {
 	//Set All Settings
 
 	//Killaura
-	KillMod->setKeybind('F');
+	KillMod->setKey('F');
 	KillMod->range = 4.50f;
 	KillMod->delay = 2.f;
 	KillMod->rots.selected = 1;
@@ -111,7 +111,7 @@ void HiveConfig::onEnable() {
 	KillMod->isMobAura = false;
 	KillMod->noSwing = false;
 	//Scaffold
-	Scaff->setKeybind('G');
+	Scaff->setKey('G');
 	Scaff->staircaseMode = true;
 	Scaff->fagNigas = true;
 	Scaff->UpwardsFlyinNigas = 0.50f;
@@ -127,11 +127,11 @@ void HiveConfig::onEnable() {
 	Scaff->GayNigaFags = true;
 	Scaff->THICCC = false;
 	//Bhop
-	Hop->setKeybind('C');
+	Hop->setKey('C');
 	Hop->speed = 0.90;
 	Hop->hive = true;
 	//Breaker
-	Fuck->setKeybind('V');
+	Fuck->setKey('V');
 	Fuck->noSwing = true;
 	Fuck->redstone = true;
 	Fuck->bypass = true;
@@ -152,11 +152,11 @@ void HiveConfig::onEnable() {
 	Select->bSelect = 1.f;
 	Select->gSelect = 1.f;
 	//HiveFly
-	//HiveFli->setKeybind('R');
+	//HiveFli->setKey('R');
 	//HiveFli->clip = false;
 	//HiveFli->clipHeight = 5.f;
 	//LongJump
-	Long->setKeybind('X');
+	Long->setKey('X');
 	Long->slow = true;
 	Long->hit = true;
 	Long->speed = 1.63f;
@@ -203,7 +203,7 @@ void HiveConfig::onEnable() {
 	ChestSteal->enhanced = true;
 	ChestSteal->dump = false;
 	//InvCleaner
-	Cleaner->setKeybind('N');
+	Cleaner->setKey('N');
 	Cleaner->autoSort = true;
 	Cleaner->keepArmor = true;
 	Cleaner->keepBlocks = true;
@@ -214,7 +214,7 @@ void HiveConfig::onEnable() {
 	Cleaner->keepTools = true;
 	Cleaner->openInv = false;
 	//ClickGUI
-	ClickGUI->setKeybind(VK_TAB);
+	ClickGUI->setKey(VK_TAB);
 	ClickGUI->showTooltips = true;
 	//Arraylist
 	ArrayList->Fluxbar = true;
@@ -252,11 +252,11 @@ void HiveConfig::onEnable() {
 	for (auto it = modules->begin(); it != modules->end(); ++it) {
 		auto mod = *it;
 		auto modOpt = mod;
-		if (Utils::getKeybindName(mod->getKeybind()) != "Unknown") {
+		if (Utils::getKeyName(mod->getKey()) != "Unknown") {
 			if (partner->Partnered.selected == 0)
-				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, BLUE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
+				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, BLUE, WHITE, mod->getModuleName(), Utils::getKeyName(mod->getKey()));
 			else
-				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, LIGHT_PURPLE, WHITE, mod->getModuleName(), Utils::getKeybindName(mod->getKeybind()));
+				g_Data.getGuiData()->displayClientMessageF("%s[%sAutoConfig%s] %s is currently bound to %s", WHITE, LIGHT_PURPLE, WHITE, mod->getModuleName(), Utils::getKeyName(mod->getKey()));
 		}
 	}
 

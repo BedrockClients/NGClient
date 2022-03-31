@@ -98,62 +98,62 @@ public:
 	static float getTextWidth(std::string* textStr, float textSize = 1, Fonts font = Fonts::SMOOTH);
 	static float getFontHeight(float textSize = 1, Fonts font = Fonts::SMOOTH);
 
-	static void drawTriangle(vec2_t p1, vec2_t p2, vec2_t p3);
-	static void drawQuad(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4);
-	static void drawElipse(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4);
-	static void drawLine(vec2_t start, vec2_t end, float lineWidth);  // rgba
-	static void drawLinestrip3d(const std::vector<vec3_t>& points);
-	static void drawLine3d(const vec3_t& start, const vec3_t& end);
-	static void drawBox3d(vec3_t lower, vec3_t upper);
-	static void drawBoxSides(const vec4_t& pos, const MC_Color& col, float alpha, float thickness);
-	static void drawBoxTops(const vec4_t& pos, const MC_Color& col, float alpha, float thickness);
-	static void drawBoxBottom(const vec4_t& pos, const MC_Color& col, float alpha, float thickness);
-	static void drawTop3(const vec4_t& pos, const MC_Color& col, float alpha, float thickness);
-	static void fillRectangle(vec4_t pos, const MC_Color col, float alpha);
-	static void fillRectangle2(vec4_t pos, const _RGB col, float alpha);
-	static inline void fillRectangle(vec2_t start, vec2_t end) {
+	static void drawTriangle(vec2 p1, vec2 p2, vec2 p3);
+	static void drawQuad(vec2 p1, vec2 p2, vec2 p3, vec2 p4);
+	static void drawElipse(vec2 p1, vec2 p2, vec2 p3, vec2 p4);
+	static void drawLine(vec2 start, vec2 end, float lineWidth);  // rgba
+	static void drawLinestrip3d(const std::vector<vec3>& points);
+	static void drawLine3d(const vec3& start, const vec3& end);
+	static void drawBox3d(vec3 lower, vec3 upper);
+	static void drawBoxSides(const vec4& pos, const MC_Color& col, float alpha, float thickness);
+	static void drawBoxTops(const vec4& pos, const MC_Color& col, float alpha, float thickness);
+	static void drawBoxBottom(const vec4& pos, const MC_Color& col, float alpha, float thickness);
+	static void drawTop3(const vec4& pos, const MC_Color& col, float alpha, float thickness);
+	static void fillRectangle(vec4 pos, const MC_Color col, float alpha);
+	static void fillRectangle2(vec4 pos, const _RGB col, float alpha);
+	static inline void fillRectangle(vec2 start, vec2 end) {
 		DrawUtils::drawQuad({start.x, end.y}, {end.x, end.y}, {end.x, start.y}, {start.x, start.y});
 	}
-	static inline void drawRectangle(vec2_t start, vec2_t end, float lineWidth = 1.0f) {
+	static inline void drawRectangle(vec2 start, vec2 end, float lineWidth = 1.0f) {
 		lineWidth /= 2;
 		fillRectangle({start.x - lineWidth, start.y - lineWidth}, {end.x + lineWidth, start.y + lineWidth});  // TOP
 		fillRectangle({start.x - lineWidth, start.y}, {start.x + lineWidth, end.y});                          // LEFT
 		fillRectangle({end.x - lineWidth, start.y}, {end.x + lineWidth, end.y});                              //
 		fillRectangle({start.x - lineWidth, end.y - lineWidth}, {end.x + lineWidth, end.y + lineWidth});
 	}
-	static inline void drawRectangle(vec4_t pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
+	static inline void drawRectangle(vec4 pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
 		lineWidth /= 2;
-		fillRectangle(vec4_t(pos.x - lineWidth, pos.y - lineWidth, pos.z + lineWidth, pos.y + lineWidth), col, alpha);  // TOP
-		fillRectangle(vec4_t(pos.x - lineWidth, pos.y, pos.x + lineWidth, pos.w), col, alpha);                          // LEFT
-		fillRectangle(vec4_t(pos.z - lineWidth, pos.y, pos.z + lineWidth, pos.w), col, alpha);                          //
-		fillRectangle(vec4_t(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
+		fillRectangle(vec4(pos.x - lineWidth, pos.y - lineWidth, pos.z + lineWidth, pos.y + lineWidth), col, alpha);  // TOP
+		fillRectangle(vec4(pos.x - lineWidth, pos.y, pos.x + lineWidth, pos.w), col, alpha);                          // LEFT
+		fillRectangle(vec4(pos.z - lineWidth, pos.y, pos.z + lineWidth, pos.w), col, alpha);                          //
+		fillRectangle(vec4(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
 	}
-	static inline void drawTopAndBottomRectangle(vec4_t pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
+	static inline void drawTopAndBottomRectangle(vec4 pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
 		lineWidth /= 2;
-		fillRectangle(vec4_t(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
-		fillRectangle(vec4_t(pos.x - lineWidth, pos.y - lineWidth, pos.z + lineWidth, pos.y + lineWidth), col, alpha);  // TOP
+		fillRectangle(vec4(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
+		fillRectangle(vec4(pos.x - lineWidth, pos.y - lineWidth, pos.z + lineWidth, pos.y + lineWidth), col, alpha);  // TOP
 	}
-	static void drawImage(std::string filePath, vec2_t& ImagePos, vec2_t& ImageDimension, vec2_t& idk);
+	static void drawImage(std::string filePath, vec2& ImagePos, vec2& ImageDimension, vec2& idk);
 
-	static void drawText(vec2_t pos, std::string* text, MC_Color color, float textSize = 1, float alpha = 1, Fonts font = Fonts::SMOOTH);
-	static void drawText2(vec2_t pos, std::string* text, float textSize = 1, float alpha = 1, Fonts font = Fonts::SMOOTH);
-	static void drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outline = false);
-	static void drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWidth, bool outline = false);
+	static void drawText(vec2 pos, std::string* text, MC_Color color, float textSize = 1, float alpha = 1, Fonts font = Fonts::SMOOTH);
+	static void drawText2(vec2 pos, std::string* text, float textSize = 1, float alpha = 1, Fonts font = Fonts::SMOOTH);
+	static void drawBox(vec3 lower, vec3 upper, float lineWidth, bool outline = false);
+	static void drawBoxv2(const vec3& lower, const vec3& upper, float lineWidth, bool outline = false);
 	static void drawEntityBox(C_Entity* ent, float lineWidth);
 	static void drawBetterESP(C_Entity* ent, float lineWidth);
 	static void draw2D(C_Entity* ent, float lineWidth);
 	static void drawZephyr(C_Entity* ent, float lineWidth);
 	static void drawNameTags(C_Entity* ent, float textSize, bool drawHealth = false, bool useUnicodeFont = false);
-	static void drawItem(C_ItemStack* item, const vec2_t& ItemPos, float opacity, float scale, bool isEnchanted);
-	static void drawKeystroke(char key, vec2_t pos);
-	static void drawLeftMouseKeystroke(vec2_t pos);
-	static void drawRightMouseKeystroke(vec2_t pos);
-	static void CPS(vec2_t pos);
-	static void DrawOutline(vec2_t position, vec2_t size, MC_Color colour, float width);
-	static void drawTracer(const vec3_t& ent, int damageTime = 0);
+	static void drawItem(C_ItemStack* item, const vec2& ItemPos, float opacity, float scale, bool isEnchanted);
+	static void drawKeystroke(char key, vec2 pos);
+	static void drawLeftMouseKeystroke(vec2 pos);
+	static void drawRightMouseKeystroke(vec2 pos);
+	static void CPS(vec2 pos);
+	static void DrawOutline(vec2 position, vec2 size, MC_Color colour, float width);
+	static void drawTracer(const vec3& ent, int damageTime = 0);
 	static float getLerpTime();
-	static vec3_t getOrigin();
+	static vec3 getOrigin();
 
-	static vec2_t worldToScreen(const vec3_t& world);
+	static vec2 worldToScreen(const vec3& world);
 };
 

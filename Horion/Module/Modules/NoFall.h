@@ -28,7 +28,7 @@ public:
 			gm->player->onGround = true;
 		}
 		if (hive && gm->player->fallDistance > 4.f) {
-			vec3_t pos = *gm->player->getPos();
+			vec3 pos = *gm->player->getPos();
 			pos.y += 50;
 			gm->player->tryTeleportTo(pos, true, true, 1, 1);
 			gm->player->onGround = true;
@@ -46,7 +46,7 @@ public:
 		else
 			counter++;
 
-		vec3_t blockBelow2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
+		vec3 blockBelow2 = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 		blockBelow2.y -= g_Data.getLocalPlayer()->height;
 		blockBelow2.y -= 1.5f;
 	}

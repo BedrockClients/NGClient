@@ -4,7 +4,7 @@ class Step : public IModule {
 public:
 	float height = 2.f;
 
-	Step() : IModule(0, Category::MOVEMENT, "Increases your step height") {
+	Step() : IModule(0x0, Category::MOVEMENT, "Increases your step height") {
 		registerFloatSetting("height", &height, height, 1.f, 2.f);
 	}
 	~Step(){}

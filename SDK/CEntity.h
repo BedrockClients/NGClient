@@ -23,8 +23,8 @@ private:
 public:
 	int rayHitType;    //0x0A28
 	int blockSide;     //0x0A2C
-	vec3_ti block;     //0x0A30
-	vec3_t rayHitVec;  //0x0A3C
+	vec3i block;     //0x0A30
+	vec3 rayHitVec;  //0x0A3C
 private:
 	C_Entity *entityPtr;          //0x0A48
 	C_Entity *entityPtr2;         //0x0A50
@@ -131,14 +131,14 @@ public:
 	virtual void tick(void);
 	virtual void directTickEntities(C_BlockSource &);
 	virtual void animateTick(C_Entity &);
-	virtual void explode(C_BlockSource &, C_Entity *, vec3_t const &, float, bool, bool, float, bool);
+	virtual void explode(C_BlockSource &, C_Entity *, vec3 const &, float, bool, bool, float, bool);
 	virtual void explode(class Explosion &);
-	virtual void spawnParticleEffect(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const &, vec3_t const &, class Dimension *);
-	virtual void spawnParticleEffect2(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const &, C_Entity const &, vec3_t const &);
-	virtual void denyEffect(C_BlockSource &, vec3_t const &);
-	virtual void potionSplash(vec3_t const &, struct MC_Color, bool);
+	virtual void spawnParticleEffect(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const &, vec3 const &, class Dimension *);
+	virtual void spawnParticleEffect2(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const &, C_Entity const &, vec3 const &);
+	virtual void denyEffect(C_BlockSource &, vec3 const &);
+	virtual void potionSplash(vec3 const &, struct MC_Color, bool);
 	virtual void applyLiquidPhysicsToActor(C_Entity *, class MaterialType);
-	virtual void extinguishFire(C_BlockSource &C_BlockSource, vec3_ti const &position, int blockSide);
+	virtual void extinguishFire(C_BlockSource &C_BlockSource, vec3i const &position, int blockSide);
 	virtual void findPath(C_Entity &, int, int, int, class NavigationComponent &);
 	virtual void findPath(C_Entity &, C_Entity &, class NavigationComponent &);
 	virtual void updateSleepingPlayerList(void);
@@ -146,8 +146,8 @@ public:
 	virtual void setTime(int);
 	virtual __int64 getSeed(void);
 	virtual int getSharedSpawnPos(void);
-	virtual void setDefaultSpawn(vec3_ti const &);
-	virtual vec3_ti* getDefaultSpawn(void);
+	virtual void setDefaultSpawn(vec3i const &);
+	virtual vec3i* getDefaultSpawn(void);
 	virtual void setDefaultGameType(class GameType);
 	virtual int getDefaultGameType(void);
 	virtual void setDifficulty(class Difficulty);
@@ -198,13 +198,13 @@ public:
 	virtual void _checkUserStorage(void);
 	virtual int getTickingAreasMgr(void);
 	virtual int getTickingArea(uintptr_t);
-	virtual void addParticle(class ParticleType, vec3_t const &, vec3_t const &, int, CompoundTag const *, bool);
-	virtual void sendServerLegacyParticle(ParticleType, vec3_t const &, vec3_t const &, int);
-	virtual void playSound(class LevelSoundEvent, vec3_t const &, int, class ActorDefinitionIdentifier const &, bool, bool);
-	virtual void playSound(LevelSoundEvent, vec3_t const &, float, float);
-	virtual void playSound(C_BlockSource &, LevelSoundEvent, vec3_t const &, int, ActorDefinitionIdentifier const &, bool, bool);
-	virtual void playSynchronizedSound(C_BlockSource &, LevelSoundEvent, vec3_t const &, class C_Block const &, ActorDefinitionIdentifier const &, bool, bool);
-	virtual void playSynchronizedSound(C_BlockSource &, LevelSoundEvent, vec3_t const &, int, ActorDefinitionIdentifier const &, bool, bool);
+	virtual void addParticle(class ParticleType, vec3 const &, vec3 const &, int, CompoundTag const *, bool);
+	virtual void sendServerLegacyParticle(ParticleType, vec3 const &, vec3 const &, int);
+	virtual void playSound(class LevelSoundEvent, vec3 const &, int, class ActorDefinitionIdentifier const &, bool, bool);
+	virtual void playSound(LevelSoundEvent, vec3 const &, float, float);
+	virtual void playSound(C_BlockSource &, LevelSoundEvent, vec3 const &, int, ActorDefinitionIdentifier const &, bool, bool);
+	virtual void playSynchronizedSound(C_BlockSource &, LevelSoundEvent, vec3 const &, class C_Block const &, ActorDefinitionIdentifier const &, bool, bool);
+	virtual void playSynchronizedSound(C_BlockSource &, LevelSoundEvent, vec3 const &, int, ActorDefinitionIdentifier const &, bool, bool);
 	virtual void setRemotePlayerEventCoordinator(std::unique_ptr<class PlayerEventCoordinator, std::default_delete<PlayerEventCoordinator>> &&);
 	virtual int getRemotePlayerEventCoordinator(void);
 	virtual void setServerPlayerEventCoordinator(std::unique_ptr<class ServerPlayerEventCoordinator, std::default_delete<ServerPlayerEventCoordinator>> &&);
@@ -220,18 +220,18 @@ public:
 	virtual void setServerNetworkEventCoordinator(std::unique_ptr<class ServerNetworkEventCoordinator, std::default_delete<ServerNetworkEventCoordinator>> &&);
 	virtual int getServerNetworkEventCoordinator(void);
 	virtual int getLevelEventCoordinator(void);
-	virtual void handleLevelEvent(class LevelEvent, vec3_t const &, int);
+	virtual void handleLevelEvent(class LevelEvent, vec3 const &, int);
 	virtual void handleLevelEvent(LevelEvent, CompoundTag const &);
-	virtual void handleSoundEvent(LevelSoundEvent, vec3_t const &, int, ActorDefinitionIdentifier const &, bool, bool);
-	virtual void handleSoundEvent(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const &, vec3_t const &, float, float);
+	virtual void handleSoundEvent(LevelSoundEvent, vec3 const &, int, ActorDefinitionIdentifier const &, bool, bool);
+	virtual void handleSoundEvent(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const &, vec3 const &, float, float);
 	virtual void handleStopSoundEvent(std::basic_string<char, std::char_traits<char>, std::allocator<char>> const &);
 	virtual void handleStopAllSounds(void);
-	virtual void broadcastLevelEvent(LevelEvent, vec3_t const &, int, class UserEntityIdentifierComponent const *);
+	virtual void broadcastLevelEvent(LevelEvent, vec3 const &, int, class UserEntityIdentifierComponent const *);
 	virtual void broadcastLevelEvent(LevelEvent, CompoundTag const &, UserEntityIdentifierComponent const *);
-	virtual void broadcastLocalEvent(C_BlockSource &, LevelEvent, vec3_t const &, int);
-	virtual void broadcastLocalEvent(C_BlockSource &, LevelEvent, vec3_t const &, C_Block const &);
-	virtual void broadcastSoundEvent(C_BlockSource &, LevelSoundEvent, vec3_t const &, C_Block const &, ActorDefinitionIdentifier const &, bool, bool);
-	virtual void broadcastSoundEvent(C_BlockSource &, LevelSoundEvent, vec3_t const &, int, ActorDefinitionIdentifier const &, bool, bool);
+	virtual void broadcastLocalEvent(C_BlockSource &, LevelEvent, vec3 const &, int);
+	virtual void broadcastLocalEvent(C_BlockSource &, LevelEvent, vec3 const &, C_Block const &);
+	virtual void broadcastSoundEvent(C_BlockSource &, LevelSoundEvent, vec3 const &, C_Block const &, ActorDefinitionIdentifier const &, bool, bool);
+	virtual void broadcastSoundEvent(C_BlockSource &, LevelSoundEvent, vec3 const &, int, ActorDefinitionIdentifier const &, bool, bool);
 	virtual void broadcastActorEvent(C_Entity &, class ActorEvent, int);
 	virtual void addBossEventListener(class BossEventListener *);
 	virtual void removeBossEventListener(BossEventListener *);
@@ -273,16 +273,16 @@ public:
 	virtual void levelCleanupQueueEntityRemoval(uintptr_t, bool);
 	virtual void registerTemporaryPointer(class _TickPtr &);
 	virtual void unregisterTemporaryPointer(_TickPtr &);
-	virtual void destroyBlock(C_BlockSource &, vec3_ti const &, bool);
+	virtual void destroyBlock(C_BlockSource &, vec3i const &, bool);
 	virtual void upgradeStorageVersion(class StorageVersion);
 	virtual void suspendAndSave(void);
 	virtual void waitAsyncSuspendWork(void);
-	virtual void _destroyEffect(vec3_ti const &, C_Block const &, int);
-	virtual void addParticleEffect(class HashedString const &, vec3_t const &, class MolangVariableMap const &);
-	virtual void addParticleEffect(HashedString const &, C_Entity const &, HashedString const &, vec3_t const &, MolangVariableMap const &);
-	virtual void addTerrainParticleEffect(vec3_ti const &, C_Block const &, vec3_t const &, float, float, float);
-	virtual void addTerrainSlideEffect(vec3_ti const &, C_Block const &, vec3_t const &, float, float, float);
-	virtual void addBreakingItemParticleEffect(vec3_t const &, ParticleType, class TextureUVCoordinateSet const &, bool);
+	virtual void _destroyEffect(vec3i const &, C_Block const &, int);
+	virtual void addParticleEffect(class HashedString const &, vec3 const &, class MolangVariableMap const &);
+	virtual void addParticleEffect(HashedString const &, C_Entity const &, HashedString const &, vec3 const &, MolangVariableMap const &);
+	virtual void addTerrainParticleEffect(vec3i const &, C_Block const &, vec3 const &, float, float, float);
+	virtual void addTerrainSlideEffect(vec3i const &, C_Block const &, vec3 const &, float, float, float);
+	virtual void addBreakingItemParticleEffect(vec3 const &, ParticleType, class TextureUVCoordinateSet const &, bool);
 	virtual int getNewUniqueID(void);
 	virtual int getNextRuntimeID(void);
 	virtual int getTickingOffsets(void);
@@ -296,8 +296,8 @@ public:
 	virtual void requestMapInfo(uint64_t, bool);
 	virtual void expandMapByID(uint64_t, bool);
 	virtual void copyAndLockMap(uint64_t, uint64_t);
-	virtual void createMapSavedData(uint64_t const &, vec3_ti const &, uintptr_t, int);
-	virtual void createMapSavedData(std::vector<uint64_t, std::allocator<uint64_t>> const &, vec3_ti const &, uintptr_t, int);
+	virtual void createMapSavedData(uint64_t const &, vec3i const &, uintptr_t, int);
+	virtual void createMapSavedData(std::vector<uint64_t, std::allocator<uint64_t>> const &, vec3i const &, uintptr_t, int);
 
 private:
 	virtual void TryroFunc262();
@@ -418,8 +418,8 @@ public:
 		return *reinterpret_cast<class C_LoopbackPacketSender **>(reinterpret_cast<__int64>(this) + 0xA90);
 	}
 
-	void playSound(std::string sound, vec3_t const &position, float volume, float pitch) {
-		using playSound_t = void(__fastcall *)(PointingStruct *, TextHolder *, vec3_t const &, float, float);
+	void playSound(std::string sound, vec3 const &position, float volume, float pitch) {
+		using playSound_t = void(__fastcall *)(PointingStruct *, TextHolder *, vec3 const &, float, float);
 		// Using getBase so there's a much smaller and barely noticeable delay when we call this function for the first time
 		static playSound_t func = reinterpret_cast<playSound_t>(Utils::getBase() + 0x2447650);  // 48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 48 83 EC 50 48 ?? ?? ?? ?? 00 00 33 FF 48 2B ?? ?? ?? 00 00 49 8B F0 48 C1 F8 03 48 8B EA
 		if (func != 0) {
@@ -466,20 +466,20 @@ public:
 			float pitch;  //0x138
 			float yaw;    //0x13C
 		};
-		vec2_t viewAngles;
+		vec2 viewAngles;
 	};
 	union {
 		struct {
 			float pitch2;  //0x140
 			float yaw2;    //0x144
 		};
-		vec2_t viewAngles2;
+		vec2 viewAngles2;
 	};
 
 private:
 	char pad_0x148[0x10];  //0x148
 public:
-	vec3_t eyePos0;  //0x158
+	vec3 eyePos0;  //0x158
 private:
 	char pad_0x164[0x70];  //0x164
 public:
@@ -499,7 +499,7 @@ public:
 	float travelDistanceGroundOld;  //0x240
 	float travelDistanceGround;     //0x244
 	float travelDistance;           //0x248
-	vec3_t slowdownFactor;          //0x24C
+	vec3 slowdownFactor;          //0x24C
 	float unk;                      //0x258
 	bool IsInWater;                 //0x25C
 	bool didEnterWaterBool;         //0x25D
@@ -521,10 +521,10 @@ public:
 	AABB aabb;          //0x4B8
 	float width;        //0x4D0
 	float height;       //0x4D4
-	vec3_t currentPos;  //0x4D8
-	vec3_t oldPos;      //0x4E4
-	vec3_t velocity;    //0x4F0
-	vec3_t velocity2;   //0x4FC
+	vec3 currentPos;  //0x4D8
+	vec3 oldPos;      //0x4E4
+	vec3 velocity;    //0x4F0
+	vec3 velocity2;   //0x4FC
 private:
 	char pad_0x508[0x48];  //0x508
 public:
@@ -586,17 +586,17 @@ public:
 	virtual __int64 getOnDeathExperience(void);                                             // 16
 	virtual __int64 getOwnerEntityType(void);                                               // 17
 	virtual __int64 remove(void);                                                           // 18
-	virtual __int64 setPos(vec3_t const &);                                                 // 19
+	virtual __int64 setPos(vec3 const &);                                                   // 19
 	virtual bool isRuntimePredictedMovementEnabled(void);                                   // 20
 	virtual __int64 getPredictedMovementValues(void);                                       // 21
-	virtual vec3_t *getPos(void);                                                           // 22
-	virtual vec3_t *getPosOld(void);                                                        // 23
-	virtual vec3_t *getPosExtrapolated(float);                                              // 24
-	virtual vec3_t *getAttachPos(__int64, float);                                           // 25
-	virtual vec3_t *getFiringPos(void);                                                     // 26
-	virtual __int64 setRot(vec2_t const &);                                                 // 27
-	virtual __int64 move(vec3_t const &);                                                   // 28
-	virtual __int64 move(__int64, vec3_t const &);                                          // 29
+	virtual vec3 *getPos(void);                                                             // 22
+	virtual vec3 *getPosOld(void);                                                          // 23
+	virtual vec3 *getPosExtrapolated(float);                                                // 24
+	virtual vec3 *getAttachPos(__int64, float);                                             // 25
+	virtual vec3 *getFiringPos(void);                                                       // 26
+	virtual __int64 setRot(vec2 const &);                                                   // 27
+	virtual __int64 move(vec3 const &);                                                     // 28
+	virtual __int64 move(__int64, vec3 const &);                                            // 29
 	virtual __int64 getInterpolatedRidingPosition(float);                                   // 30
 	virtual __int64 getInterpolatedBodyRot(float);                                          // 31
 	virtual __int64 getInterpolatedHeadRot(float);                                          // 32
@@ -610,10 +610,10 @@ public:
 	virtual bool isFireImmune(void);                                                        // 40
 	virtual __int64 breaksFallingBlocks(void);                                              // 41
 	virtual __int64 blockedByShield(__int64 const &, C_Entity *);                           // 42
-	virtual __int64 teleportTo(vec3_t const &, bool, int, int);                             // 43
-	virtual __int64 tryTeleportTo(vec3_t const &, bool, bool, int, int);                    // 44
-	virtual __int64 chorusFruitTeleport(vec3_t const &);                                    // 45
-	virtual __int64 lerpMotion(vec3_t const &);                                             // 46
+	virtual __int64 teleportTo(vec3 const &, bool, int, int);                             // 43
+	virtual __int64 tryTeleportTo(vec3 const &, bool, bool, int, int);                    // 44
+	virtual __int64 chorusFruitTeleport(vec3 const &);                                    // 45
+	virtual __int64 lerpMotion(vec3 const &);                                             // 46
 	virtual __int64 tryCreateAddActorPacket(void);                                          // 47
 	virtual __int64 normalTick(void);                                                       // 48
 	virtual __int64 baseTick(void);                                                         // 49
@@ -624,7 +624,7 @@ public:
 	virtual __int64 addPassenger(C_Entity *);                                               // 54
 	virtual __int64 flagPassengerToRemove(C_Entity *);                                      // 55
 	virtual __int64 getExitTip(TextHolder *, int);                                          // 56
-	virtual __int64 intersects(vec3_t const &, vec3_t const &);                             // 57
+	virtual __int64 intersects(vec3 const &, vec3 const &);                             // 57
 	virtual bool isInWall(void);                                                            // 58
 	virtual bool isInvisible(void);                                                         // 59
 	virtual bool canShowNameTag(void);                                                      // 60
@@ -643,7 +643,7 @@ public:
 	virtual bool isInLava(void);                                                            // 73
 	virtual bool isUnderLiquid(__int64);                                                    // 74
 	virtual bool isOverWater(void);                                                         // 75
-	virtual __int64 setBlockMovementSlowdownMultiplier(vec3_t const &);                     // 76
+	virtual __int64 setBlockMovementSlowdownMultiplier(vec3 const &);                     // 76
 	virtual __int64 resetBlockMovementSlowdownMultiplier(void);                             // 77
 	virtual __int64 getCameraOffset(void);                                                  // 78
 	virtual __int64 getShadowHeightOffs(void);                                              // 79
@@ -651,7 +651,7 @@ public:
 	virtual __int64 getHeadLookVector(float);                                               // 81
 	virtual bool canSeeInvisible(void);                                                     // 82
 	virtual bool canSee(C_Entity *);                                                        // 83
-	virtual bool canSee(vec3_t const &);                                                    // 84
+	virtual bool canSee(vec3 const &);                                                    // 84
 	virtual bool isSkyLit(float);                                                           // 85
 	virtual __int64 getBrightness(float);                                                   // 86
 	virtual __int64 interactPreventDefault(void);                                           // 87
@@ -697,7 +697,7 @@ public:
 	virtual __int64 setCanPowerJump(bool);                                                  // 127
 	virtual bool isJumping(void);                                                           // 128
 	virtual bool isEnchanted(void);                                                         // 129
-	virtual __int64 vehicleLanded(vec3_t const &, vec3_t const &);                          // 130
+	virtual __int64 vehicleLanded(vec3 const &, vec3 const &);                          // 130
 	virtual __int64 shouldRender(void);                                                     // 131
 	virtual __int64 playAmbientSound(void);                                                 // 132
 	virtual __int64 getAmbientSound(void);                                                  // 133
@@ -707,7 +707,7 @@ public:
 	virtual __int64 animateHurt(void);                                                      // 137
 	virtual __int64 doFireHurt(int);                                                        // 138
 	virtual __int64 onLightningHit(void);                                                   // 139
-	virtual __int64 onBounceStarted(vec3_ti const &, C_Block const &);                      // 140
+	virtual __int64 onBounceStarted(vec3i const &, C_Block const &);                      // 140
 	virtual __int64 feed(int);                                                              // 141
 	virtual __int64 handleEntityEvent(__int64, int);                                        // 142
 	virtual __int64 getPickRadius(void);                                                    // 143
@@ -744,7 +744,7 @@ public:
 	virtual bool canFreeze(void);                                                           // 174
 	virtual bool isWearingLeatherArmor(void);                                               // 175
 	virtual __int64 getLiquidAABB(__int64);                                                 // 176
-	virtual __int64 handleInsidePortal(vec3_ti const &);                                    // 177
+	virtual __int64 handleInsidePortal(vec3i const &);                                    // 177
 	virtual __int64 getPortalCooldown(void);                                                // 178
 	virtual __int64 getPortalWaitTime(void);                                                // 179
 	virtual int getDimensionId(int *);                                                      // 180
@@ -755,8 +755,8 @@ public:
 	virtual __int64 checkFallDamage(float, bool);                                           // 185
 	virtual __int64 causeFallDamage(float, float, __int64);                                 // 186
 	virtual __int64 handleFallDistanceOnServer(float, float, bool);                         // 187
-	virtual __int64 playSynchronizedSound(__int64, vec3_t const &, C_Block const &, bool);  // 188
-	virtual __int64 playSynchronizedSound(__int64, vec3_t const &, int, bool);              // 189
+	virtual __int64 playSynchronizedSound(__int64, vec3 const &, C_Block const &, bool);  // 188
+	virtual __int64 playSynchronizedSound(__int64, vec3 const &, int, bool);              // 189
 	virtual __int64 onSynchedFlagUpdate(int, long, long);                                   // 190
 	virtual __int64 onSynchedDataUpdate(int);                                               // 191
 	virtual bool canAddPassenger(C_Entity *);                                               // 192
@@ -799,7 +799,7 @@ public:
 	virtual bool isAdventure(void);                                                 // 229
 	virtual __int64 add(C_ItemStack &);                                             // 230
 	virtual __int64 drop(C_ItemStack const &, bool);                                // 231
-	virtual __int64 getInteraction(C_Player &, __int64 &, vec3_t const &);          // 232
+	virtual __int64 getInteraction(C_Player &, __int64 &, vec3 const &);          // 232
 	virtual bool canDestroyBlock(C_Block const &);                                  // 233
 	virtual __int64 setAuxValue(int);                                               // 234
 	virtual __int64 setSize(float, float);                                          // 235
@@ -830,11 +830,11 @@ public:
 	virtual __int64 _getAnimationComponent(__int64);                                // 260
 	virtual __int64 readAdditionalSaveData(CompoundTag const &, __int64);           // 261
 	virtual __int64 addAdditionalSaveData(CompoundTag &);                           // 262
-	virtual __int64 _playStepSound(vec3_ti const &, C_Block const &);               // 263
-	virtual __int64 _playFlySound(vec3_ti const &, C_Block const &);                // 264
+	virtual __int64 _playStepSound(vec3i const &, C_Block const &);               // 263
+	virtual __int64 _playFlySound(vec3i const &, C_Block const &);                // 264
 	virtual __int64 _makeFlySound(void);                                            // 265
 	virtual __int64 checkInsideBlocks(float);                                       // 266
-	virtual __int64 pushOutOfBlocks(vec3_t const &);                                // 267
+	virtual __int64 pushOutOfBlocks(vec3 const &);                                // 267
 	virtual __int64 updateWaterState(void);                                         // 268
 	virtual __int64 doWaterSplashEffect(void);                                      // 269
 	virtual __int64 spawnTrailBubbles(void);                                        // 270
@@ -904,7 +904,7 @@ public:
 	virtual __int64 setTransitioningSitting(bool);                                   // 334
 	virtual __int64 attackAnimation(C_Entity *, float);                              // 335
 	virtual __int64 getAttackTime(void);                                             // 336
-	virtual __int64 _getWalkTargetValue(vec3_ti const &);                            // 337
+	virtual __int64 _getWalkTargetValue(vec3i const &);                            // 337
 	virtual bool canExistWhenDisallowMob(void);                                      // 338
 	virtual __int64 useNewAi(void);                                                  // 339
 	virtual __int64 ascendLadder(void);                                              // 340
@@ -923,7 +923,7 @@ public:
 	virtual __int64 tickDeath(void);                                                 // 353
 	virtual __int64 updateGliding(void);                                             // 354
 	virtual __int64 _allowAscendingScaffolding(void);                                // 355
-	virtual __int64 _getAdjustedAABBForSpawnCheck(AABB const &, vec3_t const &);     // 356
+	virtual __int64 _getAdjustedAABBForSpawnCheck(AABB const &, vec3 const &);     // 356
 
 public:
 	C_InventoryTransactionManager *getTransactionManager();
@@ -949,8 +949,8 @@ public:
 	}
 
 	float getTicksPerSecond() {
-		vec3_t targetPos = *this->getPos();
-		vec3_t targetPosOld = *this->getPosOld();
+		vec3 targetPos = *this->getPos();
+		vec3 targetPosOld = *this->getPosOld();
 		float hVel = sqrtf(((targetPos.x - targetPosOld.x) * (targetPos.x - targetPosOld.x)) + ((targetPos.z - targetPosOld.z) * (targetPos.z - targetPosOld.z)));
 		return hVel;
 	}
@@ -985,8 +985,8 @@ public:
 		return *reinterpret_cast<class PointingStruct **>(reinterpret_cast<__int64>(this) + 0x368);
 	}
 
-	void lerpTo(vec3_t const &pos, vec2_t const &joe, int wow) {
-		using lerpTo = void(__fastcall *)(C_Entity *, vec3_t const &, vec2_t const &, int);
+	void lerpTo(vec3 const &pos, vec2 const &joe, int wow) {
+		using lerpTo = void(__fastcall *)(C_Entity *, vec3 const &, vec2 const &, int);
 		static lerpTo lerp = reinterpret_cast<lerpTo>(Utils::FindSignature("48 89 5C 24 ? 57 48 83 EC ? 48 8B D9 49 8B F8 48 8B 89 ? ? ? ? 48 85 C9 74 ? 48 8B 01 48 8B 5C 24"));
 		lerp(this, pos, joe, wow);
 	}
@@ -1059,7 +1059,7 @@ public:
 	virtual __int64 getTickingOffsets(void);                                                             // 366
 	virtual __int64 moveView(void);                                                                      // 367
 	virtual __int64 setName(TextHolder *);                                                               // 368
-	virtual __int64 checkMovementStats(vec3_t const &);                                                  // 369
+	virtual __int64 checkMovementStats(vec3 const &);                                                  // 369
 	virtual __int64 getCurrentStructureFeature(void);                                                    // 370
 	virtual bool isAutoJumpEnabled(void);                                                                // 371
 	virtual __int64 respawn(void);                                                                       // 372
@@ -1083,12 +1083,12 @@ public:
 	virtual __int64 displayTextObjectMessage(__int64 const &, TextHolder *, TextHolder *);               // 390
 	virtual __int64 displayTextObjectWhisperMessage(__int64 const &, TextHolder *, TextHolder *);        // 391
 	virtual __int64 displayWhisperMessage(TextHolder *, TextHolder *, TextHolder *, TextHolder *);       // 392
-	virtual __int64 startSleepInBed(vec3_ti const &);                                                    // 393
+	virtual __int64 startSleepInBed(vec3i const &);                                                    // 393
 	virtual __int64 stopSleepInBed(bool, bool);                                                          // 394
 	virtual bool canStartSleepInBed(void);                                                               // 395
 	virtual __int64 getSleepTimer(void);                                                                 // 396
 	virtual __int64 getPreviousTickSleepTimer(void);                                                     // 397
-	virtual __int64 openSign(vec3_ti const &);                                                           // 398
+	virtual __int64 openSign(vec3i const &);                                                           // 398
 	virtual void playEmote(std::string);                                                                 // 399
 	virtual bool isHostingC_Player(void);                                                                // 400
 	virtual bool isLoading(void);                                                                        // 401
@@ -1110,7 +1110,7 @@ public:
 	virtual __int64 refreshContainer(__int64);                                                           // 417
 	virtual __int64 deleteContainerManager(void);                                                        // 418
 	virtual __int64 setFieldOfViewModifier(float);                                                       // 419
-	virtual bool is2DPositionRelevant(int, vec3_ti const &);                                             // 420
+	virtual bool is2DPositionRelevant(int, vec3i const &);                                             // 420
 	virtual bool isActorRelevant(C_Entity *);                                                            // 421
 	virtual bool isTeacher(void);                                                                        // 422
 	virtual __int64 onSuspension(void);                                                                  // 423
@@ -1131,10 +1131,10 @@ public:
 	virtual bool isSimulated(void);                                                                      // 438
 	virtual __int64 getXuid(void);                                                                       // 439
 	virtual __int64 getMovementSettings(void);                                                           // 440
-	virtual __int64 onMoveC_PlayerPacketNormal(vec3_t const &, vec2_t const &, float);                   // 441
+	virtual __int64 onMoveC_PlayerPacketNormal(vec3 const &, vec2 const &, float);                   // 441
 	virtual __int64 _createChunkSource();                                                                // 442
 	virtual __int64 _getSpawnChunkLimit(void);                                                           // 443
-	virtual __int64 _updateChunkPublisherView(vec3_t const &, float);                                    // number
+	virtual __int64 _updateChunkPublisherView(vec3 const &, float);                                    // number
 
 	void enchantItem(C_ItemStack *item, int id, int level) {
 		using getEnchantsFromUserData_t = void(__fastcall *)(C_ItemStack *, void *);
@@ -1170,11 +1170,11 @@ public:
 		//swingFunc(this);
 		this->swing();
 	}
-	void localPlayerTurn(vec2_t *viewAngles) {
-		using Turn = void(__thiscall *)(void *, vec2_t *);
+	void localPlayerTurn(vec2 *viewAngles) {
+		using Turn = void(__thiscall *)(void *, vec2 *);
 		static Turn TurnFunc = reinterpret_cast<Turn>(FindSignature("48 8B 58 68 48 ?? ?? ?? ?? ?? ?? ?? 48 ?? ?? ?? ?? ?? ?? 89 ?? ?? ?? ?? ?? ?? ?? 48 8B 03 48 8B CB FF 50 08 90 48 85 DB ?? 09 48 8B ?? 48 8B CB ?? ?? ?? ?? ?? ?? ?? 48 8B D3 48 8B CE E8 0D BB 1D FF 90 48 85 DB 74 09 48 8B 03 48 8B ?? ?? ?? ?? 48 83 C7 10"));
 		TurnFunc(this, viewAngles);
 	}
-	void applyTurnDelta(vec2_t *viewAngleDelta);
+	void applyTurnDelta(vec2 *viewAngleDelta);
 	void setGameModeType(int gma);
 };

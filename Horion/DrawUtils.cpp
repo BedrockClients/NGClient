@@ -18,9 +18,9 @@ __int64 game3dContext;
 Tessellator* tesselator;
 float* colorHolder;
 std::shared_ptr<glmatrixf> refdef;
-vec2_t fov;
-vec2_t screenSize;
-vec3_t origin;
+vec2 fov;
+vec2 screenSize;
+vec3 origin;
 float lerpT;
 C_TexturePtr* texturePtr = nullptr;
 
@@ -164,7 +164,7 @@ void DrawUtils::flush() {
 	renderCtx->flushText(0);
 }
 
-void DrawUtils::drawTriangle(vec2_t p1, vec2_t p2, vec2_t p3) {
+void DrawUtils::drawTriangle(vec2 p1, vec2 p2, vec2 p3) {
 	
 	DrawUtils::tess__begin(tesselator, 3, 3);
 
@@ -176,7 +176,7 @@ void DrawUtils::drawTriangle(vec2_t p1, vec2_t p2, vec2_t p3) {
 }
 
 
-void DrawUtils::drawQuad(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4) {
+void DrawUtils::drawQuad(vec2 p1, vec2 p2, vec2 p3, vec2 p4) {
 	DrawUtils::tess__begin(tesselator, 1, 4);
 
 	tess_vertex(tesselator, p1.x, p1.y, 0);
@@ -187,11 +187,11 @@ void DrawUtils::drawQuad(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4) {
 	meshHelper_renderImm(screenContext2d, tesselator, uiMaterial);
 }
 
-void DrawUtils::drawElipse(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4) {
+void DrawUtils::drawElipse(vec2 p1, vec2 p2, vec2 p3, vec2 p4) {
 	//Draw Circle
 }
 
-void DrawUtils::drawLine(vec2_t start, vec2_t end, float lineWidth) {
+void DrawUtils::drawLine(vec2 start, vec2 end, float lineWidth) {
 	float modX = 0 - (start.y - end.y);
 	float modY = start.x - end.x;
 
@@ -215,14 +215,14 @@ void DrawUtils::drawLine(vec2_t start, vec2_t end, float lineWidth) {
 	meshHelper_renderImm(screenContext2d, tesselator, uiMaterial);
 }
 
-void DrawUtils::drawText(vec2_t pos, std::string* textStr, MC_Color color, float textSize, float alpha, Fonts font) {
+void DrawUtils::drawText(vec2 pos, std::string* textStr, MC_Color color, float textSize, float alpha, Fonts font) {
 	TextHolder text(*textStr);
 	C_Font* fontPtr = getFont(font);
 	static uintptr_t caretMeasureData = 0xFFFFFFFF;
 
 	pos.y -= 1;
 
-	float posF[4];  // vec4_t(startX, startY, endX, endY);
+	float posF[4];  // vec4 (startX, startY, endX, endY);
 	posF[0] = pos.x;
 	posF[1] = pos.x + 1000;
 	posF[2] = pos.y;
@@ -235,14 +235,14 @@ void DrawUtils::drawText(vec2_t pos, std::string* textStr, MC_Color color, float
 	renderCtx->drawText(fontPtr, posF, &text, color.arr, alpha, 0, &textMeasure, &caretMeasureData);
 }
 
-void DrawUtils::drawText2(vec2_t pos, std::string* textStr, float textSize, float alpha, Fonts font) {
+void DrawUtils::drawText2(vec2 pos, std::string* textStr, float textSize, float alpha, Fonts font) {
 	TextHolder text(*textStr);
 	C_Font* fontPtr = getFont(font);
 	static uintptr_t caretMeasureData = 0xFFFFFFFF;
 
 	pos.y -= 1;
 
-	float posF[4];  // vec4_t(startX, startY, endX, endY);
+	float posF[4];  // vec4(startX, startY, endX, endY);
 	posF[0] = pos.x;
 	posF[1] = pos.x + 1000;
 	posF[2] = pos.y;
@@ -255,28 +255,28 @@ void DrawUtils::drawText2(vec2_t pos, std::string* textStr, float textSize, floa
 	renderCtx->drawText(fontPtr, posF, &text, MC_Color().arr, alpha, 0, &textMeasure, &caretMeasureData);
 }
 
-void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outline) {
+void DrawUtils::drawBox(vec3 lower, vec3 upper, float lineWidth, bool outline) {
 	
-	vec3_t diff;
+	vec3 diff;
 	diff.x = upper.x - lower.x;
 	diff.y = upper.y - lower.y;
 	diff.z = upper.z - lower.z;
 
 	
-	vec3_t vertices[8];
-	vertices[0] = vec3_t(lower.x, lower.y, lower.z);
-	vertices[1] = vec3_t(lower.x + diff.x, lower.y, lower.z);
-	vertices[2] = vec3_t(lower.x, lower.y + diff.y, lower.z);
-	vertices[3] = vec3_t(lower.x + diff.x, lower.y + diff.y, lower.z);
-	vertices[4] = vec3_t(lower.x, lower.y, lower.z + diff.z);
-	vertices[5] = vec3_t(lower.x + diff.x, lower.y, lower.z + diff.z);
-	vertices[6] = vec3_t(lower.x, lower.y + diff.y, lower.z + diff.z);
-	vertices[7] = vec3_t(lower.x + diff.x, lower.y + diff.y, lower.z + diff.z);
+	vec3 vertices[8];
+	vertices[0] = vec3(lower.x, lower.y, lower.z);
+	vertices[1] = vec3(lower.x + diff.x, lower.y, lower.z);
+	vertices[2] = vec3(lower.x, lower.y + diff.y, lower.z);
+	vertices[3] = vec3(lower.x + diff.x, lower.y + diff.y, lower.z);
+	vertices[4] = vec3(lower.x, lower.y, lower.z + diff.z);
+	vertices[5] = vec3(lower.x + diff.x, lower.y, lower.z + diff.z);
+	vertices[6] = vec3(lower.x, lower.y + diff.y, lower.z + diff.z);
+	vertices[7] = vec3(lower.x + diff.x, lower.y + diff.y, lower.z + diff.z);
 
 	// Convert to screen coord
-	std::vector<std::tuple<int, vec2_t>> screenCords;
+	std::vector<std::tuple<int, vec2>> screenCords;
 	for (int i = 0; i < 8; i++) {
-		vec2_t screen;
+		vec2 screen;
 		if (refdef->OWorldToScreen(origin, vertices[i], screen, fov, screenSize)) {
 			screenCords.emplace_back(outline ? (int) screenCords.size() : i, screen);
 		}
@@ -309,7 +309,7 @@ void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outlin
 	}
 	// Find start vertex
 	auto it = screenCords.begin();
-	std::tuple<int, vec2_t> start = *it;
+	std::tuple<int, vec2> start = *it;
 	it++;
 	for (; it != screenCords.end(); it++) {
 		auto cur = *it;
@@ -323,18 +323,18 @@ void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outlin
 
 	auto current = start;
 	indices.push_back(std::get<0>(current));
-	vec2_t lastDir(0, -1);
+	vec2 lastDir(0, -1);
 	do {
 		float smallestAngle = PI * 2;
-		vec2_t smallestDir;
-		std::tuple<int, vec2_t> smallestE;
+		vec2 smallestDir;
+		std::tuple<int, vec2> smallestE;
 		auto lastDirAtan2 = atan2(lastDir.y, lastDir.x);
 		for (auto cur : screenCords) {
 			if (std::get<0>(current) == std::get<0>(cur))
 				continue;
 
 			// angle between vecs
-			vec2_t dir = vec2_t(std::get<1>(cur)).sub(std::get<1>(current));
+			vec2 dir = vec2(std::get<1>(cur)).sub(std::get<1>(current));
 			float angle = atan2(dir.y, dir.x) - lastDirAtan2;
 			if (angle > PI) {
 				angle -= 2 * PI;
@@ -354,10 +354,10 @@ void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outlin
 
 	// draw
 	
-	vec2_t lastVertex;
+	vec2 lastVertex;
 	bool hasLastVertex = false;
 	for (auto& indice : indices) {
-		vec2_t curVertex = std::get<1>(screenCords[indice]);
+		vec2 curVertex = std::get<1>(screenCords[indice]);
 		if (!hasLastVertex) {
 			hasLastVertex = true;
 			lastVertex = curVertex;
@@ -369,17 +369,17 @@ void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outlin
 	}
 }
 
-void DrawUtils::drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWidth, bool outline) {
-	vec3_t vertices[4];
-	vertices[0] = vec3_t(lower.x, lower.y, lower.z);
-	vertices[1] = vec3_t(lower.x + (upper.x - lower.x), lower.y, lower.z);
-	vertices[2] = vec3_t(lower.x, lower.y, lower.z + (upper.z - lower.z));
-	vertices[3] = vec3_t(lower.x + (upper.x - lower.x), lower.y, lower.z + (upper.z - lower.z));
+void DrawUtils::drawBoxv2(const vec3& lower, const vec3& upper, float lineWidth, bool outline) {
+	vec3 vertices[4];
+	vertices[0] = vec3(lower.x, lower.y, lower.z);
+	vertices[1] = vec3(lower.x + (upper.x - lower.x), lower.y, lower.z);
+	vertices[2] = vec3(lower.x, lower.y, lower.z + (upper.z - lower.z));
+	vertices[3] = vec3(lower.x + (upper.x - lower.x), lower.y, lower.z + (upper.z - lower.z));
 
 	// Convert to screen coord
-	std::vector<std::tuple<int, vec2_t>> screenCords;
+	std::vector<std::tuple<int, vec2>> screenCords;
 	for (int i = 0; i < 4; i++) {
-		vec2_t screen;
+		vec2 screen;
 		if (refdef->OWorldToScreen(origin, vertices[i], screen, fov, screenSize)) {
 			screenCords.emplace_back((int)screenCords.size(), screen);
 		}
@@ -389,7 +389,7 @@ void DrawUtils::drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWi
 
 	// Find start vertex
 	auto it = screenCords.begin();
-	std::tuple<int, vec2_t> start = *it;
+	std::tuple<int, vec2> start = *it;
 	it++;
 	for (; it != screenCords.end(); it++) {
 		auto cur = *it;
@@ -403,18 +403,18 @@ void DrawUtils::drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWi
 
 	auto current = start;
 	indices.push_back(std::get<0>(current));
-	vec2_t lastDir(0, -1);
+	vec2 lastDir(0, -1);
 	do {
 		float smallestAngle = PI * 2;
-		vec2_t smallestDir;
-		std::tuple<int, vec2_t> smallestE;
+		vec2 smallestDir;
+		std::tuple<int, vec2> smallestE;
 		auto lastDirAtan2 = atan2(lastDir.y, lastDir.x);
 		for (auto cur : screenCords) {
 			if (std::get<0>(current) == std::get<0>(cur))
 				continue;
 
 			// angle between vecs
-			vec2_t dir = vec2_t(std::get<1>(cur)).sub(std::get<1>(current));
+			vec2 dir = vec2(std::get<1>(cur)).sub(std::get<1>(current));
 			float angle = atan2(dir.y, dir.x) - lastDirAtan2;
 			if (angle > PI) {
 				angle -= 2 * PI;
@@ -434,10 +434,10 @@ void DrawUtils::drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWi
 
 	// draw
 
-	vec2_t lastVertex;
+	vec2 lastVertex;
 	bool hasLastVertex = false;
 	for (auto& indice : indices) {
-		vec2_t curVertex = std::get<1>(screenCords[indice]);
+		vec2 curVertex = std::get<1>(screenCords[indice]);
 		if (!hasLastVertex) {
 			hasLastVertex = true;
 			lastVertex = curVertex;
@@ -448,7 +448,7 @@ void DrawUtils::drawBoxv2(const vec3_t& lower, const vec3_t& upper, float lineWi
 	}
 }
 
-void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageDimension, vec2_t& idk) {
+void DrawUtils::drawImage(std::string FilePath, vec2& imagePos, vec2& ImageDimension, vec2& idk) {
 	if (texturePtr == nullptr) {
 		texturePtr = new C_TexturePtr();
 		C_FilePath file(FilePath);
@@ -470,8 +470,8 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 	static auto nametags = moduleMgr->getModule<NameTags>();
 	static auto hudModule = moduleMgr->getModule<HudModule>();
 	static auto partner = moduleMgr->getModule<Partner>();
-	vec2_t textPos;
-	vec4_t rectPos;
+	vec2 textPos;
+	vec4 rectPos;
 	std::string text;
 	if (hudModule->displaySecondHalf) {
 		text = Utils::sanitize(ent->getNameTag()->getText());
@@ -491,7 +491,7 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 		rectPos.y = textPos.y - 1.f * textSize;
 		rectPos.z = textPos.x + textWidth + 1.f * textSize;
 		rectPos.w = textPos.y + textHeight + 2.f * textSize;
-		vec4_t subRectPos = rectPos;
+		vec4 subRectPos = rectPos;
 		subRectPos.y = subRectPos.w - 1.f * textSize;
 		fillRectangle(rectPos, MC_Color(0, 0, 0), nametags->opacity);
 		if (partner->Partnered.selected == 1) {
@@ -522,7 +522,7 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 			for (int i = 0; i < 4; i++) {
 				C_ItemStack* stack = player->getArmor(i);
 				if (stack->item != nullptr) {
-					DrawUtils::drawItem(stack, vec2_t(x, y), 1.f, scale, stack->isEnchanted());
+					DrawUtils::drawItem(stack, vec2(x, y), 1.f, scale, stack->isEnchanted());
 					x += scale * spacing;
 				}
 			}
@@ -530,14 +530,14 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 			C_PlayerInventoryProxy* supplies = player->getSupplies();
 			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
 			if (item->isValid())
-				DrawUtils::drawItem(item, vec2_t(rectPos.z - 1.f - 15.f * scale, y), 1.f, scale, item->isEnchanted());
+				DrawUtils::drawItem(item, vec2(rectPos.z - 1.f - 15.f * scale, y), 1.f, scale, item->isEnchanted());
 		}
 	}
 }
 
  void DrawUtils::drawEntityBox(C_Entity* ent, float lineWidth) {
-	//vec3_t* end = ent->getPos();
-	//vec3_t lerped = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
+	//vec3* end = ent->getPos();
+	//vec3 lerped = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
 
 	AABB render(ent->eyePos0, ent->width, ent->height, ent->eyePos0.y - ent->aabb.lower.y);
 	render.upper.y += 0.1f;
@@ -546,8 +546,8 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 }
 
 void DrawUtils::drawBetterESP(C_Entity* ent, float lineWidth) {
-	//vec3_t* end = ent->getPos();
-	//vec3_t lerped = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
+	//vec3* end = ent->getPos();
+	//vec3 lerped = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
 
 	AABB render(ent->eyePos0, ent->width, ent->height, ent->eyePos0.y - ent->aabb.lower.y);
 	render.upper.y += 0.1f;
@@ -556,18 +556,18 @@ void DrawUtils::drawBetterESP(C_Entity* ent, float lineWidth) {
 }
 
 void DrawUtils::draw2D(C_Entity* ent, float lineWidth) {
-	//vec3_t* end = ent->getPos();
-	//vec3_t base = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
+	//vec3* end = ent->getPos();
+	//vec3 base = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
 
 	float ofs = (g_Data.getLocalPlayer()->yaw + 90.f) * (PI / 180);
 
-	vec3_t corners[4];
-	vec2_t corners2d[4];
+	vec3 corners[4];
+	vec2 corners2d[4];
 
-	corners[0] = vec3_t(ent->eyePos0.x - ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, ent->eyePos0.z - ent->width / 1.5f * cos(ofs));
-	corners[1] = vec3_t(ent->eyePos0.x + ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, ent->eyePos0.z + ent->width / 1.5f * cos(ofs));
-	corners[2] = vec3_t(ent->eyePos0.x - ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, ent->eyePos0.z - ent->width / 1.5f * cos(ofs));
-	corners[3] = vec3_t(ent->eyePos0.x + ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, ent->eyePos0.z + ent->width / 1.5f * cos(ofs));
+	corners[0] = vec3(ent->eyePos0.x - ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, ent->eyePos0.z - ent->width / 1.5f * cos(ofs));
+	corners[1] = vec3(ent->eyePos0.x + ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, ent->eyePos0.z + ent->width / 1.5f * cos(ofs));
+	corners[2] = vec3(ent->eyePos0.x - ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, ent->eyePos0.z - ent->width / 1.5f * cos(ofs));
+	corners[3] = vec3(ent->eyePos0.x + ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, ent->eyePos0.z + ent->width / 1.5f * cos(ofs));
 
 	if (refdef->OWorldToScreen(origin, corners[0], corners2d[0], fov, screenSize) &&
 		refdef->OWorldToScreen(origin, corners[1], corners2d[1], fov, screenSize) &&
@@ -575,17 +575,17 @@ void DrawUtils::draw2D(C_Entity* ent, float lineWidth) {
 		refdef->OWorldToScreen(origin, corners[3], corners2d[3], fov, screenSize)) {
 		float length = (corners2d[1].x - corners2d[0].x) / 4.f;
 
-		drawLine(corners2d[0], vec2_t(corners2d[0].x + length, corners2d[0].y), lineWidth);
-		drawLine(corners2d[0], vec2_t(corners2d[0].x, corners2d[0].y + length), lineWidth);
+		drawLine(corners2d[0], vec2(corners2d[0].x + length, corners2d[0].y), lineWidth);
+		drawLine(corners2d[0], vec2(corners2d[0].x, corners2d[0].y + length), lineWidth);
 
-		drawLine(vec2_t(corners2d[1].x - length, corners2d[1].y), corners2d[1], lineWidth);
-		drawLine(corners2d[1], vec2_t(corners2d[1].x, corners2d[1].y + length), lineWidth);
+		drawLine(vec2(corners2d[1].x - length, corners2d[1].y), corners2d[1], lineWidth);
+		drawLine(corners2d[1], vec2(corners2d[1].x, corners2d[1].y + length), lineWidth);
 
-		drawLine(vec2_t(corners2d[2].x, corners2d[2].y - length), corners2d[2], lineWidth);
-		drawLine(corners2d[2], vec2_t(corners2d[2].x + length, corners2d[2].y), lineWidth);
+		drawLine(vec2(corners2d[2].x, corners2d[2].y - length), corners2d[2], lineWidth);
+		drawLine(corners2d[2], vec2(corners2d[2].x + length, corners2d[2].y), lineWidth);
 
-		drawLine(vec2_t(corners2d[3].x, corners2d[3].y - length), corners2d[3], lineWidth);
-		drawLine(vec2_t(corners2d[3].x - length, corners2d[3].y), corners2d[3], lineWidth);	
+		drawLine(vec2(corners2d[3].x, corners2d[3].y - length), corners2d[3], lineWidth);
+		drawLine(vec2(corners2d[3].x - length, corners2d[3].y), corners2d[3], lineWidth);	
 
 		/*drawLine(corners2d[0], corners2d[1], lineWidth);
 		drawLine(corners2d[0], corners2d[2], lineWidth);
@@ -595,18 +595,18 @@ void DrawUtils::draw2D(C_Entity* ent, float lineWidth) {
 }
 
 void DrawUtils::drawZephyr(C_Entity* ent, float lineWidth) {
-	//vec3_t* end = ent->getPos();
-	//vec3_t base = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
+	//vec3* end = ent->getPos();
+	//vec3 base = ent->getPosOld()->lerp(ent->getPos(), getLerpTime());
 
 	float ofs = (g_Data.getLocalPlayer()->yaw + 90.f) * (PI / 180);
 
-	vec3_t corners[4];
-	vec2_t corners2d[4];
+	vec3 corners[4];
+	vec2 corners2d[4];
 
-	corners[0] = vec3_t(ent->eyePos0.x - ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, ent->eyePos0.z - ent->width / 1.5f * cos(ofs));
-	corners[1] = vec3_t(ent->eyePos0.x + ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, ent->eyePos0.z + ent->width / 1.5f * cos(ofs));
-	corners[2] = vec3_t(ent->eyePos0.x - ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, ent->eyePos0.z - ent->width / 1.5f * cos(ofs));
-	corners[3] = vec3_t(ent->eyePos0.x + ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, ent->eyePos0.z + ent->width / 1.5f * cos(ofs));
+	corners[0] = vec3(ent->eyePos0.x - ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, ent->eyePos0.z - ent->width / 1.5f * cos(ofs));
+	corners[1] = vec3(ent->eyePos0.x + ent->width / 1.5f * -sin(ofs), ent->aabb.upper.y + (float)0.1, ent->eyePos0.z + ent->width / 1.5f * cos(ofs));
+	corners[2] = vec3(ent->eyePos0.x - ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, ent->eyePos0.z - ent->width / 1.5f * cos(ofs));
+	corners[3] = vec3(ent->eyePos0.x + ent->width / 1.5f * -sin(ofs), ent->aabb.lower.y, ent->eyePos0.z + ent->width / 1.5f * cos(ofs));
 
 	if (refdef->OWorldToScreen(origin, corners[0], corners2d[0], fov, screenSize) &&
 		refdef->OWorldToScreen(origin, corners[1], corners2d[1], fov, screenSize) &&
@@ -621,7 +621,7 @@ void DrawUtils::drawZephyr(C_Entity* ent, float lineWidth) {
 	}
 }
 
-void DrawUtils::drawItem(C_ItemStack* item, const vec2_t& itemPos, float opacity, float scale, bool isEnchanted) {
+void DrawUtils::drawItem(C_ItemStack* item, const vec2& itemPos, float opacity, float scale, bool isEnchanted) {
 	__int64 scnCtx = reinterpret_cast<__int64*>(renderCtx)[2];
 	auto* screenCtx = reinterpret_cast<C_ScreenContext*>(scnCtx);
 	C_BaseActorRenderContext baseActorRenderCtx(screenCtx, g_Data.getClientInstance(), g_Data.getClientInstance()->minecraftGame);
@@ -631,10 +631,10 @@ void DrawUtils::drawItem(C_ItemStack* item, const vec2_t& itemPos, float opacity
 
 static float currColor[4];
 
-void DrawUtils::drawKeystroke(char key, vec2_t pos) {
+void DrawUtils::drawKeystroke(char key, vec2 pos) {
 	static auto Key = moduleMgr->getModule<KeyStrokes>();
 	static auto partner = moduleMgr->getModule<Partner>();
-	std::string keyString = Utils::getKeybindName(key);
+	std::string keyString = Utils::getKeyName(key);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (key == *input->spaceBarKey) {
 		if (key == *input->spaceBarKey) keyString = "-";
@@ -642,12 +642,12 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 		pos.y -= Key->keystrokesY;
 		pos.x -= 9.f;
 		pos.y += 9.f;
-		vec4_t rectPos(
+		vec4 rectPos(
 			pos.x,
 			pos.y,
 			pos.x + 64.f,
 			pos.y + 15.f);
-		vec2_t textPos(
+		vec2 textPos(
 			(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 			rectPos.y + 7.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
@@ -678,12 +678,12 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 		pos.y -= Key->keystrokesY;
 		pos.x -= 9.f;
 		pos.y += 9.f;
-		vec4_t rectPos(
+		vec4 rectPos(
 			pos.x,
 			pos.y,
 			pos.x + ((key == *input->spaceBarKey) ? 64.f : 20.f),
 			pos.y + ((key == *input->spaceBarKey) ? 15.f : 20.f));
-		vec2_t textPos(
+		vec2 textPos(
 			(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 			rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
@@ -700,7 +700,7 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 	}
 }
 
-void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
+void DrawUtils::drawLeftMouseKeystroke(vec2 pos) {
 	static auto key = moduleMgr->getModule<KeyStrokes>();
 	static auto partner = moduleMgr->getModule<Partner>();
 	std::string keyString;
@@ -709,13 +709,13 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 	pos.y -= key->keystrokesY;
 	pos.x -= 9.f;
 	pos.y += 9.f;
-	vec4_t rectPos(
+	vec4 rectPos(
 		pos.x,
 		pos.y + 4,
 		pos.x + 31.f,
 		pos.y + 20.f);
 	fillRectangle(rectPos, GameData::GameData::isLeftClickDown() ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), key->opacity);
-	vec2_t textPos(
+	vec2 textPos(
 	(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 	rectPos.y + 8.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 	if (key->keybindsRGB) {
@@ -730,7 +730,7 @@ void DrawUtils::drawLeftMouseKeystroke(vec2_t pos) {
 	drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
 }
 
-void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
+void DrawUtils::drawRightMouseKeystroke(vec2 pos) {
 	static auto key = moduleMgr->getModule<KeyStrokes>();
 	static auto partner = moduleMgr->getModule<Partner>();
 	std::string keyString;
@@ -739,13 +739,13 @@ void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 	pos.y -= key->keystrokesY;
 	pos.x -= 9.f;
 	pos.y += 9.f;
-	vec4_t rectPos(
+	vec4 rectPos(
 		pos.x,
 		pos.y + 4,
 		pos.x + 31.f,
 		pos.y + 20.f);
 	fillRectangle(rectPos, GameData::GameData::isRightClickDown() ? MC_Color(85, 85, 85) : MC_Color(12, 12, 12), key->opacity);
-	vec2_t textPos(
+	vec2 textPos(
 		(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 		rectPos.y + 8.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 	if (key->keybindsRGB) {
@@ -761,7 +761,7 @@ void DrawUtils::drawRightMouseKeystroke(vec2_t pos) {
 	drawText(textPos, &keyString, MC_Color(0, 246, 255), 1.f, 1.f);
 }
 
-void DrawUtils::CPS(vec2_t pos) {
+void DrawUtils::CPS(vec2 pos) {
 	static auto key = moduleMgr->getModule<KeyStrokes>();
 	static auto partner = moduleMgr->getModule<Partner>();
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
@@ -771,13 +771,13 @@ void DrawUtils::CPS(vec2_t pos) {
 		pos.y -= key->keystrokesY;
 		pos.x -= 9.f;
 		pos.y += 9.f;
-		vec4_t rectPos(
+		vec4 rectPos(
 			// box
 			pos.x,
 			pos.y,
 			pos.x + 64.f,
 			pos.y + 15.f);
-		vec2_t textPos(
+		vec2 textPos(
 			(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&cpsText) / 2.f),
 			rectPos.y + 7.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 
@@ -795,12 +795,12 @@ void DrawUtils::CPS(vec2_t pos) {
 		drawText(textPos, &cpsText, MC_Color(0, 246, 255), 1.f, 1.f);
 	}
 }
-vec2_t DrawUtils::worldToScreen(const vec3_t& world) {
-	vec2_t ret{-1, -1};
+vec2 DrawUtils::worldToScreen(const vec3& world) {
+	vec2 ret{-1, -1};
 	refdef->OWorldToScreen(origin, world, ret, fov, screenSize);
 	return ret;
 }
-void DrawUtils::drawLine3d(const vec3_t& start, const vec3_t& end) {
+void DrawUtils::drawLine3d(const vec3& start, const vec3& end) {
 	if(game3dContext == 0 || entityFlatStaticMaterial == 0)
 		return;
 
@@ -816,7 +816,7 @@ void DrawUtils::drawLine3d(const vec3_t& start, const vec3_t& end) {
 
 	meshHelper_renderImm(game3dContext, myTess, entityFlatStaticMaterial);
 }
-void DrawUtils::drawBox3d(vec3_t lower, vec3_t upper) {
+void DrawUtils::drawBox3d(vec3 lower, vec3 upper) {
 	if (game3dContext == 0 || entityFlatStaticMaterial == 0)
 		return;
 
@@ -824,23 +824,23 @@ void DrawUtils::drawBox3d(vec3_t lower, vec3_t upper) {
 
 	DrawUtils::tess__begin(myTess, 4, 12);
 
-	vec3_t diff;
+	vec3 diff;
 	diff.x = upper.x - lower.x;
 	diff.y = upper.y - lower.y;
 	diff.z = upper.z - lower.z;
 
 	lower = lower.sub(origin);
 
-	vec3_t vertices[8];
-	vertices[0] = vec3_t(lower.x, lower.y, lower.z);
-	vertices[1] = vec3_t(lower.x + diff.x, lower.y, lower.z);
-	vertices[2] = vec3_t(lower.x, lower.y, lower.z + diff.z);
-	vertices[3] = vec3_t(lower.x + diff.x, lower.y, lower.z + diff.z);
+	vec3 vertices[8];
+	vertices[0] = vec3(lower.x, lower.y, lower.z);
+	vertices[1] = vec3(lower.x + diff.x, lower.y, lower.z);
+	vertices[2] = vec3(lower.x, lower.y, lower.z + diff.z);
+	vertices[3] = vec3(lower.x + diff.x, lower.y, lower.z + diff.z);
 
-	vertices[4] = vec3_t(lower.x, lower.y + diff.y, lower.z);
-	vertices[5] = vec3_t(lower.x + diff.x, lower.y + diff.y, lower.z);
-	vertices[6] = vec3_t(lower.x, lower.y + diff.y, lower.z + diff.z);
-	vertices[7] = vec3_t(lower.x + diff.x, lower.y + diff.y, lower.z + diff.z);
+	vertices[4] = vec3(lower.x, lower.y + diff.y, lower.z);
+	vertices[5] = vec3(lower.x + diff.x, lower.y + diff.y, lower.z);
+	vertices[6] = vec3(lower.x, lower.y + diff.y, lower.z + diff.z);
+	vertices[7] = vec3(lower.x + diff.x, lower.y + diff.y, lower.z + diff.z);
 
 	#define line(m, n) tess_vertex(myTess, m.x, m.y, m.z); \
 		tess_vertex(myTess, n.x, n.y, n.z);
@@ -867,42 +867,42 @@ void DrawUtils::drawBox3d(vec3_t lower, vec3_t upper) {
 	
 	meshHelper_renderImm(game3dContext, myTess, entityFlatStaticMaterial);
 }
-void DrawUtils::fillRectangle(vec4_t pos, const MC_Color col, float alpha) {
+void DrawUtils::fillRectangle(vec4 pos, const MC_Color col, float alpha) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
 }
-void DrawUtils::drawBoxTops(const vec4_t& pos, const MC_Color& col, float alpha, float thickness) {
+void DrawUtils::drawBoxTops(const vec4& pos, const MC_Color& col, float alpha, float thickness) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawLine({pos.x, pos.w}, {pos.z, pos.w}, thickness);
 	DrawUtils::drawLine({pos.z, pos.y}, {pos.x, pos.y}, thickness);
 }
 
-void DrawUtils::drawBoxSides(const vec4_t& pos, const MC_Color& col, float alpha, float thickness) {
+void DrawUtils::drawBoxSides(const vec4& pos, const MC_Color& col, float alpha, float thickness) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawLine({pos.z, pos.y}, {pos.z, pos.w}, thickness);
 	DrawUtils::drawLine({pos.x, pos.y}, {pos.x, pos.w}, thickness);
 }
 
-void DrawUtils::drawTop3(const vec4_t& pos, const MC_Color& col, float alpha, float lineWidth) {
+void DrawUtils::drawTop3(const vec4& pos, const MC_Color& col, float alpha, float lineWidth) {
 	lineWidth /= 2;
-	fillRectangle(vec4_t(pos.x - lineWidth, pos.y - lineWidth, pos.z + lineWidth, pos.y + lineWidth), col, alpha);  // TOP
-	fillRectangle(vec4_t(pos.x - lineWidth, pos.y, pos.x + lineWidth, pos.w), col, alpha);                          // LEFT
-	fillRectangle(vec4_t(pos.z - lineWidth, pos.y, pos.z + lineWidth, pos.w), col, alpha);                          //
+	fillRectangle(vec4(pos.x - lineWidth, pos.y - lineWidth, pos.z + lineWidth, pos.y + lineWidth), col, alpha);  // TOP
+	fillRectangle(vec4(pos.x - lineWidth, pos.y, pos.x + lineWidth, pos.w), col, alpha);                          // LEFT
+	fillRectangle(vec4(pos.z - lineWidth, pos.y, pos.z + lineWidth, pos.w), col, alpha);                          //
 }
 
-void DrawUtils::drawBoxBottom(const vec4_t& pos, const MC_Color& col, float alpha, float thickness) {
+void DrawUtils::drawBoxBottom(const vec4& pos, const MC_Color& col, float alpha, float thickness) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawLine({pos.z, pos.y}, {pos.x, pos.y}, thickness);
 }
 
-void DrawUtils::fillRectangle2(vec4_t pos, const _RGB col, float alpha) {
+void DrawUtils::fillRectangle2(vec4 pos, const _RGB col, float alpha) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
 }
 
-void DrawUtils::DrawOutline(vec2_t position, vec2_t size, MC_Color colour, float width) {
+void DrawUtils::DrawOutline(vec2 position, vec2 size, MC_Color colour, float width) {
 	if (renderCtx == nullptr) return;
-	renderCtx->drawRect(vec4_t(position.x, position.x + size.x, position.y, position.y + size.y), MC_Color(colour), colour.a, (int)width);
+	renderCtx->drawRect(vec4(position.x, position.x + size.x, position.y, position.y + size.y), MC_Color(colour), colour.a, (int)width);
 };
 
 MC_Color MC_Color::lerp(const MC_Color& o, float t) const {
@@ -957,10 +957,10 @@ void DrawUtils::setGameRenderContext(__int64 ctx) {
 float DrawUtils::getLerpTime() {
 	return lerpT;
 }
-vec3_t DrawUtils::getOrigin() {
+vec3 DrawUtils::getOrigin() {
 	return origin;
 }
-void DrawUtils::drawLinestrip3d(const std::vector<vec3_t>& points) {
+void DrawUtils::drawLinestrip3d(const std::vector<vec3>& points) {
 	if(game3dContext == 0 || entityFlatStaticMaterial == 0)
 		return;
 
@@ -985,7 +985,7 @@ void DrawUtils::drawLinestrip3d(const std::vector<vec3_t>& points) {
 	meshHelper_renderImm(game3dContext, myTess, entityFlatStaticMaterial);
 }
 
-void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
+void DrawUtils::drawTracer(const vec3& ent, int damageTime) {
 	static float rcolors2[4];           // Rainbow color array RGBA
 	static float disabledRcolors2[4];  // Rainbow Colors, but for disabled modules
 	static float currColor[4];        // ArrayList colors
@@ -1009,16 +1009,16 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 	Utils::ColorConvertHSVtoRGB(currColor[0], currColor[0], currColor[1], currColor[0], currColor[0], currColor[1]);
 
 	static auto tracerMod = moduleMgr->getModule<Tracer>();
-	vec2_t target;
+	vec2 target;
 	refdef->OWorldToScreen(origin, ent, target, fov, screenSize);
-	//vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
+	//vec2 mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
 	static auto partner = moduleMgr->getModule<Partner>();
 	if (partner->Partnered.selected == 0) {
-		if (target != vec2_t(0, 0)) {
+		if (target != vec2(0, 0)) {
 
 			if (tracerMod->type.selected == 1) {
-				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
-				if (target != vec2_t(0, 0)) {
+				vec2 mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
+				if (target != vec2(0, 0)) {
 					if (tracerMod->RGB) {
 						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
@@ -1028,8 +1028,8 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				}
 			}
 			if (tracerMod->type.selected == 2) {
-				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
-				if (target != vec2_t(0, 0)) {
+				vec2 mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
+				if (target != vec2(0, 0)) {
 					if (tracerMod->RGB) {
 						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
@@ -1039,8 +1039,8 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				}
 			}
 			if (tracerMod->type.selected == !1) {
-				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
-				if (target != vec2_t(0, 0)) {
+				vec2 mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
+				if (target != vec2(0, 0)) {
 					if (tracerMod->RGB) {
 						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
@@ -1051,11 +1051,11 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 			}
 		}
 	} else {
-		if (target != vec2_t(0, 0)) {
+		if (target != vec2(0, 0)) {
 
 			if (tracerMod->type.selected == 1) {
-				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
-				if (target != vec2_t(0, 0)) {
+				vec2 mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
+				if (target != vec2(0, 0)) {
 					if (tracerMod->RGB) {
 						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
@@ -1065,8 +1065,8 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				}
 			}
 			if (tracerMod->type.selected == 2) {
-				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
-				if (target != vec2_t(0, 0)) {
+				vec2 mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
+				if (target != vec2(0, 0)) {
 					if (tracerMod->RGB) {
 						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {
@@ -1076,8 +1076,8 @@ void DrawUtils::drawTracer(const vec3_t& ent, int damageTime) {
 				}
 			}
 			if (tracerMod->type.selected == !1) {
-				vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
-				if (target != vec2_t(0, 0)) {
+				vec2 mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
+				if (target != vec2(0, 0)) {
 					if (tracerMod->RGB) {
 						DrawUtils::setColor(disabledRcolors2[0], disabledRcolors2[1], disabledRcolors2[2], 1);
 					} else {

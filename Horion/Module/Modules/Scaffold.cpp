@@ -31,26 +31,26 @@ const char* Scaffold::getModuleName() {
 		return "Scaffold";
 }
 
-bool Scaffold::canPlaceHere(vec3_t blockPos) {
-	vec3_t bb = blockPos.floor();
+bool Scaffold::canPlaceHere(vec3 blockPos) {
+	vec3 bb = blockPos.floor();
 
-	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(bb));
+	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3i(bb));
 	C_BlockLegacy* blockLegacy = (block->blockLegacy);
 	return blockLegacy->material->isReplaceable;
 }
 
-bool Scaffold::tryScaffold(vec3_t blockBelow) {
+bool Scaffold::tryScaffold(vec3 blockBelow) {
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	blockBelow = blockBelow.floor();
 
-	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(blockBelow));
+	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3i(blockBelow));
 	C_BlockLegacy* blockLegacy = (block->blockLegacy);
 	if (blockLegacy->material->isReplaceable) {
-		vec3_ti blok(blockBelow);
+		vec3i blok(blockBelow);
 		int i = 0;
 		if (airplace) {
 			if (fagNigas && GameData::isKeyDown(*input->spaceBarKey) && !yLock) {
-				vec3_t moveVec;
+				vec3 moveVec;
 				moveVec.x = g_Data.getLocalPlayer()->velocity.x;
 				moveVec.y = UpwardsFlyinNigas;
 				moveVec.z = g_Data.getLocalPlayer()->velocity.z;
@@ -59,21 +59,21 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 			g_Data.getCGameMode()->buildBlock(&blok, i);
 			return true;
 		} else {
-			static std::vector<vec3_ti*> checklist;
+			static std::vector<vec3i*> checklist;
 			bool foundCandidate = false;
 			if (checklist.empty()) {
-				checklist.push_back(new vec3_ti(0, -1, 0));
-				checklist.push_back(new vec3_ti(0, 1, 0));
+				checklist.push_back(new vec3i(0, -1, 0));
+				checklist.push_back(new vec3i(0, 1, 0));
 
-				checklist.push_back(new vec3_ti(0, 0, -1));
-				checklist.push_back(new vec3_ti(0, 0, 1));
+				checklist.push_back(new vec3i(0, 0, -1));
+				checklist.push_back(new vec3i(0, 0, 1));
 
-				checklist.push_back(new vec3_ti(-1, 0, 0));
-				checklist.push_back(new vec3_ti(1, 0, 0));
+				checklist.push_back(new vec3i(-1, 0, 0));
+				checklist.push_back(new vec3i(1, 0, 0));
 			}
 
 			for (auto current : checklist) {
-				vec3_ti calc = blok.sub(*current);
+				vec3i calc = blok.sub(*current);
 				bool Y = ((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable;
 				if (!((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable) {
 					// Found a solid block to click
@@ -85,7 +85,7 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 			}
 			if (foundCandidate) {
 				if (fagNigas && GameData::isKeyDown(*input->spaceBarKey) && !yLock) {
-					vec3_t moveVec;
+					vec3 moveVec;
 					moveVec.x = g_Data.getLocalPlayer()->velocity.x;
 					moveVec.y = UpwardsFlyinNigas;
 					moveVec.z = g_Data.getLocalPlayer()->velocity.z;
@@ -100,19 +100,19 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 	return false;
 }
 
-bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
-	static std::vector<vec3_ti> blockOffsets;
+bool Scaffold::tryActuallySomewhatDecentScaffold(vec3 blockPos) {
+	static std::vector<vec3i> blockOffsets;
 	if (blockOffsets.empty()) {
 		int buildOutAmount = 3;
 		for (int y = -buildOutAmount; y <= 0; y++) {
 			for (int x = -buildOutAmount; x <= buildOutAmount; x++) {
 				for (int z = -buildOutAmount; z <= buildOutAmount; z++) {
-					blockOffsets.push_back(vec3_ti(x, y, z));
+					blockOffsets.push_back(vec3i(x, y, z));
 				}
 			}
 		}
 		std::sort(blockOffsets.begin(), blockOffsets.end(),
-				  [](vec3_ti a, vec3_ti b) {
+				  [](vec3i a, vec3i b) {
 					  return sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z)) < sqrtf((b.x * b.x) + (b.y * b.y) + (b.z * b.z));
 				  });
 	}
@@ -123,16 +123,16 @@ bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
 
 	for (int idx = 0; idx < blockOffsets.size(); idx++) { // This algorithm loops through the list every time. This is pretty inefficient, but the list is pretty small and it works so I won't bother optimizing it 
 		if (attempts >= 7) return false;
-		vec3_ti currentBlock = vec3_ti(blockPos).add(blockOffsets.at(idx));
+		vec3i currentBlock = vec3i(blockPos).add(blockOffsets.at(idx));
 		C_Block* block = g_Data.getLocalPlayer()->region->getBlock(currentBlock);
 		C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 		C_BlockLegacy* blockLegacy = (block->blockLegacy);
 		if (blockLegacy->material->isReplaceable) {
-			vec3_ti blok(currentBlock);
+			vec3i blok(currentBlock);
 			int i = 0;
 			if (airplace) {
 				if (fagNigas && GameData::isKeyDown(*input->spaceBarKey) && !yLock) {
-					vec3_t moveVec;
+					vec3 moveVec;
 					moveVec.x = g_Data.getLocalPlayer()->velocity.x;
 					moveVec.y = UpwardsFlyinNigas;
 					moveVec.z = g_Data.getLocalPlayer()->velocity.z;
@@ -141,21 +141,21 @@ bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
 				g_Data.getCGameMode()->buildBlock(&blok, i);
 				return true;
 			} else {
-				static std::vector<vec3_ti*> checklist;
+				static std::vector<vec3i*> checklist;
 				bool foundCandidate = false;
 				if (checklist.empty()) {
-					checklist.push_back(new vec3_ti(0, -1, 0));
-					checklist.push_back(new vec3_ti(0, 1, 0));
+					checklist.push_back(new vec3i(0, -1, 0));
+					checklist.push_back(new vec3i(0, 1, 0));
 
-					checklist.push_back(new vec3_ti(0, 0, -1));
-					checklist.push_back(new vec3_ti(0, 0, 1));
+					checklist.push_back(new vec3i(0, 0, -1));
+					checklist.push_back(new vec3i(0, 0, 1));
 
-					checklist.push_back(new vec3_ti(-1, 0, 0));
-					checklist.push_back(new vec3_ti(1, 0, 0));
+					checklist.push_back(new vec3i(-1, 0, 0));
+					checklist.push_back(new vec3i(1, 0, 0));
 				}
 
 				for (auto current : checklist) {
-					vec3_ti calc = blok.sub(*current);
+					vec3i calc = blok.sub(*current);
 					bool Y = ((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable;
 					if (!((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable) {
 						// Found a solid block to click
@@ -167,7 +167,7 @@ bool Scaffold::tryActuallySomewhatDecentScaffold(vec3_t blockPos) {
 				}
 				if (foundCandidate) {
 					if (fagNigas && GameData::isKeyDown(*input->spaceBarKey) && !yLock) {
-						vec3_t moveVec;
+						vec3 moveVec;
 						moveVec.x = g_Data.getLocalPlayer()->velocity.x;
 						moveVec.y = UpwardsFlyinNigas;
 						moveVec.z = g_Data.getLocalPlayer()->velocity.z;
@@ -262,7 +262,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 
 	// Adjustment by velocity
 	float speed = g_Data.getLocalPlayer()->velocity.magnitudexz();
-	vec3_t vel = g_Data.getLocalPlayer()->velocity;
+	vec3 vel = g_Data.getLocalPlayer()->velocity;
 	vel = vel.normalize();  // Only use values from 0 - 1
 	if (staircaseMode) {
 		Utils::nopBytes((BYTE*)NoSneakAddress, 2);
@@ -272,7 +272,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 		blockBelowUrMom.y -= g_Data.getLocalPlayer()->height;
 		blockBelowUrMom.y -= 1.5f;
 
-		vec3_t blockBelowBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 2 blocks below the player
+		vec3 blockBelowBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 2 blocks below the player
 		blockBelowBelow.y -= g_Data.getLocalPlayer()->height;
 		blockBelowBelow.y -= 2.0f;
 
@@ -351,7 +351,7 @@ void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 				totalCount += stack->count;
 			}
 		}
-		vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
+		vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 		MC_Color Color = MC_Color();
 		if (totalCount >= 64)
 			Color = MC_Color(0, 255, 0);
@@ -359,7 +359,7 @@ void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			Color = MC_Color(255, 255, 0);
 		else if (totalCount <= 32)
 			Color = MC_Color(255, 0, 0);
-		DrawUtils::drawText(vec2_t{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(totalCount), Color, 1.3f);
+		DrawUtils::drawText(vec2{windowSize.x / (float)1.95, windowSize.y / (float)2.05}, &std::to_string(totalCount), Color, 1.3f);
 	}
 }
 
@@ -371,7 +371,7 @@ void Scaffold::onLevelRender() {
 }
 void Scaffold::onPlayerTick(C_Player* plr) {
 	if (SukinMyBigJuicyAss) {
-		vec2_t joe;
+		vec2 joe;
 		if (staircaseMode && g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown)
 			joe = plr->getPos()->CalcAngle(blockBelowUrMom).normAngles();
 		else
@@ -390,7 +390,7 @@ void Scaffold::onSendPacket(C_Packet* packet) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 			if (g_Data.getLocalPlayer()->getBlocksPerSecond() > 0.1f || GameData::isKeyDown(*input->spaceBarKey)) {
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(blockBelowtest2);
+				vec2 angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(blockBelowtest2);
 				movePacket->pitch = angle.x;
 				movePacket->headYaw = angle.y;
 				movePacket->yaw = angle.y;

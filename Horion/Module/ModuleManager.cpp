@@ -117,7 +117,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));
 		moduleList.push_back(std::shared_ptr<IModule>(new PacketMultiplier()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Partner()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Phase()));
 		moduleList.push_back(std::shared_ptr<IModule>(new PotionAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Radar()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Rainbow()));
@@ -126,9 +125,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Scaffold()));
 		moduleList.push_back(std::shared_ptr<IModule>(new selectionHighlight()));
 		moduleList.push_back(std::shared_ptr<IModule>(new ServerInfo()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Snow()));
 		moduleList.push_back(std::shared_ptr<IModule>(new SnowballAimbot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new SoundPlayer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Spammer()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Speed()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Spider()));

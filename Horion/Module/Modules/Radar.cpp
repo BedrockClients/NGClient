@@ -16,7 +16,7 @@ bool grid = true;
 // it's the only one that could be. since everything else is accessed at renderEntity()
 float bgOpacity = 0.2f;
 
-Radar::Radar() : IModule(0, Category::VISUAL, "Radar") {
+Radar::Radar() : IModule(0x0, Category::VISUAL, "Radar") {
 	//registerBoolSetting("RGB", &RGB, RGB);
 	registerBoolSetting("Show Grid", &grid, true);
 	registerIntSetting("Size", &size, size, 50, 200);
@@ -36,7 +36,7 @@ const char* Radar::getModuleName() {
 float effectiveZoom = 1;
 float angle = 0;
 float c, s;
-vec3_t playerPos;
+vec3 playerPos;
 
 void recalculateScale() {
 	effectiveZoom = zoom * (size / 100.f);
@@ -63,19 +63,19 @@ void renderEntity(C_Entity* currentEntity, bool isRegularEntity) {
 		if (!Target::isValidTarget(currentEntity))
 			return;
 
-		vec3_t* start = currentEntity->getPosOld();
-		vec3_t* end = currentEntity->getPos();
+		vec3* start = currentEntity->getPosOld();
+		vec3* end = currentEntity->getPos();
 
-		vec3_t lerped = start->lerp(end, DrawUtils::getLerpTime());
+		vec3 lerped = start->lerp(end, DrawUtils::getLerpTime());
 
 		const auto delta = lerped.sub(playerPos);
 		const float dist = delta.magnitudexz();
 
-		const vec2_t relPos = vec2_t(
+		const vec2 relPos = vec2(
 			cent - ((delta.x * c) - (delta.z * s)),
 			topPad - ((delta.x * s) + (delta.z * c)));
 		if (relPos.x > 0 && relPos.x < size && relPos.y > topPad - cent && relPos.y < topPad + cent) {
-			DrawUtils::drawRectangle(vec4_t(0, topPad - cent, (float)size, topPad + cent), MC_Color(currColor), bgOpacity);
+			DrawUtils::drawRectangle(vec4(0, topPad - cent, (float)size, topPad + cent), MC_Color(currColor), bgOpacity);
 		}
 		return;
 	}
@@ -99,7 +99,7 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		}
 		recalculateScale();
 
-		DrawUtils::fillRectangle(vec4_t(0, topPad - cent, (float)size, topPad + cent), MC_Color(0, 0, 0), bgOpacity);
+		DrawUtils::fillRectangle(vec4(0, topPad - cent, (float)size, topPad + cent), MC_Color(0, 0, 0), bgOpacity);
 
 		auto pPos = g_Data.getClientInstance()->levelRenderer->getOrigin();
 		playerPos = pPos;
@@ -111,9 +111,9 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		s = sin(angle) * effectiveZoom;
 		c = cos(angle) * effectiveZoom;
 
-		auto computePos = [=](vec2_t pos) {
+		auto computePos = [=](vec2 pos) {
 			auto delta = pos.sub(pPos.x, pPos.z);
-			return vec2_t(
+			return vec2(
 				cent - ((delta.x * c) - (delta.y * s)),
 				topPad - ((delta.x * s) + (delta.y * c)));
 		};
@@ -125,10 +125,10 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			// we start at the player pos, and clip the grid lines to the view rectangle until the lines are no longer inside, then we repeat the process in the opposite direction, then we do the same for the other axis
 
 			struct FiniteLine {
-				vec2_t a, b;
+				vec2 a, b;
 
 				// copied straight from wikipedia line-line intersections
-				bool intersectionPointWithInfOther(vec2_t oa, vec2_t ob, vec2_t& out) {
+				bool intersectionPointWithInfOther(vec2 oa, vec2 ob, vec2& out) {
 					float den = (a.x - b.x) * (oa.y - ob.y) - (a.y - b.y) * (oa.x - ob.x);
 					if (den == 0)  // lines are parallel
 						return false;
@@ -143,8 +143,8 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				}
 			};
 
-			std::array<vec2_t, 4> clipRectPoints = {vec2_t{0.f, topPad - cent}, vec2_t{(float)size, topPad - cent}, vec2_t{(float)size, topPad + cent}, vec2_t{0.f, topPad + cent}};
-			DrawUtils::drawRectangle(vec4_t(0, topPad - cent, (float)size, topPad + cent), MC_Color(currColor), bgOpacity);
+			std::array<vec2, 4> clipRectPoints = {vec2{0.f, topPad - cent}, vec2{(float)size, topPad - cent}, vec2{(float)size, topPad + cent}, vec2{0.f, topPad + cent}};
+			DrawUtils::drawRectangle(vec4(0, topPad - cent, (float)size, topPad + cent), MC_Color(currColor), bgOpacity);
 			std::array<FiniteLine, 4> clipRectLines;
 			auto last = clipRectPoints[3];
 
@@ -157,8 +157,8 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			std::vector<FiniteLine> lines;
 
-			auto computeRectIntersections = [&](vec2_t p1, vec2_t p2) {
-				vec2_t a, b;
+			auto computeRectIntersections = [&](vec2 p1, vec2 p2) {
+				vec2 a, b;
 				bool hadIntersection = false;
 				for (int i = 0; i < (hadIntersection ? 4 : 3); i++) {
 					auto& line = clipRectLines[i];
@@ -176,24 +176,24 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			//x axis
 			for (float gridX = chunkX; true; gridX += 16) {
-				vec2_t p1 = computePos({gridX, chunkZ}), p2 = computePos({gridX, chunkZ + 1});
+				vec2 p1 = computePos({gridX, chunkZ}), p2 = computePos({gridX, chunkZ + 1});
 				if (!computeRectIntersections(p1, p2))
 					break;
 			}
 			for (float gridX = chunkX - 16; true; gridX -= 16) {
-				vec2_t p1 = computePos({gridX, chunkZ}), p2 = computePos({gridX, chunkZ + 1});
+				vec2 p1 = computePos({gridX, chunkZ}), p2 = computePos({gridX, chunkZ + 1});
 				if (!computeRectIntersections(p1, p2))
 					break;
 			}
 
 			//z axis
 			for (float gridZ = chunkZ; true; gridZ += 16) {
-				vec2_t p1 = computePos({chunkX, gridZ}), p2 = computePos({chunkX + 1, gridZ});
+				vec2 p1 = computePos({chunkX, gridZ}), p2 = computePos({chunkX + 1, gridZ});
 				if (!computeRectIntersections(p1, p2))
 					break;
 			}
 			for (float gridZ = chunkZ - 16; true; gridZ -= 16) {
-				vec2_t p1 = computePos({chunkX, gridZ}), p2 = computePos({chunkX + 1, gridZ});
+				vec2 p1 = computePos({chunkX, gridZ}), p2 = computePos({chunkX + 1, gridZ});
 				if (!computeRectIntersections(p1, p2))
 					break;
 			}
@@ -208,7 +208,7 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 		// Draw the chunk the player is in
 		if (grid) {
 			DrawUtils::setColor(0.9f, 0.9f, 0.9f, 0.6f);
-			std::array<vec2_t, 4> rect = {computePos({chunkX, chunkZ}), computePos({chunkX + 16, chunkZ}), computePos({chunkX + 16, chunkZ + 16}), computePos({chunkX, chunkZ + 16})};
+			std::array<vec2, 4> rect = {computePos({chunkX, chunkZ}), computePos({chunkX + 16, chunkZ}), computePos({chunkX + 16, chunkZ + 16}), computePos({chunkX, chunkZ + 16})};
 			auto last = rect[3];
 
 			for (int i = 0; i < 4; i++) {
@@ -223,7 +223,7 @@ void Radar::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 		const float pxSize = pixelSize * 0.75f * effectiveZoom;
 		DrawUtils::setColor(1, 1, 1, pxOpacity);
-		vec2_t center(cent, topPad);
+		vec2 center(cent, topPad);
 		DrawUtils::drawTriangle(center.add(-pxSize * 0.9f, pxSize * 2.f), center.add(pxSize * 0.9f, pxSize * 2.f), center);
 	}
 }

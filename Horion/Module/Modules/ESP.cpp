@@ -20,7 +20,7 @@ const char* ESP::getModuleName() {
 }
 
 static float rcolors[4];
-std::vector<vec3_ti> lastPos;
+std::vector<vec3i> lastPos;
 void ESP::onEnable() {
 	lastPos.clear();
 }
@@ -119,32 +119,32 @@ void ESP::onLevelRender() {
 				static auto freeMod = moduleMgr->getModule<Freecam>();
 				if (freeMod->isEnabled()) {
 					if (Target::isValidTarget(ent)) {
-						vec3_t Lines[36];
+						vec3 Lines[36];
 						for (int i = 0; i < 36; i++) {
 							Lines[i] = {sinf((i * 9) / (120 / PI)), 0.f, cosf((i * 9) / (120 / PI))};
 						}
-						std::vector<vec3_t> posList;
-						vec3_t pos = ent->getPosOld()->lerp(ent->getPos(), DrawUtils::getLerpTime());
+						std::vector<vec3> posList;
+						vec3 pos = ent->getPosOld()->lerp(ent->getPos(), DrawUtils::getLerpTime());
 						pos.y -= 1.62f;
 						pos.y += sin((Circle / 60) * PI) + 1;
 						for (auto& Booty : Lines) {
-							vec3_t curPos(pos.x, pos.y, pos.z);
+							vec3 curPos(pos.x, pos.y, pos.z);
 							posList.push_back(curPos.add(Booty));
 						}
 						DrawUtils::drawLinestrip3d(posList);
 					}
 				} else {
 					if (ent != g_Data.getLocalPlayer() && Target::isValidTarget(ent)) {
-						vec3_t Lines[36];
+						vec3 Lines[36];
 						for (int i = 0; i < 36; i++) {
 							Lines[i] = {sinf((i * 9) / (120 / PI)), 0.f, cosf((i * 9) / (120 / PI))};
 						}
-						std::vector<vec3_t> posList;
-						vec3_t pos = ent->getPosOld()->lerp(ent->getPos(), DrawUtils::getLerpTime());
+						std::vector<vec3> posList;
+						vec3 pos = ent->getPosOld()->lerp(ent->getPos(), DrawUtils::getLerpTime());
 						pos.y -= 1.62f;
 						pos.y += sin((Circle / 60) * PI) + 1;
 						for (auto& Booty : Lines) {
-							vec3_t curPos(pos.x, pos.y, pos.z);
+							vec3 curPos(pos.x, pos.y, pos.z);
 							posList.push_back(curPos.add(Booty));
 						}
 						DrawUtils::drawLinestrip3d(posList);

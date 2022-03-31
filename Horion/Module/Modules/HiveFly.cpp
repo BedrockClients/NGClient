@@ -47,13 +47,13 @@ void HiveFly::onEnable() {
 	if (player != nullptr) {
 		if (player->onGround == true) {
 			if (clip) {
-				vec3_t myPos = *player->getPos();
+				vec3 myPos = *player->getPos();
 				myPos.y += clipHeight;
 				player->setPos(myPos);
 			} else {
 				counter69++;
 				if (counter69 <= 2) {
-					vec3_t moveVec;
+					vec3 moveVec;
 					moveVec.x = 0;
 					moveVec.y = 0.7f;
 					moveVec.z = 0;
@@ -71,11 +71,11 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 		C_LocalPlayer* player = g_Data.getLocalPlayer();
 		if (player == nullptr) return;
 
-		vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+		vec2 moveVec2d = {input->forwardMovement, -input->sideMovement};
 		bool pressed = moveVec2d.magnitude() > 0.01f;
 
 		float calcYaw = (player->yaw + 90) * (PI / 180);
-		vec3_t moveVec;
+		vec3 moveVec;
 		float c = cos(calcYaw);
 		float s = sin(calcYaw);
 		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};

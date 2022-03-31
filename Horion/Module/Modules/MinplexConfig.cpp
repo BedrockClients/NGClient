@@ -18,7 +18,7 @@ void MinplexConfig::onEnable() {
 	for (auto it = modules->begin(); it != modules->end(); ++it) {
 		auto mod = *it;
 		mod->setEnabled(false);
-		mod->setKeybind(0x0);
+		mod->setKey(0x0);
 	}
 
 	// Modules
@@ -100,10 +100,10 @@ void MinplexConfig::onEnable() {
 	serverinfo->serverInfoX = 0.f;
 	serverinfo->serverInfoY = 300.5f;
 	// Zoom
-	zoom->setKeybind('R');
+	zoom->setKey('R');
 	zoom->strength = 0.5f;
 	// Killaura
-	KillMod->setKeybind('C');
+	KillMod->setKey('C');
 	KillMod->range = 4.50f;
 	KillMod->delay = 2;
 	KillMod->rots.selected = 1;
@@ -112,7 +112,7 @@ void MinplexConfig::onEnable() {
 	KillMod->isMobAura = false;
 	KillMod->noSwing = false;
 	// Scaffold
-	Scaff->setKeybind('V');
+	Scaff->setKey('V');
 	Scaff->staircaseMode = true;
 	Scaff->fagNigas = true;
 	Scaff->UpwardsFlyinNigas = 0.50f;
@@ -128,7 +128,7 @@ void MinplexConfig::onEnable() {
 	Scaff->GayNigaFags = true;
 	Scaff->THICCC = false;
 	// Bhop
-	Hop->setKeybind('F');
+	Hop->setKey('F');
 	Hop->speed = 0.90f;
 	Hop->hive = true;
 	// Selection Highlight
@@ -173,7 +173,7 @@ void MinplexConfig::onEnable() {
 	AntiBotMod->otherCheck = false;
 	AntiBotMod->invisibleCheck = false;
 	// InvCleaner
-	Cleaner->setKeybind('N');
+	Cleaner->setKey('N');
 	Cleaner->autoSort = true;
 	Cleaner->keepArmor = true;
 	Cleaner->keepBlocks = true;
@@ -184,7 +184,7 @@ void MinplexConfig::onEnable() {
 	Cleaner->keepTools = true;
 	Cleaner->openInv = false;
 	// ClickGUI
-	ClickGUI->setKeybind(VK_TAB);
+	ClickGUI->setKey(VK_TAB);
 	ClickGUI->showTooltips = true;
 	// Arraylist
 	ArrayList->Fluxbar = true;

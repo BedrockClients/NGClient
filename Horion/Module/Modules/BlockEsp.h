@@ -54,14 +54,14 @@ public:
 			float math = (float)fmax(0.3f, (float)fmin(1.f, 15));
 			// DrawUtils::setColor(1.f, 1.f, 1.f, math);
 
-			vec3_t blockPos = (*iter)->lower;
+			vec3 blockPos = (*iter)->lower;
 			if (blockPos.x < 0)
 				blockPos.x -= 1;
 			if (blockPos.z < 0)
 				blockPos.z -= 1;
 			storageID = g_Data.getLocalPlayer()->region->getBlock(blockPos)->toLegacy()->blockId;
 
-			auto mathVect = vec3_t((*iter)->upper.floor().add(vec3_t(1.f, 1.f, 1.f)).sub((*iter)->upper));
+			auto mathVect = vec3((*iter)->upper.floor().add(vec3(1.f, 1.f, 1.f)).sub((*iter)->upper));
 			mathVect.y = floor(mathVect.y);
 
 			//if (storageID == 54) DrawUtils::setColor(1.f, 1.f, 1.f, math);                        // Normal Chest

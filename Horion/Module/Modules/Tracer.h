@@ -17,8 +17,8 @@ public:
 	SettingEnum type;
 
 	//for the moddile of the screen shit
-	vec3_t cameraPos;
-	vec2_t cameraRot;
+	vec3 cameraPos;
+	vec2 cameraRot;
 
 	//for chests
 	std::vector<AABB> bufferedChestList;

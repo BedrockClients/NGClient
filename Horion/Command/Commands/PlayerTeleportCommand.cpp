@@ -17,7 +17,7 @@ bool PlayerTeleportCommand::execute(std::vector<std::string>* args) {
 	std::transform(nameOfPlayerLower.begin(), nameOfPlayerLower.end(), nameOfPlayerLower.begin(), ::tolower);
 	nameOfPlayerLower = Utils::sanitize(nameOfPlayerLower);
 
-	vec3_t pos;
+	vec3 pos;
 	std::string playerName;
 	bool gotEntity = false;
 	//Loop through all our players and retrieve their information

@@ -63,13 +63,13 @@ public:
 	virtual __int64 drawDebugText(const float* pos, TextHolder* text, float* color, float alpha, unsigned int textAlignment, const float* textMeasureData, const void* caretMeasureData);
 	virtual __int64 drawText(C_Font* font, const float* pos, TextHolder* text, float* color, float alpha, unsigned int textAlignment, const TextMeasureData* textMeasureData, const uintptr_t* caretMeasureData);
 	virtual void flushText(float timeSinceLastFlush);                       // time used for ticking the obfuscated text
-	virtual __int64 drawImage(C_TexturePtr* texturePtr, vec2_t& ImagePos, vec2_t& ImageDimension,__int64& a4,vec2_t& idk);  // didnt bother putting in the parameters
+	virtual __int64 drawImage(C_TexturePtr* texturePtr, vec2& ImagePos, vec2& ImageDimension,__int64& a4,vec2& idk);  // didnt bother putting in the parameters
 	virtual void drawNineslice(C_TexturePtr* const& texturePtr, NinesliceInfo NinesliceInfo);
 	virtual __int64 flushImages(MC_Color& color, __int64 flushImageAddr, __int64 hashedString);
 	virtual void beginSharedMeshBatch(uintptr_t ComponentRenderBatch);
 	virtual void endSharedMeshBatch(float timeSinceLastFlush);
 	virtual void drawRectangle(const float* pos, const float* color, float alpha, int lineWidth);  // line width is guessed
-	virtual auto drawRect(vec4_t position, MC_Color& colour, float alpha, int lineWidth) -> void{};
+	virtual auto drawRect(vec4 position, MC_Color& colour, float alpha, int lineWidth) -> void{};
 	virtual void fillRectangle(const float* pos, const float* color, float alpha);
 	virtual void increaseStencilRef();
 	virtual void decreaseStencilRef();
@@ -91,8 +91,8 @@ public:
 	virtual void unloadTexture(C_TexturePtr* ResourceLocation);
 	virtual int getUITextureInfo(C_TexturePtr* ResourceLocation, bool a2);
 	virtual void touchTexture(C_TexturePtr* ResourceLocation);
-	virtual int getMeasureStrategy(vec2_t const&);
-	virtual void snapImageSizeToGrid(vec2_t const&);
-	virtual void snapImagePositionToGrid(vec2_t const&);
+	virtual int getMeasureStrategy(vec2 const&);
+	virtual void snapImageSizeToGrid(vec2 const&);
+	virtual void snapImagePositionToGrid(vec2 const&);
 	virtual void notifyImageEstimate(unsigned long);
 };

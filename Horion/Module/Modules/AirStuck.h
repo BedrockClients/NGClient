@@ -10,7 +10,7 @@ public:
 	~AirStuck(){};
 
 	void onTick(C_GameMode* gm) {
-		gm->player->velocity = vec3_t(0, 0, 0);
+		gm->player->velocity = vec3(0, 0, 0);
 	}
 
 	virtual const char* getModuleName() override {

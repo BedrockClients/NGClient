@@ -10,7 +10,7 @@ public:
 	~CoordsCommand(){};
 
 	bool execute(std::vector<std::string>* args) {
-		vec3_t* pos = g_Data.getLocalPlayer()->getPos();
+		vec3* pos = g_Data.getLocalPlayer()->getPos();
 		float yPos = pos->y - 1.62f;
 		clientMessageF("[%sNG%s] %sX: %.2f Y: %.2f Z: %.2f", GOLD, WHITE, LIGHT_PURPLE, pos->x, yPos /* eye height */, pos->z);
 		return true;

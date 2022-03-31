@@ -2,7 +2,7 @@
 #include "Module.h"
 class FastEat : public IModule {
 public:
-	FastEat() : IModule(0, Category::PLAYER, "Eat food almost instant") {}
+	FastEat() : IModule(0x0, Category::PLAYER, "Eat food almost instant") {}
 	~FastEat(){};
 
 	// Inherited via IModule

@@ -21,7 +21,7 @@ public:
 	bool targetListA = false;
 	bool sexy = true;
 	bool outline = true;
-	vec2_t joe;
+	vec2 joe;
 
 	PotionAura();
 	~PotionAura();

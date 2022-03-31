@@ -1,6 +1,6 @@
 #include "InventoryMove.h"
 
-InventoryMove::InventoryMove() : IModule(0, Category::MOVEMENT, "Move even though you have your inventory open") {
+InventoryMove::InventoryMove() : IModule(0x0, Category::MOVEMENT, "Move even though you have your inventory open") {
 }
 
 InventoryMove::~InventoryMove() {
@@ -55,7 +55,7 @@ void InventoryMove::onTick(C_GameMode* gm) {
 
 	float calcYaw = (yaw + 90) * (PI / 180);
 	//float calcPitch = (gm->player->pitch) * -(PI / 180);
-	vec3_t moveVec;
+	vec3 moveVec;
 	moveVec.x = cos(calcYaw) * speed;
 	moveVec.y = gm->player->velocity.y;
 	moveVec.z = sin(calcYaw) * speed;

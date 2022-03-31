@@ -5,7 +5,7 @@ float RainbowSky::green{0};
 float RainbowSky::blue{0};
 bool RainbowSky::custom{false};
 
-RainbowSky::RainbowSky() : IModule(0, Category::VISUAL, "Chages the colour of the sky") {
+RainbowSky::RainbowSky() : IModule(0x0, Category::VISUAL, "Chages the colour of the sky") {
 	registerFloatSetting("Red", &red, red, 0, 1);
 	registerFloatSetting("Green", &green, green, 0, 1);
 	registerFloatSetting("Blue", &blue, blue, 0, 1);

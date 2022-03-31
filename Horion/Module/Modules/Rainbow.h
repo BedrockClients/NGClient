@@ -23,8 +23,8 @@ public:
 		Utils::ApplyRainbow(rcolors, 0.0003f);
 		auto wid = g_Data.getClientInstance()->getGuiData()->windowSize;
 		std::string text = "";
-		vec2_t textPos = vec2_t(wid.x / 2.f - DrawUtils::getTextWidth(&text, 180.f) / 2.f, wid.y / 9.5f);
-		vec4_t rectPos = vec4_t(textPos.x - 400.f, textPos.y - 400.f, textPos.x + DrawUtils::getTextWidth(&text, 8.f) + 400.f, textPos.y + 400.f);
+		vec2 textPos = vec2(wid.x / 2.f - DrawUtils::getTextWidth(&text, 180.f) / 2.f, wid.y / 9.5f);
+		vec4 rectPos = vec4(textPos.x - 400.f, textPos.y - 400.f, textPos.x + DrawUtils::getTextWidth(&text, 8.f) + 400.f, textPos.y + 400.f);
 		DrawUtils::fillRectangle(rectPos, MC_Color(rcolors[0], rcolors[1], rcolors[2]), opacity);
 	}
 	const char* Rainbow::getModuleName() {
