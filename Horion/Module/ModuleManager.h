@@ -84,7 +84,6 @@
 #include "Modules/InventoryMove.h"
 #include "Modules/InventoryView.h"
 #include "Modules/Jesus.h"
-#include "Modules/Jetpack.h"
 #include "Modules/KeyStrokes.h"
 #include "Modules/Killaura.h"
 #include "Modules/LongJump.h"

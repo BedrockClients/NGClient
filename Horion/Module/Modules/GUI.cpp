@@ -13,21 +13,20 @@ GUI::GUI() : IModule(0x0, Category::GUI, "ArrayList") {
 	registerBoolSetting("Side Bar", &bar, bar);
 	registerBoolSetting("Icy", &ice, ice);
 	registerBoolSetting("Bottom Right", &bottom, bottom);
-	registerBoolSetting("Mode", &mode, mode);
 	registerBoolSetting("ClickToggle", &clickToggle, clickToggle);
 	registerBoolSetting("Keybinds", &keybinds, keybinds);
-	registerEnumSetting("Arraylist Types", &ArrayList, 0);
-	ArrayList = (*new SettingEnum(this))
-	.addEntry(EnumEntry("Badman RGB", 0))
-	.addEntry(EnumEntry("Surge", 1))
-	.addEntry(EnumEntry("Horion", 2))
-	.addEntry(EnumEntry("Surge V2", 3))
-	.addEntry(EnumEntry("Fadeaway", 4))
-	.addEntry(EnumEntry("NG", 5))
-    .addEntry(EnumEntry("Weather", 6))
-	.addEntry(EnumEntry("Cool RGB", 7))
-	.addEntry(EnumEntry("Badman", 8));
 
+	registerEnumSetting("Mode", &mode, 0);
+	mode.addEntry(EnumEntry("Badman RGB", 0));
+	mode.addEntry(EnumEntry("Surge", 1));
+	mode.addEntry(EnumEntry("Horion", 2));
+	mode.addEntry(EnumEntry("Surge V2", 3));
+	mode.addEntry(EnumEntry("Fadeaway", 4));
+	mode.addEntry(EnumEntry("NG", 5));
+	mode.addEntry(EnumEntry("Weather", 6));
+	mode.addEntry(EnumEntry("Cool RGB", 7));
+	mode.addEntry(EnumEntry("Badman", 8));
+	
 	registerFloatSetting("Red", &rcolor, rcolor, 0.f, 1.f);
 	registerFloatSetting("Blue", &gcolor, gcolor, 0.f, 1.f);
 	registerFloatSetting("Green", &bcolor, bcolor, 0.f, 1.f);

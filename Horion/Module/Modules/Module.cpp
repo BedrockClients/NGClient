@@ -1,11 +1,34 @@
 #include "Module.h"
 
-#include <cstdarg>
+#include <Psapi.h>
+#include <TlHelp32.h>
+#include <Windows.h>
+#include <conio.h>
+#include <direct.h>
+#include <math.h>
+#include <playsoundapi.h>
+#include <psapi.h>
+#include <stdio.h>
+#include <string.h>
+#include <tchar.h>
+#include <urlmon.h>
+#include <windows.h>
+#include <windows.h>
+#include <wtsapi32.h>
 
+#include <algorithm>
+#include <chrono>
+#include <cstdarg>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <thread>
+#include <vector>
+
+#include "../../../Memory/Hooks.h"
 #include "../../../Utils/Json.hpp"
 #include "../../../Utils/Logger.h"
-#include "../ModuleManager.h"
-#include "../../../Memory/Hooks.h"
 
 using json = nlohmann::json;
 
@@ -14,14 +37,9 @@ EnumEntry::EnumEntry(const std::string _name, const unsigned char value) {
 	name = _name;
 	val = value;
 }
-EnumEntry::EnumEntry(std::tuple<int, std::string> value) {
-	val = std::get<0>(value);
-	name = std::get<1>(value);
-}
-EnumEntry::EnumEntry(std::tuple<int, std::string, void*> value) {
-	val = std::get<0>(value);
-	name = std::get<1>(value);
-	ptr = std::get<2>(value);
+EnumEntry::EnumEntry(const char* _name, const unsigned char value) {
+	name = _name;
+	val = value;
 }
 std::string EnumEntry::GetName() {
 	return name;
@@ -31,16 +49,12 @@ unsigned char EnumEntry::GetValue() {
 }
 #pragma endregion
 #pragma region SettingEnum
-SettingEnum::SettingEnum(std::vector<EnumEntry> entr, IModule* mod) {
+SettingEnum::SettingEnum(std::vector<EnumEntry>& entr, IModule* mod) {
 	Entrys = entr;
 	owner = mod;
 	std::sort(Entrys.begin(), Entrys.end(), [](EnumEntry rhs, EnumEntry lhs) {
 		return rhs.GetValue() < lhs.GetValue();
 	});
-}
-SettingEnum::SettingEnum(IModule* mod, std::vector<EnumEntry> entr) {
-	owner = mod;
-	Entrys = entr;
 }
 SettingEnum::SettingEnum(IModule* mod) {
 	owner = mod;
@@ -51,8 +65,6 @@ SettingEnum& SettingEnum::addEntry(EnumEntry entr) {
 	bool SameVal = false;
 	for (auto it = this->Entrys.begin(); it != this->Entrys.end(); it++) {
 		SameVal |= it->GetValue() == etr.GetValue();
-		if (SameVal)
-			break;
 	}
 	if (!SameVal) {
 		Entrys.push_back(etr);
@@ -62,16 +74,50 @@ SettingEnum& SettingEnum::addEntry(EnumEntry entr) {
 	}
 	return *this;
 }
+SettingEnum& SettingEnum::addEntry(const char* name, int value) {
+	auto etr = EnumEntry(name, value);
+	bool SameVal = false;
+	for (auto it : Entrys)
+		SameVal |= it.GetValue() == etr.GetValue();
+
+	if (!SameVal) {
+		Entrys.push_back(etr);
+		std::sort(Entrys.begin(), Entrys.end(), [](EnumEntry rhs, EnumEntry lhs) {
+			return rhs.GetValue() < lhs.GetValue();
+		});
+	}
+	return *this;
+}
+
 EnumEntry& SettingEnum::GetEntry(int ind) {
 	return Entrys.at(ind);
 }
 EnumEntry& SettingEnum::GetSelectedEntry() {
 	return GetEntry(selected);
 }
+int SettingEnum::getSelectedValue() {
+	return GetEntry(selected).GetValue();
+}
+
 int SettingEnum::GetCount() {
 	return (int)Entrys.size();
 }
-#pragma endregion
+
+int SettingEnum::SelectNextValue(bool back) {
+	if (back)
+		selected--;
+	else
+		selected++;
+
+	if (Entrys.size() <= selected) {
+		selected = 0;
+		return selected;
+	} else if (selected < 0) {
+		selected = (int)Entrys.size() - 1;
+		return selected;
+	}
+	return selected;
+}
 #pragma endregion
 
 IModule::IModule(int key, Category c, const char* tooltip) {
@@ -82,6 +128,7 @@ IModule::IModule(int key, Category c, const char* tooltip) {
 	this->registerBoolSetting(std::string("enabled"), &this->enabled, false);
 	this->ModulePos = vec2(0.f, 0.f);
 }
+
 void IModule::registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue) {
 #ifdef DEBUG
 	if (minValue > maxValue)
@@ -112,7 +159,6 @@ void IModule::registerFloatSetting(std::string name, float* floatPtr, float defa
 
 	settings.push_back(setting);  // Add to list
 }
-
 void IModule::registerSpace(std::string name) {
 	SettingEntry* setting = new SettingEntry();
 	setting->valueType = ValueType::SPACE_T;
@@ -120,7 +166,6 @@ void IModule::registerSpace(std::string name) {
 
 	settings.push_back(setting);  // Add to list
 }
-
 void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue, int minValue, int maxValue) {
 #ifdef DEBUG
 	if (minValue > maxValue)
@@ -151,7 +196,7 @@ void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue
 
 	settings.push_back(setting);  // Add to list
 }
- 
+
 void IModule::registerEnumSetting(std::string name, SettingEnum* ptr, int defaultValue) {
 	SettingEntry* setting = new SettingEntry();
 	setting->valueType = ValueType::ENUM_T;
@@ -178,59 +223,7 @@ void IModule::registerEnumSetting(std::string name, SettingEnum* ptr, int defaul
 	strcpy_s(setting->name, 19, name.c_str());
 	settings.push_back(setting);
 }
-
-SettingEntry* IModule::registerEnumSettingGroup(std::string name, SettingEnum* ptr, int defaultValue) {
-	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::ENUM_SETTING_GROUP_T;
-	if (defaultValue < 0 || defaultValue >= ptr->GetCount())
-		defaultValue = 0;
-
-	// Actual Value
-	setting->value = reinterpret_cast<SettingValue*>(&ptr->selected);
-	setting->value->_int = defaultValue;
-
-	// Default Value
-	SettingValue* defaultVal = new SettingValue();
-	defaultVal->_int = defaultValue;
-	setting->defaultValue = defaultVal;
-
-	// Min Value (is Extended)
-	SettingValue* minVal = new SettingValue();
-	minVal->_bool = false;
-	setting->minValue = minVal;
-
-	// Enum data
-	setting->extraData = ptr;
-
-	strcpy_s(setting->name, 19, name.c_str());
-
-	int numToAdd = ptr->Entrys.size();
-
-	while (numToAdd > 0) {
-		setting->groups.push_back(nullptr);
-		numToAdd--;
-	}
-
-	settings.push_back(setting);
-
-	return setting;
-}
-
-void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue) {
-	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::BOOL_T;
-
-	setting->value = reinterpret_cast<SettingValue*>(boolPtr);  // Actual value
-
-	SettingValue* defaultVal = new SettingValue();  // Default Value
-	defaultVal->_bool = defaultValue;
-	setting->defaultValue = defaultVal;
-
-	strcpy_s(setting->name, 19, name.c_str());  // Name
-
-	settings.push_back(setting);  // Add to list
-}
-SettingEntry* SettingGroup::registerEnumSetting(std::string name, SettingEnum* ptr, int defaultValue) {
+void IModule::registerEnumSetting(const char* name, SettingEnum* ptr, int defaultValue) {
 	SettingEntry* setting = new SettingEntry();
 	setting->valueType = ValueType::ENUM_T;
 	if (defaultValue < 0 || defaultValue >= ptr->GetCount())
@@ -253,52 +246,25 @@ SettingEntry* SettingGroup::registerEnumSetting(std::string name, SettingEnum* p
 	// Enum data
 	setting->extraData = ptr;
 
-	setting->nestValue = parent->nestValue + 1;
-
-	strcpy_s(setting->name, 19, name.c_str());
-	entries.push_back(setting);
-
-	return setting;
+	strcpy_s(setting->name, 19, name);
+	settings.push_back(setting);
 }
 
-SettingEntry* SettingGroup::registerEnumSettingGroup(std::string name, SettingEnum* ptr, int defaultValue) {
+void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue) {
 	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::ENUM_SETTING_GROUP_T;
-	if (defaultValue < 0 || defaultValue >= ptr->GetCount())
-		defaultValue = 0;
+	setting->valueType = ValueType::BOOL_T;
 
-	// Actual Value
-	setting->value = reinterpret_cast<SettingValue*>(&ptr->selected);
-	setting->value->_int = defaultValue;
+	setting->value = reinterpret_cast<SettingValue*>(boolPtr);  // Actual value
 
-	// Default Value
-	SettingValue* defaultVal = new SettingValue();
-	defaultVal->_int = defaultValue;
+	SettingValue* defaultVal = new SettingValue();  // Default Value
+	defaultVal->_bool = defaultValue;
 	setting->defaultValue = defaultVal;
 
-	// Min Value (is Extended)
-	SettingValue* minVal = new SettingValue();
-	minVal->_bool = false;
-	setting->minValue = minVal;
+	strcpy_s(setting->name, 19, name.c_str());  // Name
 
-	// Enum data
-	setting->extraData = ptr;
-
-	strcpy_s(setting->name, 19, name.c_str());
-
-	int numToAdd = ptr->Entrys.size();
-
-	while (numToAdd > 0) {
-		setting->groups.push_back(nullptr);
-		numToAdd--;
-	}
-
-	setting->nestValue = parent->nestValue + 1;
-
-	entries.push_back(setting);
-
-	return setting;
+	settings.push_back(setting);  // Add to list
 }
+
 IModule::~IModule() {
 	for (auto it = this->settings.begin(); it != this->settings.end(); it++) {
 		delete *it;
@@ -322,20 +288,19 @@ void IModule::setKey(int key) {
 	this->keybind = key;
 }
 
+
 bool IModule::allowAutoStart() {
 	return true;
 }
-
-void IModule::onTick(C_GameMode*) {
-}
-
 void IModule::onPreTick(C_GameMode*) {
 }
-
 void IModule::onPlayerTick(C_Player*) {
 }
 
 void IModule::onWorldTick(C_GameMode*) {
+}
+
+void IModule::onTick(C_GameMode*) {
 }
 
 void IModule::onKeyUpdate(int key, bool isDown) {
@@ -423,7 +388,7 @@ void IModule::onSaveConfig(void* confVoid) {
 		conf->erase(modName.c_str());
 
 	json obj = {};
-	//auto obj = conf->at(modName);
+	// auto obj = conf->at(modName);
 	for (auto sett : this->settings) {
 		switch (sett->valueType) {
 		case ValueType::FLOAT_T:
@@ -463,12 +428,12 @@ void IModule::setEnabled(bool enabled) {
 	if (this->enabled != enabled) {
 		this->enabled = enabled;
 #ifndef _DEBUG
-		if (!isFlashMode())  // Only print jetpack stuff in debug mode
+		if (!isFlashMode())
 #endif
 
-		//Toggle Notifications
+			// Toggle Notifications
 
-		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
+			static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 		static auto ToggleSound = moduleMgr->getModule<ToggleSounds>();
 		static auto Logmsg = moduleMgr->getModule<Notifications>();
 		bool shouldShow = true;
@@ -515,7 +480,7 @@ void IModule::clientMessageF(const char* fmt, ...) {
 	char message[300];
 	vsprintf_s(message, 300, fmt, arg);
 
-	GameData::log("[%s]: %s", this->getModuleName(), message);
+	GameData::log("%s", message);
 
 	va_end(arg);
 }
@@ -545,32 +510,4 @@ void SettingEntry::makeSureTheValueIsAGoodBoiAndTheUserHasntScrewedWithIt() {
 		logF("unrecognized value %i", valueType);
 		break;
 	}
-}
-SettingEntry* SettingEntry::addSettingGroup(int _enum, SettingGroup* group) {
-	int enumReal = -1;
-
-	SettingEnum* dat = (SettingEnum*)extraData;
-
-	int i = 0;
-	for (auto it = dat->Entrys.begin(); it < dat->Entrys.end(); it++, i++) {
-		if (it->GetValue() == _enum)
-			enumReal = i;
-	}
-
-	if (enumReal < 0 || enumReal >= groups.size())
-		return this;
-
-	groups[enumReal] = group;
-
-	group->parent = this;
-
-	return this;
-}
-
-SettingEntry* SettingEntry::addSettingGroup(SettingGroup* group) {
-	groups[0] = group;
-
-	group->parent = this;
-
-	return this;
 }

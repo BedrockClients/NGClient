@@ -69,7 +69,7 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new FastLadder()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FastStop()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FightBot()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Fly()));
+		moduleList.push_back(std::shared_ptr<IModule>(new Flight()));
 		moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
 		moduleList.push_back(std::shared_ptr<IModule>(new fps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Freecam()));
@@ -91,7 +91,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new InventoryMove()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InventoryView()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Jesus()));
-		moduleList.push_back(std::shared_ptr<IModule>(new Jetpack()));
 		moduleList.push_back(std::shared_ptr<IModule>(new KeyStrokes()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Killaura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new LongJump()));

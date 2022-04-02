@@ -506,7 +506,6 @@
     <ClInclude Include="Horion\Module\Modules\InventoryCleaner.h" />
     <ClInclude Include="Horion\Module\Modules\InventoryMove.h" />
     <ClInclude Include="Horion\Module\Modules\Jesus.h" />
-    <ClInclude Include="Horion\Module\Modules\Jetpack.h" />
     <ClInclude Include="Horion\Module\Modules\Killaura.h" />
     <ClInclude Include="Horion\Module\Modules\MidClick.h" />
     <ClInclude Include="Horion\Module\Modules\Module.h" />
