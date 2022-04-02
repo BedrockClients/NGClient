@@ -1092,7 +1092,7 @@ public:
 	virtual void playEmote(std::string);                                                                 // 399
 	virtual bool isHostingC_Player(void);                                                                // 400
 	virtual bool isLoading(void);                                                                        // 401
-	virtual bool isC_PlayerInitialized(void);                                                            // 402
+	virtual bool isPlayerInitialized(void);                                                            // 402
 	virtual __int64 stopLoading(void);                                                                   // 403
 	virtual __int64 registerTrackedBoss(__int64);                                                        // 404
 	virtual __int64 unRegisterTrackedBoss(__int64);                                                      // 405
@@ -1119,7 +1119,7 @@ public:
 	virtual __int64 getC_ItemCooldownLeft();                                                             // 426
 	virtual __int64 getC_ItemCooldownLeft(unsigned long);                                                // 427
 	virtual __int64 getMaxC_ItemCooldownLeft(void);                                                      // 428
-	virtual bool isC_ItemInCooldown();                                                                   // 429
+	virtual bool isItemInCooldown(HashedString const &);                                                 // 429
 	virtual __int64 sendInventoryTransaction(C_InventoryTransaction const &);                            // 430
 	virtual __int64 sendComplexInventoryTransaction(__int64);                                            // 431
 	virtual __int64 sendNetworkPacket(class C_Packet &);                                                 // 432

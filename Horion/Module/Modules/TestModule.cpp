@@ -69,7 +69,7 @@ void TestModule::onTick(C_GameMode* gm) {
 		textPacket.message.setText("test + ");
 		textPacket.sourceName.setText(g_Data.getLocalPlayer()->getNameTag()->getText());
 		textPacket.xboxUserId = std::to_string(g_Data.getLocalPlayer()->getUserId());
-		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
+		//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&textPacket);
 	}
 }
 
