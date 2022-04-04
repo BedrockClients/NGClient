@@ -485,6 +485,7 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 	float textHeight = DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() * textSize;
 
 	if (refdef->OWorldToScreen(origin, ent->eyePos0.add(0, 0.5f, 0), textPos, fov, screenSize)) {
+		auto* player = reinterpret_cast<C_Player*>(ent);
 		textPos.y -= textHeight;
 		textPos.x -= textWidth / 2.f;
 		rectPos.x = textPos.x - 1.f * textSize;
@@ -513,24 +514,23 @@ void DrawUtils::drawNameTags(C_Entity* ent, float textSize, bool drawHealth, boo
 			}
 		}
 		if (ent->isAlive() && ent->isPlayer() && nametags->displayArmor) {  // is player, show armor
-			auto* player = reinterpret_cast<C_Player*>(ent);
 			float scale = textSize * 0.6f;
 			float spacing = scale + 15.f;
-			float x = rectPos.x + 1.f * textSize;
-			float y = rectPos.y - 20.f * scale;
+			float x = rectPos.z + 3.f * textSize;
+			float y = rectPos.w - 20.f * scale;
 			//armor
 			for (int i = 0; i < 4; i++) {
 				C_ItemStack* stack = player->getArmor(i);
 				if (stack->item != nullptr) {
 					DrawUtils::drawItem(stack, vec2(x, y), 1.f, scale, stack->isEnchanted());
-					x += scale * spacing;
+					y += scale * spacing;
 				}
 			}
 			//item
 			C_PlayerInventoryProxy* supplies = player->getSupplies();
 			C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
 			if (item->isValid())
-				DrawUtils::drawItem(item, vec2(rectPos.z - 1.f - 15.f * scale, y), 1.f, scale, item->isEnchanted());
+				DrawUtils::drawItem(item, vec2(x, y), 1.f, scale, item->isEnchanted());
 		}
 	}
 }
@@ -871,6 +871,14 @@ void DrawUtils::fillRectangle(vec4 pos, const MC_Color col, float alpha) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
 }
+
+void DrawUtils::drawRoundRectangle(vec4 pos, const MC_Color col, float alpha) {
+	DrawUtils::drawBottom(vec4{pos.x + 1.5f, pos.y - 2, pos.z - 1.5f, pos.w + 0.5f}, col, alpha);
+	DrawUtils::drawQuad({pos.x, pos.w}, {pos.z, pos.w}, {pos.z, pos.y}, {pos.x, pos.y});
+	DrawUtils::fillRectangle(vec4(pos.x + 1, pos.y - 1, pos.z - 1, pos.y), col, alpha);
+	DrawUtils::setColor(col.r, col.g, col.b, alpha);
+}
+
 void DrawUtils::drawBoxTops(const vec4& pos, const MC_Color& col, float alpha, float thickness) {
 	DrawUtils::setColor(col.r, col.g, col.b, alpha);
 	DrawUtils::drawLine({pos.x, pos.w}, {pos.z, pos.w}, thickness);

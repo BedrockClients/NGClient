@@ -141,6 +141,8 @@
 #include "Modules/Xray.h"
 #include "Modules/Zoom.h"
 
+#include "Modules/TargetHUD.h"
+
 class ModuleManager {
 private:
 	GameData* gameData;

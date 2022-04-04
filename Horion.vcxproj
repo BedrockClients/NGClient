@@ -319,6 +319,7 @@
     <ClCompile Include="Horion\Module\Modules\MidClick.cpp" />
     <ClCompile Include="Horion\Module\Modules\Module.cpp" />
     <ClCompile Include="Horion\Module\Modules\NameTags.cpp" />
+    <ClCompile Include="Horion\Module\Modules\TargetHUD.cpp" />
     <ClCompile Include="Horion\Module\Modules\TargetStrafe.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoPacket.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
@@ -510,6 +511,7 @@
     <ClInclude Include="Horion\Module\Modules\MidClick.h" />
     <ClInclude Include="Horion\Module\Modules\Module.h" />
     <ClInclude Include="Horion\Module\Modules\NameTags.h" />
+    <ClInclude Include="Horion\Module\Modules\TargetHUD.h" />
     <ClInclude Include="Horion\Module\Modules\TargetStrafe.h" />
     <ClInclude Include="Horion\Module\Modules\ToggleSounds.h" />
     <ClInclude Include="Horion\Module\Modules\Totem.h" />

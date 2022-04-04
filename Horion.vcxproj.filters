@@ -130,6 +130,7 @@
     <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
     <ClCompile Include="Horion\Module\Modules\Compass.cpp" />
     <ClCompile Include="Horion\Module\Modules\Killaura.cpp" />
+    <ClCompile Include="Horion\Module\Modules\TargetHUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Horion\Command\CommandMgr.h" />
@@ -390,6 +391,7 @@
     <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
     <ClInclude Include="Horion\Module\Modules\ExtendedBlockReach.h" />
     <ClInclude Include="Horion\Module\Modules\Velocity.h" />
+    <ClInclude Include="Horion\Module\Modules\TargetHUD.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Horion.rc" />

@@ -34,10 +34,10 @@ ClickGuiMod::ClickGuiMod() : IModule(VK_TAB, Category::GUI, "The clickgui") {
 	registerFloatSetting("Module Off Green", &tfgcolor, tfgcolor, 0.f, 1.f);
 	registerFloatSetting("Module Off Blue", &tfbcolor, tfbcolor, 0.f, 1.f);
 	registerSpace("Background Colors");
-	registerFloatSetting("Backgrund Red", &rcolor, rcolor, 0.f, 1.f);
-	registerFloatSetting("Backgrund Green", &gcolor, gcolor, 0.f, 1.f);
-	registerFloatSetting("Backgrund Blue", &bcolor, bcolor, 0.f, 1.f);
-	registerFloatSetting("Backgrund Opacity", &opacity, opacity, 0.f, 1.f);
+	registerFloatSetting("Background Red", &rcolor, rcolor, 0.f, 1.f);
+	registerFloatSetting("Background Green", &gcolor, gcolor, 0.f, 1.f);
+	registerFloatSetting("Background Blue", &bcolor, bcolor, 0.f, 1.f);
+	registerFloatSetting("Background Opacity", &opacity, opacity, 0.f, 1.f);
 }
 
 ClickGuiMod::~ClickGuiMod() {

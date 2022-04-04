@@ -103,6 +103,7 @@ public:
 	static void drawElipse(vec2 p1, vec2 p2, vec2 p3, vec2 p4);
 	static void drawLine(vec2 start, vec2 end, float lineWidth);  // rgba
 	static void drawLinestrip3d(const std::vector<vec3>& points);
+	static void drawRoundRectangle(vec4 pos, const MC_Color col, float alpha);
 	static void drawLine3d(const vec3& start, const vec3& end);
 	static void drawBox3d(vec3 lower, vec3 upper);
 	static void drawBoxSides(const vec4& pos, const MC_Color& col, float alpha, float thickness);
@@ -114,6 +115,13 @@ public:
 	static inline void fillRectangle(vec2 start, vec2 end) {
 		DrawUtils::drawQuad({start.x, end.y}, {end.x, end.y}, {end.x, start.y}, {start.x, start.y});
 	}
+
+	
+	static inline void drawBottom(vec4 pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
+		lineWidth /= 2;
+		fillRectangle(vec4(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
+	}
+
 	static inline void drawRectangle(vec2 start, vec2 end, float lineWidth = 1.0f) {
 		lineWidth /= 2;
 		fillRectangle({start.x - lineWidth, start.y - lineWidth}, {end.x + lineWidth, start.y + lineWidth});  // TOP

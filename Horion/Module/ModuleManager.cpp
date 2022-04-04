@@ -51,7 +51,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Coordinates()));
 		moduleList.push_back(std::shared_ptr<IModule>(new cps()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Crasher()));
-		moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Derp()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Disabler()));
 		moduleList.push_back(std::shared_ptr<IModule>(new EditionFaker()));
@@ -84,7 +83,6 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveConfig()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
 		moduleList.push_back(std::shared_ptr<IModule>(new HudModule()));
-		moduleList.push_back(std::shared_ptr<IModule>(new HoleESP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
 		moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
@@ -147,11 +145,15 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
 
+		moduleList.push_back(std::shared_ptr<IModule>(new TargetHUD()));
+
 		//
-		//moduleList.push_back(std::shared_ptr<IModule>(new EZspam()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new AutoEZ()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv2()));
-		//moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv3()));
+		// moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
+		// moduleList.push_back(std::shared_ptr<IModule>(new HoleESP()));
+		// moduleList.push_back(std::shared_ptr<IModule>(new EZspam()));
+		// moduleList.push_back(std::shared_ptr<IModule>(new AutoEZ()));
+		// moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv2()));
+		// moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv3()));
 		//
 
 		std::sort(moduleList.begin(), moduleList.end(), [](auto lhs, auto rhs) {
