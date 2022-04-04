@@ -268,25 +268,19 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			//The actual box
 			{
-				DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
-
 				// Gives the rounded corners effect
 				if (partner->Partnered.selected == 0) {
-				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 0, 255), counter / 340.33333f);
+				DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
+				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 340.33333f);
 				} else if (partner->Partnered.selected == 1) {
+				DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
 				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(150, 30, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(150, 30, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(150, 30, 255), counter / 340.33333f);
 				} else if (partner->Partnered.selected == 2) {
+				DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
 				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 255, 255), counter / 340.33333f);
 				} else {
+				DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
 				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4{rectPos.x - 2, rectPos.y - 1, rectPos.z + 2, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
-				DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 2, rectPos.z + 1, rectPos.w + 2}, MC_Color(0, 255, 255), counter / 340.33333f);
 				}
 			}
 
@@ -303,16 +297,17 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 				targetName = targetName.substr(0, targetName.find('\n'));
 			}
 
-			std::string healthString = std::to_string(((int)Health));
+			std::string HealthString = std::to_string(((int)Health));
+			std::string HealthMaxString = std::to_string(((int)HealthMax));
 			std::string distance = "Distance: " + std::to_string((int)(*targetList[0]->getPos()).dist(*g_Data.getLocalPlayer()->getPos()));
-			std::string healthDisplay = "Health: " + healthString;
+			std::string healthDisplay = "Health: " + HealthString + "/" + HealthMaxString;
+			std::string armor = "Armor: ";
 			std::string absorptionDisplay;
-
 			//Absorbtion Bar
 			if (Absorbtion > 0) {
-				DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
+				//DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + 1 * rectWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
 				std::string absorptionString = std::to_string((int)(Absorbtion));
-				absorptionDisplay = "Absorption: " + absorptionString;
+				absorptionDisplay = " Absorption: " + absorptionString;
 				float absorptionBarWidth = (Absorbtion / HealthMax) * rectWidth;
 				if (!(targetList[0]->damageTime > 1))
 					DrawUtils::fillRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f), rectPos.x + absorptionBarWidth, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2)), MC_Color(255, 255, 85), counter / 100.f);
@@ -322,15 +317,29 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 
 			//The text
 			{
-				DrawUtils::drawText(vec2(rectPos.x + (res.x / 350.f), rectPos.y + (res.y / 600.f)), &targetName, MC_Color(255, 255, 255), 1.f, counter / 100.f);                  // name
-				DrawUtils::drawText(vec2(rectPos.x + 35 + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, counter / 100.f);  // absorbtion
-				DrawUtils::drawText(vec2(rectPos.x + (res.x / 350.f), rectPos.y + 4 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, counter / 100.f);              // distance
+				DrawUtils::drawText(vec2(rectPos.x + (res.x / 900.f), rectPos.y - 17 + (res.y / 35.f)), &targetName, MC_Color(255, 255, 255), 1.f, counter / 100.f);              // name
+				DrawUtils::drawText(vec2(rectPos.x + (res.x / 900.f), rectPos.y - 9 + (res.y / 35.f)), &distance, MC_Color(255, 255, 255), 0.7f, counter / 100.f);               // distance
+				DrawUtils::drawText(vec2(rectPos.x + 35 + (res.x / 900.f), rectPos.y - 4 + (res.y / 35.f)), &absorptionDisplay, MC_Color(255, 255, 85), 0.7f, counter / 100.f);  // absorbtion
+				DrawUtils::drawText(vec2(rectPos.x + (res.x / 900.f), rectPos.y - 4 + (res.y / 35.f)), &healthDisplay, MC_Color(255, 255, 255), 0.7f, counter / 100.f);			// health
+				DrawUtils::drawText(vec2(rectPos.x + (res.x / 900.f), rectPos.y + 1 + (res.y / 35.f)), &armor, MC_Color(255, 255, 255), 0.7f, counter / 100.f);                   // armor
+				vec2 armorPos = vec2(rectPos.x + (res.x / 35.f), rectPos.y + 0 + (res.y / 35.f));
 
-				if (!(targetList[0]->damageTime > 1)) {
-					DrawUtils::drawText(vec2(rectPos.x + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(0, 255, 0), 0.7f, counter / 100.f);// health
-				} else {
-					DrawUtils::drawText(vec2(rectPos.x + (res.x / 350.f), rectPos.y - 2 + (res.y / 35.f)), &healthDisplay, MC_Color(255, 0, 0), 0.7f, counter / 100.f);// health
+				static float constexpr opacity = 10;
+				float scale = 2 * 0.26f;
+				float spacing = scale + 15.f + 2;
+
+				auto* player = reinterpret_cast<C_Player*>(targetList[0]);
+
+				for (int t = 0; t < 4; t++) {
+					C_ItemStack* stack = player->getArmor(t);
+					if (stack->isValid()) {
+						DrawUtils::drawItem(stack, vec2(armorPos), 1, scale, false);
+						armorPos.x += scale * spacing;
+					}
 				}
+				C_PlayerInventoryProxy* supplies = player->getSupplies();
+				C_ItemStack* item = supplies->inventory->getItemStack(supplies->selectedHotbarSlot);
+				if (item->isValid()) DrawUtils::drawItem(item, vec2(armorPos), opacity, scale, item->isEnchanted());
 
 			}
 			DrawUtils::flush();
@@ -339,11 +348,11 @@ void Killaura::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 			{
 				float healthBarWidth = (Health / HealthMax) * rectWidth;
 				if (!(targetList[0]->damageTime > 1)) {
-					DrawUtils::fillRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
-					DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
+					DrawUtils::fillRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(0, 200, 0), counter / 100.f);
+					//DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(0, 255, 0), counter / 100.f);
 				} else {
 					DrawUtils::fillRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + healthBarWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
-					DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
+					//DrawUtils::drawRectangle(vec4(rectPos.x + .2f, rectPos.y + (res.y / 18.f) + ((rectPos.w - (rectPos.y + (res.y / 18.f))) / 2), rectPos.x + 1 * rectWidth, rectPos.w), MC_Color(255, 0, 0), counter / 100.f);
 				}
 			}
 			rectPos.y += res.y / 12.f;
