@@ -148,12 +148,13 @@ void ModuleManager::initModules() {
 		moduleList.push_back(std::shared_ptr<IModule>(new TargetHUD()));
 
 		//
-		// moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
-		// moduleList.push_back(std::shared_ptr<IModule>(new HoleESP()));
-		// moduleList.push_back(std::shared_ptr<IModule>(new EZspam()));
-		// moduleList.push_back(std::shared_ptr<IModule>(new AutoEZ()));
-		// moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv2()));
-		// moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv3()));
+		 moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
+		 moduleList.push_back(std::shared_ptr<IModule>(new HoleESP()));
+		 moduleList.push_back(std::shared_ptr<IModule>(new EZspam()));
+		 moduleList.push_back(std::shared_ptr<IModule>(new AutoEZ()));
+		 moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv2()));
+		 moduleList.push_back(std::shared_ptr<IModule>(new AutoEZv3()));
+		 moduleList.push_back(std::shared_ptr<IModule>(new NoJumpDelay()));
 		//
 
 		std::sort(moduleList.begin(), moduleList.end(), [](auto lhs, auto rhs) {

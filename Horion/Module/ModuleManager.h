@@ -142,6 +142,7 @@
 #include "Modules/Zoom.h"
 
 #include "Modules/TargetHUD.h"
+#include "Modules/NoJumpDelay.h"
 
 class ModuleManager {
 private:

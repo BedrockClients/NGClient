@@ -8,6 +8,8 @@ public:
 	int tick = 0;
 	int tickTimer = 0;
 	int speedTimer = 20;
+	float heightY = 0.00f;
+	float xyzvel = 0.00f;
 	bool bypass = false;
 	bool moving = false;
 	bool usetimer = false;

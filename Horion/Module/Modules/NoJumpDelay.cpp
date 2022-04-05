@@ -1,11 +1,13 @@
 #include "NoJumpDelay.h"
 #include "../ModuleManager.h"
 
-NoJumpDelay::NoJumpDelay() : IModule(0x0, Category::PLAYER, "No delay between jumps") {
+NoJumpDelay::NoJumpDelay() : IModule(0, Category::PLAYER, "No delay between jumps") {
 	registerIntSetting("Delay", &tickTimer, tickTimer, 0, 10);
 	registerIntSetting("Timer", &speedTimer, speedTimer, 1, 30);
+	registerFloatSetting("VelY", &heightY, heightY, 1.00f, 1.03f);
+	registerFloatSetting("VelXZ", &xyzvel, xyzvel, 1.00f, 1.03f);
 	registerBoolSetting("Use Timer", &usetimer, usetimer);
-	registerBoolSetting("Hive", &bypass, bypass);
+	registerBoolSetting("Bypass", &bypass, bypass);
 }
 NoJumpDelay::~NoJumpDelay() {
 }
@@ -42,8 +44,11 @@ void NoJumpDelay::onTick(C_GameMode* gm) {
 	}
 
 	int bps = g_Data.getLocalPlayer()->getBlocksPerSecond();
-	if (bypass && moving && bps >= 9) {
+	if (bypass && moving && bps >= 8) {
 		if (!blink->isEnabled()) blink->setEnabled(true);
+		gm->player->velocity.y *= heightY;
+		gm->player->velocity.x *= xyzvel;
+		gm->player->velocity.z *= xyzvel;
 	} else {
 		if (blink->isEnabled()) blink->setEnabled(false);
 	}
