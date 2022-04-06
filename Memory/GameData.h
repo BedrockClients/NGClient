@@ -132,7 +132,7 @@ public:
 		std::lock_guard<std::mutex> listGuard(chestListMutex);
 		this->chestList.clear();
 	}
-	inline std::shared_ptr<InfoBoxData> getFreshInfoBox() {
+	inline std::shared_ptr<InfoBoxData> getInfoBoxList() {
 		while (!this->infoBoxQueue.empty()) {
 			auto box = this->infoBoxQueue.front();
 			if (!box->isOpen) {

@@ -434,13 +434,27 @@ void IModule::setEnabled(bool enabled) {
 
 		// Toggle Notifications
 
-		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 		static auto ToggleSound = moduleMgr->getModule<ToggleSounds>();
-		static auto Logmsg = moduleMgr->getModule<Notifications>();
+		static auto notifs = moduleMgr->getModule<Notifications>();
+		static auto ClickGUI = moduleMgr->getModule<ClickGuiMod>();
+		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 		bool shouldShow = true;
+		if (ClickGUI->isEnabled() /* || AntiBotMod->isEnabled() || HUD->isEnabled()*/ || isFlashMode() || !notifs->isEnabled())
+			shouldShow = false;
+		if (notifs->mode.selected == 1) {
+			if (shouldShow) {
+				if (notifs->showToggle && shouldShow) {
+					auto CheckEnabled = enabled ? " Enabled" : " Disabled";
+					auto notification = g_Data.addInfoBox("Notification:", std::string(std::string(CheckEnabled) + " " + this->getRawModuleName()));
+					notification->closeTimer = 3.f;
+				}
+			}
+		}
 
-		if (Logmsg->isEnabled()) {
-			g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sNG+%s] %s%s %s%s%s", DARK_PURPLE, WHITE, GRAY, enabled ? "Enabled" : "Disabled", BOLD, WHITE, this->getModuleName());
+		if (notifs->mode.selected == 0) {
+			if (notifs->isEnabled()) {
+				g_Data.getClientInstance()->getGuiData()->displayClientMessageF("[%sNG+%s] %s%s %s%s%s", DARK_PURPLE, WHITE, GRAY, enabled ? "Enabled" : "Disabled", BOLD, WHITE, this->getModuleName());
+			}
 		}
 		if (enabled) {
 			this->onEnable();
