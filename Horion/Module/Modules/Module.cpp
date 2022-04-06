@@ -128,7 +128,6 @@ IModule::IModule(int key, Category c, const char* tooltip) {
 	this->registerBoolSetting(std::string("enabled"), &this->enabled, false);
 	this->ModulePos = vec2(0.f, 0.f);
 }
-
 void IModule::registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue) {
 #ifdef DEBUG
 	if (minValue > maxValue)
@@ -136,7 +135,7 @@ void IModule::registerFloatSetting(std::string name, float* floatPtr, float defa
 #endif
 
 	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::FLOAT_T;
+	setting->valueType = ValueType::FLOAT;
 
 	setting->value = reinterpret_cast<SettingValue*>(floatPtr);
 
@@ -162,7 +161,7 @@ void IModule::registerFloatSetting(std::string name, float* floatPtr, float defa
 
 void IModule::registerSpace(std::string name) {
 	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::SPACE_T;
+	setting->valueType = ValueType::SPACE;
 	strcpy_s(setting->name, 19, name.c_str());  // Name
 
 	settings.push_back(setting);  // Add to list
@@ -175,7 +174,7 @@ void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue
 #endif
 
 	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::INT_T;
+	setting->valueType = ValueType::INT;
 	setting->value = reinterpret_cast<SettingValue*>(intPtr);  // Actual Value
 
 	// Default Value
@@ -201,7 +200,7 @@ void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue
 
 void IModule::registerEnumSetting(std::string name, SettingEnum* ptr, int defaultValue) {
 	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::ENUM_T;
+	setting->valueType = ValueType::ENUM;
 	if (defaultValue < 0 || defaultValue >= ptr->GetCount())
 		defaultValue = 0;
 
@@ -227,7 +226,7 @@ void IModule::registerEnumSetting(std::string name, SettingEnum* ptr, int defaul
 }
 void IModule::registerEnumSetting(const char* name, SettingEnum* ptr, int defaultValue) {
 	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::ENUM_T;
+	setting->valueType = ValueType::ENUM;
 	if (defaultValue < 0 || defaultValue >= ptr->GetCount())
 		defaultValue = 0;
 
@@ -254,7 +253,7 @@ void IModule::registerEnumSetting(const char* name, SettingEnum* ptr, int defaul
 
 void IModule::registerBoolSetting(std::string name, bool* boolPtr, bool defaultValue) {
 	SettingEntry* setting = new SettingEntry();
-	setting->valueType = ValueType::BOOL_T;
+	setting->valueType = ValueType::BOOL;
 
 	setting->value = reinterpret_cast<SettingValue*>(boolPtr);  // Actual value
 
@@ -342,25 +341,26 @@ void IModule::onLoadConfig(void* confVoid) {
 					continue;
 				try {
 					switch (sett->valueType) {
-					case ValueType::FLOAT_T:
+					case ValueType::FLOAT:
 						sett->value->_float = value.get<float>();
 						break;
-					case ValueType::DOUBLE_T:
+					case ValueType::DOUBLE:
 						sett->value->_double = value.get<double>();
 						break;
-					case ValueType::INT64_T:
+					case ValueType::INT64:
 						sett->value->int64 = value.get<__int64>();
 						break;
-					case ValueType::INT_T:
+					case ValueType::INT:
+					case ValueType::KEY:
 						sett->value->_int = value.get<int>();
 						break;
-					case ValueType::BOOL_T:
+					case ValueType::BOOL:
 						sett->value->_bool = value.get<bool>();
 						break;
-					case ValueType::TEXT_T:
+					case ValueType::TEXT:
 						sett->value->text = new std::string(value.get<std::string>());
 						break;
-					case ValueType::ENUM_T:
+					case ValueType::ENUM:
 						try {
 							sett->value->_int = value.get<int>();
 						} catch (const std::exception& e) {
@@ -392,26 +392,25 @@ void IModule::onSaveConfig(void* confVoid) {
 	// auto obj = conf->at(modName);
 	for (auto sett : this->settings) {
 		switch (sett->valueType) {
-		case ValueType::FLOAT_T:
+		case ValueType::FLOAT:
 			obj.emplace(sett->name, sett->value->_float);
 			break;
-		case ValueType::DOUBLE_T:
+		case ValueType::DOUBLE:
 			obj.emplace(sett->name, sett->value->_double);
 			break;
-		case ValueType::INT64_T:
+		case ValueType::INT64:
 			obj.emplace(sett->name, sett->value->int64);
 			break;
-		case ValueType::INT_T:
+		case ValueType::INT:
+		case ValueType::KEY:
+		case ValueType::ENUM:
 			obj.emplace(sett->name, sett->value->_int);
 			break;
-		case ValueType::BOOL_T:
+		case ValueType::BOOL:
 			obj.emplace(sett->name, sett->value->_bool);
 			break;
-		case ValueType::TEXT_T:
+		case ValueType::TEXT:
 			obj.emplace(sett->name, *sett->value->text);
-			break;
-		case ValueType::ENUM_T:
-			obj.emplace(sett->name, sett->value->_int);
 			break;
 		}
 	}
@@ -489,24 +488,24 @@ void IModule::clientMessageF(const char* fmt, ...) {
 
 void SettingEntry::makeSureTheValueIsAGoodBoiAndTheUserHasntScrewedWithIt() {
 	switch (valueType) {
-	case ValueType::ENUM_T:
+	case ValueType::ENUM:
 		value->_int = std::max(0, std::min(reinterpret_cast<SettingEnum*>(extraData)->GetCount() - 1, value->_int));
 		break;
-	case ValueType::BOOL_T:
+	case ValueType::BOOL:
 		break;
-	case ValueType::INT64_T:
+	case ValueType::INT64:
 		value->int64 = std::max(minValue->int64, std::min(maxValue->int64, value->int64));
 		break;
-	case ValueType::DOUBLE_T:
+	case ValueType::DOUBLE:
 		value->_double = std::max(minValue->_double, std::min(maxValue->_double, value->_double));
 		break;
-	case ValueType::FLOAT_T:
+	case ValueType::FLOAT:
 		value->_float = std::max(minValue->_float, std::min(maxValue->_float, value->_float));
 		break;
-	case ValueType::INT_T:
+	case ValueType::INT:
 		value->_int = std::max(minValue->_int, std::min(maxValue->_int, value->_int));
 		break;
-	case ValueType::TEXT_T:
+	case ValueType::TEXT:
 		// break;
 	default:
 		logF("unrecognized value %i", valueType);

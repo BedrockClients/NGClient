@@ -58,15 +58,16 @@ public:
 };
 
 enum class ValueType {
-	FLOAT_T,
-	DOUBLE_T,
-	INT64_T,
-	INT_T,
-	BOOL_T,
-	TEXT_T,
-	ENUM_T,
-	SPACE_T,
-	ENUM_SETTING_GROUP_T,
+	FLOAT,
+	DOUBLE,
+	INT64,
+	INT,
+	BOOL,
+	TEXT,
+	ENUM,
+	SPACE,
+	KEY,
+	ENUM_SETTING_GROUP,
 };
 
 struct SettingValue {
@@ -111,7 +112,6 @@ private:
 
 protected:
 	IModule(int key, Category c, const char* tooltip);
-
 	void registerFloatSetting(std::string name, float* floatPtr, float defaultValue, float minValue, float maxValue);
 	void registerIntSetting(std::string name, int* intpTr, int defaultValue, int minValue, int maxValue);
 	void registerEnumSetting(std::string name, SettingEnum* intPtr, int defaultValue);

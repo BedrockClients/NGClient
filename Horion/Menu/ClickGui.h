@@ -22,6 +22,9 @@ struct ClickWindow {
 	}
 	vec2 pos;
 	vec2 size;
+
+	vec4 selectableSurface = vec4(pos.x, pos.y, pos.x + size.x, pos.y + size.y);
+
 	bool isExtended = true;
 	bool isInAnimation = false;
 	float animation = 0;

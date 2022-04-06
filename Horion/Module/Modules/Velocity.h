@@ -3,6 +3,10 @@
 #include "Module.h"
 class Velocity : public IModule {
 public:
+
+	std::string name = "Velocity";
+	std::string fullname = "Velocity";
+
 	float xModifier = 0.f;
 	float yModifier = 0.f;
 
@@ -13,6 +17,8 @@ public:
 	~Velocity(){};
 
 	virtual const char* getModuleName() override {
-		return "Velocity";
+		name = std::string("Velocity [") + std::to_string((int)xModifier) + std::string(".") + std::to_string((int)(xModifier * 10) - ((int)xModifier * 10));
+		fullname = name + std::string("% ") + std::to_string((int)yModifier) + std::string(".") + std::to_string((int)(yModifier * 10) - ((int)yModifier * 10)) + std::string("%]");
+		return fullname.c_str();
 	}
 };

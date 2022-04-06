@@ -212,7 +212,7 @@ void ClickGui::renderTooltip(std::string* text) {
 
 	vec2 mousePos = *g_Data.getClientInstance()->getMousePos();
 
-	// Convert mousePos to visual Pos
+// Convert mousePos to visual Pos
 	{
 		vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 		vec2 windowSizeReal = g_Data.getClientInstance()->getGuiData()->windowSizeReal;
@@ -404,7 +404,7 @@ void ClickGui::renderTooltip(std::string* text) {
 							}
 
 							switch (setting->valueType) {
-							case ValueType::BOOL_T: {
+							case ValueType::BOOL: {
 								rectPos.w = currentYOffset + textHeight + (textPadding * 2);
 								static auto clickGuiMod = moduleMgr->getModule<ClickGuiMod>();
 								if (clickGuiMod->opacity) {
@@ -558,7 +558,7 @@ void ClickGui::renderTooltip(std::string* text) {
 								}
 								break;
 							}
-							case ValueType::ENUM_T: {  // Click setting
+							case ValueType::ENUM: {  // Click setting
 								// Text and background
 								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 								float settingStart = currentYOffset;
@@ -627,7 +627,7 @@ void ClickGui::renderTooltip(std::string* text) {
 
 								break;
 							}
-							case ValueType::FLOAT_T: {
+							case ValueType::FLOAT: {
 								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 								// Text and background
 								{
@@ -721,7 +721,7 @@ void ClickGui::renderTooltip(std::string* text) {
 									currentYOffset += textHeight + (textPadding * 2);
 								}
 							} break;
-							case ValueType::INT_T: {
+							case ValueType::INT: {
 								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 								// Text and background
 								{
@@ -816,7 +816,7 @@ void ClickGui::renderTooltip(std::string* text) {
 									currentYOffset += textHeight + (textPadding * 2);
 								}
 							} break;
-							case ValueType::SPACE_T: {
+							case ValueType::SPACE: {
 								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 								// Text and background
 								{

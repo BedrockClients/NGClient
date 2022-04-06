@@ -8,6 +8,7 @@ public:
 	GUI();
 	~GUI();
 	//
+	std::string name = ("Arraylist");
 	SettingEnum mode = this;
 	//
 	bool rgb = true;
@@ -20,10 +21,13 @@ public:
 	bool rgbtext = true;
 	bool clickToggle = true;
 	bool keybinds = true;
-	float opacity = true;
+	bool modes = true;
+	//
 	static float rcolor;
 	static float bcolor;
 	static float gcolor;
+	//
+	float opacity = true;
 	float scale = 1.f;
 
 	// Inherited via IModule
