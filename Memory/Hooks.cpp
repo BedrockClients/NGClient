@@ -669,19 +669,20 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						bool shouldRender = true;
 
 						IModuleContainer(std::shared_ptr<IModule> mod) {
-							const char* moduleNameChr = mod->getModuleName();
+							auto arrayList = moduleMgr->getModule<GUI>();
+							auto hud = moduleMgr->getModule<HudModule>();
+							if (arrayList->modes) {
+								const char* moduleNameChr = mod->getModuleName();
+								moduleName = moduleNameChr;
+							} else {
+								const char* moduleNameChr = mod->getRawModuleName();
+								moduleName = moduleNameChr;
+							}
+
 							this->enabled = mod->isEnabled();
 							this->keybind = mod->getKey();
 							this->backingModule = mod;
 							this->pos = mod->getPos();
-
-							if (keybind == 0x0)
-								moduleName = moduleNameChr;
-							else {
-								char text[50];
-								sprintf_s(text, 50, "%s%s", moduleNameChr, gui->keybinds ? std::string(" [" + std::string(Utils::getKeyName(keybind)) + "]").c_str() : "");
-								moduleName = text;
-							}
 
 							if (!this->enabled && *this->pos == vec2(0.f, 0.f))
 								this->shouldRender = false;
@@ -712,10 +713,15 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					// Fill modContainerList with Modules
 					{
 						auto lock = moduleMgr->lockModuleList();
+						auto hud = moduleMgr->getModule<HudModule>();
+						auto watermark = moduleMgr->getModule<Watermark>();
 						std::vector<std::shared_ptr<IModule>>* moduleList = moduleMgr->getModuleList();
 						for (auto it : *moduleList) {
 							if (it.get() != hudModule)
-								modContainerList.emplace(IModuleContainer(it));
+								if (it.get() != hudModule)
+										if (it.get() != hudModule)
+											if (it.get() != clickGuiModule)
+												modContainerList.emplace(IModuleContainer(it));
 						}
 					}
 					if (hudModule->bottom) {
@@ -724,7 +730,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					int a = 0;
 					int b = 0;
 					int c = 0;
-
 					// Fill modContainerList with Modules
 					{
 						auto lock = moduleMgr->lockModuleList();

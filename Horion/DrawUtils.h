@@ -136,6 +136,16 @@ public:
 		fillRectangle(vec4(pos.z - lineWidth, pos.y, pos.z + lineWidth, pos.w), col, alpha);                          //
 		fillRectangle(vec4(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
 	}
+	static inline void drawrightRectangle(vec4 pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
+		lineWidth /= 2;
+		fillRectangle(vec4(pos.z - lineWidth, pos.y, pos.z + lineWidth, pos.w), col, alpha);                          //right
+		fillRectangle(vec4(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
+	}
+	static inline void drawleftRectangle(vec4 pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
+		lineWidth /= 2;
+		fillRectangle(vec4(pos.x - lineWidth, pos.y, pos.x + lineWidth, pos.w), col, alpha);                          // LEFT
+		fillRectangle(vec4(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
+	}
 	static inline void drawTopAndBottomRectangle(vec4 pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
 		lineWidth /= 2;
 		fillRectangle(vec4(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);

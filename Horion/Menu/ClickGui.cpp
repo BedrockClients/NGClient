@@ -40,6 +40,8 @@ static const MC_Color selectedModuleColor = MC_Color(184, 0, 255);
 static const MC_Color selectedSettingColor1 = MC_Color(184, 0, 255);
 static const MC_Color selectedSettingColor2 = MC_Color(184, 0, 255);
 
+static float rcolors[4];  // Rainbow color RGBA
+
 float currentYOffset = 0;
 float currentXOffset = 0;
 
@@ -556,9 +558,10 @@ void ClickGui::renderTooltip(std::string* text) {
 								}
 								break;
 							}
-							case ValueType::ENUM_T: {
-								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
+							case ValueType::ENUM_T: {  // Click setting
 								// Text and background
+								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
+								float settingStart = currentYOffset;
 								{
 									char name[0x22];
 									sprintf_s(name, "%s:", setting->name);
@@ -570,69 +573,58 @@ void ClickGui::renderTooltip(std::string* text) {
 									rectPos.w = currentYOffset + textHeight + (textPadding * 2);
 									windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 5 /* because we add 5 to text padding*/ + crossSize);
 									DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
-									GuiUtils::drawCrossLine(vec2(
-																currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
-																currentYOffset + textPadding + (textHeight / 2)),
-															MC_Color(ClickGuiMod::tfrcolor, ClickGuiMod::tfgcolor, ClickGuiMod::tfbcolor), crossWidth, crossSize, !setting->minValue->_bool);
-									if (rectPos.contains(&mousePos) && shouldToggleRightClick && !ourWindow->isInAnimation) {
-										shouldToggleRightClick = false;
-										setting->minValue->_bool = !setting->minValue->_bool;
-									}
+									DrawUtils::drawText(textPos, &elTexto, MC_Color(0.8f, 0.8f, 0.8f), textSize);
 									currentYOffset += textHeight + (textPadding * 2);
 								}
-								if (setting->minValue->_bool) {
-									int e = 0;
-									auto enumData = reinterpret_cast<SettingEnum*>(setting->extraData);
-									for (auto it = enumData->Entrys.begin();
-										 it != enumData->Entrys.end(); it++, e++) {
-										if ((currentYOffset - ourWindow->pos.y) > cutoffHeight) {
-											overflowing = true;
-											break;
-										}
-										bool isEven = e % 2 == 0;
-										rectPos.y = currentYOffset;
-										rectPos.w = currentYOffset + textHeight + (textPadding * 2);
-										EnumEntry i = *it._Ptr;
-										char name[0x21];
-										sprintf_s(name, 0x21, "   %s", i.GetName().c_str());
-										// Convert first letter to uppercase for more friendlieness
-										if (name[0] != 0)
-											name[0] = toupper(name[0]);
-										std::string elTexto = name;
-										windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(
-																				&elTexto, textSize) +
-																				5);  // because we add 5 to text padding
-										textPos.y = currentYOffset + textPadding;
-										vec4 selectableSurface = vec4(
-											textPos.x,
-											rectPos.y,
-											xEnd,
-											rectPos.w);
-										MC_Color col;
-										if (setting->value->_int == e || (selectableSurface.contains(&mousePos) && !ourWindow->isInAnimation)) {
-											if (isEven)
-												col = MC_Color(20, 100, 195);
-											else
-												col = MC_Color(40, 120, 205);
-										} else {
-											if (isEven)
-												col = MC_Color(10, 25, 45);
-											else
-												col = MC_Color(20, 35, 55);
-										}
-										DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
-										DrawUtils::fillRectangle(selectableSurface, col, ClickguiOpac->opacity);
-										DrawUtils::drawText(textPos, &elTexto, MC_Color(1.f, 1.f, 1.f));
-										// logic
-										if (selectableSurface.contains(&mousePos) &&
-											shouldToggleLeftClick && !ourWindow->isInAnimation) {
-											shouldToggleLeftClick = false;
-											setting->value->_int = e;
-										}
-										currentYOffset += textHeight + (textPadding * 2);
+								int e = 0;
+
+								if ((currentYOffset - ourWindow->pos.y) > cutoffHeight) {
+									overflowing = true;
+									break;
+								}
+
+								bool isEven = e % 2 == 0;
+								rectPos.y = currentYOffset;
+								rectPos.w = currentYOffset + textHeight + (textPadding * 2);
+								EnumEntry& i = ((SettingEnum*)setting->extraData)->GetSelectedEntry();
+
+								char name[0x21];
+								sprintf_s(name, 0x21, "   %s", i.GetName().c_str());
+								// Convert first letter to uppercase for more friendlieness
+								if (name[0] != 0) name[0] = toupper(name[0]);
+								std::string elTexto = name;
+
+								windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 5.f);  // because we add 5 to text padding
+								textPos.y = currentYOffset + textPadding - 1;
+								vec4 selectableSurface = vec4(textPos.x, rectPos.y, xEnd, rectPos.w);
+								MC_Color col;
+
+								if (setting->value->_int == e || (selectableSurface.contains(&mousePos) && !ourWindow->isInAnimation)) {
+									if (isEven)
+										col = selectedSettingColor1;
+									else
+										col = selectedSettingColor2;
+								} else {
+									if (isEven)
+										col = selectedSettingColor1;
+									else
+										col = selectedSettingColor2;
+								}
+								DrawUtils::fillRectangle(rectPos, MC_Color(ClickGuiMod::rcolor, ClickGuiMod::gcolor, ClickGuiMod::bcolor), ClickguiOpac->opacity);
+								DrawUtils::drawText(textPos, &elTexto, MC_Color(1.f, 1.f, 1.f));
+								// logic
+								selectableSurface.y = settingStart;
+								if (!ourWindow->isInAnimation && selectableSurface.contains(&mousePos)) {
+									if (shouldToggleLeftClick) {
+										shouldToggleLeftClick = false;
+										((SettingEnum*)setting->extraData)->SelectNextValue(false);
+									} else if (shouldToggleRightClick) {
+										shouldToggleRightClick = false;
+										((SettingEnum*)setting->extraData)->SelectNextValue(true);
 									}
 								}
+								currentYOffset += textHeight + (textPadding * 2);
+
 								break;
 							}
 							case ValueType::FLOAT_T: {

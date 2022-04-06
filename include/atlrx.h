@@ -459,18 +459,18 @@ protected:
 };
 
 enum REParseError {
-	REPARSE_ERROR_OK = 0,				// No error occurred
-	REPARSE_ERROR_OUTOFMEMORY,			// Out of memory
-	REPARSE_ERROR_BRACE_EXPECTED,		// A closing brace was expected
-	REPARSE_ERROR_PAREN_EXPECTED,		// A closing parenthesis was expected
-	REPARSE_ERROR_BRACKET_EXPECTED,		// A closing bracket was expected
-	REPARSE_ERROR_UNEXPECTED,			// An unspecified fatal error occurred
-	REPARSE_ERROR_EMPTY_RANGE,			// A range expression was empty
-	REPARSE_ERROR_INVALID_GROUP,		// A backreference was made to a group
-										// that did not exist
-	REPARSE_ERROR_INVALID_RANGE,		// An invalid range was specified
-	REPARSE_ERROR_EMPTY_REPEATOP,		// A possibly empty * or + was detected
-	REPARSE_ERROR_INVALID_INPUT,		// The input string was invalid
+	REPARSE_ERROR_OK = 0,            // No error occurred
+	REPARSE_ERROR_OUTOFMEMORY,       // Out of memory
+	REPARSE_ERROR_BRACE_EXPECTED,    // A closing brace was expected
+	REPARSE_ERROR_PAREN_EXPECTED,    // A closing parenthesis was expected
+	REPARSE_ERROR_BRACKET_EXPECTED,  // A closing bracket was expected
+	REPARSE_ERROR_UNEXPECTED,        // An unspecified fatal error occurred
+	REPARSE_ERROR_EMPTY_RANGE,       // A range expression was empty
+	REPARSE_ERROR_INVALID_GROUP,     // A backreference was made to a group
+									 // that did not exist
+	REPARSE_ERROR_INVALID_RANGE,     // An invalid range was specified
+	REPARSE_ERROR_EMPTY_REPEATOP,    // A possibly empty * or + was detected
+	REPARSE_ERROR_INVALID_INPUT,     // The input string was invalid
 };
 
 template <class CharTraits /* =CAtlRECharTraits */>
@@ -912,10 +912,10 @@ protected:
 	}
 
 
-	enum REInstructionType { 
+	enum REInstructionType {
 		RE_NOP,
 		RE_GROUP_START,
-		RE_GROUP_END, 
+		RE_GROUP_END,
 		RE_SYMBOL,
 		RE_ANY,
 		RE_RANGE,
@@ -932,7 +932,7 @@ protected:
 		RE_CALL,
 		RE_RETURN,
 		RE_STAR_BEGIN,
-		RE_NG_STAR_BEGIN, 
+		RE_NG_STAR_BEGIN,
 		RE_PUSH_MEMORY,
 		RE_POP_MEMORY,
 		RE_STORE_CHARPOS,

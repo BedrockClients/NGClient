@@ -159,6 +159,7 @@ void IModule::registerFloatSetting(std::string name, float* floatPtr, float defa
 
 	settings.push_back(setting);  // Add to list
 }
+
 void IModule::registerSpace(std::string name) {
 	SettingEntry* setting = new SettingEntry();
 	setting->valueType = ValueType::SPACE_T;
@@ -166,6 +167,7 @@ void IModule::registerSpace(std::string name) {
 
 	settings.push_back(setting);  // Add to list
 }
+
 void IModule::registerIntSetting(std::string name, int* intPtr, int defaultValue, int minValue, int maxValue) {
 #ifdef DEBUG
 	if (minValue > maxValue)
@@ -287,7 +289,6 @@ int IModule::getKey() {
 void IModule::setKey(int key) {
 	this->keybind = key;
 }
-
 
 bool IModule::allowAutoStart() {
 	return true;
@@ -430,10 +431,11 @@ void IModule::setEnabled(bool enabled) {
 #ifndef _DEBUG
 		if (!isFlashMode())
 #endif
+			logF("%s %s", enabled ? "Enabled" : "Disabled", this->getModuleName());
 
-			// Toggle Notifications
+		// Toggle Notifications
 
-			static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
+		static auto AntiBotMod = moduleMgr->getModule<AntiBot>();
 		static auto ToggleSound = moduleMgr->getModule<ToggleSounds>();
 		static auto Logmsg = moduleMgr->getModule<Notifications>();
 		bool shouldShow = true;
