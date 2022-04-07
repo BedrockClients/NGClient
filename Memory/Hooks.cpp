@@ -1039,27 +1039,24 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	if (shouldPostRender) moduleMgr->onPostRender(renderCtx);
 	HImGui.endFrame();
 	DrawUtils::flush();
-	static auto notificationsMod = moduleMgr->getModule<Watermark>();
-	// Notifications
-	if (notificationsMod->isEnabled()) {
-		vec2 windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
-		auto box = g_Data.getInfoBoxList();
-		float yPos = windowSize.y - 15;
+
+	// Draw Info / Alert Boxes
+	{
+		auto box = g_Data.getFreshInfoBox();
+		if (box) {
 			box->fade();
-		if (box->fadeTarget == 1 && box->closeTimer <= 0 && box->closeTimer > -1)
+			if (box->fadeTarget == 1 && box->closeTimer <= 0 && box->closeTimer > -1)
 				box->fadeTarget = 0;
 			else if (box->closeTimer > 0 && box->fadeVal > 0.9f)
 				box->closeTimer -= 1.f / 60;
-
-			const float titleTextSize = box->fadeVal * 1;
+			const float paddingHoriz = 20 * box->fadeVal;
+			const float paddingVert = 5 * box->fadeVal;
+			const float titleTextSize = box->fadeVal * 2;
 			const float messageTextSize = box->fadeVal * 1;
 			const float titleTextHeight = DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() * titleTextSize;
-			vec2* pos;
+
 			int lines = 1;
-
 			std::string substring = box->message;
-			std::string title = std::string(BOLD) + box->title;
-
 			while (lines < 5) {
 				auto brea = substring.find("\n");
 				if (brea == std::string::npos || brea + 1 >= substring.size())
@@ -1070,58 +1067,30 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			if (box->message.size() == 0)
 				lines = 0;
 
-			constexpr float notificationMessage = 1;
-			constexpr float unused = 0.7f;
-			static const float textHeight = (notificationMessage + unused * 1) * DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight();
-			constexpr float borderPadding = 10;
-			constexpr float margin = 6;
-			float nameLength = DrawUtils::getTextWidth(&substring, notificationMessage);
-			float fullTextLength = nameLength + DrawUtils::getTextWidth(&std::string(""), unused) + 2;
-
-			static float duration = 0;
-			if (box->closeTimer > 1) {
-				duration++ * box->closeTimer;
-			} else {
-				duration = 0;
-			}
-
-			/*static float duration = 0;
-			if (duration >= 1000) duration = 0;
+			const float messageHeight = DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() * messageTextSize * lines;
+			static auto partner = moduleMgr->getModule<Partner>();
+			float titleWidth = DrawUtils::getTextWidth(&box->title, titleTextSize);
+			float msgWidth = DrawUtils::getTextWidth(&box->message, messageTextSize);
+			vec2 centerPos(wid.x / 2.f, wid.y / 50.f);
+			vec2 textPos = vec2(wid.x / 2.f - titleWidth / 2.f, wid.y / 50.f);
+			vec2 msgPos = vec2(wid.x / 2.f - msgWidth / 2.f, textPos.y + titleTextHeight + paddingVert);
+			vec4 rectPos = vec4(
+				centerPos.x - paddingHoriz - std::max(titleWidth, msgWidth) / 2,
+				centerPos.y - paddingVert,
+				centerPos.x + paddingHoriz + std::max(titleWidth, msgWidth) / 2,
+				centerPos.y + paddingVert * 2 + titleTextHeight + messageHeight * lines);
+			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), box->fadeVal);
+			if (hudModule->rgb)
+				DrawUtils::drawRectangle(rectPos, currColor, box->fadeVal, 2.f);
+			else if (partner->Partnered.selected == 0)
+				DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 255), box->fadeVal, 2.f);
 			else
-				duration++;*/
+				DrawUtils::drawRectangle(rectPos, MC_Color(184, 0, 255), box->fadeVal, 2.f);
 
-			vec4 rect = vec4(
-				windowSize.x - margin - fullTextLength - 2 - borderPadding * 2,
-				yPos - margin - textHeight - 4,
-				windowSize.x - margin + borderPadding - 2,
-				yPos - margin);
-
-			if (box->closeTimer <= 1 && box->closeTimer > -1) {
-				vec4 rect2 = vec4(
-					windowSize.x - box->closeTimer * 110,
-					yPos - margin - textHeight - 5,
-					windowSize.x - margin + borderPadding - 2,
-					yPos - margin);
-
-				vec2 textPos = vec2(rect2.x + 11, rect2.y + 11);
-				vec2 titlePos = vec2(rect2.x + 15, rect2.y + 1);
-
-				DrawUtils::drawText(vec2(textPos.x, textPos.y), &substring, MC_Color(255, 255, 255), 1, 1);
-				DrawUtils::drawText(vec2(titlePos.x, titlePos.y), &title, MC_Color(255, 255, 255), 1, 1);
-				DrawUtils::drawRoundRectangle(rect2, MC_Color(0, 0, 0), notificationsMod->opacity);
-			}
-
-			if (box->closeTimer > 1) {
-				vec2 textPos = vec2(rect.x + 11, rect.y + 11);
-				vec2 titlePos = vec2(rect.x + 15, rect.y + 1);
-
-				DrawUtils::drawText(vec2(textPos.x, textPos.y), &substring, MC_Color(255, 255, 255), 1, 1);
-				DrawUtils::drawText(vec2(titlePos.x, titlePos.y), &title, MC_Color(255, 255, 255), 1, 1);
-				DrawUtils::drawRoundRectangle(rect, MC_Color(0, 0, 0), notificationsMod->opacity);
-				DrawUtils::drawBottom(vec4{rect.x + 1.5f, rect.y, rect.z - duration, rect.w + 0.5f}, MC_Color(currColor), 1);
-			}
-			yPos -= margin + 30;
+			DrawUtils::drawText(textPos, &box->title, MC_Color(), titleTextSize, box->fadeVal);
+			DrawUtils::drawText(msgPos, &box->message, MC_Color(), messageTextSize, box->fadeVal);
 		}
+	}
 	DrawUtils::flush();
 
 	return retval;
