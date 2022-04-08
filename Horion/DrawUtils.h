@@ -116,12 +116,6 @@ public:
 		DrawUtils::drawQuad({start.x, end.y}, {end.x, end.y}, {end.x, start.y}, {start.x, start.y});
 	}
 
-	
-	static inline void drawBottom(vec4 pos, MC_Color col, float alpha, float lineWidth = 1.0f) {
-		lineWidth /= 2;
-		fillRectangle(vec4(pos.x - lineWidth, pos.w - lineWidth, pos.z + lineWidth, pos.w + lineWidth), col, alpha);
-	}
-
 	static inline void drawRectangle(vec2 start, vec2 end, float lineWidth = 1.0f) {
 		lineWidth /= 2;
 		fillRectangle({start.x - lineWidth, start.y - lineWidth}, {end.x + lineWidth, start.y + lineWidth});  // TOP
