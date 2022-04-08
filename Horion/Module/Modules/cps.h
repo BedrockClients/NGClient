@@ -33,6 +33,6 @@ public:
 	}
 
 	virtual const char* getModuleName() override {
-		return "Cps";
+		return "CPS";
 	}
 };
