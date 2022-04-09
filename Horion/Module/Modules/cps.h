@@ -24,7 +24,7 @@ public:
 		float xVal = cpsX;
 
 		if (!(g_Data.getLocalPlayer() == nullptr)) {
-			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
+			std::string cpsText = "CPS: " + std::string(WHITE) + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
 			vec4 rectPos = vec4(0.5f, yVal + 20.5f * scale, len - 1.5f, yVal + 30.5f * scale);
 			vec2 textPos = vec2(xVal, yVal);
 			DrawUtils::drawText(vec2{textPos}, &cpsText, MC_Color(184, 0, 255), scale);

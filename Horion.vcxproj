@@ -277,7 +277,7 @@
     <ClCompile Include="Horion\Module\Modules\HackerDetect.cpp" />
     <ClCompile Include="Horion\Module\Modules\HiveConfig.cpp" />
     <ClCompile Include="Horion\Module\Modules\HoleEsp.cpp" />
-    <ClCompile Include="Horion\Module\Modules\InsideTP.cpp" />
+    <ClCompile Include="Horion\Module\Modules\InsideAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\InventoryView.cpp" />
     <ClCompile Include="Horion\Module\Modules\Keystrokes.cpp" />
     <ClCompile Include="Horion\Module\Modules\Killaura.cpp" />
@@ -418,6 +418,7 @@
     <ClInclude Include="Horion\Module\Modules\AirSwim.h" />
     <ClInclude Include="Horion\Module\Modules\AntiAnvil.h" />
     <ClInclude Include="Horion\Module\Modules\AntiBot.h" />
+    <ClInclude Include="Horion\Module\Modules\AntiCrystal.h" />
     <ClInclude Include="Horion\Module\Modules\AntiImmobile.h" />
     <ClInclude Include="Horion\Module\Modules\AntiLagBack.h" />
     <ClInclude Include="Horion\Module\Modules\AntiVoid.h" />
@@ -454,7 +455,7 @@
     <ClInclude Include="Horion\Module\Modules\HackerDetect.h" />
     <ClInclude Include="Horion\Module\Modules\HiveConfig.h" />
     <ClInclude Include="Horion\Module\Modules\HoleEsp.h" />
-    <ClInclude Include="Horion\Module\Modules\InsideTP.h" />
+    <ClInclude Include="Horion\Module\Modules\InsideAura.h" />
     <ClInclude Include="Horion\Module\Modules\InventoryView.h" />
     <ClInclude Include="Horion\Module\Modules\Keystrokes.h" />
     <ClInclude Include="Horion\Module\Modules\LongJump.h" />

@@ -12,7 +12,7 @@ public:
 	virtual bool execute(std::vector<std::string>* args) override {
 		assertTrue(g_Data.getLocalPlayer() != nullptr);
 		if (g_Data.getRakNetInstance()->isonaServer())
-			clientMessageF("You're currently playing on:\nIP: %s\nIP:\nPort: %s", g_Data.getRakNetInstance()->serverIp.getText(), g_Data.getRakNetInstance()->numericalIp.getText(), std::to_string(g_Data.getRakNetInstance()->serverPort).c_str());
+			clientMessageF("You're currently playing on:\nIP:\nPort: %s", g_Data.getRakNetInstance()->serverIp.getText(), std::to_string(g_Data.getRakNetInstance()->serverPort).c_str());
 		else
 			clientMessageF("%sYou're not playing on a server.", RED);
 		return true;

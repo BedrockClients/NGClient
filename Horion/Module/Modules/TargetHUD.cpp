@@ -85,14 +85,14 @@ void TargetHUD::onPreRender(C_MinecraftUIRenderContext* renderCtx) {
 					DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
 					DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 255), counter / 340.33333f);
 				} else if (partner->Partnered.selected == 1) {
-					DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
-					DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(150, 30, 255), counter / 340.33333f);
+					DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
+					DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(150, 30, 255), counter / 340.33333f);
 				} else if (partner->Partnered.selected == 2) {
-					DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
-					DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
+					DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
+					DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
 				} else {
-					DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
-					DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 1, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
+					DrawUtils::fillRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 0, 0), counter / 340.33333f);
+					DrawUtils::drawRectangle(vec4{rectPos.x - 1, rectPos.y - 8, rectPos.z + 1, rectPos.w + 1}, MC_Color(0, 255, 255), counter / 340.33333f);
 				}
 			}
 

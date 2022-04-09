@@ -9,7 +9,7 @@ TPAura::TPAura() : IModule(0x0, Category::COMBAT, "TP like fuck so you dont get 
 	registerIntSetting("TP delay", &delay, delay, 0, 20);
 	registerIntSetting("Attack delay", &delay1, delay1, 0, 20);
 	registerBoolSetting("AutoWeapon", &autoweapon, autoweapon);
-	registerBoolSetting("Silent Rotations", &silent, silent);
+	//registerBoolSetting("hurttime", &hurttime, hurttime);
 }
 
 TPAura::~TPAura() {
@@ -144,15 +144,6 @@ void TPAura::onEnable() {
 }
 
 void TPAura::onSendPacket(C_Packet* packet) {
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
-		if (!targetList.empty()) {
-			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			vec2 angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-			movePacket->pitch = angle.x;
-			movePacket->headYaw = angle.y;
-			movePacket->yaw = angle.y;
-		}
-	}
 }
 
 void TPAura::onPostRender(C_MinecraftUIRenderContext* ctx) {

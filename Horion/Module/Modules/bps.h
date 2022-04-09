@@ -24,10 +24,11 @@ public:
 		float xVal = bpsX;
 
 		if (!(g_Data.getLocalPlayer() == nullptr)) {
-			std::string bpsText = "BPS: " + std::to_string((int)g_Data.getLocalPlayer()->getBlocksPerSecond());
+			auto player = g_Data.getLocalPlayer();
+			std::string bpsText = "BPS: " + std::string(WHITE) + std::to_string((int)player->getBlocksPerSecond()) + std::string(".") + std::to_string((int)(player->getBlocksPerSecond() * 10) - ((int)player->getBlocksPerSecond() * 10));
 			vec4 rectPos = vec4(0.5f, yVal + 20.5f * scale, len - 1.5f, yVal + 30.5f * scale);
 			vec2 textPos = vec2(xVal, yVal);
-				DrawUtils::drawText(vec2{textPos}, &bpsText, MC_Color(184, 0, 255), scale);
+			DrawUtils::drawText(vec2{textPos}, &bpsText, MC_Color(184, 0, 255), scale);
 			}
 			yVal += f;
 		}

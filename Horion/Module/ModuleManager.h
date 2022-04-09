@@ -78,7 +78,7 @@
 #include "Modules/HiveFly.h"
 #include "Modules/HudModule.h"
 #include "Modules/HoleEsp.h"
-#include "Modules/InsideTP.h"
+#include "Modules/InsideAura.h"
 #include "Modules/InstaBreak.h"
 #include "Modules/InventoryCleaner.h"
 #include "Modules/InventoryMove.h"

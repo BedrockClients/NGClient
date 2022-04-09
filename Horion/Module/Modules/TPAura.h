@@ -4,24 +4,25 @@
 #include "Module.h"
 
 class TPAura : public IModule {
-private:
-	int delay = 0;
-	int Odelay = 0;
+public:
+	void findWeapon();
+
 	bool autoweapon = false;
 	bool TPAuratargetHUD = true;
-	void findWeapon();
-	bool silent = true;
-	int delay1 = 0;
-	int delay2 = 0;
-	int turn = 0;
-
-public:
-	bool isMobAura = false;
-	float range = 6;
-	float unlimRange = 50000;
+	bool hurttime = true;
 	bool unlim = false;
 	bool lerp = false;
 	bool isMulti = true;
+	bool isMobAura = false;
+
+	float range = 6;
+	float unlimRange = 50000;
+
+	int delay = 0;
+	int Odelay = 0;
+	int delay1 = 0;
+	int delay2 = 0;
+	int turn = 0;
 
 	TPAura();
 	~TPAura();

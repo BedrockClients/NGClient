@@ -30,9 +30,9 @@ public:
 				vec2 textPos = vec2(xVal, yVal);
 
 				if (Server->serverIp.getTextLength() < 1) {
-					serverIp = "Local World",numericalIp = "Local World",Port = "Local World";
+					serverIp = "Local World",Port = "Local World";
 				}
-				std::string ServerText = "IP: " + serverIp + "\nIP: " + numericalIp + " \nPort: " + Port;
+				std::string ServerText = "IP: " + serverIp + " \nPort: " + Port;
 
 					DrawUtils::drawText(vec2{textPos}, &ServerText, MC_Color(184, 0, 255), scale);
 				}

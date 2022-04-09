@@ -7,45 +7,50 @@ public:
 		bool epicStroke = false;
 		bool packetMode = false;
 		bool hive = false;
+		bool twerk = false;
 
 	Derp() : IModule(0x0, Category::PLAYER, "lol you stupid") {
-			registerBoolSetting("ihaveastroke", &epicStroke, epicStroke);
+			registerBoolSetting("Twerk", &twerk, twerk);
+			registerBoolSetting("Have A Stroke", &epicStroke, epicStroke);
 			registerBoolSetting("Hive", &hive, hive);
-			registerBoolSetting("packet mode", &packetMode, packetMode);
+			registerBoolSetting("Packet Mode", &packetMode, packetMode);
 	};
 	~Derp(){};
 
 	void onTick(C_GameMode* gm) {
-		if (packetMode) {
-			C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
-			if (epicStroke && !hive) {
-				C_LocalPlayer* player = g_Data.getLocalPlayer();
-				player->yaw = player->bodyYaw + 180;
-				p.pitch = (float)(rand() % 360);
-				p.yaw = (float)(rand() % 360);
+		if (twerk) {
+			g_Data.getClientInstance()->getMoveTurnInput()->isSneakDown = false;
+			if (packetMode) {
+				C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
+				if (epicStroke && !hive) {
+					C_LocalPlayer* player = g_Data.getLocalPlayer();
+					player->yaw = player->bodyYaw + 180;
+					p.pitch = (float)(rand() % 360);
+					p.yaw = (float)(rand() % 360);
+				} else {
+					C_LocalPlayer* player = g_Data.getLocalPlayer();
+					player->yaw = player->bodyYaw + 180;
+					p.pitch = (float)(counter % 360);
+					p.yaw = (float)(counter % 360);
+				}
+				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
 			} else {
-				C_LocalPlayer* player = g_Data.getLocalPlayer();
-				player->yaw = player->bodyYaw + 180;
-				p.pitch = (float)(counter % 360);
-				p.yaw = (float)(counter % 360);
+				if (epicStroke && !hive) {
+					C_LocalPlayer* player = g_Data.getLocalPlayer();
+					player->yaw = player->bodyYaw + 180;
+					gm->player->pitch = (float)(rand() % 360);
+					gm->player->bodyYaw = (float)(rand() % 360);
+				} else if (!hive) {
+					C_LocalPlayer* player = g_Data.getLocalPlayer();
+					player->yaw = player->bodyYaw - 180;
+				}
 			}
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
-		} else {
-			if (epicStroke && !hive) {
-				C_LocalPlayer* player = g_Data.getLocalPlayer();
-				player->yaw = player->bodyYaw + 180;
-				gm->player->pitch = (float)(rand() % 360);
-				gm->player->bodyYaw = (float)(rand() % 360);
-			} else if (!hive) {
-				C_LocalPlayer* player = g_Data.getLocalPlayer();
-				player->yaw = player->bodyYaw - 180;
-			}
-		}
 
-		if (counter <= 360)
-			counter++;
-		else
-			counter = 0;
+			if (counter <= 360)
+				counter++;
+			else
+				counter = 0;
+		}
 	}
 
 	float randFloat(float a, float b) {

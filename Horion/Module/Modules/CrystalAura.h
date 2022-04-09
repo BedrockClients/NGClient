@@ -51,12 +51,14 @@ public:
 		dmgEnum = SettingEnum(this)
 		.addEntry(EnumEntry("Nukkit", dmg_nukkit))
 		.addEntry(EnumEntry("2b2e", dmg_2b2e))
-		.addEntry(EnumEntry("Vanilla", dmg_vanilla))
-		.addEntry(EnumEntry("Java", dmg_java));
+		.addEntry(EnumEntry("Vanilla", dmg_vanilla));
+
 		registerEnumSetting("Damage Mode", &dmgEnum, dmg_2b2e);
+
 		destroyEnum = SettingEnum(this)
 		.addEntry(EnumEntry("Check", destroy_check))
 		.addEntry(EnumEntry("All", destroy_all));
+
 		registerEnumSetting("Destroy Mode", &destroyEnum, destroy_check);
 		registerBoolSetting("Bot Check", &botCheck, true);
 		registerBoolSetting("Auto Place", &autoPlace, false);
@@ -69,10 +71,12 @@ public:
 		registerBoolSetting("Suicide", &suicide, false);
 		registerIntSetting("Place Delay", &placeDelay, 2, 0, 20);
 		registerIntSetting("Break Delay", &breakDelay, 0, 0, 20);
+
 		rotations = SettingEnum(this)
 		.addEntry(EnumEntry("Off", rotations_off))
 		.addEntry(EnumEntry("Normal", rotations_normal))
 		.addEntry(EnumEntry("AntiKick", rotations_antikick));
+
 		registerEnumSetting("Rotations", &rotations, rotations_normal);
 		registerBoolSetting("Flash Mode", &flash, false);
 		registerBoolSetting("Right Click", &rightClick, false);
